@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   clearIcon: { fontSize: 14, color: Colors.textMuted, padding: Spacing.xs },
   filters: { paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm, gap: Spacing.sm },
   resultCount: { paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm, fontSize: Typography.sizes.sm, color: Colors.textMuted },
-  list: { paddingHorizontal: Spacing.base, gap: Spacing.md, paddingBottom: Spacing['3xl'] },
+  list: { paddingHorizontal: Spacing.base, gap: Spacing.md, paddingBottom: 110 },
   card: {
     flexDirection: 'row', gap: Spacing.md, backgroundColor: Colors.surface,
     borderRadius: Radius.xl, padding: Spacing.base,

@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.base,
     color: Colors.textPrimary,
   },
-  list: { paddingHorizontal: Spacing.base, paddingBottom: Spacing['3xl'], gap: Spacing.md },
+  list: { paddingHorizontal: Spacing.base, paddingBottom: 110, gap: Spacing.md },
   card: {
     flexDirection: 'row',
     backgroundColor: Colors.surface,

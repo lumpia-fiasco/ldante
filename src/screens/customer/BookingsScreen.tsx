@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     color: Colors.textMuted,
   },
   tabText_active: { color: Colors.white },
-  list: { padding: Spacing.base, gap: Spacing.md, paddingBottom: Spacing['3xl'] },
+  list: { padding: Spacing.base, gap: Spacing.md, paddingBottom: 110 },
   card: {
     backgroundColor: Colors.surface,
     borderRadius: Radius.xl,

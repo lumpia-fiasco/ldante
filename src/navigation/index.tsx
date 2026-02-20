@@ -2,11 +2,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import {
   IconHome, IconCalendar, IconPlus, IconSparkles, IconSearch,
 } from '@tabler/icons-react-native';
-import { Colors, Spacing, Radius } from '../theme';
+import { Colors, Shadows } from '../theme';
 import { CrowndLogo } from '../components/brand/CrowndLogo';
 
 // Auth Screens
@@ -21,10 +21,9 @@ import { ProviderOnboardingScreen } from '../screens/provider/ProviderOnboarding
 
 // Customer Tabs
 import { DiscoverScreen } from '../screens/customer/DiscoverScreen';
-import { RolodexScreen } from '../screens/customer/RolodexScreen';
 import { BookingsScreen } from '../screens/customer/BookingsScreen';
 import { NotificationsScreen } from '../screens/shared/NotificationsScreen';
-import { ProfileScreen } from '../screens/shared/ProfileScreen';
+import { SearchScreen } from '../screens/customer/SearchScreen';
 
 // Detail Screens
 import { ProviderProfileScreen } from '../screens/shared/ProviderProfileScreen';
@@ -32,7 +31,8 @@ import { BookingFlowScreen } from '../screens/customer/BookingFlowScreen';
 import { LeaveReviewScreen } from '../screens/customer/LeaveReviewScreen';
 import { FriendsScreen } from '../screens/customer/FriendsScreen';
 import { FriendRolodexScreen } from '../screens/customer/FriendRolodexScreen';
-import { SearchScreen } from '../screens/customer/SearchScreen';
+import { ProfileScreen } from '../screens/shared/ProfileScreen';
+import { RolodexScreen } from '../screens/customer/RolodexScreen';
 
 // Provider Screens
 import { ProviderDashboardScreen } from '../screens/provider/ProviderDashboardScreen';
@@ -82,16 +82,67 @@ const Stack = createStackNavigator<RootStackParamList>();
 const CustomerTab = createBottomTabNavigator<CustomerTabParamList>();
 const ProviderTab = createBottomTabNavigator<ProviderTabParamList>();
 
-// ─── Tab Icons ─────────────────────────────────────────────────────────────────
+// ─── Floating Tab Bar ──────────────────────────────────────────────────────────
 
-function TabIconWrap({ children }: { children: React.ReactNode }) {
-  return <View style={tabStyles.iconWrap}>{children}</View>;
-}
-
-function PlusTabIcon() {
+function FloatingTabBar({ state, descriptors, navigation }: any) {
   return (
-    <View style={tabStyles.plusBtn}>
-      <IconPlus size={26} color={Colors.white} stroke={2} />
+    <View style={navStyles.wrapper} pointerEvents="box-none">
+      <View style={navStyles.pill}>
+        {state.routes.map((route: any, index: number) => {
+          const { options } = descriptors[route.key];
+          const focused = state.index === index;
+          const isCenter = index === 2; // Plus button
+
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true,
+            });
+            if (!focused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
+
+          if (isCenter) {
+            return (
+              <TouchableOpacity
+                key={route.key}
+                onPress={onPress}
+                style={navStyles.plusWrap}
+                activeOpacity={0.85}
+              >
+                <View style={navStyles.plusBtn}>
+                  <IconPlus size={28} color={Colors.white} strokeWidth={2} />
+                </View>
+              </TouchableOpacity>
+            );
+          }
+
+          const color = focused ? Colors.tabActive : Colors.tabInactive;
+          const strokeWidth = focused ? 2.5 : 1.75;
+
+          const iconMap: Record<string, React.ReactNode> = {
+            Feed:     <IconHome size={24} color={color} strokeWidth={strokeWidth} />,
+            Dashboard: <IconHome size={24} color={color} strokeWidth={strokeWidth} />,
+            Bookings: <IconCalendar size={24} color={color} strokeWidth={strokeWidth} />,
+            Schedule: <IconCalendar size={24} color={color} strokeWidth={strokeWidth} />,
+            Jonathan: <IconSparkles size={24} color={color} strokeWidth={strokeWidth} />,
+            Search:   <IconSearch size={24} color={color} strokeWidth={strokeWidth} />,
+          };
+
+          return (
+            <TouchableOpacity
+              key={route.key}
+              onPress={onPress}
+              style={navStyles.tabItem}
+              activeOpacity={0.7}
+            >
+              {iconMap[route.name] ?? null}
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -101,55 +152,14 @@ function PlusTabIcon() {
 function CustomerTabs() {
   return (
     <CustomerTab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: tabStyles.bar,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: Colors.tabActive,
-        tabBarInactiveTintColor: Colors.tabInactive,
-      }}
+      tabBar={(props) => <FloatingTabBar {...props} />}
+      screenOptions={{ headerShown: false }}
     >
-      <CustomerTab.Screen
-        name="Feed"
-        component={DiscoverScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconHome size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
-      <CustomerTab.Screen
-        name="Bookings"
-        component={BookingsScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconCalendar size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
-      <CustomerTab.Screen
-        name="Create"
-        component={DiscoverScreen}
-        options={{ tabBarIcon: () => <PlusTabIcon /> }}
-      />
-      <CustomerTab.Screen
-        name="Jonathan"
-        component={NotificationsScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconSparkles size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
-      <CustomerTab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconSearch size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
+      <CustomerTab.Screen name="Feed" component={DiscoverScreen} />
+      <CustomerTab.Screen name="Bookings" component={BookingsScreen} />
+      <CustomerTab.Screen name="Create" component={DiscoverScreen} />
+      <CustomerTab.Screen name="Jonathan" component={NotificationsScreen} />
+      <CustomerTab.Screen name="Search" component={SearchScreen} />
     </CustomerTab.Navigator>
   );
 }
@@ -159,55 +169,14 @@ function CustomerTabs() {
 function ProviderTabs() {
   return (
     <ProviderTab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: tabStyles.bar,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: Colors.tabActive,
-        tabBarInactiveTintColor: Colors.tabInactive,
-      }}
+      tabBar={(props) => <FloatingTabBar {...props} />}
+      screenOptions={{ headerShown: false }}
     >
-      <ProviderTab.Screen
-        name="Dashboard"
-        component={ProviderDashboardScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconHome size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
-      <ProviderTab.Screen
-        name="Schedule"
-        component={ProviderScheduleScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconCalendar size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
-      <ProviderTab.Screen
-        name="Create"
-        component={ProviderDashboardScreen}
-        options={{ tabBarIcon: () => <PlusTabIcon /> }}
-      />
-      <ProviderTab.Screen
-        name="Jonathan"
-        component={NotificationsScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconSparkles size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
-      <ProviderTab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabIconWrap><IconSearch size={24} color={color} stroke={1.75} /></TabIconWrap>
-          ),
-        }}
-      />
+      <ProviderTab.Screen name="Dashboard" component={ProviderDashboardScreen} />
+      <ProviderTab.Screen name="Schedule" component={ProviderScheduleScreen} />
+      <ProviderTab.Screen name="Create" component={ProviderDashboardScreen} />
+      <ProviderTab.Screen name="Jonathan" component={NotificationsScreen} />
+      <ProviderTab.Screen name="Search" component={SearchScreen} />
     </ProviderTab.Navigator>
   );
 }
@@ -243,28 +212,53 @@ export function AppNavigator() {
   );
 }
 
-const tabStyles = StyleSheet.create({
-  bar: {
-    backgroundColor: Colors.tabBarBg,
-    borderTopColor: Colors.border,
-    borderTopWidth: 1,
-    height: 84,
-    paddingBottom: 20,
-    paddingTop: 8,
+// ─── Floating Nav Styles ───────────────────────────────────────────────────────
+
+const navStyles = StyleSheet.create({
+  // Outer container — sits above content, doesn't block touches outside the pill
+  wrapper: {
+    position: 'absolute',
+    bottom: 16,
+    left: 16,
+    right: 16,
+    alignItems: 'center',
   },
-  iconWrap: {
+  // The floating pill
+  pill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.tabBarBg,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    width: '100%',
+    maxWidth: 400,
+    ...Shadows.nav,
+  },
+  // Regular tab item — flex 1 so they distribute evenly
+  tabItem: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 32,
-    height: 32,
+    minHeight: 44,
+  },
+  // Center plus button wrapper — sits above the bar
+  plusWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: -28, // floats above the pill
   },
   plusBtn: {
-    width: 52,
-    height: 52,
-    borderRadius: 16,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: Colors.plusButton,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 4,
+    ...Shadows.md,
+    // Spec teal shadow
+    shadowColor: Colors.plusButton,
+    shadowOpacity: 0.3,
   },
 });

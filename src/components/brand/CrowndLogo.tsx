@@ -7,7 +7,7 @@ interface CrowndLogoProps {
   color?: string;
 }
 
-export function CrowndLogo({ size = 40, color = Colors.primary }: CrowndLogoProps) {
+export function CrowndLogo({ size = 40, color = Colors.secondary }: CrowndLogoProps) {
   // Original viewBox: 47 x 34 — scale to requested size preserving ratio
   const width = size;
   const height = (size / 47) * 34;

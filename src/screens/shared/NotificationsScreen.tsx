@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   title: { fontSize: Typography.sizes['2xl'], fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
   unreadCount: { fontSize: Typography.sizes.sm, color: Colors.primary },
   markAllBtn: { fontSize: Typography.sizes.sm, color: Colors.primary, fontWeight: Typography.weights.medium, paddingTop: Spacing.sm },
-  list: { padding: Spacing.base, gap: Spacing.sm, paddingBottom: Spacing['3xl'] },
+  list: { padding: Spacing.base, gap: Spacing.sm, paddingBottom: 110 },
   card: {
     flexDirection: 'row', alignItems: 'flex-start', gap: Spacing.md,
     backgroundColor: Colors.surface, borderRadius: Radius.xl,

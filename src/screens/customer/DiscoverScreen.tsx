@@ -118,7 +118,7 @@ export function DiscoverScreen() {
               onProviderPress={() => navigation.navigate('ProviderProfile', { providerId: post.provider.id })}
             />
           ))}
-          <View style={{ height: 24 }} />
+          <View style={{ height: 110 }} />
         </ScrollView>
       )}
 
@@ -256,7 +256,7 @@ function FriendsTab({ navigation }: { navigation: Nav }) {
           </View>
         </TouchableOpacity>
       ))}
-      <View style={{ height: 24 }} />
+      <View style={{ height: 110 }} />
     </ScrollView>
   );
 }

@@ -187,7 +187,7 @@ function StatCard({ icon, value, label, trend, sub }: { icon: React.ReactNode; v
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  scroll: { padding: Spacing.base, gap: Spacing.xl, paddingBottom: Spacing['3xl'] },
+  scroll: { padding: Spacing.base, gap: Spacing.xl, paddingBottom: 110 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   greeting: { fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
   subtitle: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },

@@ -1,68 +1,74 @@
 export const Colors = {
-  // Brand
-  primary: '#5C4A1E',        // Dark warm brown (crown/logo color)
-  primaryLight: '#8B6914',
-  primaryDark: '#3D3010',
-  accent: '#C4A96D',         // Gold accent
-  accentLight: '#E8D5A3',
+  // ─── Brand ─────────────────────────────────────────────────────────────────
+  primary: '#1F1D1D',        // Onyx — main brand color
+  primaryLight: '#3F3E3E',   // Charcoal
+  primaryDark: '#0D0D0D',
 
-  // Backgrounds — warm cream/beige
-  background: '#F5EFE6',     // Main warm cream background
-  surface: '#FFFFFF',        // Card white
-  surfaceAlt: '#EDE7DC',     // Slightly darker cream
-  surfaceWarm: '#FAF6F0',    // Very light warm
+  secondary: '#E4B568',      // Gold
+  secondaryLight: '#F0CC8E',
+  secondaryDark: '#C49440',
 
-  // Borders
-  border: '#E0D5C5',
-  borderLight: '#EDE7DC',
+  accent: '#7AA0B0',         // Storm blue-gray
+  accentLight: '#B4CDD7',    // Light gray-blue
+  accentDark: '#497283',     // Info / deeper storm
 
-  // Text
-  textPrimary: '#2C1F0E',    // Very dark brown
-  textSecondary: '#6B5840',  // Medium brown
-  textMuted: '#A08060',      // Light brown/tan
+  // ─── Backgrounds ───────────────────────────────────────────────────────────
+  background: '#FFFFFF',
+  surface: '#FFFFFF',
+  surfaceAlt: '#D9E6EB',     // Light gray-blue tint
+  surfaceWarm: '#F5F5F5',    // Near-white
+
+  // ─── Borders ───────────────────────────────────────────────────────────────
+  border: '#B4CDD7',         // Spec border color
+  borderLight: '#E5E5E5',
+
+  // ─── Text ──────────────────────────────────────────────────────────────────
+  textPrimary: '#3F3E3E',    // Charcoal
+  textSecondary: 'rgba(63, 62, 62, 0.7)',
+  textMuted: 'rgba(63, 62, 62, 0.4)',
   textInverse: '#FFFFFF',
 
-  // Status
-  success: '#4A7C59',
+  // ─── Semantic ──────────────────────────────────────────────────────────────
+  success: '#395E26',
   successLight: '#D4EDDA',
-  warning: '#C4A96D',
+  warning: '#926C3E',
   warningLight: '#FEF3C7',
-  error: '#C0392B',
+  error: '#CF6049',
   errorLight: '#FADBD8',
-  info: '#2E6DA4',
+  info: '#497283',
   infoLight: '#D6EAF8',
 
-  // Star rating
-  star: '#C4A96D',
-  starEmpty: '#E0D5C5',
+  // ─── Star rating ───────────────────────────────────────────────────────────
+  star: '#E4B568',           // Gold stars
+  starEmpty: '#E5E5E5',
 
-  // Social
-  friendBadge: '#5C4A1E',
-  like: '#C0392B',
+  // ─── Social ────────────────────────────────────────────────────────────────
+  friendBadge: '#497283',
+  like: '#CF6049',
 
   white: '#FFFFFF',
   black: '#000000',
   transparent: 'transparent',
 
-  // Tab bar
-  tabActive: '#2C1F0E',
-  tabInactive: '#A08060',
+  // ─── Tab bar (floating pill) ───────────────────────────────────────────────
+  tabActive: '#926C3E',      // Warm brown/gold for active
+  tabInactive: '#3F3E3E',    // Charcoal inactive
   tabBarBg: '#FFFFFF',
 
-  // Plus button
-  plusButton: '#2C1F0E',
+  // ─── Plus button ───────────────────────────────────────────────────────────
+  plusButton: '#497283',     // Storm/teal per spec (#008B8B-ish → using #497283)
 };
 
 export const Typography = {
   sizes: {
-    xs: 11,
-    sm: 13,
-    base: 15,
-    md: 17,
-    lg: 20,
-    xl: 24,
+    xs: 10,    // Tiny
+    sm: 12,    // Small
+    base: 14,  // Body
+    md: 16,    // H3-ish
+    lg: 18,    // Button / Screen title
+    xl: 24,    // H2
     '2xl': 28,
-    '3xl': 34,
+    '3xl': 32, // H1
     '4xl': 40,
   },
   weights: {
@@ -72,8 +78,12 @@ export const Typography = {
     bold: '700' as const,
     extrabold: '800' as const,
   },
+  lineHeights: {
+    heading: 1.2,
+    body: 1.5,
+  },
   families: {
-    sans: undefined,
+    sans: undefined, // Inter (loaded via expo-font or system)
   },
 };
 
@@ -91,34 +101,42 @@ export const Spacing = {
 };
 
 export const Radius = {
-  sm: 6,
-  md: 10,
-  lg: 14,
-  xl: 20,
+  sm: 4,
+  md: 8,
+  lg: 12,
+  xl: 16,
   '2xl': 28,
   full: 9999,
 };
 
 export const Shadows = {
   sm: {
-    shadowColor: '#2C1F0E',
+    shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.06,
     shadowRadius: 4,
     elevation: 2,
   },
   md: {
-    shadowColor: '#2C1F0E',
+    shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 4,
   },
   lg: {
-    shadowColor: '#2C1F0E',
+    shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
     elevation: 8,
+  },
+  // Floating nav shadow
+  nav: {
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 10,
   },
 };
