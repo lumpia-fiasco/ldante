@@ -2,7 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { BlurView } from 'expo-blur';
 
 import {
   HomeTabIcon,
@@ -102,7 +103,11 @@ const ProviderTab = createBottomTabNavigator<ProviderTabParamList>();
 function FloatingTabBar({ state, descriptors, navigation }: any) {
   return (
     <View style={navStyles.safeArea} pointerEvents="box-none">
-      <View style={navStyles.pill}>
+      <BlurView
+        tint="light"
+        intensity={60}
+        style={navStyles.pill}
+      >
         {state.routes.map((route: any, index: number) => {
           const focused = state.index === index;
           const isCenter = index === 2; // Plus
@@ -159,7 +164,7 @@ function FloatingTabBar({ state, descriptors, navigation }: any) {
             </TouchableOpacity>
           );
         })}
-      </View>
+      </BlurView>
     </View>
   );
 }
@@ -242,7 +247,7 @@ const navStyles = StyleSheet.create({
     pointerEvents: 'box-none',
   } as any,
 
-  // The pill — exact Figma spec
+  // The pill — exact Figma spec + frosted glass
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -250,7 +255,9 @@ const navStyles = StyleSheet.create({
     paddingHorizontal: 16,
     gap: 24,
     borderRadius: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.90)', // 0.60 per spec; 0.90 for legibility on white bg
+    overflow: 'hidden',         // clips blur to rounded corners
+    // BlurView handles the background; keep a subtle tint on Android fallback
+    backgroundColor: Platform.OS === 'android' ? 'rgba(255, 255, 255, 0.88)' : 'transparent',
     // shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 1 },
