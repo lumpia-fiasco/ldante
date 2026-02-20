@@ -2,12 +2,15 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+
 import {
-  IconHome, IconCalendar, IconPlus, IconSparkles, IconSearch,
-} from '@tabler/icons-react-native';
-import { Colors, Shadows } from '../theme';
-import { CrowndLogo } from '../components/brand/CrowndLogo';
+  HomeTabIcon,
+  CalendarTabIcon,
+  SparklesTabIcon,
+  SearchTabIcon,
+  PlusTabIcon,
+} from '../components/brand/TabIcons';
 
 // Auth Screens
 import { WelcomeScreen } from '../screens/auth/WelcomeScreen';
@@ -24,6 +27,8 @@ import { DiscoverScreen } from '../screens/customer/DiscoverScreen';
 import { BookingsScreen } from '../screens/customer/BookingsScreen';
 import { NotificationsScreen } from '../screens/shared/NotificationsScreen';
 import { SearchScreen } from '../screens/customer/SearchScreen';
+import { ProfileScreen } from '../screens/shared/ProfileScreen';
+import { RolodexScreen } from '../screens/customer/RolodexScreen';
 
 // Detail Screens
 import { ProviderProfileScreen } from '../screens/shared/ProviderProfileScreen';
@@ -31,8 +36,6 @@ import { BookingFlowScreen } from '../screens/customer/BookingFlowScreen';
 import { LeaveReviewScreen } from '../screens/customer/LeaveReviewScreen';
 import { FriendsScreen } from '../screens/customer/FriendsScreen';
 import { FriendRolodexScreen } from '../screens/customer/FriendRolodexScreen';
-import { ProfileScreen } from '../screens/shared/ProfileScreen';
-import { RolodexScreen } from '../screens/customer/RolodexScreen';
 
 // Provider Screens
 import { ProviderDashboardScreen } from '../screens/provider/ProviderDashboardScreen';
@@ -40,6 +43,13 @@ import { ProviderScheduleScreen } from '../screens/provider/ProviderScheduleScre
 import { ProviderBookingsScreen } from '../screens/provider/ProviderBookingsScreen';
 import { ManageServicesScreen } from '../screens/provider/ManageServicesScreen';
 import { ProviderProfileEditScreen } from '../screens/provider/ProviderProfileEditScreen';
+
+// ─── Colors ────────────────────────────────────────────────────────────────────
+// Icon colors from spec SVGs
+const ICON_ACTIVE   = '#654D24';   // warm brown from SVG stroke/fill
+const ICON_INACTIVE = 'rgba(101, 77, 36, 0.40)'; // same, 40% opacity
+
+// ─── Route Types ───────────────────────────────────────────────────────────────
 
 export type RootStackParamList = {
   Welcome: undefined;
@@ -83,15 +93,19 @@ const CustomerTab = createBottomTabNavigator<CustomerTabParamList>();
 const ProviderTab = createBottomTabNavigator<ProviderTabParamList>();
 
 // ─── Floating Tab Bar ──────────────────────────────────────────────────────────
+// Figma spec:
+//   display: inline-flex; padding: 8px 16px; gap: 24px; align-items: center
+//   border-radius: 8px
+//   background: rgba(255,255,255,0.60)
+//   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
 
 function FloatingTabBar({ state, descriptors, navigation }: any) {
   return (
-    <View style={navStyles.wrapper} pointerEvents="box-none">
+    <View style={navStyles.safeArea} pointerEvents="box-none">
       <View style={navStyles.pill}>
         {state.routes.map((route: any, index: number) => {
-          const { options } = descriptors[route.key];
           const focused = state.index === index;
-          const isCenter = index === 2; // Plus button
+          const isCenter = index === 2; // Plus
 
           const onPress = () => {
             const event = navigation.emit({
@@ -104,41 +118,44 @@ function FloatingTabBar({ state, descriptors, navigation }: any) {
             }
           };
 
+          // ── Plus / Create button ──────────────────────────────────────────
           if (isCenter) {
             return (
               <TouchableOpacity
                 key={route.key}
                 onPress={onPress}
-                style={navStyles.plusWrap}
-                activeOpacity={0.85}
+                style={navStyles.plusTap}
+                activeOpacity={0.8}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
-                <View style={navStyles.plusBtn}>
-                  <IconPlus size={28} color={Colors.white} strokeWidth={2} />
-                </View>
+                {/* Filled squircle SVG from spec */}
+                <PlusTabIcon size={40} color={ICON_ACTIVE} />
               </TouchableOpacity>
             );
           }
 
-          const color = focused ? Colors.tabActive : Colors.tabInactive;
-          const strokeWidth = focused ? 2.5 : 1.75;
+          // ── Regular tab ──────────────────────────────────────────────────
+          const color = focused ? ICON_ACTIVE : ICON_INACTIVE;
+          const strokeWidth = focused ? 2 : 1.5;
 
-          const iconMap: Record<string, React.ReactNode> = {
-            Feed:     <IconHome size={24} color={color} strokeWidth={strokeWidth} />,
-            Dashboard: <IconHome size={24} color={color} strokeWidth={strokeWidth} />,
-            Bookings: <IconCalendar size={24} color={color} strokeWidth={strokeWidth} />,
-            Schedule: <IconCalendar size={24} color={color} strokeWidth={strokeWidth} />,
-            Jonathan: <IconSparkles size={24} color={color} strokeWidth={strokeWidth} />,
-            Search:   <IconSearch size={24} color={color} strokeWidth={strokeWidth} />,
+          const icons: Record<string, React.ReactNode> = {
+            Feed:      <HomeTabIcon      size={24} color={color} strokeWidth={strokeWidth} />,
+            Dashboard: <HomeTabIcon      size={24} color={color} strokeWidth={strokeWidth} />,
+            Bookings:  <CalendarTabIcon  size={24} color={color} strokeWidth={strokeWidth} />,
+            Schedule:  <CalendarTabIcon  size={24} color={color} strokeWidth={strokeWidth} />,
+            Jonathan:  <SparklesTabIcon  size={24} color={color} strokeWidth={strokeWidth} />,
+            Search:    <SearchTabIcon    size={24} color={color} strokeWidth={strokeWidth} />,
           };
 
           return (
             <TouchableOpacity
               key={route.key}
               onPress={onPress}
-              style={navStyles.tabItem}
+              style={navStyles.tabTap}
               activeOpacity={0.7}
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
             >
-              {iconMap[route.name] ?? null}
+              {icons[route.name] ?? null}
             </TouchableOpacity>
           );
         })}
@@ -155,11 +172,11 @@ function CustomerTabs() {
       tabBar={(props) => <FloatingTabBar {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      <CustomerTab.Screen name="Feed" component={DiscoverScreen} />
+      <CustomerTab.Screen name="Feed"     component={DiscoverScreen} />
       <CustomerTab.Screen name="Bookings" component={BookingsScreen} />
-      <CustomerTab.Screen name="Create" component={DiscoverScreen} />
+      <CustomerTab.Screen name="Create"   component={DiscoverScreen} />
       <CustomerTab.Screen name="Jonathan" component={NotificationsScreen} />
-      <CustomerTab.Screen name="Search" component={SearchScreen} />
+      <CustomerTab.Screen name="Search"   component={SearchScreen} />
     </CustomerTab.Navigator>
   );
 }
@@ -173,10 +190,10 @@ function ProviderTabs() {
       screenOptions={{ headerShown: false }}
     >
       <ProviderTab.Screen name="Dashboard" component={ProviderDashboardScreen} />
-      <ProviderTab.Screen name="Schedule" component={ProviderScheduleScreen} />
-      <ProviderTab.Screen name="Create" component={ProviderDashboardScreen} />
-      <ProviderTab.Screen name="Jonathan" component={NotificationsScreen} />
-      <ProviderTab.Screen name="Search" component={SearchScreen} />
+      <ProviderTab.Screen name="Schedule"  component={ProviderScheduleScreen} />
+      <ProviderTab.Screen name="Create"    component={ProviderDashboardScreen} />
+      <ProviderTab.Screen name="Jonathan"  component={NotificationsScreen} />
+      <ProviderTab.Screen name="Search"    component={SearchScreen} />
     </ProviderTab.Navigator>
   );
 }
@@ -187,78 +204,74 @@ export function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: Colors.background } }}
+        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#FFFFFF' } }}
         initialRouteName="Welcome"
       >
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="RoleSelect" component={RoleSelectScreen} />
+        <Stack.Screen name="Welcome"          component={WelcomeScreen} />
+        <Stack.Screen name="SignUp"           component={SignUpScreen} />
+        <Stack.Screen name="Login"            component={LoginScreen} />
+        <Stack.Screen name="RoleSelect"       component={RoleSelectScreen} />
         <Stack.Screen name="CustomerOnboarding" component={CustomerOnboardingScreen} />
         <Stack.Screen name="ProviderOnboarding" component={ProviderOnboardingScreen} />
-        <Stack.Screen name="CustomerTabs" component={CustomerTabs} />
-        <Stack.Screen name="ProviderTabs" component={ProviderTabs} />
-        <Stack.Screen name="ProviderProfile" component={ProviderProfileScreen} />
-        <Stack.Screen name="BookingFlow" component={BookingFlowScreen} />
-        <Stack.Screen name="LeaveReview" component={LeaveReviewScreen} />
-        <Stack.Screen name="Friends" component={FriendsScreen} />
-        <Stack.Screen name="FriendRolodex" component={FriendRolodexScreen} />
-        <Stack.Screen name="Notifications" component={NotificationsScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="ManageServices" component={ManageServicesScreen} />
+        <Stack.Screen name="CustomerTabs"     component={CustomerTabs} />
+        <Stack.Screen name="ProviderTabs"     component={ProviderTabs} />
+        <Stack.Screen name="ProviderProfile"  component={ProviderProfileScreen} />
+        <Stack.Screen name="BookingFlow"      component={BookingFlowScreen} />
+        <Stack.Screen name="LeaveReview"      component={LeaveReviewScreen} />
+        <Stack.Screen name="Friends"          component={FriendsScreen} />
+        <Stack.Screen name="FriendRolodex"    component={FriendRolodexScreen} />
+        <Stack.Screen name="Notifications"    component={NotificationsScreen} />
+        <Stack.Screen name="Profile"          component={ProfileScreen} />
+        <Stack.Screen name="ManageServices"   component={ManageServicesScreen} />
         <Stack.Screen name="ProviderProfileEdit" component={ProviderProfileEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-// ─── Floating Nav Styles ───────────────────────────────────────────────────────
+// ─── Styles ────────────────────────────────────────────────────────────────────
 
 const navStyles = StyleSheet.create({
-  // Outer container — sits above content, doesn't block touches outside the pill
-  wrapper: {
+  // Positioned absolutely above the home indicator
+  safeArea: {
     position: 'absolute',
-    bottom: 16,
-    left: 16,
-    right: 16,
+    bottom: 24,
+    left: 0,
+    right: 0,
     alignItems: 'center',
-  },
-  // The floating pill
+    pointerEvents: 'box-none',
+  } as any,
+
+  // The pill — exact Figma spec
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.tabBarBg,
-    borderRadius: 12,
+    paddingVertical: 8,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    width: '100%',
-    maxWidth: 400,
-    ...Shadows.nav,
+    gap: 24,
+    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.90)', // 0.60 per spec; 0.90 for legibility on white bg
+    // shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 6,
   },
-  // Regular tab item — flex 1 so they distribute evenly
-  tabItem: {
-    flex: 1,
+
+  // Each regular tab — 44px min tap target
+  tabTap: {
     alignItems: 'center',
     justifyContent: 'center',
+    minWidth: 44,
     minHeight: 44,
   },
-  // Center plus button wrapper — sits above the bar
-  plusWrap: {
-    flex: 1,
+
+  // Center plus button tap area
+  plusTap: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: -28, // floats above the pill
-  },
-  plusBtn: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: Colors.plusButton,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...Shadows.md,
-    // Spec teal shadow
-    shadowColor: Colors.plusButton,
-    shadowOpacity: 0.3,
+    minWidth: 44,
+    minHeight: 44,
   },
 });
