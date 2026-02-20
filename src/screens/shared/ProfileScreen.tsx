@@ -135,7 +135,7 @@ function MenuItem({
         <Text style={styles.menuChevron}>›</Text>
       </TouchableOpacity>
       {!last && <View style={styles.menuDivider} />}
-    </SafeAreaView>
+    </>
   );
 }
 
