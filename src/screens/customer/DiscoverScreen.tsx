@@ -13,6 +13,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { RootStackParamList } from '../../navigation';
+import { IconBell, IconMenu2, IconHeart, IconHeartFilled } from '@tabler/icons-react-native';
+import { CrowndLogo } from '../../components/brand/CrowndLogo';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
@@ -82,14 +84,14 @@ export function DiscoverScreen() {
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text style={styles.crownLogo}>♛</Text>
+          <CrowndLogo size={36} />
         </View>
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.headerBtn} onPress={() => navigation.navigate('Notifications')}>
-            <Text style={styles.headerIcon}>🔔</Text>
+            <IconBell size={24} color={Colors.textPrimary} strokeWidth={1.75} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerBtn}>
-            <Text style={styles.headerIcon}>☰</Text>
+            <IconMenu2 size={24} color={Colors.textPrimary} strokeWidth={1.75} />
           </TouchableOpacity>
         </View>
       </View>
@@ -170,9 +172,10 @@ function FeedPost({ post, onLike, onProviderPress }: {
 
       {/* Like */}
       <TouchableOpacity style={postStyles.likeRow} onPress={onLike} activeOpacity={0.7}>
-        <Text style={[postStyles.heartIcon, post.liked && postStyles.heartIconActive]}>
-          {post.liked ? '♥' : '♡'}
-        </Text>
+        {post.liked
+          ? <IconHeartFilled size={22} color={Colors.like} />
+          : <IconHeart size={22} color={Colors.textMuted} strokeWidth={1.75} />
+        }
         <Text style={postStyles.likeCount}>{post.likes}</Text>
       </TouchableOpacity>
     </View>
@@ -216,8 +219,6 @@ const postStyles = StyleSheet.create({
   providerLocation: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
   review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 22, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
   likeRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
-  heartIcon: { fontSize: 22, color: Colors.textMuted },
-  heartIconActive: { color: Colors.like },
   likeCount: { fontSize: Typography.sizes.base, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
 });
 
@@ -340,10 +341,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   headerLeft: { flexDirection: 'row', alignItems: 'center' },
-  crownLogo: { fontSize: 32, color: Colors.primary },
   headerRight: { flexDirection: 'row', gap: Spacing.base, alignItems: 'center' },
   headerBtn: { padding: Spacing.xs },
-  headerIcon: { fontSize: 22, color: Colors.textPrimary },
   tabBar: {
     flexDirection: 'row',
     paddingHorizontal: Spacing.base,

@@ -9,6 +9,16 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, StarRating, Card, SectionHeader, Badge } from '../../components/common';
 import { RootStackParamList } from '../../navigation';
+import {
+  IconScissors,
+  IconMapPin,
+  IconCalendarEvent,
+  IconChartBar,
+  IconMessageCircle,
+  IconUsers,
+  IconCalendar,
+  IconStar,
+} from '@tabler/icons-react-native';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
@@ -42,9 +52,9 @@ export function ProviderDashboardScreen() {
 
         {/* Stats Row */}
         <View style={styles.statsRow}>
-          <StatCard emoji="👥" value="187" label="Followers" trend="+12 this week" />
-          <StatCard emoji="📅" value="24" label="Bookings" sub="this month" />
-          <StatCard emoji="⭐" value="4.9" label="Rating" sub="(52 reviews)" />
+          <StatCard icon={<IconUsers size={22} color={Colors.textSecondary} strokeWidth={1.75} />} value="187" label="Followers" trend="+12 this week" />
+          <StatCard icon={<IconCalendar size={22} color={Colors.textSecondary} strokeWidth={1.75} />} value="24" label="Bookings" sub="this month" />
+          <StatCard icon={<IconStar size={22} color={Colors.textSecondary} strokeWidth={1.75} />} value="4.9" label="Rating" sub="(52 reviews)" />
         </View>
 
         {/* Quick Actions */}
@@ -53,19 +63,19 @@ export function ProviderDashboardScreen() {
             style={styles.quickAction}
             onPress={() => navigation.navigate('ManageServices')}
           >
-            <Text style={styles.qaEmoji}>✂️</Text>
+            <View><Text style={styles.qaServiceEmoji}>✂️</Text></View>
             <Text style={styles.qaLabel}>Services</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.quickAction} onPress={() => {}}>
-            <Text style={styles.qaEmoji}>📍</Text>
+            <View><IconMapPin size={24} color={Colors.textSecondary} strokeWidth={1.75} /></View>
             <Text style={styles.qaLabel}>Location</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.quickAction} onPress={() => {}}>
-            <Text style={styles.qaEmoji}>📆</Text>
+            <View><IconCalendarEvent size={24} color={Colors.textSecondary} strokeWidth={1.75} /></View>
             <Text style={styles.qaLabel}>Schedule</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.quickAction} onPress={() => {}}>
-            <Text style={styles.qaEmoji}>📊</Text>
+            <View><IconChartBar size={24} color={Colors.textSecondary} strokeWidth={1.75} /></View>
             <Text style={styles.qaLabel}>Analytics</Text>
           </TouchableOpacity>
         </View>
@@ -89,11 +99,11 @@ export function ProviderDashboardScreen() {
               </View>
               <View style={styles.apptActions}>
                 <Badge
-                  label={booking.status === 'confirmed' ? '✓ Confirmed' : 'Pending'}
+                  label={booking.status === 'confirmed' ? 'Confirmed' : 'Pending'}
                   variant={booking.status === 'confirmed' ? 'success' : 'warning'}
                 />
                 <TouchableOpacity>
-                  <Text style={styles.apptMessage}>💬</Text>
+                  <View><IconMessageCircle size={20} color={Colors.textSecondary} strokeWidth={1.75} /></View>
                 </TouchableOpacity>
               </View>
             </View>
@@ -147,7 +157,7 @@ export function ProviderDashboardScreen() {
 
         {/* Location Alert (if recently moved) */}
         <View style={styles.locationAlert}>
-          <Text style={styles.locationAlertIcon}>📍</Text>
+          <View><IconMapPin size={28} color={Colors.primary} strokeWidth={1.75} /></View>
           <View style={styles.locationAlertText}>
             <Text style={styles.locationAlertTitle}>Notify Followers of Your Location</Text>
             <Text style={styles.locationAlertSub}>187 followers will be notified instantly</Text>
@@ -163,10 +173,10 @@ export function ProviderDashboardScreen() {
   );
 }
 
-function StatCard({ emoji, value, label, trend, sub }: { emoji: string; value: string; label: string; trend?: string; sub?: string }) {
+function StatCard({ icon, value, label, trend, sub }: { icon: React.ReactNode; value: string; label: string; trend?: string; sub?: string }) {
   return (
     <View style={styles.statCard}>
-      <Text style={styles.statEmoji}>{emoji}</Text>
+      <View style={styles.statIcon}>{icon}</View>
       <Text style={styles.statValue}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
       {trend && <Text style={styles.statTrend}>{trend}</Text>}
@@ -187,7 +197,7 @@ const styles = StyleSheet.create({
     padding: Spacing.md, alignItems: 'center', gap: 4,
     borderWidth: 1, borderColor: Colors.border,
   },
-  statEmoji: { fontSize: 22 },
+  statIcon: { width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
   statValue: { fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
   statLabel: { fontSize: Typography.sizes.xs, color: Colors.textMuted, fontWeight: Typography.weights.medium },
   statTrend: { fontSize: Typography.sizes.xs, color: Colors.success },
@@ -198,7 +208,7 @@ const styles = StyleSheet.create({
     padding: Spacing.base, borderWidth: 1, borderColor: Colors.border,
   },
   quickAction: { flex: 1, alignItems: 'center', gap: Spacing.xs },
-  qaEmoji: { fontSize: 26 },
+  qaServiceEmoji: { fontSize: 24 },
   qaLabel: { fontSize: Typography.sizes.xs, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
   appointmentCard: {
     flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
@@ -211,7 +221,6 @@ const styles = StyleSheet.create({
   apptService: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
   apptTime: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
   apptActions: { alignItems: 'flex-end', gap: Spacing.sm },
-  apptMessage: { fontSize: 20 },
   cardTitle: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary, marginBottom: Spacing.md },
   ratingRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.base, marginBottom: Spacing.base },
   bigScore: { fontSize: Typography.sizes['3xl'], fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
@@ -235,7 +244,6 @@ const styles = StyleSheet.create({
     backgroundColor: `${Colors.primary}15`, borderRadius: Radius.xl, padding: Spacing.base,
     borderWidth: 1, borderColor: `${Colors.primary}30`,
   },
-  locationAlertIcon: { fontSize: 28 },
   locationAlertText: { flex: 1 },
   locationAlertTitle: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
   locationAlertSub: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },

@@ -12,6 +12,126 @@ import {
   Image,
 } from 'react-native';
 import { Colors, Typography, Spacing, Radius, Shadows } from '../../theme';
+import {
+  IconHome,
+  IconCalendar,
+  IconPlus,
+  IconSparkles,
+  IconSearch,
+  IconArrowLeft,
+  IconX,
+  IconCheck,
+  IconCircleCheck,
+  IconClock,
+  IconHourglass,
+  IconBell,
+  IconUsers,
+  IconUser,
+  IconLock,
+  IconCreditCard,
+  IconClipboardList,
+  IconHelp,
+  IconMessageCircle,
+  IconFileText,
+  IconMapPin,
+  IconStar,
+  IconScissors,
+  IconFlame,
+  IconAlertTriangle,
+  IconBarbell,
+  IconMassage,
+  IconEye,
+  IconPalette,
+  IconChartBar,
+  IconMenu2,
+  IconCrown,
+  IconHandshake,
+  IconHeartFilled,
+  IconHeart,
+  IconChevronRight,
+  IconSchool,
+  IconCurrencyDollar,
+  IconNeedle,
+  IconSpray,
+  IconZzz,
+  IconYoga,
+  IconCalendarEvent,
+  IconSettings,
+  IconBuildingStore,
+} from '@tabler/icons-react-native';
+
+// ─── Icon ──────────────────────────────────────────────────────────────────────
+
+export type IconName =
+  | 'home' | 'calendar' | 'plus' | 'sparkles' | 'search'
+  | 'arrowLeft' | 'x' | 'check' | 'circleCheck' | 'clock' | 'hourglass'
+  | 'bell' | 'users' | 'user' | 'lock' | 'creditCard' | 'clipboardList'
+  | 'help' | 'messageCircle' | 'fileText' | 'mapPin' | 'star' | 'scissors'
+  | 'flame' | 'alertTriangle' | 'barbell' | 'massage' | 'eye' | 'palette'
+  | 'chartBar' | 'menu' | 'crown' | 'handshake' | 'heartFilled' | 'heart'
+  | 'chevronRight' | 'school' | 'currencyDollar' | 'needle' | 'spray'
+  | 'zzz' | 'yoga' | 'calendarEvent' | 'settings' | 'store';
+
+const ICON_MAP: Record<IconName, React.ComponentType<any>> = {
+  home: IconHome,
+  calendar: IconCalendar,
+  plus: IconPlus,
+  sparkles: IconSparkles,
+  search: IconSearch,
+  arrowLeft: IconArrowLeft,
+  x: IconX,
+  check: IconCheck,
+  circleCheck: IconCircleCheck,
+  clock: IconClock,
+  hourglass: IconHourglass,
+  bell: IconBell,
+  users: IconUsers,
+  user: IconUser,
+  lock: IconLock,
+  creditCard: IconCreditCard,
+  clipboardList: IconClipboardList,
+  help: IconHelp,
+  messageCircle: IconMessageCircle,
+  fileText: IconFileText,
+  mapPin: IconMapPin,
+  star: IconStar,
+  scissors: IconScissors,
+  flame: IconFlame,
+  alertTriangle: IconAlertTriangle,
+  barbell: IconBarbell,
+  massage: IconMassage,
+  eye: IconEye,
+  palette: IconPalette,
+  chartBar: IconChartBar,
+  menu: IconMenu2,
+  crown: IconCrown,
+  handshake: IconHandshake,
+  heartFilled: IconHeartFilled,
+  heart: IconHeart,
+  chevronRight: IconChevronRight,
+  school: IconSchool,
+  currencyDollar: IconCurrencyDollar,
+  needle: IconNeedle,
+  spray: IconSpray,
+  zzz: IconZzz,
+  yoga: IconYoga,
+  calendarEvent: IconCalendarEvent,
+  settings: IconSettings,
+  store: IconBuildingStore,
+};
+
+interface IconProps {
+  name: IconName;
+  size?: number;
+  color?: string;
+  stroke?: number;
+}
+
+export function Icon({ name, size = 24, color = Colors.textPrimary, stroke = 1.75 }: IconProps) {
+  const Component = ICON_MAP[name];
+  if (!Component) return null;
+  return <Component size={size} color={color} stroke={stroke} />;
+}
 
 // ─── Button ────────────────────────────────────────────────────────────────────
 
@@ -208,11 +328,13 @@ interface BadgeProps {
   variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'neutral';
   size?: 'sm' | 'md';
   style?: ViewStyle;
+  icon?: React.ReactNode;
 }
 
-export function Badge({ label, variant = 'primary', size = 'sm', style }: BadgeProps) {
+export function Badge({ label, variant = 'primary', size = 'sm', style, icon }: BadgeProps) {
   return (
     <View style={[styles.badge, styles[`badge_${variant}`], style]}>
+      {icon && <View style={styles.badge_icon}>{icon}</View>}
       <Text style={[styles.badge_label, styles[`badge_label_${size}`]]}>{label}</Text>
     </View>
   );
@@ -221,7 +343,7 @@ export function Badge({ label, variant = 'primary', size = 'sm', style }: BadgeP
 // ─── StarRating ────────────────────────────────────────────────────────────────
 
 interface StarRatingProps {
-  score: number; // 0-5
+  score: number;
   size?: number;
   showScore?: boolean;
   count?: number;
@@ -301,7 +423,7 @@ export function Divider({ style }: { style?: ViewStyle }) {
 // ─── EmptyState ────────────────────────────────────────────────────────────────
 
 interface EmptyStateProps {
-  icon?: string;
+  icon?: IconName | React.ReactNode;
   title: string;
   message?: string;
   action?: string;
@@ -309,9 +431,17 @@ interface EmptyStateProps {
 }
 
 export function EmptyState({ icon, title, message, action, onAction }: EmptyStateProps) {
+  const renderIcon = () => {
+    if (!icon) return null;
+    if (typeof icon === 'string') {
+      return <Icon name={icon as IconName} size={48} color={Colors.textMuted} />;
+    }
+    return icon;
+  };
+
   return (
     <View style={styles.emptyState}>
-      {icon && <Text style={styles.emptyIcon}>{icon}</Text>}
+      {icon && <View style={styles.emptyIconWrap}>{renderIcon()}</View>}
       <Text style={styles.emptyTitle}>{title}</Text>
       {message && <Text style={styles.emptyMessage}>{message}</Text>}
       {action && (
@@ -339,9 +469,10 @@ interface ChipProps {
   selected?: boolean;
   onPress?: () => void;
   style?: ViewStyle;
+  icon?: React.ReactNode;
 }
 
-export function Chip({ label, selected = false, onPress, style }: ChipProps) {
+export function Chip({ label, selected = false, onPress, style, icon }: ChipProps) {
   return (
     <TouchableOpacity
       style={[styles.chip, selected && styles.chip_selected, style]}
@@ -349,6 +480,7 @@ export function Chip({ label, selected = false, onPress, style }: ChipProps) {
       disabled={!onPress}
       activeOpacity={0.7}
     >
+      {icon && <View style={styles.chip_icon}>{icon}</View>}
       <Text style={[styles.chip_label, selected && styles.chip_label_selected]}>
         {label}
       </Text>
@@ -528,11 +660,15 @@ const styles = StyleSheet.create({
 
   // Badge
   badge: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: Radius.full,
     paddingHorizontal: Spacing.sm,
     paddingVertical: 3,
     alignSelf: 'flex-start',
+    gap: 4,
   },
+  badge_icon: { marginRight: 1 },
   badge_primary: { backgroundColor: `${Colors.primary}22` },
   badge_secondary: { backgroundColor: `${Colors.secondary}22` },
   badge_success: { backgroundColor: `${Colors.success}22` },
@@ -585,7 +721,7 @@ const styles = StyleSheet.create({
     padding: Spacing['3xl'],
     gap: Spacing.md,
   },
-  emptyIcon: { fontSize: 48 },
+  emptyIconWrap: { marginBottom: Spacing.sm },
   emptyTitle: {
     fontSize: Typography.sizes.lg,
     fontWeight: Typography.weights.bold,
@@ -615,13 +751,17 @@ const styles = StyleSheet.create({
 
   // Chip
   chip: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.xs + 2,
     borderRadius: Radius.full,
     backgroundColor: Colors.surface,
     borderWidth: 1,
     borderColor: Colors.border,
+    gap: 6,
   },
+  chip_icon: {},
   chip_selected: {
     backgroundColor: `${Colors.primary}22`,
     borderColor: Colors.primary,

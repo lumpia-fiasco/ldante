@@ -2,8 +2,12 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Colors, Typography, Spacing, Radius } from '../theme';
+import { View, StyleSheet } from 'react-native';
+import {
+  IconHome, IconCalendar, IconPlus, IconSparkles, IconSearch,
+} from '@tabler/icons-react-native';
+import { Colors, Spacing, Radius } from '../theme';
+import { CrowndLogo } from '../components/brand/CrowndLogo';
 
 // Auth Screens
 import { WelcomeScreen } from '../screens/auth/WelcomeScreen';
@@ -78,44 +82,16 @@ const Stack = createStackNavigator<RootStackParamList>();
 const CustomerTab = createBottomTabNavigator<CustomerTabParamList>();
 const ProviderTab = createBottomTabNavigator<ProviderTabParamList>();
 
-// ─── Tab Icon ──────────────────────────────────────────────────────────────────
+// ─── Tab Icons ─────────────────────────────────────────────────────────────────
 
-function HomeIcon({ focused }: { focused: boolean }) {
-  return (
-    <View style={tabStyles.iconWrap}>
-      <Text style={[tabStyles.iconSvg, { color: focused ? Colors.tabActive : Colors.tabInactive }]}>⌂</Text>
-    </View>
-  );
+function TabIconWrap({ children }: { children: React.ReactNode }) {
+  return <View style={tabStyles.iconWrap}>{children}</View>;
 }
 
-function CalendarIcon({ focused }: { focused: boolean }) {
-  return (
-    <View style={tabStyles.iconWrap}>
-      <Text style={[tabStyles.iconSvg, { color: focused ? Colors.tabActive : Colors.tabInactive }]}>📅</Text>
-    </View>
-  );
-}
-
-function PlusIcon() {
+function PlusTabIcon() {
   return (
     <View style={tabStyles.plusBtn}>
-      <Text style={tabStyles.plusText}>+</Text>
-    </View>
-  );
-}
-
-function SparkleIcon({ focused }: { focused: boolean }) {
-  return (
-    <View style={tabStyles.iconWrap}>
-      <Text style={[tabStyles.iconSvg, { color: focused ? Colors.tabActive : Colors.tabInactive }]}>✦</Text>
-    </View>
-  );
-}
-
-function SearchIcon({ focused }: { focused: boolean }) {
-  return (
-    <View style={tabStyles.iconWrap}>
-      <Text style={[tabStyles.iconSvg, { color: focused ? Colors.tabActive : Colors.tabInactive }]}>⌕</Text>
+      <IconPlus size={26} color={Colors.white} stroke={2} />
     </View>
   );
 }
@@ -136,27 +112,43 @@ function CustomerTabs() {
       <CustomerTab.Screen
         name="Feed"
         component={DiscoverScreen}
-        options={{ tabBarIcon: ({ focused }) => <HomeIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconHome size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
       <CustomerTab.Screen
         name="Bookings"
         component={BookingsScreen}
-        options={{ tabBarIcon: ({ focused }) => <CalendarIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconCalendar size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
       <CustomerTab.Screen
         name="Create"
         component={DiscoverScreen}
-        options={{ tabBarIcon: () => <PlusIcon /> }}
+        options={{ tabBarIcon: () => <PlusTabIcon /> }}
       />
       <CustomerTab.Screen
         name="Jonathan"
         component={NotificationsScreen}
-        options={{ tabBarIcon: ({ focused }) => <SparkleIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconSparkles size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
       <CustomerTab.Screen
         name="Search"
         component={SearchScreen}
-        options={{ tabBarIcon: ({ focused }) => <SearchIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconSearch size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
     </CustomerTab.Navigator>
   );
@@ -171,32 +163,50 @@ function ProviderTabs() {
         headerShown: false,
         tabBarStyle: tabStyles.bar,
         tabBarShowLabel: false,
+        tabBarActiveTintColor: Colors.tabActive,
+        tabBarInactiveTintColor: Colors.tabInactive,
       }}
     >
       <ProviderTab.Screen
         name="Dashboard"
         component={ProviderDashboardScreen}
-        options={{ tabBarIcon: ({ focused }) => <HomeIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconHome size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
       <ProviderTab.Screen
         name="Schedule"
         component={ProviderScheduleScreen}
-        options={{ tabBarIcon: ({ focused }) => <CalendarIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconCalendar size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
       <ProviderTab.Screen
         name="Create"
         component={ProviderDashboardScreen}
-        options={{ tabBarIcon: () => <PlusIcon /> }}
+        options={{ tabBarIcon: () => <PlusTabIcon /> }}
       />
       <ProviderTab.Screen
         name="Jonathan"
         component={NotificationsScreen}
-        options={{ tabBarIcon: ({ focused }) => <SparkleIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconSparkles size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
       <ProviderTab.Screen
         name="Search"
         component={SearchScreen}
-        options={{ tabBarIcon: ({ focused }) => <SearchIcon focused={focused} /> }}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <TabIconWrap><IconSearch size={24} color={color} stroke={1.75} /></TabIconWrap>
+          ),
+        }}
       />
     </ProviderTab.Navigator>
   );
@@ -248,10 +258,6 @@ const tabStyles = StyleSheet.create({
     width: 32,
     height: 32,
   },
-  iconSvg: {
-    fontSize: 22,
-    lineHeight: 28,
-  },
   plusBtn: {
     width: 52,
     height: 52,
@@ -260,11 +266,5 @@ const tabStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 4,
-  },
-  plusText: {
-    fontSize: 28,
-    color: Colors.white,
-    lineHeight: 32,
-    fontWeight: '300' as const,
   },
 });

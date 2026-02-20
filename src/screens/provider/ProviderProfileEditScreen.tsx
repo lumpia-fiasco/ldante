@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing } from '../../theme';
 import { Button, Input, ScreenHeader, Chip } from '../../components/common';
 import { SPECIALTY_TAGS } from '../../constants';
+import { IconArrowLeft } from '@tabler/icons-react-native';
 
 type Nav = { goBack: () => void };
 
@@ -38,7 +39,7 @@ export function ProviderProfileEditScreen() {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Edit Profile"
-        leftIcon={<Text style={styles.back}>←</Text>}
+        leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
@@ -98,7 +99,6 @@ export function ProviderProfileEditScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  back: { fontSize: 22, color: Colors.textPrimary },
   scroll: { padding: Spacing.base, gap: Spacing.xl, paddingBottom: Spacing['3xl'] },
   specialties: { gap: Spacing.sm },
   sectionLabel: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },

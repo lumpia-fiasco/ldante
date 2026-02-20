@@ -10,6 +10,7 @@ import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, StarRating, Badge, Chip, ScreenHeader } from '../../components/common';
 import { SERVICE_CATEGORIES } from '../../constants';
 import { RootStackParamList } from '../../navigation';
+import { IconArrowLeft } from '@tabler/icons-react-native';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
@@ -41,7 +42,7 @@ export function SearchScreen() {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Search"
-        leftIcon={<Text style={styles.backIcon}>←</Text>}
+        leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
 
@@ -132,7 +133,6 @@ export function SearchScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  backIcon: { fontSize: 22, color: Colors.textPrimary },
   searchWrap: {
     flexDirection: 'row', alignItems: 'center',
     backgroundColor: Colors.surface, borderRadius: Radius.lg,

@@ -7,6 +7,20 @@ import {
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, Button, Card, Divider } from '../../components/common';
 import { authService } from '../../services/supabase';
+import {
+  IconUser,
+  IconLock,
+  IconBell,
+  IconCreditCard,
+  IconUsers,
+  IconClipboardList,
+  IconStar,
+  IconScissors,
+  IconHelp,
+  IconMessageCircle,
+  IconFileText,
+  IconChevronRight,
+} from '@tabler/icons-react-native';
 
 const MOCK_USER = {
   full_name: 'Alex Johnson',
@@ -59,27 +73,27 @@ export function ProfileScreen() {
         {/* Menu Sections */}
         <View style={styles.sections}>
           <MenuSection title="Account">
-            <MenuItem icon="👤" label="Edit Profile" onPress={() => {}} />
-            <MenuItem icon="🔒" label="Privacy Settings" onPress={() => {}} />
-            <MenuItem icon="🔔" label="Notification Preferences" onPress={() => {}} />
-            <MenuItem icon="💳" label="Payment Methods" onPress={() => {}} last />
+            <MenuItem icon={<IconUser size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Edit Profile" onPress={() => {}} />
+            <MenuItem icon={<IconLock size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Privacy Settings" onPress={() => {}} />
+            <MenuItem icon={<IconBell size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Notification Preferences" onPress={() => {}} />
+            <MenuItem icon={<IconCreditCard size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Payment Methods" onPress={() => {}} last />
           </MenuSection>
 
           <MenuSection title="My Network">
-            <MenuItem icon="👥" label="Friends" badge="5" onPress={() => {}} />
-            <MenuItem icon="📋" label="My Rolodex" badge="3" onPress={() => {}} />
-            <MenuItem icon="⭐" label="Rating Preferences" onPress={() => {}} last />
+            <MenuItem icon={<IconUsers size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Friends" badge="5" onPress={() => {}} />
+            <MenuItem icon={<IconClipboardList size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="My Rolodex" badge="3" onPress={() => {}} />
+            <MenuItem icon={<IconStar size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Rating Preferences" onPress={() => {}} last />
           </MenuSection>
 
           <MenuSection title="Provider">
-            <MenuItem icon="✂️" label="Switch to Provider View" onPress={() => {}} last />
+            <MenuItem icon={<Text style={{ fontSize: 22 }}>✂️</Text>} label="Switch to Provider View" onPress={() => {}} last />
           </MenuSection>
 
           <MenuSection title="Support">
-            <MenuItem icon="❓" label="Help & FAQ" onPress={() => {}} />
-            <MenuItem icon="💬" label="Contact Support" onPress={() => {}} />
-            <MenuItem icon="⭐" label="Rate the App" onPress={() => {}} />
-            <MenuItem icon="📜" label="Terms & Privacy" onPress={() => {}} last />
+            <MenuItem icon={<IconHelp size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Help & FAQ" onPress={() => {}} />
+            <MenuItem icon={<IconMessageCircle size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Contact Support" onPress={() => {}} />
+            <MenuItem icon={<IconStar size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Rate the App" onPress={() => {}} />
+            <MenuItem icon={<IconFileText size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Terms & Privacy" onPress={() => {}} last />
           </MenuSection>
 
           <Button
@@ -120,19 +134,19 @@ function MenuSection({ title, children }: { title: string; children: React.React
 function MenuItem({
   icon, label, badge, onPress, last = false,
 }: {
-  icon: string; label: string; badge?: string; onPress: () => void; last?: boolean;
+  icon: React.ReactNode; label: string; badge?: string; onPress: () => void; last?: boolean;
 }) {
   return (
     <>
       <TouchableOpacity style={styles.menuItem} onPress={onPress} activeOpacity={0.7}>
-        <Text style={styles.menuIcon}>{icon}</Text>
+        <View style={styles.menuIcon}>{icon}</View>
         <Text style={styles.menuLabel}>{label}</Text>
         {badge && (
           <View style={styles.badge}>
             <Text style={styles.badgeText}>{badge}</Text>
           </View>
         )}
-        <Text style={styles.menuChevron}>›</Text>
+        <IconChevronRight size={20} color={Colors.textMuted} strokeWidth={1.75} />
       </TouchableOpacity>
       {!last && <View style={styles.menuDivider} />}
     </>
@@ -165,9 +179,8 @@ const styles = StyleSheet.create({
   menuSectionTitle: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.semibold, color: Colors.textMuted, paddingLeft: Spacing.xs, textTransform: 'uppercase', letterSpacing: 0.5 },
   menuCard: { backgroundColor: Colors.surface, borderRadius: Radius.xl, borderWidth: 1, borderColor: Colors.border },
   menuItem: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md, padding: Spacing.base },
-  menuIcon: { fontSize: 20, width: 28 },
+  menuIcon: { width: 28, alignItems: 'center', justifyContent: 'center' },
   menuLabel: { flex: 1, fontSize: Typography.sizes.base, color: Colors.textPrimary },
-  menuChevron: { fontSize: 20, color: Colors.textMuted },
   menuDivider: { height: 1, backgroundColor: Colors.border, marginLeft: 52 },
   badge: { backgroundColor: Colors.primary, borderRadius: Radius.full, paddingHorizontal: Spacing.sm, paddingVertical: 2 },
   badgeText: { fontSize: Typography.sizes.xs, color: Colors.white, fontWeight: Typography.weights.bold },

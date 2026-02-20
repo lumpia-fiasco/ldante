@@ -15,6 +15,17 @@ import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, Badge, Button, EmptyState } from '../../components/common';
 import { Booking, BookingStatus } from '../../types';
 import { RootStackParamList } from '../../navigation';
+import {
+  IconCalendar,
+  IconClock,
+  IconMapPin,
+  IconCurrencyDollar,
+  IconHourglass,
+  IconCheck,
+  IconCircleCheck,
+  IconX,
+  IconAlertTriangle,
+} from '@tabler/icons-react-native';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
@@ -45,12 +56,12 @@ const MOCK_BOOKINGS: (Booking & { providerName: string; serviceName: string; loc
   },
 ];
 
-const STATUS_CONFIG: Record<BookingStatus, { label: string; variant: any; emoji: string }> = {
-  requested: { label: 'Pending', variant: 'warning', emoji: '⏳' },
-  confirmed: { label: 'Confirmed', variant: 'success', emoji: '✓' },
-  completed: { label: 'Completed', variant: 'neutral', emoji: '✅' },
-  cancelled: { label: 'Cancelled', variant: 'error', emoji: '✕' },
-  no_show: { label: 'No Show', variant: 'error', emoji: '⚠️' },
+const STATUS_CONFIG: Record<BookingStatus, { label: string; variant: any; icon: React.ReactNode }> = {
+  requested: { label: 'Pending', variant: 'warning', icon: <IconHourglass size={14} color={Colors.textPrimary} strokeWidth={1.75} /> },
+  confirmed: { label: 'Confirmed', variant: 'success', icon: <IconCheck size={14} color={Colors.textPrimary} strokeWidth={2} /> },
+  completed: { label: 'Completed', variant: 'neutral', icon: <IconCircleCheck size={14} color={Colors.textPrimary} strokeWidth={1.75} /> },
+  cancelled: { label: 'Cancelled', variant: 'error', icon: <IconX size={14} color={Colors.textPrimary} strokeWidth={2} /> },
+  no_show: { label: 'No Show', variant: 'error', icon: <IconAlertTriangle size={14} color={Colors.textPrimary} strokeWidth={1.75} /> },
 };
 
 type TabKey = 'upcoming' | 'past';
@@ -103,7 +114,7 @@ export function BookingsScreen() {
 
       {displayed.length === 0 ? (
         <EmptyState
-          icon={tab === 'upcoming' ? '📅' : '📋'}
+          icon={tab === 'upcoming' ? 'calendar' : 'clipboardList'}
           title={tab === 'upcoming' ? 'No upcoming appointments' : 'No past appointments'}
           message={
             tab === 'upcoming'
@@ -134,13 +145,13 @@ export function BookingsScreen() {
                     <Text style={styles.providerName}>{item.providerName}</Text>
                     <Text style={styles.serviceName}>{item.serviceName}</Text>
                   </View>
-                  <Badge label={`${config.emoji} ${config.label}`} variant={config.variant} />
+                  <Badge label={config.label} variant={config.variant} icon={config.icon} />
                 </View>
 
                 {/* Details */}
                 <View style={styles.details}>
                   <DetailRow
-                    icon="📅"
+                    icon={<IconCalendar size={16} color={Colors.textMuted} strokeWidth={1.75} />}
                     text={date.toLocaleDateString('en-US', {
                       weekday: 'long',
                       month: 'long',
@@ -148,16 +159,16 @@ export function BookingsScreen() {
                     })}
                   />
                   <DetailRow
-                    icon="⏰"
+                    icon={<IconClock size={16} color={Colors.textMuted} strokeWidth={1.75} />}
                     text={date.toLocaleTimeString('en-US', {
                       hour: 'numeric',
                       minute: '2-digit',
                       hour12: true,
                     })}
                   />
-                  <DetailRow icon="📍" text={item.locationName} />
+                  <DetailRow icon={<IconMapPin size={16} color={Colors.textMuted} strokeWidth={1.75} />} text={item.locationName} />
                   <DetailRow
-                    icon="💰"
+                    icon={<IconCurrencyDollar size={16} color={Colors.textMuted} strokeWidth={1.75} />}
                     text={`$${(item.price_cents / 100).toFixed(2)}`}
                   />
                 </View>
@@ -203,10 +214,10 @@ export function BookingsScreen() {
   );
 }
 
-function DetailRow({ icon, text }: { icon: string; text: string }) {
+function DetailRow({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <View style={styles.detailRow}>
-      <Text style={styles.detailIcon}>{icon}</Text>
+      <View style={styles.detailIconWrap}>{icon}</View>
       <Text style={styles.detailText}>{text}</Text>
     </View>
   );
@@ -264,7 +275,7 @@ const styles = StyleSheet.create({
   serviceName: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
   details: { gap: Spacing.sm, paddingHorizontal: Spacing.xs },
   detailRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
-  detailIcon: { fontSize: 14, width: 20 },
+  detailIconWrap: { width: 20, alignItems: 'center' },
   detailText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, flex: 1 },
   actions: { flexDirection: 'row', gap: Spacing.sm },
   cancelBtn: { flex: 1 },

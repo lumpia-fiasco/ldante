@@ -14,6 +14,7 @@ import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Button, Input, ScreenHeader } from '../../components/common';
 import { authService, userService } from '../../services/supabase';
 import { RootStackParamList } from '../../navigation';
+import { IconArrowLeft } from '@tabler/icons-react-native';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'SignUp'>;
@@ -63,7 +64,7 @@ export function SignUpScreen({ navigation }: Props) {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Create Account"
-        leftIcon={<Text style={styles.backIcon}>←</Text>}
+        leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
       <ScrollView
@@ -184,5 +185,4 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   termsLink: { color: Colors.primary },
-  backIcon: { fontSize: 22, color: Colors.textPrimary },
 });

@@ -16,6 +16,7 @@ import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Button, Avatar, ScreenHeader, Card } from '../../components/common';
 import { RootStackParamList } from '../../navigation';
 import { Service } from '../../types';
+import { IconX } from '@tabler/icons-react-native';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'BookingFlow'>;
@@ -82,7 +83,7 @@ export function BookingFlowScreen({ navigation, route }: Props) {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Book Appointment"
-        leftIcon={<Text style={styles.closeIcon}>✕</Text>}
+        leftIcon={<IconX size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
 
@@ -338,7 +339,6 @@ export function BookingFlowScreen({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  closeIcon: { fontSize: 20, color: Colors.textPrimary },
   steps: {
     flexDirection: 'row',
     alignItems: 'center',

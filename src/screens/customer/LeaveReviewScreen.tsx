@@ -16,6 +16,7 @@ import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Button, Avatar, ScreenHeader, StarRating, Chip } from '../../components/common';
 import { RATING_DIMENSIONS, BEST_FOR_TAGS } from '../../constants';
 import { RootStackParamList } from '../../navigation';
+import { IconX } from '@tabler/icons-react-native';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'LeaveReview'>;
@@ -76,7 +77,7 @@ export function LeaveReviewScreen({ navigation, route }: Props) {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Leave a Review"
-        leftIcon={<Text style={styles.closeIcon}>✕</Text>}
+        leftIcon={<IconX size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
 
@@ -274,7 +275,6 @@ export function LeaveReviewScreen({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  closeIcon: { fontSize: 20, color: Colors.textPrimary },
   scroll: { padding: Spacing.base, gap: Spacing.xl, paddingBottom: Spacing['3xl'] },
   providerInfo: {
     flexDirection: 'row',

@@ -14,6 +14,7 @@ import { Colors, Typography, Spacing } from '../../theme';
 import { Button, Input, ScreenHeader } from '../../components/common';
 import { authService } from '../../services/supabase';
 import { RootStackParamList } from '../../navigation';
+import { IconArrowLeft } from '@tabler/icons-react-native';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Login'>;
@@ -61,7 +62,7 @@ export function LoginScreen({ navigation }: Props) {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Sign In"
-        leftIcon={<Text style={styles.backIcon}>←</Text>}
+        leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
       <ScrollView
@@ -148,5 +149,4 @@ const styles = StyleSheet.create({
     fontSize: Typography.sizes.base,
     fontWeight: Typography.weights.semibold,
   },
-  backIcon: { fontSize: 22, color: Colors.textPrimary },
 });

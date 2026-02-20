@@ -13,6 +13,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Button } from '../../components/common';
 import { RootStackParamList } from '../../navigation';
+import { IconHeartHandshake, IconMapPin, IconStar } from '@tabler/icons-react-native';
+import { CrowndLogo } from '../../components/brand/CrowndLogo';
 
 const { width, height } = Dimensions.get('window');
 
@@ -33,7 +35,7 @@ export function WelcomeScreen({ navigation }: Props) {
         {/* Logo */}
         <View style={styles.logoContainer}>
           <View style={styles.logoRing}>
-            <Text style={styles.logoEmoji}>👑</Text>
+            <CrowndLogo size={56} />
           </View>
           <Text style={styles.logoText}>CROWND</Text>
           <Text style={styles.logoTagline}>Your beauty network</Text>
@@ -41,9 +43,9 @@ export function WelcomeScreen({ navigation }: Props) {
 
         {/* Value props */}
         <View style={styles.valueProps}>
-          <ValueProp icon="🤝" title="Trusted Referrals" desc="Discover providers your friends actually love" />
-          <ValueProp icon="📍" title="Follow Your Favorites" desc="Stay connected when they move salons" />
-          <ValueProp icon="⭐" title="Personalized Ratings" desc="Ratings that match what you care about" />
+          <ValueProp icon={<IconHeartHandshake size={24} color={Colors.primary} strokeWidth={1.75} />} title="Trusted Referrals" desc="Discover providers your friends actually love" />
+          <ValueProp icon={<IconMapPin size={24} color={Colors.primary} strokeWidth={1.75} />} title="Follow Your Favorites" desc="Stay connected when they move salons" />
+          <ValueProp icon={<IconStar size={24} color={Colors.primary} strokeWidth={1.75} />} title="Personalized Ratings" desc="Ratings that match what you care about" />
         </View>
       </View>
 
@@ -69,11 +71,11 @@ export function WelcomeScreen({ navigation }: Props) {
   );
 }
 
-function ValueProp({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+function ValueProp({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
     <View style={styles.valueProp}>
       <View style={styles.valuePropIcon}>
-        <Text style={{ fontSize: 22 }}>{icon}</Text>
+        <View>{icon}</View>
       </View>
       <View style={styles.valuePropText}>
         <Text style={styles.valuePropTitle}>{title}</Text>
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
-    backgroundColor: `${Colors.secondary}12`,
+    backgroundColor: `${Colors.accent}12`,
     bottom: 200,
     left: -60,
   },
@@ -128,7 +130,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: Spacing.sm,
   },
-  logoEmoji: { fontSize: 42 },
   logoText: {
     fontSize: Typography.sizes['3xl'],
     fontWeight: Typography.weights.extrabold,

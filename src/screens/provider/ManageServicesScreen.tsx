@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Button, ScreenHeader, Badge } from '../../components/common';
 import { Service } from '../../types';
+import { IconArrowLeft, IconPlus } from '@tabler/icons-react-native';
 
 type Nav = { goBack: () => void };
 
@@ -69,9 +70,9 @@ export function ManageServicesScreen() {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Manage Services"
-        leftIcon={<Text style={styles.back}>←</Text>}
+        leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon={<Text style={styles.addIcon}>+</Text>}
+        rightIcon={<IconPlus size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onRightPress={() => setShowAddForm(true)}
       />
 
@@ -140,8 +141,6 @@ export function ManageServicesScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  back: { fontSize: 22, color: Colors.textPrimary },
-  addIcon: { fontSize: 26, color: Colors.primary, fontWeight: '700' },
   list: { padding: Spacing.base, gap: Spacing.md, paddingBottom: Spacing['3xl'] },
   addForm: {
     backgroundColor: Colors.surface, borderRadius: Radius.xl, padding: Spacing.base,

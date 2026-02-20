@@ -9,6 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, Badge, Button, ScreenHeader, EmptyState } from '../../components/common';
 import { RootStackParamList } from '../../navigation';
+import { IconArrowLeft, IconUserPlus } from '@tabler/icons-react-native';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
@@ -39,9 +40,9 @@ export function FriendsScreen() {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title="Friends"
-        leftIcon={<Text style={styles.backIcon}>←</Text>}
+        leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
-        rightIcon={<Text style={styles.addIcon}>+</Text>}
+        rightIcon={<IconUserPlus size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onRightPress={() => Alert.alert('Invite Friends', 'Share your invite link to bring friends to CROWND!')}
       />
 
@@ -100,7 +101,7 @@ export function FriendsScreen() {
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
-          <EmptyState icon="👥" title="No friends yet" message="Invite your friends to discover great providers together." />
+          <EmptyState icon="users" title="No friends yet" message="Invite your friends to discover great providers together." />
         }
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -140,8 +141,6 @@ export function FriendsScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  backIcon: { fontSize: 22, color: Colors.textPrimary },
-  addIcon: { fontSize: 26, color: Colors.primary, fontWeight: '700' },
   tabs: {
     flexDirection: 'row',
     marginHorizontal: Spacing.base,

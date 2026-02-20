@@ -7,19 +7,32 @@ import {
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, Button, EmptyState } from '../../components/common';
 import { AppNotification, NotificationType } from '../../types';
+import {
+  IconCircleCheck,
+  IconClock,
+  IconBell,
+  IconX,
+  IconMapPin,
+  IconUsers,
+  IconHeartHandshake,
+  IconSparkles,
+  IconStar,
+  IconFlame,
+  IconAlertCircle,
+} from '@tabler/icons-react-native';
 
-const NOTIFICATION_CONFIG: Record<NotificationType, { icon: string; color: string }> = {
-  booking_confirmed: { icon: '✅', color: Colors.success },
-  booking_reminder_24h: { icon: '⏰', color: Colors.warning },
-  booking_reminder_1h: { icon: '🔔', color: Colors.warning },
-  booking_cancelled: { icon: '❌', color: Colors.error },
-  provider_location_changed: { icon: '📍', color: Colors.primary },
-  friend_request: { icon: '👥', color: Colors.info },
-  friend_accepted: { icon: '🤝', color: Colors.success },
-  friend_added_provider: { icon: '✨', color: Colors.primary },
-  friend_reviewed_provider: { icon: '⭐', color: Colors.star },
-  rating_prompt: { icon: '⭐', color: Colors.star },
-  trending_alert: { icon: '🔥', color: Colors.secondary },
+const NOTIFICATION_CONFIG: Record<NotificationType, { icon: React.ReactNode; color: string }> = {
+  booking_confirmed: { icon: <IconCircleCheck size={22} color={Colors.success} strokeWidth={1.75} />, color: Colors.success },
+  booking_reminder_24h: { icon: <IconClock size={22} color={Colors.warning} strokeWidth={1.75} />, color: Colors.warning },
+  booking_reminder_1h: { icon: <IconBell size={22} color={Colors.warning} strokeWidth={1.75} />, color: Colors.warning },
+  booking_cancelled: { icon: <IconX size={22} color={Colors.error} strokeWidth={1.75} />, color: Colors.error },
+  provider_location_changed: { icon: <IconMapPin size={22} color={Colors.primary} strokeWidth={1.75} />, color: Colors.primary },
+  friend_request: { icon: <IconUsers size={22} color={Colors.info} strokeWidth={1.75} />, color: Colors.info },
+  friend_accepted: { icon: <IconHeartHandshake size={22} color={Colors.success} strokeWidth={1.75} />, color: Colors.success },
+  friend_added_provider: { icon: <IconSparkles size={22} color={Colors.primary} strokeWidth={1.75} />, color: Colors.primary },
+  friend_reviewed_provider: { icon: <IconStar size={22} color={Colors.star} strokeWidth={1.75} />, color: Colors.star },
+  rating_prompt: { icon: <IconStar size={22} color={Colors.star} strokeWidth={1.75} />, color: Colors.star },
+  trending_alert: { icon: <IconFlame size={22} color={Colors.accent} strokeWidth={1.75} />, color: Colors.accent },
 };
 
 const MOCK_NOTIFICATIONS: AppNotification[] = [
@@ -105,7 +118,7 @@ export function NotificationsScreen() {
 
       {notifications.length === 0 ? (
         <EmptyState
-          icon="🔔"
+          icon="bell"
           title="No notifications yet"
           message="We'll notify you about bookings, provider updates, and friend activity."
         />
@@ -124,7 +137,7 @@ export function NotificationsScreen() {
                 activeOpacity={0.85}
               >
                 <View style={[styles.iconWrap, { backgroundColor: `${config.color}20` }]}>
-                  <Text style={styles.notifIcon}>{config.icon}</Text>
+                  <View style={styles.notifIconInner}>{config.icon}</View>
                 </View>
                 <View style={styles.content}>
                   <View style={styles.contentHeader}>
@@ -160,7 +173,7 @@ const styles = StyleSheet.create({
   },
   card_unread: { borderColor: `${Colors.primary}50`, backgroundColor: `${Colors.primary}08` },
   iconWrap: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
-  notifIcon: { fontSize: 22 },
+  notifIconInner: { alignItems: 'center', justifyContent: 'center' },
   content: { flex: 1, gap: Spacing.xs },
   contentHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   notifTitle: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary, flex: 1 },

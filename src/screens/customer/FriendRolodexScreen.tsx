@@ -8,6 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, StarRating, Badge, Button, ScreenHeader } from '../../components/common';
+import { IconArrowLeft } from '@tabler/icons-react-native';
 import { RootStackParamList } from '../../navigation';
 
 type Props = {
@@ -37,7 +38,7 @@ export function FriendRolodexScreen({ navigation, route }: Props) {
     <SafeAreaView style={styles.container}>
       <ScreenHeader
         title={`${friendName}'s Rolodex`}
-        leftIcon={<Text style={styles.backIcon}>←</Text>}
+        leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
 
@@ -118,7 +119,6 @@ export function FriendRolodexScreen({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  backIcon: { fontSize: 22, color: Colors.textPrimary },
   friendHeader: {
     flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
     paddingHorizontal: Spacing.base, paddingBottom: Spacing.base,

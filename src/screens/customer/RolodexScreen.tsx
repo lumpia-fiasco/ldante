@@ -122,7 +122,7 @@ export function RolodexScreen() {
 
       {filtered.length === 0 ? (
         <EmptyState
-          icon="📋"
+          icon="clipboardList"
           title={entries.length === 0 ? 'Your Rolodex is empty' : 'No results'}
           message={
             entries.length === 0
