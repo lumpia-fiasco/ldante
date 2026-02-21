@@ -214,7 +214,12 @@ export function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#FFFFFF' } }}
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: '#FFFFFF' },
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+        }}
         initialRouteName="Welcome"
       >
         <Stack.Screen name="Welcome"          component={WelcomeScreen} />
