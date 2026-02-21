@@ -27,6 +27,7 @@ import { ProviderOnboardingScreen } from '../screens/provider/ProviderOnboarding
 import { DiscoverScreen } from '../screens/customer/DiscoverScreen';
 import { BookingsScreen } from '../screens/customer/BookingsScreen';
 import { NotificationsScreen } from '../screens/shared/NotificationsScreen';
+import { JonathanAIScreen } from '../screens/shared/JonathanAIScreen';
 import { SearchScreen } from '../screens/customer/SearchScreen';
 import { ProfileScreen } from '../screens/shared/ProfileScreen';
 import { RolodexScreen } from '../screens/customer/RolodexScreen';
@@ -182,7 +183,7 @@ function CustomerTabs() {
       <CustomerTab.Screen name="Feed"     component={DiscoverScreen} />
       <CustomerTab.Screen name="Bookings" component={BookingsScreen} />
       <CustomerTab.Screen name="Create"   component={DiscoverScreen} />
-      <CustomerTab.Screen name="Jonathan" component={NotificationsScreen} />
+      <CustomerTab.Screen name="Jonathan" component={JonathanAIScreen} />
       <CustomerTab.Screen name="Search"   component={SearchScreen} />
     </CustomerTab.Navigator>
   );
@@ -199,7 +200,7 @@ function ProviderTabs() {
       <ProviderTab.Screen name="Dashboard" component={ProviderDashboardScreen} />
       <ProviderTab.Screen name="Schedule"  component={ProviderScheduleScreen} />
       <ProviderTab.Screen name="Create"    component={ProviderDashboardScreen} />
-      <ProviderTab.Screen name="Jonathan"  component={NotificationsScreen} />
+      <ProviderTab.Screen name="Jonathan"  component={JonathanAIScreen} />
       <ProviderTab.Screen name="Search"    component={SearchScreen} />
     </ProviderTab.Navigator>
   );

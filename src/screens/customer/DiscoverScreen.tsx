@@ -224,14 +224,50 @@ const postStyles = StyleSheet.create({
 
 // ─── Friends Tab (Provider List) ───────────────────────────────────────────────
 
+// Each provider's services reflect what they actually offer
 const MOCK_PROVIDERS_FRIENDS = [
-  { id: 'p1', name: 'Carmela', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', services: ['💇‍♀️', '💈', '💪', '🐉', '🧖‍♀️', '👁', '💄'] },
-  { id: 'p2', name: 'Devon', location: 'Santa Ana, CA', avatar: 'https://randomuser.me/api/portraits/men/42.jpg', services: ['💇‍♀️', '💈', '💪', '🐉', '🧖‍♀️', '👁'] },
-  { id: 'p3', name: 'Jasmine', location: 'Irvine, CA', avatar: 'https://randomuser.me/api/portraits/women/22.jpg', services: ['💇‍♀️', '💈', '💪', '🐉', '🧖‍♀️', '💅', '👁', '💄'] },
-  { id: 'p4', name: 'Marcus', location: 'Anaheim, CA', avatar: 'https://randomuser.me/api/portraits/men/55.jpg', services: ['💇‍♀️', '💈', '💪', '🐉', '🧖‍♀️', '💅', '👁', '💄'] },
-  { id: 'p5', name: 'Aisha', location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', services: ['💇‍♀️', '💈', '💪', '🐉', '🧖‍♀️', '💅', '👁', '💄'] },
-  { id: 'p6', name: 'Tyler', location: 'Torrance, CA', avatar: 'https://randomuser.me/api/portraits/men/33.jpg', services: ['💇‍♀️', '💈', '💪', '🐉', '🧖‍♀️', '💅', '👁', '💄'] },
-  { id: 'p7', name: 'Brianna', location: 'Compton, CA', avatar: 'https://randomuser.me/api/portraits/women/17.jpg', services: ['💇‍♀️', '🐉', '🧖‍♀️', '💅', '💄'] },
+  {
+    id: 'p1', name: 'Carmela', location: 'Costa Mesa, CA',
+    avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+    specialty: 'Hair Stylist',
+    services: ['💇‍♀️ Braids', '💇‍♀️ Silk Press', '💇‍♀️ Cornrows', '💇‍♀️ Conditioning'],
+  },
+  {
+    id: 'p2', name: 'Devon', location: 'Santa Ana, CA',
+    avatar: 'https://randomuser.me/api/portraits/men/42.jpg',
+    specialty: 'Barber',
+    services: ['💈 Fade', '💈 Lineup', '💈 Taper', '💈 Shape-Up'],
+  },
+  {
+    id: 'p3', name: 'Jasmine', location: 'Irvine, CA',
+    avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
+    specialty: 'Nail Artist',
+    services: ['💅 Gel Manicure', '💅 Nail Art', '💅 Acrylics', '💅 Pedicure'],
+  },
+  {
+    id: 'p4', name: 'Marcus', location: 'Anaheim, CA',
+    avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
+    specialty: 'Massage Therapist',
+    services: ['🐉 Deep Tissue', '🐉 Swedish', '🐉 Hot Stone', '🐉 Sports Massage'],
+  },
+  {
+    id: 'p5', name: 'Aisha', location: 'Long Beach, CA',
+    avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
+    specialty: 'Esthetician',
+    services: ['🧖‍♀️ HydraFacial', '🧖‍♀️ Chemical Peel', '🧖‍♀️ Microdermabrasion', '🧖‍♀️ Brow Shaping'],
+  },
+  {
+    id: 'p6', name: 'Tyler', location: 'Torrance, CA',
+    avatar: 'https://randomuser.me/api/portraits/men/33.jpg',
+    specialty: 'Personal Trainer',
+    services: ['💪 HIIT', '💪 Strength Training', '💪 Mobility', '💪 Nutrition Coaching'],
+  },
+  {
+    id: 'p7', name: 'Brianna', location: 'Compton, CA',
+    avatar: 'https://randomuser.me/api/portraits/women/17.jpg',
+    specialty: 'Makeup Artist',
+    services: ['💄 Bridal Makeup', '💄 Editorial', '💄 Glam', '💄 Natural Look'],
+  },
 ];
 
 function FriendsTab({ navigation }: { navigation: Nav }) {
@@ -247,10 +283,13 @@ function FriendsTab({ navigation }: { navigation: Nav }) {
           <Image source={{ uri: provider.avatar }} style={friendStyles.avatar} />
           <View style={friendStyles.info}>
             <Text style={friendStyles.name}>{provider.name}</Text>
+            <Text style={friendStyles.specialty}>{provider.specialty}</Text>
             <Text style={friendStyles.location}>{provider.location}</Text>
             <View style={friendStyles.services}>
-              {provider.services.map((emoji, i) => (
-                <Text key={i} style={friendStyles.serviceEmoji}>{emoji}</Text>
+              {provider.services.map((service, i) => (
+                <View key={i} style={friendStyles.serviceTag}>
+                  <Text style={friendStyles.serviceText}>{service}</Text>
+                </View>
               ))}
             </View>
           </View>
@@ -264,7 +303,7 @@ function FriendsTab({ navigation }: { navigation: Nav }) {
 const friendStyles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
     gap: Spacing.md,
@@ -272,11 +311,18 @@ const friendStyles = StyleSheet.create({
     borderBottomColor: Colors.borderLight,
   },
   avatar: { width: 64, height: 64, borderRadius: 32, backgroundColor: Colors.surfaceAlt },
-  info: { flex: 1, gap: 4 },
+  info: { flex: 1, gap: 2 },
   name: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  location: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  services: { flexDirection: 'row', flexWrap: 'wrap', gap: 4, marginTop: 4 },
-  serviceEmoji: { fontSize: 22 },
+  specialty: { fontSize: Typography.sizes.sm, color: Colors.secondary, fontWeight: Typography.weights.medium },
+  location: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginBottom: 6 },
+  services: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
+  serviceTag: {
+    backgroundColor: Colors.surfaceAlt,
+    borderRadius: Radius.full,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 2,
+  },
+  serviceText: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
 });
 
 // ─── Services Tab ──────────────────────────────────────────────────────────────

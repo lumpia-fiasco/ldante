@@ -4,6 +4,7 @@ import {
   View, Text, StyleSheet, FlatList,
   TouchableOpacity, Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, Button, EmptyState } from '../../components/common';
 import { AppNotification, NotificationType } from '../../types';
@@ -75,6 +76,7 @@ const MOCK_NOTIFICATIONS: AppNotification[] = [
 ];
 
 export function NotificationsScreen() {
+  const navigation = useNavigation();
   const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
@@ -109,11 +111,20 @@ export function NotificationsScreen() {
             <Text style={styles.unreadCount}>{unreadCount} unread</Text>
           )}
         </View>
-        {unreadCount > 0 && (
-          <TouchableOpacity onPress={markAllRead}>
-            <Text style={styles.markAllBtn}>Mark all read</Text>
+        <View style={styles.headerRight}>
+          {unreadCount > 0 && (
+            <TouchableOpacity onPress={markAllRead}>
+              <Text style={styles.markAllBtn}>Mark all read</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity
+            style={styles.closeBtn}
+            onPress={() => navigation.canGoBack() ? navigation.goBack() : null}
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          >
+            <IconX size={20} color={Colors.textPrimary} strokeWidth={2} />
           </TouchableOpacity>
-        )}
+        </View>
       </View>
 
       {notifications.length === 0 ? (
@@ -161,6 +172,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start',
     padding: Spacing.base,
+  },
+  headerRight: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.base,
+  },
+  closeBtn: {
+    width: 36, height: 36, borderRadius: 18,
+    backgroundColor: Colors.surfaceAlt,
+    alignItems: 'center', justifyContent: 'center',
   },
   title: { fontSize: Typography.sizes['2xl'], fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
   unreadCount: { fontSize: Typography.sizes.sm, color: Colors.primary },
