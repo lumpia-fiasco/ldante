@@ -1,5 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -7,166 +7,122 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Modal,
+  TextInput,
+  Alert,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  FlatList,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
-import { Avatar } from '../../components/common';
 import { RootStackParamList } from '../../navigation';
-import { IconBell, IconMenu2, IconHeart, IconHeartFilled } from '@tabler/icons-react-native';
+import {
+  IconBell, IconMenu2, IconHeart, IconHeartFilled,
+  IconX, IconPhone, IconAddressBook, IconUserPlus, IconPlus,
+} from '@tabler/icons-react-native';
 import { CrowndLogo } from '../../components/brand/CrowndLogo';
+import * as SMS from 'expo-sms';
+import * as Contacts from 'expo-contacts';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
 // ─── Mock Friends ──────────────────────────────────────────────────────────────
-// These are the logged-in user's actual friends. The Friends tab shows this list.
 
 const MOCK_FRIENDS = [
-  {
-    id: 'f1',
-    name: 'Sarah Kim',
-    avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
-    providerCount: 4,
-    mutualCount: 2,
-  },
-  {
-    id: 'f2',
-    name: 'Emily Rodriguez',
-    avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
-    providerCount: 2,
-    mutualCount: 1,
-  },
-  {
-    id: 'f3',
-    name: 'Lisa Morgan',
-    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
-    providerCount: 3,
-    mutualCount: 3,
-  },
-  {
-    id: 'f4',
-    name: 'Amanda Chen',
-    avatar: 'https://randomuser.me/api/portraits/women/28.jpg',
-    providerCount: 1,
-    mutualCount: 0,
-  },
-  {
-    id: 'f5',
-    name: 'Martina Garcia',
-    avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
-    providerCount: 5,
-    mutualCount: 1,
-  },
+  { id: 'f1', name: 'Sarah Kim',      avatar: 'https://randomuser.me/api/portraits/women/55.jpg', providerCount: 4, mutualCount: 2 },
+  { id: 'f2', name: 'Emily Rodriguez',avatar: 'https://randomuser.me/api/portraits/women/33.jpg', providerCount: 2, mutualCount: 1 },
+  { id: 'f3', name: 'Lisa Morgan',    avatar: 'https://randomuser.me/api/portraits/women/12.jpg', providerCount: 3, mutualCount: 3 },
+  { id: 'f4', name: 'Amanda Chen',    avatar: 'https://randomuser.me/api/portraits/women/28.jpg', providerCount: 1, mutualCount: 0 },
+  { id: 'f5', name: 'Martina Garcia', avatar: 'https://randomuser.me/api/portraits/women/32.jpg', providerCount: 5, mutualCount: 1 },
+];
+
+// ─── Mock "CROWND users" lookup by phone ───────────────────────────────────────
+// Simulates a server-side check: if someone's phone is in the system,
+// return their profile so the user can add them directly.
+
+type CrowndUser = { id: string; name: string; avatar: string; type: 'friend' | 'provider'; specialty?: string; location?: string };
+
+const CROWND_USERS_BY_PHONE: Record<string, CrowndUser> = {
+  '5550001111': { id: 'f6', name: 'Priya Nair',   avatar: 'https://randomuser.me/api/portraits/women/61.jpg', type: 'friend' },
+  '5550002222': { id: 'f7', name: 'Tanya Brooks',  avatar: 'https://randomuser.me/api/portraits/women/72.jpg', type: 'friend' },
+  '5550003333': { id: 'p1', name: 'Carmela',       avatar: 'https://randomuser.me/api/portraits/women/68.jpg', type: 'provider', specialty: 'Hair Braider',  location: 'Costa Mesa, CA' },
+  '5550004444': { id: 'p2', name: 'Devon',          avatar: 'https://randomuser.me/api/portraits/men/42.jpg',   type: 'provider', specialty: 'Barber',         location: 'Santa Ana, CA' },
+  '5550005555': { id: 'p3', name: 'Jasmine',        avatar: 'https://randomuser.me/api/portraits/women/22.jpg', type: 'provider', specialty: 'Nail Artist',    location: 'Irvine, CA' },
+  '5550006666': { id: 'p5', name: 'Aisha',          avatar: 'https://randomuser.me/api/portraits/women/91.jpg', type: 'provider', specialty: 'Esthetician',    location: 'Long Beach, CA' },
+};
+
+// ─── Mock providers (for "add service" system lookup by name) ──────────────────
+
+const MOCK_PROVIDERS = [
+  { id: 'p1', name: 'Carmela',  specialty: 'Hair Braider', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', category: 'hair' },
+  { id: 'p2', name: 'Devon',    specialty: 'Barber',       location: 'Santa Ana, CA',  avatar: 'https://randomuser.me/api/portraits/men/42.jpg',   category: 'barber' },
+  { id: 'p3', name: 'Jasmine',  specialty: 'Nail Artist',  location: 'Irvine, CA',     avatar: 'https://randomuser.me/api/portraits/women/22.jpg', category: 'nails' },
+  { id: 'p4', name: 'Marcus',   specialty: 'Massage Therapist', location: 'Anaheim, CA', avatar: 'https://randomuser.me/api/portraits/men/55.jpg', category: 'massage' },
+  { id: 'p5', name: 'Aisha',    specialty: 'Esthetician',  location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', category: 'esthetics' },
+  { id: 'p6', name: 'Tyler',    specialty: 'Personal Trainer', location: 'Torrance, CA', avatar: 'https://randomuser.me/api/portraits/men/33.jpg', category: 'fitness' },
+  { id: 'p7', name: 'Brianna',  specialty: 'Makeup Artist', location: 'Compton, CA',   avatar: 'https://randomuser.me/api/portraits/women/17.jpg', category: 'makeup' },
 ];
 
 // ─── Mock Feed Posts ───────────────────────────────────────────────────────────
-// Only posts from friends and providers the user follows.
-// customer.id links to MOCK_FRIENDS so the name/avatar taps open FriendProfile.
 
 const MOCK_POSTS = [
   {
     id: '1',
-    customer: {
-      id: 'f1',
-      name: 'Sarah Kim',
-      avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
-    },
-    provider: {
-      id: 'p1',
-      name: 'Carmela',
-      location: 'Costa Mesa, CA',
-      avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
-      service: '💇‍♀️',
-    },
+    customer: { id: 'f1', name: 'Sarah Kim',      avatar: 'https://randomuser.me/api/portraits/women/55.jpg' },
+    provider:  { id: 'p1', name: 'Carmela',        location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', service: '💇‍♀️' },
     photo: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80',
     tags: ['Goddess Braids', 'Shampoo', 'Color'],
     review: "Carmela did amazing with these braids! Best, hands-down. My hair has never been more healthy — she really knows how to take care of it.",
-    likes: 16,
-    liked: false,
+    likes: 16, liked: false,
   },
   {
     id: '2',
-    customer: {
-      id: 'f3',
-      name: 'Lisa Morgan',
-      avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
-    },
-    provider: {
-      id: 'p5',
-      name: 'Aisha',
-      location: 'Long Beach, CA',
-      avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
-      service: '🧖‍♀️',
-    },
+    customer: { id: 'f3', name: 'Lisa Morgan',    avatar: 'https://randomuser.me/api/portraits/women/12.jpg' },
+    provider:  { id: 'p5', name: 'Aisha',          location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', service: '🧖‍♀️' },
     photo: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80',
     tags: ['HydraFacial', 'Glow'],
     review: "Aisha is the skin whisperer. Left glowing like never before. I'm a forever client.",
-    likes: 31,
-    liked: false,
+    likes: 31, liked: false,
   },
   {
     id: '3',
-    customer: {
-      id: 'f5',
-      name: 'Martina Garcia',
-      avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
-    },
-    provider: {
-      id: 'p2',
-      name: 'Devon',
-      location: 'Santa Ana, CA',
-      avatar: 'https://randomuser.me/api/portraits/men/42.jpg',
-      service: '💈',
-    },
+    customer: { id: 'f5', name: 'Martina Garcia', avatar: 'https://randomuser.me/api/portraits/women/32.jpg' },
+    provider:  { id: 'p2', name: 'Devon',          location: 'Santa Ana, CA',  avatar: 'https://randomuser.me/api/portraits/men/42.jpg',   service: '💈' },
     photo: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80',
     tags: ['Fade', 'Lineup'],
     review: "Devon is hands down the best barber in OC. Got my husband going and now he won't go anywhere else.",
-    likes: 24,
-    liked: true,
+    likes: 24, liked: true,
   },
   {
     id: '4',
-    customer: {
-      id: 'f2',
-      name: 'Emily Rodriguez',
-      avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
-    },
-    provider: {
-      id: 'p6',
-      name: 'Tyler',
-      location: 'Torrance, CA',
-      avatar: 'https://randomuser.me/api/portraits/men/33.jpg',
-      service: '💪',
-    },
+    customer: { id: 'f2', name: 'Emily Rodriguez',avatar: 'https://randomuser.me/api/portraits/women/33.jpg' },
+    provider:  { id: 'p6', name: 'Tyler',          location: 'Torrance, CA',   avatar: 'https://randomuser.me/api/portraits/men/33.jpg',   service: '💪' },
     photo: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80',
     tags: ['HIIT', 'Personal Training'],
     review: "Tyler is the real deal. He pushes you just enough and the results speak for themselves. Month 3 and I'm a different person.",
-    likes: 19,
-    liked: false,
+    likes: 19, liked: false,
   },
   {
     id: '5',
-    customer: {
-      id: 'f1',
-      name: 'Sarah Kim',
-      avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
-    },
-    provider: {
-      id: 'p3',
-      name: 'Jasmine',
-      location: 'Irvine, CA',
-      avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
-      service: '💅',
-    },
+    customer: { id: 'f1', name: 'Sarah Kim',      avatar: 'https://randomuser.me/api/portraits/women/55.jpg' },
+    provider:  { id: 'p3', name: 'Jasmine',        location: 'Irvine, CA',     avatar: 'https://randomuser.me/api/portraits/women/22.jpg', service: '💅' },
     photo: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80',
     tags: ['Gel Manicure', 'Nail Art'],
     review: "Jasmine did the most beautiful set — clean, precise, and so cute. Already booked my next appointment.",
-    likes: 8,
-    liked: false,
+    likes: 8, liked: false,
   },
 ];
 
 const TABS = ['Feed', 'Friends', 'Services'];
+
+// ─── Helpers ───────────────────────────────────────────────────────────────────
+
+function normalizePhone(raw: string): string {
+  return raw.replace(/\D/g, '');
+}
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 
@@ -174,6 +130,8 @@ export function DiscoverScreen() {
   const navigation = useNavigation<Nav>();
   const [activeTab, setActiveTab] = useState('Feed');
   const [posts, setPosts] = useState(MOCK_POSTS);
+  const [addFriendVisible, setAddFriendVisible] = useState(false);
+  const [addServiceVisible, setAddServiceVisible] = useState(false);
 
   function toggleLike(id: string) {
     setPosts(prev => prev.map(p =>
@@ -202,9 +160,7 @@ export function DiscoverScreen() {
       <View style={styles.tabBar}>
         {TABS.map(tab => (
           <TouchableOpacity key={tab} style={styles.tab} onPress={() => setActiveTab(tab)}>
-            <Text style={[styles.tabText, activeTab === tab && styles.tabTextActive]}>
-              {tab}
-            </Text>
+            <Text style={[styles.tabText, activeTab === tab && styles.tabTextActive]}>{tab}</Text>
             {activeTab === tab && <View style={styles.tabUnderline} />}
           </TouchableOpacity>
         ))}
@@ -226,9 +182,551 @@ export function DiscoverScreen() {
         </ScrollView>
       )}
 
-      {activeTab === 'Friends' && <FriendsTab navigation={navigation} />}
-      {activeTab === 'Services' && <ServicesTab navigation={navigation} />}
+      {activeTab === 'Friends' && (
+        <FriendsTab
+          navigation={navigation}
+          onAddFriend={() => setAddFriendVisible(true)}
+        />
+      )}
+
+      {activeTab === 'Services' && (
+        <ServicesTab
+          navigation={navigation}
+          onAddService={() => setAddServiceVisible(true)}
+        />
+      )}
+
+      {/* Add Friend Modal */}
+      <AddFriendModal
+        visible={addFriendVisible}
+        onClose={() => setAddFriendVisible(false)}
+        navigation={navigation}
+      />
+
+      {/* Add Service Modal */}
+      <AddServiceModal
+        visible={addServiceVisible}
+        onClose={() => setAddServiceVisible(false)}
+        navigation={navigation}
+      />
     </SafeAreaView>
+  );
+}
+
+// ─── Add Friend Modal ──────────────────────────────────────────────────────────
+
+function AddFriendModal({ visible, onClose, navigation }: {
+  visible: boolean;
+  onClose: () => void;
+  navigation: Nav;
+}) {
+  const [phone, setPhone] = useState('');
+  const [searching, setSearching] = useState(false);
+  const [foundUser, setFoundUser] = useState<CrowndUser | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  function reset() {
+    setPhone('');
+    setFoundUser(null);
+    setNotFound(false);
+    setAdded(false);
+    setSearching(false);
+  }
+
+  function handleClose() {
+    reset();
+    onClose();
+  }
+
+  async function handleLookup() {
+    const digits = normalizePhone(phone);
+    if (digits.length < 10) {
+      Alert.alert('Invalid number', 'Please enter a 10-digit phone number.');
+      return;
+    }
+    setSearching(true);
+    setFoundUser(null);
+    setNotFound(false);
+    // Simulate network delay
+    await new Promise(r => setTimeout(r, 800));
+    const user = CROWND_USERS_BY_PHONE[digits] ?? null;
+    setSearching(false);
+    if (user) {
+      setFoundUser(user);
+    } else {
+      setNotFound(true);
+    }
+  }
+
+  async function handleSendInvite() {
+    const digits = normalizePhone(phone);
+    const available = await SMS.isAvailableAsync();
+    if (!available) {
+      Alert.alert('SMS not available', 'Your device cannot send text messages.');
+      return;
+    }
+    await SMS.sendSMSAsync(
+      [digits],
+      "Hey! I'm using CROWND to find and share the best local service providers. Join me — download the app at https://getcrownd.app 👑"
+    );
+  }
+
+  async function handlePickContact() {
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission denied', 'Allow contacts access in Settings to pick from your address book.');
+      return;
+    }
+    // On device this opens the native contact picker; for simulator we show the full list
+    const { data } = await Contacts.getContactsAsync({
+      fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
+    });
+    if (data.length === 0) {
+      Alert.alert('No contacts', 'No contacts found on your device.');
+      return;
+    }
+    // Show a simple alert-based picker (native contact picker requires expo-contact-picker)
+    const choices = data.slice(0, 10).map(c => ({
+      text: c.name ?? 'Unknown',
+      onPress: () => {
+        const num = c.phoneNumbers?.[0]?.number ?? '';
+        setPhone(num);
+      },
+    }));
+    choices.push({ text: 'Cancel', onPress: () => {} });
+    Alert.alert('Pick a contact', 'Select who you want to add', choices);
+  }
+
+  function handleAddProfile() {
+    if (!foundUser) return;
+    setAdded(true);
+    // In production this would call an API; here we just confirm
+  }
+
+  function handleViewProfile() {
+    if (!foundUser) return;
+    handleClose();
+    if (foundUser.type === 'friend') {
+      navigation.navigate('FriendProfile', { friendId: foundUser.id });
+    } else {
+      navigation.navigate('ProviderProfile', { providerId: foundUser.id });
+    }
+  }
+
+  return (
+    <Modal visible={visible} animationType="slide" transparent presentationStyle="overFullScreen">
+      <KeyboardAvoidingView
+        style={modalStyles.overlay}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <TouchableOpacity style={modalStyles.backdrop} activeOpacity={1} onPress={handleClose} />
+        <View style={modalStyles.sheet}>
+          {/* Handle */}
+          <View style={modalStyles.handle} />
+
+          {/* Title row */}
+          <View style={modalStyles.titleRow}>
+            <Text style={modalStyles.title}>Add a Friend</Text>
+            <TouchableOpacity onPress={handleClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+              <IconX size={20} color={Colors.textMuted} strokeWidth={2} />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={modalStyles.subtitle}>
+            Enter their phone number to see if they're on CROWND, or send them an invite.
+          </Text>
+
+          {/* Phone input */}
+          <View style={modalStyles.inputRow}>
+            <IconPhone size={18} color={Colors.textMuted} strokeWidth={1.75} />
+            <TextInput
+              style={modalStyles.input}
+              placeholder="Phone number"
+              placeholderTextColor={Colors.textMuted}
+              keyboardType="phone-pad"
+              value={phone}
+              onChangeText={t => { setPhone(t); setFoundUser(null); setNotFound(false); setAdded(false); }}
+              maxLength={14}
+            />
+            {phone.length > 0 && (
+              <TouchableOpacity onPress={() => { setPhone(''); setFoundUser(null); setNotFound(false); }}>
+                <IconX size={16} color={Colors.textMuted} strokeWidth={2} />
+              </TouchableOpacity>
+            )}
+          </View>
+
+          {/* Action buttons */}
+          <View style={modalStyles.buttonRow}>
+            <TouchableOpacity
+              style={[modalStyles.btn, modalStyles.btnPrimary, (!phone || searching) && modalStyles.btnDisabled]}
+              onPress={handleLookup}
+              disabled={!phone || searching}
+              activeOpacity={0.8}
+            >
+              {searching
+                ? <ActivityIndicator size="small" color={Colors.white} />
+                : <Text style={modalStyles.btnTextPrimary}>Search CROWND</Text>
+              }
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[modalStyles.btn, modalStyles.btnOutline]}
+              onPress={handlePickContact}
+              activeOpacity={0.8}
+            >
+              <IconAddressBook size={16} color={Colors.primary} strokeWidth={1.75} />
+              <Text style={modalStyles.btnTextOutline}>From Contacts</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Found a CROWND user */}
+          {foundUser && (
+            <View style={modalStyles.resultCard}>
+              <Image source={{ uri: foundUser.avatar }} style={modalStyles.resultAvatar} />
+              <View style={modalStyles.resultInfo}>
+                <Text style={modalStyles.resultName}>{foundUser.name}</Text>
+                <Text style={modalStyles.resultSub}>
+                  {foundUser.type === 'provider'
+                    ? `${foundUser.specialty} · ${foundUser.location}`
+                    : 'On CROWND'}
+                </Text>
+              </View>
+              <View style={modalStyles.resultActions}>
+                {!added ? (
+                  <TouchableOpacity style={modalStyles.addBtn} onPress={handleAddProfile} activeOpacity={0.8}>
+                    <IconUserPlus size={14} color={Colors.white} strokeWidth={2} />
+                    <Text style={modalStyles.addBtnText}>Add</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <Text style={modalStyles.addedText}>✓ Added</Text>
+                )}
+                <TouchableOpacity onPress={handleViewProfile} activeOpacity={0.7}>
+                  <Text style={modalStyles.viewBtn}>View →</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
+          {/* Not on CROWND — offer to send invite */}
+          {notFound && (
+            <View style={modalStyles.notFoundBox}>
+              <Text style={modalStyles.notFoundText}>
+                This number isn't on CROWND yet.
+              </Text>
+              <TouchableOpacity
+                style={[modalStyles.btn, modalStyles.btnPrimary, { marginTop: Spacing.sm }]}
+                onPress={handleSendInvite}
+                activeOpacity={0.8}
+              >
+                <Text style={modalStyles.btnTextPrimary}>Send Invite via Text 📲</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          <View style={{ height: Spacing.xl }} />
+        </View>
+      </KeyboardAvoidingView>
+    </Modal>
+  );
+}
+
+// ─── Add Service Modal ─────────────────────────────────────────────────────────
+
+function AddServiceModal({ visible, onClose, navigation }: {
+  visible: boolean;
+  onClose: () => void;
+  navigation: Nav;
+}) {
+  const [query, setQuery] = useState('');
+  const [phone, setPhone] = useState('');
+  const [mode, setMode] = useState<'search' | 'phone'>('search');
+  const [searching, setSearching] = useState(false);
+  const [foundUser, setFoundUser] = useState<CrowndUser | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  function reset() {
+    setQuery('');
+    setPhone('');
+    setFoundUser(null);
+    setNotFound(false);
+    setAdded(false);
+    setSearching(false);
+    setMode('search');
+  }
+
+  function handleClose() {
+    reset();
+    onClose();
+  }
+
+  // Name search — filter local MOCK_PROVIDERS
+  const nameResults = query.trim().length > 1
+    ? MOCK_PROVIDERS.filter(p =>
+        p.name.toLowerCase().includes(query.toLowerCase()) ||
+        p.specialty.toLowerCase().includes(query.toLowerCase())
+      )
+    : [];
+
+  // Phone lookup
+  async function handlePhoneLookup() {
+    const digits = normalizePhone(phone);
+    if (digits.length < 10) {
+      Alert.alert('Invalid number', 'Please enter a 10-digit phone number.');
+      return;
+    }
+    setSearching(true);
+    setFoundUser(null);
+    setNotFound(false);
+    await new Promise(r => setTimeout(r, 800));
+    const user = CROWND_USERS_BY_PHONE[digits] ?? null;
+    setSearching(false);
+    if (user && user.type === 'provider') {
+      setFoundUser(user);
+    } else if (user && user.type === 'friend') {
+      // Found a user but they're a customer, not a provider
+      setNotFound(true);
+    } else {
+      setNotFound(true);
+    }
+  }
+
+  async function handleSendProviderInvite() {
+    const digits = normalizePhone(phone);
+    const available = await SMS.isAvailableAsync();
+    if (!available) {
+      Alert.alert('SMS not available', 'Your device cannot send text messages.');
+      return;
+    }
+    await SMS.sendSMSAsync(
+      [digits],
+      "Hey! I use CROWND to manage my bookings and connect with clients. You should join — it's free for service providers: https://getcrownd.app 👑"
+    );
+  }
+
+  async function handlePickContact() {
+    const { status } = await Contacts.requestPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission denied', 'Allow contacts access in Settings to pick from your address book.');
+      return;
+    }
+    const { data } = await Contacts.getContactsAsync({
+      fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
+    });
+    if (data.length === 0) {
+      Alert.alert('No contacts', 'No contacts found.');
+      return;
+    }
+    const choices = data.slice(0, 10).map(c => ({
+      text: c.name ?? 'Unknown',
+      onPress: () => {
+        const num = c.phoneNumbers?.[0]?.number ?? '';
+        setPhone(num);
+        setMode('phone');
+      },
+    }));
+    choices.push({ text: 'Cancel', onPress: () => {} });
+    Alert.alert('Pick a contact', 'Select a provider to invite', choices);
+  }
+
+  function handleAddProvider(providerId: string) {
+    setAdded(true);
+    Alert.alert('Added!', 'Provider added to your Rolodex.');
+  }
+
+  function handleViewProvider(providerId: string) {
+    handleClose();
+    navigation.navigate('ProviderProfile', { providerId });
+  }
+
+  return (
+    <Modal visible={visible} animationType="slide" transparent presentationStyle="overFullScreen">
+      <KeyboardAvoidingView
+        style={modalStyles.overlay}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <TouchableOpacity style={modalStyles.backdrop} activeOpacity={1} onPress={handleClose} />
+        <View style={modalStyles.sheet}>
+          <View style={modalStyles.handle} />
+
+          <View style={modalStyles.titleRow}>
+            <Text style={modalStyles.title}>Add a Provider</Text>
+            <TouchableOpacity onPress={handleClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+              <IconX size={20} color={Colors.textMuted} strokeWidth={2} />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={modalStyles.subtitle}>
+            Search by name or look up by phone number. If they're not on CROWND yet, send them an invite.
+          </Text>
+
+          {/* Mode toggle */}
+          <View style={modalStyles.modeToggle}>
+            <TouchableOpacity
+              style={[modalStyles.modeBtn, mode === 'search' && modalStyles.modeBtnActive]}
+              onPress={() => setMode('search')}
+            >
+              <Text style={[modalStyles.modeBtnText, mode === 'search' && modalStyles.modeBtnTextActive]}>
+                Search by name
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[modalStyles.modeBtn, mode === 'phone' && modalStyles.modeBtnActive]}
+              onPress={() => setMode('phone')}
+            >
+              <Text style={[modalStyles.modeBtnText, mode === 'phone' && modalStyles.modeBtnTextActive]}>
+                By phone
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Name search mode */}
+          {mode === 'search' && (
+            <>
+              <View style={modalStyles.inputRow}>
+                <Text style={{ fontSize: 16 }}>🔍</Text>
+                <TextInput
+                  style={modalStyles.input}
+                  placeholder="Provider name or specialty..."
+                  placeholderTextColor={Colors.textMuted}
+                  value={query}
+                  onChangeText={setQuery}
+                  autoFocus
+                />
+                {query.length > 0 && (
+                  <TouchableOpacity onPress={() => setQuery('')}>
+                    <IconX size={16} color={Colors.textMuted} strokeWidth={2} />
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              {nameResults.length > 0 && (
+                <View style={modalStyles.nameResults}>
+                  {nameResults.map(p => (
+                    <View key={p.id} style={modalStyles.resultCard}>
+                      <Image source={{ uri: p.avatar }} style={modalStyles.resultAvatar} />
+                      <View style={modalStyles.resultInfo}>
+                        <Text style={modalStyles.resultName}>{p.name}</Text>
+                        <Text style={modalStyles.resultSub}>{p.specialty} · {p.location}</Text>
+                      </View>
+                      <View style={modalStyles.resultActions}>
+                        <TouchableOpacity style={modalStyles.addBtn} onPress={() => handleAddProvider(p.id)} activeOpacity={0.8}>
+                          <IconPlus size={14} color={Colors.white} strokeWidth={2} />
+                          <Text style={modalStyles.addBtnText}>Add</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleViewProvider(p.id)} activeOpacity={0.7}>
+                          <Text style={modalStyles.viewBtn}>View →</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              {query.trim().length > 1 && nameResults.length === 0 && (
+                <Text style={modalStyles.noResultsText}>No providers found for "{query}"</Text>
+              )}
+
+              <TouchableOpacity
+                style={[modalStyles.btn, modalStyles.btnOutline, { marginTop: Spacing.md }]}
+                onPress={handlePickContact}
+                activeOpacity={0.8}
+              >
+                <IconAddressBook size={16} color={Colors.primary} strokeWidth={1.75} />
+                <Text style={modalStyles.btnTextOutline}>Pick from Contacts</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
+          {/* Phone mode */}
+          {mode === 'phone' && (
+            <>
+              <View style={modalStyles.inputRow}>
+                <IconPhone size={18} color={Colors.textMuted} strokeWidth={1.75} />
+                <TextInput
+                  style={modalStyles.input}
+                  placeholder="Provider's phone number"
+                  placeholderTextColor={Colors.textMuted}
+                  keyboardType="phone-pad"
+                  value={phone}
+                  onChangeText={t => { setPhone(t); setFoundUser(null); setNotFound(false); }}
+                  maxLength={14}
+                />
+                {phone.length > 0 && (
+                  <TouchableOpacity onPress={() => { setPhone(''); setFoundUser(null); setNotFound(false); }}>
+                    <IconX size={16} color={Colors.textMuted} strokeWidth={2} />
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              <View style={modalStyles.buttonRow}>
+                <TouchableOpacity
+                  style={[modalStyles.btn, modalStyles.btnPrimary, (!phone || searching) && modalStyles.btnDisabled]}
+                  onPress={handlePhoneLookup}
+                  disabled={!phone || searching}
+                  activeOpacity={0.8}
+                >
+                  {searching
+                    ? <ActivityIndicator size="small" color={Colors.white} />
+                    : <Text style={modalStyles.btnTextPrimary}>Search CROWND</Text>
+                  }
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[modalStyles.btn, modalStyles.btnOutline]}
+                  onPress={handlePickContact}
+                  activeOpacity={0.8}
+                >
+                  <IconAddressBook size={16} color={Colors.primary} strokeWidth={1.75} />
+                  <Text style={modalStyles.btnTextOutline}>From Contacts</Text>
+                </TouchableOpacity>
+              </View>
+
+              {foundUser && (
+                <View style={modalStyles.resultCard}>
+                  <Image source={{ uri: foundUser.avatar }} style={modalStyles.resultAvatar} />
+                  <View style={modalStyles.resultInfo}>
+                    <Text style={modalStyles.resultName}>{foundUser.name}</Text>
+                    <Text style={modalStyles.resultSub}>{foundUser.specialty} · {foundUser.location}</Text>
+                  </View>
+                  <View style={modalStyles.resultActions}>
+                    {!added ? (
+                      <TouchableOpacity style={modalStyles.addBtn} onPress={() => handleAddProvider(foundUser.id)} activeOpacity={0.8}>
+                        <IconPlus size={14} color={Colors.white} strokeWidth={2} />
+                        <Text style={modalStyles.addBtnText}>Add</Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <Text style={modalStyles.addedText}>✓ Added</Text>
+                    )}
+                    <TouchableOpacity onPress={() => handleViewProvider(foundUser.id)} activeOpacity={0.7}>
+                      <Text style={modalStyles.viewBtn}>View →</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+
+              {notFound && (
+                <View style={modalStyles.notFoundBox}>
+                  <Text style={modalStyles.notFoundText}>
+                    This provider isn't on CROWND yet.
+                  </Text>
+                  <TouchableOpacity
+                    style={[modalStyles.btn, modalStyles.btnPrimary, { marginTop: Spacing.sm }]}
+                    onPress={handleSendProviderInvite}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={modalStyles.btnTextPrimary}>Invite them to CROWND 📲</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </>
+          )}
+
+          <View style={{ height: Spacing.xl }} />
+        </View>
+      </KeyboardAvoidingView>
+    </Modal>
   );
 }
 
@@ -242,22 +740,16 @@ function FeedPost({ post, onFriendPress, onProviderPress, onLike }: {
 }) {
   return (
     <View style={postStyles.card}>
-      {/* Post Header — friend name/avatar taps to their profile */}
       <View style={postStyles.header}>
         <TouchableOpacity style={postStyles.headerLeft} onPress={onFriendPress} activeOpacity={0.7}>
           <Image source={{ uri: post.customer.avatar }} style={postStyles.customerAvatar} />
           <Text style={postStyles.customerName}>{post.customer.name}</Text>
         </TouchableOpacity>
-        {/* Service emoji taps to provider profile */}
         <TouchableOpacity onPress={onProviderPress} activeOpacity={0.7}>
           <Text style={postStyles.serviceEmoji}>{post.provider.service}</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Photo */}
       <Image source={{ uri: post.photo }} style={postStyles.photo} />
-
-      {/* Tags */}
       <View style={postStyles.tags}>
         {post.tags.map(tag => (
           <View key={tag} style={postStyles.tag}>
@@ -265,8 +757,6 @@ function FeedPost({ post, onFriendPress, onProviderPress, onLike }: {
           </View>
         ))}
       </View>
-
-      {/* Provider Info — taps to provider profile */}
       <TouchableOpacity style={postStyles.providerRow} onPress={onProviderPress} activeOpacity={0.7}>
         <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
         <View style={{ flex: 1 }}>
@@ -275,11 +765,7 @@ function FeedPost({ post, onFriendPress, onProviderPress, onLike }: {
         </View>
         <Text style={postStyles.viewProfile}>View →</Text>
       </TouchableOpacity>
-
-      {/* Review Text */}
       <Text style={postStyles.review}>{post.review}</Text>
-
-      {/* Like */}
       <TouchableOpacity style={postStyles.likeRow} onPress={onLike} activeOpacity={0.7}>
         {post.liked
           ? <IconHeartFilled size={22} color={Colors.like} />
@@ -293,20 +779,13 @@ function FeedPost({ post, onFriendPress, onProviderPress, onLike }: {
 
 const postStyles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.surface,
-    marginBottom: Spacing.sm,
-    borderRadius: Radius.xl,
-    overflow: 'hidden',
-    marginHorizontal: Spacing.base,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors.surface, marginBottom: Spacing.sm,
+    borderRadius: Radius.xl, overflow: 'hidden',
+    marginHorizontal: Spacing.base, borderWidth: 1, borderColor: Colors.border,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: Spacing.base,
-    paddingVertical: Spacing.md,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
   },
   headerLeft: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
   customerAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
@@ -314,13 +793,7 @@ const postStyles = StyleSheet.create({
   serviceEmoji: { fontSize: 32 },
   photo: { width: '100%', height: 280, backgroundColor: Colors.surfaceAlt },
   tags: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, padding: Spacing.base, paddingBottom: Spacing.sm },
-  tag: {
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: Radius.full,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-  },
+  tag: { borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full, paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs },
   tagText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
   providerRow: {
     flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
@@ -336,13 +809,19 @@ const postStyles = StyleSheet.create({
 });
 
 // ─── Friends Tab ───────────────────────────────────────────────────────────────
-// Shows your actual friends — no occupations, just name, mutual count, provider count.
-// Tapping navigates to FriendProfile.
 
-function FriendsTab({ navigation }: { navigation: Nav }) {
+function FriendsTab({ navigation, onAddFriend }: { navigation: Nav; onAddFriend: () => void }) {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-      <Text style={friendStyles.sectionLabel}>Your Friends</Text>
+      {/* Section header row with Add Friend button */}
+      <View style={friendStyles.sectionRow}>
+        <Text style={friendStyles.sectionLabel}>Your Friends</Text>
+        <TouchableOpacity style={friendStyles.addBtn} onPress={onAddFriend} activeOpacity={0.8}>
+          <IconUserPlus size={13} color={Colors.primary} strokeWidth={2} />
+          <Text style={friendStyles.addBtnText}>Add Friend</Text>
+        </TouchableOpacity>
+      </View>
+
       {MOCK_FRIENDS.map(friend => (
         <TouchableOpacity
           key={friend.id}
@@ -366,24 +845,40 @@ function FriendsTab({ navigation }: { navigation: Nav }) {
 }
 
 const friendStyles = StyleSheet.create({
+  sectionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.base,
+    paddingBottom: Spacing.sm,
+  },
   sectionLabel: {
     fontSize: Typography.sizes.sm,
     fontWeight: Typography.weights.semibold,
     color: Colors.textMuted,
-    paddingHorizontal: Spacing.base,
-    paddingTop: Spacing.base,
-    paddingBottom: Spacing.sm,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
-  row: {
+  addBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: Spacing.base,
-    paddingVertical: Spacing.md,
-    gap: Spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.borderLight,
+    gap: 4,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: Radius.full,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: 5,
+  },
+  addBtnText: {
+    fontSize: Typography.sizes.xs,
+    fontWeight: Typography.weights.semibold,
+    color: Colors.primary,
+  },
+  row: {
+    flexDirection: 'row', alignItems: 'center',
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
+    gap: Spacing.md, borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
   },
   avatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: Colors.surfaceAlt },
   info: { flex: 1 },
@@ -395,20 +890,29 @@ const friendStyles = StyleSheet.create({
 // ─── Services Tab ──────────────────────────────────────────────────────────────
 
 const SERVICE_CATEGORIES = [
-  { key: 'hair', label: 'Hair', emoji: '💇‍♀️' },
-  { key: 'barber', label: 'Barber', emoji: '💈' },
-  { key: 'fitness', label: 'Fitness', emoji: '💪' },
-  { key: 'massage', label: 'Massage', emoji: '💆' },
+  { key: 'hair',      label: 'Hair',      emoji: '💇‍♀️' },
+  { key: 'barber',    label: 'Barber',    emoji: '💈' },
+  { key: 'fitness',   label: 'Fitness',   emoji: '💪' },
+  { key: 'massage',   label: 'Massage',   emoji: '💆' },
   { key: 'esthetics', label: 'Esthetics', emoji: '🧖‍♀️' },
-  { key: 'nails', label: 'Nails', emoji: '💅' },
-  { key: 'lashes', label: 'Lashes', emoji: '👁' },
-  { key: 'makeup', label: 'Makeup', emoji: '💄' },
-  { key: 'tattoo', label: 'Tattoo', emoji: '🐉' },
+  { key: 'nails',     label: 'Nails',     emoji: '💅' },
+  { key: 'lashes',    label: 'Lashes',    emoji: '👁' },
+  { key: 'makeup',    label: 'Makeup',    emoji: '💄' },
+  { key: 'tattoo',    label: 'Tattoo',    emoji: '🐉' },
 ];
 
-function ServicesTab({ navigation }: { navigation: Nav }) {
+function ServicesTab({ navigation, onAddService }: { navigation: Nav; onAddService: () => void }) {
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, padding: Spacing.base }}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      {/* Section header row with Add Provider button */}
+      <View style={friendStyles.sectionRow}>
+        <Text style={friendStyles.sectionLabel}>Browse Services</Text>
+        <TouchableOpacity style={friendStyles.addBtn} onPress={onAddService} activeOpacity={0.8}>
+          <IconPlus size={13} color={Colors.primary} strokeWidth={2} />
+          <Text style={friendStyles.addBtnText}>Add Provider</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={servicesStyles.grid}>
         {SERVICE_CATEGORIES.map(cat => (
           <TouchableOpacity
@@ -422,24 +926,120 @@ function ServicesTab({ navigation }: { navigation: Nav }) {
           </TouchableOpacity>
         ))}
       </View>
+      <View style={{ height: 110 }} />
     </ScrollView>
   );
 }
 
 const servicesStyles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.md },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.md, padding: Spacing.base, paddingTop: Spacing.sm },
   cell: {
-    width: '47%',
-    backgroundColor: Colors.surface,
-    borderRadius: Radius.xl,
-    padding: Spacing.xl,
-    alignItems: 'center',
-    gap: Spacing.sm,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    width: '47%', backgroundColor: Colors.surface,
+    borderRadius: Radius.xl, padding: Spacing.xl,
+    alignItems: 'center', gap: Spacing.sm,
+    borderWidth: 1, borderColor: Colors.border,
   },
   emoji: { fontSize: 40 },
   label: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+});
+
+// ─── Modal Styles ──────────────────────────────────────────────────────────────
+
+const modalStyles = StyleSheet.create({
+  overlay: { flex: 1, justifyContent: 'flex-end' },
+  backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.45)' },
+  sheet: {
+    backgroundColor: Colors.background,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.sm,
+    maxHeight: '85%',
+  },
+  handle: {
+    width: 40, height: 4, borderRadius: 2,
+    backgroundColor: Colors.border,
+    alignSelf: 'center',
+    marginBottom: Spacing.base,
+  },
+  titleRow: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    marginBottom: Spacing.xs,
+  },
+  title: { fontSize: Typography.sizes.lg, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  subtitle: {
+    fontSize: Typography.sizes.sm, color: Colors.textSecondary,
+    lineHeight: 20, marginBottom: Spacing.lg,
+  },
+
+  // Mode toggle
+  modeToggle: {
+    flexDirection: 'row', borderRadius: Radius.lg,
+    backgroundColor: Colors.surfaceAlt,
+    padding: 3, marginBottom: Spacing.md,
+  },
+  modeBtn: {
+    flex: 1, paddingVertical: Spacing.sm,
+    borderRadius: Radius.md, alignItems: 'center',
+  },
+  modeBtnActive: { backgroundColor: Colors.surface, shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 4, shadowOffset: { width: 0, height: 1 }, elevation: 2 },
+  modeBtnText: { fontSize: Typography.sizes.sm, color: Colors.textMuted, fontWeight: Typography.weights.medium },
+  modeBtnTextActive: { color: Colors.textPrimary, fontWeight: Typography.weights.semibold },
+
+  // Input
+  inputRow: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.sm,
+    backgroundColor: Colors.surface, borderRadius: Radius.lg,
+    paddingHorizontal: Spacing.md, paddingVertical: Spacing.sm,
+    borderWidth: 1, borderColor: Colors.border,
+    marginBottom: Spacing.md,
+  },
+  input: {
+    flex: 1, fontSize: Typography.sizes.base,
+    color: Colors.textPrimary, paddingVertical: Spacing.xs,
+  },
+
+  // Buttons
+  buttonRow: { flexDirection: 'row', gap: Spacing.sm, marginBottom: Spacing.md },
+  btn: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    gap: Spacing.xs, paddingVertical: Spacing.md, borderRadius: Radius.lg,
+  },
+  btnPrimary: { backgroundColor: Colors.primary },
+  btnOutline: { borderWidth: 1, borderColor: Colors.primary, backgroundColor: 'transparent' },
+  btnDisabled: { opacity: 0.5 },
+  btnTextPrimary: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.semibold, color: Colors.white },
+  btnTextOutline: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.semibold, color: Colors.primary },
+
+  // Result card
+  nameResults: { marginBottom: Spacing.md, gap: Spacing.sm },
+  resultCard: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
+    backgroundColor: Colors.surface, borderRadius: Radius.xl,
+    padding: Spacing.md, borderWidth: 1, borderColor: Colors.border,
+    marginBottom: Spacing.sm,
+  },
+  resultAvatar: { width: 48, height: 48, borderRadius: 24, backgroundColor: Colors.surfaceAlt },
+  resultInfo: { flex: 1 },
+  resultName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  resultSub: { fontSize: Typography.sizes.xs, color: Colors.textSecondary, marginTop: 2 },
+  resultActions: { alignItems: 'flex-end', gap: Spacing.xs },
+  addBtn: {
+    flexDirection: 'row', alignItems: 'center', gap: 4,
+    backgroundColor: Colors.primary, borderRadius: Radius.full,
+    paddingHorizontal: Spacing.md, paddingVertical: 5,
+  },
+  addBtnText: { fontSize: Typography.sizes.xs, fontWeight: Typography.weights.semibold, color: Colors.white },
+  addedText: { fontSize: Typography.sizes.xs, fontWeight: Typography.weights.semibold, color: Colors.primary },
+  viewBtn: { fontSize: Typography.sizes.xs, color: Colors.primary, fontWeight: Typography.weights.medium },
+
+  // Not found
+  notFoundBox: {
+    backgroundColor: Colors.surfaceAlt, borderRadius: Radius.xl,
+    padding: Spacing.md, marginBottom: Spacing.md,
+  },
+  notFoundText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, textAlign: 'center' },
+  noResultsText: { fontSize: Typography.sizes.sm, color: Colors.textMuted, textAlign: 'center', paddingVertical: Spacing.md },
 });
 
 // ─── Main Styles ───────────────────────────────────────────────────────────────
@@ -447,42 +1047,29 @@ const servicesStyles = StyleSheet.create({
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: Spacing.base,
-    paddingVertical: Spacing.sm,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.sm,
     backgroundColor: Colors.background,
   },
   headerLeft: { flexDirection: 'row', alignItems: 'center' },
   headerRight: { flexDirection: 'row', gap: Spacing.base, alignItems: 'center' },
   headerBtn: { padding: Spacing.xs },
   tabBar: {
-    flexDirection: 'row',
-    paddingHorizontal: Spacing.base,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    flexDirection: 'row', paddingHorizontal: Spacing.base,
+    borderBottomWidth: 1, borderBottomColor: Colors.border,
     backgroundColor: Colors.background,
   },
   tab: { marginRight: Spacing.xl, paddingBottom: Spacing.sm, position: 'relative' },
   tabText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.medium, color: Colors.textMuted },
   tabTextActive: { color: Colors.textPrimary, fontWeight: Typography.weights.bold },
   tabUnderline: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 2,
-    backgroundColor: Colors.textPrimary,
-    borderRadius: 1,
+    position: 'absolute', bottom: 0, left: 0, right: 0,
+    height: 2, backgroundColor: Colors.textPrimary, borderRadius: 1,
   },
   feed: { flex: 1, paddingTop: Spacing.sm },
   feedLabel: {
-    fontSize: Typography.sizes.xs,
-    color: Colors.textMuted,
-    fontWeight: Typography.weights.medium,
-    textAlign: 'center',
-    paddingBottom: Spacing.md,
-    letterSpacing: 0.3,
+    fontSize: Typography.sizes.xs, color: Colors.textMuted,
+    fontWeight: Typography.weights.medium, textAlign: 'center',
+    paddingBottom: Spacing.md, letterSpacing: 0.3,
   },
 });
