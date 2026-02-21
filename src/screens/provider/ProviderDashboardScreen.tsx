@@ -80,7 +80,7 @@ const MOCK_PROVIDERS_FRIENDS = [
     id: 'p4', name: 'Marcus', location: 'Anaheim, CA',
     avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
     specialty: 'Massage Therapist',
-    services: ['🐉 Deep Tissue', '🐉 Swedish', '🐉 Hot Stone', '🐉 Sports Massage'],
+    services: ['💆 Deep Tissue', '💆 Swedish', '💆 Hot Stone', '💆 Sports Massage'],
   },
   {
     id: 'p5', name: 'Aisha', location: 'Long Beach, CA',
@@ -106,11 +106,12 @@ const SERVICE_CATEGORIES = [
   { key: 'hair', label: 'Hair', emoji: '💇‍♀️' },
   { key: 'barber', label: 'Barber', emoji: '💈' },
   { key: 'fitness', label: 'Fitness', emoji: '💪' },
-  { key: 'massage', label: 'Massage', emoji: '🐉' },
+  { key: 'massage', label: 'Massage', emoji: '💆' },
   { key: 'esthetics', label: 'Esthetics', emoji: '🧖‍♀️' },
   { key: 'nails', label: 'Nails', emoji: '💅' },
   { key: 'lashes', label: 'Lashes', emoji: '👁' },
   { key: 'makeup', label: 'Makeup', emoji: '💄' },
+  { key: 'tattoo', label: 'Tattoo', emoji: '🐉' },
 ];
 
 // ─── Provider Dashboard Mock Data ──────────────────────────────────────────────

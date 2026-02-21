@@ -38,6 +38,7 @@ import { BookingFlowScreen } from '../screens/customer/BookingFlowScreen';
 import { LeaveReviewScreen } from '../screens/customer/LeaveReviewScreen';
 import { FriendsScreen } from '../screens/customer/FriendsScreen';
 import { FriendRolodexScreen } from '../screens/customer/FriendRolodexScreen';
+import { FriendProfileScreen } from '../screens/customer/FriendProfileScreen';
 
 // Provider Screens
 import { ProviderDashboardScreen } from '../screens/provider/ProviderDashboardScreen';
@@ -61,6 +62,7 @@ export type RootStackParamList = {
   BookingFlow: { providerId: string; serviceId?: string };
   LeaveReview: { bookingId: string };
   Friends: undefined;
+  FriendProfile: { friendId: string };
   FriendRolodex: { friendId: string; friendName: string };
   Search: { initialQuery?: string; category?: string };
   Notifications: undefined;
@@ -227,6 +229,7 @@ export function AppNavigator() {
         <Stack.Screen name="BookingFlow"      component={BookingFlowScreen} />
         <Stack.Screen name="LeaveReview"      component={LeaveReviewScreen} />
         <Stack.Screen name="Friends"          component={FriendsScreen} />
+        <Stack.Screen name="FriendProfile"    component={FriendProfileScreen} />
         <Stack.Screen name="FriendRolodex"    component={FriendRolodexScreen} />
         <Stack.Screen name="Notifications"    component={NotificationsScreen} />
         <Stack.Screen name="Profile"          component={ProfileScreen} />

@@ -108,10 +108,7 @@ export function FriendsScreen() {
             style={styles.friendCard}
             onPress={() =>
               tab === 'friends'
-                ? navigation.navigate('FriendRolodex', {
-                    friendId: item.id,
-                    friendName: item.full_name,
-                  })
+                ? navigation.navigate('FriendProfile', { friendId: item.id })
                 : undefined
             }
             activeOpacity={tab === 'friends' ? 0.8 : 1}
@@ -128,7 +125,7 @@ export function FriendsScreen() {
               )}
             </View>
             {tab === 'friends' ? (
-              <Text style={styles.viewRolodex}>View →</Text>
+              <Text style={styles.viewRolodex}>View profile →</Text>
             ) : (
               <Button label="Add" onPress={() => {}} size="sm" fullWidth={false} style={styles.addBtn} />
             )}

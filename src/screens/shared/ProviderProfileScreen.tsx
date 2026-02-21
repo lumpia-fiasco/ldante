@@ -180,7 +180,7 @@ const MOCK_PROVIDERS: Record<string, ProviderData> = {
     nextAvailable: 'Wednesday (2 slots)',
     serviceList: [
       {
-        category: '🐉 Therapeutic',
+        category: '💆 Therapeutic',
         items: [
           { name: 'Deep Tissue (60 min)', price: '$95.00' },
           { name: 'Deep Tissue (90 min)', price: '$135.00' },
@@ -189,7 +189,7 @@ const MOCK_PROVIDERS: Record<string, ProviderData> = {
         ],
       },
       {
-        category: '🐉 Relaxation',
+        category: '💆 Relaxation',
         items: [
           { name: 'Swedish (60 min)', price: '$85.00' },
           { name: 'Swedish (90 min)', price: '$120.00' },
