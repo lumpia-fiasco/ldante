@@ -39,6 +39,7 @@ import { LeaveReviewScreen } from '../screens/customer/LeaveReviewScreen';
 import { FriendsScreen } from '../screens/customer/FriendsScreen';
 import { FriendRolodexScreen } from '../screens/customer/FriendRolodexScreen';
 import { FriendProfileScreen } from '../screens/customer/FriendProfileScreen';
+import { CreatePostScreen } from '../screens/customer/CreatePostScreen';
 
 // Provider Screens
 import { ProviderDashboardScreen } from '../screens/provider/ProviderDashboardScreen';
@@ -69,6 +70,7 @@ export type RootStackParamList = {
   Profile: undefined;
   ManageServices: undefined;
   ProviderProfileEdit: undefined;
+  CreatePost: undefined;
 };
 
 export type CustomerTabParamList = {
@@ -128,17 +130,16 @@ function FloatingTabBar({ state, descriptors, navigation }: any) {
             }
           };
 
-          // ── Plus / Create button ──────────────────────────────────────────
+          // ── Plus / Create button — navigates to CreatePost screen ────────
           if (isCenter) {
             return (
               <TouchableOpacity
                 key={route.key}
-                onPress={onPress}
+                onPress={() => navigation.navigate('CreatePost')}
                 style={navStyles.plusTap}
                 activeOpacity={0.8}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
-                {/* Filled squircle SVG from spec */}
                 <PlusTabIcon size={40} color={ICON_ACTIVE} />
               </TouchableOpacity>
             );
@@ -240,6 +241,7 @@ export function AppNavigator() {
         <Stack.Screen name="Profile"          component={ProfileScreen} />
         <Stack.Screen name="ManageServices"   component={ManageServicesScreen} />
         <Stack.Screen name="ProviderProfileEdit" component={ProviderProfileEditScreen} />
+        <Stack.Screen name="CreatePost"       component={CreatePostScreen} options={{ gestureEnabled: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
