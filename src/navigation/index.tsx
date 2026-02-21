@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Platform, useColorScheme } from 'react-native';
 import { BlurView } from 'expo-blur';
 
 import {
@@ -44,11 +44,6 @@ import { ProviderScheduleScreen } from '../screens/provider/ProviderScheduleScre
 import { ProviderBookingsScreen } from '../screens/provider/ProviderBookingsScreen';
 import { ManageServicesScreen } from '../screens/provider/ManageServicesScreen';
 import { ProviderProfileEditScreen } from '../screens/provider/ProviderProfileEditScreen';
-
-// ─── Colors ────────────────────────────────────────────────────────────────────
-// Icon colors from spec SVGs
-const ICON_ACTIVE   = '#654D24';   // warm brown from SVG stroke/fill
-const ICON_INACTIVE = 'rgba(101, 77, 36, 0.40)'; // same, 40% opacity
 
 // ─── Route Types ───────────────────────────────────────────────────────────────
 
@@ -97,14 +92,21 @@ const ProviderTab = createBottomTabNavigator<ProviderTabParamList>();
 // Figma spec:
 //   display: inline-flex; padding: 8px 16px; gap: 24px; align-items: center
 //   border-radius: 8px
-//   background: rgba(255,255,255,0.60)
+//   background: rgba(255,255,255,0.80)
 //   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
 
 function FloatingTabBar({ state, descriptors, navigation }: any) {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  const ICON_ACTIVE   = isDark ? '#FFFFFF'              : '#654D24';
+  const ICON_INACTIVE = isDark ? 'rgba(255,255,255,0.40)' : 'rgba(101,77,36,0.40)';
+  const blurTint      = isDark ? 'dark'                 : 'light';
+
   return (
     <View style={navStyles.safeArea} pointerEvents="box-none">
       <BlurView
-        tint="light"
+        tint={blurTint}
         intensity={60}
         style={navStyles.pill}
       >
@@ -257,6 +259,7 @@ const navStyles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',         // clips blur to rounded corners
     // BlurView handles the background; keep a subtle tint on Android fallback
+    // (dark mode Android handled via blurTint on BlurView on iOS; Android uses this)
     backgroundColor: Platform.OS === 'android' ? 'rgba(255, 255, 255, 0.88)' : 'transparent',
     // shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
     shadowColor: '#000000',
