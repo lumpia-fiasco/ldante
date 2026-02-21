@@ -7,61 +7,162 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
+import { Avatar } from '../../components/common';
 import { RootStackParamList } from '../../navigation';
 import { IconBell, IconMenu2, IconHeart, IconHeartFilled } from '@tabler/icons-react-native';
 import { CrowndLogo } from '../../components/brand/CrowndLogo';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
-// ─── Mock Data ─────────────────────────────────────────────────────────────────
+// ─── Mock Friends ──────────────────────────────────────────────────────────────
+// These are the logged-in user's actual friends. The Friends tab shows this list.
 
-const SERVICE_EMOJI: Record<string, string> = {
-  hair: '💇‍♀️',
-  barber: '💈',
-  fitness: '💪',
-  massage: '💆',
-  esthetics: '🧖‍♀️',
-  nails: '💅',
-  lashes: '👁',
-  makeup: '💄',
-  tattoo: '🐉',
-};
+const MOCK_FRIENDS = [
+  {
+    id: 'f1',
+    name: 'Sarah Kim',
+    avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
+    providerCount: 4,
+    mutualCount: 2,
+  },
+  {
+    id: 'f2',
+    name: 'Emily Rodriguez',
+    avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
+    providerCount: 2,
+    mutualCount: 1,
+  },
+  {
+    id: 'f3',
+    name: 'Lisa Morgan',
+    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+    providerCount: 3,
+    mutualCount: 3,
+  },
+  {
+    id: 'f4',
+    name: 'Amanda Chen',
+    avatar: 'https://randomuser.me/api/portraits/women/28.jpg',
+    providerCount: 1,
+    mutualCount: 0,
+  },
+  {
+    id: 'f5',
+    name: 'Martina Garcia',
+    avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
+    providerCount: 5,
+    mutualCount: 1,
+  },
+];
+
+// ─── Mock Feed Posts ───────────────────────────────────────────────────────────
+// Only posts from friends and providers the user follows.
+// customer.id links to MOCK_FRIENDS so the name/avatar taps open FriendProfile.
 
 const MOCK_POSTS = [
   {
     id: '1',
-    customer: { name: 'LoLinda', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-    provider: { name: 'Carmela', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', id: 'p1', service: '💇‍♀️' },
+    customer: {
+      id: 'f1',
+      name: 'Sarah Kim',
+      avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
+    },
+    provider: {
+      id: 'p1',
+      name: 'Carmela',
+      location: 'Costa Mesa, CA',
+      avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+      service: '💇‍♀️',
+    },
     photo: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80',
     tags: ['Goddess Braids', 'Shampoo', 'Color'],
-    review: "Carmela did amazing with these braids! Best, hands-down. I think the best thing about all of this is that my hair has never been more healthy! Carmela knows how to take care of hair and keep it nice and healthy.",
+    review: "Carmela did amazing with these braids! Best, hands-down. My hair has never been more healthy — she really knows how to take care of it.",
     likes: 16,
     liked: false,
   },
   {
     id: '2',
-    customer: { name: 'LoLinda', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-    provider: { name: 'Carmela', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', id: 'p1', service: '💇‍♀️' },
-    photo: 'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=800&q=80',
-    tags: ['Box Braids', 'Shampoo'],
-    review: "She's so talented. Every time I leave feeling like a brand new person. 10/10 recommend!",
-    likes: 9,
+    customer: {
+      id: 'f3',
+      name: 'Lisa Morgan',
+      avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+    },
+    provider: {
+      id: 'p5',
+      name: 'Aisha',
+      location: 'Long Beach, CA',
+      avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
+      service: '🧖‍♀️',
+    },
+    photo: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80',
+    tags: ['HydraFacial', 'Glow'],
+    review: "Aisha is the skin whisperer. Left glowing like never before. I'm a forever client.",
+    likes: 31,
     liked: false,
   },
   {
     id: '3',
-    customer: { name: 'Martina', avatar: 'https://randomuser.me/api/portraits/women/32.jpg' },
-    provider: { name: 'Devon', location: 'Santa Ana, CA', avatar: 'https://randomuser.me/api/portraits/men/42.jpg', id: 'p2', service: '💈' },
+    customer: {
+      id: 'f5',
+      name: 'Martina Garcia',
+      avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
+    },
+    provider: {
+      id: 'p2',
+      name: 'Devon',
+      location: 'Santa Ana, CA',
+      avatar: 'https://randomuser.me/api/portraits/men/42.jpg',
+      service: '💈',
+    },
     photo: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80',
     tags: ['Fade', 'Lineup'],
-    review: "Devon is hands down the best barber I've found. Clean fade every time.",
+    review: "Devon is hands down the best barber in OC. Got my husband going and now he won't go anywhere else.",
     likes: 24,
     liked: true,
+  },
+  {
+    id: '4',
+    customer: {
+      id: 'f2',
+      name: 'Emily Rodriguez',
+      avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
+    },
+    provider: {
+      id: 'p6',
+      name: 'Tyler',
+      location: 'Torrance, CA',
+      avatar: 'https://randomuser.me/api/portraits/men/33.jpg',
+      service: '💪',
+    },
+    photo: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80',
+    tags: ['HIIT', 'Personal Training'],
+    review: "Tyler is the real deal. He pushes you just enough and the results speak for themselves. Month 3 and I'm a different person.",
+    likes: 19,
+    liked: false,
+  },
+  {
+    id: '5',
+    customer: {
+      id: 'f1',
+      name: 'Sarah Kim',
+      avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
+    },
+    provider: {
+      id: 'p3',
+      name: 'Jasmine',
+      location: 'Irvine, CA',
+      avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
+      service: '💅',
+    },
+    photo: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80',
+    tags: ['Gel Manicure', 'Nail Art'],
+    review: "Jasmine did the most beautiful set — clean, precise, and so cute. Already booked my next appointment.",
+    likes: 8,
+    liked: false,
   },
 ];
 
@@ -111,12 +212,14 @@ export function DiscoverScreen() {
 
       {activeTab === 'Feed' && (
         <ScrollView showsVerticalScrollIndicator={false} style={styles.feed}>
+          <Text style={styles.feedLabel}>Posts from your friends & providers</Text>
           {posts.map(post => (
             <FeedPost
               key={post.id}
               post={post}
-              onLike={() => toggleLike(post.id)}
+              onFriendPress={() => navigation.navigate('FriendProfile', { friendId: post.customer.id })}
               onProviderPress={() => navigation.navigate('ProviderProfile', { providerId: post.provider.id })}
+              onLike={() => toggleLike(post.id)}
             />
           ))}
           <View style={{ height: 110 }} />
@@ -131,20 +234,24 @@ export function DiscoverScreen() {
 
 // ─── Feed Post ─────────────────────────────────────────────────────────────────
 
-function FeedPost({ post, onLike, onProviderPress }: {
+function FeedPost({ post, onFriendPress, onProviderPress, onLike }: {
   post: typeof MOCK_POSTS[0];
-  onLike: () => void;
+  onFriendPress: () => void;
   onProviderPress: () => void;
+  onLike: () => void;
 }) {
   return (
     <View style={postStyles.card}>
-      {/* Post Header */}
+      {/* Post Header — friend name/avatar taps to their profile */}
       <View style={postStyles.header}>
-        <View style={postStyles.headerLeft}>
+        <TouchableOpacity style={postStyles.headerLeft} onPress={onFriendPress} activeOpacity={0.7}>
           <Image source={{ uri: post.customer.avatar }} style={postStyles.customerAvatar} />
           <Text style={postStyles.customerName}>{post.customer.name}</Text>
-        </View>
-        <Text style={postStyles.serviceEmoji}>{post.provider.service}</Text>
+        </TouchableOpacity>
+        {/* Service emoji taps to provider profile */}
+        <TouchableOpacity onPress={onProviderPress} activeOpacity={0.7}>
+          <Text style={postStyles.serviceEmoji}>{post.provider.service}</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Photo */}
@@ -159,13 +266,14 @@ function FeedPost({ post, onLike, onProviderPress }: {
         ))}
       </View>
 
-      {/* Provider Info */}
+      {/* Provider Info — taps to provider profile */}
       <TouchableOpacity style={postStyles.providerRow} onPress={onProviderPress} activeOpacity={0.7}>
         <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={postStyles.providerName}>{post.provider.name}</Text>
           <Text style={postStyles.providerLocation}>{post.provider.location}</Text>
         </View>
+        <Text style={postStyles.viewProfile}>View →</Text>
       </TouchableOpacity>
 
       {/* Review Text */}
@@ -214,86 +322,42 @@ const postStyles = StyleSheet.create({
     paddingVertical: Spacing.xs,
   },
   tagText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  providerRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md, paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm },
+  providerRow: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
+    paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm,
+  },
   providerAvatar: { width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.surfaceAlt },
   providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
   providerLocation: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
+  viewProfile: { fontSize: Typography.sizes.sm, color: Colors.primary, fontWeight: Typography.weights.medium },
   review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 22, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
   likeRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
   likeCount: { fontSize: Typography.sizes.base, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
 });
 
-// ─── Friends Tab (Provider List) ───────────────────────────────────────────────
-
-// Each provider's services reflect what they actually offer
-const MOCK_PROVIDERS_FRIENDS = [
-  {
-    id: 'p1', name: 'Carmela', location: 'Costa Mesa, CA',
-    avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
-    specialty: 'Hair Stylist',
-    services: ['💇‍♀️ Braids', '💇‍♀️ Silk Press', '💇‍♀️ Cornrows', '💇‍♀️ Conditioning'],
-  },
-  {
-    id: 'p2', name: 'Devon', location: 'Santa Ana, CA',
-    avatar: 'https://randomuser.me/api/portraits/men/42.jpg',
-    specialty: 'Barber',
-    services: ['💈 Fade', '💈 Lineup', '💈 Taper', '💈 Shape-Up'],
-  },
-  {
-    id: 'p3', name: 'Jasmine', location: 'Irvine, CA',
-    avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
-    specialty: 'Nail Artist',
-    services: ['💅 Gel Manicure', '💅 Nail Art', '💅 Acrylics', '💅 Pedicure'],
-  },
-  {
-    id: 'p4', name: 'Marcus', location: 'Anaheim, CA',
-    avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
-    specialty: 'Massage Therapist',
-    services: ['💆 Deep Tissue', '💆 Swedish', '💆 Hot Stone', '💆 Sports Massage'],
-  },
-  {
-    id: 'p5', name: 'Aisha', location: 'Long Beach, CA',
-    avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
-    specialty: 'Esthetician',
-    services: ['🧖‍♀️ HydraFacial', '🧖‍♀️ Chemical Peel', '🧖‍♀️ Microdermabrasion', '🧖‍♀️ Brow Shaping'],
-  },
-  {
-    id: 'p6', name: 'Tyler', location: 'Torrance, CA',
-    avatar: 'https://randomuser.me/api/portraits/men/33.jpg',
-    specialty: 'Personal Trainer',
-    services: ['💪 HIIT', '💪 Strength Training', '💪 Mobility', '💪 Nutrition Coaching'],
-  },
-  {
-    id: 'p7', name: 'Brianna', location: 'Compton, CA',
-    avatar: 'https://randomuser.me/api/portraits/women/17.jpg',
-    specialty: 'Makeup Artist',
-    services: ['💄 Bridal Makeup', '💄 Editorial', '💄 Glam', '💄 Natural Look'],
-  },
-];
+// ─── Friends Tab ───────────────────────────────────────────────────────────────
+// Shows your actual friends — no occupations, just name, mutual count, provider count.
+// Tapping navigates to FriendProfile.
 
 function FriendsTab({ navigation }: { navigation: Nav }) {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-      {MOCK_PROVIDERS_FRIENDS.map(provider => (
+      <Text style={friendStyles.sectionLabel}>Your Friends</Text>
+      {MOCK_FRIENDS.map(friend => (
         <TouchableOpacity
-          key={provider.id}
+          key={friend.id}
           style={friendStyles.row}
           activeOpacity={0.7}
-          onPress={() => navigation.navigate('ProviderProfile', { providerId: provider.id })}
+          onPress={() => navigation.navigate('FriendProfile', { friendId: friend.id })}
         >
-          <Image source={{ uri: provider.avatar }} style={friendStyles.avatar} />
+          <Image source={{ uri: friend.avatar }} style={friendStyles.avatar} />
           <View style={friendStyles.info}>
-            <Text style={friendStyles.name}>{provider.name}</Text>
-            <Text style={friendStyles.specialty}>{provider.specialty}</Text>
-            <Text style={friendStyles.location}>{provider.location}</Text>
-            <View style={friendStyles.services}>
-              {provider.services.map((service, i) => (
-                <View key={i} style={friendStyles.serviceTag}>
-                  <Text style={friendStyles.serviceText}>{service}</Text>
-                </View>
-              ))}
-            </View>
+            <Text style={friendStyles.name}>{friend.name}</Text>
+            <Text style={friendStyles.sub}>
+              {friend.providerCount} provider{friend.providerCount !== 1 ? 's' : ''} · {friend.mutualCount} mutual
+            </Text>
           </View>
+          <Text style={friendStyles.chevron}>View →</Text>
         </TouchableOpacity>
       ))}
       <View style={{ height: 110 }} />
@@ -302,28 +366,30 @@ function FriendsTab({ navigation }: { navigation: Nav }) {
 }
 
 const friendStyles = StyleSheet.create({
+  sectionLabel: {
+    fontSize: Typography.sizes.sm,
+    fontWeight: Typography.weights.semibold,
+    color: Colors.textMuted,
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.base,
+    paddingBottom: Spacing.sm,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
   row: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.md,
     gap: Spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderLight,
   },
-  avatar: { width: 64, height: 64, borderRadius: 32, backgroundColor: Colors.surfaceAlt },
-  info: { flex: 1, gap: 2 },
+  avatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: Colors.surfaceAlt },
+  info: { flex: 1 },
   name: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  specialty: { fontSize: Typography.sizes.sm, color: Colors.secondary, fontWeight: Typography.weights.medium },
-  location: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginBottom: 6 },
-  services: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
-  serviceTag: {
-    backgroundColor: Colors.surfaceAlt,
-    borderRadius: Radius.full,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: 2,
-  },
-  serviceText: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+  sub: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginTop: 2 },
+  chevron: { fontSize: Typography.sizes.sm, color: Colors.primary, fontWeight: Typography.weights.medium },
 });
 
 // ─── Services Tab ──────────────────────────────────────────────────────────────
@@ -410,5 +476,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.textPrimary,
     borderRadius: 1,
   },
-  feed: { flex: 1, paddingTop: Spacing.md },
+  feed: { flex: 1, paddingTop: Spacing.sm },
+  feedLabel: {
+    fontSize: Typography.sizes.xs,
+    color: Colors.textMuted,
+    fontWeight: Typography.weights.medium,
+    textAlign: 'center',
+    paddingBottom: Spacing.md,
+    letterSpacing: 0.3,
+  },
 });
