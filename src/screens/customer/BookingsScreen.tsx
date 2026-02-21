@@ -1,13 +1,14 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  
   FlatList,
   TouchableOpacity,
   Alert,
+  Platform,
+  ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,9 +26,23 @@ import {
   IconCircleCheck,
   IconX,
   IconAlertTriangle,
+  IconCalendarPlus,
+  IconCalendarCheck,
+  IconBolt,
 } from '@tabler/icons-react-native';
+import * as Calendar from 'expo-calendar';
 
 type Nav = StackNavigationProp<RootStackParamList>;
+
+// ─── Rating Guardrail Note ─────────────────────────────────────────────────────
+// Scoring uses a weighted model to protect providers from malicious reviewers.
+// See: src/utils/ratingGuardrail.ts for the full algorithm.
+// High-level: if a user's average submitted rating is >1.5σ below the
+// population mean AND they have submitted >10 ratings, their ratings receive a
+// reduced weight (min 0.2). This is applied server-side when computing provider
+// displayed scores so individual users are unaware of any downweighting.
+
+// ─── Mock Bookings ─────────────────────────────────────────────────────────────
 
 const MOCK_BOOKINGS: (Booking & { providerName: string; serviceName: string; locationName: string })[] = [
   {
@@ -66,9 +81,26 @@ const STATUS_CONFIG: Record<BookingStatus, { label: string; variant: any; icon: 
 
 type TabKey = 'upcoming' | 'past';
 
+// ─── Calendar State Types ──────────────────────────────────────────────────────
+
+type CalendarStatus = 'idle' | 'connecting' | 'connected' | 'denied';
+
+interface BusySlot {
+  start: Date;
+  end: Date;
+  title: string; // 'Busy' — we never show actual event titles for privacy
+}
+
+// ─── Main Screen ───────────────────────────────────────────────────────────────
+
 export function BookingsScreen() {
   const navigation = useNavigation<Nav>();
   const [tab, setTab] = useState<TabKey>('upcoming');
+
+  // Calendar state
+  const [calStatus, setCalStatus] = useState<CalendarStatus>('idle');
+  const [busySlots, setBusySlots] = useState<BusySlot[]>([]);
+  const [freeSuggestions, setFreeSuggestions] = useState<Date[]>([]);
 
   const now = new Date();
   const upcoming = MOCK_BOOKINGS.filter(
@@ -91,11 +123,117 @@ export function BookingsScreen() {
     );
   }
 
+  // ─── Smart Scheduling: Calendar Integration ──────────────────────────────────
+
+  async function connectCalendar() {
+    setCalStatus('connecting');
+    try {
+      // Request permission
+      const { status } = await Calendar.requestCalendarPermissionsAsync();
+      if (status !== 'granted') {
+        setCalStatus('denied');
+        Alert.alert(
+          'Calendar Access Denied',
+          'To use smart scheduling, allow CROWND to access your calendar in Settings → Privacy → Calendars.',
+          [{ text: 'OK' }]
+        );
+        return;
+      }
+
+      // Get all calendars (read-only)
+      const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+
+      // Fetch events for the next 30 days
+      const rangeStart = new Date();
+      const rangeEnd = new Date();
+      rangeEnd.setDate(rangeEnd.getDate() + 30);
+
+      const calendarIds = calendars.map(c => c.id);
+      const events = await Calendar.getEventsAsync(calendarIds, rangeStart, rangeEnd);
+
+      // Map to anonymous busy slots — we never store or display event titles
+      const slots: BusySlot[] = events
+        .filter(e => !e.allDay) // skip all-day events for scheduling purposes
+        .map(e => ({
+          start: new Date(e.startDate),
+          end: new Date(e.endDate),
+          title: 'Busy', // privacy: never show actual title
+        }));
+
+      setBusySlots(slots);
+
+      // Generate free time suggestions (2-hour windows) in next 14 days
+      const suggestions = findFreeSlots(slots, rangeStart, 14, 120);
+      setFreeSuggestions(suggestions);
+
+      setCalStatus('connected');
+    } catch (err) {
+      console.warn('Calendar connection error:', err);
+      setCalStatus('idle');
+      Alert.alert('Connection Error', 'Could not read your calendar. Please try again.');
+    }
+  }
+
+  // Find N free 2-hour windows in the next `days` days avoiding busy slots and
+  // outside typical appointment hours (8am–8pm). Returns suggested start times.
+  function findFreeSlots(
+    busy: BusySlot[],
+    from: Date,
+    days: number,
+    windowMinutes: number,
+    maxSuggestions = 5
+  ): Date[] {
+    const suggestions: Date[] = [];
+    const cursor = new Date(from);
+    // Start from the next half-hour
+    cursor.setMinutes(cursor.getMinutes() < 30 ? 30 : 0);
+    if (cursor.getMinutes() === 0) cursor.setHours(cursor.getHours() + 1);
+
+    const endSearch = new Date(from);
+    endSearch.setDate(endSearch.getDate() + days);
+
+    while (cursor < endSearch && suggestions.length < maxSuggestions) {
+      const h = cursor.getHours();
+      // Only suggest slots between 8am and 6pm
+      if (h >= 8 && h < 18) {
+        const windowEnd = new Date(cursor.getTime() + windowMinutes * 60 * 1000);
+        const overlaps = busy.some(
+          slot => slot.start < windowEnd && slot.end > cursor
+        );
+        if (!overlaps) {
+          suggestions.push(new Date(cursor));
+        }
+      }
+      // Advance by 30 minutes
+      cursor.setMinutes(cursor.getMinutes() + 30);
+    }
+    return suggestions;
+  }
+
+  function formatSuggestion(d: Date): string {
+    return d.toLocaleDateString('en-US', {
+      weekday: 'short', month: 'short', day: 'numeric',
+    }) + ' · ' + d.toLocaleTimeString('en-US', {
+      hour: 'numeric', minute: '2-digit', hour12: true,
+    });
+  }
+
+  // ─── Render ──────────────────────────────────────────────────────────────────
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>My Bookings</Text>
       </View>
+
+      {/* ── Smart Scheduling Banner ── */}
+      <SmartSchedulingBanner
+        status={calStatus}
+        freeSuggestions={freeSuggestions}
+        busyCount={busySlots.length}
+        onConnect={connectCalendar}
+        formatSuggestion={formatSuggestion}
+      />
 
       {/* Tabs */}
       <View style={styles.tabs}>
@@ -136,6 +274,12 @@ export function BookingsScreen() {
             const isUpcoming = date >= now && item.status !== 'cancelled';
             const isCompleted = item.status === 'completed';
 
+            // Check if this booking overlaps with a busy calendar slot
+            const bookingEnd = new Date(item.end_time);
+            const conflict = calStatus === 'connected'
+              ? busySlots.some(s => s.start < bookingEnd && s.end > date)
+              : false;
+
             return (
               <View style={styles.card}>
                 {/* Header */}
@@ -147,6 +291,16 @@ export function BookingsScreen() {
                   </View>
                   <Badge label={config.label} variant={config.variant} icon={config.icon} />
                 </View>
+
+                {/* Calendar conflict warning */}
+                {conflict && (
+                  <View style={styles.conflictBanner}>
+                    <IconAlertTriangle size={14} color={Colors.warning} strokeWidth={2} />
+                    <Text style={styles.conflictText}>
+                      Potential conflict with another calendar event
+                    </Text>
+                  </View>
+                )}
 
                 {/* Details */}
                 <View style={styles.details}>
@@ -214,6 +368,103 @@ export function BookingsScreen() {
   );
 }
 
+// ─── Smart Scheduling Banner ───────────────────────────────────────────────────
+
+function SmartSchedulingBanner({ status, freeSuggestions, busyCount, onConnect, formatSuggestion }: {
+  status: CalendarStatus;
+  freeSuggestions: Date[];
+  busyCount: number;
+  onConnect: () => void;
+  formatSuggestion: (d: Date) => string;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  if (status === 'idle') {
+    return (
+      <TouchableOpacity style={calStyles.banner} onPress={onConnect} activeOpacity={0.85}>
+        <View style={calStyles.bannerIcon}>
+          <IconBolt size={20} color={Colors.primary} strokeWidth={2} />
+        </View>
+        <View style={calStyles.bannerText}>
+          <Text style={calStyles.bannerTitle}>Smart Scheduling</Text>
+          <Text style={calStyles.bannerSub}>Connect your calendar to find the best appointment times</Text>
+        </View>
+        <View style={calStyles.bannerCta}>
+          <IconCalendarPlus size={18} color={Colors.primary} strokeWidth={1.75} />
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
+  if (status === 'connecting') {
+    return (
+      <View style={[calStyles.banner, calStyles.bannerConnecting]}>
+        <ActivityIndicator size="small" color={Colors.primary} />
+        <Text style={calStyles.connectingText}>Reading your calendar…</Text>
+      </View>
+    );
+  }
+
+  if (status === 'denied') {
+    return (
+      <View style={[calStyles.banner, calStyles.bannerDenied]}>
+        <View style={calStyles.bannerIcon}>
+          <IconCalendar size={20} color={Colors.textMuted} strokeWidth={1.75} />
+        </View>
+        <View style={calStyles.bannerText}>
+          <Text style={calStyles.bannerTitle}>Calendar Access Needed</Text>
+          <Text style={calStyles.bannerSub}>Enable in Settings → Privacy → Calendars</Text>
+        </View>
+      </View>
+    );
+  }
+
+  // Connected
+  return (
+    <View style={[calStyles.banner, calStyles.bannerConnected]}>
+      <View style={calStyles.bannerIcon}>
+        <IconCalendarCheck size={20} color={Colors.success} strokeWidth={1.75} />
+      </View>
+      <View style={{ flex: 1 }}>
+        <View style={calStyles.connectedHeader}>
+          <Text style={calStyles.bannerTitle}>
+            Smart Scheduling Active
+          </Text>
+          <TouchableOpacity onPress={() => setExpanded(!expanded)}>
+            <Text style={calStyles.expandBtn}>{expanded ? 'Hide' : 'Show'}</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={calStyles.bannerSub}>
+          {busyCount} event{busyCount !== 1 ? 's' : ''} found · {freeSuggestions.length} open slots
+        </Text>
+
+        {expanded && freeSuggestions.length > 0 && (
+          <View style={calStyles.suggestions}>
+            <Text style={calStyles.suggestionsLabel}>Best times to book this week:</Text>
+            {freeSuggestions.slice(0, 4).map((d, i) => (
+              <View key={i} style={calStyles.suggestionRow}>
+                <View style={calStyles.suggestionDot} />
+                <Text style={calStyles.suggestionText}>{formatSuggestion(d)}</Text>
+              </View>
+            ))}
+            <Text style={calStyles.privacyNote}>
+              🔒 CROWND only sees free/busy times — never your event details
+            </Text>
+          </View>
+        )}
+
+        {expanded && freeSuggestions.length === 0 && (
+          <Text style={calStyles.noSlotsText}>
+            Your calendar is quite full! Consider booking further out.
+          </Text>
+        )}
+      </View>
+    </View>
+  );
+}
+
+// ─── Detail Row ────────────────────────────────────────────────────────────────
+
 function DetailRow({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
     <View style={styles.detailRow}>
@@ -223,9 +474,45 @@ function DetailRow({ icon, text }: { icon: React.ReactNode; text: string }) {
   );
 }
 
+// ─── Calendar Banner Styles ────────────────────────────────────────────────────
+
+const calStyles = StyleSheet.create({
+  banner: {
+    flexDirection: 'row', alignItems: 'flex-start',
+    marginHorizontal: Spacing.base, marginBottom: Spacing.base,
+    backgroundColor: Colors.surface, borderRadius: Radius.xl,
+    borderWidth: 1, borderColor: Colors.border,
+    padding: Spacing.md, gap: Spacing.md,
+  },
+  bannerConnecting: { alignItems: 'center', gap: Spacing.md },
+  bannerDenied: { borderColor: Colors.border, opacity: 0.75 },
+  bannerConnected: { borderColor: Colors.success + '40', backgroundColor: Colors.success + '08' },
+  bannerIcon: {
+    width: 36, height: 36, borderRadius: 18,
+    backgroundColor: Colors.primary + '15',
+    alignItems: 'center', justifyContent: 'center',
+  },
+  bannerText: { flex: 1 },
+  bannerTitle: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  bannerSub: { fontSize: Typography.sizes.xs, color: Colors.textSecondary, marginTop: 2 },
+  bannerCta: { alignSelf: 'center' },
+  connectingText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
+  connectedHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  expandBtn: { fontSize: Typography.sizes.xs, color: Colors.primary, fontWeight: Typography.weights.semibold },
+  suggestions: { marginTop: Spacing.sm, gap: Spacing.xs },
+  suggestionsLabel: { fontSize: Typography.sizes.xs, fontWeight: Typography.weights.semibold, color: Colors.textSecondary, marginBottom: 4 },
+  suggestionRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
+  suggestionDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: Colors.success },
+  suggestionText: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+  privacyNote: { fontSize: Typography.sizes.xs, color: Colors.textMuted, marginTop: Spacing.sm, fontStyle: 'italic' },
+  noSlotsText: { fontSize: Typography.sizes.xs, color: Colors.textMuted, marginTop: Spacing.sm },
+});
+
+// ─── Main Styles ───────────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  header: { padding: Spacing.base },
+  header: { padding: Spacing.base, paddingBottom: Spacing.sm },
   title: {
     fontSize: Typography.sizes['2xl'],
     fontWeight: Typography.weights.extrabold,
@@ -273,6 +560,12 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
   },
   serviceName: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
+  conflictBanner: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.sm,
+    backgroundColor: Colors.warning + '15', borderRadius: Radius.md,
+    paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs,
+  },
+  conflictText: { fontSize: Typography.sizes.xs, color: Colors.warning, fontWeight: Typography.weights.medium, flex: 1 },
   details: { gap: Spacing.sm, paddingHorizontal: Spacing.xs },
   detailRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
   detailIconWrap: { width: 20, alignItems: 'center' },

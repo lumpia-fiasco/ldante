@@ -47,6 +47,9 @@ import { ProviderScheduleScreen } from '../screens/provider/ProviderScheduleScre
 import { ProviderBookingsScreen } from '../screens/provider/ProviderBookingsScreen';
 import { ManageServicesScreen } from '../screens/provider/ManageServicesScreen';
 import { ProviderProfileEditScreen } from '../screens/provider/ProviderProfileEditScreen';
+import { SettingsScreen } from '../screens/shared/SettingsScreen';
+import { HelpSupportScreen } from '../screens/shared/HelpSupportScreen';
+import { ProfileEditScreen } from '../screens/shared/ProfileEditScreen';
 
 // ─── Route Types ───────────────────────────────────────────────────────────────
 
@@ -68,6 +71,9 @@ export type RootStackParamList = {
   Search: { initialQuery?: string; category?: string };
   Notifications: undefined;
   Profile: undefined;
+  ProfileEdit: undefined;
+  Settings: undefined;
+  HelpSupport: undefined;
   ManageServices: undefined;
   ProviderProfileEdit: undefined;
   CreatePost: undefined;
@@ -241,6 +247,9 @@ export function AppNavigator() {
         <Stack.Screen name="Profile"          component={ProfileScreen} />
         <Stack.Screen name="ManageServices"   component={ManageServicesScreen} />
         <Stack.Screen name="ProviderProfileEdit" component={ProviderProfileEditScreen} />
+        <Stack.Screen name="ProfileEdit"      component={ProfileEditScreen} />
+        <Stack.Screen name="Settings"         component={SettingsScreen} />
+        <Stack.Screen name="HelpSupport"      component={HelpSupportScreen} />
         <Stack.Screen name="CreatePost"       component={CreatePostScreen} options={{ gestureEnabled: false }} />
       </Stack.Navigator>
     </NavigationContainer>

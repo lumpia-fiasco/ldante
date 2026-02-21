@@ -1,5 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   FlatList,
+  RefreshControl,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -22,6 +23,7 @@ import { RootStackParamList } from '../../navigation';
 import {
   IconBell, IconMenu2, IconHeart, IconHeartFilled,
   IconX, IconPhone, IconAddressBook, IconUserPlus, IconPlus,
+  IconUser, IconSettings, IconHelp, IconLogout, IconChevronRight,
 } from '@tabler/icons-react-native';
 import { CrowndLogo } from '../../components/brand/CrowndLogo';
 import * as SMS from 'expo-sms';
@@ -54,16 +56,16 @@ const CROWND_USERS_BY_PHONE: Record<string, CrowndUser> = {
   '5550006666': { id: 'p5', name: 'Aisha',          avatar: 'https://randomuser.me/api/portraits/women/91.jpg', type: 'provider', specialty: 'Esthetician',    location: 'Long Beach, CA' },
 };
 
-// ─── Mock providers (for "add service" system lookup by name) ──────────────────
+// ─── Mock providers (the user's followed / "Rolodex" providers) ────────────────
 
 const MOCK_PROVIDERS = [
-  { id: 'p1', name: 'Carmela',  specialty: 'Hair Braider', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', category: 'hair' },
-  { id: 'p2', name: 'Devon',    specialty: 'Barber',       location: 'Santa Ana, CA',  avatar: 'https://randomuser.me/api/portraits/men/42.jpg',   category: 'barber' },
-  { id: 'p3', name: 'Jasmine',  specialty: 'Nail Artist',  location: 'Irvine, CA',     avatar: 'https://randomuser.me/api/portraits/women/22.jpg', category: 'nails' },
-  { id: 'p4', name: 'Marcus',   specialty: 'Massage Therapist', location: 'Anaheim, CA', avatar: 'https://randomuser.me/api/portraits/men/55.jpg', category: 'massage' },
-  { id: 'p5', name: 'Aisha',    specialty: 'Esthetician',  location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', category: 'esthetics' },
-  { id: 'p6', name: 'Tyler',    specialty: 'Personal Trainer', location: 'Torrance, CA', avatar: 'https://randomuser.me/api/portraits/men/33.jpg', category: 'fitness' },
-  { id: 'p7', name: 'Brianna',  specialty: 'Makeup Artist', location: 'Compton, CA',   avatar: 'https://randomuser.me/api/portraits/women/17.jpg', category: 'makeup' },
+  { id: 'p1', name: 'Carmela',  specialty: 'Hair Braider',      location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', category: 'hair',      score: 4.9, ratings: 52 },
+  { id: 'p2', name: 'Devon',    specialty: 'Barber',            location: 'Santa Ana, CA',  avatar: 'https://randomuser.me/api/portraits/men/42.jpg',   category: 'barber',    score: 4.8, ratings: 60 },
+  { id: 'p3', name: 'Jasmine',  specialty: 'Nail Artist',       location: 'Irvine, CA',     avatar: 'https://randomuser.me/api/portraits/women/22.jpg', category: 'nails',     score: 4.7, ratings: 29 },
+  { id: 'p4', name: 'Marcus',   specialty: 'Massage Therapist', location: 'Anaheim, CA',    avatar: 'https://randomuser.me/api/portraits/men/55.jpg',   category: 'massage',   score: 4.8, ratings: 38 },
+  { id: 'p5', name: 'Aisha',    specialty: 'Esthetician',       location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', category: 'esthetics', score: 4.6, ratings: 22 },
+  { id: 'p6', name: 'Tyler',    specialty: 'Personal Trainer',  location: 'Torrance, CA',   avatar: 'https://randomuser.me/api/portraits/men/33.jpg',   category: 'fitness',   score: 4.9, ratings: 41 },
+  { id: 'p7', name: 'Brianna',  specialty: 'Makeup Artist',     location: 'Compton, CA',    avatar: 'https://randomuser.me/api/portraits/women/17.jpg', category: 'makeup',    score: 4.7, ratings: 34 },
 ];
 
 // ─── Mock Feed Posts ───────────────────────────────────────────────────────────
@@ -116,6 +118,18 @@ const MOCK_POSTS = [
   },
 ];
 
+const SERVICE_CATEGORIES = [
+  { key: 'hair',      label: 'Hair',      emoji: '💇‍♀️' },
+  { key: 'barber',    label: 'Barber',    emoji: '💈' },
+  { key: 'fitness',   label: 'Fitness',   emoji: '💪' },
+  { key: 'massage',   label: 'Massage',   emoji: '💆' },
+  { key: 'esthetics', label: 'Esthetics', emoji: '🧖‍♀️' },
+  { key: 'nails',     label: 'Nails',     emoji: '💅' },
+  { key: 'lashes',    label: 'Lashes',    emoji: '👁' },
+  { key: 'makeup',    label: 'Makeup',    emoji: '💄' },
+  { key: 'tattoo',    label: 'Tattoo',    emoji: '🐉' },
+];
+
 const TABS = ['Feed', 'Friends', 'Services'];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
@@ -132,6 +146,24 @@ export function DiscoverScreen() {
   const [posts, setPosts] = useState(MOCK_POSTS);
   const [addFriendVisible, setAddFriendVisible] = useState(false);
   const [addServiceVisible, setAddServiceVisible] = useState(false);
+  const [hamburgerVisible, setHamburgerVisible] = useState(false);
+
+  // Pull-to-refresh state
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // Simulate network fetch — shuffle likes slightly to show it "refreshed"
+    setTimeout(() => {
+      setPosts(prev =>
+        prev.map(p => ({
+          ...p,
+          likes: p.liked ? p.likes : p.likes + Math.floor(Math.random() * 3),
+        }))
+      );
+      setRefreshing(false);
+    }, 1200);
+  }, []);
 
   function toggleLike(id: string) {
     setPosts(prev => prev.map(p =>
@@ -150,7 +182,7 @@ export function DiscoverScreen() {
           <TouchableOpacity style={styles.headerBtn} onPress={() => navigation.navigate('Notifications')}>
             <IconBell size={24} color={Colors.textPrimary} strokeWidth={1.75} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerBtn}>
+          <TouchableOpacity style={styles.headerBtn} onPress={() => setHamburgerVisible(true)}>
             <IconMenu2 size={24} color={Colors.textPrimary} strokeWidth={1.75} />
           </TouchableOpacity>
         </View>
@@ -167,7 +199,18 @@ export function DiscoverScreen() {
       </View>
 
       {activeTab === 'Feed' && (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.feed}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.feed}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={Colors.primary}
+              colors={[Colors.primary]}
+            />
+          }
+        >
           <Text style={styles.feedLabel}>Posts from your friends & providers</Text>
           {posts.map(post => (
             <FeedPost
@@ -209,9 +252,162 @@ export function DiscoverScreen() {
         onClose={() => setAddServiceVisible(false)}
         navigation={navigation}
       />
+
+      {/* Hamburger Menu Drawer */}
+      <HamburgerMenu
+        visible={hamburgerVisible}
+        onClose={() => setHamburgerVisible(false)}
+        navigation={navigation}
+      />
     </SafeAreaView>
   );
 }
+
+// ─── Hamburger Menu ────────────────────────────────────────────────────────────
+
+function HamburgerMenu({ visible, onClose, navigation }: {
+  visible: boolean;
+  onClose: () => void;
+  navigation: Nav;
+}) {
+  function handleNavigate(screen: keyof RootStackParamList) {
+    onClose();
+    // Small delay so the modal has time to close before navigating
+    setTimeout(() => navigation.navigate(screen as any), 200);
+  }
+
+  function handleLogout() {
+    onClose();
+    setTimeout(() => {
+      Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: async () => {
+            const { authService } = require('../../services/supabase');
+            await authService.signOut();
+          },
+        },
+      ]);
+    }, 200);
+  }
+
+  return (
+    <Modal visible={visible} animationType="slide" transparent presentationStyle="overFullScreen">
+      <View style={hamburgerStyles.overlay}>
+        <TouchableOpacity style={hamburgerStyles.backdrop} activeOpacity={1} onPress={onClose} />
+        <View style={hamburgerStyles.drawer}>
+          {/* Handle */}
+          <View style={hamburgerStyles.handle} />
+
+          {/* Branding */}
+          <View style={hamburgerStyles.brand}>
+            <CrowndLogo size={32} />
+            <Text style={hamburgerStyles.brandName}>CROWND</Text>
+          </View>
+
+          {/* Menu Items */}
+          <View style={hamburgerStyles.menu}>
+            <HamburgerItem
+              icon={<IconUser size={22} color={Colors.textPrimary} strokeWidth={1.75} />}
+              label="My Profile"
+              sublabel="View and edit your profile"
+              onPress={() => handleNavigate('Profile')}
+            />
+            <View style={hamburgerStyles.divider} />
+            <HamburgerItem
+              icon={<IconSettings size={22} color={Colors.textPrimary} strokeWidth={1.75} />}
+              label="Settings"
+              sublabel="App preferences & privacy"
+              onPress={() => handleNavigate('Settings')}
+            />
+            <View style={hamburgerStyles.divider} />
+            <HamburgerItem
+              icon={<IconHelp size={22} color={Colors.textPrimary} strokeWidth={1.75} />}
+              label="Help & Support"
+              sublabel="FAQs, contact, and feedback"
+              onPress={() => handleNavigate('HelpSupport')}
+            />
+          </View>
+
+          {/* Logout */}
+          <TouchableOpacity style={hamburgerStyles.logoutBtn} onPress={handleLogout} activeOpacity={0.8}>
+            <IconLogout size={20} color={Colors.error} strokeWidth={1.75} />
+            <Text style={hamburgerStyles.logoutText}>Sign Out</Text>
+          </TouchableOpacity>
+
+          <View style={{ height: Spacing.xl }} />
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+function HamburgerItem({ icon, label, sublabel, onPress }: {
+  icon: React.ReactNode;
+  label: string;
+  sublabel: string;
+  onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity style={hamburgerStyles.item} onPress={onPress} activeOpacity={0.7}>
+      <View style={hamburgerStyles.itemIcon}>{icon}</View>
+      <View style={hamburgerStyles.itemText}>
+        <Text style={hamburgerStyles.itemLabel}>{label}</Text>
+        <Text style={hamburgerStyles.itemSublabel}>{sublabel}</Text>
+      </View>
+      <IconChevronRight size={18} color={Colors.textMuted} strokeWidth={1.75} />
+    </TouchableOpacity>
+  );
+}
+
+const hamburgerStyles = StyleSheet.create({
+  overlay: { flex: 1, justifyContent: 'flex-end' },
+  backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.45)' },
+  drawer: {
+    backgroundColor: Colors.background,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.sm,
+  },
+  handle: {
+    width: 40, height: 4, borderRadius: 2,
+    backgroundColor: Colors.border,
+    alignSelf: 'center',
+    marginBottom: Spacing.lg,
+  },
+  brand: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.sm,
+    paddingHorizontal: Spacing.xs, marginBottom: Spacing.xl,
+  },
+  brandName: {
+    fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold,
+    color: Colors.textPrimary, letterSpacing: 1,
+  },
+  menu: {
+    backgroundColor: Colors.surface, borderRadius: Radius.xl,
+    borderWidth: 1, borderColor: Colors.border,
+    marginBottom: Spacing.lg,
+  },
+  divider: { height: 1, backgroundColor: Colors.border, marginLeft: 60 },
+  item: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
+    padding: Spacing.base,
+  },
+  itemIcon: { width: 36, height: 36, borderRadius: 18, backgroundColor: Colors.surfaceAlt, alignItems: 'center', justifyContent: 'center' },
+  itemText: { flex: 1 },
+  itemLabel: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  itemSublabel: { fontSize: Typography.sizes.xs, color: Colors.textSecondary, marginTop: 2 },
+  logoutBtn: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
+    padding: Spacing.base, borderRadius: Radius.xl,
+    borderWidth: 1, borderColor: Colors.error + '40',
+    backgroundColor: Colors.error + '0A',
+  },
+  logoutText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.error },
+});
 
 // ─── Add Friend Modal ──────────────────────────────────────────────────────────
 
@@ -887,60 +1083,140 @@ const friendStyles = StyleSheet.create({
   chevron: { fontSize: Typography.sizes.sm, color: Colors.primary, fontWeight: Typography.weights.medium },
 });
 
-// ─── Services Tab ──────────────────────────────────────────────────────────────
-
-const SERVICE_CATEGORIES = [
-  { key: 'hair',      label: 'Hair',      emoji: '💇‍♀️' },
-  { key: 'barber',    label: 'Barber',    emoji: '💈' },
-  { key: 'fitness',   label: 'Fitness',   emoji: '💪' },
-  { key: 'massage',   label: 'Massage',   emoji: '💆' },
-  { key: 'esthetics', label: 'Esthetics', emoji: '🧖‍♀️' },
-  { key: 'nails',     label: 'Nails',     emoji: '💅' },
-  { key: 'lashes',    label: 'Lashes',    emoji: '👁' },
-  { key: 'makeup',    label: 'Makeup',    emoji: '💄' },
-  { key: 'tattoo',    label: 'Tattoo',    emoji: '🐉' },
-];
+// ─── Services Tab (Followed Providers List) ────────────────────────────────────
 
 function ServicesTab({ navigation, onAddService }: { navigation: Nav; onAddService: () => void }) {
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const filtered = selectedCategory
+    ? MOCK_PROVIDERS.filter(p => p.category === selectedCategory)
+    : MOCK_PROVIDERS;
+
+  const activeCat = SERVICE_CATEGORIES.find(c => c.key === selectedCategory);
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       {/* Section header row with Add Provider button */}
       <View style={friendStyles.sectionRow}>
-        <Text style={friendStyles.sectionLabel}>Browse Services</Text>
+        <Text style={friendStyles.sectionLabel}>
+          {activeCat ? `${activeCat.emoji} ${activeCat.label}` : 'Your Providers'}
+        </Text>
         <TouchableOpacity style={friendStyles.addBtn} onPress={onAddService} activeOpacity={0.8}>
           <IconPlus size={13} color={Colors.primary} strokeWidth={2} />
           <Text style={friendStyles.addBtnText}>Add Provider</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={servicesStyles.grid}>
+      {/* Horizontal category chip filters */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={servicesStyles.chips}
+      >
+        <TouchableOpacity
+          style={[servicesStyles.chip, !selectedCategory && servicesStyles.chipActive]}
+          onPress={() => setSelectedCategory('')}
+          activeOpacity={0.7}
+        >
+          <Text style={[servicesStyles.chipText, !selectedCategory && servicesStyles.chipTextActive]}>
+            All
+          </Text>
+        </TouchableOpacity>
         {SERVICE_CATEGORIES.map(cat => (
           <TouchableOpacity
             key={cat.key}
-            style={servicesStyles.cell}
+            style={[servicesStyles.chip, selectedCategory === cat.key && servicesStyles.chipActive]}
+            onPress={() => setSelectedCategory(selectedCategory === cat.key ? '' : cat.key)}
             activeOpacity={0.7}
-            onPress={() => navigation.navigate('Search', { category: cat.key })}
           >
-            <Text style={servicesStyles.emoji}>{cat.emoji}</Text>
-            <Text style={servicesStyles.label}>{cat.label}</Text>
+            <Text style={[servicesStyles.chipText, selectedCategory === cat.key && servicesStyles.chipTextActive]}>
+              {cat.emoji} {cat.label}
+            </Text>
           </TouchableOpacity>
         ))}
-      </View>
-      <View style={{ height: 110 }} />
-    </ScrollView>
+      </ScrollView>
+
+      {/* Provider count */}
+      <Text style={servicesStyles.count}>
+        {filtered.length} provider{filtered.length !== 1 ? 's' : ''}
+      </Text>
+
+      {/* Provider list */}
+      <FlatList
+        data={filtered}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={servicesStyles.list}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={servicesStyles.providerCard}
+            onPress={() => navigation.navigate('ProviderProfile', { providerId: item.id })}
+            activeOpacity={0.85}
+          >
+            <Image source={{ uri: item.avatar }} style={servicesStyles.providerAvatar} />
+            <View style={servicesStyles.providerInfo}>
+              <Text style={servicesStyles.providerName}>{item.name}</Text>
+              <Text style={servicesStyles.providerSpecialty}>{item.specialty}</Text>
+              <Text style={servicesStyles.providerLocation}>📍 {item.location}</Text>
+              <View style={servicesStyles.providerMeta}>
+                <Text style={servicesStyles.score}>⭐ {item.score}</Text>
+                <Text style={servicesStyles.ratings}>({item.ratings} reviews)</Text>
+                {(() => {
+                  const cat = SERVICE_CATEGORIES.find(c => c.key === item.category);
+                  return cat ? (
+                    <View style={servicesStyles.catBadge}>
+                      <Text style={servicesStyles.catBadgeText}>{cat.emoji} {cat.label}</Text>
+                    </View>
+                  ) : null;
+                })()}
+              </View>
+            </View>
+            <Text style={servicesStyles.chevron}>→</Text>
+          </TouchableOpacity>
+        )}
+        ListEmptyComponent={
+          <Text style={servicesStyles.emptyText}>No providers in this category yet.</Text>
+        }
+      />
+    </View>
   );
 }
 
 const servicesStyles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.md, padding: Spacing.base, paddingTop: Spacing.sm },
-  cell: {
-    width: '47%', backgroundColor: Colors.surface,
-    borderRadius: Radius.xl, padding: Spacing.xl,
-    alignItems: 'center', gap: Spacing.sm,
-    borderWidth: 1, borderColor: Colors.border,
+  chips: { paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm, gap: Spacing.sm },
+  chip: {
+    borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full,
+    paddingHorizontal: Spacing.md, paddingVertical: 6,
+    backgroundColor: Colors.surface,
   },
-  emoji: { fontSize: 40 },
-  label: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  chipActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
+  chipText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
+  chipTextActive: { color: Colors.white, fontWeight: Typography.weights.semibold },
+  count: {
+    fontSize: Typography.sizes.xs, color: Colors.textMuted,
+    paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm,
+  },
+  list: { paddingHorizontal: Spacing.base, gap: Spacing.md, paddingBottom: 110 },
+  providerCard: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
+    backgroundColor: Colors.surface, borderRadius: Radius.xl,
+    padding: Spacing.base, borderWidth: 1, borderColor: Colors.border,
+  },
+  providerAvatar: { width: 60, height: 60, borderRadius: 30, backgroundColor: Colors.surfaceAlt },
+  providerInfo: { flex: 1, gap: 2 },
+  providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  providerSpecialty: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
+  providerLocation: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
+  providerMeta: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginTop: 4, flexWrap: 'wrap' },
+  score: { fontSize: Typography.sizes.sm, color: Colors.textPrimary, fontWeight: Typography.weights.semibold },
+  ratings: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
+  catBadge: {
+    borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full,
+    paddingHorizontal: Spacing.sm, paddingVertical: 2, backgroundColor: Colors.surfaceAlt,
+  },
+  catBadgeText: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+  chevron: { fontSize: Typography.sizes.base, color: Colors.primary, fontWeight: Typography.weights.semibold },
+  emptyText: { textAlign: 'center', color: Colors.textMuted, paddingVertical: Spacing.xl, fontSize: Typography.sizes.sm },
 });
 
 // ─── Modal Styles ──────────────────────────────────────────────────────────────

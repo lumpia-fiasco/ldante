@@ -4,9 +4,12 @@ import {
   View, Text, StyleSheet, ScrollView,
   TouchableOpacity, Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Avatar, Button, Card, Divider } from '../../components/common';
 import { authService } from '../../services/supabase';
+import { RootStackParamList } from '../../navigation';
 import {
   IconUser,
   IconLock,
@@ -22,6 +25,8 @@ import {
   IconChevronRight,
 } from '@tabler/icons-react-native';
 
+type Nav = StackNavigationProp<RootStackParamList>;
+
 const MOCK_USER = {
   full_name: 'Alex Johnson',
   email: 'alex@example.com',
@@ -34,6 +39,7 @@ const MOCK_USER = {
 };
 
 export function ProfileScreen() {
+  const navigation = useNavigation<Nav>();
   const [user] = useState(MOCK_USER);
 
   async function handleSignOut() {
@@ -73,7 +79,7 @@ export function ProfileScreen() {
         {/* Menu Sections */}
         <View style={styles.sections}>
           <MenuSection title="Account">
-            <MenuItem icon={<IconUser size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Edit Profile" onPress={() => {}} />
+            <MenuItem icon={<IconUser size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Edit Profile" onPress={() => navigation.navigate('ProfileEdit')} />
             <MenuItem icon={<IconLock size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Privacy Settings" onPress={() => {}} />
             <MenuItem icon={<IconBell size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Notification Preferences" onPress={() => {}} />
             <MenuItem icon={<IconCreditCard size={24} color={Colors.textSecondary} strokeWidth={1.75} />} label="Payment Methods" onPress={() => {}} last />
