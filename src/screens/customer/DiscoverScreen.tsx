@@ -1107,33 +1107,36 @@ function ServicesTab({ navigation, onAddService }: { navigation: Nav; onAddServi
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={servicesStyles.list}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={servicesStyles.providerCard}
-            onPress={() => navigation.navigate('ProviderProfile', { providerId: item.id })}
-            activeOpacity={0.85}
-          >
-            <Image source={{ uri: item.avatar }} style={servicesStyles.providerAvatar} />
-            <View style={servicesStyles.providerInfo}>
-              <Text style={servicesStyles.providerName}>{item.name}</Text>
-              <Text style={servicesStyles.providerSpecialty}>{item.specialty}</Text>
-              <Text style={servicesStyles.providerLocation}>📍 {item.location}</Text>
-              <View style={servicesStyles.providerMeta}>
-                <Text style={servicesStyles.score}>⭐ {item.score}</Text>
-                <Text style={servicesStyles.ratings}>({item.ratings} reviews)</Text>
-                {(() => {
-                  const cat = SERVICE_CATEGORIES.find(c => c.key === item.category);
-                  return cat ? (
-                    <View style={servicesStyles.catBadge}>
-                      <Text style={servicesStyles.catBadgeText}>{cat.emoji} {cat.label}</Text>
-                    </View>
-                  ) : null;
-                })()}
+        renderItem={({ item }) => {
+          const cat = SERVICE_CATEGORIES.find(c => c.key === item.category);
+          const emoji = cat?.emoji ?? '✂️';
+          return (
+            <TouchableOpacity
+              style={servicesStyles.providerCard}
+              onPress={() => navigation.navigate('ProviderProfile', { providerId: item.id })}
+              activeOpacity={0.85}
+            >
+              {/* Avatar with emoji badge */}
+              <View style={servicesStyles.avatarWrap}>
+                <Image source={{ uri: item.avatar }} style={servicesStyles.providerAvatar} />
+                <View style={servicesStyles.emojiBadge}>
+                  <Text style={servicesStyles.emojiBadgeText}>{emoji}</Text>
+                </View>
               </View>
-            </View>
-            <Text style={servicesStyles.chevron}>→</Text>
-          </TouchableOpacity>
-        )}
+
+              <View style={servicesStyles.providerInfo}>
+                <Text style={servicesStyles.providerName}>{item.name}</Text>
+                <Text style={servicesStyles.providerSpecialty}>{item.specialty}</Text>
+                <Text style={servicesStyles.providerLocation}>📍 {item.location}</Text>
+                <View style={servicesStyles.providerMeta}>
+                  <Text style={servicesStyles.score}>⭐ {item.score}</Text>
+                  <Text style={servicesStyles.ratings}>({item.ratings} reviews)</Text>
+                </View>
+              </View>
+              <Text style={servicesStyles.chevron}>→</Text>
+            </TouchableOpacity>
+          );
+        }}
         ListEmptyComponent={
           <Text style={servicesStyles.emptyText}>No providers in this category yet.</Text>
         }
@@ -1143,38 +1146,74 @@ function ServicesTab({ navigation, onAddService }: { navigation: Nav; onAddServi
 }
 
 const servicesStyles = StyleSheet.create({
-  chips: { paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm, gap: Spacing.sm },
+  // Chip row — flexDirection:'row' is required so chips sit side-by-side
+  // inside the horizontal ScrollView. flexShrink:0 prevents any chip from
+  // being squashed when the content width exceeds the viewport.
+  chips: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.base,
+    paddingBottom: Spacing.sm,
+    gap: Spacing.sm,
+  },
   chip: {
-    borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full,
-    paddingHorizontal: Spacing.md, paddingVertical: 6,
+    flexShrink: 0,            // never compress — scroll instead
+    flexGrow: 0,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    borderRadius: Radius.full,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: 7,
     backgroundColor: Colors.surface,
   },
   chipActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
-  chipText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
+  chipText: {
+    fontSize: Typography.sizes.sm,
+    color: Colors.textSecondary,
+    fontWeight: Typography.weights.medium,
+    // Don't let the label wrap or truncate — it's in a flex-no-shrink chip
+    includeFontPadding: false,
+  },
   chipTextActive: { color: Colors.white, fontWeight: Typography.weights.semibold },
+
   count: {
     fontSize: Typography.sizes.xs, color: Colors.textMuted,
     paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm,
   },
   list: { paddingHorizontal: Spacing.base, gap: Spacing.md, paddingBottom: 110 },
+
   providerCard: {
     flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
     backgroundColor: Colors.surface, borderRadius: Radius.xl,
     padding: Spacing.base, borderWidth: 1, borderColor: Colors.border,
   },
-  providerAvatar: { width: 60, height: 60, borderRadius: 30, backgroundColor: Colors.surfaceAlt },
+
+  // Avatar with emoji badge overlay
+  avatarWrap: { position: 'relative' },
+  providerAvatar: { width: 64, height: 64, borderRadius: 32, backgroundColor: Colors.surfaceAlt },
+  emojiBadge: {
+    position: 'absolute',
+    bottom: -2,
+    right: -4,
+    backgroundColor: Colors.background,
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1.5,
+    borderColor: Colors.border,
+  },
+  emojiBadgeText: { fontSize: 13 },
+
   providerInfo: { flex: 1, gap: 2 },
   providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
   providerSpecialty: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
   providerLocation: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  providerMeta: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginTop: 4, flexWrap: 'wrap' },
+  providerMeta: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginTop: 4 },
   score: { fontSize: Typography.sizes.sm, color: Colors.textPrimary, fontWeight: Typography.weights.semibold },
   ratings: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  catBadge: {
-    borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full,
-    paddingHorizontal: Spacing.sm, paddingVertical: 2, backgroundColor: Colors.surfaceAlt,
-  },
-  catBadgeText: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+
   chevron: { fontSize: Typography.sizes.base, color: Colors.primary, fontWeight: Typography.weights.semibold },
   emptyText: { textAlign: 'center', color: Colors.textMuted, paddingVertical: Spacing.xl, fontSize: Typography.sizes.sm },
 });
