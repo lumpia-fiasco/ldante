@@ -76,7 +76,7 @@ export type RootStackParamList = {
   HelpSupport: undefined;
   ManageServices: undefined;
   ProviderProfileEdit: undefined;
-  CreatePost: undefined;
+  CreatePost: { role?: 'customer' | 'provider' } | undefined;
 };
 
 export type CustomerTabParamList = {
@@ -106,7 +106,7 @@ const ProviderTab = createBottomTabNavigator<ProviderTabParamList>();
 //   background: rgba(255,255,255,0.80)
 //   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
 
-function FloatingTabBar({ state, descriptors, navigation }: any) {
+function FloatingTabBar({ state, descriptors, navigation, isProviderTab = false }: any) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
 
@@ -141,7 +141,7 @@ function FloatingTabBar({ state, descriptors, navigation }: any) {
             return (
               <TouchableOpacity
                 key={route.key}
-                onPress={() => navigation.navigate('CreatePost')}
+                onPress={() => navigation.navigate('CreatePost', { role: isProviderTab ? 'provider' : 'customer' })}
                 style={navStyles.plusTap}
                 activeOpacity={0.8}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
@@ -203,7 +203,7 @@ function CustomerTabs() {
 function ProviderTabs() {
   return (
     <ProviderTab.Navigator
-      tabBar={(props) => <FloatingTabBar {...props} />}
+      tabBar={(props) => <FloatingTabBar {...props} isProviderTab={true} />}
       screenOptions={{ headerShown: false }}
     >
       <ProviderTab.Screen name="Dashboard" component={ProviderDashboardScreen} />

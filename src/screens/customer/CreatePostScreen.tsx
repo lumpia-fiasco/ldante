@@ -1,5 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,12 +11,12 @@ import {
   Alert,
   ActivityIndicator,
   FlatList,
-  Animated,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Colors, Typography, Spacing, Radius, Shadows } from '../../theme';
+import { useRoute, RouteProp } from '@react-navigation/native';
+import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { RootStackParamList } from '../../navigation';
 import {
   IconArrowLeft,
@@ -24,49 +24,73 @@ import {
   IconPhoto,
   IconX,
   IconChevronRight,
-  IconChevronDown,
   IconCheck,
   IconSearch,
+  IconUser,
+  IconScissors,
 } from '@tabler/icons-react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { addPost, newPostId, SERVICE_EMOJI } from '../../utils/postsStore';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'CreatePost'>;
+  route: RouteProp<RootStackParamList, 'CreatePost'>;
 };
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
 type Step = 'media' | 'details' | 'rating';
 
-type RatingCategory = { key: string; label: string };
-
-const RATING_CATEGORIES: RatingCategory[] = [
+const RATING_CATEGORIES = [
   { key: 'quality',      label: 'Quality' },
   { key: 'friendliness', label: 'Friendliness' },
   { key: 'expertise',    label: 'Expertise' },
   { key: 'location',     label: 'Location' },
 ];
 
-// ─── Mock providers the user follows / has been to ─────────────────────────────
-// In production these come from the user's Rolodex
+// ─── Mock data ─────────────────────────────────────────────────────────────────
 
 type Provider = {
-  id: string;
-  name: string;
-  specialty: string;
-  location: string;
-  avatar: string;
+  id: string; name: string; specialty: string;
+  location: string; avatar: string; category: string;
 };
 
+// Providers in the logged-in user's Rolodex (customer POV)
 const MY_PROVIDERS: Provider[] = [
-  { id: 'p1', name: 'Carmela',  specialty: 'Hair Braider',      location: 'Costa Mesa, CA',  avatar: 'https://randomuser.me/api/portraits/women/68.jpg' },
-  { id: 'p2', name: 'Devon',    specialty: 'Barber',            location: 'Santa Ana, CA',   avatar: 'https://randomuser.me/api/portraits/men/42.jpg' },
-  { id: 'p3', name: 'Jasmine',  specialty: 'Nail Artist',       location: 'Irvine, CA',      avatar: 'https://randomuser.me/api/portraits/women/22.jpg' },
-  { id: 'p4', name: 'Marcus',   specialty: 'Massage Therapist', location: 'Anaheim, CA',     avatar: 'https://randomuser.me/api/portraits/men/55.jpg' },
-  { id: 'p5', name: 'Aisha',    specialty: 'Esthetician',       location: 'Long Beach, CA',  avatar: 'https://randomuser.me/api/portraits/women/91.jpg' },
-  { id: 'p6', name: 'Tyler',    specialty: 'Personal Trainer',  location: 'Torrance, CA',    avatar: 'https://randomuser.me/api/portraits/men/33.jpg' },
-  { id: 'p7', name: 'Brianna',  specialty: 'Makeup Artist',     location: 'Compton, CA',     avatar: 'https://randomuser.me/api/portraits/women/17.jpg' },
+  { id: 'p1', name: 'Carmela',  specialty: 'Hair Braider',      location: 'Costa Mesa, CA',  avatar: 'https://randomuser.me/api/portraits/women/68.jpg', category: 'hair' },
+  { id: 'p2', name: 'Devon',    specialty: 'Barber',            location: 'Santa Ana, CA',   avatar: 'https://randomuser.me/api/portraits/men/42.jpg',   category: 'barber' },
+  { id: 'p3', name: 'Jasmine',  specialty: 'Nail Artist',       location: 'Irvine, CA',      avatar: 'https://randomuser.me/api/portraits/women/22.jpg', category: 'nails' },
+  { id: 'p4', name: 'Marcus',   specialty: 'Massage Therapist', location: 'Anaheim, CA',     avatar: 'https://randomuser.me/api/portraits/men/55.jpg',   category: 'massage' },
+  { id: 'p5', name: 'Aisha',    specialty: 'Esthetician',       location: 'Long Beach, CA',  avatar: 'https://randomuser.me/api/portraits/women/91.jpg', category: 'esthetics' },
+  { id: 'p6', name: 'Tyler',    specialty: 'Personal Trainer',  location: 'Torrance, CA',    avatar: 'https://randomuser.me/api/portraits/men/33.jpg',   category: 'fitness' },
+  { id: 'p7', name: 'Brianna',  specialty: 'Makeup Artist',     location: 'Compton, CA',     avatar: 'https://randomuser.me/api/portraits/women/17.jpg', category: 'makeup' },
 ];
+
+// Clients a provider might tag when posting their own work
+const MY_CLIENTS = [
+  { id: 'f1', name: 'Sarah Kim',       avatar: 'https://randomuser.me/api/portraits/women/55.jpg' },
+  { id: 'f2', name: 'Emily Rodriguez', avatar: 'https://randomuser.me/api/portraits/women/33.jpg' },
+  { id: 'f3', name: 'Lisa Morgan',     avatar: 'https://randomuser.me/api/portraits/women/12.jpg' },
+  { id: 'f4', name: 'Amanda Chen',     avatar: 'https://randomuser.me/api/portraits/women/28.jpg' },
+  { id: 'f5', name: 'Martina Garcia',  avatar: 'https://randomuser.me/api/portraits/women/32.jpg' },
+];
+
+// The logged-in provider's own info (shown as the poster when in provider mode)
+const MY_PROVIDER_SELF: Provider = {
+  id: 'p-self',
+  name: 'You (Your Business)',
+  specialty: 'Hair Braider',
+  location: 'Costa Mesa, CA',
+  avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+  category: 'hair',
+};
+
+// The logged-in customer's info (shown as the poster in customer mode)
+const MY_CUSTOMER_SELF = {
+  id: 'me',
+  name: 'Alex Johnson',
+  avatar: 'https://i.pravatar.cc/150?u=alexj',
+};
 
 // ─── Star Picker ───────────────────────────────────────────────────────────────
 
@@ -76,7 +100,7 @@ function StarPicker({ value, onChange }: { value: number; onChange: (v: number) 
       {[1, 2, 3, 4, 5].map(n => (
         <TouchableOpacity
           key={n}
-          onPress={() => onChange(n)}
+          onPress={() => onChange(n === value ? 0 : n)} // tap same star to clear
           hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
           activeOpacity={0.7}
         >
@@ -97,26 +121,48 @@ const starStyles = StyleSheet.create({
   label: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary, marginLeft: Spacing.xs },
 });
 
+// ─── Role toggle ───────────────────────────────────────────────────────────────
+// Lets the user switch between posting as a customer ("I got this done") vs.
+// posting as a provider ("I did this work") without leaving the screen.
+
+type PostingRole = 'customer' | 'provider';
+
 // ─── Screen ────────────────────────────────────────────────────────────────────
 
-export function CreatePostScreen({ navigation }: Props) {
+export function CreatePostScreen({ navigation, route }: Props) {
   const [step, setStep] = useState<Step>('media');
+  // Default role comes from the tab that launched this screen:
+  // customer tab → 'customer', provider tab → 'provider'
+  const [role, setRole] = useState<PostingRole>(route?.params?.role ?? 'customer');
+
   const [mediaUri, setMediaUri] = useState<string | null>(null);
   const [mediaType, setMediaType] = useState<'photo' | 'video'>('photo');
   const [caption, setCaption] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
+
+  // Customer flow: tag which provider did the work
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
   const [providerSearch, setProviderSearch] = useState('');
   const [providerPickerOpen, setProviderPickerOpen] = useState(false);
+
+  // Provider flow: optionally tag a client (with their consent)
+  const [selectedClient, setSelectedClient] = useState<typeof MY_CLIENTS[0] | null>(null);
+  const [clientSearch, setClientSearch] = useState('');
+  const [clientPickerOpen, setClientPickerOpen] = useState(false);
+
   const [ratings, setRatings] = useState<Record<string, number>>({});
-  const [ratingOpen, setRatingOpen] = useState(false);
   const [posting, setPosting] = useState(false);
 
   const filteredProviders = MY_PROVIDERS.filter(p =>
     providerSearch.trim().length === 0 ||
     p.name.toLowerCase().includes(providerSearch.toLowerCase()) ||
     p.specialty.toLowerCase().includes(providerSearch.toLowerCase())
+  );
+
+  const filteredClients = MY_CLIENTS.filter(c =>
+    clientSearch.trim().length === 0 ||
+    c.name.toLowerCase().includes(clientSearch.toLowerCase())
   );
 
   const ratedCount = Object.values(ratings).filter(v => v > 0).length;
@@ -171,24 +217,90 @@ export function CreatePostScreen({ navigation }: Props) {
     setTags(prev => prev.filter(x => x !== t));
   }
 
+  // ── Validation ───────────────────────────────────────────────────────────────
+
+  function canProceedToRating(): boolean {
+    if (role === 'customer') return !!selectedProvider;
+    return true; // providers don't need to tag a client
+  }
+
   // ── Post submission ──────────────────────────────────────────────────────────
 
   async function handlePost() {
     if (!mediaUri) return;
-    if (!selectedProvider) {
+
+    if (role === 'customer' && !selectedProvider) {
       Alert.alert('Tag a provider', 'Please tag the provider who did the work.');
       return;
     }
+
     setPosting(true);
-    // Simulate upload
-    await new Promise(r => setTimeout(r, 1500));
+    // Simulate upload delay
+    await new Promise(r => setTimeout(r, 1200));
+
+    // Build a FeedPost and add it to the shared store
+    if (role === 'customer') {
+      const provider = selectedProvider!;
+      const emoji = SERVICE_EMOJI[provider.category] ?? '✂️';
+      addPost({
+        id: newPostId(),
+        customer: {
+          id: MY_CUSTOMER_SELF.id,
+          name: MY_CUSTOMER_SELF.name,
+          avatar: MY_CUSTOMER_SELF.avatar,
+        },
+        provider: {
+          id: provider.id,
+          name: provider.name,
+          location: provider.location,
+          avatar: provider.avatar,
+          service: emoji,
+        },
+        photo: mediaUri,
+        tags: tags.length > 0 ? tags : [provider.specialty],
+        review: caption.trim() || `Just got ${provider.specialty.toLowerCase()} done by ${provider.name}. Highly recommend! 👑`,
+        likes: 0,
+        liked: false,
+        ratings: ratedCount > 0 ? { ...ratings } : undefined,
+        createdAt: Date.now(),
+      });
+    } else {
+      // Provider posting their own work — they are both the "provider" posting,
+      // and the customer shown is whoever they tag (or "Client" as placeholder)
+      const client = selectedClient ?? { id: 'anon', name: 'A Client', avatar: 'https://i.pravatar.cc/150?u=anon' };
+      const emoji = SERVICE_EMOJI[MY_PROVIDER_SELF.category] ?? '✂️';
+      addPost({
+        id: newPostId(),
+        customer: {
+          id: client.id,
+          name: client.name,
+          avatar: client.avatar,
+        },
+        provider: {
+          id: MY_PROVIDER_SELF.id,
+          name: MY_PROVIDER_SELF.name,
+          location: MY_PROVIDER_SELF.location,
+          avatar: MY_PROVIDER_SELF.avatar,
+          service: emoji,
+        },
+        photo: mediaUri,
+        tags: tags.length > 0 ? tags : [MY_PROVIDER_SELF.specialty],
+        review: caption.trim() || `Fresh work from the chair. ${MY_PROVIDER_SELF.specialty} by ${MY_PROVIDER_SELF.name}. 👑`,
+        likes: 0,
+        liked: false,
+        createdAt: Date.now(),
+      });
+    }
+
     setPosting(false);
-    Alert.alert('Posted! 👑', 'Your post is live on your friends\' feeds.', [
+    Alert.alert('Posted! 👑', "Your post is live. Pull down to refresh the feed to see it.", [
       { text: 'Done', onPress: () => navigation.goBack() },
     ]);
   }
 
-  // ── Step: Media ──────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
+  // STEP: MEDIA
+  // ─────────────────────────────────────────────────────────────────────────────
 
   if (step === 'media') {
     return (
@@ -199,6 +311,30 @@ export function CreatePostScreen({ navigation }: Props) {
           </TouchableOpacity>
           <Text style={styles.stepTitle}>New Post</Text>
           <View style={{ width: 24 }} />
+        </View>
+
+        {/* Role switcher */}
+        <View style={styles.roleRow}>
+          <TouchableOpacity
+            style={[styles.roleBtn, role === 'customer' && styles.roleBtnActive]}
+            onPress={() => setRole('customer')}
+            activeOpacity={0.8}
+          >
+            <IconUser size={14} color={role === 'customer' ? Colors.white : Colors.textSecondary} strokeWidth={2} />
+            <Text style={[styles.roleBtnText, role === 'customer' && styles.roleBtnTextActive]}>
+              I got this done
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.roleBtn, role === 'provider' && styles.roleBtnActive]}
+            onPress={() => setRole('provider')}
+            activeOpacity={0.8}
+          >
+            <IconScissors size={14} color={role === 'provider' ? Colors.white : Colors.textSecondary} strokeWidth={2} />
+            <Text style={[styles.roleBtnText, role === 'provider' && styles.roleBtnTextActive]}>
+              I did this work
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Preview or placeholder */}
@@ -212,8 +348,10 @@ export function CreatePostScreen({ navigation }: Props) {
         ) : (
           <View style={styles.placeholder}>
             <Text style={styles.placeholderEmoji}>📷</Text>
-            <Text style={styles.placeholderText}>Add a photo or video</Text>
-            <Text style={styles.placeholderSub}>Show off the work</Text>
+            <Text style={styles.placeholderText}>
+              {role === 'customer' ? 'Show off the work you got done' : 'Show off your work'}
+            </Text>
+            <Text style={styles.placeholderSub}>Photo or video</Text>
           </View>
         )}
 
@@ -243,7 +381,9 @@ export function CreatePostScreen({ navigation }: Props) {
     );
   }
 
-  // ── Step: Details ────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
+  // STEP: DETAILS
+  // ─────────────────────────────────────────────────────────────────────────────
 
   if (step === 'details') {
     return (
@@ -255,22 +395,33 @@ export function CreatePostScreen({ navigation }: Props) {
             </TouchableOpacity>
             <Text style={styles.stepTitle}>Details</Text>
             <TouchableOpacity
-              onPress={() => setStep('rating')}
+              onPress={() => {
+                if (role === 'customer' && !selectedProvider) {
+                  Alert.alert('Tag a provider', 'Please tag the provider who did the work before continuing.');
+                  return;
+                }
+                setStep('rating');
+              }}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
             >
-              <Text style={styles.skipText}>Next</Text>
+              <Text style={[styles.skipText, !canProceedToRating() && { opacity: 0.35 }]}>Next</Text>
             </TouchableOpacity>
           </View>
 
           <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-            {/* Thumbnail + Caption side by side */}
+
+            {/* Thumbnail + Caption */}
             <View style={styles.captionRow}>
               {mediaUri && (
                 <Image source={{ uri: mediaUri }} style={styles.thumb} resizeMode="cover" />
               )}
               <TextInput
                 style={styles.captionInput}
-                placeholder="Write a caption… what did you get done? How was the experience?"
+                placeholder={
+                  role === 'customer'
+                    ? 'Write a caption… what did you get done? How was the experience?'
+                    : 'Describe the look, technique, or story behind the work…'
+                }
                 placeholderTextColor={Colors.textMuted}
                 multiline
                 value={caption}
@@ -280,41 +431,73 @@ export function CreatePostScreen({ navigation }: Props) {
             </View>
             <Text style={styles.charCount}>{caption.length}/500</Text>
 
-            {/* Tag provider — REQUIRED */}
-            <View style={styles.section}>
-              <Text style={styles.sectionLabel}>
-                Tag Provider <Text style={styles.required}>*</Text>
-              </Text>
-              <Text style={styles.sectionSub}>Who did the work?</Text>
+            {/* ── Customer: tag which provider did the work ── */}
+            {role === 'customer' && (
+              <View style={styles.section}>
+                <Text style={styles.sectionLabel}>
+                  Tag Provider <Text style={styles.required}>*</Text>
+                </Text>
+                <Text style={styles.sectionSub}>Who did the work?</Text>
 
-              {selectedProvider ? (
-                <View style={styles.selectedProvider}>
-                  <Image source={{ uri: selectedProvider.avatar }} style={styles.selectedAvatar} />
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.selectedName}>{selectedProvider.name}</Text>
-                    <Text style={styles.selectedSpecialty}>{selectedProvider.specialty} · {selectedProvider.location}</Text>
+                {selectedProvider ? (
+                  <View style={styles.selectedProvider}>
+                    <Image source={{ uri: selectedProvider.avatar }} style={styles.selectedAvatar} />
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.selectedName}>{selectedProvider.name}</Text>
+                      <Text style={styles.selectedSpecialty}>{selectedProvider.specialty} · {selectedProvider.location}</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => setSelectedProvider(null)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                      <IconX size={18} color={Colors.textMuted} strokeWidth={2} />
+                    </TouchableOpacity>
                   </View>
-                  <TouchableOpacity onPress={() => setSelectedProvider(null)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                    <IconX size={18} color={Colors.textMuted} strokeWidth={2} />
+                ) : (
+                  <TouchableOpacity
+                    style={styles.providerPickerBtn}
+                    onPress={() => setProviderPickerOpen(true)}
+                    activeOpacity={0.8}
+                  >
+                    <IconSearch size={16} color={Colors.textMuted} strokeWidth={1.75} />
+                    <Text style={styles.providerPickerBtnText}>Search your providers...</Text>
+                    <IconChevronRight size={16} color={Colors.textMuted} strokeWidth={1.75} />
                   </TouchableOpacity>
-                </View>
-              ) : (
-                <TouchableOpacity
-                  style={styles.providerPickerBtn}
-                  onPress={() => setProviderPickerOpen(true)}
-                  activeOpacity={0.8}
-                >
-                  <IconSearch size={16} color={Colors.textMuted} strokeWidth={1.75} />
-                  <Text style={styles.providerPickerBtnText}>Search your providers...</Text>
-                  <IconChevronRight size={16} color={Colors.textMuted} strokeWidth={1.75} />
-                </TouchableOpacity>
-              )}
-            </View>
+                )}
+              </View>
+            )}
+
+            {/* ── Provider: optionally tag a client ── */}
+            {role === 'provider' && (
+              <View style={styles.section}>
+                <Text style={styles.sectionLabel}>Tag Client <Text style={styles.optional}>(optional)</Text></Text>
+                <Text style={styles.sectionSub}>Tag the client featured in this post (they'll be notified)</Text>
+
+                {selectedClient ? (
+                  <View style={styles.selectedProvider}>
+                    <Image source={{ uri: selectedClient.avatar }} style={styles.selectedAvatar} />
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.selectedName}>{selectedClient.name}</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => setSelectedClient(null)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                      <IconX size={18} color={Colors.textMuted} strokeWidth={2} />
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    style={styles.providerPickerBtn}
+                    onPress={() => setClientPickerOpen(true)}
+                    activeOpacity={0.8}
+                  >
+                    <IconSearch size={16} color={Colors.textMuted} strokeWidth={1.75} />
+                    <Text style={styles.providerPickerBtnText}>Search your clients...</Text>
+                    <IconChevronRight size={16} color={Colors.textMuted} strokeWidth={1.75} />
+                  </TouchableOpacity>
+                )}
+              </View>
+            )}
 
             {/* Service tags */}
             <View style={styles.section}>
               <Text style={styles.sectionLabel}>Tags</Text>
-              <Text style={styles.sectionSub}>Services you got, techniques used, etc.</Text>
+              <Text style={styles.sectionSub}>Services, techniques, vibes — separate with Enter</Text>
 
               <View style={styles.tagInputRow}>
                 <TextInput
@@ -354,7 +537,7 @@ export function CreatePostScreen({ navigation }: Props) {
           </ScrollView>
         </KeyboardAvoidingView>
 
-        {/* Provider picker modal */}
+        {/* Provider picker sheet */}
         {providerPickerOpen && (
           <View style={styles.pickerOverlay}>
             <View style={styles.pickerSheet}>
@@ -384,11 +567,7 @@ export function CreatePostScreen({ navigation }: Props) {
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={styles.pickerRow}
-                    onPress={() => {
-                      setSelectedProvider(item);
-                      setProviderPickerOpen(false);
-                      setProviderSearch('');
-                    }}
+                    onPress={() => { setSelectedProvider(item); setProviderPickerOpen(false); setProviderSearch(''); }}
                     activeOpacity={0.7}
                   >
                     <Image source={{ uri: item.avatar }} style={styles.pickerAvatar} />
@@ -401,9 +580,55 @@ export function CreatePostScreen({ navigation }: Props) {
                     )}
                   </TouchableOpacity>
                 )}
-                ListEmptyComponent={
-                  <Text style={styles.pickerEmpty}>No providers found</Text>
-                }
+                ListEmptyComponent={<Text style={styles.pickerEmpty}>No providers found</Text>}
+              />
+            </View>
+          </View>
+        )}
+
+        {/* Client picker sheet */}
+        {clientPickerOpen && (
+          <View style={styles.pickerOverlay}>
+            <View style={styles.pickerSheet}>
+              <View style={styles.pickerHandle} />
+              <View style={styles.pickerHeader}>
+                <Text style={styles.pickerTitle}>Tag a Client</Text>
+                <TouchableOpacity onPress={() => { setClientPickerOpen(false); setClientSearch(''); }}>
+                  <IconX size={20} color={Colors.textMuted} strokeWidth={2} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.pickerSearchRow}>
+                <IconSearch size={16} color={Colors.textMuted} strokeWidth={1.75} />
+                <TextInput
+                  style={styles.pickerSearch}
+                  placeholder="Search clients..."
+                  placeholderTextColor={Colors.textMuted}
+                  value={clientSearch}
+                  onChangeText={setClientSearch}
+                  autoFocus
+                />
+              </View>
+              <FlatList
+                data={filteredClients}
+                keyExtractor={c => c.id}
+                style={{ maxHeight: 320 }}
+                keyboardShouldPersistTaps="handled"
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.pickerRow}
+                    onPress={() => { setSelectedClient(item); setClientPickerOpen(false); setClientSearch(''); }}
+                    activeOpacity={0.7}
+                  >
+                    <Image source={{ uri: item.avatar }} style={styles.pickerAvatar} />
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.pickerName}>{item.name}</Text>
+                    </View>
+                    {selectedClient?.id === item.id && (
+                      <IconCheck size={18} color={Colors.primary} strokeWidth={2} />
+                    )}
+                  </TouchableOpacity>
+                )}
+                ListEmptyComponent={<Text style={styles.pickerEmpty}>No clients found</Text>}
               />
             </View>
           </View>
@@ -412,7 +637,9 @@ export function CreatePostScreen({ navigation }: Props) {
     );
   }
 
-  // ── Step: Rating ─────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────────
+  // STEP: RATING  (customer only — providers don't rate themselves)
+  // ─────────────────────────────────────────────────────────────────────────────
 
   return (
     <SafeAreaView style={styles.container}>
@@ -420,15 +647,17 @@ export function CreatePostScreen({ navigation }: Props) {
         <TouchableOpacity onPress={() => setStep('details')} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />
         </TouchableOpacity>
-        <Text style={styles.stepTitle}>Rate the Experience</Text>
+        <Text style={styles.stepTitle}>
+          {role === 'customer' ? 'Rate the Experience' : 'Almost Done!'}
+        </Text>
         <TouchableOpacity onPress={handlePost} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.ratingContent}>
-        {/* Preview card */}
-        {selectedProvider && (
+        {/* Provider preview card */}
+        {role === 'customer' && selectedProvider && (
           <View style={styles.ratingProviderCard}>
             <Image source={{ uri: selectedProvider.avatar }} style={styles.ratingProviderAvatar} />
             <View>
@@ -438,33 +667,58 @@ export function CreatePostScreen({ navigation }: Props) {
           </View>
         )}
 
-        <Text style={styles.ratingIntro}>
-          Your rating helps your friends know what to expect. All categories are optional.
-        </Text>
-
-        {/* Rating rows */}
-        {RATING_CATEGORIES.map(cat => (
-          <View key={cat.key} style={styles.ratingRow}>
-            <Text style={styles.ratingLabel}>{cat.label}</Text>
-            <StarPicker
-              value={ratings[cat.key] ?? 0}
-              onChange={v => setRatings(prev => ({ ...prev, [cat.key]: v }))}
-            />
-          </View>
-        ))}
-
-        {/* Overall */}
-        {ratedCount > 0 && (
-          <View style={styles.overallRow}>
-            <Text style={styles.overallLabel}>Overall</Text>
-            <Text style={styles.overallScore}>
-              {(Object.values(ratings).filter(v => v > 0).reduce((a, b) => a + b, 0) / ratedCount).toFixed(1)}
+        {role === 'customer' ? (
+          <>
+            <Text style={styles.ratingIntro}>
+              Your rating helps your friends know what to expect. All categories are optional.
             </Text>
-            <Text style={styles.overallStar}>★</Text>
+
+            {RATING_CATEGORIES.map(cat => (
+              <View key={cat.key} style={styles.ratingRow}>
+                <Text style={styles.ratingLabel}>{cat.label}</Text>
+                <StarPicker
+                  value={ratings[cat.key] ?? 0}
+                  onChange={v => setRatings(prev => ({ ...prev, [cat.key]: v }))}
+                />
+              </View>
+            ))}
+
+            {ratedCount > 0 && (
+              <View style={styles.overallRow}>
+                <Text style={styles.overallLabel}>Overall</Text>
+                <Text style={styles.overallScore}>
+                  {(Object.values(ratings).filter(v => v > 0).reduce((a, b) => a + b, 0) / ratedCount).toFixed(1)}
+                </Text>
+                <Text style={styles.overallStar}>★</Text>
+              </View>
+            )}
+          </>
+        ) : (
+          /* Provider mode — no self-rating, just a summary */
+          <View style={styles.providerSummary}>
+            <Text style={styles.providerSummaryTitle}>Ready to post! ✂️</Text>
+            <Text style={styles.providerSummaryText}>
+              Your work will appear in your clients' feeds and help build your CROWND reputation.
+            </Text>
+            {selectedClient && (
+              <View style={styles.summaryClientRow}>
+                <Image source={{ uri: selectedClient.avatar }} style={styles.summaryClientAvatar} />
+                <Text style={styles.summaryClientName}>Tagged: {selectedClient.name}</Text>
+              </View>
+            )}
+            {tags.length > 0 && (
+              <View style={styles.summaryTags}>
+                {tags.map(t => (
+                  <View key={t} style={styles.tagChip}>
+                    <Text style={styles.tagChipText}>#{t}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
         )}
 
-        <View style={{ height: 40 }} />
+        <View style={{ height: 32 }} />
 
         {/* Post button */}
         <TouchableOpacity
@@ -477,7 +731,9 @@ export function CreatePostScreen({ navigation }: Props) {
             <ActivityIndicator color={Colors.white} />
           ) : (
             <Text style={styles.postBtnText}>
-              {ratedCount > 0 ? 'Post with Rating 👑' : 'Post without Rating'}
+              {role === 'customer'
+                ? ratedCount > 0 ? 'Post with Rating 👑' : 'Post without Rating'
+                : 'Share My Work 👑'}
             </Text>
           )}
         </TouchableOpacity>
@@ -499,8 +755,22 @@ const styles = StyleSheet.create({
   stepTitle: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
   skipText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.primary },
 
+  // Role toggle
+  roleRow: {
+    flexDirection: 'row', gap: Spacing.sm,
+    marginHorizontal: Spacing.base, marginVertical: Spacing.md,
+  },
+  roleBtn: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+    gap: Spacing.xs, paddingVertical: Spacing.sm, borderRadius: Radius.lg,
+    borderWidth: 1, borderColor: Colors.border, backgroundColor: Colors.surface,
+  },
+  roleBtnActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
+  roleBtnText: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.semibold, color: Colors.textSecondary },
+  roleBtnTextActive: { color: Colors.white },
+
   // Media step
-  previewWrap: { flex: 1, margin: Spacing.base, borderRadius: Radius.xl, overflow: 'hidden', position: 'relative' },
+  previewWrap: { flex: 1, marginHorizontal: Spacing.base, marginBottom: Spacing.sm, borderRadius: Radius.xl, overflow: 'hidden', position: 'relative' },
   preview: { width: '100%', height: '100%' },
   clearMedia: {
     position: 'absolute', top: Spacing.sm, right: Spacing.sm,
@@ -508,13 +778,14 @@ const styles = StyleSheet.create({
     width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
   },
   placeholder: {
-    flex: 1, margin: Spacing.base, borderRadius: Radius.xl,
-    backgroundColor: Colors.surfaceAlt, borderWidth: 2,
-    borderColor: Colors.border, borderStyle: 'dashed',
+    flex: 1, marginHorizontal: Spacing.base, marginBottom: Spacing.sm,
+    borderRadius: Radius.xl, backgroundColor: Colors.surfaceAlt,
+    borderWidth: 2, borderColor: Colors.border, borderStyle: 'dashed',
     alignItems: 'center', justifyContent: 'center', gap: Spacing.sm,
+    minHeight: 260,
   },
   placeholderEmoji: { fontSize: 52 },
-  placeholderText: { fontSize: Typography.sizes.lg, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  placeholderText: { fontSize: Typography.sizes.lg, fontWeight: Typography.weights.semibold, color: Colors.textPrimary, textAlign: 'center', paddingHorizontal: Spacing.lg },
   placeholderSub: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
 
   mediaButtons: {
@@ -556,6 +827,7 @@ const styles = StyleSheet.create({
   sectionLabel: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary, marginBottom: 2 },
   sectionSub: { fontSize: Typography.sizes.sm, color: Colors.textMuted, marginBottom: Spacing.md },
   required: { color: Colors.error },
+  optional: { color: Colors.textMuted, fontWeight: Typography.weights.regular, fontSize: Typography.sizes.sm },
 
   // Provider picker button
   providerPickerBtn: {
@@ -566,7 +838,7 @@ const styles = StyleSheet.create({
   },
   providerPickerBtnText: { flex: 1, fontSize: Typography.sizes.base, color: Colors.textMuted },
 
-  // Selected provider
+  // Selected provider / client
   selectedProvider: {
     flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
     borderWidth: 1, borderColor: Colors.primary, borderRadius: Radius.lg,
@@ -598,7 +870,7 @@ const styles = StyleSheet.create({
   },
   tagChipText: { fontSize: Typography.sizes.sm, color: Colors.textPrimary },
 
-  // Provider picker overlay
+  // Picker overlay
   pickerOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0,0,0,0.45)',
@@ -649,8 +921,7 @@ const styles = StyleSheet.create({
 
   ratingRow: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingVertical: Spacing.md,
-    borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
+    paddingVertical: Spacing.md, borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
   },
   ratingLabel: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
 
@@ -662,10 +933,21 @@ const styles = StyleSheet.create({
   overallScore: { fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
   overallStar: { fontSize: Typography.sizes.xl, color: Colors.star },
 
+  // Provider post summary
+  providerSummary: {
+    backgroundColor: Colors.surfaceAlt, borderRadius: Radius.xl,
+    padding: Spacing.lg, gap: Spacing.md, marginBottom: Spacing.lg,
+  },
+  providerSummaryTitle: { fontSize: Typography.sizes.lg, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  providerSummaryText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, lineHeight: 20 },
+  summaryClientRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
+  summaryClientAvatar: { width: 36, height: 36, borderRadius: 18, backgroundColor: Colors.surface },
+  summaryClientName: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  summaryTags: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
+
   postBtn: {
     backgroundColor: Colors.primary, borderRadius: Radius.lg,
     paddingVertical: Spacing.md, alignItems: 'center',
-    marginHorizontal: 0,
   },
   postBtnDisabled: { opacity: 0.6 },
   postBtnText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.white },

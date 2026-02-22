@@ -1,5 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -16,7 +16,7 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { RootStackParamList } from '../../navigation';
@@ -28,6 +28,7 @@ import {
 import { CrowndLogo } from '../../components/brand/CrowndLogo';
 import * as SMS from 'expo-sms';
 import * as Contacts from 'expo-contacts';
+import { getPosts, subscribe, toggleLike as storeToggleLike, FeedPost } from '../../utils/postsStore';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
@@ -68,55 +69,8 @@ const MOCK_PROVIDERS = [
   { id: 'p7', name: 'Brianna',  specialty: 'Makeup Artist',     location: 'Compton, CA',    avatar: 'https://randomuser.me/api/portraits/women/17.jpg', category: 'makeup',    score: 4.7, ratings: 34 },
 ];
 
-// ─── Mock Feed Posts ───────────────────────────────────────────────────────────
-
-const MOCK_POSTS = [
-  {
-    id: '1',
-    customer: { id: 'f1', name: 'Sarah Kim',      avatar: 'https://randomuser.me/api/portraits/women/55.jpg' },
-    provider:  { id: 'p1', name: 'Carmela',        location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', service: '💇‍♀️' },
-    photo: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80',
-    tags: ['Goddess Braids', 'Shampoo', 'Color'],
-    review: "Carmela did amazing with these braids! Best, hands-down. My hair has never been more healthy — she really knows how to take care of it.",
-    likes: 16, liked: false,
-  },
-  {
-    id: '2',
-    customer: { id: 'f3', name: 'Lisa Morgan',    avatar: 'https://randomuser.me/api/portraits/women/12.jpg' },
-    provider:  { id: 'p5', name: 'Aisha',          location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', service: '🧖‍♀️' },
-    photo: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80',
-    tags: ['HydraFacial', 'Glow'],
-    review: "Aisha is the skin whisperer. Left glowing like never before. I'm a forever client.",
-    likes: 31, liked: false,
-  },
-  {
-    id: '3',
-    customer: { id: 'f5', name: 'Martina Garcia', avatar: 'https://randomuser.me/api/portraits/women/32.jpg' },
-    provider:  { id: 'p2', name: 'Devon',          location: 'Santa Ana, CA',  avatar: 'https://randomuser.me/api/portraits/men/42.jpg',   service: '💈' },
-    photo: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80',
-    tags: ['Fade', 'Lineup'],
-    review: "Devon is hands down the best barber in OC. Got my husband going and now he won't go anywhere else.",
-    likes: 24, liked: true,
-  },
-  {
-    id: '4',
-    customer: { id: 'f2', name: 'Emily Rodriguez',avatar: 'https://randomuser.me/api/portraits/women/33.jpg' },
-    provider:  { id: 'p6', name: 'Tyler',          location: 'Torrance, CA',   avatar: 'https://randomuser.me/api/portraits/men/33.jpg',   service: '💪' },
-    photo: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80',
-    tags: ['HIIT', 'Personal Training'],
-    review: "Tyler is the real deal. He pushes you just enough and the results speak for themselves. Month 3 and I'm a different person.",
-    likes: 19, liked: false,
-  },
-  {
-    id: '5',
-    customer: { id: 'f1', name: 'Sarah Kim',      avatar: 'https://randomuser.me/api/portraits/women/55.jpg' },
-    provider:  { id: 'p3', name: 'Jasmine',        location: 'Irvine, CA',     avatar: 'https://randomuser.me/api/portraits/women/22.jpg', service: '💅' },
-    photo: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80',
-    tags: ['Gel Manicure', 'Nail Art'],
-    review: "Jasmine did the most beautiful set — clean, precise, and so cute. Already booked my next appointment.",
-    likes: 8, liked: false,
-  },
-];
+// Feed posts are now managed by src/utils/postsStore.ts
+// The store is seeded with the same mock data and updated when new posts are created.
 
 const SERVICE_CATEGORIES = [
   { key: 'hair',      label: 'Hair',      emoji: '💇‍♀️' },
@@ -142,33 +96,39 @@ function normalizePhone(raw: string): string {
 
 export function DiscoverScreen() {
   const navigation = useNavigation<Nav>();
+  const isFocused = useIsFocused();
   const [activeTab, setActiveTab] = useState('Feed');
-  const [posts, setPosts] = useState(MOCK_POSTS);
+  // Posts come from the shared store so new posts from CreatePostScreen appear here
+  const [posts, setPosts] = useState<FeedPost[]>(() => getPosts());
   const [addFriendVisible, setAddFriendVisible] = useState(false);
   const [addServiceVisible, setAddServiceVisible] = useState(false);
   const [hamburgerVisible, setHamburgerVisible] = useState(false);
-
-  // Pull-to-refresh state
   const [refreshing, setRefreshing] = useState(false);
+
+  // Subscribe to store updates so new posts appear immediately after creation
+  useEffect(() => {
+    const unsubscribe = subscribe(() => setPosts(getPosts()));
+    return unsubscribe;
+  }, []);
+
+  // Also refresh when navigating back to this screen
+  useEffect(() => {
+    if (isFocused) setPosts(getPosts());
+  }, [isFocused]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    // Simulate network fetch — shuffle likes slightly to show it "refreshed"
+    // Simulate network fetch — in production this would re-query Supabase
     setTimeout(() => {
-      setPosts(prev =>
-        prev.map(p => ({
-          ...p,
-          likes: p.liked ? p.likes : p.likes + Math.floor(Math.random() * 3),
-        }))
-      );
+      setPosts(getPosts());
       setRefreshing(false);
-    }, 1200);
+    }, 900);
   }, []);
 
   function toggleLike(id: string) {
-    setPosts(prev => prev.map(p =>
-      p.id === id ? { ...p, liked: !p.liked, likes: p.liked ? p.likes - 1 : p.likes + 1 } : p
-    ));
+    storeToggleLike(id);
+    // Store notifies listener above, but call setPosts immediately for snappy UI
+    setPosts(getPosts());
   }
 
   return (
@@ -929,7 +889,7 @@ function AddServiceModal({ visible, onClose, navigation }: {
 // ─── Feed Post ─────────────────────────────────────────────────────────────────
 
 function FeedPost({ post, onFriendPress, onProviderPress, onLike }: {
-  post: typeof MOCK_POSTS[0];
+  post: FeedPost;
   onFriendPress: () => void;
   onProviderPress: () => void;
   onLike: () => void;
