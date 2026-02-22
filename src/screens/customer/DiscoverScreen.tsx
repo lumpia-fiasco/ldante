@@ -173,7 +173,7 @@ export function DiscoverScreen() {
         >
           <Text style={styles.feedLabel}>Posts from your friends & providers</Text>
           {posts.map(post => (
-            <FeedPost
+            <FeedPostCard
               key={post.id}
               post={post}
               onFriendPress={() => navigation.navigate('FriendProfile', { friendId: post.customer.id })}
@@ -888,7 +888,7 @@ function AddServiceModal({ visible, onClose, navigation }: {
 
 // ─── Feed Post ─────────────────────────────────────────────────────────────────
 
-function FeedPost({ post, onFriendPress, onProviderPress, onLike }: {
+function FeedPostCard({ post, onFriendPress, onProviderPress, onLike }: {
   post: FeedPost;
   onFriendPress: () => void;
   onProviderPress: () => void;
