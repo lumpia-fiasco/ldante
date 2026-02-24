@@ -4,7 +4,6 @@ import {
   View,
   Text,
   StyleSheet,
-  
   ScrollView,
   TouchableOpacity,
   Alert,
@@ -12,7 +11,8 @@ import {
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing } from '../../theme';
 import { Button, Input, ScreenHeader } from '../../components/common';
-import { authService } from '../../services/supabase';
+import { authService, userService } from '../../services/supabase';
+import { useAuth } from '../../context/AuthContext';
 import { RootStackParamList } from '../../navigation';
 import { IconArrowLeft } from '@tabler/icons-react-native';
 
@@ -39,9 +39,23 @@ export function LoginScreen({ navigation }: Props) {
     if (!validate()) return;
     setLoading(true);
     try {
-      const { error } = await authService.signInWithEmail(email.trim(), password);
+      const { data, error } = await authService.signInWithEmail(email.trim(), password);
       if (error) throw error;
-      navigation.reset({ index: 0, routes: [{ name: 'CustomerTabs' }] });
+      // Fetch user role to route to the correct tab navigator
+      const userId = data.user?.id;
+      let role: string | null = null;
+      if (userId) {
+        const { data: userData } = await userService.getUser(userId);
+        role = userData?.role ?? null;
+      }
+      if (role === 'provider') {
+        navigation.reset({ index: 0, routes: [{ name: 'ProviderTabs' }] });
+      } else if (role === 'customer') {
+        navigation.reset({ index: 0, routes: [{ name: 'CustomerTabs' }] });
+      } else {
+        // No role set yet — send to role selection
+        navigation.reset({ index: 0, routes: [{ name: 'RoleSelect' }] });
+      }
     } catch (err: any) {
       Alert.alert('Login Failed', err.message || 'Invalid email or password.');
     } finally {

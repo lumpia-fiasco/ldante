@@ -89,7 +89,7 @@ export function RolodexScreen() {
   function handleRemove(entryId: string, name: string) {
     Alert.alert(
       `Remove ${name}?`,
-      'They will be removed from your Rolodex but you can re-add them later.',
+      'They will be removed from your Go-tos but you can re-add them later.',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -104,8 +104,8 @@ export function RolodexScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>My Rolodex</Text>
-        <Text style={styles.subtitle}>{entries.length} providers</Text>
+        <Text style={styles.title}>My Go-tos</Text>
+        <Text style={styles.subtitle}>{entries.length} Go-to{entries.length !== 1 ? 's' : ''}</Text>
       </View>
 
       {/* Search */}
@@ -113,7 +113,7 @@ export function RolodexScreen() {
         <Text style={styles.searchIcon}>🔍</Text>
         <TextInput
           style={styles.search}
-          placeholder="Search your providers..."
+          placeholder="Search your Go-tos..."
           placeholderTextColor={Colors.textMuted}
           value={search}
           onChangeText={setSearch}
@@ -123,13 +123,13 @@ export function RolodexScreen() {
       {filtered.length === 0 ? (
         <EmptyState
           icon="clipboardList"
-          title={entries.length === 0 ? 'Your Rolodex is empty' : 'No results'}
+          title={entries.length === 0 ? 'No Go-tos yet' : 'No results'}
           message={
             entries.length === 0
-              ? 'Add your trusted providers to your Rolodex so friends can discover them.'
+              ? 'Add your trusted Go-tos so friends can discover them.'
               : 'Try a different search term.'
           }
-          action={entries.length === 0 ? 'Discover Providers' : undefined}
+          action={entries.length === 0 ? 'Discover Go-tos' : undefined}
           onAction={() => navigation.navigate('CustomerTabs')}
         />
       ) : (

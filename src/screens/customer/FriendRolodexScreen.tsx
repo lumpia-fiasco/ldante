@@ -37,7 +37,7 @@ export function FriendRolodexScreen({ navigation, route }: Props) {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenHeader
-        title={`${friendName}'s Rolodex`}
+        title={`${friendName}'s Go-tos`}
         leftIcon={<IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />}
         onLeftPress={() => navigation.goBack()}
       />
@@ -45,7 +45,7 @@ export function FriendRolodexScreen({ navigation, route }: Props) {
       <View style={styles.friendHeader}>
         <Avatar name={friendName} size={40} />
         <Text style={styles.friendDesc}>
-          {MOCK_FRIEND_PROVIDERS.length} providers {friendName.split(' ')[0]} trusts
+          {MOCK_FRIEND_PROVIDERS.length} Go-to{MOCK_FRIEND_PROVIDERS.length !== 1 ? 's' : ''} {friendName.split(' ')[0]} trusts
         </Text>
       </View>
 
@@ -91,10 +91,10 @@ export function FriendRolodexScreen({ navigation, route }: Props) {
 
             <View style={styles.cardActions}>
               <Button
-                label={item.inMyRolodex ? '✓ In My Rolodex' : 'Add to Rolodex'}
+                label={item.inMyRolodex ? '✓ In My Go-tos' : 'Add to Go-tos'}
                 onPress={() => {
                   if (!item.inMyRolodex) {
-                    Alert.alert('Added!', `${item.name} added to your Rolodex.`);
+                    Alert.alert('Added!', `${item.name} added to your Go-tos! 👑`);
                   }
                 }}
                 variant={item.inMyRolodex ? 'secondary' : 'outline'}

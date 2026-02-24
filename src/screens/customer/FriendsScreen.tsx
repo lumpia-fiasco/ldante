@@ -101,7 +101,7 @@ export function FriendsScreen() {
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
-          <EmptyState icon="users" title="No friends yet" message="Invite your friends to discover great providers together." />
+          <EmptyState icon="users" title="No friends yet" message="Invite your friends to discover great Go-tos together." />
         }
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -118,14 +118,14 @@ export function FriendsScreen() {
               <Text style={styles.friendName}>{item.full_name}</Text>
               {tab === 'friends' ? (
                 <Text style={styles.friendSub}>
-                  {item.stylist_count} provider{item.stylist_count !== 1 ? 's' : ''} · {item.mutual} mutual
+                  {item.stylist_count} Go-to{item.stylist_count !== 1 ? 's' : ''} · {item.mutual} mutual
                 </Text>
               ) : (
                 <Text style={styles.friendSub}>{item.mutual} mutual friends</Text>
               )}
             </View>
             {tab === 'friends' ? (
-              <Text style={styles.viewRolodex}>View profile →</Text>
+              <Text style={styles.viewRolodex}>View Go-tos →</Text>
             ) : (
               <Button label="Add" onPress={() => {}} size="sm" fullWidth={false} style={styles.addBtn} />
             )}

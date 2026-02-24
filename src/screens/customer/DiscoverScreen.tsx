@@ -24,6 +24,7 @@ import {
   IconBell, IconMenu2, IconHeart, IconHeartFilled,
   IconX, IconPhone, IconAddressBook, IconUserPlus, IconPlus,
   IconUser, IconSettings, IconHelp, IconLogout, IconChevronRight,
+  IconMapPin,
 } from '@tabler/icons-react-native';
 import { CrowndLogo } from '../../components/brand/CrowndLogo';
 import * as SMS from 'expo-sms';
@@ -35,11 +36,11 @@ type Nav = StackNavigationProp<RootStackParamList>;
 // ─── Mock Friends ──────────────────────────────────────────────────────────────
 
 const MOCK_FRIENDS = [
-  { id: 'f1', name: 'Sarah Kim',      avatar: 'https://randomuser.me/api/portraits/women/55.jpg', providerCount: 4, mutualCount: 2 },
-  { id: 'f2', name: 'Emily Rodriguez',avatar: 'https://randomuser.me/api/portraits/women/33.jpg', providerCount: 2, mutualCount: 1 },
-  { id: 'f3', name: 'Lisa Morgan',    avatar: 'https://randomuser.me/api/portraits/women/12.jpg', providerCount: 3, mutualCount: 3 },
-  { id: 'f4', name: 'Amanda Chen',    avatar: 'https://randomuser.me/api/portraits/women/28.jpg', providerCount: 1, mutualCount: 0 },
-  { id: 'f5', name: 'Martina Garcia', avatar: 'https://randomuser.me/api/portraits/women/32.jpg', providerCount: 5, mutualCount: 1 },
+  { id: 'f1', name: 'Sarah Kim',      avatar: 'https://randomuser.me/api/portraits/women/55.jpg', providerCount: 4, mutualCount: 2, providerEmojis: ['💇‍♀️', '💅', '🧖‍♀️', '💄'] },
+  { id: 'f2', name: 'Emily Rodriguez',avatar: 'https://randomuser.me/api/portraits/women/33.jpg', providerCount: 2, mutualCount: 1, providerEmojis: ['💪', '💈'] },
+  { id: 'f3', name: 'Lisa Morgan',    avatar: 'https://randomuser.me/api/portraits/women/12.jpg', providerCount: 3, mutualCount: 3, providerEmojis: ['🧖‍♀️', '💅', '💇‍♀️'] },
+  { id: 'f4', name: 'Amanda Chen',    avatar: 'https://randomuser.me/api/portraits/women/28.jpg', providerCount: 1, mutualCount: 0, providerEmojis: ['💆'] },
+  { id: 'f5', name: 'Martina Garcia', avatar: 'https://randomuser.me/api/portraits/women/32.jpg', providerCount: 5, mutualCount: 1, providerEmojis: ['💇‍♀️', '💈', '💅', '💪', '🐉'] },
 ];
 
 // ─── Mock "CROWND users" lookup by phone ───────────────────────────────────────
@@ -84,7 +85,7 @@ const SERVICE_CATEGORIES = [
   { key: 'tattoo',    label: 'Tattoo',    emoji: '🐉' },
 ];
 
-const TABS = ['Feed', 'Friends', 'Services'];
+const TABS = ['Feed', 'Friends', 'Go-tos'];
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -171,7 +172,7 @@ export function DiscoverScreen() {
             />
           }
         >
-          <Text style={styles.feedLabel}>Posts from your friends & providers</Text>
+          <Text style={styles.feedLabel}>POSTS FROM YOUR FRIENDS & GO-TOS</Text>
           {posts.map(post => (
             <FeedPostCard
               key={post.id}
@@ -192,7 +193,7 @@ export function DiscoverScreen() {
         />
       )}
 
-      {activeTab === 'Services' && (
+      {activeTab === 'Go-tos' && (
         <ServicesTab
           navigation={navigation}
           onAddService={() => setAddServiceVisible(true)}
@@ -688,7 +689,7 @@ function AddServiceModal({ visible, onClose, navigation }: {
 
   function handleAddProvider(providerId: string) {
     setAdded(true);
-    Alert.alert('Added!', 'Provider added to your Rolodex.');
+    Alert.alert('Added!', 'Added to your Go-tos! 👑');
   }
 
   function handleViewProvider(providerId: string) {
@@ -707,14 +708,14 @@ function AddServiceModal({ visible, onClose, navigation }: {
           <View style={modalStyles.handle} />
 
           <View style={modalStyles.titleRow}>
-            <Text style={modalStyles.title}>Add a Provider</Text>
+            <Text style={modalStyles.title}>Add a Go-to</Text>
             <TouchableOpacity onPress={handleClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
               <IconX size={20} color={Colors.textMuted} strokeWidth={2} />
             </TouchableOpacity>
           </View>
 
           <Text style={modalStyles.subtitle}>
-            Search by name or look up by phone number. If they're not on CROWND yet, send them an invite.
+            Search by name or look up by phone number to add them to your Go-tos. If they're not on CROWND yet, send them an invite.
           </Text>
 
           {/* Mode toggle */}
@@ -781,7 +782,7 @@ function AddServiceModal({ visible, onClose, navigation }: {
               )}
 
               {query.trim().length > 1 && nameResults.length === 0 && (
-                <Text style={modalStyles.noResultsText}>No providers found for "{query}"</Text>
+                <Text style={modalStyles.noResultsText}>No Go-tos found for "{query}"</Text>
               )}
 
               <TouchableOpacity
@@ -865,7 +866,7 @@ function AddServiceModal({ visible, onClose, navigation }: {
               {notFound && (
                 <View style={modalStyles.notFoundBox}>
                   <Text style={modalStyles.notFoundText}>
-                    This provider isn't on CROWND yet.
+                    This Go-to isn't on CROWND yet.
                   </Text>
                   <TouchableOpacity
                     style={[modalStyles.btn, modalStyles.btnPrimary, { marginTop: Spacing.sm }]}
@@ -896,32 +897,42 @@ function FeedPostCard({ post, onFriendPress, onProviderPress, onLike }: {
 }) {
   return (
     <View style={postStyles.card}>
-      <View style={postStyles.header}>
-        <TouchableOpacity style={postStyles.headerLeft} onPress={onFriendPress} activeOpacity={0.7}>
+      {/* Poster row: avatar + name on left, service emoji on right */}
+      <TouchableOpacity style={postStyles.header} onPress={onFriendPress} activeOpacity={0.7}>
+        <View style={postStyles.headerLeft}>
           <Image source={{ uri: post.customer.avatar }} style={postStyles.customerAvatar} />
           <Text style={postStyles.customerName}>{post.customer.name}</Text>
-        </TouchableOpacity>
+        </View>
         <TouchableOpacity onPress={onProviderPress} activeOpacity={0.7}>
           <Text style={postStyles.serviceEmoji}>{post.provider.service}</Text>
         </TouchableOpacity>
-      </View>
-      <Image source={{ uri: post.photo }} style={postStyles.photo} />
-      <View style={postStyles.tags}>
-        {post.tags.map(tag => (
-          <View key={tag} style={postStyles.tag}>
-            <Text style={postStyles.tagText}>{tag}</Text>
-          </View>
-        ))}
-      </View>
-      <TouchableOpacity style={postStyles.providerRow} onPress={onProviderPress} activeOpacity={0.7}>
-        <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
-        <View style={{ flex: 1 }}>
-          <Text style={postStyles.providerName}>{post.provider.name}</Text>
-          <Text style={postStyles.providerLocation}>{post.provider.location}</Text>
-        </View>
-        <Text style={postStyles.viewProfile}>View →</Text>
       </TouchableOpacity>
+
+      {/* Full-width photo */}
+      <Image source={{ uri: post.photo }} style={postStyles.photo} />
+
+      {/* Tags (left) + Provider mini info (right) */}
+      <TouchableOpacity style={postStyles.metaRow} onPress={onProviderPress} activeOpacity={0.7}>
+        <View style={postStyles.tagsWrap}>
+          {post.tags.map(tag => (
+            <View key={tag} style={postStyles.tag}>
+              <Text style={postStyles.tagText}>{tag}</Text>
+            </View>
+          ))}
+        </View>
+        <View style={postStyles.providerMini}>
+          <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
+          <View>
+            <Text style={postStyles.providerName}>{post.provider.name}</Text>
+            <Text style={postStyles.providerLocation}>{post.provider.location}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+
+      {/* Review text */}
       <Text style={postStyles.review}>{post.review}</Text>
+
+      {/* Like row */}
       <TouchableOpacity style={postStyles.likeRow} onPress={onLike} activeOpacity={0.7}>
         {post.liked
           ? <IconHeartFilled size={22} color={Colors.like} />
@@ -935,9 +946,10 @@ function FeedPostCard({ post, onFriendPress, onProviderPress, onLike }: {
 
 const postStyles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.surface, marginBottom: Spacing.sm,
-    borderRadius: Radius.xl, overflow: 'hidden',
-    marginHorizontal: Spacing.base, borderWidth: 1, borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    marginBottom: Spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.borderLight,
   },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -947,34 +959,51 @@ const postStyles = StyleSheet.create({
   customerAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
   customerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
   serviceEmoji: { fontSize: 32 },
-  photo: { width: '100%', height: 280, backgroundColor: Colors.surfaceAlt },
-  tags: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, padding: Spacing.base, paddingBottom: Spacing.sm },
+  photo: { width: '100%', height: 300, backgroundColor: Colors.surfaceAlt },
+
+  // Row below photo: tags left, provider info right
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.md,
+    paddingBottom: Spacing.sm,
+    gap: Spacing.sm,
+  },
+  tagsWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.xs, flex: 1 },
   tag: { borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full, paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs },
   tagText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  providerRow: {
-    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
-    paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm,
-  },
-  providerAvatar: { width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.surfaceAlt },
-  providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  providerLocation: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  viewProfile: { fontSize: Typography.sizes.sm, color: Colors.primary, fontWeight: Typography.weights.medium },
-  review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 22, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
+  providerMini: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, flexShrink: 0 },
+  providerAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
+  providerName: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  providerLocation: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+
+  review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 24, paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm },
   likeRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
   likeCount: { fontSize: Typography.sizes.base, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
 });
 
 // ─── Friends Tab ───────────────────────────────────────────────────────────────
 
+// Mock location data for friends
+const MOCK_FRIEND_LOCATIONS: Record<string, string> = {
+  f1: 'Irvine, CA',
+  f2: 'Santa Ana, CA',
+  f3: 'Long Beach, CA',
+  f4: 'Newport Beach, CA',
+  f5: 'Compton, CA',
+};
+
 function FriendsTab({ navigation, onAddFriend }: { navigation: Nav; onAddFriend: () => void }) {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
       {/* Section header row with Add Friend button */}
       <View style={friendStyles.sectionRow}>
-        <Text style={friendStyles.sectionLabel}>Your Friends</Text>
+        <Text style={friendStyles.sectionLabel}>YOUR FRIENDS</Text>
         <TouchableOpacity style={friendStyles.addBtn} onPress={onAddFriend} activeOpacity={0.8}>
           <IconUserPlus size={13} color={Colors.primary} strokeWidth={2} />
-          <Text style={friendStyles.addBtnText}>Add Friend</Text>
+          <Text style={friendStyles.addBtnText}>Add friend</Text>
         </TouchableOpacity>
       </View>
 
@@ -988,11 +1017,18 @@ function FriendsTab({ navigation, onAddFriend }: { navigation: Nav; onAddFriend:
           <Image source={{ uri: friend.avatar }} style={friendStyles.avatar} />
           <View style={friendStyles.info}>
             <Text style={friendStyles.name}>{friend.name}</Text>
-            <Text style={friendStyles.sub}>
-              {friend.providerCount} provider{friend.providerCount !== 1 ? 's' : ''} · {friend.mutualCount} mutual
-            </Text>
+            <View style={friendStyles.locationRow}>
+              <IconMapPin size={12} color={Colors.textMuted} strokeWidth={1.75} />
+              <Text style={friendStyles.location}>{MOCK_FRIEND_LOCATIONS[friend.id] ?? 'Nearby'}</Text>
+            </View>
+            {/* Provider-type emoji badges */}
+            <View style={friendStyles.emojis}>
+              {friend.providerEmojis.map((emoji, i) => (
+                <Text key={i} style={friendStyles.emojiText}>{emoji}</Text>
+              ))}
+            </View>
           </View>
-          <Text style={friendStyles.chevron}>View →</Text>
+          <IconChevronRight size={18} color={Colors.textMuted} strokeWidth={1.75} />
         </TouchableOpacity>
       ))}
       <View style={{ height: 110 }} />
@@ -1010,212 +1046,134 @@ const friendStyles = StyleSheet.create({
     paddingBottom: Spacing.sm,
   },
   sectionLabel: {
-    fontSize: Typography.sizes.sm,
+    fontSize: Typography.sizes.xs,
     fontWeight: Typography.weights.semibold,
     color: Colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    letterSpacing: 0.8,
   },
   addBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
     borderWidth: 1,
-    borderColor: Colors.primary,
+    borderColor: Colors.textPrimary,
     borderRadius: Radius.full,
     paddingHorizontal: Spacing.md,
-    paddingVertical: 5,
+    paddingVertical: 6,
   },
   addBtnText: {
-    fontSize: Typography.sizes.xs,
-    fontWeight: Typography.weights.semibold,
-    color: Colors.primary,
+    fontSize: Typography.sizes.sm,
+    fontWeight: Typography.weights.medium,
+    color: Colors.textPrimary,
   },
   row: {
     flexDirection: 'row', alignItems: 'center',
     paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
     gap: Spacing.md, borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
   },
-  avatar: { width: 52, height: 52, borderRadius: 26, backgroundColor: Colors.surfaceAlt },
+  avatar: { width: 60, height: 60, borderRadius: 30, backgroundColor: Colors.surfaceAlt },
   info: { flex: 1 },
   name: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  sub: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginTop: 2 },
-  chevron: { fontSize: Typography.sizes.sm, color: Colors.primary, fontWeight: Typography.weights.medium },
+  locationRow: { flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 2 },
+  location: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
+  emojis: { flexDirection: 'row', gap: 4, marginTop: 6, flexWrap: 'wrap' },
+  emojiText: { fontSize: 22 },
 });
+
+// Mock "friends who share this provider" for the Go-tos tab
+const PROVIDER_FRIEND_OVERLAP: Record<string, string[]> = {
+  p1: ['Sarah', 'Martina'],
+  p2: ['Martina'],
+  p3: ['Sarah', 'Martina', 'Lisa'],
+  p4: ['Sarah', 'Emily', 'Martina'],
+  p5: ['Lisa', 'Martina', 'Sarah'],
+  p6: ['Emily'],
+  p7: ['Amanda', 'Lisa'],
+};
+
+function formatFriendOverlap(names: string[]): string {
+  if (names.length === 0) return '';
+  if (names.length === 1) return `${names[0]} goes here`;
+  if (names.length === 2) return `${names[0]} and ${names[1]} go here`;
+  return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]} go here`;
+}
 
 // ─── Services Tab (Followed Providers List) ────────────────────────────────────
 
 function ServicesTab({ navigation, onAddService }: { navigation: Nav; onAddService: () => void }) {
-  const [selectedCategory, setSelectedCategory] = useState('');
-
-  const filtered = selectedCategory
-    ? MOCK_PROVIDERS.filter(p => p.category === selectedCategory)
-    : MOCK_PROVIDERS;
-
-  const activeCat = SERVICE_CATEGORIES.find(c => c.key === selectedCategory);
-
   return (
-    <View style={{ flex: 1 }}>
-      {/* Section header row with Add Provider button */}
+    <ScrollView
+      style={{ flex: 1 }}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 110 }}
+    >
+      {/* Section header row */}
       <View style={friendStyles.sectionRow}>
-        <Text style={friendStyles.sectionLabel}>
-          {activeCat ? `${activeCat.emoji} ${activeCat.label}` : 'Your Providers'}
-        </Text>
+        <Text style={friendStyles.sectionLabel}>YOUR GO-TOS</Text>
         <TouchableOpacity style={friendStyles.addBtn} onPress={onAddService} activeOpacity={0.8}>
-          <IconPlus size={13} color={Colors.primary} strokeWidth={2} />
-          <Text style={friendStyles.addBtnText}>Add Provider</Text>
+          <IconUserPlus size={13} color={Colors.textPrimary} strokeWidth={2} />
+          <Text style={friendStyles.addBtnText}>Add Go-to</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Horizontal category chip filters */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={servicesStyles.chips}
-      >
-        <TouchableOpacity
-          style={[servicesStyles.chip, !selectedCategory && servicesStyles.chipActive]}
-          onPress={() => setSelectedCategory('')}
-          activeOpacity={0.7}
-        >
-          <Text style={[servicesStyles.chipText, !selectedCategory && servicesStyles.chipTextActive]}>
-            All
-          </Text>
-        </TouchableOpacity>
-        {SERVICE_CATEGORIES.map(cat => (
+      {/* Provider rows matching Friends tab layout */}
+      {MOCK_PROVIDERS.map(item => {
+        const cat = SERVICE_CATEGORIES.find(c => c.key === item.category);
+        const emoji = cat?.emoji ?? '✂️';
+        const overlap = PROVIDER_FRIEND_OVERLAP[item.id] ?? [];
+        const overlapText = formatFriendOverlap(overlap);
+
+        return (
           <TouchableOpacity
-            key={cat.key}
-            style={[servicesStyles.chip, selectedCategory === cat.key && servicesStyles.chipActive]}
-            onPress={() => setSelectedCategory(selectedCategory === cat.key ? '' : cat.key)}
+            key={item.id}
+            style={servicesStyles.row}
+            onPress={() => navigation.navigate('ProviderProfile', { providerId: item.id })}
             activeOpacity={0.7}
           >
-            <Text style={[servicesStyles.chipText, selectedCategory === cat.key && servicesStyles.chipTextActive]}>
-              {cat.emoji} {cat.label}
-            </Text>
+            <Image source={{ uri: item.avatar }} style={servicesStyles.avatar} />
+            <View style={servicesStyles.info}>
+              <Text style={servicesStyles.providerName}>{item.name}</Text>
+              <Text style={servicesStyles.providerSpecialty}>{item.specialty}</Text>
+              <View style={servicesStyles.locationRow}>
+                <IconMapPin size={12} color={Colors.textMuted} strokeWidth={1.75} />
+                <Text style={servicesStyles.providerLocation}>{item.location}</Text>
+              </View>
+              {overlapText ? (
+                <Text style={servicesStyles.friendOverlap}>{overlapText}</Text>
+              ) : null}
+            </View>
+            <View style={servicesStyles.rightCol}>
+              <Text style={servicesStyles.emoji}>{emoji}</Text>
+              <IconChevronRight size={18} color={Colors.textMuted} strokeWidth={1.75} />
+            </View>
           </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-      {/* Provider count */}
-      <Text style={servicesStyles.count}>
-        {filtered.length} provider{filtered.length !== 1 ? 's' : ''}
-      </Text>
-
-      {/* Provider list */}
-      <FlatList
-        data={filtered}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={servicesStyles.list}
-        renderItem={({ item }) => {
-          const cat = SERVICE_CATEGORIES.find(c => c.key === item.category);
-          const emoji = cat?.emoji ?? '✂️';
-          return (
-            <TouchableOpacity
-              style={servicesStyles.providerCard}
-              onPress={() => navigation.navigate('ProviderProfile', { providerId: item.id })}
-              activeOpacity={0.85}
-            >
-              {/* Avatar with emoji badge */}
-              <View style={servicesStyles.avatarWrap}>
-                <Image source={{ uri: item.avatar }} style={servicesStyles.providerAvatar} />
-                <View style={servicesStyles.emojiBadge}>
-                  <Text style={servicesStyles.emojiBadgeText}>{emoji}</Text>
-                </View>
-              </View>
-
-              <View style={servicesStyles.providerInfo}>
-                <Text style={servicesStyles.providerName}>{item.name}</Text>
-                <Text style={servicesStyles.providerSpecialty}>{item.specialty}</Text>
-                <Text style={servicesStyles.providerLocation}>📍 {item.location}</Text>
-                <View style={servicesStyles.providerMeta}>
-                  <Text style={servicesStyles.score}>⭐ {item.score}</Text>
-                  <Text style={servicesStyles.ratings}>({item.ratings} reviews)</Text>
-                </View>
-              </View>
-              <Text style={servicesStyles.chevron}>→</Text>
-            </TouchableOpacity>
-          );
-        }}
-        ListEmptyComponent={
-          <Text style={servicesStyles.emptyText}>No providers in this category yet.</Text>
-        }
-      />
-    </View>
+        );
+      })}
+    </ScrollView>
   );
 }
 
 const servicesStyles = StyleSheet.create({
-  // Chip row — flexDirection:'row' is required so chips sit side-by-side
-  // inside the horizontal ScrollView. flexShrink:0 prevents any chip from
-  // being squashed when the content width exceeds the viewport.
-  chips: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: Spacing.base,
-    paddingBottom: Spacing.sm,
-    gap: Spacing.sm,
+  row: {
+    flexDirection: 'row', alignItems: 'center',
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
+    gap: Spacing.md, borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
   },
-  chip: {
-    flexShrink: 0,            // never compress — scroll instead
-    flexGrow: 0,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: Radius.full,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: 7,
-    backgroundColor: Colors.surface,
-  },
-  chipActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
-  chipText: {
-    fontSize: Typography.sizes.sm,
-    color: Colors.textSecondary,
-    fontWeight: Typography.weights.medium,
-    // Don't let the label wrap or truncate — it's in a flex-no-shrink chip
-    includeFontPadding: false,
-  },
-  chipTextActive: { color: Colors.white, fontWeight: Typography.weights.semibold },
-
-  count: {
-    fontSize: Typography.sizes.xs, color: Colors.textMuted,
-    paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm,
-  },
-  list: { paddingHorizontal: Spacing.base, gap: Spacing.md, paddingBottom: 110 },
-
-  providerCard: {
-    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
-    backgroundColor: Colors.surface, borderRadius: Radius.xl,
-    padding: Spacing.base, borderWidth: 1, borderColor: Colors.border,
-  },
-
-  // Avatar with emoji badge overlay
-  avatarWrap: { position: 'relative' },
-  providerAvatar: { width: 64, height: 64, borderRadius: 32, backgroundColor: Colors.surfaceAlt },
-  emojiBadge: {
-    position: 'absolute',
-    bottom: -2,
-    right: -4,
-    backgroundColor: Colors.background,
-    borderRadius: 12,
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.5,
-    borderColor: Colors.border,
-  },
-  emojiBadgeText: { fontSize: 13 },
-
-  providerInfo: { flex: 1, gap: 2 },
+  avatar: { width: 60, height: 60, borderRadius: 30, backgroundColor: Colors.surfaceAlt },
+  info: { flex: 1 },
+  rightCol: { alignItems: 'center', gap: 6 },
+  emoji: { fontSize: 28 },
   providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  providerSpecialty: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  providerLocation: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  providerMeta: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginTop: 4 },
-  score: { fontSize: Typography.sizes.sm, color: Colors.textPrimary, fontWeight: Typography.weights.semibold },
-  ratings: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-
-  chevron: { fontSize: Typography.sizes.base, color: Colors.primary, fontWeight: Typography.weights.semibold },
-  emptyText: { textAlign: 'center', color: Colors.textMuted, paddingVertical: Spacing.xl, fontSize: Typography.sizes.sm },
+  providerSpecialty: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginTop: 1 },
+  locationRow: { flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 2 },
+  providerLocation: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
+  friendOverlap: {
+    fontSize: Typography.sizes.sm,
+    color: Colors.primary,
+    fontWeight: Typography.weights.bold,
+    marginTop: 4,
+    fontStyle: 'italic',
+  },
 });
 
 // ─── Modal Styles ──────────────────────────────────────────────────────────────
@@ -1344,7 +1302,10 @@ const styles = StyleSheet.create({
   feed: { flex: 1, paddingTop: Spacing.sm },
   feedLabel: {
     fontSize: Typography.sizes.xs, color: Colors.textMuted,
-    fontWeight: Typography.weights.medium, textAlign: 'center',
-    paddingBottom: Spacing.md, letterSpacing: 0.3,
+    fontWeight: Typography.weights.semibold,
+    paddingHorizontal: Spacing.base,
+    paddingBottom: Spacing.sm,
+    paddingTop: Spacing.sm,
+    letterSpacing: 0.8,
   },
 });

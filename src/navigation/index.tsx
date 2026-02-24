@@ -2,14 +2,16 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet, TouchableOpacity, Platform, useColorScheme } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Platform, useColorScheme, ActivityIndicator } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
+import { useAuth } from '../context/AuthContext';
 
 import {
   HomeTabIcon,
   CalendarTabIcon,
   SparklesTabIcon,
-  SearchTabIcon,
+  PersonTabIcon,
   PlusTabIcon,
 } from '../components/brand/TabIcons';
 
@@ -77,50 +79,59 @@ export type RootStackParamList = {
   ManageServices: undefined;
   ProviderProfileEdit: undefined;
   CreatePost: { role?: 'customer' | 'provider' } | undefined;
+  JonathanAI: undefined;
 };
 
 export type CustomerTabParamList = {
   Feed: undefined;
   Bookings: undefined;
   Create: undefined;
-  Jonathan: undefined;
-  Search: undefined;
+  Jonathan: undefined;  // placeholder tab — tapping navigates to JonathanAI stack screen
+  MyProfile: undefined;
 };
 
 export type ProviderTabParamList = {
   Dashboard: undefined;
   Schedule: undefined;
   Create: undefined;
-  Jonathan: undefined;
-  Search: undefined;
+  Jonathan: undefined;  // placeholder tab — tapping navigates to JonathanAI stack screen
+  MyProfile: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 const CustomerTab = createBottomTabNavigator<CustomerTabParamList>();
 const ProviderTab = createBottomTabNavigator<ProviderTabParamList>();
 
-// ─── Floating Tab Bar ──────────────────────────────────────────────────────────
-// Figma spec:
-//   display: inline-flex; padding: 8px 16px; gap: 24px; align-items: center
-//   border-radius: 8px
-//   background: rgba(255,255,255,0.80)
-//   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
+// ─── Full-Bleed Tab Bar ────────────────────────────────────────────────────────
+// Anchored to the bottom of the screen, full width, frosted glass background.
 
 function FloatingTabBar({ state, descriptors, navigation, isProviderTab = false }: any) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
+  const insets = useSafeAreaInsets();
 
-  const ICON_ACTIVE   = isDark ? '#FFFFFF'              : '#654D24';
+  const ICON_ACTIVE   = isDark ? '#FFFFFF'                : '#654D24';
   const ICON_INACTIVE = isDark ? 'rgba(255,255,255,0.40)' : 'rgba(101,77,36,0.40)';
-  const blurTint      = isDark ? 'dark'                 : 'light';
+  const blurTint      = isDark ? 'dark'                   : 'light';
 
   return (
-    <View style={navStyles.safeArea} pointerEvents="box-none">
-      <BlurView
-        tint={blurTint}
-        intensity={60}
-        style={navStyles.pill}
-      >
+    <BlurView
+      tint={blurTint}
+      intensity={80}
+      style={[
+        navStyles.tabBar,
+        {
+          paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
+          backgroundColor: Platform.OS === 'android'
+            ? (isDark ? 'rgba(30,20,10,0.95)' : 'rgba(255,255,255,0.95)')
+            : 'transparent',
+        },
+      ]}
+    >
+      {/* Top border line */}
+      <View style={navStyles.topBorder} />
+
+      <View style={navStyles.iconRow}>
         {state.routes.map((route: any, index: number) => {
           const focused = state.index === index;
           const isCenter = index === 2; // Plus
@@ -136,17 +147,47 @@ function FloatingTabBar({ state, descriptors, navigation, isProviderTab = false 
             }
           };
 
-          // ── Plus / Create button — navigates to CreatePost screen ────────
+          // ── Plus / Create button ─────────────────────────────────────────
           if (isCenter) {
             return (
               <TouchableOpacity
                 key={route.key}
                 onPress={() => navigation.navigate('CreatePost', { role: isProviderTab ? 'provider' : 'customer' })}
-                style={navStyles.plusTap}
+                style={navStyles.tabTap}
                 activeOpacity={0.8}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
                 <PlusTabIcon size={40} color={ICON_ACTIVE} />
+              </TouchableOpacity>
+            );
+          }
+
+          // ── Jonathan / Sparkles — push full-screen stack (no tab bar) ───
+          if (route.name === 'Jonathan') {
+            return (
+              <TouchableOpacity
+                key={route.key}
+                onPress={() => navigation.navigate('JonathanAI')}
+                style={navStyles.tabTap}
+                activeOpacity={0.7}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              >
+                <SparklesTabIcon size={24} color={ICON_INACTIVE} strokeWidth={1.5} />
+              </TouchableOpacity>
+            );
+          }
+
+          // ── MyProfile — push Profile stack screen ────────────────────────
+          if (route.name === 'MyProfile') {
+            return (
+              <TouchableOpacity
+                key={route.key}
+                onPress={() => navigation.navigate('Profile')}
+                style={navStyles.tabTap}
+                activeOpacity={0.7}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              >
+                <PersonTabIcon size={24} color={ICON_INACTIVE} strokeWidth={1.5} />
               </TouchableOpacity>
             );
           }
@@ -156,12 +197,10 @@ function FloatingTabBar({ state, descriptors, navigation, isProviderTab = false 
           const strokeWidth = focused ? 2 : 1.5;
 
           const icons: Record<string, React.ReactNode> = {
-            Feed:      <HomeTabIcon      size={24} color={color} strokeWidth={strokeWidth} />,
-            Dashboard: <HomeTabIcon      size={24} color={color} strokeWidth={strokeWidth} />,
-            Bookings:  <CalendarTabIcon  size={24} color={color} strokeWidth={strokeWidth} />,
-            Schedule:  <CalendarTabIcon  size={24} color={color} strokeWidth={strokeWidth} />,
-            Jonathan:  <SparklesTabIcon  size={24} color={color} strokeWidth={strokeWidth} />,
-            Search:    <SearchTabIcon    size={24} color={color} strokeWidth={strokeWidth} />,
+            Feed:      <HomeTabIcon     size={24} color={color} strokeWidth={strokeWidth} />,
+            Dashboard: <HomeTabIcon     size={24} color={color} strokeWidth={strokeWidth} />,
+            Bookings:  <CalendarTabIcon size={24} color={color} strokeWidth={strokeWidth} />,
+            Schedule:  <CalendarTabIcon size={24} color={color} strokeWidth={strokeWidth} />,
           };
 
           return (
@@ -176,8 +215,8 @@ function FloatingTabBar({ state, descriptors, navigation, isProviderTab = false 
             </TouchableOpacity>
           );
         })}
-      </BlurView>
-    </View>
+      </View>
+    </BlurView>
   );
 }
 
@@ -189,11 +228,11 @@ function CustomerTabs() {
       tabBar={(props) => <FloatingTabBar {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      <CustomerTab.Screen name="Feed"     component={DiscoverScreen} />
-      <CustomerTab.Screen name="Bookings" component={BookingsScreen} />
-      <CustomerTab.Screen name="Create"   component={DiscoverScreen} />
-      <CustomerTab.Screen name="Jonathan" component={JonathanAIScreen} />
-      <CustomerTab.Screen name="Search"   component={SearchScreen} />
+      <CustomerTab.Screen name="Feed"      component={DiscoverScreen} />
+      <CustomerTab.Screen name="Bookings"  component={BookingsScreen} />
+      <CustomerTab.Screen name="Create"    component={DiscoverScreen} />
+      <CustomerTab.Screen name="Jonathan"  component={JonathanAIScreen} />
+      <CustomerTab.Screen name="MyProfile" component={ProfileScreen} />
     </CustomerTab.Navigator>
   );
 }
@@ -210,7 +249,7 @@ function ProviderTabs() {
       <ProviderTab.Screen name="Schedule"  component={ProviderScheduleScreen} />
       <ProviderTab.Screen name="Create"    component={ProviderDashboardScreen} />
       <ProviderTab.Screen name="Jonathan"  component={JonathanAIScreen} />
-      <ProviderTab.Screen name="Search"    component={SearchScreen} />
+      <ProviderTab.Screen name="MyProfile" component={ProfileScreen} />
     </ProviderTab.Navigator>
   );
 }
@@ -218,6 +257,24 @@ function ProviderTabs() {
 // ─── App Navigator ─────────────────────────────────────────────────────────────
 
 export function AppNavigator() {
+  const { session, user, loading } = useAuth();
+
+  // Determine the correct initial route based on session + role
+  const initialRoute = (): keyof RootStackParamList => {
+    if (!session) return 'Welcome';
+    if (!user?.role) return 'RoleSelect';
+    return user.role === 'provider' ? 'ProviderTabs' : 'CustomerTabs';
+  };
+
+  // Show a blank screen while we restore the session from AsyncStorage
+  if (loading) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F5EFE6' }}>
+        <ActivityIndicator size="large" color="#654D24" />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -227,7 +284,7 @@ export function AppNavigator() {
           gestureEnabled: true,
           gestureDirection: 'horizontal',
         }}
-        initialRouteName="Welcome"
+        initialRouteName={initialRoute()}
       >
         <Stack.Screen name="Welcome"          component={WelcomeScreen} />
         <Stack.Screen name="SignUp"           component={SignUpScreen} />
@@ -251,6 +308,8 @@ export function AppNavigator() {
         <Stack.Screen name="Settings"         component={SettingsScreen} />
         <Stack.Screen name="HelpSupport"      component={HelpSupportScreen} />
         <Stack.Screen name="CreatePost"       component={CreatePostScreen} options={{ gestureEnabled: false }} />
+        {/* Jonathan AI — full-screen stack: no tab bar, swipe-right supported, back button in screen */}
+        <Stack.Screen name="JonathanAI"       component={JonathanAIScreen} options={{ gestureEnabled: true, gestureDirection: 'horizontal' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -259,49 +318,36 @@ export function AppNavigator() {
 // ─── Styles ────────────────────────────────────────────────────────────────────
 
 const navStyles = StyleSheet.create({
-  // Positioned absolutely above the home indicator
-  safeArea: {
+  // Full-bleed bar anchored to bottom of screen
+  tabBar: {
     position: 'absolute',
-    bottom: 24,
+    bottom: 0,
     left: 0,
     right: 0,
-    alignItems: 'center',
-    pointerEvents: 'box-none',
-  } as any,
+    overflow: 'hidden',
+  },
 
-  // The pill — exact Figma spec + frosted glass
-  pill: {
+  // Hairline top border
+  topBorder: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: 'rgba(101,77,36,0.15)',
+  },
+
+  // Row of icons, evenly spaced
+  iconRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    gap: 24,
-    borderRadius: 8,
-    overflow: 'hidden',         // clips blur to rounded corners
-    // BlurView handles the background; keep a subtle tint on Android fallback
-    // (dark mode Android handled via blurTint on BlurView on iOS; Android uses this)
-    backgroundColor: Platform.OS === 'android' ? 'rgba(255, 255, 255, 0.88)' : 'transparent',
-    // shadow: 0 1px 3px 0 rgba(0,0,0,0.25)
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 6,
+    justifyContent: 'space-around',
+    paddingTop: 8,
+    paddingHorizontal: 8,
   },
 
-  // Each regular tab — 44px min tap target
+  // Each tab tap target — 44px minimum
   tabTap: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 44,
     minHeight: 44,
-  },
-
-  // Center plus button tap area
-  plusTap: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    minWidth: 44,
-    minHeight: 44,
+    paddingVertical: 4,
   },
 });

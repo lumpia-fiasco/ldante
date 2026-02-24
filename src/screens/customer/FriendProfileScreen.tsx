@@ -35,6 +35,7 @@ type FriendData = {
   location: string;
   avatar?: string;
   bio: string;
+  mutualFriends: number;
   posts: FriendPost[];
   providers: FriendProvider[];
 };
@@ -63,9 +64,6 @@ type FriendProvider = {
 };
 
 // ─── Mock Data ─────────────────────────────────────────────────────────────────
-// Provider IDs must match ProviderProfileScreen: p1=Carmela, p2=Devon, p3=Jasmine,
-// p4=Marcus, p5=Aisha, p6=Tyler, p7=Brianna.
-// Provider IDs in posts/providers must be consistent with DiscoverScreen feed.
 
 const MOCK_FRIENDS: Record<string, FriendData> = {
   f1: {
@@ -74,6 +72,7 @@ const MOCK_FRIENDS: Record<string, FriendData> = {
     location: 'Irvine, CA',
     avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
     bio: 'Beauty enthusiast & wellness junkie. Always on the hunt for the best kept secrets in OC. 💇‍♀️💅',
+    mutualFriends: 2,
     posts: [
       {
         id: 'sp1',
@@ -95,43 +94,19 @@ const MOCK_FRIENDS: Record<string, FriendData> = {
       },
     ],
     providers: [
-      {
-        id: 'p1', name: 'Carmela', specialty: 'Hair Braider',
-        location: 'Costa Mesa, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
-        score: 4.9, ratings: 52, tags: ['Braids', 'Color'],
-        visits: 6, inMyRolodex: false,
-      },
-      {
-        id: 'p3', name: 'Jasmine', specialty: 'Nail Artist',
-        location: 'Irvine, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
-        score: 4.7, ratings: 29, tags: ['Gel Manicure', 'Nail Art'],
-        visits: 4, inMyRolodex: true,
-      },
-      {
-        id: 'p5', name: 'Aisha', specialty: 'Esthetician',
-        location: 'Long Beach, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
-        score: 4.6, ratings: 22, tags: ['HydraFacial', 'Brow Shaping'],
-        visits: 2, inMyRolodex: false,
-      },
-      {
-        id: 'p4', name: 'Marcus', specialty: 'Massage Therapist',
-        location: 'Anaheim, CA',
-        avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
-        score: 4.8, ratings: 38, tags: ['Deep Tissue', 'Sports'],
-        visits: 3, inMyRolodex: true,
-      },
+      { id: 'p1', name: 'Carmela', specialty: 'Hair Braider', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', score: 4.9, ratings: 52, tags: ['Braids', 'Color'], visits: 6, inMyRolodex: false },
+      { id: 'p3', name: 'Jasmine', specialty: 'Nail Artist', location: 'Irvine, CA', avatar: 'https://randomuser.me/api/portraits/women/22.jpg', score: 4.7, ratings: 29, tags: ['Gel Manicure', 'Nail Art'], visits: 4, inMyRolodex: true },
+      { id: 'p5', name: 'Aisha', specialty: 'Esthetician', location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', score: 4.6, ratings: 22, tags: ['HydraFacial', 'Brow Shaping'], visits: 2, inMyRolodex: false },
+      { id: 'p4', name: 'Marcus', specialty: 'Massage Therapist', location: 'Anaheim, CA', avatar: 'https://randomuser.me/api/portraits/men/55.jpg', score: 4.8, ratings: 38, tags: ['Deep Tissue', 'Sports'], visits: 3, inMyRolodex: true },
     ],
   },
-
   f2: {
     id: 'f2',
     name: 'Emily Rodriguez',
     location: 'Santa Ana, CA',
     avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
     bio: 'Fitness lover & self-care advocate. Finding the best trainers and massage therapists in SoCal 💪🧖‍♀️',
+    mutualFriends: 1,
     posts: [
       {
         id: 'ep1',
@@ -144,29 +119,17 @@ const MOCK_FRIENDS: Record<string, FriendData> = {
       },
     ],
     providers: [
-      {
-        id: 'p6', name: 'Tyler', specialty: 'Personal Trainer',
-        location: 'Torrance, CA',
-        avatar: 'https://randomuser.me/api/portraits/men/33.jpg',
-        score: 4.9, ratings: 41, tags: ['HIIT', 'Strength Training'],
-        visits: 8, inMyRolodex: false,
-      },
-      {
-        id: 'p4', name: 'Marcus', specialty: 'Massage Therapist',
-        location: 'Anaheim, CA',
-        avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
-        score: 4.8, ratings: 38, tags: ['Deep Tissue', 'Sports'],
-        visits: 5, inMyRolodex: false,
-      },
+      { id: 'p6', name: 'Tyler', specialty: 'Personal Trainer', location: 'Torrance, CA', avatar: 'https://randomuser.me/api/portraits/men/33.jpg', score: 4.9, ratings: 41, tags: ['HIIT', 'Strength Training'], visits: 8, inMyRolodex: false },
+      { id: 'p4', name: 'Marcus', specialty: 'Massage Therapist', location: 'Anaheim, CA', avatar: 'https://randomuser.me/api/portraits/men/55.jpg', score: 4.8, ratings: 38, tags: ['Deep Tissue', 'Sports'], visits: 5, inMyRolodex: false },
     ],
   },
-
   f3: {
     id: 'f3',
     name: 'Lisa Morgan',
     location: 'Long Beach, CA',
     avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
     bio: 'Skincare obsessed. If it glows, I know who did it ✨',
+    mutualFriends: 3,
     posts: [
       {
         id: 'lp1',
@@ -179,36 +142,18 @@ const MOCK_FRIENDS: Record<string, FriendData> = {
       },
     ],
     providers: [
-      {
-        id: 'p5', name: 'Aisha', specialty: 'Esthetician',
-        location: 'Long Beach, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
-        score: 4.6, ratings: 22, tags: ['HydraFacial', 'Chemical Peel'],
-        visits: 7, inMyRolodex: false,
-      },
-      {
-        id: 'p7', name: 'Brianna', specialty: 'Makeup Artist',
-        location: 'Compton, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/17.jpg',
-        score: 4.7, ratings: 34, tags: ['Full Glam', 'Bridal'],
-        visits: 2, inMyRolodex: false,
-      },
-      {
-        id: 'p3', name: 'Jasmine', specialty: 'Nail Artist',
-        location: 'Irvine, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
-        score: 4.7, ratings: 29, tags: ['Gel Manicure', 'Nail Art'],
-        visits: 3, inMyRolodex: false,
-      },
+      { id: 'p5', name: 'Aisha', specialty: 'Esthetician', location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', score: 4.6, ratings: 22, tags: ['HydraFacial', 'Chemical Peel'], visits: 7, inMyRolodex: false },
+      { id: 'p7', name: 'Brianna', specialty: 'Makeup Artist', location: 'Compton, CA', avatar: 'https://randomuser.me/api/portraits/women/17.jpg', score: 4.7, ratings: 34, tags: ['Full Glam', 'Bridal'], visits: 2, inMyRolodex: false },
+      { id: 'p3', name: 'Jasmine', specialty: 'Nail Artist', location: 'Irvine, CA', avatar: 'https://randomuser.me/api/portraits/women/22.jpg', score: 4.7, ratings: 29, tags: ['Gel Manicure', 'Nail Art'], visits: 3, inMyRolodex: false },
     ],
   },
-
   f4: {
     id: 'f4',
     name: 'Amanda Chen',
     location: 'Newport Beach, CA',
     avatar: 'https://randomuser.me/api/portraits/women/28.jpg',
     bio: 'Minimalist beauty. One great provider at a time. 💄',
+    mutualFriends: 0,
     posts: [
       {
         id: 'ap1',
@@ -221,22 +166,16 @@ const MOCK_FRIENDS: Record<string, FriendData> = {
       },
     ],
     providers: [
-      {
-        id: 'p7', name: 'Brianna', specialty: 'Makeup Artist',
-        location: 'Compton, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/17.jpg',
-        score: 4.7, ratings: 34, tags: ['Full Glam', 'Bridal'],
-        visits: 3, inMyRolodex: false,
-      },
+      { id: 'p7', name: 'Brianna', specialty: 'Makeup Artist', location: 'Compton, CA', avatar: 'https://randomuser.me/api/portraits/women/17.jpg', score: 4.7, ratings: 34, tags: ['Full Glam', 'Bridal'], visits: 3, inMyRolodex: false },
     ],
   },
-
   f5: {
     id: 'f5',
     name: 'Martina Garcia',
     location: 'Compton, CA',
     avatar: 'https://randomuser.me/api/portraits/women/32.jpg',
     bio: 'Booked and blessed. I stay fresh and I know who to credit. 💈✨',
+    mutualFriends: 1,
     posts: [
       {
         id: 'mgp1',
@@ -256,54 +195,20 @@ const MOCK_FRIENDS: Record<string, FriendData> = {
         likes: 14,
         liked: false,
       },
-      {
-        id: 'mgp3',
-        photo: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80',
-        tags: ['Gel Manicure', 'Chrome'],
-        review: "Jasmine never misses. My nails stay perfect for weeks.",
-        provider: { name: 'Jasmine', location: 'Irvine, CA', avatar: 'https://randomuser.me/api/portraits/women/22.jpg', id: 'p3', service: '💅' },
-        likes: 11,
-        liked: false,
-      },
     ],
     providers: [
-      {
-        id: 'p2', name: 'Devon', specialty: 'Barber',
-        location: 'Santa Ana, CA',
-        avatar: 'https://randomuser.me/api/portraits/men/42.jpg',
-        score: 4.8, ratings: 60, tags: ['Fade', 'Lineup'],
-        visits: 10, inMyRolodex: true,
-      },
-      {
-        id: 'p5', name: 'Aisha', specialty: 'Esthetician',
-        location: 'Long Beach, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
-        score: 4.6, ratings: 22, tags: ['HydraFacial', 'Brow Shaping'],
-        visits: 5, inMyRolodex: false,
-      },
-      {
-        id: 'p3', name: 'Jasmine', specialty: 'Nail Artist',
-        location: 'Irvine, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
-        score: 4.7, ratings: 29, tags: ['Gel Manicure', 'Chrome'],
-        visits: 4, inMyRolodex: false,
-      },
-      {
-        id: 'p1', name: 'Carmela', specialty: 'Hair Braider',
-        location: 'Costa Mesa, CA',
-        avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
-        score: 4.9, ratings: 52, tags: ['Braids', 'Cornrows'],
-        visits: 2, inMyRolodex: false,
-      },
-      {
-        id: 'p4', name: 'Marcus', specialty: 'Massage Therapist',
-        location: 'Anaheim, CA',
-        avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
-        score: 4.8, ratings: 38, tags: ['Deep Tissue'],
-        visits: 1, inMyRolodex: false,
-      },
+      { id: 'p2', name: 'Devon', specialty: 'Barber', location: 'Santa Ana, CA', avatar: 'https://randomuser.me/api/portraits/men/42.jpg', score: 4.8, ratings: 60, tags: ['Fade', 'Lineup'], visits: 10, inMyRolodex: true },
+      { id: 'p5', name: 'Aisha', specialty: 'Esthetician', location: 'Long Beach, CA', avatar: 'https://randomuser.me/api/portraits/women/91.jpg', score: 4.6, ratings: 22, tags: ['HydraFacial', 'Brow Shaping'], visits: 5, inMyRolodex: false },
+      { id: 'p3', name: 'Jasmine', specialty: 'Nail Artist', location: 'Irvine, CA', avatar: 'https://randomuser.me/api/portraits/women/22.jpg', score: 4.7, ratings: 29, tags: ['Gel Manicure', 'Chrome'], visits: 4, inMyRolodex: false },
+      { id: 'p1', name: 'Carmela', specialty: 'Hair Braider', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', score: 4.9, ratings: 52, tags: ['Braids', 'Cornrows'], visits: 2, inMyRolodex: false },
+      { id: 'p4', name: 'Marcus', specialty: 'Massage Therapist', location: 'Anaheim, CA', avatar: 'https://randomuser.me/api/portraits/men/55.jpg', score: 4.8, ratings: 38, tags: ['Deep Tissue'], visits: 1, inMyRolodex: false },
     ],
   },
+};
+
+// Provider emoji map
+const PROVIDER_EMOJI: Record<string, string> = {
+  p1: '💇‍♀️', p2: '💈', p3: '💅', p4: '💆', p5: '🧖‍♀️', p6: '💪', p7: '💄',
 };
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
@@ -312,8 +217,7 @@ export function FriendProfileScreen({ navigation, route }: Props) {
   const { friendId } = route.params;
   const friend = MOCK_FRIENDS[friendId] ?? MOCK_FRIENDS['f1'];
 
-  // 'profile' | 'posts' | 'providers'
-  const [activeSection, setActiveSection] = useState<'posts' | 'providers'>('posts');
+  const [activeTab, setActiveTab] = useState<'posts' | 'gotos'>('posts');
   const [posts, setPosts] = useState(friend.posts);
   const [following, setFollowing] = useState(true);
 
@@ -326,7 +230,7 @@ export function FriendProfileScreen({ navigation, route }: Props) {
   function handleUnfollow() {
     Alert.alert(
       `Unfollow ${friend.name.split(' ')[0]}?`,
-      "You'll no longer see their posts or rolodex.",
+      "You'll no longer see their posts or Go-tos.",
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -336,6 +240,8 @@ export function FriendProfileScreen({ navigation, route }: Props) {
       ]
     );
   }
+
+  const firstName = friend.name.split(' ')[0];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -348,20 +254,12 @@ export function FriendProfileScreen({ navigation, route }: Props) {
         >
           <IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.unfollowBtn}
-          onPress={handleUnfollow}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-        >
-          <IconUserMinus size={16} color={Colors.textSecondary} strokeWidth={1.75} />
-          <Text style={styles.unfollowText}>Unfollow</Text>
-        </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Profile Header */}
         <View style={styles.profileHeader}>
-          <View style={styles.avatarWrap}>
+          <View style={[styles.avatarWrap, Shadows.md]}>
             {friend.avatar
               ? <Image source={{ uri: friend.avatar }} style={styles.avatar} />
               : <Avatar name={friend.name} size={100} />
@@ -372,60 +270,48 @@ export function FriendProfileScreen({ navigation, route }: Props) {
             <IconMapPin size={14} color={Colors.textMuted} strokeWidth={1.75} />
             <Text style={styles.location}>{friend.location}</Text>
           </View>
-          <Text style={styles.bio}>{friend.bio}</Text>
-
-          {/* Stats — tapping switches the section shown below */}
-          <View style={styles.statsRow}>
-            <TouchableOpacity
-              style={styles.statItem}
-              onPress={() => setActiveSection('posts')}
-              activeOpacity={0.7}
-            >
-              <Text style={[styles.statValue, activeSection === 'posts' && styles.statValueActive]}>
-                {posts.length}
-              </Text>
-              <Text style={[styles.statLabel, activeSection === 'posts' && styles.statLabelActive]}>
-                Posts
-              </Text>
-            </TouchableOpacity>
-            <View style={styles.statDivider} />
-            <TouchableOpacity
-              style={styles.statItem}
-              onPress={() => setActiveSection('providers')}
-              activeOpacity={0.7}
-            >
-              <Text style={[styles.statValue, activeSection === 'providers' && styles.statValueActive]}>
-                {friend.providers.length}
-              </Text>
-              <Text style={[styles.statLabel, activeSection === 'providers' && styles.statLabelActive]}>
-                Providers
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
 
-        {/* Section indicator */}
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>
-            {activeSection === 'posts'
-              ? `${friend.name.split(' ')[0]}'s Posts`
-              : `${friend.name.split(' ')[0]}'s Providers`
-            }
-          </Text>
+        {/* Tab Bar: Posts | Go-tos */}
+        <View style={styles.tabBar}>
+          {[{ key: 'posts', label: 'Posts' }, { key: 'gotos', label: 'Go-tos' }].map(t => (
+            <TouchableOpacity
+              key={t.key}
+              style={styles.tab}
+              onPress={() => setActiveTab(t.key as 'posts' | 'gotos')}
+              activeOpacity={0.7}
+            >
+              <Text style={[styles.tabText, activeTab === t.key && styles.tabTextActive]}>
+                {t.label}
+              </Text>
+              {activeTab === t.key && <View style={styles.tabUnderline} />}
+            </TouchableOpacity>
+          ))}
         </View>
 
-        {/* Posts */}
-        {activeSection === 'posts' && (
-          <View style={styles.postsContainer}>
+        {/* Posts Tab */}
+        {activeTab === 'posts' && (
+          <View>
+            {/* Bio + mutual friends shown in posts tab */}
+            {friend.bio ? (
+              <Text style={styles.bio}>{friend.bio}</Text>
+            ) : null}
+            {friend.mutualFriends > 0 && (
+              <Text style={styles.mutualFriends}>{friend.mutualFriends} mutual friends</Text>
+            )}
+
+            {/* Section label */}
+            <Text style={styles.sectionLabel}>{firstName}'s Posts</Text>
+
+            {/* Post cards */}
             {posts.map(post => (
               <PostCard
                 key={post.id}
                 post={post}
-                friendFirstName={friend.name.split(' ')[0]}
+                friendName={friend.name}
+                friendAvatar={friend.avatar}
                 onLike={() => toggleLike(post.id)}
-                onProviderPress={() =>
-                  navigation.navigate('ProviderProfile', { providerId: post.provider.id })
-                }
+                onProviderPress={() => navigation.navigate('ProviderProfile', { providerId: post.provider.id })}
               />
             ))}
             {posts.length === 0 && (
@@ -436,22 +322,45 @@ export function FriendProfileScreen({ navigation, route }: Props) {
           </View>
         )}
 
-        {/* Providers */}
-        {activeSection === 'providers' && (
-          <View style={styles.providersContainer}>
-            {friend.providers.map(provider => (
-              <ProviderCard
-                key={provider.id}
-                provider={provider}
-                friendFirstName={friend.name.split(' ')[0]}
-                onPress={() =>
-                  navigation.navigate('ProviderProfile', { providerId: provider.id })
-                }
-                onBook={() =>
-                  navigation.navigate('BookingFlow', { providerId: provider.id })
-                }
-              />
-            ))}
+        {/* Go-tos Tab */}
+        {activeTab === 'gotos' && (
+          <View>
+            {/* Section label */}
+            <Text style={styles.sectionLabel}>{firstName.toUpperCase()}'S GO-TOS</Text>
+
+            {friend.providers.map(provider => {
+              const emoji = PROVIDER_EMOJI[provider.id] ?? '✂️';
+              return (
+                <TouchableOpacity
+                  key={provider.id}
+                  style={styles.providerRow}
+                  onPress={() => navigation.navigate('ProviderProfile', { providerId: provider.id })}
+                  activeOpacity={0.7}
+                >
+                  <Image source={{ uri: provider.avatar }} style={styles.providerAvatar} />
+                  <View style={styles.providerInfo}>
+                    <Text style={styles.providerName}>{provider.name}</Text>
+                    <Text style={styles.providerSpecialty}>{provider.specialty}</Text>
+                    <View style={styles.providerLocationRow}>
+                      <IconMapPin size={12} color={Colors.textMuted} strokeWidth={1.75} />
+                      <Text style={styles.providerLocation}>{provider.location}</Text>
+                    </View>
+                    <Text style={styles.friendOverlap}>
+                      {firstName} visited {provider.visits}×
+                    </Text>
+                  </View>
+                  <View style={styles.rightCol}>
+                    <Text style={styles.providerEmoji}>{emoji}</Text>
+                    <Text style={styles.chevron}>›</Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+            {friend.providers.length === 0 && (
+              <View style={styles.emptyState}>
+                <Text style={styles.emptyText}>No Go-tos yet</Text>
+              </View>
+            )}
           </View>
         )}
 
@@ -465,38 +374,54 @@ export function FriendProfileScreen({ navigation, route }: Props) {
 
 function PostCard({
   post,
-  friendFirstName,
+  friendName,
+  friendAvatar,
   onLike,
   onProviderPress,
 }: {
   post: FriendPost;
-  friendFirstName: string;
+  friendName: string;
+  friendAvatar?: string;
   onLike: () => void;
   onProviderPress: () => void;
 }) {
   return (
     <View style={postStyles.card}>
+      {/* Poster row */}
       <View style={postStyles.header}>
-        <Text style={postStyles.postedBy}>{friendFirstName} tried</Text>
+        <View style={postStyles.headerLeft}>
+          {friendAvatar
+            ? <Image source={{ uri: friendAvatar }} style={postStyles.friendAvatar} />
+            : null
+          }
+          <Text style={postStyles.friendName}>{friendName}</Text>
+        </View>
         <Text style={postStyles.serviceEmoji}>{post.provider.service}</Text>
       </View>
+
+      {/* Full-width photo */}
       <Image source={{ uri: post.photo }} style={postStyles.photo} />
-      <View style={postStyles.tags}>
-        {post.tags.map(tag => (
-          <View key={tag} style={postStyles.tag}>
-            <Text style={postStyles.tagText}>{tag}</Text>
-          </View>
-        ))}
-      </View>
-      <TouchableOpacity style={postStyles.providerRow} onPress={onProviderPress} activeOpacity={0.7}>
-        <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
-        <View style={{ flex: 1 }}>
-          <Text style={postStyles.providerName}>{post.provider.name}</Text>
-          <Text style={postStyles.providerLocation}>{post.provider.location}</Text>
+
+      {/* Tags (left) + Provider mini info (right) */}
+      <TouchableOpacity style={postStyles.metaRow} onPress={onProviderPress} activeOpacity={0.7}>
+        <View style={postStyles.tagsWrap}>
+          {post.tags.map(tag => (
+            <View key={tag} style={postStyles.tag}>
+              <Text style={postStyles.tagText}>{tag}</Text>
+            </View>
+          ))}
         </View>
-        <Text style={postStyles.viewProfile}>View →</Text>
+        <View style={postStyles.providerMini}>
+          <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
+          <View>
+            <Text style={postStyles.providerName}>{post.provider.name}</Text>
+            <Text style={postStyles.providerLocation}>{post.provider.location}</Text>
+          </View>
+        </View>
       </TouchableOpacity>
+
       <Text style={postStyles.review}>{post.review}</Text>
+
       <TouchableOpacity style={postStyles.likeRow} onPress={onLike} activeOpacity={0.7}>
         {post.liked
           ? <IconHeartFilled size={22} color={Colors.like} />
@@ -508,78 +433,12 @@ function PostCard({
   );
 }
 
-// ─── Provider Card ─────────────────────────────────────────────────────────────
-
-function ProviderCard({
-  provider,
-  friendFirstName,
-  onPress,
-  onBook,
-}: {
-  provider: FriendProvider;
-  friendFirstName: string;
-  onPress: () => void;
-  onBook: () => void;
-}) {
-  const [inRolodex, setInRolodex] = useState(provider.inMyRolodex);
-
-  return (
-    <View style={providerCardStyles.card}>
-      <TouchableOpacity style={providerCardStyles.main} onPress={onPress} activeOpacity={0.85}>
-        <Image source={{ uri: provider.avatar }} style={providerCardStyles.avatar} />
-        <View style={providerCardStyles.info}>
-          <Text style={providerCardStyles.name}>{provider.name}</Text>
-          <Text style={providerCardStyles.specialty}>{provider.specialty}</Text>
-          <View style={providerCardStyles.locationRow}>
-            <IconMapPin size={12} color={Colors.textMuted} strokeWidth={1.75} />
-            <Text style={providerCardStyles.location}>{provider.location}</Text>
-          </View>
-          <View style={providerCardStyles.tags}>
-            {provider.tags.map(t => (
-              <Badge key={t} label={t} variant="neutral" />
-            ))}
-          </View>
-          <View style={providerCardStyles.meta}>
-            <StarRating score={provider.score} size={12} showScore count={provider.ratings} />
-            <Text style={providerCardStyles.visits}>
-              {friendFirstName} visited {provider.visits}×
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-      <View style={providerCardStyles.actions}>
-        <Button
-          label={inRolodex ? '✓ In My Rolodex' : 'Add to Rolodex'}
-          onPress={() => {
-            if (!inRolodex) {
-              setInRolodex(true);
-              Alert.alert('Added!', `${provider.name} added to your Rolodex.`);
-            }
-          }}
-          variant={inRolodex ? 'secondary' : 'outline'}
-          size="sm"
-          style={{ flex: 1 }}
-        />
-        <Button
-          label="Book"
-          onPress={onBook}
-          size="sm"
-          style={{ flex: 1 }}
-        />
-      </View>
-    </View>
-  );
-}
-
 // ─── Styles ────────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
 
   topBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.sm,
   },
@@ -587,30 +446,16 @@ const styles = StyleSheet.create({
     width: 40, height: 40, borderRadius: 20,
     alignItems: 'center', justifyContent: 'center',
   },
-  unfollowBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: Radius.full,
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-    backgroundColor: Colors.surface,
-  },
-  unfollowText: {
-    fontSize: Typography.sizes.sm,
-    color: Colors.textSecondary,
-    fontWeight: Typography.weights.medium,
-  },
 
   profileHeader: {
     alignItems: 'center',
     paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing.xl,
-    gap: Spacing.sm,
+    paddingBottom: Spacing.md,
+    gap: Spacing.xs,
+    backgroundColor: Colors.surfaceAlt,
+    paddingTop: Spacing.sm,
   },
-  avatarWrap: { marginBottom: Spacing.sm, ...Shadows.md },
+  avatarWrap: { marginBottom: Spacing.sm },
   avatar: {
     width: 100, height: 100, borderRadius: 50,
     borderWidth: 3, borderColor: Colors.surface,
@@ -622,51 +467,66 @@ const styles = StyleSheet.create({
   },
   locationRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   location: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
-  bio: {
-    fontSize: Typography.sizes.base,
-    color: Colors.textSecondary,
-    textAlign: 'center',
-    lineHeight: 22,
-    marginTop: Spacing.xs,
-  },
 
-  statsRow: {
+  // Tab bar
+  tabBar: {
     flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: Colors.surfaceAlt,
-    borderRadius: Radius.xl,
-    paddingVertical: Spacing.md,
-    paddingHorizontal: Spacing['2xl'],
-    gap: Spacing.xl,
-    marginTop: Spacing.sm,
-  },
-  statItem: { alignItems: 'center', gap: 2, paddingHorizontal: Spacing.lg },
-  statValue: {
-    fontSize: Typography.sizes.lg,
-    fontWeight: Typography.weights.extrabold,
-    color: Colors.textSecondary,
-  },
-  statValueActive: { color: Colors.textPrimary },
-  statLabel: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  statLabelActive: { color: Colors.primary, fontWeight: Typography.weights.semibold },
-  statDivider: { width: 1, height: 28, backgroundColor: Colors.border },
-
-  sectionHeader: {
-    paddingHorizontal: Spacing.base,
-    paddingVertical: Spacing.sm,
+    paddingHorizontal: Spacing.xl,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.borderLight,
+    borderBottomColor: Colors.border,
+    backgroundColor: Colors.background,
+    justifyContent: 'center',
+    gap: Spacing['3xl'],
   },
-  sectionTitle: {
-    fontSize: Typography.sizes.sm,
+  tab: { paddingBottom: Spacing.sm, paddingTop: Spacing.md, position: 'relative' },
+  tabText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.medium, color: Colors.textMuted },
+  tabTextActive: { color: Colors.textPrimary, fontWeight: Typography.weights.bold },
+  tabUnderline: {
+    position: 'absolute', bottom: 0, left: 0, right: 0,
+    height: 2, backgroundColor: Colors.textPrimary, borderRadius: 1,
+  },
+
+  // Posts tab content
+  bio: {
+    fontSize: Typography.sizes.base, color: Colors.textSecondary,
+    lineHeight: 22, paddingHorizontal: Spacing.base, paddingTop: Spacing.base,
+  },
+  mutualFriends: {
+    fontSize: Typography.sizes.sm, color: Colors.primary,
+    fontWeight: Typography.weights.bold,
+    paddingHorizontal: Spacing.base, paddingTop: Spacing.xs, paddingBottom: Spacing.sm,
+  },
+
+  sectionLabel: {
+    fontSize: Typography.sizes.xs,
     fontWeight: Typography.weights.semibold,
     color: Colors.textMuted,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    letterSpacing: 0.8,
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.md,
+    paddingBottom: Spacing.sm,
   },
 
-  postsContainer: { paddingTop: Spacing.md },
-  providersContainer: { padding: Spacing.base, gap: Spacing.md },
+  // Go-tos tab provider rows
+  providerRow: {
+    flexDirection: 'row', alignItems: 'center',
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
+    gap: Spacing.md, borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
+  },
+  providerAvatar: { width: 60, height: 60, borderRadius: 30, backgroundColor: Colors.surfaceAlt },
+  providerInfo: { flex: 1 },
+  rightCol: { alignItems: 'center', gap: 4 },
+  providerEmoji: { fontSize: 28 },
+  chevron: { fontSize: 20, color: Colors.textMuted },
+  providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  providerSpecialty: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginTop: 1 },
+  providerLocationRow: { flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 2 },
+  providerLocation: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
+  friendOverlap: {
+    fontSize: Typography.sizes.sm, color: Colors.primary,
+    fontWeight: Typography.weights.bold, marginTop: 4, fontStyle: 'italic',
+  },
+
   emptyState: { padding: Spacing['3xl'], alignItems: 'center' },
   emptyText: { fontSize: Typography.sizes.base, color: Colors.textMuted },
 });
@@ -674,47 +534,31 @@ const styles = StyleSheet.create({
 const postStyles = StyleSheet.create({
   card: {
     backgroundColor: Colors.surface,
-    marginBottom: Spacing.sm,
-    borderRadius: Radius.xl,
-    overflow: 'hidden',
-    marginHorizontal: Spacing.base,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    marginBottom: Spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.borderLight,
   },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
   },
-  postedBy: { fontSize: Typography.sizes.sm, color: Colors.textMuted, fontStyle: 'italic' },
-  serviceEmoji: { fontSize: 28 },
-  photo: { width: '100%', height: 260, backgroundColor: Colors.surfaceAlt },
-  tags: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, padding: Spacing.base, paddingBottom: Spacing.sm },
+  headerLeft: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
+  friendAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
+  friendName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  serviceEmoji: { fontSize: 32 },
+  photo: { width: '100%', height: 300, backgroundColor: Colors.surfaceAlt },
+  metaRow: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base, paddingTop: Spacing.md, paddingBottom: Spacing.sm, gap: Spacing.sm,
+  },
+  tagsWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.xs, flex: 1 },
   tag: { borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full, paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs },
   tagText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  providerRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md, paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm },
-  providerAvatar: { width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.surfaceAlt },
-  providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  providerLocation: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  viewProfile: { fontSize: Typography.sizes.sm, color: Colors.primary, fontWeight: Typography.weights.medium },
-  review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 22, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
+  providerMini: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, flexShrink: 0 },
+  providerAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
+  providerName: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  providerLocation: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+  review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 24, paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm },
   likeRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
   likeCount: { fontSize: Typography.sizes.base, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
-});
-
-const providerCardStyles = StyleSheet.create({
-  card: {
-    backgroundColor: Colors.surface, borderRadius: Radius.xl,
-    borderWidth: 1, borderColor: Colors.border, overflow: 'hidden',
-  },
-  main: { flexDirection: 'row', gap: Spacing.md, padding: Spacing.base },
-  avatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: Colors.surfaceAlt },
-  info: { flex: 1, gap: Spacing.xs },
-  name: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  specialty: { fontSize: Typography.sizes.sm, color: Colors.secondary, fontWeight: Typography.weights.medium },
-  locationRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  location: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  tags: { flexDirection: 'row', gap: Spacing.xs, flexWrap: 'wrap' },
-  meta: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
-  visits: { fontSize: Typography.sizes.xs, color: Colors.primary, fontWeight: Typography.weights.medium },
-  actions: { flexDirection: 'row', gap: Spacing.sm, padding: Spacing.base, paddingTop: 0 },
 });

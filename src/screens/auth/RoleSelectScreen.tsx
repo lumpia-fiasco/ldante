@@ -4,12 +4,13 @@ import {
   View,
   Text,
   StyleSheet,
-  
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { Button } from '../../components/common';
+import { useAuth } from '../../context/AuthContext';
 import { RootStackParamList } from '../../navigation';
 
 type Props = {
@@ -20,9 +21,20 @@ type Role = 'customer' | 'provider';
 
 export function RoleSelectScreen({ navigation }: Props) {
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { updateUser } = useAuth();
 
-  function handleContinue() {
+  async function handleContinue() {
     if (!selectedRole) return;
+    setLoading(true);
+    try {
+      // Persist role to Supabase so it's remembered on next app launch
+      await updateUser({ role: selectedRole });
+    } catch {
+      // Non-fatal — continue anyway
+    } finally {
+      setLoading(false);
+    }
     if (selectedRole === 'customer') {
       navigation.navigate('CustomerOnboarding');
     } else {
@@ -74,6 +86,7 @@ export function RoleSelectScreen({ navigation }: Props) {
           label="Continue"
           onPress={handleContinue}
           disabled={!selectedRole}
+          loading={loading}
           size="lg"
         />
       </View>

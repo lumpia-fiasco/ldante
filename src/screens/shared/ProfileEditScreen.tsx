@@ -1,5 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, ScrollView,
   TextInput, TouchableOpacity, Alert, ActivityIndicator,
@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
 import { ScreenHeader, Avatar } from '../../components/common';
+import { useAuth } from '../../context/AuthContext';
 import { RootStackParamList } from '../../navigation';
 import {
   IconArrowLeft, IconCamera, IconCheck,
@@ -16,32 +17,31 @@ import * as ImagePicker from 'expo-image-picker';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
-// Pre-populated with mock user data — in production these would come from the
-// auth/user context or a Supabase query.
-const INITIAL_USER = {
-  full_name: 'Alex Johnson',
-  email: 'alex@example.com',
-  phone: '(310) 555-0147',
-  location: 'Chicago, IL',
-  bio: '',
-};
-
 export function ProfileEditScreen() {
   const navigation = useNavigation<Nav>();
+  const { user, updateUser, refreshUser } = useAuth();
 
-  const [fullName, setFullName] = useState(INITIAL_USER.full_name);
-  const [email, setEmail] = useState(INITIAL_USER.email);
-  const [phone, setPhone] = useState(INITIAL_USER.phone);
-  const [location, setLocation] = useState(INITIAL_USER.location);
-  const [bio, setBio] = useState(INITIAL_USER.bio);
+  const [fullName, setFullName] = useState(user?.full_name ?? '');
+  const [phone, setPhone] = useState(user?.phone ?? '');
+  const [location, setLocation] = useState(user?.location ?? '');
+  const [bio, setBio] = useState(user?.bio ?? '');
   const [saving, setSaving] = useState(false);
 
+  // Sync fields if user loads after mount
+  useEffect(() => {
+    if (user) {
+      setFullName(user.full_name ?? '');
+      setPhone(user.phone ?? '');
+      setLocation(user.location ?? '');
+      setBio(user.bio ?? '');
+    }
+  }, [user?.id]);
+
   const hasChanges =
-    fullName !== INITIAL_USER.full_name ||
-    email !== INITIAL_USER.email ||
-    phone !== INITIAL_USER.phone ||
-    location !== INITIAL_USER.location ||
-    bio !== INITIAL_USER.bio;
+    fullName !== (user?.full_name ?? '') ||
+    phone !== (user?.phone ?? '') ||
+    location !== (user?.location ?? '') ||
+    bio !== (user?.bio ?? '');
 
   async function handlePickPhoto() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -56,8 +56,8 @@ export function ProfileEditScreen() {
       quality: 0.8,
     });
     if (!result.canceled) {
-      // In production: upload result.assets[0].uri to Supabase Storage
-      Alert.alert('Photo selected', 'Profile photo upload would happen here in production.');
+      // TODO: upload to Supabase Storage and update avatar_url
+      Alert.alert('Coming soon', 'Photo upload will be available in the next update.');
     }
   }
 
@@ -67,12 +67,21 @@ export function ProfileEditScreen() {
       return;
     }
     setSaving(true);
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 900));
+    const { error } = await updateUser({
+      full_name: fullName.trim(),
+      phone: phone.trim() || null,
+      location: location.trim() || null,
+      bio: bio.trim() || null,
+    });
     setSaving(false);
-    Alert.alert('Saved!', 'Your profile has been updated.', [
-      { text: 'OK', onPress: () => navigation.goBack() },
-    ]);
+    if (error) {
+      Alert.alert('Save Failed', 'Could not save your changes. Please try again.');
+    } else {
+      await refreshUser();
+      Alert.alert('Saved!', 'Your profile has been updated.', [
+        { text: 'OK', onPress: () => navigation.goBack() },
+      ]);
+    }
   }
 
   return (
@@ -109,7 +118,7 @@ export function ProfileEditScreen() {
         {/* Avatar picker */}
         <View style={styles.avatarSection}>
           <View>
-            <Avatar name={fullName || 'A'} size={90} />
+            <Avatar name={fullName || user?.email || 'A'} size={90} />
             <TouchableOpacity style={styles.cameraBtn} onPress={handlePickPhoto} activeOpacity={0.8}>
               <IconCamera size={16} color={Colors.white} strokeWidth={2} />
             </TouchableOpacity>
@@ -131,16 +140,13 @@ export function ProfileEditScreen() {
             />
           </FieldGroup>
 
-          <FieldGroup label="Email" hint="Used for login and notifications">
+          {/* Email is read-only — changing email requires auth flow */}
+          <FieldGroup label="Email" hint="To change your email, contact support">
             <TextInput
-              style={styles.input}
-              value={email}
-              onChangeText={setEmail}
-              placeholder="your@email.com"
+              style={[styles.input, styles.inputReadOnly]}
+              value={user?.email ?? ''}
+              editable={false}
               placeholderTextColor={Colors.textMuted}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              returnKeyType="next"
             />
           </FieldGroup>
 
@@ -244,6 +250,9 @@ const styles = StyleSheet.create({
   input: {
     padding: Spacing.base, fontSize: Typography.sizes.base,
     color: Colors.textPrimary,
+  },
+  inputReadOnly: {
+    color: Colors.textMuted,
   },
   bioInput: { minHeight: 100 },
 

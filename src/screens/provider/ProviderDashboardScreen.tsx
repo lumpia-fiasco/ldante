@@ -2,64 +2,77 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, ScrollView,
-  TouchableOpacity, Image,
+  TouchableOpacity, Image, Modal, Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
-import { Avatar, StarRating, Card, SectionHeader, Badge } from '../../components/common';
 import { RootStackParamList } from '../../navigation';
 import { CrowndLogo } from '../../components/brand/CrowndLogo';
 import {
-  IconScissors,
-  IconMapPin,
-  IconCalendarEvent,
-  IconChartBar,
-  IconMessageCircle,
-  IconUsers,
-  IconCalendar,
-  IconStar,
   IconBell,
   IconMenu2,
   IconHeart,
   IconHeartFilled,
+  IconUser,
+  IconSettings,
+  IconHelp,
+  IconLogout,
+  IconChevronRight,
+  IconChevronLeft,
+  IconMapPin,
 } from '@tabler/icons-react-native';
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
-// ─── Shared Mock Data (mirrors DiscoverScreen) ─────────────────────────────────
-
-const SERVICE_EMOJI: Record<string, string> = {
-  hair: '💇‍♀️',
-  barber: '💈',
-  fitness: '💪',
-  massage: '🐉',
-  esthetics: '🧖‍♀️',
-  nails: '💅',
-  lashes: '👁',
-  makeup: '💄',
-};
+// ─── Mock Data ─────────────────────────────────────────────────────────────────
 
 const MOCK_POSTS = [
   {
     id: '1',
     customer: { name: 'LoLinda', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-    provider: { name: 'Carmela', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', id: 'p1', service: '💇‍♀️' },
+    provider: { name: 'Josephine', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', id: 'p1', service: '💇‍♀️' },
     photo: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80',
     tags: ['Goddess Braids', 'Shampoo', 'Color'],
-    review: "Carmela did amazing with these braids! Best, hands-down. My hair has never been more healthy!",
+    review: "Josephine did amazing with these braids! Best, hands-down. I think the best thing about all of this is that my hair has never been more healthy! Carmela knows how to take care of hair and keep it nice and healthy.",
     likes: 16,
     liked: false,
   },
   {
     id: '2',
-    customer: { name: 'Martina', avatar: 'https://randomuser.me/api/portraits/women/32.jpg' },
-    provider: { name: 'Devon', location: 'Santa Ana, CA', avatar: 'https://randomuser.me/api/portraits/men/42.jpg', id: 'p2', service: '💈' },
-    photo: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80',
-    tags: ['Fade', 'Lineup'],
-    review: "Devon is hands down the best barber I've found. Clean fade every time.",
-    likes: 24,
+    customer: { name: 'LoLinda', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
+    provider: { name: 'Josephine', location: 'Costa Mesa, CA', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', id: 'p1', service: '💇‍♀️' },
+    photo: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80',
+    tags: ['Cornrows', 'Design'],
+    review: "Another amazing session. The cornrows are flawless as always.",
+    likes: 21,
     liked: false,
+  },
+];
+
+const MOCK_APPOINTMENTS = [
+  { id: 'b1', time: '2:45 PM', name: 'Nerissa',  services: ['Wash', 'Style', 'Silk Press'], balance: '$240' },
+  { id: 'b2', time: '5:00 PM', name: 'Martina',  services: ['Wash', 'Style'], balance: '$240' },
+  { id: 'b3', time: '6:00 PM', name: 'Alberta',  services: ['Wash'], balance: '$240' },
+  { id: 'b4', time: '6:30 PM', name: 'Kim',       services: ['Wash'], balance: '$240' },
+];
+
+const MOCK_REVIEWS = [
+  {
+    id: 'r1',
+    name: 'LoLinda',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    score: 4.6,
+    text: "Carmela did amazing with these braids! Best, hands-down. I think the best thing about all of this is that my hair has never been more healthy! Carmela knows how to take care of hair and keep it nice and healthy.",
+    date: 'Feb 2, 2026',
+  },
+  {
+    id: 'r2',
+    name: 'Sarah K.',
+    avatar: 'https://randomuser.me/api/portraits/women/55.jpg',
+    score: 5.0,
+    text: "She always delivers perfection. My go-to for any hair occasion.",
+    date: 'Jan 28, 2026',
   },
 ];
 
@@ -68,68 +81,43 @@ const MOCK_PROVIDERS_FRIENDS = [
     id: 'p1', name: 'Carmela', location: 'Costa Mesa, CA',
     avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
     specialty: 'Hair Stylist',
-    services: ['💇‍♀️ Braids', '💇‍♀️ Silk Press', '💇‍♀️ Cornrows', '💇‍♀️ Conditioning'],
+    providerEmojis: ['💇‍♀️', '💈', '💪', '🐉', '💆‍♀️', '💅', '👁', '💄'],
   },
   {
     id: 'p3', name: 'Jasmine', location: 'Irvine, CA',
     avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
     specialty: 'Nail Artist',
-    services: ['💅 Gel Manicure', '💅 Nail Art', '💅 Acrylics', '💅 Pedicure'],
+    providerEmojis: ['💇‍♀️', '💈', '💪', '🐉', '💆‍♀️', '💅', '👁', '💄'],
   },
   {
     id: 'p4', name: 'Marcus', location: 'Anaheim, CA',
     avatar: 'https://randomuser.me/api/portraits/men/55.jpg',
     specialty: 'Massage Therapist',
-    services: ['💆 Deep Tissue', '💆 Swedish', '💆 Hot Stone', '💆 Sports Massage'],
+    providerEmojis: ['💇‍♀️', '💈', '💪', '🐉', '💆‍♀️', '💅', '👁', '💄'],
   },
   {
     id: 'p5', name: 'Aisha', location: 'Long Beach, CA',
     avatar: 'https://randomuser.me/api/portraits/women/91.jpg',
     specialty: 'Esthetician',
-    services: ['🧖‍♀️ HydraFacial', '🧖‍♀️ Chemical Peel', '🧖‍♀️ Microdermabrasion', '🧖‍♀️ Brow Shaping'],
+    providerEmojis: ['💇‍♀️', '💈', '💪', '🐉', '💆‍♀️', '💅', '👁', '💄'],
   },
   {
     id: 'p6', name: 'Tyler', location: 'Torrance, CA',
     avatar: 'https://randomuser.me/api/portraits/men/33.jpg',
     specialty: 'Personal Trainer',
-    services: ['💪 HIIT', '💪 Strength Training', '💪 Mobility', '💪 Nutrition Coaching'],
+    providerEmojis: ['💇‍♀️', '💈', '💪', '🐉', '💆‍♀️', '💅', '👁', '💄'],
   },
   {
     id: 'p7', name: 'Brianna', location: 'Compton, CA',
     avatar: 'https://randomuser.me/api/portraits/women/17.jpg',
     specialty: 'Makeup Artist',
-    services: ['💄 Bridal Makeup', '💄 Editorial', '💄 Glam', '💄 Natural Look'],
+    providerEmojis: ['💇‍♀️', '💈', '💪', '🐉', '💆‍♀️', '💅', '👁', '💄'],
   },
 ];
 
-const SERVICE_CATEGORIES = [
-  { key: 'hair', label: 'Hair', emoji: '💇‍♀️' },
-  { key: 'barber', label: 'Barber', emoji: '💈' },
-  { key: 'fitness', label: 'Fitness', emoji: '💪' },
-  { key: 'massage', label: 'Massage', emoji: '💆' },
-  { key: 'esthetics', label: 'Esthetics', emoji: '🧖‍♀️' },
-  { key: 'nails', label: 'Nails', emoji: '💅' },
-  { key: 'lashes', label: 'Lashes', emoji: '👁' },
-  { key: 'makeup', label: 'Makeup', emoji: '💄' },
-  { key: 'tattoo', label: 'Tattoo', emoji: '🐉' },
-];
+// ─── Tabs ───────────────────────────────────────────────────────────────────────
 
-// ─── Provider Dashboard Mock Data ──────────────────────────────────────────────
-
-const MOCK_UPCOMING = [
-  { id: 'b1', customerName: 'Emily Rodriguez', service: 'Balayage', time: '2:00 PM', date: 'Today', status: 'confirmed' },
-  { id: 'b2', customerName: 'Sarah Kim', service: 'Cut & Blowout', time: '4:30 PM', date: 'Today', status: 'confirmed' },
-  { id: 'b3', customerName: 'Amanda Chen', service: 'Full Color', time: '10:00 AM', date: 'Tomorrow', status: 'confirmed' },
-];
-
-const MOCK_RECENT_REVIEWS = [
-  { id: 'r1', name: 'Emily R.', score: 5, text: 'Best balayage ever!', date: '2 days ago' },
-  { id: 'r2', name: 'Sarah K.', score: 5, text: 'She always delivers perfection.', date: '5 days ago' },
-];
-
-// ─── Upper Tab Bar ─────────────────────────────────────────────────────────────
-
-const TABS = ['Dashboard', 'Feed', 'Friends', 'Services'] as const;
+const TABS = ['Dashboard', 'Posts', 'Friends', 'Go-tos'] as const;
 type Tab = typeof TABS[number];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
@@ -138,6 +126,7 @@ export function ProviderDashboardScreen() {
   const navigation = useNavigation<Nav>();
   const [activeTab, setActiveTab] = useState<Tab>('Dashboard');
   const [posts, setPosts] = useState(MOCK_POSTS);
+  const [hamburgerVisible, setHamburgerVisible] = useState(false);
 
   function toggleLike(id: string) {
     setPosts(prev => prev.map(p =>
@@ -149,17 +138,12 @@ export function ProviderDashboardScreen() {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <CrowndLogo size={36} />
-        </View>
+        <CrowndLogo size={36} />
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.headerBtn} onPress={() => navigation.navigate('Notifications')}>
             <IconBell size={24} color={Colors.textPrimary} strokeWidth={1.75} />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.headerBtn}
-            onPress={() => navigation.navigate('ProviderProfileEdit')}
-          >
+          <TouchableOpacity style={styles.headerBtn} onPress={() => setHamburgerVisible(true)}>
             <IconMenu2 size={24} color={Colors.textPrimary} strokeWidth={1.75} />
           </TouchableOpacity>
         </View>
@@ -170,9 +154,7 @@ export function ProviderDashboardScreen() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabBarInner}>
           {TABS.map(tab => (
             <TouchableOpacity key={tab} style={styles.tab} onPress={() => setActiveTab(tab)}>
-              <Text style={[styles.tabText, activeTab === tab && styles.tabTextActive]}>
-                {tab}
-              </Text>
+              <Text style={[styles.tabText, activeTab === tab && styles.tabTextActive]}>{tab}</Text>
               {activeTab === tab && <View style={styles.tabUnderline} />}
             </TouchableOpacity>
           ))}
@@ -180,12 +162,11 @@ export function ProviderDashboardScreen() {
       </View>
 
       {/* Tab Content */}
-      {activeTab === 'Dashboard' && (
-        <DashboardTab navigation={navigation} />
-      )}
+      {activeTab === 'Dashboard' && <DashboardTab navigation={navigation} />}
 
-      {activeTab === 'Feed' && (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.feed}>
+      {activeTab === 'Posts' && (
+        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+          <Text style={styles.feedLabel}>POSTS FROM YOUR FRIENDS & GO-TOS</Text>
           {posts.map(post => (
             <FeedPost
               key={post.id}
@@ -199,7 +180,14 @@ export function ProviderDashboardScreen() {
       )}
 
       {activeTab === 'Friends' && <FriendsTab navigation={navigation} />}
-      {activeTab === 'Services' && <ServicesTab navigation={navigation} />}
+      {activeTab === 'Go-tos' && <GoTosTab navigation={navigation} />}
+
+      {/* Hamburger Menu Drawer */}
+      <ProviderHamburgerMenu
+        visible={hamburgerVisible}
+        onClose={() => setHamburgerVisible(false)}
+        navigation={navigation}
+      />
     </SafeAreaView>
   );
 }
@@ -207,140 +195,120 @@ export function ProviderDashboardScreen() {
 // ─── Dashboard Tab ─────────────────────────────────────────────────────────────
 
 function DashboardTab({ navigation }: { navigation: Nav }) {
+  const [dateLabel] = useState('Friday Feb 6');
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={dashStyles.scroll}>
 
-      {/* Provider Greeting */}
-      <View style={dashStyles.greeting}>
-        <View>
-          <Text style={dashStyles.greetingName}>Good afternoon, Jessica!</Text>
-          <Text style={dashStyles.greetingSub}>Your business at a glance</Text>
-        </View>
-        <TouchableOpacity onPress={() => navigation.navigate('ProviderProfileEdit')}>
-          <Avatar name="Jessica Williams" size={44} />
-        </TouchableOpacity>
-      </View>
+      {/* Greeting */}
+      <Text style={dashStyles.greeting}>Good afternoon, Simone!</Text>
+      <Text style={dashStyles.greetingSub}>Let's see where we're at</Text>
 
-      {/* Stats Row */}
+      {/* Stat cards */}
       <View style={dashStyles.statsRow}>
-        <StatCard icon={<IconUsers size={22} color={Colors.textSecondary} strokeWidth={1.75} />} value="187" label="Followers" trend="+12 this week" />
-        <StatCard icon={<IconCalendar size={22} color={Colors.textSecondary} strokeWidth={1.75} />} value="24" label="Bookings" sub="this month" />
-        <StatCard icon={<IconStar size={22} color={Colors.textSecondary} strokeWidth={1.75} />} value="4.9" label="Rating" sub="(52 reviews)" />
+        <View style={[dashStyles.statCard, { backgroundColor: '#F2C4AE' }]}>
+          <Text style={dashStyles.statValue}>189</Text>
+          <Text style={dashStyles.statLabel}>Followers</Text>
+          <Text style={dashStyles.statTrend}>-30 this week</Text>
+        </View>
+        <View style={[dashStyles.statCard, { backgroundColor: '#B8DDD6' }]}>
+          <Text style={dashStyles.statValue}>34</Text>
+          <Text style={dashStyles.statLabel}>Bookings</Text>
+          <Text style={dashStyles.statSub}>this month</Text>
+        </View>
+        <View style={[dashStyles.statCard, { backgroundColor: '#F5E6C8' }]}>
+          <Text style={dashStyles.statValue}>4.9</Text>
+          <Text style={dashStyles.statLabel}>Rating</Text>
+          <Text style={dashStyles.statSub}>-0.1 points</Text>
+          <Text style={dashStyles.statSub}>+ 3 reviews</Text>
+        </View>
       </View>
 
-      {/* Quick Actions */}
-      <View style={dashStyles.quickActions}>
-        <TouchableOpacity style={dashStyles.quickAction} onPress={() => navigation.navigate('ManageServices')}>
-          <Text style={dashStyles.qaEmoji}>✂️</Text>
-          <Text style={dashStyles.qaLabel}>Services</Text>
+      {/* Today's Earnings */}
+      <View style={dashStyles.earningsSection}>
+        <Text style={dashStyles.earningsLabel}>Today's Earnings</Text>
+        <Text style={dashStyles.earningsAmount}>$845.00</Text>
+        <Text style={dashStyles.earningsSub}>This week: $5640.00</Text>
+        <Text style={dashStyles.earningsSub}>This month: $24,500.00</Text>
+      </View>
+
+      {/* Action buttons */}
+      <View style={dashStyles.actionRow}>
+        <TouchableOpacity style={dashStyles.actionBtn} activeOpacity={0.8}>
+          <Text style={dashStyles.actionBtnText}>Add Appointment</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={dashStyles.quickAction}>
-          <IconMapPin size={24} color={Colors.textSecondary} strokeWidth={1.75} />
-          <Text style={dashStyles.qaLabel}>Location</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={dashStyles.quickAction}>
-          <IconCalendarEvent size={24} color={Colors.textSecondary} strokeWidth={1.75} />
-          <Text style={dashStyles.qaLabel}>Schedule</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={dashStyles.quickAction}>
-          <IconChartBar size={24} color={Colors.textSecondary} strokeWidth={1.75} />
-          <Text style={dashStyles.qaLabel}>Analytics</Text>
+        <TouchableOpacity style={dashStyles.actionBtn} activeOpacity={0.8}>
+          <Text style={dashStyles.actionBtnText}>Collect</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Upcoming Appointments */}
-      <View>
-        <SectionHeader title="Upcoming Appointments" action="View all" onAction={() => {}} />
-        {MOCK_UPCOMING.map((booking) => (
-          <View key={booking.id} style={dashStyles.appointmentCard}>
-            <Avatar name={booking.customerName} size={44} />
-            <View style={dashStyles.apptInfo}>
-              <Text style={dashStyles.apptName}>{booking.customerName}</Text>
-              <Text style={dashStyles.apptService}>{booking.service}</Text>
-              <Text style={dashStyles.apptTime}>{booking.date} · {booking.time}</Text>
+      {/* Date Navigator */}
+      <View style={dashStyles.dateNav}>
+        <TouchableOpacity hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <IconChevronLeft size={22} color={Colors.textPrimary} strokeWidth={1.75} />
+        </TouchableOpacity>
+        <View style={dashStyles.dateCenter}>
+          <Text style={dashStyles.dateToday}>Today</Text>
+          <Text style={dashStyles.dateLabel}>{dateLabel}</Text>
+        </View>
+        <TouchableOpacity hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+          <IconChevronRight size={22} color={Colors.textPrimary} strokeWidth={1.75} />
+        </TouchableOpacity>
+      </View>
+      <Text style={dashStyles.apptSummary}>3 down, 4 to go!</Text>
+
+      {/* Appointment List */}
+      {MOCK_APPOINTMENTS.map(appt => (
+        <View key={appt.id} style={dashStyles.apptRow}>
+          <View style={dashStyles.apptLeft}>
+            <Text style={dashStyles.apptTime}>{appt.time}</Text>
+            <Text style={dashStyles.apptName}>{appt.name}</Text>
+            <View style={dashStyles.apptTags}>
+              {appt.services.map(s => (
+                <View key={s} style={dashStyles.apptTag}>
+                  <Text style={dashStyles.apptTagText}>{s}</Text>
+                </View>
+              ))}
             </View>
-            <View style={dashStyles.apptActions}>
-              <Badge
-                label={booking.status === 'confirmed' ? 'Confirmed' : 'Pending'}
-                variant={booking.status === 'confirmed' ? 'success' : 'warning'}
-              />
-              <TouchableOpacity>
-                <IconMessageCircle size={20} color={Colors.textSecondary} strokeWidth={1.75} />
-              </TouchableOpacity>
-            </View>
+          </View>
+          <View style={dashStyles.apptRight}>
+            <Text style={dashStyles.balanceLabel}>Balance Due</Text>
+            <Text style={dashStyles.balanceAmount}>{appt.balance}</Text>
+          </View>
+        </View>
+      ))}
+
+      {/* Ratings Grid */}
+      <View style={dashStyles.ratingsGrid}>
+        {[
+          { label: 'Quality', score: 4.9 },
+          { label: 'Friendliness', score: 4.5 },
+          { label: 'Expertise', score: 4.9 },
+          { label: 'Location', score: 3.5 },
+        ].map(r => (
+          <View key={r.label} style={dashStyles.ratingCell}>
+            <Text style={dashStyles.ratingScore}>{r.score.toFixed(1)}</Text>
+            <Text style={dashStyles.ratingLabel}>{r.label}</Text>
           </View>
         ))}
       </View>
 
-      {/* Rating Summary */}
-      <Card>
-        <Text style={dashStyles.cardTitle}>Your Ratings</Text>
-        <View style={dashStyles.ratingRow}>
-          <Text style={dashStyles.bigScore}>4.9</Text>
-          <View>
-            <StarRating score={4.9} size={20} />
-            <Text style={dashStyles.ratingCount}>52 total ratings</Text>
+      {/* Latest Reviews */}
+      <Text style={dashStyles.reviewsTitle}>Latest reviews</Text>
+      {MOCK_REVIEWS.map(review => (
+        <View key={review.id} style={dashStyles.reviewCard}>
+          <View style={dashStyles.reviewHeader}>
+            <Image source={{ uri: review.avatar }} style={dashStyles.reviewAvatar} />
+            <Text style={dashStyles.reviewName}>{review.name}</Text>
+            <Text style={dashStyles.reviewScore}>{review.score.toFixed(1)}</Text>
           </View>
+          <Text style={dashStyles.reviewText}>{review.text}</Text>
+          <Text style={dashStyles.reviewDate}>{review.date}</Text>
         </View>
-        <View style={dashStyles.dimensionMini}>
-          {[
-            { label: 'Quality', score: 4.9 },
-            { label: 'Expertise', score: 4.9 },
-            { label: 'Service', score: 4.3 },
-            { label: 'Value', score: 4.2 },
-          ].map((d) => (
-            <View key={d.label} style={dashStyles.dimRow}>
-              <Text style={dashStyles.dimLabel}>{d.label}</Text>
-              <View style={dashStyles.dimBar}>
-                <View style={[dashStyles.dimFill, { width: `${(d.score / 5) * 100}%` as any }]} />
-              </View>
-              <Text style={dashStyles.dimScore}>{d.score}</Text>
-            </View>
-          ))}
-        </View>
-      </Card>
+      ))}
 
-      {/* Recent Reviews */}
-      <View>
-        <SectionHeader title="Recent Reviews" action="See all" />
-        {MOCK_RECENT_REVIEWS.map((review) => (
-          <View key={review.id} style={dashStyles.reviewCard}>
-            <View style={dashStyles.reviewHeader}>
-              <Avatar name={review.name} size={32} />
-              <Text style={dashStyles.reviewName}>{review.name}</Text>
-              <StarRating score={review.score} size={12} />
-              <Text style={dashStyles.reviewDate}>{review.date}</Text>
-            </View>
-            <Text style={dashStyles.reviewText}>"{review.text}"</Text>
-          </View>
-        ))}
-      </View>
-
-      {/* Location Alert */}
-      <View style={dashStyles.locationAlert}>
-        <IconMapPin size={28} color={Colors.primary} strokeWidth={1.75} />
-        <View style={dashStyles.locationAlertText}>
-          <Text style={dashStyles.locationAlertTitle}>Notify Followers of Your Location</Text>
-          <Text style={dashStyles.locationAlertSub}>187 followers will be notified instantly</Text>
-        </View>
-        <TouchableOpacity style={dashStyles.notifyBtn}>
-          <Text style={dashStyles.notifyBtnText}>Notify</Text>
-        </TouchableOpacity>
-      </View>
-
+      <View style={{ height: 110 }} />
     </ScrollView>
-  );
-}
-
-function StatCard({ icon, value, label, trend, sub }: { icon: React.ReactNode; value: string; label: string; trend?: string; sub?: string }) {
-  return (
-    <View style={dashStyles.statCard}>
-      <View style={dashStyles.statIcon}>{icon}</View>
-      <Text style={dashStyles.statValue}>{value}</Text>
-      <Text style={dashStyles.statLabel}>{label}</Text>
-      {trend && <Text style={dashStyles.statTrend}>{trend}</Text>}
-      {sub && <Text style={dashStyles.statSub}>{sub}</Text>}
-    </View>
   );
 }
 
@@ -353,6 +321,7 @@ function FeedPost({ post, onLike, onProviderPress }: {
 }) {
   return (
     <View style={postStyles.card}>
+      {/* Poster row */}
       <View style={postStyles.header}>
         <View style={postStyles.headerLeft}>
           <Image source={{ uri: post.customer.avatar }} style={postStyles.customerAvatar} />
@@ -360,22 +329,30 @@ function FeedPost({ post, onLike, onProviderPress }: {
         </View>
         <Text style={postStyles.serviceEmoji}>{post.provider.service}</Text>
       </View>
+
+      {/* Full-width photo */}
       <Image source={{ uri: post.photo }} style={postStyles.photo} />
-      <View style={postStyles.tags}>
-        {post.tags.map(tag => (
-          <View key={tag} style={postStyles.tag}>
-            <Text style={postStyles.tagText}>{tag}</Text>
+
+      {/* Tags + provider mini info */}
+      <TouchableOpacity style={postStyles.metaRow} onPress={onProviderPress} activeOpacity={0.7}>
+        <View style={postStyles.tagsWrap}>
+          {post.tags.map(tag => (
+            <View key={tag} style={postStyles.tag}>
+              <Text style={postStyles.tagText}>{tag}</Text>
+            </View>
+          ))}
+        </View>
+        <View style={postStyles.providerMini}>
+          <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
+          <View>
+            <Text style={postStyles.providerName}>{post.provider.name}</Text>
+            <Text style={postStyles.providerLocation}>{post.provider.location}</Text>
           </View>
-        ))}
-      </View>
-      <TouchableOpacity style={postStyles.providerRow} onPress={onProviderPress} activeOpacity={0.7}>
-        <Image source={{ uri: post.provider.avatar }} style={postStyles.providerAvatar} />
-        <View>
-          <Text style={postStyles.providerName}>{post.provider.name}</Text>
-          <Text style={postStyles.providerLocation}>{post.provider.location}</Text>
         </View>
       </TouchableOpacity>
+
       <Text style={postStyles.review}>{post.review}</Text>
+
       <TouchableOpacity style={postStyles.likeRow} onPress={onLike} activeOpacity={0.7}>
         {post.liked
           ? <IconHeartFilled size={22} color={Colors.like} />
@@ -392,25 +369,71 @@ function FeedPost({ post, onLike, onProviderPress }: {
 function FriendsTab({ navigation }: { navigation: Nav }) {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View style={listStyles.sectionRow}>
+        <Text style={listStyles.sectionLabel}>YOUR FRIENDS</Text>
+        <TouchableOpacity style={listStyles.addBtn} activeOpacity={0.8}>
+          <Text style={listStyles.addBtnText}>Add friend</Text>
+        </TouchableOpacity>
+      </View>
       {MOCK_PROVIDERS_FRIENDS.map(provider => (
         <TouchableOpacity
           key={provider.id}
-          style={friendStyles.row}
+          style={listStyles.row}
           activeOpacity={0.7}
           onPress={() => navigation.navigate('ProviderProfile', { providerId: provider.id })}
         >
-          <Image source={{ uri: provider.avatar }} style={friendStyles.avatar} />
-          <View style={friendStyles.info}>
-            <Text style={friendStyles.name}>{provider.name}</Text>
-            <Text style={friendStyles.specialty}>{provider.specialty}</Text>
-            <Text style={friendStyles.location}>{provider.location}</Text>
-            <View style={friendStyles.services}>
-              {provider.services.map((service, i) => (
-                <View key={i} style={friendStyles.serviceTag}>
-                  <Text style={friendStyles.serviceText}>{service}</Text>
-                </View>
+          <Image source={{ uri: provider.avatar }} style={listStyles.avatar} />
+          <View style={listStyles.info}>
+            <Text style={listStyles.name}>{provider.name}</Text>
+            <View style={listStyles.locationRow}>
+              <IconMapPin size={12} color={Colors.textMuted} strokeWidth={1.75} />
+              <Text style={listStyles.location}>{provider.location}</Text>
+            </View>
+            <View style={listStyles.emojis}>
+              {provider.providerEmojis.map((emoji, i) => (
+                <Text key={i} style={listStyles.emojiText}>{emoji}</Text>
               ))}
             </View>
+          </View>
+          <IconChevronRight size={18} color={Colors.textMuted} strokeWidth={1.75} />
+        </TouchableOpacity>
+      ))}
+      <View style={{ height: 110 }} />
+    </ScrollView>
+  );
+}
+
+// ─── Go-tos Tab ────────────────────────────────────────────────────────────────
+
+function GoTosTab({ navigation }: { navigation: Nav }) {
+  return (
+    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View style={listStyles.sectionRow}>
+        <Text style={listStyles.sectionLabel}>YOUR GO-TOS</Text>
+        <TouchableOpacity style={listStyles.addBtn} activeOpacity={0.8}>
+          <Text style={listStyles.addBtnText}>Add Go-to</Text>
+        </TouchableOpacity>
+      </View>
+      {MOCK_PROVIDERS_FRIENDS.map(provider => (
+        <TouchableOpacity
+          key={provider.id}
+          style={listStyles.row}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('ProviderProfile', { providerId: provider.id })}
+        >
+          <Image source={{ uri: provider.avatar }} style={listStyles.avatar} />
+          <View style={listStyles.info}>
+            <Text style={listStyles.name}>{provider.name}</Text>
+            <Text style={listStyles.specialty}>{provider.specialty}</Text>
+            <View style={listStyles.locationRow}>
+              <IconMapPin size={12} color={Colors.textMuted} strokeWidth={1.75} />
+              <Text style={listStyles.location}>{provider.location}</Text>
+            </View>
+            <Text style={listStyles.friendOverlap}>Friend 1, Friend 2 and Friend 3 go here</Text>
+          </View>
+          <View style={listStyles.rightCol}>
+            <Text style={listStyles.emoji}>👩‍🦱</Text>
+            <IconChevronRight size={18} color={Colors.textMuted} strokeWidth={1.75} />
           </View>
         </TouchableOpacity>
       ))}
@@ -419,26 +442,89 @@ function FriendsTab({ navigation }: { navigation: Nav }) {
   );
 }
 
-// ─── Services Tab ──────────────────────────────────────────────────────────────
+// ─── Provider Hamburger Menu ────────────────────────────────────────────────────
 
-function ServicesTab({ navigation }: { navigation: Nav }) {
+function ProviderHamburgerMenu({ visible, onClose, navigation }: {
+  visible: boolean;
+  onClose: () => void;
+  navigation: Nav;
+}) {
+  function handleNavigate(screen: keyof RootStackParamList) {
+    onClose();
+    setTimeout(() => navigation.navigate(screen as any), 200);
+  }
+
+  function handleLogout() {
+    onClose();
+    setTimeout(() => {
+      Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sign Out', style: 'destructive',
+          onPress: async () => {
+            const { authService } = require('../../services/supabase');
+            await authService.signOut();
+          },
+        },
+      ]);
+    }, 200);
+  }
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, padding: Spacing.base }}>
-      <View style={servicesStyles.grid}>
-        {SERVICE_CATEGORIES.map(cat => (
-          <TouchableOpacity
-            key={cat.key}
-            style={servicesStyles.cell}
-            activeOpacity={0.7}
-            onPress={() => navigation.navigate('Search', { category: cat.key })}
-          >
-            <Text style={servicesStyles.emoji}>{cat.emoji}</Text>
-            <Text style={servicesStyles.label}>{cat.label}</Text>
+    <Modal visible={visible} animationType="slide" transparent presentationStyle="overFullScreen">
+      <View style={hamburgerStyles.overlay}>
+        <TouchableOpacity style={hamburgerStyles.backdrop} activeOpacity={1} onPress={onClose} />
+        <View style={hamburgerStyles.drawer}>
+          <View style={hamburgerStyles.handle} />
+          <View style={hamburgerStyles.brand}>
+            <CrowndLogo size={32} />
+            <Text style={hamburgerStyles.brandName}>CROWND</Text>
+          </View>
+          <View style={hamburgerStyles.menu}>
+            <HamburgerItem
+              icon={<IconUser size={22} color={Colors.textPrimary} strokeWidth={1.75} />}
+              label="My Profile"
+              sublabel="View and edit your provider profile"
+              onPress={() => handleNavigate('ProviderProfileEdit')}
+            />
+            <View style={hamburgerStyles.divider} />
+            <HamburgerItem
+              icon={<IconSettings size={22} color={Colors.textPrimary} strokeWidth={1.75} />}
+              label="Settings"
+              sublabel="App preferences & privacy"
+              onPress={() => handleNavigate('Settings')}
+            />
+            <View style={hamburgerStyles.divider} />
+            <HamburgerItem
+              icon={<IconHelp size={22} color={Colors.textPrimary} strokeWidth={1.75} />}
+              label="Help & Support"
+              sublabel="FAQs, contact, and feedback"
+              onPress={() => handleNavigate('HelpSupport')}
+            />
+          </View>
+          <TouchableOpacity style={hamburgerStyles.logoutBtn} onPress={handleLogout} activeOpacity={0.8}>
+            <IconLogout size={20} color={Colors.error} strokeWidth={1.75} />
+            <Text style={hamburgerStyles.logoutText}>Sign Out</Text>
           </TouchableOpacity>
-        ))}
+          <View style={{ height: Spacing.xl }} />
+        </View>
       </View>
-      <View style={{ height: 110 }} />
-    </ScrollView>
+    </Modal>
+  );
+}
+
+function HamburgerItem({ icon, label, sublabel, onPress }: {
+  icon: React.ReactNode; label: string; sublabel: string; onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity style={hamburgerStyles.item} onPress={onPress} activeOpacity={0.7}>
+      <View style={hamburgerStyles.itemIcon}>{icon}</View>
+      <View style={hamburgerStyles.itemText}>
+        <Text style={hamburgerStyles.itemLabel}>{label}</Text>
+        <Text style={hamburgerStyles.itemSublabel}>{sublabel}</Text>
+      </View>
+      <IconChevronRight size={18} color={Colors.textMuted} strokeWidth={1.75} />
+    </TouchableOpacity>
   );
 }
 
@@ -449,103 +535,130 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingHorizontal: Spacing.base, paddingVertical: Spacing.sm,
-    backgroundColor: Colors.background,
   },
-  headerLeft: { flexDirection: 'row', alignItems: 'center' },
   headerRight: { flexDirection: 'row', gap: Spacing.base, alignItems: 'center' },
   headerBtn: { padding: Spacing.xs },
-  tabBar: {
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
-    backgroundColor: Colors.background,
-  },
-  tabBarInner: {
-    paddingHorizontal: Spacing.base,
-    flexDirection: 'row',
-  },
+  tabBar: { borderBottomWidth: 1, borderBottomColor: Colors.border, backgroundColor: Colors.background },
+  tabBarInner: { paddingHorizontal: Spacing.base, flexDirection: 'row' },
   tab: { marginRight: Spacing.xl, paddingBottom: Spacing.sm, position: 'relative', paddingTop: Spacing.xs },
   tabText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.medium, color: Colors.textMuted },
   tabTextActive: { color: Colors.textPrimary, fontWeight: Typography.weights.bold },
-  tabUnderline: {
-    position: 'absolute', bottom: 0, left: 0, right: 0,
-    height: 2, backgroundColor: Colors.textPrimary, borderRadius: 1,
+  tabUnderline: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, backgroundColor: Colors.textPrimary, borderRadius: 1 },
+  feedLabel: {
+    fontSize: Typography.sizes.xs, color: Colors.textMuted,
+    fontWeight: Typography.weights.semibold,
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.sm, letterSpacing: 0.8,
   },
-  feed: { flex: 1, paddingTop: Spacing.md },
 });
 
-// Dashboard tab inner styles
 const dashStyles = StyleSheet.create({
-  scroll: { padding: Spacing.base, gap: Spacing.xl, paddingBottom: 110 },
-  greeting: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  greetingName: { fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
-  greetingSub: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  statsRow: { flexDirection: 'row', gap: Spacing.md },
+  scroll: { paddingBottom: 110 },
+
+  greeting: {
+    fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold,
+    color: Colors.textPrimary,
+    paddingHorizontal: Spacing.base, paddingTop: Spacing.base,
+  },
+  greetingSub: {
+    fontSize: Typography.sizes.sm, color: Colors.textSecondary,
+    paddingHorizontal: Spacing.base, paddingBottom: Spacing.base,
+  },
+
+  // Stat cards
+  statsRow: { flexDirection: 'row', gap: Spacing.sm, paddingHorizontal: Spacing.base, marginBottom: Spacing.base },
   statCard: {
-    flex: 1, backgroundColor: Colors.surface, borderRadius: Radius.xl,
-    padding: Spacing.md, alignItems: 'center', gap: 4,
+    flex: 1, borderRadius: Radius.xl, padding: Spacing.md,
+    alignItems: 'center', gap: 2,
+  },
+  statValue: { fontSize: Typography.sizes['2xl'], fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
+  statLabel: { fontSize: Typography.sizes.xs, color: Colors.textPrimary, fontWeight: Typography.weights.medium, textAlign: 'center' },
+  statTrend: { fontSize: Typography.sizes.xs, color: Colors.textPrimary, textAlign: 'center' },
+  statSub: { fontSize: Typography.sizes.xs, color: Colors.textPrimary, textAlign: 'center' },
+
+  // Earnings
+  earningsSection: { paddingHorizontal: Spacing.base, marginBottom: Spacing.base },
+  earningsLabel: { fontSize: Typography.sizes.base, color: Colors.textSecondary, marginBottom: 4 },
+  earningsAmount: { fontSize: 40, fontWeight: Typography.weights.extrabold, color: Colors.textPrimary, marginBottom: 4 },
+  earningsSub: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
+
+  // Action buttons
+  actionRow: { flexDirection: 'row', gap: Spacing.base, paddingHorizontal: Spacing.base, marginBottom: Spacing.lg },
+  actionBtn: {
+    flex: 1, borderWidth: 1, borderColor: Colors.border,
+    borderRadius: Radius.lg, paddingVertical: Spacing.md,
+    alignItems: 'center', backgroundColor: Colors.surface,
+  },
+  actionBtnText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+
+  // Date navigator
+  dateNav: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base, marginBottom: Spacing.xs,
+  },
+  dateCenter: { alignItems: 'center' },
+  dateToday: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
+  dateLabel: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  apptSummary: {
+    textAlign: 'center', fontSize: Typography.sizes.sm,
+    fontWeight: Typography.weights.semibold, color: Colors.textPrimary,
+    marginBottom: Spacing.sm,
+  },
+
+  // Appointment rows
+  apptRow: {
+    flexDirection: 'row', justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
+    borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
+    backgroundColor: Colors.surface,
+  },
+  apptLeft: { flex: 1 },
+  apptTime: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginBottom: 2 },
+  apptName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary, marginBottom: 4 },
+  apptTags: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.xs },
+  apptTag: {
+    borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full,
+    paddingHorizontal: Spacing.sm, paddingVertical: 2,
+  },
+  apptTagText: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+  apptRight: { alignItems: 'flex-end', justifyContent: 'flex-start', gap: 2 },
+  balanceLabel: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
+  balanceAmount: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+
+  // Ratings grid
+  ratingsGrid: {
+    flexDirection: 'row', gap: Spacing.sm,
+    paddingHorizontal: Spacing.base, marginTop: Spacing.base, marginBottom: Spacing.base,
+  },
+  ratingCell: {
+    flex: 1, backgroundColor: Colors.surfaceAlt,
+    borderRadius: Radius.lg, padding: Spacing.md,
+    alignItems: 'center', gap: 4,
     borderWidth: 1, borderColor: Colors.border,
   },
-  statIcon: { width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
-  statValue: { fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
-  statLabel: { fontSize: Typography.sizes.xs, color: Colors.textMuted, fontWeight: Typography.weights.medium },
-  statTrend: { fontSize: Typography.sizes.xs, color: Colors.success },
-  statSub: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  quickActions: {
-    flexDirection: 'row', gap: Spacing.md,
-    backgroundColor: Colors.surface, borderRadius: Radius.xl,
-    padding: Spacing.base, borderWidth: 1, borderColor: Colors.border,
+  ratingScore: { fontSize: Typography.sizes.lg, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  ratingLabel: { fontSize: Typography.sizes.xs, color: Colors.textSecondary, textAlign: 'center' },
+
+  // Reviews
+  reviewsTitle: {
+    fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold,
+    color: Colors.textPrimary, paddingHorizontal: Spacing.base, marginBottom: Spacing.sm,
   },
-  quickAction: { flex: 1, alignItems: 'center', gap: Spacing.xs },
-  qaEmoji: { fontSize: 24 },
-  qaLabel: { fontSize: Typography.sizes.xs, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
-  appointmentCard: {
-    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
-    backgroundColor: Colors.surface, borderRadius: Radius.xl,
-    padding: Spacing.base, marginBottom: Spacing.sm,
-    borderWidth: 1, borderColor: Colors.border,
-  },
-  apptInfo: { flex: 1 },
-  apptName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  apptService: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  apptTime: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  apptActions: { alignItems: 'flex-end', gap: Spacing.sm },
-  cardTitle: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary, marginBottom: Spacing.md },
-  ratingRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.base, marginBottom: Spacing.base },
-  bigScore: { fontSize: Typography.sizes['3xl'], fontWeight: Typography.weights.extrabold, color: Colors.textPrimary },
-  ratingCount: { fontSize: Typography.sizes.xs, color: Colors.textMuted, marginTop: 4 },
-  dimensionMini: { gap: Spacing.sm },
-  dimRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
-  dimLabel: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, width: 70 },
-  dimBar: { flex: 1, height: 6, backgroundColor: Colors.surfaceAlt, borderRadius: Radius.full, overflow: 'hidden' },
-  dimFill: { height: '100%', backgroundColor: Colors.primary, borderRadius: Radius.full },
-  dimScore: { fontSize: Typography.sizes.sm, color: Colors.textPrimary, fontWeight: Typography.weights.semibold, width: 28, textAlign: 'right' },
   reviewCard: {
-    backgroundColor: Colors.surface, borderRadius: Radius.xl, padding: Spacing.base,
-    borderWidth: 1, borderColor: Colors.border, marginBottom: Spacing.sm, gap: Spacing.sm,
+    paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
+    borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
   },
-  reviewHeader: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
-  reviewName: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.semibold, color: Colors.textPrimary, flex: 1 },
-  reviewDate: { fontSize: Typography.sizes.xs, color: Colors.textMuted },
-  reviewText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, fontStyle: 'italic' },
-  locationAlert: {
-    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
-    backgroundColor: `${Colors.primary}15`, borderRadius: Radius.xl, padding: Spacing.base,
-    borderWidth: 1, borderColor: `${Colors.primary}30`,
-  },
-  locationAlertText: { flex: 1 },
-  locationAlertTitle: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  locationAlertSub: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
-  notifyBtn: { backgroundColor: Colors.primary, borderRadius: Radius.lg, paddingHorizontal: Spacing.md, paddingVertical: Spacing.sm },
-  notifyBtnText: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.semibold, color: '#FFFFFF' },
+  reviewHeader: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, marginBottom: Spacing.sm },
+  reviewAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
+  reviewName: { flex: 1, fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  reviewScore: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  reviewText: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 22, marginBottom: Spacing.sm },
+  reviewDate: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
 });
 
-// Feed post styles
 const postStyles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.surface, marginBottom: Spacing.sm,
-    borderRadius: Radius.xl, overflow: 'hidden',
-    marginHorizontal: Spacing.base,
-    borderWidth: 1, borderColor: Colors.border,
+    backgroundColor: Colors.surface, marginBottom: Spacing.lg,
+    borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
   },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
@@ -555,44 +668,73 @@ const postStyles = StyleSheet.create({
   customerAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
   customerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
   serviceEmoji: { fontSize: 32 },
-  photo: { width: '100%', height: 280, backgroundColor: Colors.surfaceAlt },
-  tags: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, padding: Spacing.base, paddingBottom: Spacing.sm },
+  photo: { width: '100%', height: 300, backgroundColor: Colors.surfaceAlt },
+  metaRow: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base, paddingTop: Spacing.md, paddingBottom: Spacing.sm, gap: Spacing.sm,
+  },
+  tagsWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.xs, flex: 1 },
   tag: { borderWidth: 1, borderColor: Colors.border, borderRadius: Radius.full, paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs },
   tagText: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  providerRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md, paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm },
-  providerAvatar: { width: 44, height: 44, borderRadius: 22, backgroundColor: Colors.surfaceAlt },
-  providerName: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  providerLocation: { fontSize: Typography.sizes.sm, color: Colors.textSecondary },
-  review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 22, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
+  providerMini: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, flexShrink: 0 },
+  providerAvatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.surfaceAlt },
+  providerName: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
+  providerLocation: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+  review: { fontSize: Typography.sizes.base, color: Colors.textSecondary, lineHeight: 24, paddingHorizontal: Spacing.base, paddingBottom: Spacing.sm },
   likeRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, paddingHorizontal: Spacing.base, paddingBottom: Spacing.base },
   likeCount: { fontSize: Typography.sizes.base, color: Colors.textSecondary, fontWeight: Typography.weights.medium },
 });
 
-// Friends tab styles
-const friendStyles = StyleSheet.create({
+const listStyles = StyleSheet.create({
+  sectionRow: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    paddingHorizontal: Spacing.base, paddingTop: Spacing.base, paddingBottom: Spacing.sm,
+  },
+  sectionLabel: { fontSize: Typography.sizes.xs, fontWeight: Typography.weights.semibold, color: Colors.textMuted, letterSpacing: 0.8 },
+  addBtn: {
+    borderWidth: 1, borderColor: Colors.textPrimary, borderRadius: Radius.full,
+    paddingHorizontal: Spacing.md, paddingVertical: 6,
+  },
+  addBtnText: { fontSize: Typography.sizes.sm, fontWeight: Typography.weights.medium, color: Colors.textPrimary },
   row: {
-    flexDirection: 'row', alignItems: 'flex-start',
+    flexDirection: 'row', alignItems: 'center',
     paddingHorizontal: Spacing.base, paddingVertical: Spacing.md,
     gap: Spacing.md, borderBottomWidth: 1, borderBottomColor: Colors.borderLight,
   },
-  avatar: { width: 64, height: 64, borderRadius: 32, backgroundColor: Colors.surfaceAlt },
-  info: { flex: 1, gap: 2 },
+  avatar: { width: 60, height: 60, borderRadius: 30, backgroundColor: Colors.surfaceAlt },
+  info: { flex: 1 },
+  rightCol: { alignItems: 'center', gap: 6 },
+  emoji: { fontSize: 28 },
   name: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.bold, color: Colors.textPrimary },
-  specialty: { fontSize: Typography.sizes.sm, color: Colors.secondary, fontWeight: Typography.weights.medium },
-  location: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginBottom: 6 },
-  services: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
-  serviceTag: { backgroundColor: Colors.surfaceAlt, borderRadius: Radius.full, paddingHorizontal: Spacing.sm, paddingVertical: 2 },
-  serviceText: { fontSize: Typography.sizes.xs, color: Colors.textSecondary },
+  specialty: { fontSize: Typography.sizes.sm, color: Colors.textSecondary, marginTop: 1 },
+  locationRow: { flexDirection: 'row', alignItems: 'center', gap: 3, marginTop: 2 },
+  location: { fontSize: Typography.sizes.sm, color: Colors.textMuted },
+  emojis: { flexDirection: 'row', gap: 4, marginTop: 6, flexWrap: 'wrap' },
+  emojiText: { fontSize: 22 },
+  friendOverlap: {
+    fontSize: Typography.sizes.sm, color: Colors.primary,
+    fontWeight: Typography.weights.bold, marginTop: 4, fontStyle: 'italic',
+  },
 });
 
-// Services tab styles
-const servicesStyles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.md, padding: Spacing.base },
-  cell: {
-    width: '47%', backgroundColor: Colors.surface, borderRadius: Radius.xl,
-    padding: Spacing.xl, alignItems: 'center', gap: Spacing.sm,
-    borderWidth: 1, borderColor: Colors.border,
+const hamburgerStyles = StyleSheet.create({
+  overlay: { flex: 1, justifyContent: 'flex-end' },
+  backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.45)' },
+  drawer: { backgroundColor: Colors.background, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: Spacing.base, paddingTop: Spacing.sm },
+  handle: { width: 40, height: 4, borderRadius: 2, backgroundColor: Colors.border, alignSelf: 'center', marginBottom: Spacing.lg },
+  brand: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm, paddingHorizontal: Spacing.xs, marginBottom: Spacing.xl },
+  brandName: { fontSize: Typography.sizes.xl, fontWeight: Typography.weights.extrabold, color: Colors.textPrimary, letterSpacing: 1 },
+  menu: { backgroundColor: Colors.surface, borderRadius: Radius.xl, borderWidth: 1, borderColor: Colors.border, marginBottom: Spacing.lg },
+  divider: { height: 1, backgroundColor: Colors.border, marginLeft: 60 },
+  item: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md, padding: Spacing.base },
+  itemIcon: { width: 36, height: 36, borderRadius: 18, backgroundColor: Colors.surfaceAlt, alignItems: 'center', justifyContent: 'center' },
+  itemText: { flex: 1 },
+  itemLabel: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  itemSublabel: { fontSize: Typography.sizes.xs, color: Colors.textSecondary, marginTop: 2 },
+  logoutBtn: {
+    flexDirection: 'row', alignItems: 'center', gap: Spacing.md,
+    padding: Spacing.base, borderRadius: Radius.xl,
+    borderWidth: 1, borderColor: Colors.error + '40', backgroundColor: Colors.error + '0A',
   },
-  emoji: { fontSize: 40 },
-  label: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.textPrimary },
+  logoutText: { fontSize: Typography.sizes.base, fontWeight: Typography.weights.semibold, color: Colors.error },
 });

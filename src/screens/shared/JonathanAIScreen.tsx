@@ -10,8 +10,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Radius } from '../../theme';
-import { IconSend, IconSparkles, IconStar } from '@tabler/icons-react-native';
+import { IconSend, IconSparkles, IconArrowLeft } from '@tabler/icons-react-native';
 import { CrowndLogo } from '../../components/brand/CrowndLogo';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
@@ -80,6 +81,7 @@ function getMockResponse(userMessage: string): string {
 // ─── Screen ────────────────────────────────────────────────────────────────────
 
 export function JonathanAIScreen() {
+  const navigation = useNavigation();
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -116,7 +118,18 @@ export function JonathanAIScreen() {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View style={styles.headerLeft}>
+        {/* Back button */}
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          activeOpacity={0.7}
+        >
+          <IconArrowLeft size={24} color={Colors.textPrimary} strokeWidth={1.75} />
+        </TouchableOpacity>
+
+        {/* Identity */}
+        <View style={styles.headerCenter}>
           <View style={styles.avatarWrap}>
             <CrowndLogo size={22} color={Colors.secondary} />
           </View>
@@ -125,6 +138,8 @@ export function JonathanAIScreen() {
             <Text style={styles.headerSub}>Your personal style advisor</Text>
           </View>
         </View>
+
+        {/* Beta badge */}
         <View style={styles.betaBadge}>
           <IconSparkles size={12} color={Colors.secondary} strokeWidth={2} />
           <Text style={styles.betaText}>Beta</Text>
@@ -236,8 +251,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.borderLight,
     backgroundColor: Colors.background,
+    gap: Spacing.sm,
   },
-  headerLeft: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
+  backBtn: {
+    width: 36, height: 36,
+    alignItems: 'center', justifyContent: 'center',
+    flexShrink: 0,
+  },
+  headerCenter: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
   avatarWrap: {
     width: 44,
     height: 44,

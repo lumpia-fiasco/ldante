@@ -67,6 +67,20 @@ export function SearchTabIcon({ size = 24, color = '#654D24', strokeWidth = 1.5 
   );
 }
 
+export function PersonTabIcon({ size = 24, color = '#654D24', strokeWidth = 1.5 }: TabIconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+      <Path
+        d="M16 14.6667C18.9455 14.6667 21.3333 12.2789 21.3333 9.33333C21.3333 6.38781 18.9455 4 16 4C13.0545 4 10.6667 6.38781 10.6667 9.33333C10.6667 12.2789 13.0545 14.6667 16 14.6667ZM8 28C8 23.5817 11.5817 20 16 20C20.4183 20 24 23.5817 24 28"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
 export function PlusTabIcon({ size = 36, color = '#654D24' }: { size?: number; color?: string }) {
   // viewBox 48x48, filled icon
   return (
