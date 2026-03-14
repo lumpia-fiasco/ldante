@@ -224,7 +224,7 @@ main {
 
 .hero-desc {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1.4rem, 2vw, 2.13rem);
+  font-size: clamp(1.5rem, 2.1vw, 2.25rem);
   font-weight: 400;
   color: #1f1f1f;
   line-height: 1.2;
@@ -350,7 +350,7 @@ main {
 
 .case-title-h {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.3rem, 1.8vw, 1.9rem);
+  font-size: clamp(1.4rem, 1.9vw, 2rem);
   font-weight: 600;
   color: #1f1f1f;
   letter-spacing: -0.02em;
@@ -360,7 +360,7 @@ main {
 
 .case-desc-h {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  font-size: clamp(1.1rem, 1.3vw, 1.35rem);
   font-weight: 400;
   color: rgba(31, 31, 31, 0.6);
   line-height: 1.45;
@@ -398,7 +398,7 @@ main {
 
 .name-question {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+  font-size: clamp(1.9rem, 2.6vw, 2.7rem);
   font-weight: 600;
   color: #1f1f1f;
   letter-spacing: -0.03em;
@@ -411,7 +411,7 @@ main {
 
 .name-input {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+  font-size: clamp(1.9rem, 2.6vw, 2.7rem);
   font-weight: 600;
   letter-spacing: -0.03em;
   color: #1f1f1f;
@@ -430,7 +430,7 @@ main {
 
 .name-hint {
   font-family: 'Inter', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: rgba(31, 31, 31, 0.4);
   letter-spacing: 0.02em;
@@ -527,7 +527,7 @@ main {
 /* Message text */
 .msg-text {
   font-family: 'Golos Text', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 400;
   color: #1f1f1f;
   line-height: 1.5;
@@ -542,7 +542,7 @@ main {
 }
 
 .msg--user .msg-text {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   background: rgba(31, 31, 31, 0.1);
   border-radius: 18px 18px 4px 18px;
   padding: 8px 14px;
@@ -573,7 +573,7 @@ main {
 .chat-input {
   width: 100%;
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1rem, 1.2vw, 1.3rem);
+  font-size: clamp(1.1rem, 1.3vw, 1.4rem);
   font-weight: 400;
   color: #1f1f1f;
   background: rgba(255, 255, 255, 0.6);
@@ -621,7 +621,7 @@ main {
   align-items: center;
   gap: 6px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: rgba(31, 31, 31, 0.5);
   background: none;
@@ -676,7 +676,7 @@ main {
 
 .cd-metric-value {
   font-family: 'Cal Sans', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 600;
   color: #1f1f1f;
   letter-spacing: -0.03em;
@@ -684,7 +684,7 @@ main {
 
 .cd-metric-label {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 400;
   color: rgba(31, 31, 31, 0.5);
   letter-spacing: 0.01em;
@@ -696,7 +696,7 @@ main {
 
 .cd-section-heading {
   font-family: 'Cal Sans', sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #1f1f1f;
   letter-spacing: -0.01em;
@@ -705,7 +705,7 @@ main {
 
 .cd-section-body {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-size: clamp(1.05rem, 1.2vw, 1.2rem);
   font-weight: 400;
   color: rgba(31, 31, 31, 0.75);
   line-height: 1.6;
@@ -732,7 +732,7 @@ main {
 /* ─── Case detail rich content ─── */
 .cd-intro {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-size: clamp(1.1rem, 1.3vw, 1.25rem);
   font-weight: 400;
   color: rgba(31, 31, 31, 0.8);
   line-height: 1.6;
@@ -746,7 +746,7 @@ main {
 
 .cd-h2 {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
   font-weight: 600;
   color: #1f1f1f;
   letter-spacing: -0.01em;
@@ -755,7 +755,7 @@ main {
 
 .cd-h3 {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   font-weight: 500;
   color: #1f1f1f;
   margin-top: 20px;
@@ -764,7 +764,7 @@ main {
 
 .cd-body {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   font-weight: 400;
   color: rgba(31, 31, 31, 0.75);
   line-height: 1.65;
@@ -783,7 +783,7 @@ main {
 
 .cd-list li {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   font-weight: 400;
   color: rgba(31, 31, 31, 0.75);
   line-height: 1.55;
@@ -812,7 +812,7 @@ main {
 .cd-callout-from,
 .cd-callout-to {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
   color: rgba(31, 31, 31, 0.65);
   line-height: 1.5;
 }
@@ -844,7 +844,7 @@ main {
 
 .cd-chips span {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   color: rgba(31, 31, 31, 0.6);
@@ -860,7 +860,7 @@ main {
 }
 
 .cd-closer .cd-body {
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
   color: rgba(31, 31, 31, 0.6);
   font-style: italic;
 }
