@@ -97,11 +97,11 @@ html, body {
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #bae6fd; /* fallback — JS overwrites immediately */
+  background: linear-gradient(to top, #bae6fd, #7dd3fc 45%, #0284c7); /* fallback */
   color: #1f1f1f;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
-  transition: background-color 90s linear; /* slow drift between minute checks */
+  /* background updated by JS gradient — CSS transitions don't animate gradients */
 }
 
 /* ─── Dark-sky overrides (night / dawn / dusk) ─── */

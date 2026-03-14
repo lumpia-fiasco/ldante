@@ -255,62 +255,74 @@
       const [r2,g2,b2] = hexToRgb(skyColors[idx+1]);
       return `rgb(${lerp(r1,r2,frac)},${lerp(g1,g2,frac)},${lerp(b1,b2,frac)})`;
     }
-    // ─── Time-of-day sky background ──────────────────────────────────────────
-    // 24 stops mapped to real sky colors; interpolated each minute
+    // ─── Time-of-day sky gradient ─────────────────────────────────────────────
+    // Each stop has bot (horizon), mid, top (zenith) — all three are interpolated
+    // simultaneously so every in-between moment has its own unique gradient.
     const skyTimeline = [
-      { h: 0,    hex: '#0d1321' }, // midnight
-      { h: 4.5,  hex: '#0d1321' }, // deep night
-      { h: 5.5,  hex: '#1a1a4e' }, // pre-dawn
-      { h: 6,    hex: '#7b3f7a' }, // dawn purple
-      { h: 6.75, hex: '#f97316' }, // sunrise orange
-      { h: 7.5,  hex: '#fbbf24' }, // warm morning gold
-      { h: 9,    hex: '#7dd3fc' }, // morning sky
-      { h: 12,   hex: '#bae6fd' }, // midday pale sky
-      { h: 15,   hex: '#93c5fd' }, // afternoon blue
-      { h: 17,   hex: '#fde68a' }, // golden hour
-      { h: 18,   hex: '#fb923c' }, // late golden/orange
-      { h: 19,   hex: '#ef4444' }, // sunset red
-      { h: 19.5, hex: '#9333ea' }, // dusk purple
-      { h: 20.5, hex: '#3730a3' }, // early night
-      { h: 22,   hex: '#1e1b4b' }, // night
-      { h: 24,   hex: '#0d1321' }, // back to midnight
+      { h: 0,     bot: '#0f172a', mid: '#0b0f1e', top: '#020617' }, // midnight
+      { h: 4.5,   bot: '#0f172a', mid: '#0b0f1e', top: '#020617' }, // deep night
+      { h: 5.5,   bot: '#1c1b4b', mid: '#0f0f2a', top: '#050510' }, // pre-dawn
+      { h: 6.25,  bot: '#7c2d92', mid: '#4c1d95', top: '#1e1b4b' }, // dawn purple
+      { h: 6.75,  bot: '#f97316', mid: '#7c3aed', top: '#1d4ed8' }, // sunrise 🌅
+      { h: 7.5,   bot: '#fbbf24', mid: '#60a5fa', top: '#1d4ed8' }, // morning gold
+      { h: 9,     bot: '#bae6fd', mid: '#38bdf8', top: '#0284c7' }, // morning sky
+      { h: 12,    bot: '#e0f2fe', mid: '#7dd3fc', top: '#0369a1' }, // midday
+      { h: 15,    bot: '#bae6fd', mid: '#38bdf8', top: '#0284c7' }, // afternoon
+      { h: 17,    bot: '#fde68a', mid: '#60a5fa', top: '#1d4ed8' }, // golden hour
+      { h: 18,    bot: '#fb923c', mid: '#a855f7', top: '#1e1b4b' }, // late golden
+      { h: 19,    bot: '#ef4444', mid: '#9333ea', top: '#1e1b4b' }, // sunset 🌇
+      { h: 19.75, bot: '#f472b6', mid: '#7c3aed', top: '#0f172a' }, // dusk pink
+      { h: 20.5,  bot: '#6d28d9', mid: '#1e1b4b', top: '#0f172a' }, // early night
+      { h: 22,    bot: '#1e1b4b', mid: '#0f172a', top: '#020617' }, // night
+      { h: 24,    bot: '#0f172a', mid: '#0b0f1e', top: '#020617' }, // midnight
     ];
 
-    function getSkyColor() {
+    function applySkyBg() {
       const now = new Date();
       const h = now.getHours() + now.getMinutes() / 60;
-      let a = skyTimeline[0], b = skyTimeline[skyTimeline.length - 1];
+
+      let stopA = skyTimeline[0], stopB = skyTimeline[skyTimeline.length - 1];
       for (let i = 0; i < skyTimeline.length - 1; i++) {
         if (h >= skyTimeline[i].h && h < skyTimeline[i + 1].h) {
-          a = skyTimeline[i]; b = skyTimeline[i + 1]; break;
+          stopA = skyTimeline[i]; stopB = skyTimeline[i + 1]; break;
         }
       }
-      const tt = (h - a.h) / (b.h - a.h);
-      const [r1, g1, b1] = hexToRgb(a.hex);
-      const [r2, g2, b2] = hexToRgb(b.hex);
-      const rv = lerp(r1, r2, tt), gv = lerp(g1, g2, tt), bv = lerp(b1, b2, tt);
-      return { rgb: `rgb(${rv},${gv},${bv})`, lum: 0.299*rv + 0.587*gv + 0.114*bv };
-    }
+      const tt = (h - stopA.h) / (stopB.h - stopA.h);
 
-    function applySkyBg() {
-      const { rgb, lum } = getSkyColor();
-      document.body.style.backgroundColor = rgb;
-      document.body.classList.toggle('sky-dark', lum < 110);
+      function blend(c1, c2) {
+        const [r1, g1, b1] = hexToRgb(c1);
+        const [r2, g2, b2] = hexToRgb(c2);
+        return `rgb(${lerp(r1,r2,tt)},${lerp(g1,g2,tt)},${lerp(b1,b2,tt)})`;
+      }
+
+      const bot = blend(stopA.bot, stopB.bot);
+      const mid = blend(stopA.mid, stopB.mid);
+      const top = blend(stopA.top, stopB.top);
+
+      document.body.style.background =
+        `linear-gradient(to top, ${bot}, ${mid} 45%, ${top})`;
+
+      // Dark mode: luminance of the interpolated horizon color
+      const [r1,g1,b1] = hexToRgb(stopA.bot);
+      const [r2,g2,b2] = hexToRgb(stopB.bot);
+      const bR = lerp(r1,r2,tt), bG = lerp(g1,g2,tt), bB = lerp(b1,b2,tt);
+      const lum = 0.299*bR + 0.587*bG + 0.114*bB;
+      document.body.classList.toggle('sky-dark', lum < 130);
     }
 
     applySkyBg();
-    setInterval(applySkyBg, 60000);
+    setInterval(applySkyBg, 30000); // refresh every 30 s — gradient shifts subtly
 
     // ─── Logo hover sky animation ─────────────────────────────────────────────
     function tick() {
       t = hover ? Math.min(t+0.0003,1) : Math.max(t-0.0006,0);
-      document.body.style.backgroundColor = colorAt(t);
+      document.body.style.background = colorAt(t); // solid sweep during hover
       const keep = (hover && t<1) || (!hover && t>0);
       if (keep) {
         rafId = requestAnimationFrame(tick);
       } else {
         rafId = null;
-        if (!hover) applySkyBg(); // restore sky-time color after hover fades
+        if (!hover) applySkyBg(); // restore gradient once hover fades out
       }
     }
 
