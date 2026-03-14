@@ -502,6 +502,7 @@ main {
 .rail-convo {
   display: none;
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding: 24px 28px 8px;
   -webkit-overflow-scrolling: touch;
