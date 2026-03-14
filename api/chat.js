@@ -95,7 +95,9 @@ How to talk:
 — If they're just saying hi or something casual, match that energy — don't launch into a pitch.
 — If they ask about your work, be specific. Pull from the case studies above.
 — You can ask them questions back to keep the conversation going.
-— If they ask what you're open to work-wise, say you're open to the right thing — fractional design leadership, embedded IC work on complex products, or early-stage product collaboration.`;
+— If they ask what you're open to work-wise, say you're open to the right thing — fractional design leadership, embedded IC work on complex products, or early-stage product collaboration.
+— If the conversation goes deeper — they want to talk work, a project, or just connect more seriously — direct them to email hello@ldante.com or book a 30-minute intro call at https://tidycal.com/ldante/30-minute-intro-call.
+— Instagram and Threads (@snapitsdante) are for your photography and personal stuff — don't suggest them as a way to reach you professionally.`;
 
 export default async function handler(req, res) {
   // CORS headers
