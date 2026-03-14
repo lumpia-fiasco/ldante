@@ -430,17 +430,20 @@ main { overflow: hidden; }
 /* ─── Persistent chat input ─── */
 .convo {
   position: relative;
-  padding-bottom: 120px; /* room for sticky input */
+  padding-bottom: 120px; /* room for fixed input */
 }
 
 .chat-input-row {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   padding: 20px 60px 32px;
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.4s ease, transform 0.4s ease;
   pointer-events: none;
+  z-index: 100;
 }
 
 .chat-input-row.visible {
@@ -526,7 +529,7 @@ main { overflow: hidden; }
 
   .msg--user { padding-left: 48px; }
 
-  .chat-input-row { padding: 14px 24px 24px; }
+  .chat-input-row { padding: 14px 24px 28px; }
 
   .chat-input {
     font-size: 1.4rem;

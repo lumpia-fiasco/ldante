@@ -53,7 +53,7 @@
           </svg>
         </div>
         <p class="hero-tagline">I think in systems.</p>
-        <p class="hero-desc">Right now I'm building an AI-enabled mobile platform where users share their service experiences and the system quietly learns from them — feeding business owners insight on improvements, new services, and smarter pricing.</p>
+        <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
       </div>
 
       <!-- Right: name prompt (balloon) -->
@@ -162,10 +162,9 @@
 
         // Scripted opener — always the same, not counted in AI history
         addDanteMsg(`Hey <strong>${esc(name)}</strong>, how're ya doin?`, 0);
-        addDanteMsg(`So whatcha need? Cases? Wanna know more about me?`, 1400);
+        addDanteMsg(`What's on your mind?`, 1400);
 
         setTimeout(() => {
-          showOptions(name);
           initChatInput();
         }, 1400 + 700 + 500);
       }, 520);
@@ -319,7 +318,7 @@
       wrap.id = 'chatInputRow';
       wrap.className = 'chat-input-row';
       wrap.innerHTML = `<input class="chat-input" id="chatInput" type="text" placeholder="ask me anything…" autocomplete="off" spellcheck="false" maxlength="300">`;
-      document.getElementById('convo').appendChild(wrap);
+      document.body.appendChild(wrap);
 
       requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('visible')));
 
