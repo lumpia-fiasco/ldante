@@ -653,6 +653,142 @@ main {
   letter-spacing: 0.05em;
 }
 
+/* ─── Case detail rich content ─── */
+.cd-intro {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-weight: 400;
+  color: rgba(31, 31, 31, 0.8);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 52em;
+}
+
+.cd-block {
+  margin-bottom: 44px;
+}
+
+.cd-h2 {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-weight: 600;
+  color: #1f1f1f;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.cd-h3 {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  font-weight: 500;
+  color: #1f1f1f;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.cd-body {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  font-weight: 400;
+  color: rgba(31, 31, 31, 0.75);
+  line-height: 1.65;
+  max-width: 60em;
+  margin-bottom: 12px;
+}
+
+.cd-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cd-list li {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  font-weight: 400;
+  color: rgba(31, 31, 31, 0.75);
+  line-height: 1.55;
+  padding-left: 16px;
+  position: relative;
+}
+
+.cd-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: rgba(31, 31, 31, 0.3);
+  font-size: 0.75rem;
+  top: 2px;
+}
+
+.cd-callout {
+  margin: 16px 0 20px;
+  border-left: 2px solid rgba(31, 31, 31, 0.15);
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cd-callout-from,
+.cd-callout-to {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+  color: rgba(31, 31, 31, 0.65);
+  line-height: 1.5;
+}
+
+.cd-callout-from span,
+.cd-callout-to span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-right: 8px;
+  color: rgba(31, 31, 31, 0.35);
+}
+
+.cd-callout-to {
+  color: #1f1f1f;
+}
+
+.cd-callout-to span { color: rgba(31, 31, 31, 0.5); }
+
+.cd-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.cd-chips span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(31, 31, 31, 0.6);
+  background: rgba(31, 31, 31, 0.07);
+  border-radius: 100px;
+  padding: 5px 12px;
+}
+
+.cd-closer {
+  border-top: 1.5px solid rgba(31, 31, 31, 0.08);
+  padding-top: 32px;
+  margin-top: 8px;
+}
+
+.cd-closer .cd-body {
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  color: rgba(31, 31, 31, 0.6);
+  font-style: italic;
+}
+
 /* Image injected from chat */
 .cd-injected-img {
   margin-top: 20px;

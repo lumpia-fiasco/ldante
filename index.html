@@ -394,79 +394,210 @@
       'teamshares-payroll': {
         company: 'Teamshares',
         headline: 'Scaling Employee-Owned Businesses Through Systems-Level Design',
+        intro: 'Teamshares acquires small businesses from retiring owners and converts them into employee-owned companies. As the design lead, I was tasked with addressing a critical bottleneck: the organization\'s Industry Leads spent valuable time manually compiling payroll insights, inhibiting their ability to scale across 90+ Network Companies.',
         metrics: [
-          { value: '50%',   label: 'increase in productivity' },
+          { value: '50%',    label: 'increase in productivity' },
           { value: '135 hrs', label: 'saved per cycle' },
-          { value: '$3.1M', label: 'annual efficiency gains' },
+          { value: '$3.1M',  label: 'annual efficiency gains' },
         ],
-        sections: [
-          {
-            heading: 'Background',
-            body: 'Teamshares acquires small to medium sized businesses from retiring owners and converts them into employee-owned companies. Teamshares subsequently installs leadership who would then be advised by their Industry Leads — a small team responsible for advising across 90+ acquired companies.',
-            img: true,
-          },
-          {
-            heading: 'Reframing the problem',
-            body: 'Initial requests centered on "making reports easier to generate." Through discovery, I found the root issue: data lived in disparate, inconsistent systems. Industry Leads lacked centralized visibility into real-time payroll health. Analyses were delayed by 3–5 days due to manual processes.',
-            img: true,
-          },
-          {
-            heading: 'The outcome',
-            body: 'By reframing the problem from "reports" to "visibility at scale," the resulting system eliminated manual data compilation across 90+ companies — saving 135 hours per payroll cycle and generating $3.1M in annual efficiency gains.',
-            img: false,
-          },
-        ],
+        content: `
+          <div class="cd-block">
+            <h2 class="cd-h2">Background</h2>
+            <p class="cd-body">Teamshares is a startup based out of Brooklyn, New York. They acquire small to medium sized businesses from their retiring owners and convert these acquisitions into employee-owned companies. Teamshares subsequently installs leadership who would then be advised by Teamshares&#39; Industry Leads.</p>
+            <p class="cd-body">To support these Network Companies, Teamshares has a suite of products built specifically for their use cases.</p>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Strategic insight</h2>
+            <h3 class="cd-h3">Reframing the problem</h3>
+            <p class="cd-body">Initial requests centered on &#34;making reports easier to generate.&#34; Through discovery, I found the root issue was:</p>
+            <ul class="cd-list">
+              <li>Data lived in disparate, inconsistent systems</li>
+              <li>Industry Leads lacked centralized visibility into real-time payroll health</li>
+              <li>Analyses were delayed by 3&#8211;5 days due to manual processes</li>
+            </ul>
+            <p class="cd-body">I shifted the conversation:</p>
+            <div class="cd-callout">
+              <div class="cd-callout-from"><span>From</span> &#34;How do we automate reports?&#34;</div>
+              <div class="cd-callout-to"><span>To</span> &#34;Deliver the right data at the right time to enable scalable, intelligent decision-making.&#34;</div>
+            </div>
+            <p class="cd-body">My mission was to eliminate operational friction so Industry Leads could focus on what matters most &#8212; helping our Network Companies succeed.</p>
+            <div class="cd-img-placeholder">Image coming soon</div>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">My role</h2>
+            <p class="cd-body">As the sole product designer on this effort, I:</p>
+            <ul class="cd-list">
+              <li><strong>Reframed the problem</strong> from &#34;reporting&#34; to &#34;operational leverage&#34;</li>
+              <li><strong>Drove alignment</strong> across finance, data, and engineering</li>
+              <li><strong>Led end-to-end design</strong>, from discovery to delivery</li>
+              <li><strong>Pitched the dashboard vision</strong> to the executive team</li>
+            </ul>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Driving alignment</h2>
+            <p class="cd-body">This project spanned finance leadership (to define the most critical metrics), data engineering (to align on data model viability), and the ops team (to validate real-world usability).</p>
+            <h3 class="cd-h3">Cross-functional leadership</h3>
+            <ul class="cd-list">
+              <li>A prioritization workshop to align around the MVP scope</li>
+              <li>Weekly syncs across teams to resolve blockers</li>
+              <li>A dashboard pilot with 6 Industry Leads to validate real-world usage before scaling</li>
+            </ul>
+            <div class="cd-img-placeholder">Image coming soon</div>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">The ripples: affecting the ecosystem</h2>
+            <p class="cd-body">During discovery, I noted the requirement of importing data from various payroll sources. Keeping aware of the broader system, I considered the pending undertaking of Financial Products needing to integrate with QuickBooks, so I established a central place to perform integrations within TeamsharesOS.</p>
+            <p class="cd-body">With payroll being the source-of-truth for employee rosters, this presented an opportunity to ease efforts for Teamshares Admins who issue Network Company shares to their employee-owners. The initial integration prompts the merging of data to the cap table.</p>
+            <div class="cd-img-placeholder">Image coming soon</div>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Outcomes</h2>
+            <ul class="cd-list">
+              <li><strong>Customer efficiency:</strong> 50% reduction in analysis time (3 hours &#8594; 1.5 hours per company)</li>
+              <li><strong>Operational scale:</strong> 135+ hours saved per cycle across the entire network</li>
+              <li><strong>Platform adoption:</strong> Integration patterns adopted by other teams</li>
+              <li><strong>Foundation building:</strong> Established automated systems improving accuracy at scale</li>
+            </ul>
+            <p class="cd-body">Industry Leads report feeling more confident in their work and having time to focus on strategic analysis rather than data wrangling. The tool has become central to monthly financial reviews across Teamshares.</p>
+          </div>
+          <div class="cd-block cd-closer">
+            <p class="cd-body">This case wasn&#39;t about just designing a dashboard &#8212; it was about enabling scale. It required reframing the problem, driving cross-functional alignment, and delivering systems-level thinking under operational pressure while bringing value organization-wide.</p>
+          </div>
+        `,
       },
+
       'teamshares-ats': {
         company: 'Teamshares',
         headline: 'A hiring engine for a company of companies',
+        intro: 'As the first designer on a new initiative, I led the creation of a custom Applicant Tracking System (ATS) for Teamshares to help our recruiting team place Presidents across 90+ acquired small businesses. Through deep discovery, iterative design, and tight collaboration with PM and engineering, we built a product that became the single source of truth for executive hiring.',
         metrics: [
-          { value: '20+',  label: 'leaders hired' },
-          { value: '10+',  label: 'qualified leaders identified' },
+          { value: '20+', label: 'leaders hired' },
+          { value: '10+', label: 'qualified leaders identified' },
         ],
-        sections: [
-          {
-            heading: 'Background',
-            body: 'Teamshares buys profitable small businesses and transitions them to employee ownership. Each acquired company needs a new President — a critical leadership role. Executive hiring typically runs two to six months, and Teamshares had roughly 80 acquired companies at the time, some Presidents covering two at once.',
-            img: false,
-          },
-          {
-            heading: 'The problem',
-            body: 'Recruiters were managing candidates across Lever, spreadsheets, and email chains with no centralized workflow and no consistent stage vocabulary. Nobody could see what was happening or move with confidence. The ask was "build an ATS" — the actual problem was that the whole process was invisible.',
-            img: true,
-          },
-          {
-            heading: 'The outcome',
-            body: 'Built a custom ATS from 0 to 1 that became the single source of truth for executive hiring — reducing time-to-hire, increasing recruiter confidence, and creating a qualified queue of Network Presidents ready to place.',
-            img: true,
-          },
-        ],
+        content: `
+          <div class="cd-chips">
+            <span>Stakeholder Research</span>
+            <span>Workflow Analysis</span>
+            <span>Information Architecture</span>
+            <span>Business Impact Measurement</span>
+            <span>Cross-functional Leadership</span>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Background</h2>
+            <p class="cd-body">Teamshares is a unique financial platform that buys profitable small businesses and transitions them to employee ownership. Each acquired company needs a new President &#8212; a critical leadership role.</p>
+            <p class="cd-body">Executive hiring processes on average take between 2&#8211;6 months. Upon my arrival at Teamshares, there were roughly 80 Network Companies acquired, with some Network Presidents playing double-duty between 2 companies. Teamshares had a goal of having a queue of qualified leaders ready for placement.</p>
+            <p class="cd-body">Recruiting efforts were fragmented across spreadsheets, email chains, and external tools like Lever and LinkedIn. There was no centralized workflow, no visibility into candidate status, and no product dedicated to internal talent operations.</p>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Early findings</h2>
+            <p class="cd-body">To uncover the right product opportunity, I facilitated in-depth interviews with our internal recruiters. Key insights emerged:</p>
+            <ul class="cd-list">
+              <li><strong>High friction and context-switching:</strong> Recruiters managed data across multiple tools without automation or visibility</li>
+              <li><strong>No structured workflow:</strong> There was no way to track applicant stages or progress consistently</li>
+              <li><strong>Urgency in hiring:</strong> Presidents were critical for operational continuity at newly acquired businesses</li>
+            </ul>
+            <div class="cd-img-placeholder">Image coming soon</div>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Strategic goals</h2>
+            <ul class="cd-list">
+              <li><strong>Centralize</strong> applicant data into a single internal product</li>
+              <li><strong>Streamline</strong> workflows and reduce time spent per applicant</li>
+              <li><strong>Enable</strong> recruiters to create candidate shortlists and take action quickly</li>
+              <li><strong>Support</strong> cross-functional collaboration with engineering and recruiting from day one</li>
+            </ul>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Design process</h2>
+            <h3 class="cd-h3">Candidate detail views</h3>
+            <p class="cd-body">Created responsive layouts optimized for recruiters working on desktops and candidates applying on mobile. Designed views to surface high-signal data &#8212; resumes, notes, pipeline stage &#8212; with minimal clicks.</p>
+            <div class="cd-img-placeholder">Image coming soon</div>
+            <h3 class="cd-h3">Status tiles &amp; pipeline visibility</h3>
+            <p class="cd-body">Designed visual indicators for each stage of the hiring funnel. Recruiters could now filter, search, and prioritize candidates based on their pipeline stage.</p>
+            <div class="cd-img-placeholder">Image coming soon</div>
+            <h3 class="cd-h3">Custom landing page</h3>
+            <p class="cd-body">Added a branded landing experience for applicants &#8212; conveying Teamshares&#39; mission of employee ownership and how being a President fits into that narrative.</p>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">What we shipped</h2>
+            <ul class="cd-list">
+              <li>A structured applicant database</li>
+              <li>Custom filters and status views</li>
+              <li>Admin tools for recruiters to manage assignments</li>
+              <li>Mobile-first application experience for candidates</li>
+              <li>Candidate evaluation with scoring rubric</li>
+            </ul>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Outcomes</h2>
+            <ul class="cd-list">
+              <li><strong>Single source of truth:</strong> All applicant management now happens within Teamshares, replacing Lever and spreadsheets</li>
+              <li><strong>Increased throughput:</strong> Recruiters built and managed President shortlists faster with clearer workflows</li>
+              <li><strong>Improved candidate experience:</strong> Mobile-first application flow improved completion rates</li>
+              <li><strong>Product maturity:</strong> The ATS became core infrastructure &#8212; used daily until the team was dissolved during a company-wide reorganization</li>
+            </ul>
+          </div>
+          <div class="cd-block cd-closer">
+            <p class="cd-body">This wasn&#39;t just an internal tool &#8212; it was the infrastructure that enabled Teamshares to scale leadership placement, unlock employee ownership, and drive long-term transformation across small businesses nationwide.</p>
+          </div>
+        `,
       },
+
       'meroxa': {
         company: 'Meroxa',
         headline: 'Designing data observability for real-time stream reliability',
+        intro: 'Leading a strategic product pivot by deeply engaging with users to expand Meroxa\'s addressable market into production engineering teams &#8212; but that\'s just the beginning of the story.',
         metrics: [
           { value: '4x',  label: 'improvement in engagement' },
           { value: '10x', label: 'addressable market' },
           { value: '33%', label: 'reduction in time to resource creation' },
         ],
-        sections: [
-          {
-            heading: 'The scenario',
-            body: 'Meroxa\'s low/no-code pipeline builder for data engineers had hit an engagement ceiling. User research was surfacing uncomfortable truths: the addressable market was significantly smaller than projected, and product complexity was misaligned with how users actually worked.',
-            img: false,
-          },
-          {
-            heading: 'The pivot',
-            body: 'By deeply engaging with users, we identified production engineering teams as a 10x larger market. This wasn\'t a feature change — it was a fundamental rethinking of who we were building for. The product shifted from a builder tool to a data observability platform.',
-            img: true,
-          },
-          {
-            heading: 'The outcome',
-            body: '4x improvement in engagement, 10x increase in addressable market, and a 33% reduction in time to resource creation — validating the pivot and opening new doors for the company.',
-            img: true,
-          },
-        ],
+        content: `
+          <div class="cd-block">
+            <h2 class="cd-h2">Background</h2>
+            <p class="cd-body">Meroxa is a data service built to empower data teams. Originally, the product was low/no-code to further democratize the creation of data pipelines.</p>
+            <h3 class="cd-h3">The scenario</h3>
+            <p class="cd-body">Meroxa&#39;s initial product vision was hitting a wall. Our low/no-code pipeline builder for Data Engineers had reached an engagement ceiling, and user research was revealing uncomfortable truths: the addressable market was significantly smaller than projected, and our product complexity was misaligned with actual user workflows. The company needed a new direction to achieve venture-scale growth.</p>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">My role</h2>
+            <p class="cd-body">Working closely with the VP of Product &#8212; who initially discovered the opportunity &#8212; I helped develop and push forward the research findings that would ultimately influence the executive decision to pivot our entire product direction.</p>
+            <p class="cd-body">This collaboration meant taking ownership not just of design, but of market intelligence that would reshape the business.</p>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Strategic market research</h2>
+            <p class="cd-body">Through comprehensive user research, I validated and expanded upon the VP of Product&#39;s initial discovery that Software Engineers &#8212; not Data Engineers &#8212; comprised the majority of our user base. This insight revealed a 10x larger addressable market opportunity that completely changed our strategic positioning.</p>
+            <div class="cd-img-placeholder">Image coming soon</div>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Executive influence</h2>
+            <p class="cd-body">Together with the VP of Product, I presented these critical market insights directly to executive leadership, facilitating the strategic pivot decision. This required not just research skills, but the ability to translate user insights into business strategy.</p>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Product transformation</h2>
+            <p class="cd-body">I championed the evolution from a browser-based pipeline builder to a code-first data application framework (Turbine). This meant redesigning our entire information architecture for developer-centric workflows and evolving our &#34;Yoshi&#34; design system to support rapid prototyping during the transformation.</p>
+            <p class="cd-body">Going code-first provides the capability of making highly complex data applications that are more acyclical than linear singular data pipelines.</p>
+            <div class="cd-img-placeholder">Image coming soon</div>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Observability &amp; enterprise features</h2>
+            <p class="cd-body">Working with internal and external engineers, we explored their current tooling and requirements &#8212; finding that logs for troubleshooting and multi-environment, multi-user account support were critical for enterprise customers.</p>
+            <div class="cd-img-placeholder">Image coming soon</div>
+          </div>
+          <div class="cd-block">
+            <h2 class="cd-h2">Outcomes</h2>
+            <ul class="cd-list">
+              <li><strong>10x larger addressable market</strong> by targeting Software Engineers vs. Data Engineers</li>
+              <li><strong>4x improvement</strong> in user engagement metrics post-pivot</li>
+              <li><strong>High-value enterprise contracts</strong> directly attributed to the strategic repositioning</li>
+              <li><strong>33% reduction</strong> in resource creation time through streamlined developer workflows</li>
+              <li><strong>Platform evolution</strong> from simple pipelines to complex data application development</li>
+            </ul>
+          </div>
+          <div class="cd-block cd-closer">
+            <p class="cd-body">This project was a valuable exercise in developing strategy from ambiguous situations and collaborating across functions to apply research insights that inform key business decisions.</p>
+          </div>
+        `,
       },
     };
 
@@ -485,18 +616,12 @@
           <span class="cd-metric-label">${m.label}</span>
         </div>`).join('');
 
-      const sectionsHtml = data.sections.map(s => `
-        <div class="cd-section">
-          <h4 class="cd-section-heading">${s.heading}</h4>
-          <p class="cd-section-body">${s.body}</p>
-          ${s.img ? '<div class="cd-img-placeholder">Image coming soon</div>' : ''}
-        </div>`).join('');
-
       content.innerHTML = `
         <p class="cd-company">${data.company}</p>
         <h2 class="cd-headline">${data.headline}</h2>
+        <p class="cd-intro">${data.intro}</p>
         <div class="cd-metrics">${metricsHtml}</div>
-        ${sectionsHtml}
+        ${data.content}
       `;
 
       stack.classList.add('hidden');
