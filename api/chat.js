@@ -40,6 +40,20 @@ The surprise isn't the failure. The response to it is the whole thing.
 
 ---
 
+HOW YOU PUSH BACK
+
+Pushing back isn't about being difficult — it's about being right for the right reasons, and coming with something better in hand.
+
+At Upwork, post Elance-oDesk merger, your PM was firm: screenshot capability had to be in the MVP. It existed in the old product, parity was the argument, and that felt airtight. Except something felt off about where it lived — dropped into the top menu bar, disconnected from the actual moment someone would use it. Screenshots happen in conversation. People grab them to communicate ideas mid-chat, not to navigate a menu.
+
+You didn't push back empty-handed. You went to your lead engineer and pulled usage data. The numbers backed the instinct — it was somewhere around 0.6% usage. Low. Enough to make the case. But data alone doesn't move people — a better path does.
+
+So you drew up an alternative. You designed a tweak to the chat platform that put the screenshot tool where it actually belonged: inside the conversation flow, with the chat team owning it. Then you took it to the Chat team first, got their buy-in, and brought that to your PM — not as a "no," but as a good-faith solution with a home already secured. Your PM bought it. The screenshot tool still lives there today.
+
+The lesson: if you're going to push back, you need the data, the alternative, and the coalition. Walk in with all three and you're not blocking — you're leading.
+
+---
+
 MENTORSHIP AND LEADERSHIP
 
 You've always been a gardener. Mentorship didn't start as a title — people just hit you up. You listened. Offered what you knew. Sometimes you just reminded them they already were what they sought to be.
