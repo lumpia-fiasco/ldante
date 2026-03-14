@@ -40,11 +40,10 @@
 
   <main>
 
-    <!-- ─── Hero ─── -->
-    <section class="hero" id="hero">
+    <!-- ─── Landing ─── -->
+    <section class="landing" id="landing">
+      <div class="landing-inner" id="landingInner">
 
-      <!-- Left: identity content -->
-      <div class="hero-left">
         <div class="hero-logo" id="heroLogo" role="img" aria-label="LDG Logo">
           <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <polygon fill="currentColor" points="36 432 221.36 432 36 27.57 36 432"/>
@@ -52,32 +51,112 @@
             <path fill="currentColor" d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21,0,13.96,1.41,27.59,4.11,40.75,1.01,4.94,2.2,9.81,3.56,14.61,1.82,6.4,3.94,12.67,6.36,18.79,8.45,21.43,20.45,41.07,35.28,58.19,2.12,2.45,4.3,4.84,6.53,7.18,2.23,2.34,4.52,4.63,6.86,6.86,2.34,2.23,4.74,4.41,7.18,6.53,4.89,4.24,9.99,8.24,15.27,12,11.89,8.46,24.74,15.66,38.35,21.42,3.02,1.28,6.09,2.49,9.18,3.62,21.68,7.94,45.1,12.27,69.53,12.27,111.68,0,202.21-90.53,202.21-202.21h-202.21Z"/>
           </svg>
         </div>
+
         <p class="hero-tagline">I think in systems.</p>
         <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
-      </div>
 
-      <!-- Right: name prompt (balloon) -->
-      <div class="hero-right" id="namePrompt">
-        <p class="name-question">Hi, what's<br>your name?</p>
-        <div class="name-input-wrap">
-          <input
-            class="name-input"
-            id="nameInput"
-            type="text"
-            placeholder="your name"
-            autocomplete="off"
-            spellcheck="false"
-            maxlength="40"
-          >
-        </div>
-        <p class="name-hint">press Enter ↵</p>
-      </div>
+        <button class="start-btn" id="startBtn">Start</button>
 
+      </div>
     </section>
 
-    <!-- ─── Conversation (shown after name entry) ─── -->
-    <section class="convo" id="convo" aria-live="polite">
-      <div class="convo-inner" id="convoInner"></div>
+    <!-- ─── Portfolio view (split: cards left, chat right) ─── -->
+    <section class="portfolio-view" id="portfolioView" aria-hidden="true">
+
+      <!-- Left: scrollable case study cards -->
+      <div class="portfolio-left">
+        <div class="case-stack" id="caseStack">
+
+          <!-- Card 1: Teamshares Payroll -->
+          <div class="case-card-h">
+            <div class="case-logo">
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="72" height="72" rx="14" fill="#1a2332"/>
+                <text x="36" y="49" font-size="30" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="white" text-anchor="middle">T</text>
+              </svg>
+            </div>
+            <div class="case-body">
+              <p class="case-company">Teamshares</p>
+              <h3 class="case-title-h">Payroll reporting</h3>
+              <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Teamshares ATS -->
+          <div class="case-card-h">
+            <div class="case-logo">
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="72" height="72" rx="14" fill="#1a2332"/>
+                <text x="36" y="49" font-size="30" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="white" text-anchor="middle">T</text>
+              </svg>
+            </div>
+            <div class="case-body">
+              <p class="case-company">Teamshares</p>
+              <h3 class="case-title-h">Building an Applicant Tracking System for Presidents</h3>
+              <p class="case-desc-h">Reframing an Applicant Tracking System to create a queue of qualified Network Presidents ready to hire.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Meroxa -->
+          <div class="case-card-h">
+            <div class="case-logo">
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="72" height="72" rx="14" fill="white"/>
+                <path d="M10 22L23 36L10 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M23 22L36 36L23 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M47 22L63 50M63 22L47 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="case-body">
+              <p class="case-company">Meroxa</p>
+              <h3 class="case-title-h">Pivoting from a builder, to a data observability platform</h3>
+              <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: chat rail -->
+      <div class="chat-rail" id="chatRail">
+
+        <!-- Name prompt (initial state) -->
+        <div class="rail-name-prompt" id="railNamePrompt">
+          <p class="name-question">Hi, what's<br>your name?</p>
+          <div class="name-input-wrap">
+            <input
+              class="name-input"
+              id="nameInput"
+              type="text"
+              placeholder="your name"
+              autocomplete="off"
+              spellcheck="false"
+              maxlength="40"
+            >
+          </div>
+          <p class="name-hint">press Enter ↵</p>
+        </div>
+
+        <!-- Conversation messages -->
+        <div class="rail-convo" id="railConvo">
+          <div class="convo-inner" id="convoInner"></div>
+        </div>
+
+        <!-- Chat input (revealed after name entry) -->
+        <div class="rail-input-wrap" id="chatInputRow">
+          <input
+            class="chat-input"
+            id="chatInput"
+            type="text"
+            placeholder="ask me anything…"
+            autocomplete="off"
+            spellcheck="false"
+            maxlength="300"
+          >
+        </div>
+
+      </div>
+
     </section>
 
   </main>
@@ -115,7 +194,7 @@
 
     // ─── Logo hover: scale + tagline push ────────────────────────────────────
     const tagline = document.querySelector('.hero-tagline');
-    const PUSH = (1.3 - 1) * 100 / 2; // 15px — logo scales from center
+    const PUSH = (1.3 - 1) * 100 / 2;
 
     logo.addEventListener('mouseenter', () => {
       hover = true;
@@ -128,13 +207,35 @@
       tagline.style.transform = 'translateY(0)';
     });
 
-    // ─── Auto-focus name input after balloon arrives ──────────────────────────
-    setTimeout(() => {
-      const input = document.getElementById('nameInput');
-      if (input) input.focus();
-    }, 2000);
+    // ─── Start button ─────────────────────────────────────────────────────────
+    document.getElementById('startBtn').addEventListener('click', () => {
+      const landing = document.getElementById('landing');
+      landing.classList.add('exiting');
+      setTimeout(() => {
+        landing.style.display = 'none';
+        showPortfolio();
+      }, 600);
+    });
 
-    // ─── Name submission → conversation ──────────────────────────────────────
+    function showPortfolio() {
+      const pv = document.getElementById('portfolioView');
+      pv.classList.add('active');
+      pv.removeAttribute('aria-hidden');
+
+      // Stagger case cards in
+      const cards = document.querySelectorAll('.case-card-h');
+      cards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('visible'), i * 160);
+      });
+
+      // Focus name input after cards arrive
+      setTimeout(() => {
+        const input = document.getElementById('nameInput');
+        if (input) input.focus();
+      }, 500);
+    }
+
+    // ─── Name submission ──────────────────────────────────────────────────────
     document.getElementById('nameInput').addEventListener('keydown', function(e) {
       if (e.key !== 'Enter') return;
       const name = this.value.trim();
@@ -144,33 +245,33 @@
 
     // ─── AI chat state ────────────────────────────────────────────────────────
     let visitorName = '';
-    let chatHistory = [];  // { role: 'user'|'assistant', content: string }
-    let aiLocked = false;  // prevent double-sends while waiting
+    let chatHistory = [];
+    let aiLocked = false;
 
     function startConversation(name) {
       visitorName = name;
-      const hero = document.getElementById('hero');
-      const convo = document.getElementById('convo');
 
-      hero.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      hero.style.opacity = '0';
-      hero.style.transform = 'scale(0.98)';
+      // Fade out name prompt
+      const prompt = document.getElementById('railNamePrompt');
+      prompt.classList.add('exiting');
 
       setTimeout(() => {
-        hero.style.display = 'none';
-        convo.classList.add('active');
+        prompt.style.display = 'none';
 
-        // Scripted opener — always the same, not counted in AI history
+        // Show conversation area
+        const railConvo = document.getElementById('railConvo');
+        railConvo.classList.add('active');
+
+        // Greet
         addDanteMsg(`Hey <strong>${esc(name)}</strong>, how're ya doin?`, 0);
         addDanteMsg(`How can I help you? I can tell you about my work, and how I tackle certain situations. Hit me.`, 1400);
 
-        setTimeout(() => {
-          initChatInput();
-        }, 1400 + 700 + 500);
-      }, 520);
+        // Show chat input
+        setTimeout(() => initChatInput(), 1400 + 700 + 400);
+      }, 350);
     }
 
-    // ─── Dante message bubble (left, with avatar) ─────────────────────────────
+    // ─── Dante message bubble ─────────────────────────────────────────────────
     function addDanteMsg(html, delay = 0) {
       const inner = document.getElementById('convoInner');
       const row = document.createElement('div');
@@ -182,30 +283,36 @@
           <p class="msg-text">${html}</p>
         </div>`;
       inner.appendChild(row);
-      setTimeout(() => row.classList.add('typing'), delay);
-      setTimeout(() => { row.classList.remove('typing'); row.classList.add('visible'); }, delay + 700);
+      setTimeout(() => { row.classList.add('typing'); scrollRail(); }, delay);
+      setTimeout(() => {
+        row.classList.remove('typing');
+        row.classList.add('visible');
+        scrollRail();
+      }, delay + 700);
       return row;
     }
 
-    // ─── User message bubble (right) ─────────────────────────────────────────
+    // ─── User message bubble ──────────────────────────────────────────────────
     function addUserMsg(text) {
       const inner = document.getElementById('convoInner');
       const row = document.createElement('div');
       row.className = 'msg msg--user';
       row.innerHTML = `<p class="msg-text">${esc(text)}</p>`;
       inner.appendChild(row);
-      requestAnimationFrame(() => requestAnimationFrame(() => row.classList.add('visible')));
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        row.classList.add('visible');
+        scrollRail();
+      }));
       return row;
     }
 
-    // ─── AI call ─────────────────────────────────────────────────────────────
-    async function sendToAI(userText, afterFn) {
+    // ─── AI call ──────────────────────────────────────────────────────────────
+    async function sendToAI(userText) {
       if (aiLocked) return;
       aiLocked = true;
 
       chatHistory.push({ role: 'user', content: userText });
 
-      // Typing placeholder
       const inner = document.getElementById('convoInner');
       const row = document.createElement('div');
       row.className = 'msg';
@@ -216,8 +323,10 @@
           <p class="msg-text"></p>
         </div>`;
       inner.appendChild(row);
-      requestAnimationFrame(() => requestAnimationFrame(() => row.classList.add('typing')));
-      row.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        row.classList.add('typing');
+        scrollRail();
+      }));
 
       try {
         const res = await fetch('/api/chat', {
@@ -234,9 +343,7 @@
         row.querySelector('.msg-text').innerHTML = safeHtml(text);
         row.classList.add('visible');
         chatHistory.push({ role: 'assistant', content: text });
-        row.scrollIntoView({ behavior: 'smooth', block: 'end' });
-
-        if (afterFn) afterFn();
+        scrollRail();
       } catch (err) {
         row.classList.remove('typing');
         row.querySelector('.msg-text').textContent = "My server seems to be asleep — try again in a sec.";
@@ -246,81 +353,17 @@
       }
     }
 
-    // ─── Option buttons ───────────────────────────────────────────────────────
-    function showOptions(name) {
-      const inner = document.getElementById('convoInner');
-      const optRow = document.createElement('div');
-      optRow.className = 'msg-options';
-      optRow.innerHTML = `
-        <button class="opt-btn" data-choice="cases">Cases</button>
-        <button class="opt-btn" data-choice="about">About Me</button>
-      `;
-      inner.appendChild(optRow);
-      requestAnimationFrame(() => requestAnimationFrame(() => optRow.classList.add('visible')));
-
-      optRow.addEventListener('click', (e) => {
-        const btn = e.target.closest('.opt-btn');
-        if (!btn) return;
-        optRow.classList.add('chosen');
-        const choice = btn.dataset.choice;
-        setTimeout(() => {
-          optRow.remove();
-          if (choice === 'cases') {
-            addUserMsg('Cases');
-            sendToAI('Cases', () => {
-              setTimeout(() => appendCaseCards(), 600);
-            });
-          } else {
-            addUserMsg('About me');
-            sendToAI('About me');
-          }
-        }, 350);
-      });
-    }
-
-    // ─── Case cards (injected after AI responds about cases) ─────────────────
-    function appendCaseCards() {
-      const inner = document.getElementById('convoInner');
-      const grid = document.createElement('div');
-      grid.className = 'case-cards';
-      grid.innerHTML = `
-        <div class="case-card">
-          <div class="case-card-img"></div>
-          <div class="case-card-body">
-            <p class="case-label">Case Study 01</p>
-            <p class="case-title">Coming soon</p>
-          </div>
-        </div>
-        <div class="case-card">
-          <div class="case-card-img"></div>
-          <div class="case-card-body">
-            <p class="case-label">Case Study 02</p>
-            <p class="case-title">Coming soon</p>
-          </div>
-        </div>
-        <div class="case-card">
-          <div class="case-card-img"></div>
-          <div class="case-card-body">
-            <p class="case-label">Case Study 03</p>
-            <p class="case-title">Coming soon</p>
-          </div>
-        </div>
-      `;
-      inner.appendChild(grid);
-      requestAnimationFrame(() => requestAnimationFrame(() => grid.classList.add('visible')));
-      grid.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
-
-    // ─── Persistent chat input ────────────────────────────────────────────────
+    // ─── Chat input ───────────────────────────────────────────────────────────
     function initChatInput() {
-      if (document.getElementById('chatInputRow')) return;
-      const wrap = document.createElement('div');
-      wrap.id = 'chatInputRow';
-      wrap.className = 'chat-input-row';
-      wrap.innerHTML = `<input class="chat-input" id="chatInput" type="text" placeholder="ask me anything…" autocomplete="off" spellcheck="false" maxlength="300">`;
-      document.body.appendChild(wrap);
+      const wrap = document.getElementById('chatInputRow');
+      if (!wrap || wrap.dataset.initialized) return;
+      wrap.dataset.initialized = 'true';
+      wrap.classList.add('visible');
 
-      requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('visible')));
+      setTimeout(() => {
+        const input = document.getElementById('chatInput');
+        if (input) input.focus();
+      }, 100);
 
       document.getElementById('chatInput').addEventListener('keydown', (e) => {
         if (e.key !== 'Enter') return;
@@ -333,6 +376,11 @@
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
+    function scrollRail() {
+      const rail = document.getElementById('railConvo');
+      if (rail) rail.scrollTop = rail.scrollHeight;
+    }
+
     function safeHtml(text) {
       return text
         .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
