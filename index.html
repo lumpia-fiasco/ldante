@@ -11,6 +11,25 @@
 </head>
 <body>
 
+  <!-- ─── Password gate ─── -->
+  <div class="pw-gate" id="pwGate">
+    <div class="pw-inner">
+      <p class="pw-label">Enter password to continue</p>
+      <div class="pw-input-wrap">
+        <input
+          class="pw-input"
+          id="pwInput"
+          type="password"
+          placeholder="password"
+          autocomplete="off"
+          spellcheck="false"
+          maxlength="40"
+        >
+      </div>
+      <p class="pw-hint">press Enter ↵</p>
+    </div>
+  </div>
+
   <!-- ─── Sticky Header ─── -->
   <header class="site-header">
     <div class="header-left">
@@ -169,6 +188,35 @@
   </main>
 
   <script>
+    // ─── Password gate ────────────────────────────────────────────────────────
+    (function () {
+      const gate  = document.getElementById('pwGate');
+      const input = document.getElementById('pwInput');
+      const PW    = 'NOPASSWORD';
+
+      function unlock() {
+        sessionStorage.setItem('pw-auth', '1');
+        gate.classList.add('unlocking');
+        setTimeout(() => gate.style.display = 'none', 500);
+      }
+
+      if (sessionStorage.getItem('pw-auth') === '1') {
+        gate.style.display = 'none';
+      } else {
+        setTimeout(() => input.focus(), 100);
+        input.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter') return;
+          if (this.value === PW) {
+            unlock();
+          } else {
+            this.value = '';
+            gate.classList.add('shake');
+            setTimeout(() => gate.classList.remove('shake'), 500);
+          }
+        });
+      }
+    })();
+
     // ─── Sky color animation ──────────────────────────────────────────────────
     const logo = document.getElementById('heroLogo');
 

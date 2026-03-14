@@ -14,6 +14,82 @@
   padding: 0;
 }
 
+/* ─── Password gate ─── */
+.pw-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1f1f1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.pw-gate.unlocking {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+@keyframes pwShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-10px); }
+  40%       { transform: translateX(10px); }
+  60%       { transform: translateX(-6px); }
+  80%       { transform: translateX(6px); }
+}
+
+.pw-gate.shake .pw-inner {
+  animation: pwShake 0.45s ease;
+}
+
+.pw-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  width: clamp(280px, 38vw, 480px);
+}
+
+.pw-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.pw-input-wrap { width: 100%; }
+
+.pw-input {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  outline: none;
+  width: 100%;
+  padding: 6px 0 14px;
+  transition: border-color 0.2s ease;
+  caret-color: #ffffff;
+}
+
+.pw-input:focus { border-bottom-color: rgba(255, 255, 255, 0.6); }
+
+.pw-input::placeholder { color: rgba(255, 255, 255, 0.12); }
+
+.pw-hint {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.02em;
+}
+
 /* ─── Base ─── */
 html, body {
   height: 100%;
