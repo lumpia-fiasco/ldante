@@ -448,13 +448,13 @@ main {
   40%            { transform: scale(1.4); opacity: 1;    }
 }
 
-/* Message text — scales with rail width */
+/* Message text */
 .msg-text {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1.1rem, 1.4vw, 1.45rem);
+  font-size: 0.8rem;
   font-weight: 400;
   color: #1f1f1f;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .msg-text strong { font-weight: 500; }
@@ -466,10 +466,10 @@ main {
 }
 
 .msg--user .msg-text {
-  font-size: clamp(1.1rem, 1.4vw, 1.45rem);
+  font-size: 0.8rem;
   background: rgba(31, 31, 31, 0.1);
   border-radius: 18px 18px 4px 18px;
-  padding: 10px 16px;
+  padding: 8px 14px;
   display: inline-block;
   max-width: 85%;
 }
@@ -518,6 +518,156 @@ main {
 
 .chat-input::placeholder {
   color: rgba(31, 31, 31, 0.3);
+}
+
+/* ─── Case detail view (left panel) ─── */
+.case-stack.hidden {
+  display: none;
+}
+
+.case-detail-view {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.case-detail-view.active {
+  display: flex;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.case-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(31, 31, 31, 0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 32px;
+  transition: color 0.15s ease;
+  letter-spacing: 0.01em;
+}
+
+.case-back-btn:hover { color: #1f1f1f; }
+
+.cd-company {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(31, 31, 31, 0.4);
+  margin-bottom: 12px;
+}
+
+.cd-headline {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.6rem);
+  font-weight: 600;
+  color: #1f1f1f;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 32px;
+  max-width: 18em;
+}
+
+.cd-metrics {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.cd-metric {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cd-metric-value {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1f1f1f;
+  letter-spacing: -0.03em;
+}
+
+.cd-metric-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(31, 31, 31, 0.5);
+  letter-spacing: 0.01em;
+}
+
+.cd-section {
+  margin-bottom: 40px;
+}
+
+.cd-section-heading {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f1f1f;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.cd-section-body {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-weight: 400;
+  color: rgba(31, 31, 31, 0.75);
+  line-height: 1.6;
+  max-width: 54em;
+}
+
+.cd-img-placeholder {
+  margin-top: 24px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: 800px;
+  background: rgba(31, 31, 31, 0.06);
+  border: 1.5px dashed rgba(31, 31, 31, 0.15);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(31, 31, 31, 0.25);
+  letter-spacing: 0.05em;
+}
+
+/* Image injected from chat */
+.cd-injected-img {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(31, 31, 31, 0.06);
+}
+
+.cd-injected-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
 }
 
 /* ─── Responsive ─── */

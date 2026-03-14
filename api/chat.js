@@ -97,7 +97,8 @@ How to talk:
 — You can ask them questions back to keep the conversation going.
 — If they ask what you're open to work-wise, say you're open to the right thing — fractional design leadership, embedded IC work on complex products, or early-stage product collaboration.
 — If the conversation goes deeper — they want to talk work, a project, or just connect more seriously — direct them to email hello@ldante.com or book a 30-minute intro call at https://tidycal.com/ldante/30-minute-intro-call.
-— Instagram and Threads (@snapitsdante) are for your photography and personal stuff — don't suggest them as a way to reach you professionally.`;
+— Instagram and Threads (@snapitsdante) are for your photography and personal stuff — don't suggest them as a way to reach you professionally.
+— When ${name} asks about a specific case study in any depth, include one of these tags anywhere in your response — the site will display the case on the left panel automatically: [SHOW:teamshares-payroll], [SHOW:teamshares-ats], [SHOW:meroxa]. Strip the tag naturally so it doesn't appear as visible text in your reply.`;
 
 export default async function handler(req, res) {
   // CORS headers

@@ -63,12 +63,19 @@
     <!-- ─── Portfolio view (split: cards left, chat right) ─── -->
     <section class="portfolio-view" id="portfolioView" aria-hidden="true">
 
-      <!-- Left: scrollable case study cards -->
+      <!-- Left: scrollable panel (cards ↔ case detail) -->
       <div class="portfolio-left">
+
+        <!-- Case detail view (hidden until card clicked or AI triggers) -->
+        <div class="case-detail-view" id="caseDetailView">
+          <button class="case-back-btn" id="caseBackBtn">← All work</button>
+          <div id="caseDetailContent"></div>
+        </div>
+
         <div class="case-stack" id="caseStack">
 
           <!-- Card 1: Teamshares Payroll -->
-          <div class="case-card-h">
+          <div class="case-card-h" data-case="teamshares-payroll">
             <div class="case-logo">
               <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="72" height="72" rx="14" fill="#1a2332"/>
@@ -83,7 +90,7 @@
           </div>
 
           <!-- Card 2: Teamshares ATS -->
-          <div class="case-card-h">
+          <div class="case-card-h" data-case="teamshares-ats">
             <div class="case-logo">
               <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="72" height="72" rx="14" fill="#1a2332"/>
@@ -98,7 +105,7 @@
           </div>
 
           <!-- Card 3: Meroxa -->
-          <div class="case-card-h">
+          <div class="case-card-h" data-case="meroxa">
             <div class="case-logo">
               <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <rect width="72" height="72" rx="14" fill="white"/>
@@ -337,7 +344,14 @@
 
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json();
-        const text = data.text || data.error || 'Hmm, something broke on my end.';
+        let text = data.text || data.error || 'Hmm, something broke on my end.';
+
+        // Parse [SHOW:case-id] tags — trigger left panel, strip from text
+        const showMatch = text.match(/\[SHOW:([\w-]+)\]/i);
+        if (showMatch) {
+          showCase(showMatch[1]);
+          text = text.replace(/\[SHOW:[\w-]+\]/gi, '').trim();
+        }
 
         row.classList.remove('typing');
         row.querySelector('.msg-text').innerHTML = safeHtml(text);
@@ -374,6 +388,135 @@
         sendToAI(text);
       });
     }
+
+    // ─── Case data ────────────────────────────────────────────────────────────
+    const CASE_DATA = {
+      'teamshares-payroll': {
+        company: 'Teamshares',
+        headline: 'Scaling Employee-Owned Businesses Through Systems-Level Design',
+        metrics: [
+          { value: '50%',   label: 'increase in productivity' },
+          { value: '135 hrs', label: 'saved per cycle' },
+          { value: '$3.1M', label: 'annual efficiency gains' },
+        ],
+        sections: [
+          {
+            heading: 'Background',
+            body: 'Teamshares acquires small to medium sized businesses from retiring owners and converts them into employee-owned companies. Teamshares subsequently installs leadership who would then be advised by their Industry Leads — a small team responsible for advising across 90+ acquired companies.',
+            img: true,
+          },
+          {
+            heading: 'Reframing the problem',
+            body: 'Initial requests centered on "making reports easier to generate." Through discovery, I found the root issue: data lived in disparate, inconsistent systems. Industry Leads lacked centralized visibility into real-time payroll health. Analyses were delayed by 3–5 days due to manual processes.',
+            img: true,
+          },
+          {
+            heading: 'The outcome',
+            body: 'By reframing the problem from "reports" to "visibility at scale," the resulting system eliminated manual data compilation across 90+ companies — saving 135 hours per payroll cycle and generating $3.1M in annual efficiency gains.',
+            img: false,
+          },
+        ],
+      },
+      'teamshares-ats': {
+        company: 'Teamshares',
+        headline: 'A hiring engine for a company of companies',
+        metrics: [
+          { value: '20+',  label: 'leaders hired' },
+          { value: '10+',  label: 'qualified leaders identified' },
+        ],
+        sections: [
+          {
+            heading: 'Background',
+            body: 'Teamshares buys profitable small businesses and transitions them to employee ownership. Each acquired company needs a new President — a critical leadership role. Executive hiring typically runs two to six months, and Teamshares had roughly 80 acquired companies at the time, some Presidents covering two at once.',
+            img: false,
+          },
+          {
+            heading: 'The problem',
+            body: 'Recruiters were managing candidates across Lever, spreadsheets, and email chains with no centralized workflow and no consistent stage vocabulary. Nobody could see what was happening or move with confidence. The ask was "build an ATS" — the actual problem was that the whole process was invisible.',
+            img: true,
+          },
+          {
+            heading: 'The outcome',
+            body: 'Built a custom ATS from 0 to 1 that became the single source of truth for executive hiring — reducing time-to-hire, increasing recruiter confidence, and creating a qualified queue of Network Presidents ready to place.',
+            img: true,
+          },
+        ],
+      },
+      'meroxa': {
+        company: 'Meroxa',
+        headline: 'Designing data observability for real-time stream reliability',
+        metrics: [
+          { value: '4x',  label: 'improvement in engagement' },
+          { value: '10x', label: 'addressable market' },
+          { value: '33%', label: 'reduction in time to resource creation' },
+        ],
+        sections: [
+          {
+            heading: 'The scenario',
+            body: 'Meroxa\'s low/no-code pipeline builder for data engineers had hit an engagement ceiling. User research was surfacing uncomfortable truths: the addressable market was significantly smaller than projected, and product complexity was misaligned with how users actually worked.',
+            img: false,
+          },
+          {
+            heading: 'The pivot',
+            body: 'By deeply engaging with users, we identified production engineering teams as a 10x larger market. This wasn\'t a feature change — it was a fundamental rethinking of who we were building for. The product shifted from a builder tool to a data observability platform.',
+            img: true,
+          },
+          {
+            heading: 'The outcome',
+            body: '4x improvement in engagement, 10x increase in addressable market, and a 33% reduction in time to resource creation — validating the pivot and opening new doors for the company.',
+            img: true,
+          },
+        ],
+      },
+    };
+
+    // ─── Case navigation ──────────────────────────────────────────────────────
+    function showCase(caseId) {
+      const data = CASE_DATA[caseId];
+      if (!data) return;
+
+      const stack   = document.getElementById('caseStack');
+      const detail  = document.getElementById('caseDetailView');
+      const content = document.getElementById('caseDetailContent');
+
+      const metricsHtml = data.metrics.map(m => `
+        <div class="cd-metric">
+          <span class="cd-metric-value">${m.value}</span>
+          <span class="cd-metric-label">${m.label}</span>
+        </div>`).join('');
+
+      const sectionsHtml = data.sections.map(s => `
+        <div class="cd-section">
+          <h4 class="cd-section-heading">${s.heading}</h4>
+          <p class="cd-section-body">${s.body}</p>
+          ${s.img ? '<div class="cd-img-placeholder">Image coming soon</div>' : ''}
+        </div>`).join('');
+
+      content.innerHTML = `
+        <p class="cd-company">${data.company}</p>
+        <h2 class="cd-headline">${data.headline}</h2>
+        <div class="cd-metrics">${metricsHtml}</div>
+        ${sectionsHtml}
+      `;
+
+      stack.classList.add('hidden');
+      detail.classList.add('active');
+      document.querySelector('.portfolio-left').scrollTop = 0;
+    }
+
+    function showCaseList() {
+      document.getElementById('caseStack').classList.remove('hidden');
+      const detail = document.getElementById('caseDetailView');
+      detail.classList.remove('active');
+    }
+
+    // Card click delegation
+    document.addEventListener('click', (e) => {
+      const card = e.target.closest('.case-card-h[data-case]');
+      if (card) showCase(card.dataset.case);
+    });
+
+    document.getElementById('caseBackBtn').addEventListener('click', showCaseList);
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
     function scrollRail() {
