@@ -82,62 +82,76 @@
     <!-- ─── Portfolio view (split: cards left, chat right) ─── -->
     <section class="portfolio-view" id="portfolioView" aria-hidden="true">
 
-      <!-- Left: scrollable panel (cards ↔ case detail) -->
+      <!-- Left: scrollable panel -->
       <div class="portfolio-left">
 
-        <!-- Case detail view (hidden until card clicked or AI triggers) -->
-        <div class="case-detail-view" id="caseDetailView">
-          <button class="case-back-btn" id="caseBackBtn">← All work</button>
-          <div id="caseDetailContent"></div>
-        </div>
+        <p class="cases-heading">Selected cases</p>
 
         <div class="case-stack" id="caseStack">
 
-          <!-- Card 1: Teamshares Payroll -->
-          <div class="case-card-h" data-case="teamshares-payroll">
-            <div class="case-logo">
-              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect width="72" height="72" rx="14" fill="#1a2332"/>
-                <text x="36" y="49" font-size="30" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="white" text-anchor="middle">T</text>
-              </svg>
+          <!-- Case 1: Teamshares Payroll -->
+          <div class="case-item" data-case="teamshares-payroll">
+            <div class="case-card-h">
+              <div class="case-logo">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="72" height="72" rx="14" fill="#1a2332"/>
+                  <text x="36" y="49" font-size="30" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="white" text-anchor="middle">T</text>
+                </svg>
+              </div>
+              <div class="case-body">
+                <p class="case-company">Teamshares</p>
+                <h3 class="case-title-h">Payroll reporting</h3>
+                <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
+              </div>
+              <div class="case-chevron" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
             </div>
-            <div class="case-body">
-              <p class="case-company">Teamshares</p>
-              <h3 class="case-title-h">Payroll reporting</h3>
-              <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
-            </div>
+            <div class="case-expand"></div>
           </div>
 
-          <!-- Card 2: Teamshares ATS -->
-          <div class="case-card-h" data-case="teamshares-ats">
-            <div class="case-logo">
-              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect width="72" height="72" rx="14" fill="#1a2332"/>
-                <text x="36" y="49" font-size="30" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="white" text-anchor="middle">T</text>
-              </svg>
+          <!-- Case 2: Teamshares ATS -->
+          <div class="case-item" data-case="teamshares-ats">
+            <div class="case-card-h">
+              <div class="case-logo">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="72" height="72" rx="14" fill="#1a2332"/>
+                  <text x="36" y="49" font-size="30" font-family="Arial, Helvetica, sans-serif" font-weight="700" fill="white" text-anchor="middle">T</text>
+                </svg>
+              </div>
+              <div class="case-body">
+                <p class="case-company">Teamshares</p>
+                <h3 class="case-title-h">Building an Applicant Tracking System for Presidents</h3>
+                <p class="case-desc-h">Reframing an Applicant Tracking System to create a queue of qualified Network Presidents ready to hire.</p>
+              </div>
+              <div class="case-chevron" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
             </div>
-            <div class="case-body">
-              <p class="case-company">Teamshares</p>
-              <h3 class="case-title-h">Building an Applicant Tracking System for Presidents</h3>
-              <p class="case-desc-h">Reframing an Applicant Tracking System to create a queue of qualified Network Presidents ready to hire.</p>
-            </div>
+            <div class="case-expand"></div>
           </div>
 
-          <!-- Card 3: Meroxa -->
-          <div class="case-card-h" data-case="meroxa">
-            <div class="case-logo">
-              <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect width="72" height="72" rx="14" fill="white"/>
-                <path d="M10 22L23 36L10 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M23 22L36 36L23 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M47 22L63 50M63 22L47 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round"/>
-              </svg>
+          <!-- Case 3: Meroxa -->
+          <div class="case-item" data-case="meroxa">
+            <div class="case-card-h">
+              <div class="case-logo">
+                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="72" height="72" rx="14" fill="white"/>
+                  <path d="M10 22L23 36L10 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M23 22L36 36L23 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M47 22L63 50M63 22L47 50" stroke="#00b4d8" stroke-width="5.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="case-body">
+                <p class="case-company">Meroxa</p>
+                <h3 class="case-title-h">Pivoting from a builder, to a data observability platform</h3>
+                <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
+              </div>
+              <div class="case-chevron" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
             </div>
-            <div class="case-body">
-              <p class="case-company">Meroxa</p>
-              <h3 class="case-title-h">Pivoting from a builder, to a data observability platform</h3>
-              <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
-            </div>
+            <div class="case-expand"></div>
           </div>
 
         </div>
@@ -654,42 +668,54 @@
       const data = CASE_DATA[caseId];
       if (!data) return;
 
-      const stack   = document.getElementById('caseStack');
-      const detail  = document.getElementById('caseDetailView');
-      const content = document.getElementById('caseDetailContent');
+      const stack = document.getElementById('caseStack');
+      const items = Array.from(stack.querySelectorAll('.case-item'));
+      const targetItem = items.find(el => el.dataset.case === caseId);
+      if (!targetItem) return;
 
-      const metricsHtml = data.metrics.map(m => `
-        <div class="cd-metric">
-          <span class="cd-metric-value">${m.value}</span>
-          <span class="cd-metric-label">${m.label}</span>
-        </div>`).join('');
+      // If already active, collapse and done
+      if (targetItem.classList.contains('active')) {
+        targetItem.classList.remove('active');
+        return;
+      }
 
-      content.innerHTML = `
-        <p class="cd-company">${data.company}</p>
-        <h2 class="cd-headline">${data.headline}</h2>
-        <p class="cd-intro">${data.intro}</p>
-        <div class="cd-metrics">${metricsHtml}</div>
-        ${data.content}
-      `;
+      // Deactivate any open item
+      items.forEach(el => el.classList.remove('active'));
 
-      stack.classList.add('hidden');
-      detail.classList.add('active');
+      // Build expand content on first open
+      const expand = targetItem.querySelector('.case-expand');
+      if (!expand.dataset.built) {
+        const metricsHtml = data.metrics.map(m => `
+          <div class="cd-metric">
+            <span class="cd-metric-value">${m.value}</span>
+            <span class="cd-metric-label">${m.label}</span>
+          </div>`).join('');
+        expand.innerHTML = `
+          <p class="cd-company">${data.company}</p>
+          <h2 class="cd-headline">${data.headline}</h2>
+          <p class="cd-intro">${data.intro}</p>
+          <div class="cd-metrics">${metricsHtml}</div>
+          ${data.content}
+        `;
+        expand.dataset.built = 'true';
+      }
+
+      // Move selected item to top of stack, then append the rest in original order
+      stack.insertBefore(targetItem, stack.firstChild);
+
+      // Activate
+      targetItem.classList.add('active');
       document.querySelector('.portfolio-left').scrollTop = 0;
     }
 
-    function showCaseList() {
-      document.getElementById('caseStack').classList.remove('hidden');
-      const detail = document.getElementById('caseDetailView');
-      detail.classList.remove('active');
-    }
-
-    // Card click delegation
+    // Card click delegation — click the card header to expand/collapse
     document.addEventListener('click', (e) => {
-      const card = e.target.closest('.case-card-h[data-case]');
-      if (card) showCase(card.dataset.case);
+      const card = e.target.closest('.case-card-h');
+      if (card) {
+        const item = card.closest('.case-item[data-case]');
+        if (item) showCase(item.dataset.case);
+      }
     });
-
-    document.getElementById('caseBackBtn').addEventListener('click', showCaseList);
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
     function scrollRail() {
