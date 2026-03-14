@@ -123,7 +123,7 @@
       </div>
 
       <!-- Right: scrollable case cards -->
-      <div class="portfolio-left">
+      <div class="portfolio-left" id="portfolioLeft">
 
         <p class="cases-heading">Selected cases</p>
 
@@ -185,6 +185,18 @@
 
         </div>
       </div>
+
+      <!-- Mobile tab bar -->
+      <nav class="mob-tabs" id="mobTabs" aria-label="Navigation">
+        <button class="mob-tab mob-tab--active" data-tab="work">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          <span>Work</span>
+        </button>
+        <button class="mob-tab" data-tab="chat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span>Chat</span>
+        </button>
+      </nav>
 
     </section>
 
@@ -286,12 +298,44 @@
         setTimeout(() => card.classList.add('visible'), i * 160);
       });
 
-      // Focus name input after cards arrive
+      // Mobile: default to Work tab
+      if (window.innerWidth <= 680) {
+        document.getElementById('portfolioLeft').classList.add('mob-active');
+        return;
+      }
+
+      // Desktop/tablet: focus name input after cards arrive
       setTimeout(() => {
         const input = document.getElementById('nameInput');
         if (input) input.focus();
       }, 500);
     }
+
+    // ─── Mobile tab switching ─────────────────────────────────────────────────
+    document.getElementById('mobTabs').addEventListener('click', function(e) {
+      const tab = e.target.closest('[data-tab]');
+      if (!tab) return;
+      const which = tab.dataset.tab;
+
+      document.querySelectorAll('.mob-tab').forEach(t =>
+        t.classList.toggle('mob-tab--active', t.dataset.tab === which)
+      );
+      document.getElementById('portfolioLeft').classList.toggle('mob-active', which === 'work');
+      document.getElementById('chatRail').classList.toggle('mob-active', which === 'chat');
+
+      // Focus the right input when switching to chat
+      if (which === 'chat') {
+        setTimeout(() => {
+          const prompt = document.getElementById('railNamePrompt');
+          if (prompt && prompt.style.display !== 'none') {
+            document.getElementById('nameInput').focus();
+          } else {
+            const ci = document.getElementById('chatInput');
+            if (ci) ci.focus();
+          }
+        }, 80);
+      }
+    });
 
     // ─── Name submission ──────────────────────────────────────────────────────
     document.getElementById('nameInput').addEventListener('keydown', function(e) {
