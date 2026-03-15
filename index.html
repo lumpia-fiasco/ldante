@@ -437,7 +437,7 @@
         railConvo.classList.add('active');
 
         // Greet
-        addDanteMsg(`Hey <strong>${esc(name)}</strong>, how're ya doin?`, 0);
+        addDanteMsg(`Hey <strong>${esc(name)}</strong>, how's it going?`, 0);
         addDanteMsg(`How can I help you? I can tell you about my work, and how I tackle certain situations. Hit me.`, 1400);
 
         // Show chat input
@@ -527,7 +527,7 @@
         scrollRail();
       } catch (err) {
         row.classList.remove('typing');
-        row.querySelector('.msg-text').textContent = "My server seems to be asleep — try again in a sec.";
+        row.querySelector('.msg-text').textContent = "My server is acting up right now — try again a bit later.";
         row.classList.add('visible');
       } finally {
         aiLocked = false;
@@ -573,6 +573,7 @@
             <p class="cd-body">Teamshares is a startup based out of Brooklyn, New York. They acquire small to medium sized businesses from their retiring owners and convert these acquisitions into employee-owned companies. Teamshares subsequently installs leadership who would then be advised by Teamshares&#39; Industry Leads.</p>
             <p class="cd-body">To support these Network Companies, Teamshares has a suite of products built specifically for their use cases.</p>
           </div>
+          <img class="mac-payroll" src="assets/teamshares-payroll.png" alt="Teamshares Payroll" />
           <div class="cd-block">
             <h2 class="cd-h2">Strategic insight</h2>
             <h3 class="cd-h3">Reframing the problem</h3>
