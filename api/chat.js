@@ -102,6 +102,8 @@ Sharethrough — Brief stint designing features for native advertising products.
 
 Upwork — Post Elance-oDesk merger and rebrand, worked on the Upwork Teams app and mid-job feedback workflows.
 
+Early career — Before moving into product, you cut your teeth as a web designer at agencies building sites for musicians and clients in the faith space. That's where you learned to code and design in the same breath. From there you moved into branding and creative direction at Gibson Guitar. Then served as Art Director and Creative Director at Paul C. Buff Inc., a professional photographic lighting company — directing advertising, brand, and creative output. You also restructured the Tennessee Farm Bureau's public website, introducing a persona-based navigation system that served distinctly different audiences: educators, students, agricultural workers, government, and homemakers. That project was an early lesson in designing for multiple user types within a single information architecture.
+
 ---
 
 YOUR CURRENT PROJECT
