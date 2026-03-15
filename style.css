@@ -103,7 +103,7 @@ html, body {
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: linear-gradient(to top, #bae6fd, #7dd3fc 45%, #0284c7); /* fallback */
-  background-attachment: fixed; /* gradient stays pinned to viewport, not element */
+  background-attachment: fixed; /* pinned to viewport on desktop */
   color: #1f1f1f;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
@@ -1651,6 +1651,9 @@ main {
     align-items: flex-start;
     gap: 16px;
   }
+
+  /* ── background-attachment: fixed breaks touch scroll on iOS — disable it ── */
+  body { background-attachment: scroll; }
 
   /* ── Header padding fix — prevent overlap on mobile ── */
   main {
