@@ -377,8 +377,19 @@
       tagline.style.transform = 'translateY(0)';
     });
 
-    // ─── Start button ─────────────────────────────────────────────────────────
-    document.getElementById('startBtn').addEventListener('click', () => {
+    // ─── Start button: same sky cycle on hover ───────────────────────────────
+    const startBtn = document.getElementById('startBtn');
+    startBtn.addEventListener('mouseenter', () => {
+      hover = true;
+      hoverT = getCurrentSkyT();
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    });
+    startBtn.addEventListener('mouseleave', () => {
+      hover = false;
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    });
+
+    startBtn.addEventListener('click', () => {
       const landing = document.getElementById('landing');
       landing.classList.add('exiting');
       setTimeout(() => {
