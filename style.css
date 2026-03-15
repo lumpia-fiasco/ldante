@@ -104,11 +104,21 @@ body {
   /* background updated by JS gradient — CSS transitions don't animate gradients */
 }
 
-/* ─── Dark-sky overrides (night / dawn / dusk) ─── */
-.sky-dark .hero-tagline,
-.sky-dark .hero-desc { color: rgba(255, 255, 255, 0.92); }
+/* ─── Adaptive text — light sky (default) ─── */
+/* All text elements that sit directly on the gradient need a subtle shadow
+   to stay legible during mid-sky transitions (sunrise, golden hour, sunset). */
+.hero-tagline, .hero-desc,
+.cases-heading, .case-company,
+.case-title-h, .case-desc-h,
+.case-chevron {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+}
 
-.sky-dark .hero-logo { color: rgba(255, 255, 255, 0.92); }
+/* ─── Dark-sky overrides (night / dawn / dusk / sunset) ─── */
+.sky-dark .hero-tagline,
+.sky-dark .hero-desc { color: rgba(255, 255, 255, 0.95); }
+
+.sky-dark .hero-logo { color: rgba(255, 255, 255, 0.95); }
 
 .sky-dark .start-btn {
   background: rgba(255, 255, 255, 0.14);
@@ -120,6 +130,21 @@ body {
 .sky-dark .start-btn:hover {
   background: rgba(255, 255, 255, 0.22);
 }
+
+/* Portfolio — case list text */
+.sky-dark .cases-heading      { color: rgba(255, 255, 255, 0.45); }
+.sky-dark .case-company       { color: rgba(255, 255, 255, 0.45); }
+.sky-dark .case-title-h       { color: rgba(255, 255, 255, 0.95); }
+.sky-dark .case-desc-h        { color: rgba(255, 255, 255, 0.65); }
+.sky-dark .case-chevron       { color: rgba(255, 255, 255, 0.35); }
+.sky-dark .case-item.active .case-chevron { color: rgba(255, 255, 255, 0.7); }
+.sky-dark .case-card-h        { border-bottom-color: rgba(255, 255, 255, 0.14); }
+.sky-dark .case-item.active > .case-card-h { border-bottom-color: transparent; }
+
+/* Header links */
+.sky-dark .site-header        { border-bottom-color: rgba(255, 255, 255, 0.1); }
+.sky-dark .site-header a,
+.sky-dark .site-header svg    { color: rgba(255, 255, 255, 0.7); }
 
 /* ─── Sticky Header ─── */
 .site-header {
@@ -346,19 +371,11 @@ main {
 /* ─── Expand panel ─── */
 .case-expand {
   display: none;
-  padding: 36px 36px 44px;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-top: none;
-  border-radius: 0 0 20px 20px;
+  padding: 0 0 36px;
 }
 
 .case-item.active > .case-card-h {
-  border-radius: 20px 20px 0 0;
   border-bottom-color: transparent;
-  background: rgba(255, 255, 255, 0.65);
 }
 
 .case-item.active > .case-expand {
@@ -376,22 +393,14 @@ main {
   display: flex;
   align-items: center;
   gap: 28px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-radius: 20px;
-  padding: 32px 36px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(31, 31, 31, 0.12);
   cursor: pointer;
   opacity: 0;
   transform: translateY(24px);
   transition:
     opacity 0.45s ease,
-    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
-    background 0.2s ease,
-    box-shadow 0.2s ease,
-    border-radius 0.25s ease,
-    border-color 0.2s ease;
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .case-card-h.visible {
@@ -400,24 +409,14 @@ main {
 }
 
 .case-card-h:hover {
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 40px rgba(31, 31, 31, 0.1);
-  transform: translateY(-4px);
+  transform: translateX(6px);
 }
 
-.case-logo {
-  flex-shrink: 0;
-  width: 72px;
-  height: 72px;
-  border-radius: 14px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.case-card-h:hover .case-title-h {
+  opacity: 0.7;
 }
 
-.case-logo svg { display: block; }
-.case-logo img { width: 72px; height: 72px; object-fit: cover; display: block; border-radius: 14px; }
+.case-logo { display: none; }
 
 .case-body {
   flex: 1;
