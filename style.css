@@ -145,6 +145,45 @@ body {
 .sky-dark .site-header a,
 .sky-dark .site-header svg    { color: rgba(255, 255, 255, 0.7); }
 
+/* ─── Chat rail — dark sky ─── */
+.sky-dark .chat-rail {
+  border-right-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Name prompt */
+.sky-dark .name-question { color: rgba(255, 255, 255, 0.95); }
+.sky-dark .name-input {
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: rgba(255, 255, 255, 0.28);
+}
+.sky-dark .name-input::placeholder { color: rgba(255, 255, 255, 0.22); }
+.sky-dark .name-input:focus         { border-bottom-color: rgba(255, 255, 255, 0.75); }
+.sky-dark .name-hint               { color: rgba(255, 255, 255, 0.4); }
+
+/* Messages */
+.sky-dark .msg-text                { color: rgba(255, 255, 255, 0.92); }
+.sky-dark .msg--user .msg-text {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.14);
+}
+.sky-dark .msg-dot-wrap span       { background: rgba(255, 255, 255, 0.5); }
+
+/* Input bar */
+.sky-dark .rail-input-wrap {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+}
+.sky-dark .chat-input {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.sky-dark .chat-input::placeholder { color: rgba(255, 255, 255, 0.28); }
+.sky-dark .chat-input:focus {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.15);
+}
+
 /* ─── Sticky Header ─── */
 .site-header {
   position: sticky;
