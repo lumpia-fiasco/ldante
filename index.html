@@ -122,68 +122,70 @@
 
       </div>
 
-      <!-- Right: scrollable case cards -->
+      <!-- Right: case panel (list ↔ detail) -->
       <div class="portfolio-left" id="portfolioLeft">
 
-        <p class="cases-heading">Selected cases</p>
+        <!-- Panel A: case list -->
+        <div class="case-list-panel" id="caseListPanel">
+          <p class="cases-heading">Selected cases</p>
+          <div class="case-stack" id="caseStack">
 
-        <div class="case-stack" id="caseStack">
-
-          <!-- Case 1: Teamshares Payroll -->
-          <div class="case-item" data-case="teamshares-payroll">
-            <div class="case-card-h">
-              <div class="case-logo">
-                <img src="assets/teamshares.png" alt="Teamshares" width="72" height="72">
-              </div>
-              <div class="case-body">
-                <p class="case-company">Teamshares</p>
-                <h3 class="case-title-h">Payroll reporting</h3>
-                <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
-              </div>
-              <div class="case-chevron" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="case-item" data-case="teamshares-payroll">
+              <div class="case-card-h">
+                <div class="case-logo"><img src="assets/teamshares.png" alt="Teamshares" width="72" height="72"></div>
+                <div class="case-body">
+                  <p class="case-company">Teamshares</p>
+                  <h3 class="case-title-h">Payroll reporting</h3>
+                  <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
+                </div>
+                <div class="case-chevron" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
               </div>
             </div>
-            <div class="case-expand"></div>
-          </div>
 
-          <!-- Case 2: Teamshares ATS -->
-          <div class="case-item" data-case="teamshares-ats">
-            <div class="case-card-h">
-              <div class="case-logo">
-                <img src="assets/teamshares.png" alt="Teamshares" width="72" height="72">
-              </div>
-              <div class="case-body">
-                <p class="case-company">Teamshares</p>
-                <h3 class="case-title-h">Building an Applicant Tracking System for Presidents</h3>
-                <p class="case-desc-h">Reframing an Applicant Tracking System to create a queue of qualified Network Presidents ready to hire.</p>
-              </div>
-              <div class="case-chevron" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="case-item" data-case="teamshares-ats">
+              <div class="case-card-h">
+                <div class="case-logo"><img src="assets/teamshares.png" alt="Teamshares" width="72" height="72"></div>
+                <div class="case-body">
+                  <p class="case-company">Teamshares</p>
+                  <h3 class="case-title-h">Building an Applicant Tracking System for Presidents</h3>
+                  <p class="case-desc-h">Reframing an Applicant Tracking System to create a queue of qualified Network Presidents ready to hire.</p>
+                </div>
+                <div class="case-chevron" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
               </div>
             </div>
-            <div class="case-expand"></div>
-          </div>
 
-          <!-- Case 3: Meroxa -->
-          <div class="case-item" data-case="meroxa">
-            <div class="case-card-h">
-              <div class="case-logo">
-                <img src="assets/meroxa.png" alt="Meroxa" width="72" height="72">
-              </div>
-              <div class="case-body">
-                <p class="case-company">Meroxa</p>
-                <h3 class="case-title-h">Pivoting from a builder, to a data observability platform</h3>
-                <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
-              </div>
-              <div class="case-chevron" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="case-item" data-case="meroxa">
+              <div class="case-card-h">
+                <div class="case-logo"><img src="assets/meroxa.png" alt="Meroxa" width="72" height="72"></div>
+                <div class="case-body">
+                  <p class="case-company">Meroxa</p>
+                  <h3 class="case-title-h">Pivoting from a builder, to a data observability platform</h3>
+                  <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
+                </div>
+                <div class="case-chevron" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
               </div>
             </div>
-            <div class="case-expand"></div>
-          </div>
 
+          </div>
         </div>
+
+        <!-- Panel B: case detail -->
+        <div class="case-detail-panel" id="caseDetailPanel">
+          <button class="case-back-btn" id="caseBackBtn" aria-label="Back to cases">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Cases
+          </button>
+          <div class="case-detail-content" id="caseDetailContent"></div>
+        </div>
+
       </div>
 
       <!-- Mobile tab bar -->
@@ -765,47 +767,44 @@
       const data = CASE_DATA[caseId];
       if (!data) return;
 
-      const stack = document.getElementById('caseStack');
-      const items = Array.from(stack.querySelectorAll('.case-item'));
-      const targetItem = items.find(el => el.dataset.case === caseId);
-      if (!targetItem) return;
+      const listPanel   = document.getElementById('caseListPanel');
+      const detailPanel = document.getElementById('caseDetailPanel');
+      const content     = document.getElementById('caseDetailContent');
 
-      // If already active, collapse and done
-      if (targetItem.classList.contains('active')) {
-        targetItem.classList.remove('active');
-        return;
-      }
+      // Build detail content
+      const metricsHtml = data.metrics.map(m => `
+        <div class="cd-metric">
+          <span class="cd-metric-value">${m.value}</span>
+          <span class="cd-metric-label">${m.label}</span>
+        </div>`).join('');
 
-      // Deactivate any open item
-      items.forEach(el => el.classList.remove('active'));
+      content.innerHTML = `
+        <p class="cd-company">${data.company}</p>
+        <h2 class="cd-headline">${data.headline}</h2>
+        <p class="cd-intro">${data.intro}</p>
+        <div class="cd-metrics">${metricsHtml}</div>
+        ${data.content}
+      `;
 
-      // Build expand content on first open
-      const expand = targetItem.querySelector('.case-expand');
-      if (!expand.dataset.built) {
-        const metricsHtml = data.metrics.map(m => `
-          <div class="cd-metric">
-            <span class="cd-metric-value">${m.value}</span>
-            <span class="cd-metric-label">${m.label}</span>
-          </div>`).join('');
-        expand.innerHTML = `
-          <p class="cd-company">${data.company}</p>
-          <h2 class="cd-headline">${data.headline}</h2>
-          <p class="cd-intro">${data.intro}</p>
-          <div class="cd-metrics">${metricsHtml}</div>
-          ${data.content}
-        `;
-        expand.dataset.built = 'true';
-      }
-
-      // Move selected item to top of stack, then append the rest in original order
-      stack.insertBefore(targetItem, stack.firstChild);
-
-      // Activate
-      targetItem.classList.add('active');
-      document.querySelector('.portfolio-left').scrollTop = 0;
+      // Fade list out, slide detail in from right
+      listPanel.classList.add('hidden');
+      detailPanel.classList.add('active');
+      detailPanel.scrollTop = 0;
     }
 
-    // Card click delegation — click the card header to expand/collapse
+    function showCaseList() {
+      const listPanel   = document.getElementById('caseListPanel');
+      const detailPanel = document.getElementById('caseDetailPanel');
+
+      // Slide detail out to right, fade list back in
+      detailPanel.classList.remove('active');
+      listPanel.classList.remove('hidden');
+    }
+
+    // Back button
+    document.getElementById('caseBackBtn').addEventListener('click', showCaseList);
+
+    // Card click delegation
     document.addEventListener('click', (e) => {
       const card = e.target.closest('.case-card-h');
       if (card) {

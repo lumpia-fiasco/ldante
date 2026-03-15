@@ -136,10 +136,9 @@ body {
 .sky-dark .case-company       { color: rgba(255, 255, 255, 0.45); }
 .sky-dark .case-title-h       { color: rgba(255, 255, 255, 0.95); }
 .sky-dark .case-desc-h        { color: rgba(255, 255, 255, 0.65); }
-.sky-dark .case-chevron       { color: rgba(255, 255, 255, 0.35); }
-.sky-dark .case-item.active .case-chevron { color: rgba(255, 255, 255, 0.7); }
-.sky-dark .case-card-h        { border-bottom-color: rgba(255, 255, 255, 0.14); }
-.sky-dark .case-item.active > .case-card-h { border-bottom-color: transparent; }
+.sky-dark .case-chevron                    { color: rgba(255, 255, 255, 0.25); }
+.sky-dark .case-card-h:hover .case-chevron { color: rgba(255, 255, 255, 0.7); }
+.sky-dark .case-card-h                     { border-bottom-color: rgba(255, 255, 255, 0.14); }
 
 /* Header links */
 .sky-dark .site-header        { border-bottom-color: rgba(255, 255, 255, 0.1); }
@@ -319,15 +318,75 @@ main {
   to   { opacity: 1; }
 }
 
-/* ─── Left: scrollable case cards ─── */
+/* ─── Right panel: clips the two sliding sub-panels ─── */
 .portfolio-left {
   flex: 1;
   height: 100%;
   min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── Shared panel base ─── */
+.case-list-panel,
+.case-detail-panel {
+  position: absolute;
+  inset: 0;
   overflow-y: auto;
   padding: 56px 60px 80px;
   -webkit-overflow-scrolling: touch;
+  will-change: transform, opacity;
 }
+
+/* ─── List panel — default: visible ─── */
+.case-list-panel {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.case-list-panel.hidden {
+  opacity: 0;
+  transform: translateX(-48px);
+  pointer-events: none;
+}
+
+/* ─── Detail panel — default: offscreen right ─── */
+.case-detail-panel {
+  opacity: 0;
+  transform: translateX(72px);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.case-detail-panel.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* ─── Back button ─── */
+.case-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 44px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(31, 31, 31, 0.45);
+  transition: color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.case-back-btn:hover {
+  color: #1f1f1f;
+  transform: translateX(-5px);
+}
+.sky-dark .case-back-btn           { color: rgba(255, 255, 255, 0.45); }
+.sky-dark .case-back-btn:hover     { color: rgba(255, 255, 255, 0.95); }
 
 /* ─── "Selected cases" label ─── */
 .cases-heading {
@@ -357,35 +416,15 @@ main {
 /* ─── Chevron ─── */
 .case-chevron {
   flex-shrink: 0;
-  color: rgba(31, 31, 31, 0.3);
-  transition: transform 0.3s ease, color 0.2s ease;
+  color: rgba(31, 31, 31, 0.25);
+  transition: color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   align-items: center;
 }
 
-.case-item.active .case-chevron {
-  transform: rotate(180deg);
-  color: rgba(31, 31, 31, 0.55);
-}
-
-/* ─── Expand panel ─── */
-.case-expand {
-  display: none;
-  padding: 0 0 36px;
-}
-
-.case-item.active > .case-card-h {
-  border-bottom-color: transparent;
-}
-
-.case-item.active > .case-expand {
-  display: block;
-  animation: expandFadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes expandFadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+.case-card-h:hover .case-chevron {
+  color: rgba(31, 31, 31, 0.6);
+  transform: translateX(4px);
 }
 
 /* ─── Horizontal case card ─── */
