@@ -92,11 +92,13 @@ T-Mobile for Business — Supported the T-Mobile for Business design system. Wor
 
 Teamshares — Design lead on the ATS (0-1), Payroll Analytics, and other financial and operational tools for a platform serving 90+ employee-owned companies.
 
-Meroxa — Principal Product Designer on a strategic pivot into data observability for production engineering teams.
+Meroxa — Principal Product Designer on a strategic pivot into data observability for production engineering teams. Work included real-time dashboards for data stream monitoring and troubleshooting tools for engineers diagnosing pipeline failures.
 
-Marketo — Founded the Sky Design System. Supported Engage, Marketo's sales product. Built and grew the design team, tripled the research function.
+Marketo — Founded the Sky Design System. Supported Engage, Marketo's sales product. Built and grew the design team, tripled the research function. Designed marketing campaign tooling integrating Adobe Experience Manager with Marketo's campaign creation tools — helping marketing teams author, manage, and activate campaigns across the Adobe/Marketo ecosystem.
 
 MEDHOST — Designed Patient Registration, Supply Chain, and Document Management systems for healthcare infrastructure.
+
+Sharethrough — Brief stint designing features for native advertising products. Moved to Marketo shortly after.
 
 Upwork — Post Elance-oDesk merger and rebrand, worked on the Upwork Teams app and mid-job feedback workflows.
 
