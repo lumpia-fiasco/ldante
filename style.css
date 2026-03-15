@@ -379,15 +379,13 @@ main {
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(31, 31, 31, 0.45);
+  color: #000000;
   transition: color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .case-back-btn:hover {
-  color: #1f1f1f;
+  color: #000000;
   transform: translateX(-5px);
 }
-.sky-dark .case-back-btn           { color: rgba(255, 255, 255, 0.45); }
-.sky-dark .case-back-btn:hover     { color: rgba(255, 255, 255, 0.95); }
 
 /* ─── "Selected cases" label ─── */
 .cases-heading {
