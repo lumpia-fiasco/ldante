@@ -990,6 +990,53 @@ main {
 
 /* ─── Case study rich layout components ─── */
 
+/* Role badge */
+.cd-role-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6d28d9;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 100px;
+  padding: 5px 14px;
+  margin-bottom: 16px;
+}
+
+/* Screenshots row — side by side frames */
+.cd-screenshots-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 24px 0;
+}
+.cd-screenshot-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(31, 31, 31, 0.08);
+}
+.cd-screenshot-frame img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+  max-height: 220px;
+}
+.cd-screenshot-frame span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(31, 31, 31, 0.4);
+  padding: 0 14px 12px;
+}
+
 /* Hero image — bleeds past panel padding */
 .cd-hero-img-wrap {
   width: calc(100% + 120px);
