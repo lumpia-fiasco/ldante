@@ -174,14 +174,14 @@ body {
   background: rgba(255, 255, 255, 0.06);
 }
 .sky-dark .chat-input {
-  color: rgba(255, 255, 255, 0.92);
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.18);
+  color: #1f1f1f;
+  background: #ffffff;
+  border-color: rgba(31, 31, 31, 0.15);
 }
-.sky-dark .chat-input::placeholder { color: rgba(255, 255, 255, 0.28); }
+.sky-dark .chat-input::placeholder { color: rgba(31, 31, 31, 0.4); }
 .sky-dark .chat-input:focus {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(31, 31, 31, 0.35);
+  background: #ffffff;
 }
 
 /* ─── Sticky Header ─── */
@@ -738,9 +738,7 @@ main {
   font-size: clamp(1.1rem, 1.3vw, 1.4rem);
   font-weight: 400;
   color: #1f1f1f;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #ffffff;
   border: 1.5px solid rgba(31, 31, 31, 0.15);
   border-radius: 14px;
   padding: 13px 18px;
@@ -755,7 +753,7 @@ main {
 }
 
 .chat-input::placeholder {
-  color: rgba(31, 31, 31, 0.3);
+  color: rgba(31, 31, 31, 0.4);
 }
 
 /* ─── Case detail rich content (inside .case-expand) ─── */
