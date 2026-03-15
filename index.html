@@ -304,12 +304,18 @@
       document.body.style.background =
         `linear-gradient(to top, ${bot}, ${mid} 45%, ${top})`;
 
-      // Dark mode: luminance of the interpolated horizon color
-      const [r1,g1,b1] = hexToRgb(stopA.bot);
-      const [r2,g2,b2] = hexToRgb(stopB.bot);
-      const bR = lerp(r1,r2,tt), bG = lerp(g1,g2,tt), bB = lerp(b1,b2,tt);
-      const lum = 0.299*bR + 0.587*bG + 0.114*bB;
-      document.body.classList.toggle('sky-dark', lum < 130);
+      // Dark mode: average luminance across bot + mid + top so a bright horizon
+      // (e.g. sunset pink) doesn't mask an overall dark gradient
+      function blendLum(c1, c2) {
+        const [r1,g1,b1] = hexToRgb(c1);
+        const [r2,g2,b2] = hexToRgb(c2);
+        const R = lerp(r1,r2,tt), G = lerp(g1,g2,tt), B = lerp(b1,b2,tt);
+        return 0.299*R + 0.587*G + 0.114*B;
+      }
+      const avgLum = (blendLum(stopA.bot, stopB.bot) +
+                      blendLum(stopA.mid, stopB.mid) +
+                      blendLum(stopA.top, stopB.top)) / 3;
+      document.body.classList.toggle('sky-dark', avgLum < 140);
     }
 
     applySkyBg();
