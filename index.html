@@ -71,7 +71,7 @@
           </svg>
         </div>
 
-        <p class="hero-tagline">I'm a senior level product designer who thinks in systems.</p>
+        <p class="hero-tagline">I'm a designer who thinks in systems.</p>
         <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
 
         <button class="start-btn" id="startBtn">Start</button>
@@ -186,109 +186,18 @@
         </div>
       </div>
 
-    </section>
+      <!-- Mobile tab bar -->
+      <nav class="mob-tabs" id="mobTabs" aria-label="Navigation">
+        <button class="mob-tab mob-tab--active" data-tab="work">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          <span>Work</span>
+        </button>
+        <button class="mob-tab" data-tab="chat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span>Chat</span>
+        </button>
+      </nav>
 
-    <!-- ─── Mobile view (STAR synopses — shown instead of split layout on mobile) ─── -->
-    <section class="mobile-view" id="mobileView" aria-hidden="true">
-      <div class="mob-inner">
-
-        <p class="mob-heading">Selected cases</p>
-
-        <!-- Case 1: Teamshares Payroll -->
-        <div class="mob-card">
-          <div class="mob-card-header">
-            <img src="assets/teamshares.png" alt="Teamshares" class="mob-card-logo">
-            <div>
-              <p class="mob-card-company">Teamshares</p>
-              <h3 class="mob-card-title">Payroll reporting</h3>
-            </div>
-          </div>
-          <div class="mob-star-grid">
-            <div class="mob-star-row">
-              <span class="mob-star-label">S</span>
-              <p class="mob-star-text">Network companies ran payroll on inconsistent systems, creating costly manual overhead and reporting blind spots across the portfolio.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">T</span>
-              <p class="mob-star-text">Design a unified payroll reporting experience that gave finance and ops teams real visibility — without adding headcount.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">A</span>
-              <p class="mob-star-text">Mapped workflow gaps across the network, ran sessions with finance leads, and designed a centralized dashboard with smart defaults that matched how teams already thought about payroll.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">R</span>
-              <p class="mob-star-text">~$3.1M in projected annual savings. Zero net headcount added.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Case 2: Teamshares ATS -->
-        <div class="mob-card">
-          <div class="mob-card-header">
-            <img src="assets/teamshares.png" alt="Teamshares" class="mob-card-logo">
-            <div>
-              <p class="mob-card-company">Teamshares</p>
-              <h3 class="mob-card-title">Applicant Tracking System for Presidents</h3>
-            </div>
-          </div>
-          <div class="mob-star-grid">
-            <div class="mob-star-row">
-              <span class="mob-star-label">S</span>
-              <p class="mob-star-text">Teamshares needed to place experienced operators into acquired companies as employee-owners, but had no structured pipeline to manage that search.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">T</span>
-              <p class="mob-star-text">Build a purpose-built ATS for finding, vetting, and placing Network Presidents — a specific leadership type unlike any standard hire.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">A</span>
-              <p class="mob-star-text">Reframed the problem from "build an ATS" to "build a readiness queue" — redesigning the entire system around how a Network President search actually works.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">R</span>
-              <p class="mob-star-text">A differentiated pipeline tool that gave Teamshares a reliable, qualified queue of candidates ready for placement.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Case 3: Meroxa -->
-        <div class="mob-card">
-          <div class="mob-card-header">
-            <img src="assets/meroxa.png" alt="Meroxa" class="mob-card-logo">
-            <div>
-              <p class="mob-card-company">Meroxa</p>
-              <h3 class="mob-card-title">Pivoting to a data observability platform</h3>
-            </div>
-          </div>
-          <div class="mob-star-grid">
-            <div class="mob-star-row">
-              <span class="mob-star-label">S</span>
-              <p class="mob-star-text">Meroxa was positioned as a data pipeline builder, but growth had stalled and the competitive landscape was crowded.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">T</span>
-              <p class="mob-star-text">Identify what was actually resonating with users and define a clearer, more defensible product direction.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">A</span>
-              <p class="mob-star-text">Led discovery research that surfaced a strong unmet need for data observability — understanding what's happening inside pipelines, not just building them.</p>
-            </div>
-            <div class="mob-star-row">
-              <span class="mob-star-label">R</span>
-              <p class="mob-star-text">The research triggered a strategic pivot that opened new market opportunities and gave Meroxa a more defensible product position.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Contact footer -->
-        <div class="mob-contact">
-          <p class="mob-contact-label">Want to connect?</p>
-          <a href="mailto:hello@ldante.com" class="mob-contact-link">hello@ldante.com</a>
-          <a href="https://tidycal.com/ldante/30-minute-intro-call" target="_blank" rel="noopener" class="mob-contact-btn">Book a 30-min call →</a>
-        </div>
-
-      </div>
     </section>
 
   </main>
@@ -443,17 +352,6 @@
     });
 
     function showPortfolio() {
-      const isMobile = window.innerWidth <= 680;
-
-      if (isMobile) {
-        // Mobile: show the STAR synopsis view
-        const mv = document.getElementById('mobileView');
-        mv.classList.add('active');
-        mv.removeAttribute('aria-hidden');
-        return;
-      }
-
-      // Desktop / tablet: show split layout
       const pv = document.getElementById('portfolioView');
       pv.classList.add('active');
       pv.removeAttribute('aria-hidden');
@@ -464,12 +362,44 @@
         setTimeout(() => card.classList.add('visible'), i * 160);
       });
 
-      // Focus name input after cards arrive
+      // Mobile: default to Work tab
+      if (window.innerWidth <= 680) {
+        document.getElementById('portfolioLeft').classList.add('mob-active');
+        return;
+      }
+
+      // Desktop/tablet: focus name input after cards arrive
       setTimeout(() => {
         const input = document.getElementById('nameInput');
         if (input) input.focus();
       }, 500);
     }
+
+    // ─── Mobile tab switching ─────────────────────────────────────────────────
+    document.getElementById('mobTabs').addEventListener('click', function(e) {
+      const tab = e.target.closest('[data-tab]');
+      if (!tab) return;
+      const which = tab.dataset.tab;
+
+      document.querySelectorAll('.mob-tab').forEach(t =>
+        t.classList.toggle('mob-tab--active', t.dataset.tab === which)
+      );
+      document.getElementById('portfolioLeft').classList.toggle('mob-active', which === 'work');
+      document.getElementById('chatRail').classList.toggle('mob-active', which === 'chat');
+
+      // Focus the right input when switching to chat
+      if (which === 'chat') {
+        setTimeout(() => {
+          const prompt = document.getElementById('railNamePrompt');
+          if (prompt && prompt.style.display !== 'none') {
+            document.getElementById('nameInput').focus();
+          } else {
+            const ci = document.getElementById('chatInput');
+            if (ci) ci.focus();
+          }
+        }, 80);
+      }
+    });
 
     // ─── Name submission ──────────────────────────────────────────────────────
     document.getElementById('nameInput').addEventListener('keydown', function(e) {
