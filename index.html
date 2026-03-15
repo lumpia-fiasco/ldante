@@ -173,6 +173,15 @@
             </div>
 
           </div>
+
+          <!-- How we match up button -->
+          <div class="fit-btn-wrap">
+            <button class="fit-btn" id="fitBtn">
+              How we match up
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+
         </div>
 
         <!-- Panel B: case detail -->
@@ -186,13 +195,43 @@
           <div class="case-detail-content" id="caseDetailContent"></div>
         </div>
 
+        <!-- Panel C: fit assessment -->
+        <div class="fit-panel" id="fitPanel">
+          <button class="case-back-btn" id="fitBackBtn" aria-label="Back to cases">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Cases
+          </button>
+          <h1 class="fit-title">Am I a fit?</h1>
+          <p class="fit-desc">Copy and paste your job description, hit enter and let's see!</p>
+          <div class="fit-input-wrap">
+            <textarea
+              class="fit-textarea"
+              id="fitTextarea"
+              maxlength="5000"
+              placeholder="Paste a job description or drop in a URL…"
+              spellcheck="false"
+            ></textarea>
+            <div class="fit-char-row">
+              <span id="fitCharCount">0</span> / 5000
+            </div>
+          </div>
+          <div class="fit-error" id="fitError" hidden></div>
+          <div class="fit-results" id="fitResults" hidden></div>
+        </div>
+
       </div>
 
       <!-- Mobile tab bar -->
       <nav class="mob-tabs" id="mobTabs" aria-label="Navigation">
-        <button class="mob-tab mob-tab--active" data-tab="work">
+        <button class="mob-tab" data-tab="work">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
           <span>Work</span>
+        </button>
+        <button class="mob-tab mob-tab--active" data-tab="fit">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>
+          <span>Fit?</span>
         </button>
         <button class="mob-tab" data-tab="chat">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
@@ -409,9 +448,9 @@
         setTimeout(() => card.classList.add('visible'), i * 160);
       });
 
-      // Mobile: default to Work tab
+      // Mobile: default to Fit tab
       if (window.innerWidth <= 680) {
-        document.getElementById('portfolioLeft').classList.add('mob-active');
+        activateMobTab('fit');
         return;
       }
 
@@ -423,18 +462,13 @@
     }
 
     // ─── Mobile tab switching ─────────────────────────────────────────────────
-    document.getElementById('mobTabs').addEventListener('click', function(e) {
-      const tab = e.target.closest('[data-tab]');
-      if (!tab) return;
-      const which = tab.dataset.tab;
-
+    function activateMobTab(which) {
       document.querySelectorAll('.mob-tab').forEach(t =>
         t.classList.toggle('mob-tab--active', t.dataset.tab === which)
       );
       document.getElementById('portfolioLeft').classList.toggle('mob-active', which === 'work');
       document.getElementById('chatRail').classList.toggle('mob-active', which === 'chat');
-
-      // Focus the right input when switching to chat
+      document.getElementById('fitPanel').classList.toggle('mob-active', which === 'fit');
       if (which === 'chat') {
         setTimeout(() => {
           const prompt = document.getElementById('railNamePrompt');
@@ -446,6 +480,11 @@
           }
         }, 80);
       }
+    }
+    document.getElementById('mobTabs').addEventListener('click', function(e) {
+      const tab = e.target.closest('[data-tab]');
+      if (!tab) return;
+      activateMobTab(tab.dataset.tab);
     });
 
     // ─── Name submission ──────────────────────────────────────────────────────
@@ -1051,8 +1090,131 @@
       listPanel.classList.remove('hidden');
     }
 
-    // Back button
+    // Back buttons
     document.getElementById('caseBackBtn').addEventListener('click', showCaseList);
+
+    // ─── Fit panel ────────────────────────────────────────────────────────────
+    function showFitPanel() {
+      const listPanel = document.getElementById('caseListPanel');
+      const fitPanel  = document.getElementById('fitPanel');
+      listPanel.classList.add('hidden');
+      fitPanel.classList.add('active');
+      fitPanel.scrollTop = 0;
+      document.getElementById('fitTextarea').focus();
+    }
+
+    function hideFitPanel() {
+      const listPanel = document.getElementById('caseListPanel');
+      const fitPanel  = document.getElementById('fitPanel');
+      fitPanel.classList.remove('active');
+      listPanel.classList.remove('hidden');
+    }
+
+    document.getElementById('fitBtn').addEventListener('click', showFitPanel);
+    document.getElementById('fitBackBtn').addEventListener('click', hideFitPanel);
+
+    // Character counter
+    const fitTextarea  = document.getElementById('fitTextarea');
+    const fitCharCount = document.getElementById('fitCharCount');
+    fitTextarea.addEventListener('input', () => {
+      fitCharCount.textContent = fitTextarea.value.length;
+    });
+
+    // Submit on Enter (but allow Shift+Enter for newlines)
+    fitTextarea.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        runAssessment();
+      }
+    });
+
+    async function runAssessment() {
+      const text     = fitTextarea.value.trim();
+      const errorEl  = document.getElementById('fitError');
+      const resultsEl = document.getElementById('fitResults');
+
+      if (!text) return;
+
+      errorEl.hidden  = true;
+      resultsEl.hidden = true;
+      resultsEl.innerHTML = '';
+
+      // Show loading state
+      resultsEl.innerHTML = '<div class="fit-loading"><span></span><span></span><span></span></div>';
+      resultsEl.hidden = false;
+
+      try {
+        const res  = await fetch('/api/assess', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+        });
+        const data = await res.json();
+
+        if (!res.ok || data.error) {
+          throw new Error(data.error || 'Assessment failed');
+        }
+
+        if (!data.isJobDescription) {
+          resultsEl.hidden = true;
+          errorEl.textContent = "That doesn't look like a job description — try pasting the full JD text, or a direct link to a job posting.";
+          errorEl.hidden = false;
+          return;
+        }
+
+        const levelColors = {
+          strong:  { bg: 'rgba(22,163,74,0.08)',   border: 'rgba(22,163,74,0.22)',   text: '#15803d' },
+          good:    { bg: 'rgba(37,99,235,0.08)',    border: 'rgba(37,99,235,0.22)',   text: '#1d4ed8' },
+          partial: { bg: 'rgba(234,88,12,0.08)',    border: 'rgba(234,88,12,0.22)',   text: '#c2410c' },
+          low:     { bg: 'rgba(239,68,68,0.08)',    border: 'rgba(239,68,68,0.22)',   text: '#b91c1c' },
+        };
+        const levelLabels = { strong: 'Strong match', good: 'Good match', partial: 'Partial match', low: 'Low match' };
+        const lc = levelColors[data.fitLevel] || levelColors.partial;
+        const ll = levelLabels[data.fitLevel] || data.fitLevel;
+
+        const caseNames = {
+          'teamshares-payroll': 'Teamshares — Payroll reporting',
+          'teamshares-ats':     'Teamshares — ATS for Presidents',
+          'meroxa':             'Meroxa — Data observability pivot',
+        };
+        const casesHtml = (data.suggestedCases || []).map(id => `
+          <button class="fit-case-link" data-case="${id}">${caseNames[id] || id}</button>
+        `).join('');
+
+        const strengthsHtml = (data.strengths || []).map(s => `<li>${s}</li>`).join('');
+        const considerationsHtml = (data.considerations || []).map(c => `<li>${c}</li>`).join('');
+
+        resultsEl.innerHTML = `
+          <div class="fit-badge" style="background:${lc.bg};border-color:${lc.border};color:${lc.text}">
+            ${ll}
+          </div>
+          <p class="fit-headline">${data.fitHeadline || ''}</p>
+          <p class="fit-rationale">${data.rationale || ''}</p>
+          ${strengthsHtml ? `
+            <h3 class="fit-section-label">Strengths</h3>
+            <ul class="fit-list fit-list--strengths">${strengthsHtml}</ul>
+          ` : ''}
+          ${considerationsHtml ? `
+            <h3 class="fit-section-label">Worth discussing</h3>
+            <ul class="fit-list fit-list--considerations">${considerationsHtml}</ul>
+          ` : ''}
+          ${casesHtml ? `
+            <h3 class="fit-section-label">Suggested cases to review</h3>
+            <div class="fit-cases">${casesHtml}</div>
+          ` : ''}
+        `;
+
+        // Wire case links in results
+        resultsEl.querySelectorAll('.fit-case-link[data-case]').forEach(btn => {
+          btn.addEventListener('click', () => showCase(btn.dataset.case));
+        });
+
+      } catch (err) {
+        resultsEl.hidden = true;
+        errorEl.textContent = err.message || 'Something went wrong. Try again.';
+        errorEl.hidden = false;
+      }
+    }
 
     // Card click delegation
     document.addEventListener('click', (e) => {
