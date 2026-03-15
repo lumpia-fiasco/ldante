@@ -1150,6 +1150,55 @@ main {
   gap: 10px;
 }
 
+/* Outcome callout boxes */
+.cd-outcome-callouts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0 32px;
+}
+.cd-outcome-callout {
+  padding: 18px 22px;
+  border-radius: 12px;
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.55;
+  color: #1f1f1f;
+}
+.cd-oc-green {
+  background: rgba(22, 163, 74, 0.08);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+.cd-oc-orange {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+}
+.cd-oc-blue {
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+.cd-oc-purple {
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+/* Haiku closing */
+.cd-haiku {
+  margin-top: 48px;
+  padding: 32px 0 16px;
+  border-top: 1px solid rgba(31, 31, 31, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cd-haiku p {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: rgba(31, 31, 31, 0.4);
+  line-height: 1.8;
+  margin: 0;
+}
+
 /* Outcomes grid */
 .cd-outcomes-grid {
   display: grid;

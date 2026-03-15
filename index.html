@@ -697,70 +697,147 @@
           { value: '10+', label: 'qualified leaders identified' },
         ],
         content: `
-          <div class="cd-chips">
-            <span>Stakeholder Research</span>
-            <span>Workflow Analysis</span>
-            <span>Information Architecture</span>
-            <span>Business Impact Measurement</span>
-            <span>Cross-functional Leadership</span>
+          <div class="cd-hero-img-wrap">
+            <img src="assets/teamshares%20ats.png" class="cd-hero-img" alt="Teamshares ATS" />
           </div>
-          <div class="cd-block">
-            <h2 class="cd-h2">Background</h2>
-            <p class="cd-body">Teamshares is a unique financial platform that buys profitable small businesses and transitions them to employee ownership. Each acquired company needs a new President &#8212; a critical leadership role.</p>
-            <p class="cd-body">Executive hiring processes on average take between 2&#8211;6 months. Upon my arrival at Teamshares, there were roughly 80 Network Companies acquired, with some Network Presidents playing double-duty between 2 companies. Teamshares had a goal of having a queue of qualified leaders ready for placement.</p>
-            <p class="cd-body">Recruiting efforts were fragmented across spreadsheets, email chains, and external tools like Lever and LinkedIn. There was no centralized workflow, no visibility into candidate status, and no product dedicated to internal talent operations.</p>
+
+          <div class="cd-two-col">
+            <div>
+              <h2 class="cd-h2">Background</h2>
+              <p class="cd-body">Teamshares is a unique financial platform that buys profitable small businesses and transitions them to employee ownership. Each acquired company needs a new President &#8212; a critical leadership role that determines the success of the transition.</p>
+              <p class="cd-body">Executive hiring on average takes 2&#8211;6 months. Upon my arrival, roughly 80 Network Companies had been acquired, with some Network Presidents playing double-duty between 2 companies. Teamshares had a goal of maintaining a queue of qualified leaders ready for placement.</p>
+              <p class="cd-body">Recruiting efforts were fragmented across spreadsheets, email chains, and external tools like Lever and LinkedIn. There was no centralized workflow, no visibility into candidate status, and no product dedicated to internal talent operations.</p>
+            </div>
+            <div>
+              <h2 class="cd-h2">Personnel</h2>
+              <ul class="cd-checklist">
+                <li>1 designer &#8212; solo design lead</li>
+                <li>1 PM</li>
+                <li>Recruiting team</li>
+                <li>Full-stack engineering</li>
+              </ul>
+            </div>
           </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">Early findings</h2>
-            <p class="cd-body">To uncover the right product opportunity, I facilitated in-depth interviews with our internal recruiters. Key insights emerged:</p>
-            <ul class="cd-list">
+            <p class="cd-body">To uncover the right product opportunity, I facilitated in-depth interviews with internal recruiters. Key insights emerged:</p>
+            <ul class="cd-checklist">
               <li><strong>High friction and context-switching:</strong> Recruiters managed data across multiple tools without automation or visibility</li>
               <li><strong>No structured workflow:</strong> There was no way to track applicant stages or progress consistently</li>
               <li><strong>Urgency in hiring:</strong> Presidents were critical for operational continuity at newly acquired businesses</li>
+              <li><strong>We had an asset:</strong> There was no way to track or leverage the pipeline of qualified applicants who didn&#39;t make it the first time around</li>
             </ul>
-            <div class="cd-img-placeholder">Image coming soon</div>
           </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">Strategic goals</h2>
-            <ul class="cd-list">
+            <ul class="cd-checklist">
               <li><strong>Centralize</strong> applicant data into a single internal product</li>
               <li><strong>Streamline</strong> workflows and reduce time spent per applicant</li>
-              <li><strong>Enable</strong> recruiters to create candidate shortlists and take action quickly</li>
+              <li><strong>Enable</strong> recruiters to build candidate shortlists and take action quickly</li>
               <li><strong>Support</strong> cross-functional collaboration with engineering and recruiting from day one</li>
             </ul>
           </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">Design process</h2>
-            <h3 class="cd-h3">Candidate detail views</h3>
-            <p class="cd-body">Created responsive layouts optimized for recruiters working on desktops and candidates applying on mobile. Designed views to surface high-signal data &#8212; resumes, notes, pipeline stage &#8212; with minimal clicks.</p>
-            <div class="cd-img-placeholder">Image coming soon</div>
-            <h3 class="cd-h3">Status tiles &amp; pipeline visibility</h3>
-            <p class="cd-body">Designed visual indicators for each stage of the hiring funnel. Recruiters could now filter, search, and prioritize candidates based on their pipeline stage.</p>
-            <div class="cd-img-placeholder">Image coming soon</div>
-            <h3 class="cd-h3">Custom landing page</h3>
-            <p class="cd-body">Added a branded landing experience for applicants &#8212; conveying Teamshares&#39; mission of employee ownership and how being a President fits into that narrative.</p>
+
+            <h3 class="cd-h3">Candidate Action States</h3>
+            <p class="cd-body">I mapped every state a candidate could be in throughout the hiring funnel and designed clear action affordances for each. Recruiters needed to know at a glance: what stage is this person in, and what&#39;s the next action?</p>
+
+            <h3 class="cd-h3">Application Submission (Applicant View)</h3>
+            <p class="cd-body">Created a mobile-first application experience for candidates. The flow communicated Teamshares&#39; mission of employee ownership and contextualized the President role within that narrative &#8212; helping self-select the right candidates before they even applied.</p>
+
+            <h3 class="cd-h3">Status Tiles &amp; Pipeline Visibility</h3>
+            <p class="cd-body">Designed visual status indicators for each stage of the hiring funnel. Recruiters could now filter, search, and prioritize candidates based on pipeline stage &#8212; replacing spreadsheets with a purpose-built queue view.</p>
+
+            <div class="cd-screenshot-wrap">
+              <img src="assets/teamshares%20ats.png" class="cd-screenshot" alt="ATS pipeline view" />
+            </div>
+
+            <h3 class="cd-h3">Custom filters and candidate matching</h3>
+            <p class="cd-body">Built a filtering system that let recruiters surface candidates by role fit, geography, availability, and previous stage outcomes. This unlocked the &#34;bench&#34; &#8212; qualified candidates who hadn&#39;t been placed yet but were ready to be.</p>
           </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">Evolving the product</h2>
+            <p class="cd-body">What started as a candidate tracker grew into a full hiring infrastructure. As recruiters used the product, I ran bi-weekly sessions to surface friction and iterate fast. Each sprint tightened the workflow:</p>
+            <ul class="cd-checklist">
+              <li>Candidate evaluation with scoring rubric added in sprint 3</li>
+              <li>Admin tools for assignment management after pilot feedback</li>
+              <li>Email notification hooks to reduce manual status updates</li>
+              <li>Bulk action support as volume grew</li>
+            </ul>
+
+            <div class="cd-screenshot-wrap">
+              <img src="assets/teamshares%20ats.png" class="cd-screenshot" alt="ATS evolved view" />
+            </div>
+          </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">What we shipped</h2>
-            <ul class="cd-list">
-              <li>A structured applicant database</li>
-              <li>Custom filters and status views</li>
+            <ul class="cd-checklist">
+              <li>A structured applicant database replacing Lever and spreadsheets</li>
+              <li>Custom filters and pipeline status views</li>
               <li>Admin tools for recruiters to manage assignments</li>
               <li>Mobile-first application experience for candidates</li>
               <li>Candidate evaluation with scoring rubric</li>
+              <li>Shortlist builder for President placement readiness</li>
             </ul>
           </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">Strategic insight &amp; future vision</h2>
+            <p class="cd-body">In contrast, along with our recruiter feedback, I gathered the perspective of Network Presidents &#8212; getting qualitative signals from the people who&#39;d been through the process. This shaped a future vision: a two-sided platform where candidates could maintain profiles between applications and Teamshares could proactively match upcoming openings to warm candidates already in the system.</p>
+          </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">Outcomes</h2>
-            <ul class="cd-list">
-              <li><strong>Single source of truth:</strong> All applicant management now happens within Teamshares, replacing Lever and spreadsheets</li>
-              <li><strong>Increased throughput:</strong> Recruiters built and managed President shortlists faster with clearer workflows</li>
-              <li><strong>Improved candidate experience:</strong> Mobile-first application flow improved completion rates</li>
-              <li><strong>Product maturity:</strong> The ATS became core infrastructure &#8212; used daily until the team was dissolved during a company-wide reorganization</li>
-            </ul>
+            <div class="cd-outcome-callouts">
+              <div class="cd-outcome-callout cd-oc-green">
+                <strong>Single source of truth</strong> &#8212; All applicant management moved into Teamshares, replacing Lever and spreadsheets entirely
+              </div>
+              <div class="cd-outcome-callout cd-oc-orange">
+                <strong>Increased throughput</strong> &#8212; Recruiters built and managed President shortlists faster with clearer, stage-driven workflows
+              </div>
+              <div class="cd-outcome-callout cd-oc-blue">
+                <strong>Improved candidate experience</strong> &#8212; Mobile-first application flow improved completion rates and candidate quality
+              </div>
+              <div class="cd-outcome-callout cd-oc-purple">
+                <strong>Product maturity</strong> &#8212; The ATS became core infrastructure, used daily until the team was dissolved in a company-wide reorganization
+              </div>
+            </div>
           </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">Impact</h2>
+            <div class="cd-outcomes-grid">
+              <div class="cd-outcome-item">
+                <span class="cd-outcome-val">20+</span>
+                <span class="cd-outcome-desc">leaders hired through the platform</span>
+              </div>
+              <div class="cd-outcome-item">
+                <span class="cd-outcome-val">10+</span>
+                <span class="cd-outcome-desc">qualified leaders identified and benched for future placement</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">Why this platform matters</h2>
+            <p class="cd-body">Getting the right President into an acquired small business isn&#39;t just an HR task &#8212; it&#39;s the unlock for employee ownership to actually work. Every hire placed through this system represented a business transforming from a retiring owner&#39;s legacy into something collectively owned by the people who run it.</p>
+            <p class="cd-body">Designing this product meant designing for that outcome.</p>
+          </div>
+
           <div class="cd-block cd-closer">
             <p class="cd-body">This wasn&#39;t just an internal tool &#8212; it was the infrastructure that enabled Teamshares to scale leadership placement, unlock employee ownership, and drive long-term transformation across small businesses nationwide.</p>
+          </div>
+
+          <div class="cd-haiku">
+            <p>Thank you for coming</p>
+            <p>I wrote this haiku for you</p>
+            <p>Check out my work &#8593;</p>
           </div>
         `,
       },
