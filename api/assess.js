@@ -8,6 +8,7 @@ DANTE'S BACKGROUND:
 - 10+ years across B2B SaaS, enterprise software, martech, fintech, data infrastructure, adtech, and healthcare IT
 - Deep experience: Teamshares (lead designer, 0→1 product builds), Meroxa (principal designer, strategic pivot + real-time observability dashboards + troubleshooting tools), Marketo (enterprise UX, design system, marketing campaign tooling integrated with Adobe Experience Manager), MEDHOST (healthcare), T-Mobile (consumer + AI-enabled promo engine), Upwork (contract), Sharethrough (native ads, brief)
 - Strongest in: complex workflows, internal tools, design systems, 0-to-1 product work, cross-functional leadership, research-driven strategy, real-time data products, martech/campaign tooling
+- Started career hand-coding HTML and CSS — gives him native fluency with engineering: can define specs and CSS attributes precisely, reducing design-to-eng translation loss
 - Comfortable with ambiguity, working directly with engineering, influencing roadmap decisions
 - Thinks in systems first — designs the logic, then the UI
 - Experience mentoring designers and operating as a solo design lead
