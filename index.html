@@ -466,9 +466,12 @@
       document.querySelectorAll('.mob-tab').forEach(t =>
         t.classList.toggle('mob-tab--active', t.dataset.tab === which)
       );
-      document.getElementById('portfolioLeft').classList.toggle('mob-active', which === 'work');
+      // portfolioLeft must stay visible for both 'work' and 'fit' — fitPanel lives inside it
+      document.getElementById('portfolioLeft').classList.toggle('mob-active', which === 'work' || which === 'fit');
       document.getElementById('chatRail').classList.toggle('mob-active', which === 'chat');
       document.getElementById('fitPanel').classList.toggle('mob-active', which === 'fit');
+      // Hide case list behind the fit panel so it doesn't bleed through
+      document.getElementById('caseListPanel').style.display = which === 'fit' ? 'none' : '';
       if (which === 'chat') {
         setTimeout(() => {
           const prompt = document.getElementById('railNamePrompt');

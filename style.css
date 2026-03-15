@@ -97,11 +97,13 @@
 /* ─── Base ─── */
 html, body {
   height: 100%;
+  min-height: 100dvh; /* fills dynamic viewport on mobile (accounts for address bar) */
 }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: linear-gradient(to top, #bae6fd, #7dd3fc 45%, #0284c7); /* fallback */
+  background-attachment: fixed; /* gradient stays pinned to viewport, not element */
   color: #1f1f1f;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
