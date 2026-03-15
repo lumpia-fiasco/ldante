@@ -988,6 +988,202 @@ main {
   font-style: italic;
 }
 
+/* ─── Case study rich layout components ─── */
+
+/* Hero image — bleeds past panel padding */
+.cd-hero-img-wrap {
+  width: calc(100% + 120px);
+  margin-left: -60px;
+  margin-top: -20px;
+  margin-bottom: 48px;
+  overflow: hidden;
+}
+.cd-hero-img {
+  width: 100%;
+  display: block;
+  max-height: 400px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Two-column grid */
+.cd-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 44px;
+}
+
+/* Checklist — green checks */
+.cd-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cd-checklist li {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: rgba(31, 31, 31, 0.75);
+  line-height: 1.55;
+  padding-left: 22px;
+  position: relative;
+}
+.cd-checklist li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #16a34a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  top: 1px;
+}
+
+/* From → To reframe */
+.cd-reframe {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 20px 0 24px;
+}
+.cd-reframe-from,
+.cd-reframe-to {
+  padding: 20px 22px;
+  border-radius: 12px;
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  line-height: 1.5;
+}
+.cd-reframe-from {
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  color: rgba(31, 31, 31, 0.65);
+}
+.cd-reframe-to {
+  background: rgba(22, 163, 74, 0.07);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  color: #1f1f1f;
+}
+.cd-reframe-label {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0.45;
+}
+
+/* Inline screenshot — bleeds past panel padding */
+.cd-screenshot-wrap {
+  width: calc(100% + 120px);
+  margin-left: -60px;
+  margin-bottom: 48px;
+  overflow: hidden;
+}
+.cd-screenshot {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+  max-height: 500px;
+}
+
+/* Ecosystem flow diagram */
+.cd-flow-wrap {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cd-flow-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cd-flow-node {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 1.35;
+}
+.cd-flow-source {
+  background: rgba(59, 130, 246, 0.09);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: #1d4ed8;
+}
+.cd-flow-hub {
+  background: rgba(124, 58, 237, 0.09);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  color: #6d28d9;
+}
+.cd-flow-primary {
+  background: rgba(22, 163, 74, 0.09);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  color: #15803d;
+}
+.cd-flow-secondary {
+  background: rgba(234, 88, 12, 0.09);
+  border: 1px solid rgba(234, 88, 12, 0.22);
+  color: #c2410c;
+}
+.cd-flow-conn {
+  color: rgba(31, 31, 31, 0.25);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.cd-flow-branches {
+  padding-left: 24px;
+  border-left: 2px solid rgba(31, 31, 31, 0.08);
+  margin-left: 32px;
+}
+.cd-flow-branch-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Outcomes grid */
+.cd-outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 24px;
+  margin: 24px 0 32px;
+  padding: 28px 32px;
+  background: rgba(31, 31, 31, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(31, 31, 31, 0.07);
+}
+.cd-outcome-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cd-outcome-val {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(2rem, 2.6vw, 3rem);
+  font-weight: 600;
+  color: #1f1f1f;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.cd-outcome-text {
+  font-size: clamp(1.2rem, 1.6vw, 1.8rem);
+}
+.cd-outcome-desc {
+  font-family: 'Golos Text', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(31, 31, 31, 0.5);
+  line-height: 1.45;
+}
+
 /* Image injected from chat */
 .cd-injected-img {
   margin-top: 20px;

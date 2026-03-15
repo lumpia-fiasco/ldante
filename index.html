@@ -568,66 +568,120 @@
           { value: '$3.1M',  label: 'annual efficiency gains' },
         ],
         content: `
-          <div class="cd-block">
-            <h2 class="cd-h2">Background</h2>
-            <p class="cd-body">Teamshares is a startup based out of Brooklyn, New York. They acquire small to medium sized businesses from their retiring owners and convert these acquisitions into employee-owned companies. Teamshares subsequently installs leadership who would then be advised by Teamshares&#39; Industry Leads.</p>
-            <p class="cd-body">To support these Network Companies, Teamshares has a suite of products built specifically for their use cases.</p>
+          <div class="cd-hero-img-wrap">
+            <img src="assets/teamshares%20payroll.png" class="cd-hero-img" alt="Teamshares Payroll Dashboard" />
           </div>
-          <img class="mac-payroll" src="assets/teamshares-payroll.png" alt="Teamshares Payroll" />
+
+          <div class="cd-two-col">
+            <div>
+              <h2 class="cd-h2">Background</h2>
+              <p class="cd-body">Teamshares is a startup based out of Brooklyn, New York. They acquire small to medium sized businesses from retiring owners and convert them into employee-owned companies. Teamshares subsequently installs leadership who would then be advised by Industry Leads.</p>
+              <p class="cd-body">To support these Network Companies, Teamshares has a suite of products built specifically for their use cases.</p>
+            </div>
+            <div>
+              <h2 class="cd-h2">Personnel</h2>
+              <ul class="cd-checklist">
+                <li>1 designer &#8212; solo design lead</li>
+                <li>Finance leadership as stakeholders</li>
+                <li>Data engineering team</li>
+                <li>Full-stack engineers &#215; 2</li>
+                <li>6 Industry Lead pilot users</li>
+              </ul>
+            </div>
+          </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">Strategic insight</h2>
             <h3 class="cd-h3">Reframing the problem</h3>
             <p class="cd-body">Initial requests centered on &#34;making reports easier to generate.&#34; Through discovery, I found the root issue was:</p>
-            <ul class="cd-list">
+            <ul class="cd-checklist">
               <li>Data lived in disparate, inconsistent systems</li>
               <li>Industry Leads lacked centralized visibility into real-time payroll health</li>
               <li>Analyses were delayed by 3&#8211;5 days due to manual processes</li>
             </ul>
-            <p class="cd-body">I shifted the conversation:</p>
-            <div class="cd-callout">
-              <div class="cd-callout-from"><span>From</span> &#34;How do we automate reports?&#34;</div>
-              <div class="cd-callout-to"><span>To</span> &#34;Deliver the right data at the right time to enable scalable, intelligent decision-making.&#34;</div>
+            <div class="cd-reframe">
+              <div class="cd-reframe-from">
+                <span class="cd-reframe-label">From</span>
+                &#34;How do we automate reports?&#34;
+              </div>
+              <div class="cd-reframe-to">
+                <span class="cd-reframe-label">To</span>
+                &#34;Deliver the right data at the right time to enable scalable, intelligent decision-making.&#34;
+              </div>
             </div>
             <p class="cd-body">My mission was to eliminate operational friction so Industry Leads could focus on what matters most &#8212; helping our Network Companies succeed.</p>
-            <div class="cd-img-placeholder">Image coming soon</div>
           </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">My role</h2>
-            <p class="cd-body">As the sole product designer on this effort, I:</p>
-            <ul class="cd-list">
+            <ul class="cd-checklist">
               <li><strong>Reframed the problem</strong> from &#34;reporting&#34; to &#34;operational leverage&#34;</li>
               <li><strong>Drove alignment</strong> across finance, data, and engineering</li>
               <li><strong>Led end-to-end design</strong>, from discovery to delivery</li>
               <li><strong>Pitched the dashboard vision</strong> to the executive team</li>
             </ul>
           </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">Driving alignment</h2>
-            <p class="cd-body">This project spanned finance leadership (to define the most critical metrics), data engineering (to align on data model viability), and the ops team (to validate real-world usability).</p>
+            <p class="cd-body">This project spanned finance leadership, data engineering, and the ops team. Getting everyone pointed in the same direction required:</p>
             <h3 class="cd-h3">Cross-functional leadership</h3>
-            <ul class="cd-list">
-              <li>A prioritization workshop to align around the MVP scope</li>
+            <ul class="cd-checklist">
+              <li>A prioritization workshop to align around MVP scope</li>
               <li>Weekly syncs across teams to resolve blockers</li>
               <li>A dashboard pilot with 6 Industry Leads to validate real-world usage before scaling</li>
             </ul>
-            <div class="cd-img-placeholder">Image coming soon</div>
           </div>
+
+          <div class="cd-screenshot-wrap">
+            <img src="assets/teamshares%20payroll.png" class="cd-screenshot" alt="Payroll reporting dashboard" />
+          </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">The ripples: affecting the ecosystem</h2>
             <p class="cd-body">During discovery, I noted the requirement of importing data from various payroll sources. Keeping aware of the broader system, I considered the pending undertaking of Financial Products needing to integrate with QuickBooks, so I established a central place to perform integrations within TeamsharesOS.</p>
             <p class="cd-body">With payroll being the source-of-truth for employee rosters, this presented an opportunity to ease efforts for Teamshares Admins who issue Network Company shares to their employee-owners. The initial integration prompts the merging of data to the cap table.</p>
-            <div class="cd-img-placeholder">Image coming soon</div>
+            <div class="cd-flow-wrap">
+              <div class="cd-flow-row">
+                <div class="cd-flow-node cd-flow-source">Payroll<br>Providers</div>
+                <div class="cd-flow-conn">&#8594;</div>
+                <div class="cd-flow-node cd-flow-hub">TeamsharesOS<br>Integration Hub</div>
+                <div class="cd-flow-conn">&#8594;</div>
+                <div class="cd-flow-node cd-flow-primary">Payroll<br>Dashboard</div>
+              </div>
+              <div class="cd-flow-branches">
+                <div class="cd-flow-branch-items">
+                  <div class="cd-flow-node cd-flow-secondary">Cap Table Sync</div>
+                  <div class="cd-flow-node cd-flow-secondary">QuickBooks Integration</div>
+                  <div class="cd-flow-node cd-flow-secondary">Industry Lead Insights</div>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="cd-block">
             <h2 class="cd-h2">Outcomes</h2>
-            <ul class="cd-list">
-              <li><strong>Customer efficiency:</strong> 50% reduction in analysis time (3 hours &#8594; 1.5 hours per company)</li>
-              <li><strong>Operational scale:</strong> 135+ hours saved per cycle across the entire network</li>
-              <li><strong>Platform adoption:</strong> Integration patterns adopted by other teams</li>
-              <li><strong>Foundation building:</strong> Established automated systems improving accuracy at scale</li>
-            </ul>
-            <p class="cd-body">Industry Leads report feeling more confident in their work and having time to focus on strategic analysis rather than data wrangling. The tool has become central to monthly financial reviews across Teamshares.</p>
+            <div class="cd-outcomes-grid">
+              <div class="cd-outcome-item">
+                <span class="cd-outcome-val">50%</span>
+                <span class="cd-outcome-desc">reduction in analysis time &#8212; from 3 hours to 1.5 hours per company</span>
+              </div>
+              <div class="cd-outcome-item">
+                <span class="cd-outcome-val">135+</span>
+                <span class="cd-outcome-desc">hours saved per cycle across the entire network</span>
+              </div>
+              <div class="cd-outcome-item">
+                <span class="cd-outcome-val">$3.1M</span>
+                <span class="cd-outcome-desc">in annual efficiency gains</span>
+              </div>
+              <div class="cd-outcome-item">
+                <span class="cd-outcome-val cd-outcome-text">Adopted</span>
+                <span class="cd-outcome-desc">integration patterns picked up by other Teamshares product teams</span>
+              </div>
+            </div>
+            <p class="cd-body">Industry Leads report feeling more confident in their work and having time to focus on strategic analysis rather than data wrangling. The tool became central to monthly financial reviews across Teamshares.</p>
           </div>
+
           <div class="cd-block cd-closer">
             <p class="cd-body">This case wasn&#39;t about just designing a dashboard &#8212; it was about enabling scale. It required reframing the problem, driving cross-functional alignment, and delivering systems-level thinking under operational pressure while bringing value organization-wide.</p>
           </div>
