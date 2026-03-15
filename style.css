@@ -1306,26 +1306,32 @@ main {
 .fit-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
+  gap: 10px;
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.3rem, 1.8vw, 2rem);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: #1f1f1f;
-  background: none;
-  border: 1.5px solid rgba(31, 31, 31, 0.2);
-  border-radius: 100px;
-  padding: 10px 20px;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  background: #1f1f1f;
+  border: none;
+  border-radius: 18px;
+  padding: clamp(14px, 1.8vh, 24px) clamp(32px, 3.5vw, 52px);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.2s ease;
+  transition: background 0.15s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .fit-btn:hover {
-  background: rgba(31, 31, 31, 0.05);
-  border-color: rgba(31, 31, 31, 0.4);
-  transform: translateX(4px);
+  background: #383838;
+  transform: translateY(-4px) scale(1.02);
 }
-.sky-dark .fit-btn { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.25); }
-.sky-dark .fit-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+.fit-btn:active { transform: translateY(0) scale(0.98); }
+.sky-dark .fit-btn {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.sky-dark .fit-btn:hover { background: rgba(255, 255, 255, 0.22); }
 
 /* ─── Fit panel (same sheet mechanic as case detail) ─── */
 .fit-panel {
