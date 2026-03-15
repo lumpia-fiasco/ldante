@@ -1094,7 +1094,19 @@
     }
 
     // Back buttons
-    document.getElementById('caseBackBtn').addEventListener('click', showCaseList);
+    document.getElementById('caseBackBtn').addEventListener('click', () => {
+      if (window._returnToFit) {
+        window._returnToFit = false;
+        showCaseList(); // restore list panel first
+        // Re-open fit panel over it
+        document.getElementById('caseListPanel').classList.add('hidden');
+        const fp = document.getElementById('fitPanel');
+        fp.classList.add('active');
+        if (window.innerWidth <= 680) activateMobTab('fit');
+      } else {
+        showCaseList();
+      }
+    });
 
     // ─── Fit panel ────────────────────────────────────────────────────────────
     function showFitPanel() {
@@ -1207,9 +1219,14 @@
           ` : ''}
         `;
 
-        // Wire case links in results
+        // Wire case links in results — close fit panel first so detail isn't buried behind it
         resultsEl.querySelectorAll('.fit-case-link[data-case]').forEach(btn => {
-          btn.addEventListener('click', () => showCase(btn.dataset.case));
+          btn.addEventListener('click', () => {
+            document.getElementById('fitPanel').classList.remove('active');
+            document.getElementById('fitPanel').classList.remove('mob-active');
+            window._returnToFit = true; // back button returns to fit, not just case list
+            showCase(btn.dataset.case);
+          });
         });
 
       } catch (err) {
