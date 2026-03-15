@@ -215,6 +215,7 @@
             ></textarea>
             <div class="fit-char-row">
               <span id="fitCharCount">0</span> / 5000
+              <button class="fit-clear-btn" id="fitClearBtn" hidden>Clear</button>
             </div>
           </div>
           <div class="fit-error" id="fitError" hidden></div>
@@ -1128,11 +1129,25 @@
     document.getElementById('fitBtn').addEventListener('click', showFitPanel);
     document.getElementById('fitBackBtn').addEventListener('click', hideFitPanel);
 
-    // Character counter
+    // Character counter + clear button
     const fitTextarea  = document.getElementById('fitTextarea');
     const fitCharCount = document.getElementById('fitCharCount');
+    const fitClearBtn  = document.getElementById('fitClearBtn');
+
     fitTextarea.addEventListener('input', () => {
-      fitCharCount.textContent = fitTextarea.value.length;
+      const len = fitTextarea.value.length;
+      fitCharCount.textContent = len;
+      fitClearBtn.hidden = len === 0;
+    });
+
+    fitClearBtn.addEventListener('click', () => {
+      fitTextarea.value = '';
+      fitCharCount.textContent = '0';
+      fitClearBtn.hidden = true;
+      document.getElementById('fitError').hidden   = true;
+      document.getElementById('fitResults').hidden  = true;
+      document.getElementById('fitResults').innerHTML = '';
+      fitTextarea.focus();
     });
 
     // Submit on Enter (but allow Shift+Enter for newlines)
