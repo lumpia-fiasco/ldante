@@ -1682,15 +1682,15 @@ main {
   .fit-panel {
     position: absolute;
     inset: 0;
-    bottom: 62px;
+    bottom: 0; /* portfolioLeft already subtracts 62px for the tab bar — don't double-subtract */
     width: 100%;
-    height: auto;
-    padding: 32px 20px 40px;
+    padding: 52px 20px 48px; /* 52px top clears the panel edge + breathing room */
     display: none;
     opacity: 1;
     transform: none;
     pointer-events: auto;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   /* On mobile, fit panel is the default view — shown via mob-active */
   .fit-panel.mob-active {
