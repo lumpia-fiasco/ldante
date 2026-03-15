@@ -352,7 +352,7 @@
     // On mouseleave it snaps back to the actual time-of-day gradient.
     function tick() {
       if (hover) {
-        hoverT = (hoverT + 0.00028) % 1; // full 24h cycle ≈ 60 s
+        hoverT = (hoverT + 0.00084) % 1; // full 24h cycle ≈ 20 s
         document.body.style.background = skyGradientAt(hoverT);
         rafId = requestAnimationFrame(tick);
       } else {
