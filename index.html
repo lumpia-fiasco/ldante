@@ -99,6 +99,11 @@
               spellcheck="false"
               maxlength="40"
             >
+            <button class="name-send-btn" id="nameSendBtn" aria-label="Submit name">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
           <p class="name-hint">press Enter ↵</p>
         </div>
@@ -119,6 +124,11 @@
             spellcheck="false"
             maxlength="300"
           >
+          <button class="chat-send-btn" id="chatSendBtn" aria-label="Send message">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 16V4M4 10l6-6 6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
 
       </div>
@@ -493,12 +503,16 @@
     });
 
     // ─── Name submission ──────────────────────────────────────────────────────
-    document.getElementById('nameInput').addEventListener('keydown', function(e) {
-      if (e.key !== 'Enter') return;
-      const name = this.value.trim();
+    function submitName() {
+      const name = document.getElementById('nameInput').value.trim();
       if (!name) return;
       startConversation(name);
+    }
+    document.getElementById('nameInput').addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter') return;
+      submitName();
     });
+    document.getElementById('nameSendBtn').addEventListener('click', submitName);
 
     // ─── AI chat state ────────────────────────────────────────────────────────
     let visitorName = '';
@@ -629,14 +643,19 @@
         if (input) input.focus();
       }, 100);
 
-      document.getElementById('chatInput').addEventListener('keydown', (e) => {
-        if (e.key !== 'Enter') return;
-        const text = e.target.value.trim();
+      function submitChat() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
         if (!text || aiLocked) return;
-        e.target.value = '';
+        input.value = '';
         addUserMsg(text);
         sendToAI(text);
+      }
+      document.getElementById('chatInput').addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        submitChat();
       });
+      document.getElementById('chatSendBtn').addEventListener('click', submitChat);
     }
 
     // ─── Case data ────────────────────────────────────────────────────────────
