@@ -20,10 +20,6 @@
   inset: 0;
   z-index: 9999;
   background-color: #1f1f1f;
-  background-image: url('assets/portrait-bg.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,9 +46,20 @@
 .pw-inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 20px;
-  width: clamp(280px, 38vw, 480px);
+  width: clamp(280px, 60vw, 640px);
+}
+
+.pw-name {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 65px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #ffffff;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
 }
 
 .pw-label {
