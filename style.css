@@ -1683,7 +1683,7 @@ main {
     border-top: none;
     min-height: unset;
     display: none;
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
   }
@@ -1765,5 +1765,30 @@ main {
   .cd-screenshots-row {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  /* ── Chat rail has a white bg on mobile — force dark text regardless of sky-dark ── */
+  .sky-dark .chat-rail {
+    border-right-color: rgba(31, 31, 31, 0.08);
+  }
+  .sky-dark .name-question,
+  .sky-dark .name-hint {
+    color: #1f1f1f;
+  }
+  .sky-dark .name-input {
+    color: #1f1f1f;
+    border-bottom-color: rgba(31, 31, 31, 0.25);
+  }
+  .sky-dark .name-input::placeholder { color: rgba(31, 31, 31, 0.3); }
+  .sky-dark .name-input:focus        { border-bottom-color: #1f1f1f; }
+  .sky-dark .msg-text                { color: #1f1f1f; }
+  .sky-dark .msg--user .msg-text {
+    color: #1f1f1f;
+    background: rgba(31, 31, 31, 0.09);
+  }
+  .sky-dark .msg-dot-wrap span       { background: rgba(31, 31, 31, 0.3); }
+  .sky-dark .rail-input-wrap {
+    border-top-color: rgba(31, 31, 31, 0.08);
+    background: rgba(255, 255, 255, 0.4);
   }
 }
