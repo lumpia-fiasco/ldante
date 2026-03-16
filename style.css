@@ -378,7 +378,7 @@ main {
   overflow-y: scroll;
   touch-action: pan-y;
   overscroll-behavior: contain;
-  padding: 56px 60px 80px;
+  padding: 0 60px 80px;
   -webkit-overflow-scrolling: touch;
   will-change: transform, opacity;
 }
@@ -409,15 +409,22 @@ main {
   pointer-events: auto;
 }
 
-/* ─── Back button ─── */
+/* ─── Back button — sticky so it's always accessible ─── */
 .case-back-btn {
-  display: inline-flex;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
   align-items: center;
   gap: 6px;
-  background: none;
+  /* Bleed past the 60px panel gutters so the bg covers full width */
+  width: calc(100% + 120px);
+  margin-left: -60px;
+  padding: 22px 60px 14px;
+  margin-bottom: 32px;
+  background: #ffffff;
+  box-shadow: 0 12px 20px 8px #ffffff; /* soft white fade — masks content scrolling behind */
   border: none;
-  padding: 0;
-  margin-bottom: 44px;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
@@ -1069,15 +1076,18 @@ main {
 .cd-screenshot-frame {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   overflow: hidden;
   border-radius: 12px;
-  border: 1px solid rgba(31, 31, 31, 0.08);
+  background: #f0f0f2;
+  padding: 14px 14px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 .cd-screenshot-frame img {
   width: 100%;
   display: block;
   height: auto;
+  border-radius: 6px 6px 0 0;
 }
 .cd-screenshot-frame span {
   font-family: 'Inter', sans-serif;
@@ -1100,6 +1110,8 @@ main {
   width: 100%;
   display: block;
   height: auto;
+  max-height: 480px;
+  object-fit: cover;
 }
 
 /* Responsive video embed */
@@ -1193,15 +1205,18 @@ main {
 
 /* Inline screenshot — bleeds past panel padding */
 .cd-screenshot-wrap {
-  width: calc(100% + 120px);
-  margin-left: -60px;
-  margin-bottom: 48px;
+  margin: 12px 0 36px;
+  border-radius: 14px;
   overflow: hidden;
+  background: #f0f0f2;
+  padding: 18px 18px 0;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 .cd-screenshot {
   width: 100%;
   display: block;
   height: auto;
+  border-radius: 8px 8px 0 0;
 }
 
 /* Ecosystem flow diagram */
@@ -1821,12 +1836,17 @@ main {
 
   /* ── Case detail panel — tighter padding on mobile ── */
   .case-detail-panel {
-    padding: 28px 20px 80px;
+    padding: 0 20px 80px;
   }
 
-  /* ── cd-hero and screenshot bleed — reset negative margins ── */
-  .cd-hero-img-wrap,
-  .cd-screenshot-wrap {
+  .case-back-btn {
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    padding: 18px 20px 12px;
+  }
+
+  /* ── cd-hero bleed — reset negative margins ── */
+  .cd-hero-img-wrap {
     width: calc(100% + 40px);
     margin-left: -20px;
   }
