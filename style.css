@@ -1645,9 +1645,12 @@ main {
   body {
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100dvh; /* dvh = dynamic viewport — excludes Safari URL bar */
     overflow: hidden;
   }
+
+  /* main must use dvh so tab bar at bottom:0 stays within the visible viewport */
+  main { height: calc(100dvh - 80px); }
 
   /* ── Split → tabbed layout ── */
   .portfolio-view.active {

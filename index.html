@@ -1128,7 +1128,13 @@
     }
 
     document.getElementById('fitBtn').addEventListener('click', showFitPanel);
-    document.getElementById('fitBackBtn').addEventListener('click', hideFitPanel);
+    document.getElementById('fitBackBtn').addEventListener('click', function() {
+      if (window.innerWidth <= 680) {
+        activateMobTab('work'); // on mobile: back = switch to Work tab
+      } else {
+        hideFitPanel();
+      }
+    });
 
     // Character counter + clear button
     const fitTextarea  = document.getElementById('fitTextarea');
