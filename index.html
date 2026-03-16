@@ -215,7 +215,7 @@
             Cases
           </button>
           <h1 class="fit-title">Am I a fit?</h1>
-          <p class="fit-desc">Copy and paste your job description, hit enter and let's see!</p>
+          <p class="fit-desc">Paste a job description or URL and let's see how we match up.</p>
           <div class="fit-input-wrap">
             <textarea
               class="fit-textarea"
@@ -227,6 +227,11 @@
             <div class="fit-char-row">
               <span id="fitCharCount">0</span> / 5000
               <button class="fit-clear-btn" id="fitClearBtn" hidden>Clear</button>
+              <button class="fit-assess-btn" id="fitAssessBtn" aria-label="Run assessment">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M10 16V4M4 10l6-6 6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
             </div>
           </div>
           <div class="fit-error" id="fitError" hidden></div>
@@ -1155,10 +1160,11 @@
       }
     });
 
-    // Character counter + clear button
+    // Character counter + clear button + assess button
     const fitTextarea  = document.getElementById('fitTextarea');
     const fitCharCount = document.getElementById('fitCharCount');
     const fitClearBtn  = document.getElementById('fitClearBtn');
+    document.getElementById('fitAssessBtn').addEventListener('click', runAssessment);
 
     fitTextarea.addEventListener('input', () => {
       const len = fitTextarea.value.length;
