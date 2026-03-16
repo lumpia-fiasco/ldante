@@ -378,9 +378,14 @@ main {
   overflow-y: scroll;
   touch-action: pan-y;
   overscroll-behavior: contain;
-  padding: 0 60px 80px;
   -webkit-overflow-scrolling: touch;
   will-change: transform, opacity;
+}
+.case-list-panel {
+  padding: 56px 60px 80px;
+}
+.case-detail-panel {
+  padding: 0 60px 80px; /* top padding handled by sticky back button */
 }
 
 /* ─── List panel — default: visible ─── */
