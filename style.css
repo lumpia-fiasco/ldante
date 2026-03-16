@@ -1,12 +1,3 @@
-/* ─── Cal Sans ─── */
-@font-face {
-  font-family: 'Cal Sans';
-  src: url('assets/CalSans-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* ─── Reset ─── */
 *, *::before, *::after {
   box-sizing: border-box;
