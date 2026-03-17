@@ -263,16 +263,18 @@
   <script>
     // ─── Password gate ────────────────────────────────────────────────────────
     // ─── Password field: one sky cycle on first focus ─────────────────────────
+    const PW_DARK_BG = 'linear-gradient(to top, #0f172a, #0b0f1e 45%, #020617)';
     document.getElementById('pwInput').addEventListener('focus', function runPwCycle() {
+      const gate = document.getElementById('pwGate');
       let progress = 0, t = 0;
       function frame() {
         t = (t + 0.00252) % 1;
         progress += 0.00252;
-        document.body.style.background = skyGradientAt(t);
+        gate.style.background = skyGradientAt(t);
         if (progress < 1) {
           requestAnimationFrame(frame);
         } else {
-          applySkyBg(); // snap back to dark
+          gate.style.background = PW_DARK_BG; // snap back to midnight
         }
       }
       requestAnimationFrame(frame);
