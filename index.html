@@ -262,6 +262,22 @@
 
   <script>
     // ─── Password gate ────────────────────────────────────────────────────────
+    // ─── Password field: one sky cycle on first focus ─────────────────────────
+    document.getElementById('pwInput').addEventListener('focus', function runPwCycle() {
+      let progress = 0, t = 0;
+      function frame() {
+        t = (t + 0.00252) % 1;
+        progress += 0.00252;
+        document.body.style.background = skyGradientAt(t);
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          applySkyBg(); // snap back to dark
+        }
+      }
+      requestAnimationFrame(frame);
+    }, { once: true }); // only fires on first focus
+
     // Password is verified server-side via /api/auth — never exposed in source.
     (function () {
       const gate  = document.getElementById('pwGate');
@@ -360,47 +376,14 @@
       { h: 24,    bot: '#0f172a', mid: '#0b0f1e', top: '#020617' }, // midnight
     ];
 
+    // ─── Static dark sky (midnight) ───────────────────────────────────────────
+    const DARK_BG = 'linear-gradient(to top, #0f172a, #0b0f1e 45%, #020617)';
     function applySkyBg() {
-      const now = new Date();
-      const h = now.getHours() + now.getMinutes() / 60;
-
-      let stopA = skyTimeline[0], stopB = skyTimeline[skyTimeline.length - 1];
-      for (let i = 0; i < skyTimeline.length - 1; i++) {
-        if (h >= skyTimeline[i].h && h < skyTimeline[i + 1].h) {
-          stopA = skyTimeline[i]; stopB = skyTimeline[i + 1]; break;
-        }
-      }
-      const tt = (h - stopA.h) / (stopB.h - stopA.h);
-
-      function blend(c1, c2) {
-        const [r1, g1, b1] = hexToRgb(c1);
-        const [r2, g2, b2] = hexToRgb(c2);
-        return `rgb(${lerp(r1,r2,tt)},${lerp(g1,g2,tt)},${lerp(b1,b2,tt)})`;
-      }
-
-      const bot = blend(stopA.bot, stopB.bot);
-      const mid = blend(stopA.mid, stopB.mid);
-      const top = blend(stopA.top, stopB.top);
-
-      document.body.style.background =
-        `linear-gradient(to top, ${bot}, ${mid} 45%, ${top})`;
-
-      // Dark mode: average luminance across bot + mid + top so a bright horizon
-      // (e.g. sunset pink) doesn't mask an overall dark gradient
-      function blendLum(c1, c2) {
-        const [r1,g1,b1] = hexToRgb(c1);
-        const [r2,g2,b2] = hexToRgb(c2);
-        const R = lerp(r1,r2,tt), G = lerp(g1,g2,tt), B = lerp(b1,b2,tt);
-        return 0.299*R + 0.587*G + 0.114*B;
-      }
-      const avgLum = (blendLum(stopA.bot, stopB.bot) +
-                      blendLum(stopA.mid, stopB.mid) +
-                      blendLum(stopA.top, stopB.top)) / 3;
-      document.body.classList.toggle('sky-dark', avgLum < 140);
+      document.body.style.background = DARK_BG;
+      document.body.classList.add('sky-dark');
     }
 
     applySkyBg();
-    setInterval(applySkyBg, 30000); // refresh every 30 s — gradient shifts subtly
 
     // ─── Logo hover: cycle sky phases forward from current time ──────────────
     // hoverT advances through the full 24h cycle (~60 s per full loop).
@@ -412,7 +395,7 @@
         document.body.style.background = skyGradientAt(hoverT);
         rafId = requestAnimationFrame(tick);
       } else {
-        applySkyBg(); // restore real sky gradient
+        applySkyBg(); // restore dark static gradient
         rafId = null;
       }
     }
@@ -423,7 +406,7 @@
 
     logo.addEventListener('mouseenter', () => {
       hover = true;
-      hoverT = getCurrentSkyT(); // start from the current moment in the cycle
+      hoverT = 0; // start from midnight, cycle forward
       if (!rafId) rafId = requestAnimationFrame(tick);
       tagline.style.transform = `translateY(${PUSH}px)`;
     });
@@ -437,7 +420,7 @@
     const startBtn = document.getElementById('startBtn');
     startBtn.addEventListener('mouseenter', () => {
       hover = true;
-      hoverT = getCurrentSkyT();
+      hoverT = 0; // start from midnight, cycle forward
       if (!rafId) rafId = requestAnimationFrame(tick);
     });
     startBtn.addEventListener('mouseleave', () => {
