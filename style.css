@@ -1112,9 +1112,16 @@ main {
 .cd-hero-img-wrap {
   width: calc(100% + 120px);
   margin-left: -60px;
-  margin-top: -20px;
-  margin-bottom: 48px;
+  margin-top: 56px;
+  margin-bottom: 56px;
   overflow: hidden;
+}
+
+/* No rule or extra gap when a section block immediately follows a full-bleed image */
+.cd-hero-img-wrap + .cd-block {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
 }
 .cd-hero-img {
   width: 100%;
