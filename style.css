@@ -929,25 +929,30 @@ main {
 }
 
 .cd-block {
-  margin-bottom: 44px;
+  margin-top: 64px;
+  margin-bottom: 0;
+  padding-top: 56px;
+  border-top: 1px solid rgba(31, 31, 31, 0.07);
 }
 
 .cd-h2 {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
   font-weight: 400;
   color: #1f1f1f;
   letter-spacing: -0.01em;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .cd-h3 {
-  font-family: 'Golos Text', sans-serif;
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  font-weight: 500;
-  color: #1f1f1f;
-  margin-top: 20px;
-  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(31, 31, 31, 0.38);
+  margin-top: 28px;
+  margin-bottom: 10px;
 }
 
 .cd-body {
@@ -1063,9 +1068,9 @@ main {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #6d28d9;
-  background: rgba(124, 58, 237, 0.08);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  color: rgba(31, 31, 31, 0.55);
+  background: rgba(31, 31, 31, 0.05);
+  border: 1px solid rgba(31, 31, 31, 0.12);
   border-radius: 100px;
   padding: 5px 14px;
   margin-bottom: 16px;
@@ -1084,8 +1089,8 @@ main {
   gap: 0;
   overflow: hidden;
   border-radius: 12px;
-  background: #f0f0f2;
-  padding: 14px 14px 0;
+  background: #f5f5f7;
+  padding: 10px 10px 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 .cd-screenshot-frame img {
@@ -1115,7 +1120,7 @@ main {
   width: 100%;
   display: block;
   height: auto;
-  max-height: 480px;
+  max-height: 560px;
   object-fit: cover;
 }
 
@@ -1141,7 +1146,7 @@ main {
 .cd-two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 56px;
   margin-bottom: 44px;
 }
 
@@ -1163,12 +1168,11 @@ main {
   position: relative;
 }
 .cd-checklist li::before {
-  content: '✓';
+  content: '—';
   position: absolute;
   left: 0;
-  color: #16a34a;
-  font-size: 0.8rem;
-  font-weight: 700;
+  color: rgba(31, 31, 31, 0.22);
+  font-size: 0.7rem;
   top: 1px;
 }
 
@@ -1188,13 +1192,13 @@ main {
   line-height: 1.5;
 }
 .cd-reframe-from {
-  background: rgba(239, 68, 68, 0.07);
-  border: 1px solid rgba(239, 68, 68, 0.18);
-  color: rgba(31, 31, 31, 0.65);
+  background: rgba(31, 31, 31, 0.03);
+  border: 1px solid rgba(31, 31, 31, 0.1);
+  color: rgba(31, 31, 31, 0.5);
 }
 .cd-reframe-to {
-  background: rgba(22, 163, 74, 0.07);
-  border: 1px solid rgba(22, 163, 74, 0.2);
+  background: rgba(31, 31, 31, 0.05);
+  border: 1px solid rgba(31, 31, 31, 0.14);
   color: #1f1f1f;
 }
 .cd-reframe-label {
@@ -1210,18 +1214,18 @@ main {
 
 /* Inline screenshot — bleeds past panel padding */
 .cd-screenshot-wrap {
-  margin: 12px 0 36px;
+  margin: 16px 0 44px;
   border-radius: 14px;
   overflow: hidden;
-  background: #f0f0f2;
-  padding: 18px 18px 0;
-  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  background: transparent;
+  padding: 0;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.11), 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 .cd-screenshot {
   width: 100%;
   display: block;
   height: auto;
-  border-radius: 8px 8px 0 0;
+  border-radius: 14px;
 }
 
 /* Ecosystem flow diagram */
@@ -1297,21 +1301,12 @@ main {
   line-height: 1.55;
   color: #1f1f1f;
 }
-.cd-oc-green {
-  background: rgba(22, 163, 74, 0.08);
-  border: 1px solid rgba(22, 163, 74, 0.2);
-}
-.cd-oc-orange {
-  background: rgba(234, 88, 12, 0.08);
-  border: 1px solid rgba(234, 88, 12, 0.2);
-}
-.cd-oc-blue {
-  background: rgba(37, 99, 235, 0.08);
-  border: 1px solid rgba(37, 99, 235, 0.2);
-}
+.cd-oc-green,
+.cd-oc-orange,
+.cd-oc-blue,
 .cd-oc-purple {
-  background: rgba(124, 58, 237, 0.08);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: rgba(31, 31, 31, 0.03);
+  border: 1px solid rgba(31, 31, 31, 0.09);
 }
 
 /* Haiku closing */
@@ -1335,9 +1330,9 @@ main {
 .cd-outcomes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 24px;
+  gap: 32px;
   margin: 24px 0 32px;
-  padding: 28px 32px;
+  padding: 32px 36px;
   background: rgba(31, 31, 31, 0.03);
   border-radius: 16px;
   border: 1px solid rgba(31, 31, 31, 0.07);
