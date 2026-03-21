@@ -151,7 +151,7 @@ body {
 
 /* ─── Chat rail — dark sky ─── */
 .sky-dark .chat-rail {
-  border-right-color: rgba(255, 255, 255, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Name prompt */
@@ -554,7 +554,8 @@ main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-right: 1.5px solid rgba(31, 31, 31, 0.1);
+  order: 2;
+  border-left: 1.5px solid rgba(31, 31, 31, 0.1);
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
