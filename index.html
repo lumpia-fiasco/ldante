@@ -686,7 +686,7 @@
       'teamshares-payroll': {
         company: 'Teamshares',
         headline: 'Scaling Employee-Owned Businesses Through Systems-Level Design',
-        intro: 'Teamshares acquires small businesses from retiring owners and converts them into employee-owned companies. As the design lead, I was tasked with addressing a critical bottleneck: the organization\'s Industry Leads spent valuable time manually compiling payroll insights, inhibiting their ability to scale across 90+ Network Companies.',
+        intro: 'The ask was simple: make payroll reports easier to generate. I didn\'t open Figma. I started asking why — and found a visibility problem hiding inside a tooling request.',
         metrics: [
           { value: '50%',    label: 'increase in productivity' },
           { value: '135 hrs', label: 'saved per cycle' },
@@ -699,12 +699,12 @@
 
           <div class="cd-two-col">
             <div>
-              <h2 class="cd-h2">Background</h2>
-              <p class="cd-body">Teamshares is a startup based out of Brooklyn, New York. They acquire small to medium sized businesses from retiring owners and convert them into employee-owned companies. Teamshares subsequently installs leadership who would then be advised by Industry Leads.</p>
-              <p class="cd-body">To support these Network Companies, Teamshares has a suite of products built specifically for their use cases.</p>
+              <h2 class="cd-h2">The brief sounded simple</h2>
+              <p class="cd-body">Make reports easier to generate. Reasonable scope. Clear enough to start designing immediately.</p>
+              <p class="cd-body">I didn't open Figma. "Make reports easier" is a symptom, not a problem. I wanted to know what was actually breaking before I touched a canvas.</p>
             </div>
             <div>
-              <h2 class="cd-h2">Personnel</h2>
+              <h2 class="cd-h2">Team</h2>
               <ul class="cd-checklist">
                 <li>1 designer &#8212; solo design lead</li>
                 <li>1 Product Manager</li>
@@ -717,36 +717,14 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Strategic insight</h2>
-            <h3 class="cd-h3">Reframing the problem</h3>
-            <p class="cd-body">Initial requests centered on &#34;making reports easier to generate.&#34; Through discovery, I found the root issue was:</p>
+            <h2 class="cd-h2">What I found when I looked closer</h2>
+            <p class="cd-body">Discovery revealed three problems compounding on each other.</p>
             <ul class="cd-checklist">
-              <li>Data lived in disparate, inconsistent systems</li>
-              <li>Industry Leads lacked centralized visibility into real-time payroll health</li>
-              <li>Analyses were delayed by 3&#8211;5 days due to manual processes</li>
+              <li>Payroll data lived across 6+ disconnected systems with no common schema</li>
+              <li>Industry Leads &#8212; the people responsible for the financial health of 90+ companies &#8212; had no real-time visibility. They were reconstructing the picture manually, 3&#8211;5 days after the fact</li>
+              <li>The organization was scaling fast. 80+ companies acquired, more coming. The manual process wasn't going to hold</li>
             </ul>
-            <h3 class="cd-h3">I shifted the conversation</h3>
-            <div class="cd-reframe">
-              <div class="cd-reframe-from">
-                <span class="cd-reframe-label">From</span>
-                &#34;How do we automate reports?&#34;
-              </div>
-              <div class="cd-reframe-to">
-                <span class="cd-reframe-label">To</span>
-                &#34;Deliver the right data at the right time to enable scalable, intelligent decision-making.&#34;
-              </div>
-            </div>
-            <p class="cd-body">My mission was to eliminate operational friction so Industry Leads could focus on what matters most &#8212; helping our Network Companies succeed.</p>
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">My role</h2>
-            <ul class="cd-checklist">
-              <li><strong>Reframed the problem</strong> from &#34;reporting&#34; to &#34;operational leverage&#34;</li>
-              <li><strong>Drove alignment</strong> across finance, data, and engineering</li>
-              <li><strong>Led end-to-end design</strong>, from discovery to delivery</li>
-              <li><strong>Pitched the dashboard vision</strong> to the executive team</li>
-            </ul>
+            <p class="cd-body">This wasn't a reporting problem. It was a visibility problem at a scale the organization hadn't yet caught up to.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
@@ -754,40 +732,66 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Driving alignment</h2>
-            <p class="cd-body">This project spanned finance leadership, data engineering, and the ops team. Getting everyone pointed in the same direction required:</p>
-            <h3 class="cd-h3">Cross-functional leadership</h3>
-            <ul class="cd-checklist">
-              <li>A prioritization workshop to align around MVP scope</li>
-              <li>Weekly syncs across teams to resolve blockers</li>
-              <li>A dashboard pilot with 6 Industry Leads to validate real-world usage before scaling</li>
-            </ul>
-          </div>
-
-          <div class="cd-screenshot-wrap">
-            <img src="assets/teamshares-industry-lead-workflow.png" class="cd-screenshot" alt="Payroll workflow" />
-          </div>
-
-          <div class="cd-screenshot-wrap">
-            <img src="assets/teamshares-payroll-home.png" class="cd-screenshot" alt="Payroll workflow" />
+            <h2 class="cd-h2">Reframing before designing</h2>
+            <p class="cd-body">I brought the reframe internally first, then to leadership. The conversation shifted.</p>
+            <div class="cd-reframe">
+              <div class="cd-reframe-from">
+                <span class="cd-reframe-label">From</span>
+                &#34;How do we make reports easier to generate?&#34;
+              </div>
+              <div class="cd-reframe-to">
+                <span class="cd-reframe-label">To</span>
+                &#34;How do we give Industry Leads the right data, at the right time, so they can actually lead &#8212; not just report?&#34;
+              </div>
+            </div>
+            <p class="cd-body">That reframe changed the scope. It moved the conversation from UI to infrastructure. And it required alignment across finance, data engineering, and engineering before I could put a single component on a canvas.</p>
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">The ripples: affecting the ecosystem</h2>
-            <div class="cd-screenshot-wrap">
-              <img src="assets/teamshares-system-effect.png" class="cd-screenshot" alt="Mapping improvement" />
-            </div>
-            <p class="cd-body">During discovery, I noted the requirement of importing data from various payroll sources. Keeping aware of the broader system, I considered the pending undertaking of Financial Products needing to integrate with QuickBooks, so I established a central place to perform integrations within TeamsharesOS.</p>
-            <div class="cd-screenshot-wrap">
-              <img src="assets/teamshares-integration.png" class="cd-screenshot" alt="Integration" />
-            </div>
-            <p class="cd-body">With payroll being the source-of-truth for employee rosters, this presented an opportunity to ease efforts for Teamshares Admins who issue Network Company shares to their employee-owners. The initial integration prompts the merging of data to the cap table.</p>
-            <div class="cd-screenshot-wrap">
-              <img src="assets/teamshares-captable.png" class="cd-screenshot" alt="Cap Table updates" />
-            </div>
-            <div class="cd-screenshot-wrap">
-              <img src="assets/teamshares-bamboo-update.png" class="cd-screenshot" alt="Roster update" />
-            </div>
+            <h2 class="cd-h2">Driving alignment</h2>
+            <p class="cd-body">Cross-functional leadership wasn't incidental here &#8212; it was the job.</p>
+            <p class="cd-body">I ran a prioritization workshop with finance leadership and data engineering to surface what data actually mattered versus what was technically easiest to expose. Those aren't the same list, and conflating them would have shipped the wrong product.</p>
+            <p class="cd-body">I established weekly syncs to keep three teams &#8212; who didn't naturally talk to each other &#8212; moving together. Then I ran a pilot with 6 Industry Leads before any broader rollout, validating real-world usage rather than design assumptions.</p>
+          </div>
+
+          <div class="cd-screenshot-wrap">
+            <img src="assets/teamshares-industry-lead-workflow.png" class="cd-screenshot" alt="Industry Lead workflow" />
+          </div>
+
+          <div class="cd-screenshot-wrap">
+            <img src="assets/teamshares-payroll-home.png" class="cd-screenshot" alt="Payroll home dashboard" />
+          </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">The system play</h2>
+            <p class="cd-body">While scoping the payroll integrations, I noticed something that nobody had connected yet.</p>
+            <p class="cd-body">Financial Products was planning a QuickBooks integration. Payroll data is also the source of truth for employee rosters. The cap table &#8212; the mechanism that tracks employee ownership &#8212; needed to stay in sync with headcount changes.</p>
+            <p class="cd-body">These weren't three separate problems. They were the same problem in different parts of the system.</p>
+          </div>
+
+          <div class="cd-screenshot-wrap">
+            <img src="assets/teamshares-system-effect.png" class="cd-screenshot" alt="System effect mapping" />
+          </div>
+
+          <div class="cd-block">
+            <p class="cd-body">I designed a central integration hub within TeamsharesOS that could serve all three at once &#8212; payroll reporting, QuickBooks sync, and cap table updates triggered by roster changes.</p>
+            <p class="cd-body">Nobody asked for that. I saw it and built the case for it.</p>
+          </div>
+
+          <div class="cd-screenshot-wrap">
+            <img src="assets/teamshares-integration.png" class="cd-screenshot" alt="Integration hub" />
+          </div>
+
+          <div class="cd-screenshot-wrap">
+            <img src="assets/teamshares-captable.png" class="cd-screenshot" alt="Cap table sync" />
+          </div>
+
+          <div class="cd-screenshot-wrap">
+            <img src="assets/teamshares-bamboo-update.png" class="cd-screenshot" alt="Roster update flow" />
+          </div>
+
+          <div class="cd-block">
+            <p class="cd-body">The integration pattern I established was later picked up by other product teams at Teamshares. That's what systems-level thinking looks like in practice.</p>
           </div>
 
           <div class="cd-video-wrap">
@@ -814,11 +818,11 @@
                 <span class="cd-outcome-desc">integration patterns picked up by other Teamshares product teams</span>
               </div>
             </div>
-            <p class="cd-body">Industry Leads report feeling more confident in their work and having time to focus on strategic analysis rather than data wrangling. The tool became central to monthly financial reviews across Teamshares.</p>
+            <p class="cd-body">Industry Leads went from data wranglers to strategic advisors. The tool became the backbone of monthly financial reviews across the network. What started as &#34;make reports easier&#34; became organizational infrastructure.</p>
           </div>
 
           <div class="cd-block cd-closer">
-            <p class="cd-body">This case wasn&#39;t about just designing a dashboard &#8212; it was about enabling scale. It required reframing the problem, driving cross-functional alignment, and delivering systems-level thinking under operational pressure while bringing value organization-wide.</p>
+            <p class="cd-body">A dashboard was the output. The real work was convincing three teams to share a single source of truth, seeing a system-wide integration opportunity nobody had articulated yet, and designing something that would hold at 100 companies &#8212; and beyond.</p>
           </div>
         `,
       },
