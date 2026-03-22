@@ -8,8 +8,9 @@ export default function handler(req, res) {
 
   // Each env var maps a password to an experience token.
   // Set these in Vercel dashboard → Settings → Environment Variables.
+  // Falls back to legacy SITE_PASSWORD so existing sessions keep working.
   const map = {
-    [process.env.PW_STANDARD]:       'standard',
+    [process.env.PW_STANDARD || process.env.SITE_PASSWORD]: 'standard',
     [process.env.PW_DESIGN_SYSTEM]:  'designsystem',
     [process.env.PW_CREATIVE]:       'creative',
     [process.env.PW_MOBILE]:         'mobile',
