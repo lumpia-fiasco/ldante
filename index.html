@@ -698,10 +698,10 @@
           </div>
 
           <div class="cd-two-col">
-            <div class="cd-act-block">
-              <p class="cd-act">The situation</p>
-              <p class="cd-statement">The ask was simple: make payroll reports easier to generate. I didn't open Figma.</p>
-              <p class="cd-body">Make reports easier is a symptom, not a problem. Before touching a canvas, I wanted to understand what was actually breaking.</p>
+            <div>
+              <h2 class="cd-h2">The brief sounded simple</h2>
+              <p class="cd-body">Make reports easier to generate. Reasonable scope. Clear enough to start designing immediately.</p>
+              <p class="cd-body">I didn't open Figma. "Make reports easier" is a symptom, not a problem. I wanted to know what was actually breaking before I touched a canvas.</p>
             </div>
             <div>
               <h2 class="cd-h2">Team</h2>
@@ -716,20 +716,24 @@
             </div>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Discovery</p>
-            <p class="cd-statement">Ninety companies. Six disconnected payroll systems. Industry Leads building the financial picture manually — three to five days after the fact.</p>
-            <p class="cd-body">Payroll data lived across six-plus disconnected systems with no common schema. Industry Leads — the people responsible for the financial health of 90 companies — had no real-time visibility. The organization was scaling fast, with 80-plus companies acquired and more on the way. The manual process wasn't going to hold.</p>
-            <p class="cd-body">This wasn't a reporting problem. It was a visibility problem at a scale the organization hadn't caught up to yet.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">What I found when I looked closer</h2>
+            <p class="cd-body">Discovery revealed three problems compounding on each other.</p>
+            <ul class="cd-checklist">
+              <li>Payroll data lived across 6+ disconnected systems with no common schema</li>
+              <li>Industry Leads &#8212; the people responsible for the financial health of 90+ companies &#8212; had no real-time visibility. They were reconstructing the picture manually, 3&#8211;5 days after the fact</li>
+              <li>The organization was scaling fast. 80+ companies acquired, more coming. The manual process wasn't going to hold</li>
+            </ul>
+            <p class="cd-body">This wasn't a reporting problem. It was a visibility problem at a scale the organization hadn't yet caught up to.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
             <img src="assets/ts.png" class="cd-hero-img" alt="Teamshares" />
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">The reframe</p>
-            <p class="cd-statement">The question wasn't how to make reports easier. It was how to give Industry Leads the right data, at the right time, so they could actually lead.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Reframing before designing</h2>
+            <p class="cd-body">I brought the reframe internally first, then to leadership. The conversation shifted.</p>
             <div class="cd-reframe">
               <div class="cd-reframe-from">
                 <span class="cd-reframe-label">From</span>
@@ -740,13 +744,14 @@
                 &#34;How do we give Industry Leads the right data, at the right time, so they can actually lead &#8212; not just report?&#34;
               </div>
             </div>
-            <p class="cd-body">That shift changed the scope. It moved the conversation from UI to infrastructure — and required alignment across finance, data engineering, and product before I touched a component.</p>
+            <p class="cd-body">That reframe changed the scope. It moved the conversation from UI to infrastructure. And it required alignment across finance, data engineering, and engineering before I could put a single component on a canvas.</p>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Cross-functional leadership</p>
-            <p class="cd-statement">Three teams who didn't naturally talk to each other needed to move as one.</p>
-            <p class="cd-body">I ran a prioritization workshop with finance leadership and data engineering to surface what data actually mattered versus what was technically easiest to expose — those aren't the same list. I established weekly syncs to keep the three teams moving together. Then I ran a pilot with 6 Industry Leads before any broader rollout, validating real-world usage rather than design assumptions.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Driving alignment</h2>
+            <p class="cd-body">Cross-functional leadership wasn't incidental here &#8212; it was the job.</p>
+            <p class="cd-body">I ran a prioritization workshop with finance leadership and data engineering to surface what data actually mattered versus what was technically easiest to expose. Those aren't the same list, and conflating them would have shipped the wrong product.</p>
+            <p class="cd-body">I established weekly syncs to keep three teams &#8212; who didn't naturally talk to each other &#8212; moving together. Then I ran a pilot with 6 Industry Leads before any broader rollout, validating real-world usage rather than design assumptions.</p>
           </div>
 
           <div class="cd-screenshot-wrap">
@@ -757,15 +762,20 @@
             <img src="assets/teamshares-payroll-home.png" class="cd-screenshot" alt="Payroll home dashboard" />
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Seeing the broader system</p>
-            <p class="cd-statement">Nobody asked for this. But payroll data, QuickBooks sync, and cap table updates were the same problem in three different parts of the system.</p>
-            <p class="cd-body">While scoping the payroll integrations, I noticed something nobody had connected yet. Financial Products was planning a QuickBooks integration. Payroll data is also the source of truth for employee rosters. The cap table — the mechanism that tracks employee ownership — needed to stay in sync with headcount changes. These weren't three separate problems.</p>
-            <p class="cd-body">I designed a central integration hub in TeamsharesOS that served all three at once. The integration pattern was later adopted by other product teams.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">The system play</h2>
+            <p class="cd-body">While scoping the payroll integrations, I noticed something that nobody had connected yet.</p>
+            <p class="cd-body">Financial Products was planning a QuickBooks integration. Payroll data is also the source of truth for employee rosters. The cap table &#8212; the mechanism that tracks employee ownership &#8212; needed to stay in sync with headcount changes.</p>
+            <p class="cd-body">These weren't three separate problems. They were the same problem in different parts of the system.</p>
           </div>
 
           <div class="cd-screenshot-wrap">
             <img src="assets/teamshares-system-effect.png" class="cd-screenshot" alt="System effect mapping" />
+          </div>
+
+          <div class="cd-block">
+            <p class="cd-body">I designed a central integration hub within TeamsharesOS that could serve all three at once &#8212; payroll reporting, QuickBooks sync, and cap table updates triggered by roster changes.</p>
+            <p class="cd-body">Nobody asked for that. I saw it and built the case for it.</p>
           </div>
 
           <div class="cd-screenshot-wrap">
@@ -780,13 +790,16 @@
             <img src="assets/teamshares-bamboo-update.png" class="cd-screenshot" alt="Roster update flow" />
           </div>
 
+          <div class="cd-block">
+            <p class="cd-body">The integration pattern I established was later picked up by other product teams at Teamshares. That's what systems-level thinking looks like in practice.</p>
+          </div>
+
           <div class="cd-video-wrap">
             <iframe src="https://www.youtube.com/embed/g3VFUV3jO3c?si=waezLVp14mnNbrpc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Outcomes</p>
-            <p class="cd-statement">What started as 'make reports easier' became organizational infrastructure.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Outcomes</h2>
             <div class="cd-outcomes-grid">
               <div class="cd-outcome-item">
                 <span class="cd-outcome-val">50%</span>
@@ -805,9 +818,10 @@
                 <span class="cd-outcome-desc">integration patterns picked up by other Teamshares product teams</span>
               </div>
             </div>
+            <p class="cd-body">Industry Leads went from data wranglers to strategic advisors. The tool became the backbone of monthly financial reviews across the network. What started as &#34;make reports easier&#34; became organizational infrastructure.</p>
           </div>
 
-          <div class="cd-closer">
+          <div class="cd-block cd-closer">
             <p class="cd-body">A dashboard was the output. The real work was convincing three teams to share a single source of truth, seeing a system-wide integration opportunity nobody had articulated yet, and designing something that would hold at 100 companies &#8212; and beyond.</p>
           </div>
         `,
@@ -827,10 +841,12 @@
           </div>
 
           <div class="cd-two-col">
-            <div class="cd-act-block">
-              <p class="cd-act">The situation</p>
-              <p class="cd-statement">Every unfilled President slot was a company in limbo.</p>
-              <p class="cd-body">Teamshares acquires small businesses and transitions them to employee ownership. Each one needs a President. The hiring tool was a spreadsheet. With 80-plus companies acquired and some Presidents running two at once, the spreadsheet wasn't failing because it was a spreadsheet — it was failing because nobody had designed for what recruiting at this scale actually required.</p>
+            <div>
+              <h2 class="cd-h2">The brief</h2>
+              <p class="cd-body">The ask: build an ATS. Simple enough. Except this wasn&#39;t a tooling problem dressed up as one. It was a business model problem.</p>
+              <p class="cd-body">Teamshares&#39; entire premise &#8212; buying small businesses, transitioning them to employee ownership &#8212; required getting the right President into each company. Fast. Every open President slot was a company in limbo.</p>
+              <p class="cd-body">Executive hiring takes 2&#8211;6 months on average. 80+ companies acquired. Some Presidents were running two companies simultaneously.</p>
+              <p class="cd-body">The spreadsheet wasn&#39;t failing because it was a spreadsheet. It was failing because nobody had designed for what recruiting at this scale actually required.</p>
             </div>
             <div>
               <h2 class="cd-h2">Team</h2>
@@ -843,69 +859,72 @@
             </div>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Discovery</p>
-            <p class="cd-statement">Three recruiters. Three different definitions of 'phone screen.' No shared language, no shared system, no bench.</p>
-            <p class="cd-body">No stage vocabulary meant every recruiter tracked candidates differently — what one called a phone screen another called an intro call. No bench meant qualified people who didn't get placed fell out of the system entirely, so every opening started from zero. Leadership had no visibility into pipeline health — no way to see how many Presidents-in-waiting were in the system, or how close any of them were to placement-ready.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">What I found</h2>
+            <p class="cd-body">Discovery wasn&#39;t just recruiter interviews &#8212; it was mapping the entire operating model. What emerged:</p>
+            <ul class="cd-checklist">
+              <li><strong>No stage vocabulary.</strong> Each recruiter tracked candidates differently &#8212; what one called &#34;phone screen&#34; another called &#34;intro call.&#34; There was no shared language for where someone stood.</li>
+              <li><strong>No bench.</strong> Qualified candidates who didn&#39;t get placed would fall out of the system entirely. Every new opening started from zero.</li>
+              <li><strong>No visibility for leadership.</strong> Executives had no way to see pipeline health &#8212; how many Presidents-in-waiting were in the system, and how close they were to placement-ready.</li>
+            </ul>
+            <p class="cd-body">The real problem: Teamshares was treating each hire as a one-time transaction when what the business needed was a continuously warm talent pipeline.</p>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">The reframe</p>
-            <p class="cd-statement">This wasn't a tracking problem. It was a pipeline problem.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">The reframe</h2>
             <div class="cd-reframe">
-              <div class="cd-reframe-from">
-                <span class="cd-reframe-label">From</span>
-                &#34;How do we track candidates better?&#34;
-              </div>
-              <div class="cd-reframe-to">
-                <span class="cd-reframe-label">To</span>
-                &#34;How do we build a talent pipeline that ensures Teamshares always has qualified leaders ready to place?&#34;
-              </div>
+              <p class="cd-body"><strong>From:</strong> &#8220;How do we track candidates better?&#8221;</p>
+              <p class="cd-body"><strong>To:</strong> &#8220;How do we build a talent pipeline that ensures Teamshares always has qualified leaders ready to place?&#8221;</p>
             </div>
-            <p class="cd-body">That shift changed everything. A tracker optimizes individual hires. A pipeline is infrastructure that compounds over time.</p>
+            <p class="cd-body">That shift changed everything. A candidate tracker optimizes individual hires. A talent pipeline is infrastructure that compounds over time.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
             <img src="assets/ats-brads.jpg" class="cd-hero-img" alt="" />
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Before the UI, the system</p>
-            <p class="cd-statement">Before opening Figma, I mapped every state a candidate could be in — including the edges nobody wanted to talk about.</p>
-            <p class="cd-body">What happens when someone is placed, then the company folds? What happens to a finalist who didn't get the offer? Those edge cases defined the data model. And the data model defined the product. I established a shared stage vocabulary with recruiters before designing a single screen. That alignment — recruiter by recruiter — was the hardest design work on the project.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Before the UI, the system</h2>
+            <p class="cd-body">Before opening Figma, I mapped every state a candidate could be in across the full lifecycle &#8212; not just the linear funnel, but the edges. What happens when someone is placed, then the company folds? What happens to a finalist who didn&#39;t get the offer? What happens when a President leaves?</p>
+            <p class="cd-body">Those edge cases defined the data model. And the data model defined the product.</p>
+            <p class="cd-body">I established a shared stage vocabulary with the recruiting team before designing a single screen. That alignment &#8212; recruiter by recruiter &#8212; was the hardest design work on the project.</p>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Building in the open</p>
-            <p class="cd-statement">The product shipped incrementally. Bi-weekly sessions with recruiters let me catch friction before it compounded.</p>
-            <p class="cd-body">Sprint 3 introduced a candidate scoring rubric so evaluation wasn't left to individual judgment. Post-pilot, admin tools for assignment management filled a gap that only surfaced under real load. Bulk actions came later, when volume grew faster than anyone projected. Email hooks cut the manual status-update loop that was eating recruiter hours.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Building in the open</h2>
+            <p class="cd-body">The product shipped incrementally. Bi-weekly sessions with recruiters let me catch friction early and iterate fast. Each sprint addressed something real:</p>
+            <ul class="cd-checklist">
+              <li><strong>Sprint 3:</strong> Candidate scoring rubric &#8212; so evaluation wasn&#39;t left to individual judgment</li>
+              <li><strong>Post-pilot:</strong> Admin tools for assignment management &#8212; a gap that only surfaced under real load</li>
+              <li><strong>Later:</strong> Bulk actions &#8212; because volume grew faster than anyone projected</li>
+              <li><strong>Email hooks:</strong> To cut the manual status-update loop that was eating recruiter hours</li>
+            </ul>
+
+            <div class="cd-screenshot-wrap">
+              <img src="assets/ats-candidate-detail.png" class="cd-screenshot" alt="" />
+            </div>
+
+            <div class="cd-screenshot-wrap">
+              <img src="assets/ats-archiving.png" class="cd-screenshot" alt="" />
+            </div>
+
+            <div class="cd-screenshot-wrap">
+              <img src="assets/ats-bulk-edits.png" class="cd-screenshot" alt="" />
+            </div>
+
+            <div class="cd-screenshot-wrap">
+              <img src="assets/ats-scoring.png" class="cd-screenshot" alt="" />
+            </div>
           </div>
 
-          <div class="cd-screenshot-wrap">
-            <img src="assets/ats-candidate-detail.png" class="cd-screenshot" alt="" />
+          <div class="cd-block">
+            <h2 class="cd-h2">The vision nobody had said out loud</h2>
+            <p class="cd-body">Late in the project, I started talking to Network Presidents &#8212; the people who&#39;d been through the process as candidates. What I heard shaped a future direction nobody had formally proposed: a two-sided platform. One where candidates maintained profiles between application cycles. Where Teamshares could proactively match upcoming openings to warm candidates already in the system &#8212; instead of starting from scratch every time.</p>
+            <p class="cd-body">That product doesn&#39;t exist yet. But the data architecture I designed makes it buildable.</p>
           </div>
 
-          <div class="cd-screenshot-wrap">
-            <img src="assets/ats-archiving.png" class="cd-screenshot" alt="" />
-          </div>
-
-          <div class="cd-screenshot-wrap">
-            <img src="assets/ats-bulk-edits.png" class="cd-screenshot" alt="" />
-          </div>
-
-          <div class="cd-screenshot-wrap">
-            <img src="assets/ats-scoring.png" class="cd-screenshot" alt="" />
-          </div>
-
-          <div class="cd-act-block">
-            <p class="cd-act">The vision nobody had said out loud</p>
-            <p class="cd-statement">Candidates who didn't get placed were disappearing from the system entirely. That's a solvable problem — and a missed opportunity.</p>
-            <p class="cd-body">Talking to Network Presidents revealed a future direction: a two-sided platform where candidates maintain profiles between cycles and Teamshares proactively matches upcoming openings to warm candidates already in the system. That product doesn't exist yet. The data architecture makes it buildable.</p>
-          </div>
-
-          <div class="cd-act-block">
-            <p class="cd-act">Outcomes</p>
-            <p class="cd-statement">20 leaders placed. 10 more ready to go. And a recruiting org that finally had a product built for what it actually did.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Outcomes</h2>
             <div class="cd-outcome-callouts">
               <div class="cd-outcome-callout cd-oc-green">
                 <strong>Single source of truth</strong> &#8212; All applicant management moved into Teamshares, replacing Lever and spreadsheets entirely
@@ -920,6 +939,10 @@
                 <strong>Product maturity</strong> &#8212; The ATS became core infrastructure, used daily until the team was dissolved in a company-wide reorganization
               </div>
             </div>
+          </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">Impact</h2>
             <div class="cd-outcomes-grid">
               <div class="cd-outcome-item">
                 <span class="cd-outcome-val">20+</span>
@@ -932,7 +955,7 @@
             </div>
           </div>
 
-          <div class="cd-closer">
+          <div class="cd-block cd-closer">
             <p class="cd-body">Getting the right President into an acquired small business isn&#39;t just an HR milestone &#8212; it&#39;s the unlock for employee ownership to actually work. Every hire placed through this system represented a business transferring from a retiring owner&#39;s legacy into something owned by the people who run it. The spreadsheet couldn&#39;t hold that weight. The platform could.</p>
           </div>
 
@@ -954,22 +977,16 @@
           </div>
 
           <div class="cd-two-col">
-            <div class="cd-act-block">
-              <p class="cd-act">The situation</p>
-              <p class="cd-statement">The product had hit a ceiling. User research was revealing uncomfortable truths — and the company needed to hear them.</p>
-              <p class="cd-body">Meroxa's low/no-code pipeline builder for data engineers had reached an engagement ceiling. The addressable market was smaller than projected. Product complexity was misaligned with how users actually worked.</p>
+            <div>
+              <h2 class="cd-h2">What we had</h2>
+              <p class="cd-body">Meroxa built a visual pipeline builder for data teams &#8212; connect a source, connect a destination, data flows. Clean concept. Real traction early on.</p>
+              <p class="cd-body">Then growth stalled. Engagement plateaued. Research was surfacing something uncomfortable: the market we&#39;d designed for was smaller than projected, and the people actually using the product weren&#39;t the people we&#39;d assumed.</p>
             </div>
-            <div class="cd-act-block">
-              <p class="cd-act">Role</p>
-              <p class="cd-statement">Principal Product Designer</p>
-              <p class="cd-body">Working with the VP of Product, I took ownership not just of design, but of the market intelligence that would reshape the business.</p>
+            <div>
+              <h2 class="cd-h2">My role</h2>
+              <div class="cd-role-badge">Principal Product Designer</div>
+              <p class="cd-body">Working with the VP of Product, who&#39;d started pulling on this thread, I took ownership of the research that would define what came next. Not just the design &#8212; the market positioning.</p>
             </div>
-          </div>
-
-          <div class="cd-act-block">
-            <p class="cd-act">Where we started</p>
-            <p class="cd-statement">A visual pipeline builder. Powerful for simple use cases — too constrained for how engineers actually worked.</p>
-            <p class="cd-body">Meroxa built a visual pipeline builder for data teams — connect a source, connect a destination, data flows. Clean concept. Real traction early on. Then growth stalled and engagement plateaued.</p>
           </div>
 
           <div class="cd-screenshots-row">
@@ -983,26 +1000,38 @@
             </div>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Research as strategy</p>
-            <p class="cd-statement">Our users weren't who we thought they were.</p>
-            <p class="cd-body">Comprehensive research validated that Software Engineers — not Data Engineers — made up the majority of the user base. That single insight revealed a 10x larger addressable market. Together with the VP of Product, I took those findings directly to executive leadership. That meeting changed the direction of the company.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">What research revealed</h2>
+            <p class="cd-body">The assumption was Data Engineers. The reality was Software Engineers &#8212; specifically, the production engineering teams responsible for keeping data systems running in real time.</p>
+            <p class="cd-body">That distinction matters enormously. Data Engineers build pipelines. Production engineers keep them alive. Their problems are different: uptime, observability, failure diagnosis, multi-environment complexity.</p>
+            <p class="cd-body">We weren&#39;t just looking at a product improvement. We were looking at a 10x larger addressable market &#8212; one with different needs, different vocabulary, and different expectations about what a tool should do.</p>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">The pivot</p>
-            <p class="cd-statement">We went from a visual builder anyone could use to a code-first framework built for engineers who knew what they were doing.</p>
-            <p class="cd-body">That shift meant redesigning the entire information architecture for developer-centric workflows and evolving our Yoshi design system to support rapid prototyping during the transformation. Going code-first unlocked data applications far more complex than any linear pipeline.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Taking it to leadership</h2>
+            <p class="cd-body">Research findings are only as valuable as the decisions they influence. Together with the VP of Product, I brought these insights directly to executive leadership &#8212; not as a recommendation, but as a business case.</p>
+            <p class="cd-body">The conversation wasn&#39;t &#34;users want a different UI.&#34; It was: &#34;We&#39;re leaving a 10x market on the table. Here&#39;s what it would take to reach it.&#34; That&#39;s a different kind of design contribution &#8212; one that requires translating user behavior into market strategy and presenting it with enough clarity that leadership can act on it.</p>
+            <p class="cd-body">They did. The pivot decision was made.</p>
+          </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">The product that followed</h2>
+            <p class="cd-body">The pivot from visual builder to code-first framework (Turbine) wasn&#39;t a cosmetic change &#8212; it was a complete rethinking of the information architecture.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
             <img src="assets/stream-to-dag.jpg" class="cd-hero-img" alt="Directed Acyclic Graph" />
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">What engineers actually needed</p>
-            <p class="cd-statement">Logs aren't a nice-to-have. For a production engineering team, they're the product.</p>
-            <p class="cd-body">Working directly with internal and external engineers, I mapped their actual tooling and workflows. Observability and troubleshooting surfaced immediately as critical gaps.</p>
+          <div class="cd-block">
+            <p class="cd-body">Developers don&#39;t want to click through a UI to build data applications. They want to write code, push to an environment, and see what&#39;s happening in real time. The entire interaction model had to change.</p>
+            <p class="cd-body">I redesigned the IA for developer-centric workflows and evolved the &#34;Yoshi&#34; design system to support rapid prototyping through the transformation. The design system work wasn&#39;t decoration &#8212; it was what let us move fast without fragmenting the product.</p>
+          </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">What engineers actually needed</h2>
+            <p class="cd-body">Production engineering teams have one primary anxiety: something is broken, they don&#39;t know where, and every minute costs them. We spent significant time with engineers &#8212; internal and external &#8212; understanding how they currently diagnosed pipeline failures.</p>
+            <p class="cd-body">Logs weren&#39;t a feature. They were the job. Everything else was secondary to giving engineers immediate, readable access to what was happening inside their data streams.</p>
             <div class="cd-screenshots-row">
               <div class="cd-screenshot-frame">
                 <img src="assets/meroxa-iteration.png" alt="Meroxa Iteration" />
@@ -1015,10 +1044,10 @@
             </div>
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">The enterprise play</p>
-            <p class="cd-statement">Multi-environment, multi-user support wasn't a feature request. It was the price of admission for enterprise customers.</p>
-            <p class="cd-body">I designed environment selection and multi-user account management that let enterprise teams isolate workloads, control access, and operate at the scale their contracts required.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">The enterprise play</h2>
+            <p class="cd-body">Larger customers brought a requirement that wasn&#39;t in the original product: multi-environment, multi-user account support. A solo developer can share a single environment. An enterprise team cannot &#8212; dev, staging, and production need to be isolated, with role-based access across each.</p>
+            <p class="cd-body">Designing this required thinking beyond individual user flows into organizational structure. Who owns what environment? Who can deploy to production? How does a team lead see across all environments without getting lost in the noise?</p>
             <div class="cd-screenshots-row">
               <div class="cd-screenshot-frame">
                 <img src="assets/meroxa-environments.png" alt="Meroxa Environments" />
@@ -1035,9 +1064,8 @@
             <img src="assets/meroxa-app-detail.png" class="cd-hero-img" alt="App Detail Screen" />
           </div>
 
-          <div class="cd-act-block">
-            <p class="cd-act">Outcomes</p>
-            <p class="cd-statement">A research finding became a company decision. A company decision became a 10x market opportunity.</p>
+          <div class="cd-block">
+            <h2 class="cd-h2">Outcomes</h2>
             <div class="cd-outcome-callouts">
               <div class="cd-outcome-callout cd-oc-blue">
                 <strong>10x larger addressable market</strong> &#8212; by targeting Software Engineers and production engineering teams instead of Data Engineers
@@ -1057,8 +1085,8 @@
             </div>
           </div>
 
-          <div class="cd-closer">
-            <p class="cd-body">Research findings are only as valuable as the decisions they influence. When the right insight, surfaced at the right moment, changes the direction of a company — that's design working at its highest level.</p>
+          <div class="cd-block cd-closer">
+            <p class="cd-body">The original product wasn&#39;t wrong &#8212; it was aimed at the wrong target. The work here wasn&#39;t redesigning a UI. It was surfacing a market insight at the right moment, building the case for a full pivot, and then designing the product that could actually win in that market. When research changes the direction of a company, that&#39;s the job working at its highest level.</p>
           </div>
 
         `,
