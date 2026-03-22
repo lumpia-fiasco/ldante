@@ -100,7 +100,7 @@ MEDHOST — Designed Patient Registration, Supply Chain, and Document Management
 
 Sharethrough — Brief stint designing features for native advertising products. Moved to Marketo shortly after.
 
-Upwork — Post Elance-oDesk merger and rebrand, worked on the Upwork Teams app and mid-job feedback workflows.
+Upwork — Post Elance-oDesk merger and rebrand, worked on the Upwork Teams app and mid-job feedback workflows. The Teams app had a mobile app but was not mobile-first — it was a cross-platform product, not built with a mobile-first approach.
 
 Early career — Before moving into product, you cut your teeth as a web designer at agencies building sites for musicians and clients in the faith space. You hand-coded HTML and CSS from the start — that foundation has paid dividends ever since, giving you a native fluency with engineering that most designers don't have. You can speak in specs, reason about implementation constraints, and define CSS attributes precisely — which means less lost-in-translation between design and engineering. From there you moved into branding and creative direction at Gibson Guitar. Then served as Art Director and Creative Director at Paul C. Buff Inc., a professional photographic lighting company — directing advertising, brand, and creative output. You also restructured the Tennessee Farm Bureau's public website, introducing a persona-based navigation system that served distinctly different audiences: educators, students, agricultural workers, government, and homemakers. That project was an early lesson in designing for multiple user types within a single information architecture.
 
