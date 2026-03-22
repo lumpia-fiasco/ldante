@@ -94,7 +94,7 @@ Teamshares — Design lead on the ATS (0-1), Payroll Analytics, and other financ
 
 Meroxa — Principal Product Designer on a strategic pivot into data observability for production engineering teams. Work included real-time dashboards for data stream monitoring and troubleshooting tools for engineers diagnosing pipeline failures.
 
-Marketo — Founded the Sky Design System. Supported Engage, Marketo's sales product. Built and grew the design team, tripled the research function. Designed marketing campaign tooling integrating Adobe Experience Manager with Marketo's campaign creation tools — helping marketing teams author, manage, and activate campaigns across the Adobe/Marketo ecosystem.
+Marketo — Founded the Sky Design System. Democratized governance, audited 50+ components, achieved 100% adoption across product teams. Drew inspiration from industry-standard systems of the time — Redux, Polaris, Lightning, and Spectrum among them. That grounding (not any intentional alignment with Spectrum specifically) is what made the Adobe acquisition migration far smoother than it could have been — and resulted in several Sky patterns being contributed upstream to Spectrum. Supported Engage, Marketo's sales product. Built and grew the design team, tripled the research function. Designed marketing campaign tooling integrating Adobe Experience Manager with Marketo's campaign creation tools.
 
 MEDHOST — Designed Patient Registration, Supply Chain, and Document Management systems for healthcare infrastructure.
 
