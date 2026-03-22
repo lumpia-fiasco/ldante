@@ -17,7 +17,7 @@ DANTE'S BACKGROUND:
 CASE STUDIES:
 1. teamshares-payroll — Designed payroll reporting system saving ~$3.1M annually. Unified fragmented workflows across a network of 100+ employee-owned businesses.
 2. teamshares-ats — Built a 0-to-1 Applicant Tracking System for hiring Network Presidents. Solo design lead. Reframed a recruiting problem into a talent pipeline infrastructure product.
-3. marketo-sky — Built Marketo Sky's design system from the ground up. Democratized governance, 50+ components, 100% adoption. Inspired by Redux, Polaris, Lightning, and Spectrum — that grounding made the Adobe acquisition migration far smoother than expected, and Sky patterns were contributed upstream to Spectrum. Mentored designers now leading at LinkedIn, TikTok, AWS.
+3. marketo-sky — Built Marketo Sky's design system from the ground up. Democratized governance, 50+ components, 100% adoption. Inspired by Predix, Polaris, Lightning, and Spectrum — that grounding made the Adobe acquisition migration far smoother than expected, and Sky patterns were contributed upstream to Spectrum. Mentored designers now leading at LinkedIn, TikTok, AWS.
 4. meroxa — Led strategic product pivot from no-code pipeline builder to data observability platform (Turbine). Expanded addressable market 10x. Influenced executive decision-making with user research.
 
 ADDITIONAL STORY (pushback / roadmap influence):
