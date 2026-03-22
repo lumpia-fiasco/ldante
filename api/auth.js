@@ -4,15 +4,21 @@ export default function handler(req, res) {
   }
 
   const { password } = req.body || {};
-  const correct = process.env.SITE_PASSWORD;
+  if (!password) return res.status(401).json({ ok: false });
 
-  if (!correct) {
-    // Env var not set — fail closed
-    return res.status(500).json({ error: 'Auth not configured' });
-  }
+  // Each env var maps a password to an experience token.
+  // Set these in Vercel dashboard → Settings → Environment Variables.
+  const map = {
+    [process.env.PW_STANDARD]:       'standard',
+    [process.env.PW_DESIGN_SYSTEM]:  'designsystem',
+    [process.env.PW_CREATIVE]:       'creative',
+    [process.env.PW_MOBILE]:         'mobile',
+  };
 
-  if (password === correct) {
-    return res.status(200).json({ ok: true });
+  const experience = map[password];
+
+  if (experience) {
+    return res.status(200).json({ ok: true, experience });
   }
 
   return res.status(401).json({ ok: false });

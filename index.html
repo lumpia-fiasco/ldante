@@ -281,12 +281,14 @@
     }, { once: true }); // only fires on first focus
 
     // Password is verified server-side via /api/auth — never exposed in source.
+    // Each password maps to an experience token stored in sessionStorage.
     (function () {
       const gate  = document.getElementById('pwGate');
       const input = document.getElementById('pwInput');
 
-      function unlock() {
+      function unlock(experience) {
         sessionStorage.setItem('pw-auth', '1');
+        sessionStorage.setItem('portfolio-experience', experience || 'standard');
         gate.classList.add('unlocking');
         setTimeout(() => gate.style.display = 'none', 500);
       }
@@ -313,7 +315,7 @@
             });
             const data = await res.json();
             if (data.ok) {
-              unlock();
+              unlock(data.experience);
             } else {
               shake();
             }
@@ -439,13 +441,43 @@
       }, 600);
     });
 
+    // ─── Experience routing ───────────────────────────────────────────────────
+    // Each password unlocks a different experience. The token is stored in
+    // sessionStorage as 'portfolio-experience'. Add content per experience below.
+    const EXPERIENCE = sessionStorage.getItem('portfolio-experience') || 'standard';
+
+    function applyExperience(exp) {
+      // Tag the body so CSS can scope experience-specific styles
+      document.body.dataset.experience = exp;
+
+      if (exp === 'standard') return; // default — nothing to hide/show
+
+      // For non-standard experiences, hide cases that aren't relevant.
+      // Populate these arrays once the experiences have defined content.
+      const EXPERIENCE_CASES = {
+        designsystem: [],   // e.g. ['teamshares-payroll', 'teamshares-ats']
+        creative:     [],
+        mobile:       [],
+      };
+
+      const allowed = EXPERIENCE_CASES[exp];
+      if (allowed && allowed.length > 0) {
+        document.querySelectorAll('.case-card-h').forEach(card => {
+          const caseId = card.dataset.case;
+          if (!allowed.includes(caseId)) card.style.display = 'none';
+        });
+      }
+    }
+
     function showPortfolio() {
       const pv = document.getElementById('portfolioView');
       pv.classList.add('active');
       pv.removeAttribute('aria-hidden');
 
+      applyExperience(EXPERIENCE);
+
       // Stagger case cards in
-      const cards = document.querySelectorAll('.case-card-h');
+      const cards = document.querySelectorAll('.case-card-h:not([style*="display: none"])');
       cards.forEach((card, i) => {
         setTimeout(() => card.classList.add('visible'), i * 160);
       });
