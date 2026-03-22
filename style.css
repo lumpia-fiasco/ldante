@@ -1839,6 +1839,7 @@ main {
   .fit-btn-wrap { display: none; }
 
   .fit-title { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+  .cd-headline { font-size: 2.7rem; }
   .fit-desc  { font-size: 0.9rem; margin-bottom: 20px; }
   .fit-textarea { min-height: 120px; font-size: 0.95rem; }
 
