@@ -830,7 +830,7 @@
       'teamshares-ats': {
         company: 'Teamshares',
         headline: 'A hiring engine for a company of companies',
-        intro: 'As the first designer on a new initiative, I led the creation of a custom Applicant Tracking System (ATS) for Teamshares to help our recruiting team place Presidents across 90+ acquired small businesses. Through deep discovery, iterative design, and tight collaboration with PM and engineering, we built a product that became the single source of truth for executive hiring.',
+        intro: 'Teamshares was acquiring companies faster than it could place leaders — and the tool holding the whole operation together was a spreadsheet.',
         metrics: [
           { value: '20+', label: 'leaders hired' },
           { value: '10+', label: 'qualified leaders identified' },
@@ -842,13 +842,14 @@
 
           <div class="cd-two-col">
             <div>
-              <h2 class="cd-h2">Background</h2>
-              <p class="cd-body">Teamshares is a unique financial platform that buys profitable small businesses and transitions them to employee ownership. Each acquired company needs a new President &#8212; a critical leadership role that determines the success of the transition.</p>
-              <p class="cd-body">Executive hiring on average takes 2&#8211;6 months. Upon my arrival, roughly 80 Network Companies had been acquired, with some Network Presidents playing double-duty between 2 companies. Teamshares had a goal of maintaining a queue of qualified leaders ready for placement.</p>
-              <p class="cd-body">Recruiting efforts were fragmented across spreadsheets, email chains, and external tools like Lever and LinkedIn. There was no centralized workflow, no visibility into candidate status, and no product dedicated to internal talent operations.</p>
+              <h2 class="cd-h2">The brief</h2>
+              <p class="cd-body">The ask: build an ATS. Simple enough. Except this wasn&#39;t a tooling problem dressed up as one. It was a business model problem.</p>
+              <p class="cd-body">Teamshares&#39; entire premise &#8212; buying small businesses, transitioning them to employee ownership &#8212; required getting the right President into each company. Fast. Every open President slot was a company in limbo.</p>
+              <p class="cd-body">Executive hiring takes 2&#8211;6 months on average. 80+ companies acquired. Some Presidents were running two companies simultaneously.</p>
+              <p class="cd-body">The spreadsheet wasn&#39;t failing because it was a spreadsheet. It was failing because nobody had designed for what recruiting at this scale actually required.</p>
             </div>
             <div>
-              <h2 class="cd-h2">Personnel</h2>
+              <h2 class="cd-h2">Team</h2>
               <ul class="cd-checklist">
                 <li>1 designer &#8212; solo design lead</li>
                 <li>1 PM</li>
@@ -859,14 +860,23 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Early findings</h2>
-            <p class="cd-body">To uncover the right product opportunity, I facilitated in-depth interviews with internal recruiters. Key insights emerged:</p>
+            <h2 class="cd-h2">What I found</h2>
+            <p class="cd-body">Discovery wasn&#39;t just recruiter interviews &#8212; it was mapping the entire operating model. What emerged:</p>
             <ul class="cd-checklist">
-              <li><strong>High friction and context-switching:</strong> Recruiters managed data across multiple tools without automation or visibility</li>
-              <li><strong>No structured workflow:</strong> There was no way to track applicant stages or progress consistently</li>
-              <li><strong>Urgency in hiring:</strong> Presidents were critical for operational continuity at newly acquired businesses</li>
-              <li><strong>We had an asset:</strong> There was no way to track or leverage the pipeline of qualified applicants who didn&#39;t make it the first time around</li>
+              <li><strong>No stage vocabulary.</strong> Each recruiter tracked candidates differently &#8212; what one called &#34;phone screen&#34; another called &#34;intro call.&#34; There was no shared language for where someone stood.</li>
+              <li><strong>No bench.</strong> Qualified candidates who didn&#39;t get placed would fall out of the system entirely. Every new opening started from zero.</li>
+              <li><strong>No visibility for leadership.</strong> Executives had no way to see pipeline health &#8212; how many Presidents-in-waiting were in the system, and how close they were to placement-ready.</li>
             </ul>
+            <p class="cd-body">The real problem: Teamshares was treating each hire as a one-time transaction when what the business needed was a continuously warm talent pipeline.</p>
+          </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">The reframe</h2>
+            <div class="cd-reframe">
+              <p class="cd-body"><strong>From:</strong> &#8220;How do we track candidates better?&#8221;</p>
+              <p class="cd-body"><strong>To:</strong> &#8220;How do we build a talent pipeline that ensures Teamshares always has qualified leaders ready to place?&#8221;</p>
+            </div>
+            <p class="cd-body">That shift changed everything. A candidate tracker optimizes individual hires. A talent pipeline is infrastructure that compounds over time.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
@@ -874,41 +884,21 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Strategic goals</h2>
-            <ul class="cd-checklist">
-              <li><strong>Centralize</strong> applicant data into a single internal product</li>
-              <li><strong>Streamline</strong> workflows and reduce time spent per applicant</li>
-              <li><strong>Enable</strong> recruiters to build candidate shortlists and take action quickly</li>
-              <li><strong>Support</strong> cross-functional collaboration with engineering and recruiting from day one</li>
-            </ul>
+            <h2 class="cd-h2">Before the UI, the system</h2>
+            <p class="cd-body">Before opening Figma, I mapped every state a candidate could be in across the full lifecycle &#8212; not just the linear funnel, but the edges. What happens when someone is placed, then the company folds? What happens to a finalist who didn&#39;t get the offer? What happens when a President leaves?</p>
+            <p class="cd-body">Those edge cases defined the data model. And the data model defined the product.</p>
+            <p class="cd-body">I established a shared stage vocabulary with the recruiting team before designing a single screen. That alignment &#8212; recruiter by recruiter &#8212; was the hardest design work on the project.</p>
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Design process</h2>
-
-            <h3 class="cd-h3">Candidate Action States</h3>
-            <p class="cd-body">I mapped every state a candidate could be in throughout the hiring funnel and designed clear action affordances for each. Recruiters needed to know at a glance: what stage is this person in, and what&#39;s the next action?</p>
-
-            <h3 class="cd-h3">Application Submission (Applicant View)</h3>
-            <p class="cd-body">Created a mobile-first application experience for candidates. The flow communicated Teamshares&#39; mission of employee ownership and contextualized the President role within that narrative &#8212; helping self-select the right candidates before they even applied.</p>
-
-            <h3 class="cd-h3">Status Tiles &amp; Pipeline Visibility</h3>
-            <p class="cd-body">Designed visual status indicators for each stage of the hiring funnel. Recruiters could now filter, search, and prioritize candidates based on pipeline stage &#8212; replacing spreadsheets with a purpose-built queue view.</p>
-
-            <h3 class="cd-h3">Custom filters and candidate matching</h3>
-            <p class="cd-body">Built a filtering system that let recruiters surface candidates by role fit, geography, availability, and previous stage outcomes. This unlocked the &#34;bench&#34; &#8212; qualified candidates who hadn&#39;t been placed yet but were ready to be.</p>
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">Evolving the product</h2>
-            <p class="cd-body">What started as a candidate tracker grew into a full hiring infrastructure. As recruiters used the product, I ran bi-weekly sessions to surface friction and iterate fast. Each sprint tightened the workflow:</p>
+            <h2 class="cd-h2">Building in the open</h2>
+            <p class="cd-body">The product shipped incrementally. Bi-weekly sessions with recruiters let me catch friction early and iterate fast. Each sprint addressed something real:</p>
             <ul class="cd-checklist">
-              <li>Candidate evaluation with scoring rubric added in sprint 3</li>
-              <li>Admin tools for assignment management after pilot feedback</li>
-              <li>Email notification hooks to reduce manual status updates</li>
-              <li>Bulk action support as volume grew</li>
+              <li><strong>Sprint 3:</strong> Candidate scoring rubric &#8212; so evaluation wasn&#39;t left to individual judgment</li>
+              <li><strong>Post-pilot:</strong> Admin tools for assignment management &#8212; a gap that only surfaced under real load</li>
+              <li><strong>Later:</strong> Bulk actions &#8212; because volume grew faster than anyone projected</li>
+              <li><strong>Email hooks:</strong> To cut the manual status-update loop that was eating recruiter hours</li>
             </ul>
-
 
             <div class="cd-screenshot-wrap">
               <img src="assets/ats-candidate-detail.png" class="cd-screenshot" alt="" />
@@ -928,20 +918,9 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">What we shipped</h2>
-            <ul class="cd-checklist">
-              <li>A structured applicant database replacing Lever and spreadsheets</li>
-              <li>Custom filters and pipeline status views</li>
-              <li>Admin tools for recruiters to manage assignments</li>
-              <li>Mobile-first application experience for candidates</li>
-              <li>Candidate evaluation with scoring rubric</li>
-              <li>Shortlist builder for President placement readiness</li>
-            </ul>
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">Strategic insight &amp; future vision</h2>
-            <p class="cd-body">In contrast, along with our recruiter feedback, I gathered the perspective of Network Presidents &#8212; getting qualitative signals from the people who&#39;d been through the process. This shaped a future vision: a two-sided platform where candidates could maintain profiles between applications and Teamshares could proactively match upcoming openings to warm candidates already in the system.</p>
+            <h2 class="cd-h2">The vision nobody had said out loud</h2>
+            <p class="cd-body">Late in the project, I started talking to Network Presidents &#8212; the people who&#39;d been through the process as candidates. What I heard shaped a future direction nobody had formally proposed: a two-sided platform. One where candidates maintained profiles between application cycles. Where Teamshares could proactively match upcoming openings to warm candidates already in the system &#8212; instead of starting from scratch every time.</p>
+            <p class="cd-body">That product doesn&#39;t exist yet. But the data architecture I designed makes it buildable.</p>
           </div>
 
           <div class="cd-block">
@@ -976,14 +955,8 @@
             </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">Why this platform matters</h2>
-            <p class="cd-body">Getting the right President into an acquired small business isn&#39;t just an HR task &#8212; it&#39;s the unlock for employee ownership to actually work. Every hire placed through this system represented a business transforming from a retiring owner&#39;s legacy into something collectively owned by the people who run it.</p>
-            <p class="cd-body">Designing this product meant designing for that outcome.</p>
-          </div>
-
           <div class="cd-block cd-closer">
-            <p class="cd-body">This wasn&#39;t just an internal tool &#8212; it was the infrastructure that enabled Teamshares to scale leadership placement, unlock employee ownership, and drive long-term transformation across small businesses nationwide.</p>
+            <p class="cd-body">Getting the right President into an acquired small business isn&#39;t just an HR milestone &#8212; it&#39;s the unlock for employee ownership to actually work. Every hire placed through this system represented a business transferring from a retiring owner&#39;s legacy into something owned by the people who run it. The spreadsheet couldn&#39;t hold that weight. The platform could.</p>
           </div>
 
         `,
@@ -992,7 +965,7 @@
       'meroxa': {
         company: 'Meroxa',
         headline: 'Designing data observability for real-time stream reliability',
-        intro: 'Leading a strategic product pivot by deeply engaging with users to expand Meroxa\'s addressable market into production engineering teams &#8212; but that\'s just the beginning of the story.',
+        intro: 'The product had an engagement ceiling, the market assumptions were wrong, and the company needed a new direction. My job was to find it.',
         metrics: [
           { value: '4x',  label: 'improvement in engagement' },
           { value: '10x', label: 'addressable market' },
@@ -1005,60 +978,45 @@
 
           <div class="cd-two-col">
             <div>
-              <h2 class="cd-h2">Background</h2>
-              <p class="cd-body">Meroxa is a data service built to empower data teams. Originally, the product was low/no-code to further democratize the creation of data pipelines.</p>
-              <h3 class="cd-h3">The scenario</h3>
-              <p class="cd-body">Meroxa&#39;s initial product vision was hitting a wall. Our low/no-code pipeline builder for Data Engineers had reached an engagement ceiling, and user research was revealing uncomfortable truths: the addressable market was significantly smaller than projected, and our product complexity was misaligned with actual user workflows. The company needed a new direction to achieve venture-scale growth.</p>
+              <h2 class="cd-h2">What we had</h2>
+              <p class="cd-body">Meroxa built a visual pipeline builder for data teams &#8212; connect a source, connect a destination, data flows. Clean concept. Real traction early on.</p>
+              <p class="cd-body">Then growth stalled. Engagement plateaued. Research was surfacing something uncomfortable: the market we&#39;d designed for was smaller than projected, and the people actually using the product weren&#39;t the people we&#39;d assumed.</p>
             </div>
             <div>
               <h2 class="cd-h2">My role</h2>
               <div class="cd-role-badge">Principal Product Designer</div>
-              <p class="cd-body">Working closely with the VP of Product &#8212; who initially discovered the opportunity &#8212; I helped develop and push forward the research findings that would ultimately influence the executive decision to pivot our entire product direction.</p>
-              <p class="cd-body">This collaboration meant taking ownership not just of design, but of market intelligence that would reshape the business.</p>
+              <p class="cd-body">Working with the VP of Product, who&#39;d started pulling on this thread, I took ownership of the research that would define what came next. Not just the design &#8212; the market positioning.</p>
+            </div>
+          </div>
+
+          <div class="cd-screenshots-row">
+            <div class="cd-screenshot-frame">
+              <img src="assets/meroxa-pipelines.png" alt="Meroxa original pipeline builder" />
+              <span>Pipeline builder</span>
+            </div>
+            <div class="cd-screenshot-frame">
+              <img src="assets/meroxa-og-builder.png" alt="Meroxa connector view" />
+              <span>Connector view</span>
             </div>
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">What we started with</h2>
-            <p class="cd-body">The original Meroxa product was a visual pipeline builder. Users could connect sources and destinations through a browser-based interface &#8212; powerful for simple use cases, but too constrained for the complex, real-world data workflows engineers actually needed.</p>
-            <div class="cd-screenshots-row">
-              <div class="cd-screenshot-frame">
-                <img src="assets/meroxa-pipelines.png" alt="Meroxa original pipeline builder" />
-                <span>Pipeline builder</span>
-              </div>
-              <div class="cd-screenshot-frame">
-                <img src="assets/meroxa-og-builder.png" alt="Meroxa connector view" />
-                <span>Connector view</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="cd-two-col">
-            <div>
-              <h2 class="cd-h2">Action: Strategic market research</h2>
-              <p class="cd-body">Through comprehensive user research, I validated and expanded upon the VP of Product&#39;s initial discovery that Software Engineers &#8212; not Data Engineers &#8212; comprised the majority of our user base.</p>
-              <p class="cd-body">This insight revealed a 10x larger addressable market opportunity that completely changed our strategic positioning.</p>
-            </div>
-            <div>
-              <h2 class="cd-h2">Opportunities</h2>
-              <ul class="cd-checklist">
-                <li>Expand from Change Data Capture to full stream observability</li>
-                <li>Target production engineering and DevOps teams</li>
-                <li>Build enterprise-grade multi-environment support</li>
-                <li>Surface troubleshooting logs as a first-class feature</li>
-              </ul>
-            </div>
+            <h2 class="cd-h2">What research revealed</h2>
+            <p class="cd-body">The assumption was Data Engineers. The reality was Software Engineers &#8212; specifically, the production engineering teams responsible for keeping data systems running in real time.</p>
+            <p class="cd-body">That distinction matters enormously. Data Engineers build pipelines. Production engineers keep them alive. Their problems are different: uptime, observability, failure diagnosis, multi-environment complexity.</p>
+            <p class="cd-body">We weren&#39;t just looking at a product improvement. We were looking at a 10x larger addressable market &#8212; one with different needs, different vocabulary, and different expectations about what a tool should do.</p>
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Executive influence</h2>
-            <p class="cd-body">Together with the VP of Product, I presented these critical market insights directly to executive leadership, facilitating the strategic pivot decision. This required not just research skills, but the ability to translate user insights into business strategy &#8212; quantifying the opportunity gap and making the case for a full product redirection.</p>
+            <h2 class="cd-h2">Taking it to leadership</h2>
+            <p class="cd-body">Research findings are only as valuable as the decisions they influence. Together with the VP of Product, I brought these insights directly to executive leadership &#8212; not as a recommendation, but as a business case.</p>
+            <p class="cd-body">The conversation wasn&#39;t &#34;users want a different UI.&#34; It was: &#34;We&#39;re leaving a 10x market on the table. Here&#39;s what it would take to reach it.&#34; That&#39;s a different kind of design contribution &#8212; one that requires translating user behavior into market strategy and presenting it with enough clarity that leadership can act on it.</p>
+            <p class="cd-body">They did. The pivot decision was made.</p>
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Product transformation leadership</h2>
-            <p class="cd-body">I championed the evolution from a browser-based pipeline builder to a code-first data application framework (Turbine). This meant redesigning our entire information architecture for developer-centric workflows and evolving our &#34;Yoshi&#34; design system to support rapid prototyping during the transformation.</p>
-            <p class="cd-body">Going code-first provides the capability of making highly complex data applications that are more acyclical than linear singular data pipelines.</p>
+            <h2 class="cd-h2">The product that followed</h2>
+            <p class="cd-body">The pivot from visual builder to code-first framework (Turbine) wasn&#39;t a cosmetic change &#8212; it was a complete rethinking of the information architecture.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
@@ -1066,8 +1024,14 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Where we went</h2>
-            <p class="cd-body">Working with internal and external engineers in search of providing the most value as they perform their tasks, I explored their current tooling and requirements.</p>
+            <p class="cd-body">Developers don&#39;t want to click through a UI to build data applications. They want to write code, push to an environment, and see what&#39;s happening in real time. The entire interaction model had to change.</p>
+            <p class="cd-body">I redesigned the IA for developer-centric workflows and evolved the &#34;Yoshi&#34; design system to support rapid prototyping through the transformation. The design system work wasn&#39;t decoration &#8212; it was what let us move fast without fragmenting the product.</p>
+          </div>
+
+          <div class="cd-block">
+            <h2 class="cd-h2">What engineers actually needed</h2>
+            <p class="cd-body">Production engineering teams have one primary anxiety: something is broken, they don&#39;t know where, and every minute costs them. We spent significant time with engineers &#8212; internal and external &#8212; understanding how they currently diagnosed pipeline failures.</p>
+            <p class="cd-body">Logs weren&#39;t a feature. They were the job. Everything else was secondary to giving engineers immediate, readable access to what was happening inside their data streams.</p>
             <div class="cd-screenshots-row">
               <div class="cd-screenshot-frame">
                 <img src="assets/meroxa-iteration.png" alt="Meroxa Iteration" />
@@ -1081,8 +1045,9 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">The move toward enterprise</h2>
-            <p class="cd-body">In order to garner more interest from enterprise customers, I designed multi-environments and multi-user accounts.</p>
+            <h2 class="cd-h2">The enterprise play</h2>
+            <p class="cd-body">Larger customers brought a requirement that wasn&#39;t in the original product: multi-environment, multi-user account support. A solo developer can share a single environment. An enterprise team cannot &#8212; dev, staging, and production need to be isolated, with role-based access across each.</p>
+            <p class="cd-body">Designing this required thinking beyond individual user flows into organizational structure. Who owns what environment? Who can deploy to production? How does a team lead see across all environments without getting lost in the noise?</p>
             <div class="cd-screenshots-row">
               <div class="cd-screenshot-frame">
                 <img src="assets/meroxa-environments.png" alt="Meroxa Environments" />
@@ -1121,7 +1086,7 @@
           </div>
 
           <div class="cd-block cd-closer">
-            <p class="cd-body">This project was a valuable exercise in developing strategy from ambiguous situations and collaborating across functions to apply research insights that inform key business decisions.</p>
+            <p class="cd-body">The original product wasn&#39;t wrong &#8212; it was aimed at the wrong target. The work here wasn&#39;t redesigning a UI. It was surfacing a market insight at the right moment, building the case for a full pivot, and then designing the product that could actually win in that market. When research changes the direction of a company, that&#39;s the job working at its highest level.</p>
           </div>
 
         `,
