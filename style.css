@@ -1059,6 +1059,49 @@ main {
   font-style: italic;
 }
 
+/* ── Scrollytelling primitives ─────────────────────────────── */
+
+/* Act label — small uppercase chapter marker */
+.cd-act {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(31, 31, 31, 0.3);
+  margin-bottom: 24px;
+}
+
+/* Statement — the large typographic beat, the "pause point" */
+.cd-statement {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #1f1f1f;
+  margin-bottom: 28px;
+  max-width: 26em;
+}
+
+/* Act block — generous vertical rhythm, subtle divider */
+.cd-act-block {
+  padding: 80px 0 0;
+  margin-top: 0;
+}
+.cd-act-block + .cd-act-block {
+  border-top: 1px solid rgba(31, 31, 31, 0.06);
+}
+
+/* Spacer — visual breath between a screenshot and next act */
+.cd-spacer {
+  height: 48px;
+}
+
+/* sky-dark overrides */
+.sky-dark .cd-act   { color: rgba(255, 255, 255, 0.28); }
+.sky-dark .cd-statement { color: #ffffff; }
+
 /* ─── Case study rich layout components ─── */
 
 /* Role badge */
