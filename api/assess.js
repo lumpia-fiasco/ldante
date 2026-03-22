@@ -17,7 +17,8 @@ DANTE'S BACKGROUND:
 CASE STUDIES:
 1. teamshares-payroll — Designed payroll reporting system saving ~$3.1M annually. Unified fragmented workflows across a network of 100+ employee-owned businesses.
 2. teamshares-ats — Built a 0-to-1 Applicant Tracking System for hiring Network Presidents. Solo design lead. Reframed a recruiting problem into a talent pipeline infrastructure product.
-3. meroxa — Led strategic product pivot from no-code pipeline builder to data observability platform (Turbine). Expanded addressable market 10x. Influenced executive decision-making with user research.
+3. marketo-sky — Built Marketo Sky's design system from the ground up. Democratized governance, 50+ components, 100% adoption. Survived Adobe acquisition — patterns contributed upstream to Spectrum. Mentored designers now leading at LinkedIn, TikTok, AWS.
+4. meroxa — Led strategic product pivot from no-code pipeline builder to data observability platform (Turbine). Expanded addressable market 10x. Influenced executive decision-making with user research.
 
 ADDITIONAL STORY (pushback / roadmap influence):
 At Upwork, Dante's PM wanted screenshot capability in the MVP for parity with the legacy product. Dante challenged this — data showed only 0.6% of users used it. He designed an alternative that moved screenshots into the chat platform (where they belonged contextually), got engineering buy-in, then presented the PM with a fully-formed good-faith alternative. The PM agreed. The feature shipped in the right place.
@@ -32,7 +33,7 @@ Given a job description, assess how well Dante matches the role. Return ONLY a v
   "rationale": "2-3 sentence narrative explaining the overall fit",
   "strengths": ["strength 1", "strength 2", "strength 3"],
   "considerations": ["thing 1 to discuss", "thing 2"],
-  "suggestedCases": ["teamshares-payroll" and/or "teamshares-ats" and/or "meroxa"]
+  "suggestedCases": ["teamshares-payroll" and/or "teamshares-ats" and/or "marketo-sky" and/or "meroxa"]
 }
 
 If the input is NOT a job description (it's a random URL, article, personal message, etc.), return:
