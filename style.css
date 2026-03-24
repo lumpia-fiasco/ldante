@@ -1471,6 +1471,7 @@ main {
   background: #ffffff;
   padding: 0 60px 80px; /* top handled by sticky back button */
   overflow-y: scroll;
+  overflow-x: hidden;
   touch-action: pan-y;
   overscroll-behavior: contain;
   opacity: 0;
