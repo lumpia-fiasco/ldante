@@ -388,6 +388,35 @@ main {
   padding: 0 60px 80px; /* top padding handled by sticky back button */
 }
 
+/* ─── Scrollbar styling — midnight track, frosted scrubber ─── */
+.case-list-panel::-webkit-scrollbar,
+.case-detail-panel::-webkit-scrollbar,
+.fit-panel::-webkit-scrollbar,
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+.case-list-panel::-webkit-scrollbar-track,
+.case-detail-panel::-webkit-scrollbar-track,
+.fit-panel::-webkit-scrollbar-track,
+.chat-messages::-webkit-scrollbar-track {
+  background: #0b0f1e;
+}
+.case-list-panel::-webkit-scrollbar-thumb,
+.case-detail-panel::-webkit-scrollbar-thumb,
+.fit-panel::-webkit-scrollbar-thumb,
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.case-list-panel::-webkit-scrollbar-thumb:hover,
+.case-detail-panel::-webkit-scrollbar-thumb:hover,
+.fit-panel::-webkit-scrollbar-thumb:hover,
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.36);
+}
+
 /* ─── List panel — default: visible ─── */
 .case-list-panel {
   opacity: 1;
