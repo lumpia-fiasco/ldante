@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Red rounded square -->
+  <rect width="200" height="200" rx="42" fill="#FF0000"/>
+  <!-- Adobe A mark: outer A shape -->
+  <path d="M100 34 L168 166 H130 L118 136 H82 L70 166 H32 Z" fill="white"/>
+  <!-- Internal counter (hollow of the A) -->
+  <path d="M100 72 L114 110 H86 Z" fill="#FF0000"/>
+</svg>

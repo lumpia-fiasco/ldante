@@ -567,35 +567,34 @@ main {
   transform: scale(1.04);
 }
 
-/* Laptop mockup thumbnail — contain + breathing room */
-.case-card-thumb--laptop {
-  background: rgba(15, 23, 42, 0.6);
-}
-
-.case-card-thumb--laptop img {
-  object-fit: contain;
-  padding: 14px 18px;
-  transform-origin: center center;
-}
-
-.case-card-grid:hover .case-card-thumb--laptop img {
-  transform: scale(1.03);
-}
-
-/* Marketo placeholder thumbnail */
-.case-card-thumb--marketo {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+/* Logo thumbnail — centered mark on dark field */
+.case-card-thumb--logo {
+  background: #1e1e1e;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.case-card-thumb-label {
-  font-family: 'Cal Sans', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0.04em;
+.case-card-thumb--logo img {
+  object-fit: contain;
+  width: 44%;
+  height: 44%;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+.case-card-grid:hover .case-card-thumb--logo img {
+  transform: scale(1.06);
+  opacity: 0.92;
+}
+
+/* Teamshares — slightly lighter charcoal to separate from card bg */
+.case-card-thumb--ts {
+  background: #212121;
+}
+
+/* Adobe — keep dark; the logo itself carries the red */
+.case-card-thumb--adobe {
+  background: #1e1e1e;
 }
 
 /* ─── Card body ─── */
