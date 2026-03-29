@@ -695,12 +695,12 @@
     const CASE_DATA = {
       'teamshares-payroll': {
         company: 'Teamshares',
-        headline: 'Scaling Employee-Owned Businesses Through Systems-Level Design',
-        intro: 'The ask was simple: make payroll reports easier to generate. I didn\'t open Figma. I started asking why — and found a visibility problem hiding inside a tooling request.',
+        headline: 'The payroll dashboard that gave industry leads their time back',
+        intro: 'The ask was one place to view payroll data and generate reports. Before I opened Figma I spent time with the leads — and found three hours of manual prep standing between them and every conversation that mattered.',
         metrics: [
-          { value: '50%',    label: 'increase in productivity' },
-          { value: '135 hrs', label: 'saved per cycle' },
-          { value: '$3.1M',  label: 'annual efficiency gains' },
+          { value: '1.5 hrs', label: 'end-to-end workflow (down from 3)' },
+          { value: '135 hrs', label: 'saved per cycle across six leads' },
+          { value: '$3.1M',   label: 'annual efficiency gains' },
         ],
         content: `
           <div class="cd-hero-img-wrap">
@@ -709,9 +709,10 @@
 
           <div class="cd-two-col">
             <div>
-              <h2 class="cd-h2">The brief sounded simple</h2>
-              <p class="cd-body">Make reports easier to generate. Reasonable scope. Clear enough to start designing immediately.</p>
-              <p class="cd-body">I didn't open Figma. "Make reports easier" is a symptom, not a problem. I wanted to know what was actually breaking before I touched a canvas.</p>
+              <h2 class="cd-h2">The context</h2>
+              <p class="cd-body">Teamshares buys small businesses from retiring owners and hands them to new leadership &#8212; MBA graduates and aspiring operators who want to run something, not start from scratch. The employees get equity. The new president gets a company. And Teamshares sends in industry leads to make sure the whole thing doesn&#39;t fall apart.</p>
+              <p class="cd-body">Industry leads are the money version of Gordon Ramsay. They walk into a network company, look at the books, find the leaks, and help the president fix them. Payroll is always on the list.</p>
+              <p class="cd-body">The ask seemed simple: one place where leads can view payroll data per network company and generate reports. Import data, map it, display it.</p>
             </div>
             <div>
               <h2 class="cd-h2">Team</h2>
@@ -727,14 +728,20 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">What I found when I looked closer</h2>
-            <p class="cd-body">Discovery revealed three problems compounding on each other.</p>
-            <ul class="cd-checklist">
-              <li>Payroll data lived across 6+ disconnected systems with no common schema</li>
-              <li>Industry Leads &#8212; the people responsible for the financial health of 90+ companies &#8212; had no real-time visibility. They were reconstructing the picture manually, 3&#8211;5 days after the fact</li>
-              <li>The organization was scaling fast. 80+ companies acquired, more coming. The manual process wasn't going to hold</li>
-            </ul>
-            <p class="cd-body">The organization had outgrown its own data. That was the actual problem.</p>
+            <h2 class="cd-h2">The actual problem</h2>
+            <p class="cd-body">Before I touched a single frame, I spent time with the leads &#8212; shadowing their workflow, studying the payroll tools they were already using, learning the vocabulary. What I found wasn&#39;t a data display problem. It was a time problem.</p>
+            <p class="cd-body">The leads were spending three hours per company just to get to the point of having a useful conversation with a network president. Export CSV from the payroll system. Import to a spreadsheet. Run formulas. Build waterfall charts by hand. Import to Metabase. Analyze. Then &#8212; finally &#8212; sit down with the president.</p>
+            <p class="cd-body">Three hours of prep before a single insight could be shared. Multiply that by six leads across 90+ network companies and you&#39;re looking at a serious drag on the whole model.</p>
+            <div class="cd-reframe">
+              <div class="cd-reframe-from">
+                <span class="cd-reframe-label">From</span>
+                &#34;How do we display payroll data?&#34;
+              </div>
+              <div class="cd-reframe-to">
+                <span class="cd-reframe-label">To</span>
+                &#34;How do we give leads the right data at the right time so they can go straight to analysis &#8212; and straight to the conversation?&#34;
+              </div>
+            </div>
           </div>
 
           <div class="cd-hero-img-wrap">
@@ -742,26 +749,10 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Reframing before designing</h2>
-            <p class="cd-body">I brought the reframe internally first, then to leadership. The conversation shifted.</p>
-            <div class="cd-reframe">
-              <div class="cd-reframe-from">
-                <span class="cd-reframe-label">From</span>
-                &#34;How do we make reports easier to generate?&#34;
-              </div>
-              <div class="cd-reframe-to">
-                <span class="cd-reframe-label">To</span>
-                &#34;How do we give Industry Leads the right data, at the right time, so they can actually lead &#8212; not just report?&#34;
-              </div>
-            </div>
-            <p class="cd-body">That reframe changed the scope. It moved the conversation from UI to infrastructure. And it required alignment across finance, data engineering, and engineering before I could put a single component on a canvas.</p>
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">Driving alignment</h2>
-            <p class="cd-body">Getting finance, data engineering, and product to share a single source of truth was the hardest design work on this project. The Figma file was the easy part.</p>
-            <p class="cd-body">I ran a prioritization workshop with finance leadership and data engineering to surface what data actually mattered versus what was technically easiest to expose. Those aren't the same list, and conflating them would have shipped the wrong product.</p>
-            <p class="cd-body">I established weekly syncs to keep three teams &#8212; who didn't naturally talk to each other &#8212; moving together. Then I ran a pilot with 6 Industry Leads before any broader rollout, validating real-world usage rather than design assumptions.</p>
+            <h2 class="cd-h2">What the leads actually needed</h2>
+            <p class="cd-body">I got a walkthrough of how leads were doing analysis in their spreadsheets. Waterfall charts. Period-over-period comparisons. Changes in overtime, PTO, headcount, bonuses &#8212; laid out so you could spot the story quickly.</p>
+            <p class="cd-body">I found a charting library that could replicate this natively. That became the foundation for the data display. Not because it was the flashiest option, but because it matched how leads already thought about payroll. Meeting them where they were meant less re-learning and faster adoption.</p>
+            <p class="cd-body">The other key insight: leads didn&#39;t need flat data. They needed comparative data. Prior period vs. current. Within KPI vs. over KPI. The delta &#8212; not the number. That distinction shaped every design decision in the dashboard, from the information hierarchy down to the arrow indicators at the component level.</p>
           </div>
 
           <div class="cd-screenshot-wrap">
@@ -773,19 +764,14 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">The system play</h2>
-            <p class="cd-body">While scoping the payroll integrations, I noticed something that nobody had connected yet.</p>
-            <p class="cd-body">Financial Products was planning a QuickBooks integration. Payroll data is also the source of truth for employee rosters. The cap table &#8212; the mechanism that tracks employee ownership &#8212; needed to stay in sync with headcount changes.</p>
-            <p class="cd-body">These weren't three separate problems. They were the same problem in different parts of the system.</p>
+            <h2 class="cd-h2">Making it work across the system</h2>
+            <p class="cd-body">Payroll data doesn&#39;t live in one place. Teamshares has 90+ network companies running everything from Gusto to ADP to Paychex to BambooHR. Disparate systems, disparate formats, a whole lot of manual process holding it together.</p>
+            <p class="cd-body">For the dashboard to work, we needed integrations. And this wasn&#39;t just a leads problem &#8212; Financial Products needed it. OS needed it. Buyout needed it. So I designed the integration layer to serve the full Teamshares ecosystem, not just one workflow.</p>
+            <p class="cd-body">We used Merge for implementation &#8212; it let us move fast against a fragmented vendor landscape without building bespoke connectors for every payroll system. Once connected, payroll became the source of truth for employee rosters, which cascaded into cap table updates automatically. A hire in BambooHR would surface in TeamsharesOS. A departure would trigger a deactivation flow. The dashboard wasn&#39;t just a reporting tool &#8212; it was infrastructure.</p>
           </div>
 
           <div class="cd-screenshot-wrap">
             <img src="assets/teamshares-system-effect.png" class="cd-screenshot" alt="System effect mapping" />
-          </div>
-
-          <div class="cd-block">
-            <p class="cd-body">I designed a central integration hub within TeamsharesOS that could serve all three at once &#8212; payroll reporting, QuickBooks sync, and cap table updates triggered by roster changes.</p>
-            <p class="cd-body">Nobody asked for that. I saw it and built the case for it.</p>
           </div>
 
           <div class="cd-screenshot-wrap">
@@ -801,7 +787,11 @@
           </div>
 
           <div class="cd-block">
-            <p class="cd-body">The integration pattern I established was later picked up by other product teams at Teamshares. That's what systems-level thinking looks like in practice.</p>
+            <h2 class="cd-h2">The concession</h2>
+            <p class="cd-body">I wanted anomaly detection. The vision was a dashboard that could flag unusual patterns automatically &#8212; overtime spikes, headcount changes, payroll runs that fell outside historical norms &#8212; before a lead even opened the screen. Take the analytical weight off their plate entirely.</p>
+            <p class="cd-body">The problem: we didn&#39;t have enough historical data to define what &#34;normal&#34; looked like. The integrations were brand new. You can&#39;t build detection logic against a baseline that doesn&#39;t exist.</p>
+            <p class="cd-body">So I pushed for something smaller. Instead of anomaly detection, I designed for highlighting change. Surface the delta clearly. Make movement visible. Let leads see what shifted between pay periods at a glance, without having to calculate it themselves.</p>
+            <p class="cd-body">It wasn&#39;t the full vision. But it was a deliberate foothold &#8212; ship something that starts collecting behavioral signal, build toward smarter detection once the data matures. If I could go back, I&#39;d also push harder for a simple threshold-based alert on day one. Something like: flag any payroll run that&#39;s 20%+ above the prior period. That doesn&#39;t require historical patterns, just a rule. I let the perfect version crowd out the good enough version, and I shouldn&#39;t have.</p>
           </div>
 
           <div class="cd-video-wrap">
@@ -809,30 +799,30 @@
           </div>
 
           <div class="cd-block">
-            <h2 class="cd-h2">Outcomes</h2>
+            <h2 class="cd-h2">What shipped</h2>
             <div class="cd-outcomes-grid">
               <div class="cd-outcome-item">
-                <span class="cd-outcome-val">50%</span>
-                <span class="cd-outcome-desc">reduction in analysis time &#8212; from 3 hours to 1.5 hours per company</span>
+                <span class="cd-outcome-val">1.5 hrs</span>
+                <span class="cd-outcome-desc">end-to-end workflow per company, down from three</span>
               </div>
               <div class="cd-outcome-item">
                 <span class="cd-outcome-val">135+</span>
-                <span class="cd-outcome-desc">hours saved per cycle across the entire network</span>
+                <span class="cd-outcome-desc">hours saved per cycle across six leads</span>
               </div>
               <div class="cd-outcome-item">
                 <span class="cd-outcome-val">$3.1M</span>
                 <span class="cd-outcome-desc">in annual efficiency gains</span>
               </div>
               <div class="cd-outcome-item">
-                <span class="cd-outcome-val cd-outcome-text">Adopted</span>
-                <span class="cd-outcome-desc">integration patterns picked up by other Teamshares product teams</span>
+                <span class="cd-outcome-val cd-outcome-text">Foundation</span>
+                <span class="cd-outcome-desc">established a new section in TeamsharesOS for how financial data surfaces platform-wide</span>
               </div>
             </div>
-            <p class="cd-body">Industry Leads went from data wranglers to strategic advisors. The tool became the backbone of monthly financial reviews across the network. What started as &#34;make reports easier&#34; became organizational infrastructure.</p>
+            <p class="cd-body">The leads workflow went from three hours end-to-end to about 1.5. The 1.5 hours that remained was the actual work: short analysis, drafting advice, having the conversation. The prep was gone.</p>
           </div>
 
           <div class="cd-block cd-closer">
-            <p class="cd-body">A dashboard was the output. The real work was convincing three teams to share a single source of truth, seeing a system-wide integration opportunity nobody had articulated yet, and designing something that would hold at 100 companies &#8212; and beyond.</p>
+            <p class="cd-body">Teamshares is a private company. Screens shown are representative of shipped work.</p>
           </div>
         `,
       },
