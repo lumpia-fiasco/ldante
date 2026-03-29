@@ -501,7 +501,7 @@ main {
 .case-stack {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 32px;
 }
 
 @media (min-width: 2000px) {
@@ -565,6 +565,21 @@ main {
 
 .case-card-grid:hover .case-card-thumb img {
   transform: scale(1.04);
+}
+
+/* Laptop mockup thumbnail — contain + breathing room */
+.case-card-thumb--laptop {
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.case-card-thumb--laptop img {
+  object-fit: contain;
+  padding: 14px 18px;
+  transform-origin: center center;
+}
+
+.case-card-grid:hover .case-card-thumb--laptop img {
+  transform: scale(1.03);
 }
 
 /* Marketo placeholder thumbnail */
@@ -1756,7 +1771,7 @@ main {
 
   .rail-input-wrap { padding: 14px 16px 20px; }
 
-  .case-stack { gap: 12px; }
+  .case-stack { gap: 24px; }
 }
 
 /* ─── Mobile tab bar (hidden on desktop/tablet) ─── */
