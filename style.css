@@ -567,35 +567,6 @@ main {
   transform: scale(1.04);
 }
 
-/* Logo thumbnail — centered mark on dark field */
-.case-card-thumb--logo {
-  background: #1e1e1e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.case-card-thumb--logo img {
-  object-fit: contain;
-  width: 44%;
-  height: 44%;
-  transition: transform 0.4s ease, opacity 0.3s ease;
-}
-
-.case-card-grid:hover .case-card-thumb--logo img {
-  transform: scale(1.06);
-  opacity: 0.92;
-}
-
-/* Teamshares — slightly lighter charcoal to separate from card bg */
-.case-card-thumb--ts {
-  background: #212121;
-}
-
-/* Adobe — keep dark; the logo itself carries the red */
-.case-card-thumb--adobe {
-  background: #1e1e1e;
-}
 
 /* ─── Card body ─── */
 .case-card-body {
