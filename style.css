@@ -1448,7 +1448,7 @@ main {
 
 /* ─── How we match up button ─── */
 .fit-btn-wrap {
-  margin-top: 36px;
+  margin-bottom: 36px;
 }
 
 .fit-btn {
@@ -1472,14 +1472,12 @@ main {
   transform: translateY(-4px) scale(1.02);
 }
 .fit-btn:active { transform: translateY(0) scale(0.98); }
-.sky-dark .fit-btn {
-  background: rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.95);
-  border: 1.5px solid rgba(255, 255, 255, 0.28);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.sky-dark .portfolio-view .fit-btn {
+  background: #1f1f1f;
+  color: #ffffff;
+  border: none;
 }
-.sky-dark .fit-btn:hover { background: rgba(255, 255, 255, 0.22); }
+.sky-dark .portfolio-view .fit-btn:hover { background: #383838; }
 
 /* ─── Fit panel (same sheet mechanic as case detail) ─── */
 .fit-panel {
