@@ -550,7 +550,7 @@ main {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: rgba(31, 31, 31, 0.4);
+  background: #ffffff;
   flex-shrink: 0;
 }
 
