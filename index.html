@@ -151,12 +151,12 @@
           <p class="cases-heading">Selected cases</p>
           <div class="case-stack" id="caseStack">
 
-            <div class="case-item" data-case="teamshares-payroll" role="button" tabindex="0" aria-label="View Teamshares Payroll case study">
-              <div class="case-card-grid">
-                <div class="case-card-thumb">
-                  <img src="assets/teamshares.svg" alt="Teamshares" />
+            <div class="case-item" data-case="teamshares-payroll" role="button" tabindex="0" aria-label="View Teamshares Payroll case study" style="--card-color: #14532d">
+              <div class="case-card-v">
+                <div class="case-card-band">
+                  <img src="assets/teamshares.svg" alt="Teamshares" class="case-card-logo" />
                 </div>
-                <div class="case-card-body">
+                <div class="case-card-content">
                   <p class="case-company">Teamshares</p>
                   <h3 class="case-title-h">Payroll reporting</h3>
                   <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
@@ -164,12 +164,12 @@
               </div>
             </div>
 
-            <div class="case-item" data-case="teamshares-ats" role="button" tabindex="0" aria-label="View Teamshares ATS case study">
-              <div class="case-card-grid">
-                <div class="case-card-thumb">
-                  <img src="assets/teamshares.svg" alt="Teamshares" />
+            <div class="case-item" data-case="teamshares-ats" role="button" tabindex="0" aria-label="View Teamshares ATS case study" style="--card-color: #1e3a5f">
+              <div class="case-card-v">
+                <div class="case-card-band">
+                  <img src="assets/teamshares.svg" alt="Teamshares" class="case-card-logo" />
                 </div>
-                <div class="case-card-body">
+                <div class="case-card-content">
                   <p class="case-company">Teamshares</p>
                   <h3 class="case-title-h">A hiring engine for a company of companies</h3>
                   <p class="case-desc-h">Reframing a recruiting tool into talent pipeline infrastructure for 90+ acquired businesses.</p>
@@ -177,12 +177,12 @@
               </div>
             </div>
 
-            <div class="case-item" data-case="marketo-sky" role="button" tabindex="0" aria-label="View Marketo Sky design system case study">
-              <div class="case-card-grid">
-                <div class="case-card-thumb">
-                  <img src="assets/marketo.svg" alt="Marketo" />
+            <div class="case-item" data-case="marketo-sky" role="button" tabindex="0" aria-label="View Marketo Sky design system case study" style="--card-color: #4c1d95">
+              <div class="case-card-v">
+                <div class="case-card-band">
+                  <img src="assets/marketo.svg" alt="Marketo" class="case-card-logo" />
                 </div>
-                <div class="case-card-body">
+                <div class="case-card-content">
                   <p class="case-company">Marketo / Adobe</p>
                   <h3 class="case-title-h">The design system that survived an acquisition</h3>
                   <p class="case-desc-h">Built Sky's design system from the ground up. Patterns contributed upstream to Adobe Spectrum.</p>
@@ -190,12 +190,12 @@
               </div>
             </div>
 
-            <div class="case-item" data-case="meroxa" role="button" tabindex="0" aria-label="View Meroxa case study">
-              <div class="case-card-grid">
-                <div class="case-card-thumb">
-                  <img src="assets/meroxa.svg" alt="Meroxa" />
+            <div class="case-item" data-case="meroxa" role="button" tabindex="0" aria-label="View Meroxa case study" style="--card-color: #0c4a6e">
+              <div class="case-card-v">
+                <div class="case-card-band">
+                  <img src="assets/meroxa.svg" alt="Meroxa" class="case-card-logo" />
                 </div>
-                <div class="case-card-body">
+                <div class="case-card-content">
                   <p class="case-company">Meroxa</p>
                   <h3 class="case-title-h">Pivoting from a builder to a data observability platform</h3>
                   <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
@@ -491,9 +491,9 @@
       applyExperience(EXPERIENCE);
 
       // Stagger case cards in
-      const cards = document.querySelectorAll('.case-card-grid');
+      const cards = document.querySelectorAll('.case-card-v');
       cards.forEach((card, i) => {
-        setTimeout(() => card.classList.add('visible'), i * 120);
+        setTimeout(() => card.classList.add('visible'), i * 100);
       });
 
       // Mobile: default to Fit tab
