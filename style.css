@@ -607,8 +607,8 @@ main {
   flex-direction: column;
   border-radius: 18px;
   overflow: hidden;
-  background: #ffffff;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  background: var(--card-color, #1f1f1f);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
   cursor: pointer;
   opacity: 0;
   transform: translateY(20px);
@@ -739,6 +739,11 @@ main {
   line-height: 1.5;
   margin-top: 4px;
 }
+
+/* ─── Colored card — white text ─── */
+.case-card-v .case-company { color: rgba(255,255,255,0.55); }
+.case-card-v .case-title-h { color: #ffffff; }
+.case-card-v .case-desc-h  { color: rgba(255,255,255,0.75); }
 
 /* ─── Right: chat rail ─── */
 .chat-rail {
@@ -2326,9 +2331,11 @@ main {
 
 /* ─── Portfolio is always monochromatic — neutralize sky-dark overrides ─── */
 .sky-dark .portfolio-view .cases-heading    { color: rgba(31, 31, 31, 0.65); }
-.sky-dark .portfolio-view .case-company     { color: rgba(31, 31, 31, 0.6); }
-.sky-dark .portfolio-view .case-title-h     { color: #1f1f1f; }
-.sky-dark .portfolio-view .case-desc-h      { color: rgba(31, 31, 31, 0.65); }
+.sky-dark .portfolio-view .cases-heading    { color: rgba(31, 31, 31, 0.65); }
+/* Cards are colored — keep white text regardless of sky theme */
+.sky-dark .portfolio-view .case-card-v .case-company { color: rgba(255,255,255,0.55); }
+.sky-dark .portfolio-view .case-card-v .case-title-h { color: #ffffff; }
+.sky-dark .portfolio-view .case-card-v .case-desc-h  { color: rgba(255,255,255,0.75); }
 .sky-dark .portfolio-view .chat-rail        { border-left-color: rgba(31, 31, 31, 0.1); }
 .sky-dark .portfolio-view .name-question    { color: #1f1f1f; }
 .sky-dark .portfolio-view .name-input       { color: #1f1f1f; border-bottom-color: rgba(31, 31, 31, 0.25); }
