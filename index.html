@@ -694,64 +694,79 @@
     const CASE_DATA = {
       'teamshares-payroll': {
         company: 'Teamshares',
-        headline: 'The payroll dashboard that gave industry leads their time back',
-        intro: 'The ask was one place to view payroll data and generate reports. Before I opened Figma I spent time with the leads — and found three hours of manual prep standing between them and every conversation that mattered.',
+        headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.',
+        intro: 'Industry leads were spending half their day on manual prep before they could have a single useful conversation with a network president. The brief said "one place to view payroll data." The real job was getting that prep time down to zero.',
         metrics: [
-          { value: '1.5 hrs', label: 'end-to-end workflow (down from 3)' },
+          { value: '1.5 hrs', label: 'end-to-end workflow, down from 3' },
           { value: '135 hrs', label: 'saved per cycle across six leads' },
           { value: '$3.1M',   label: 'annual efficiency gains' },
         ],
         content: `
+          <div class="cs-meta-row">
+            <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Solo Design Lead</div></div>
+            <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Discovery, product design, integration architecture</div></div>
+            <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">PM, finance leadership, data engineering, 2 engineers</div></div>
+            <div><div class="cs-meta-label">Pilot users</div><div class="cs-meta-val">6 industry leads across 90+ network companies</div></div>
+          </div>
+
           <div class="cd-hero-img-wrap">
             <img src="assets/teamshares%20payroll.png" class="cd-hero-img" alt="Teamshares Payroll Dashboard" />
           </div>
 
-          <div class="cd-two-col">
-            <div>
-              <h2 class="cd-h2">The context</h2>
-              <p class="cd-body">Teamshares buys small businesses from retiring owners and hands them to new leadership &#8212; MBA graduates and aspiring operators who want to run something, not start from scratch. The employees get equity. The new president gets a company. And Teamshares sends in industry leads to make sure the whole thing doesn&#39;t fall apart.</p>
-              <p class="cd-body">Industry leads are the money version of Gordon Ramsay. They walk into a network company, look at the books, find the leaks, and help the president fix them. Payroll is always on the list.</p>
-              <p class="cd-body">The ask seemed simple: one place where leads can view payroll data per network company and generate reports. Import data, map it, display it.</p>
-            </div>
-            <div>
-              <h2 class="cd-h2">Team</h2>
-              <ul class="cd-checklist">
-                <li>1 designer &#8212; solo design lead</li>
-                <li>1 Product Manager</li>
-                <li>Finance leadership as stakeholders</li>
-                <li>Data engineering team</li>
-                <li>Full-stack engineers &#215; 2</li>
-                <li>6 Industry Lead pilot users</li>
-              </ul>
-            </div>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">What industry leads actually do</span></div>
+            <p class="cd-body">Teamshares acquires small businesses from retiring owners and hands them to new presidents &#8212; MBAs and aspiring operators who want to run something without starting from scratch. The employees get equity. The president gets a company. And Teamshares sends in industry leads to make sure the whole thing doesn&#39;t fall apart.</p>
+            <p class="cd-body">Industry leads are the operational version of Gordon Ramsay. They walk into a network company, look at the books, find the leaks, and help the president fix them. Payroll is always on the list: it&#39;s one of the clearest windows into how a company is actually running. Headcount changes, overtime patterns, bonus timing &#8212; it all tells a story if you can read it fast enough.</p>
+            <p class="cd-body">The ask made sense on the surface: one place to view payroll data per network company and generate reports. But that framing assumed the problem was display. It wasn&#39;t.</p>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">The actual problem</h2>
-            <p class="cd-body">Before I touched a single frame, I spent time with the leads &#8212; shadowing their workflow, studying the payroll tools they were already using, learning the vocabulary. What I found wasn&#39;t a data display problem. It was a time problem.</p>
-            <p class="cd-body">The leads were spending three hours per company just to get to the point of having a useful conversation with a network president. Export CSV from the payroll system. Import to a spreadsheet. Run formulas. Build waterfall charts by hand. Import to Metabase. Analyze. Then &#8212; finally &#8212; sit down with the president.</p>
-            <p class="cd-body">Three hours of prep before a single insight could be shared. Multiply that by six leads across 90+ network companies and you&#39;re looking at a serious drag on the whole model.</p>
-            <div class="cd-reframe">
-              <div class="cd-reframe-from">
-                <span class="cd-reframe-label">From</span>
-                &#34;How do we display payroll data?&#34;
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">What discovery actually found</span></div>
+            <p class="cd-body">Before opening Figma I spent time with the leads &#8212; shadowing their workflow, studying the payroll tools they were already using, learning the vocabulary. The goal wasn&#39;t to understand what they wanted in a dashboard. It was to understand what they were doing before the dashboard existed.</p>
+            <p class="cd-body">What I found: three hours of manual prep standing between a lead and every conversation that mattered.</p>
+            <div class="workflow-block">
+              <div class="workflow-row">
+                <div class="workflow-step">Export</div>
+                <div class="workflow-body">Pull a CSV from the payroll system &#8212; Gusto, ADP, Paychex, BambooHR, depending on the company.</div>
+                <span class="workflow-tag tag-gone">eliminated</span>
               </div>
-              <div class="cd-reframe-to">
-                <span class="cd-reframe-label">To</span>
-                &#34;How do we give leads the right data at the right time so they can go straight to analysis &#8212; and straight to the conversation?&#34;
+              <div class="workflow-row">
+                <div class="workflow-step">Import</div>
+                <div class="workflow-body">Bring it into a spreadsheet. Map columns. Clean the format. Every system exports slightly differently.</div>
+                <span class="workflow-tag tag-gone">eliminated</span>
               </div>
+              <div class="workflow-row">
+                <div class="workflow-step">Calculate</div>
+                <div class="workflow-body">Run formulas. Build waterfall charts by hand. Period-over-period comparisons. Changes in overtime, PTO, headcount, bonuses.</div>
+                <span class="workflow-tag tag-gone">eliminated</span>
+              </div>
+              <div class="workflow-row">
+                <div class="workflow-step">Import again</div>
+                <div class="workflow-body">Pull into Metabase for visualization. Then analyze.</div>
+                <span class="workflow-tag tag-gone">eliminated</span>
+              </div>
+              <div class="workflow-row">
+                <div class="workflow-step">The conversation</div>
+                <div class="workflow-body">Finally: sit down with the president and share the insight.</div>
+                <span class="workflow-tag tag-kept">the actual job</span>
+              </div>
+            </div>
+            <p class="cd-body">Multiply that by six leads across 90+ network companies and you&#39;re looking at a significant operational drag on the whole model. The leads were highly paid operators doing spreadsheet work. That&#39;s a business problem, not a UX problem &#8212; and it needed to be framed that way before any design work could start.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The reframe that changed the brief</div>
+              <p class="cd-body">From: &#34;How do we display payroll data?&#34; To: &#34;How do we get leads straight to analysis &#8212; and straight to the conversation?&#34; Those aren&#39;t the same product. The first one is a reporting tool. The second one is a workflow tool that happens to display data. Every design decision downstream came from that distinction.</p>
             </div>
           </div>
 
-          <div class="cd-hero-img-wrap">
-            <img src="assets/ts.png" class="cd-hero-img" alt="Teamshares" />
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">What the leads actually needed</h2>
-            <p class="cd-body">I got a walkthrough of how leads were doing analysis in their spreadsheets. Waterfall charts. Period-over-period comparisons. Changes in overtime, PTO, headcount, bonuses &#8212; laid out so you could spot the story quickly.</p>
-            <p class="cd-body">I found a charting library that could replicate this natively. That became the foundation for the data display. Not because it was the flashiest option, but because it matched how leads already thought about payroll. Meeting them where they were meant less re-learning and faster adoption.</p>
-            <p class="cd-body">The other key insight: leads didn&#39;t need flat data. They needed comparative data. Prior period vs. current. Within KPI vs. over KPI. The delta &#8212; not the number. That distinction shaped every design decision in the dashboard, from the information hierarchy down to the arrow indicators at the component level.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">What the leads actually needed to see</span></div>
+            <p class="cd-body">I got a full walkthrough of how leads did analysis in their spreadsheets before the dashboard existed. Waterfall charts. Period-over-period comparisons. Changes in overtime, PTO, headcount, bonuses &#8212; laid out so you could spot the story at a glance without doing math first.</p>
+            <p class="cd-body">The key insight: leads didn&#39;t need flat data. They needed comparative data. Prior period vs. current. The delta, not the number. A payroll run showing $180K in overtime means nothing in isolation. A payroll run showing overtime up 40% from the prior period is a conversation starter.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">Why this shaped every component decision</div>
+              <p class="cd-body">Once I understood that the job was spotting change, not reading numbers, the information hierarchy became clear. Deltas go at the top, in large type, with directional indicators. Absolute values are secondary &#8212; they&#39;re context, not signal. That distinction flows all the way down to arrow indicators at the component level.</p>
+            </div>
+            <p class="cd-body">I found a charting library that could replicate the waterfall and period-over-period views leads were already building by hand. Meeting them in their existing mental model meant less re-learning and faster adoption from a pilot group that didn&#39;t have time for a learning curve.</p>
           </div>
 
           <div class="cd-screenshot-wrap">
@@ -762,62 +777,110 @@
             <img src="assets/teamshares-payroll-home.png" class="cd-screenshot" alt="Payroll home dashboard" />
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">Making it work across the system</h2>
-            <p class="cd-body">Payroll data doesn&#39;t live in one place. Teamshares has 90+ network companies running everything from Gusto to ADP to Paychex to BambooHR. Disparate systems, disparate formats, a whole lot of manual process holding it together.</p>
-            <p class="cd-body">For the dashboard to work, we needed integrations. And this wasn&#39;t just a leads problem &#8212; Financial Products needed it. OS needed it. Buyout needed it. So I designed the integration layer to serve the full Teamshares ecosystem, not just one workflow.</p>
-            <p class="cd-body">We used Merge for implementation &#8212; it let us move fast against a fragmented vendor landscape without building bespoke connectors for every payroll system. Once connected, payroll became the source of truth for employee rosters, which cascaded into cap table updates automatically. A hire in BambooHR would surface in TeamsharesOS. A departure would trigger a deactivation flow. The dashboard wasn&#39;t just a reporting tool &#8212; it was infrastructure.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">The integration scope problem</span></div>
+            <p class="cd-body">Payroll data at Teamshares doesn&#39;t live in one place. Ninety-plus network companies running everything from Gusto to ADP to Paychex to BambooHR. Disparate systems, disparate export formats, a lot of manual process stitching it together.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tc-label">Option A</div>
+                <div class="cs-tc-title">Manual import flow</div>
+                <div class="cs-tc-body">Leads upload CSVs. The dashboard handles display and calculation. Faster to build, simpler integration surface. But leads still own the export-import loop, which was most of the three hours we were trying to eliminate.</div>
+              </div>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tc-label">Option B &#8212; chosen <span class="cs-chosen-badge">selected</span></div>
+                <div class="cs-tc-title">Live integrations via Merge</div>
+                <div class="cs-tc-body">Connect directly to each payroll system. Leads open the dashboard and the data is already there. More engineering investment up front, but it&#39;s the only version that actually eliminates the prep work instead of just organizing it.</div>
+              </div>
+            </div>
+            <p class="cd-body">We used Merge for implementation &#8212; it let us move fast against a fragmented vendor landscape without building bespoke connectors for every payroll system. The tradeoff was a dependency on a third-party integration layer. The alternative was more internal engineering work for every new payroll system added to the network. Given that Teamshares was acquiring companies constantly, the Merge dependency was the right bet.</p>
           </div>
 
-          <div class="cd-screenshot-wrap">
-            <img src="assets/teamshares-system-effect.png" class="cd-screenshot" alt="System effect mapping" />
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">Designing for the platform, not just the workflow</span></div>
+            <p class="cd-body">Once the integrations were in place, payroll data was live and structured inside Teamshares for the first time. I pushed hard to design the integration layer to serve the full platform, not just the industry leads workflow.</p>
+            <div class="finding-block">
+              <div class="finding-row">
+                <div class="finding-tag">Roster sync</div>
+                <div class="finding-body">Once connected, payroll became the source of truth for employee rosters. A hire in BambooHR would surface automatically in TeamsharesOS. A departure would trigger a deactivation flow.</div>
+              </div>
+              <div class="finding-row">
+                <div class="finding-tag">Cap table updates</div>
+                <div class="finding-body">Employee roster changes cascaded into cap table updates automatically. New hires entering the equity program, departures exiting it &#8212; all flowing from the payroll integration without manual reconciliation.</div>
+              </div>
+              <div class="finding-row">
+                <div class="finding-tag">Platform foundation</div>
+                <div class="finding-body">The payroll section established a new pattern in TeamsharesOS for how financial data surfaces platform-wide. Every subsequent financial data feature had a template to build from instead of starting from scratch.</div>
+              </div>
+            </div>
+            <p class="cd-body">The argument I made internally: the integration work is the expensive part. Building it for one workflow and then rebuilding it for three more is three times the cost for the same outcome. Do it once, do it right, and let the whole platform inherit it.</p>
           </div>
 
-          <div class="cd-screenshot-wrap">
-            <img src="assets/teamshares-integration.png" class="cd-screenshot" alt="Integration hub" />
+          <div class="cd-screenshots-row">
+            <div class="cd-screenshot-frame">
+              <img src="assets/teamshares-system-effect.png" alt="System effect" />
+              <span>Platform-wide cascade</span>
+            </div>
+            <div class="cd-screenshot-frame">
+              <img src="assets/teamshares-integration.png" alt="Integration hub" />
+              <span>Integration hub</span>
+            </div>
           </div>
 
-          <div class="cd-screenshot-wrap">
-            <img src="assets/teamshares-captable.png" class="cd-screenshot" alt="Cap table sync" />
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">The concession: anomaly detection vs. delta highlighting</span></div>
+            <p class="cd-body">The vision I wanted to ship was anomaly detection &#8212; a dashboard that could flag unusual patterns automatically before a lead even opened the screen. The problem was data maturity. The integrations were brand new. There was no historical baseline to define what &#34;normal&#34; looked like for any given company.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tc-label">What I wanted</div>
+                <div class="cs-tc-title">Anomaly detection</div>
+                <div class="cs-tc-body">Automatic flagging of unusual patterns against historical baselines. Leads open the dashboard and the outliers are already surfaced. Requires sufficient historical data to establish what normal looks like.</div>
+              </div>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tc-label">What we shipped <span class="cs-chosen-badge">selected</span></div>
+                <div class="cs-tc-title">Delta highlighting</div>
+                <div class="cs-tc-body">Surface change clearly. Make movement visible between pay periods at a glance. A deliberate foothold that starts collecting the behavioral signal needed for smarter detection later.</div>
+              </div>
+            </div>
+            <p class="cd-body">The delta highlighting was the right call given the constraint. But I made a mistake in how I reasoned about it: I let the ideal version crowd out a good-enough intermediate. A simple threshold-based alert &#8212; flag any payroll run that&#39;s 20% or more above the prior period &#8212; doesn&#39;t require historical patterns, just a rule. That was buildable from day one and I didn&#39;t push for it. The lesson I&#39;ve carried since: the right question isn&#39;t &#34;can we ship the full vision?&#34; It&#39;s &#34;what&#39;s the best version of this we can ship now, given what we actually have?&#34;</p>
           </div>
 
-          <div class="cd-screenshot-wrap">
-            <img src="assets/teamshares-bamboo-update.png" class="cd-screenshot" alt="Roster update flow" />
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">The concession</h2>
-            <p class="cd-body">I wanted anomaly detection. The vision was a dashboard that could flag unusual patterns automatically &#8212; overtime spikes, headcount changes, payroll runs that fell outside historical norms &#8212; before a lead even opened the screen. Take the analytical weight off their plate entirely.</p>
-            <p class="cd-body">The problem: we didn&#39;t have enough historical data to define what &#34;normal&#34; looked like. The integrations were brand new. You can&#39;t build detection logic against a baseline that doesn&#39;t exist.</p>
-            <p class="cd-body">So I pushed for something smaller. Instead of anomaly detection, I designed for highlighting change. Surface the delta clearly. Make movement visible. Let leads see what shifted between pay periods at a glance, without having to calculate it themselves.</p>
-            <p class="cd-body">It wasn&#39;t the full vision. But it was a deliberate foothold &#8212; ship something that starts collecting behavioral signal, build toward smarter detection once the data matures. If I could go back, I&#39;d also push harder for a simple threshold-based alert on day one. Something like: flag any payroll run that&#39;s 20%+ above the prior period. That doesn&#39;t require historical patterns, just a rule. I let the perfect version crowd out the good enough version, and I shouldn&#39;t have.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">What the outcomes actually mean</span></div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">1.5 hrs</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">End-to-end workflow, down from 3</div>
+                <div class="cs-od-body">The 1.5 hours that remained after the dashboard shipped was the actual job: analysis, drafting advice, having the conversation with the president. The prep was gone. Read this not as a 50% reduction in time, but as a near-complete elimination of work that shouldn&#39;t have been happening in the first place. Measured through workflow observation with pilot leads before and after launch.</div>
+              </div>
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">135 hrs</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Saved per cycle across six leads</div>
+                <div class="cs-od-body">Six leads, 1.5 hours saved per company per cycle, across 90+ companies. The math compounds fast when you&#39;re operating at network scale. Worth noting: this is capacity freed, not headcount reduced. The leads used that time for more companies, deeper analysis, and higher-value conversations &#8212; which was the point.</div>
+              </div>
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">$3.1M</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Annual efficiency gains</div>
+                <div class="cs-od-body">Finance leadership calculated this based on fully-loaded lead costs against hours recovered. I didn&#39;t generate this number &#8212; they did, using the workflow time data from the pilot. It&#39;s the clearest signal that the reframe from &#34;display problem&#34; to &#34;workflow problem&#34; was the right one. A better dashboard wouldn&#39;t have gotten there. Eliminating the prep did.</div>
+              </div>
+            </div>
           </div>
 
           <div class="cd-video-wrap">
             <iframe src="https://www.youtube.com/embed/g3VFUV3jO3c?si=waezLVp14mnNbrpc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">What shipped</h2>
-            <div class="cd-outcomes-grid">
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val">1.5 hrs</span>
-                <span class="cd-outcome-desc">end-to-end workflow per company, down from three</span>
-              </div>
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val">135+</span>
-                <span class="cd-outcome-desc">hours saved per cycle across six leads</span>
-              </div>
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val">$3.1M</span>
-                <span class="cd-outcome-desc">in annual efficiency gains</span>
-              </div>
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val cd-outcome-text">Foundation</span>
-                <span class="cd-outcome-desc">established a new section in TeamsharesOS for how financial data surfaces platform-wide</span>
-              </div>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">What I&#39;d do differently</span></div>
+            <p class="cd-body">The threshold-based alert is the obvious one. Letting the full anomaly detection vision crowd out a simpler, shippable version was a failure of prioritization that I owned.</p>
+            <p class="cd-body">The other thing: I&#39;d push earlier and harder for the platform scope. The argument that the integration layer should serve the full platform rather than just the leads workflow landed eventually, but it landed mid-build rather than at the start of scoping. Some architectural decisions had already been made with a narrower surface in mind. That conversation needed to happen before the first design review, not after the third.</p>
+            <div class="cs-reflection">
+              <div class="cs-reflection-title">The thing this project was really testing</div>
+              <p class="cd-body">Every Teamshares network company is a small business with real employees who took a bet on employee ownership. The industry lead&#39;s job is to make sure that bet pays off. If they&#39;re spending half their day doing spreadsheet prep, they&#39;re not doing their job &#8212; and the companies they&#39;re responsible for are getting less of what they need. The dashboard wasn&#39;t a productivity tool. It was a lever on a model that matters. Getting the framing right at the start was what made everything else possible.</p>
             </div>
-            <p class="cd-body">The leads workflow went from three hours end-to-end to about 1.5. The 1.5 hours that remained was the actual work: short analysis, drafting advice, having the conversation. The prep was gone.</p>
           </div>
 
           <div class="cd-block cd-closer">
@@ -828,231 +891,369 @@
 
       'teamshares-ats': {
         company: 'Teamshares',
-        headline: 'A hiring engine for a company of companies',
-        intro: 'Teamshares was acquiring companies faster than it could place leaders — and the tool holding the whole operation together was a spreadsheet.',
+        headline: 'The ask was "build an ATS." The real problem was a broken hiring model.',
+        intro: 'Teamshares was acquiring small businesses faster than it could place leaders to run them. The tool holding the whole operation together was a spreadsheet. Fixing that wasn\'t a tooling problem. It was a system design problem.',
         metrics: [
-          { value: '20+', label: 'leaders hired' },
-          { value: '10+', label: 'qualified leaders identified' },
+          { value: '20+', label: 'leaders placed through the platform' },
+          { value: '10+', label: 'qualified leaders benched for future placement' },
+          { value: '1',   label: 'source of truth, replacing Lever and spreadsheets entirely' },
         ],
         content: `
+          <div class="cs-meta-row">
+            <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Solo Design Lead</div></div>
+            <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Discovery, system design, product design</div></div>
+            <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">PM, recruiting team, engineering</div></div>
+            <div><div class="cs-meta-label">Constraint</div><div class="cs-meta-val">80+ acquired companies, growing fast</div></div>
+          </div>
+
           <div class="cd-hero-img-wrap">
             <img src="assets/teamshares%20ats.png" class="cd-hero-img" alt="Teamshares ATS" />
           </div>
 
-          <div class="cd-two-col">
-            <div>
-              <h2 class="cd-h2">The brief</h2>
-              <p class="cd-body">The ask: build an ATS. Simple enough. Except this wasn&#39;t a tooling problem dressed up as one. It was a business model problem.</p>
-              <p class="cd-body">Teamshares&#39; entire premise &#8212; buying small businesses, transitioning them to employee ownership &#8212; required getting the right President into each company. Fast. Every open President slot was a company in limbo.</p>
-              <p class="cd-body">Executive hiring takes 2&#8211;6 months on average. 80+ companies acquired. Some Presidents were running two companies simultaneously.</p>
-              <p class="cd-body">The spreadsheet wasn&#39;t failing because it was a spreadsheet. It was failing because nobody had designed for what recruiting at this scale actually required.</p>
-            </div>
-            <div>
-              <h2 class="cd-h2">Team</h2>
-              <ul class="cd-checklist">
-                <li>1 designer &#8212; solo design lead</li>
-                <li>1 PM</li>
-                <li>Recruiting team</li>
-                <li>Full-stack engineering</li>
-              </ul>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">Why this wasn&#39;t an ATS problem</span></div>
+            <p class="cd-body">The brief was straightforward: build an applicant tracking system to replace the spreadsheet the recruiting team was running on. But a few conversations in, it was obvious that a better tracker wasn&#39;t going to solve what was actually broken.</p>
+            <p class="cd-body">Teamshares&#39; business model is specific. They acquire small businesses, transition them to employee ownership, and install a President to run each one. That President placement is the unlock. Without the right person in place, the whole model stalls. And executive hiring takes 2 to 6 months on average &#8212; which meant every open President slot was a company sitting in limbo.</p>
+            <p class="cd-body">They had 80+ companies acquired. Some Presidents were running two companies at once just to cover gaps. The spreadsheet wasn&#39;t failing because spreadsheets are bad. It was failing because nobody had designed for what recruiting at this volume and this stakes level actually required.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The reframe that changed the project</div>
+              <p class="cd-body">The team was thinking: &#34;How do we track candidates better?&#34; The right question was: &#34;How do we build a talent pipeline that ensures Teamshares always has qualified leaders ready to place?&#34; A candidate tracker optimizes individual hires. A talent pipeline is infrastructure that compounds over time. I pushed for the second framing before a single screen was designed.</p>
             </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">What I found</h2>
-            <p class="cd-body">Discovery wasn&#39;t just recruiter interviews &#8212; it was mapping the entire operating model. What emerged:</p>
-            <ul class="cd-checklist">
-              <li><strong>No stage vocabulary.</strong> Each recruiter tracked candidates differently &#8212; what one called &#34;phone screen&#34; another called &#34;intro call.&#34; There was no shared language for where someone stood.</li>
-              <li><strong>No bench.</strong> Qualified candidates who didn&#39;t get placed would fall out of the system entirely. Every new opening started from zero.</li>
-              <li><strong>No visibility for leadership.</strong> Executives had no way to see pipeline health &#8212; how many Presidents-in-waiting were in the system, and how close they were to placement-ready.</li>
-            </ul>
-            <p class="cd-body">The real problem: Teamshares was treating each hire as a one-time transaction when what the business needed was a continuously warm talent pipeline.</p>
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">The reframe</h2>
-            <div class="cd-reframe">
-              <p class="cd-body"><strong>From:</strong> &#8220;How do we track candidates better?&#8221;</p>
-              <p class="cd-body"><strong>To:</strong> &#8220;How do we build a talent pipeline that ensures Teamshares always has qualified leaders ready to place?&#8221;</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">What discovery actually looked like</span></div>
+            <p class="cd-body">Discovery here wasn&#39;t just recruiter interviews. It was mapping the entire operating model: how acquisitions flowed, how President slots opened, how candidates moved through the process, and what happened to the ones who didn&#39;t get placed. That last part mattered more than anyone had thought to document.</p>
+            <div class="finding-block--padded">
+              <div class="finding-row">
+                <span class="finding-tag">No shared language</span>
+                <span class="finding-body">Each recruiter tracked candidates differently. What one called &#34;phone screen&#34; another called &#34;intro call.&#34; There was no agreed-upon vocabulary for where someone stood &#8212; which made pipeline visibility across the team essentially impossible.</span>
+              </div>
+              <div class="finding-row">
+                <span class="finding-tag">No bench</span>
+                <span class="finding-body">Qualified candidates who didn&#39;t get placed would fall completely out of the system. Every new opening started from zero. The team was doing significant work to source and evaluate candidates, then throwing that work away when a hire didn&#39;t close.</span>
+              </div>
+              <div class="finding-row">
+                <span class="finding-tag">No visibility</span>
+                <span class="finding-body">Executives had no way to see pipeline health &#8212; how many Presidents-in-waiting were in the system, how close they were to placement-ready, or where bottlenecks were forming. Flying blind on a metric central to the business model.</span>
+              </div>
+              <div class="finding-row">
+                <span class="finding-tag">Transaction mindset</span>
+                <span class="finding-body">The team was treating each hire as a one-time event. Source, evaluate, place, done. What the business actually needed was a continuously warm talent pipeline. That&#39;s a fundamentally different operating model, and no amount of UI improvement would get there without first changing the underlying system.</span>
+              </div>
             </div>
-            <p class="cd-body">That shift changed everything. A candidate tracker optimizes individual hires. A talent pipeline is infrastructure that compounds over time.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
-            <img src="assets/ats-brads.jpg" class="cd-hero-img" alt="" />
+            <img src="assets/ats-brads.jpg" class="cd-hero-img" alt="Teamshares candidates" />
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">Before the UI, the system</h2>
-            <p class="cd-body">Before opening Figma, I mapped every state a candidate could be in across the full lifecycle &#8212; not just the linear funnel, but the edges. What happens when someone is placed, then the company folds? What happens to a finalist who didn&#39;t get the offer? What happens when a President leaves?</p>
-            <p class="cd-body">Those edge cases defined the data model. And the data model defined the product.</p>
-            <p class="cd-body">I established a shared stage vocabulary with the recruiting team before designing a single screen. That alignment &#8212; recruiter by recruiter &#8212; was the hardest design work on the project.</p>
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">Building in the open</h2>
-            <p class="cd-body">The product shipped incrementally. Bi-weekly sessions with recruiters let me catch friction early and iterate fast. Each sprint addressed something real:</p>
-            <ul class="cd-checklist">
-              <li><strong>Sprint 3:</strong> Candidate scoring rubric &#8212; so evaluation wasn&#39;t left to individual judgment</li>
-              <li><strong>Post-pilot:</strong> Admin tools for assignment management &#8212; a gap that only surfaced under real load</li>
-              <li><strong>Later:</strong> Bulk actions &#8212; because volume grew faster than anyone projected</li>
-              <li><strong>Email hooks:</strong> To cut the manual status-update loop that was eating recruiter hours</li>
-            </ul>
-
-            <div class="cd-screenshot-wrap">
-              <img src="assets/ats-candidate-detail.png" class="cd-screenshot" alt="" />
-            </div>
-
-            <div class="cd-screenshot-wrap">
-              <img src="assets/ats-archiving.png" class="cd-screenshot" alt="" />
-            </div>
-
-            <div class="cd-screenshot-wrap">
-              <img src="assets/ats-bulk-edits.png" class="cd-screenshot" alt="" />
-            </div>
-
-            <div class="cd-screenshot-wrap">
-              <img src="assets/ats-scoring.png" class="cd-screenshot" alt="" />
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">The hardest design work happened before Figma opened</span></div>
+            <p class="cd-body">Before I touched any UI, I mapped every state a candidate could be in across the full lifecycle &#8212; not just the happy path, but every edge case I could find. What happens when someone gets placed but the company folds six months later? What happens to a finalist who didn&#39;t get the offer? What happens when a placed President leaves?</p>
+            <p class="cd-body">Those edge cases defined the data model. The data model defined the product. Getting that wrong in design would have meant building something that looked right but broke the moment it hit real operational load.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The stage vocabulary problem</div>
+              <p class="cd-body">I spent significant time before designing any screens just getting the recruiting team aligned on a shared stage vocabulary. Recruiter by recruiter. What does &#34;screening&#34; mean? What moves someone from &#34;interested&#34; to &#34;qualified&#34;? When is someone on the bench vs. out of consideration? That alignment work was unglamorous and it was the most important design work on the project. Every workflow downstream depended on it being consistent.</p>
             </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">The vision nobody had said out loud</h2>
-            <p class="cd-body">Late in the project, I started talking to Network Presidents &#8212; the people who&#39;d been through the process as candidates. What I heard shaped a future direction nobody had formally proposed: a two-sided platform. One where candidates maintained profiles between application cycles. Where Teamshares could proactively match upcoming openings to warm candidates already in the system &#8212; instead of starting from scratch every time.</p>
-            <p class="cd-body">That product doesn&#39;t exist yet. But the data architecture I designed makes it buildable.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">The core design decision: purpose-built vs. adapted</span></div>
+            <p class="cd-body">Teamshares was already using Lever, a standard enterprise ATS. The obvious path was to configure Lever more intentionally and build tooling around it. I pushed back on that direction early.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tc-label">Option A</div>
+                <div class="cs-tc-title">Extend Lever</div>
+                <div class="cs-tc-body">Lean on the existing ATS. Add structure through custom fields, stages, and integrations. Less build, faster to ship, familiar to the team. The tradeoff: Lever was built for general hiring at volume. The Teamshares model didn&#39;t fit its assumptions.</div>
+              </div>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tc-label">Option B &#8212; chosen <span class="cs-chosen-badge">selected</span></div>
+                <div class="cs-tc-title">Purpose-built internal tool</div>
+                <div class="cs-tc-body">Design an ATS from scratch around the specific operating model. Slower to ship, more engineering investment. But it could model the bench, support placement-based workflows, give leadership pipeline visibility, and be built with a two-sided future in mind.</div>
+              </div>
+            </div>
+            <p class="cd-body">Lever&#39;s data model treated every candidate as moving toward a single job opening. Teamshares needed candidates to exist independently of any specific opening and be matchable to future placements. That&#39;s a different architecture, not a configuration. You can&#39;t configure your way to a fundamentally different data model.</p>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">Outcomes</h2>
-            <div class="cd-outcome-callouts">
-              <div class="cd-outcome-callout cd-oc-green">
-                <strong>Single source of truth</strong> &#8212; All applicant management moved into Teamshares, replacing Lever and spreadsheets entirely
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">Shipping incrementally, learning under real load</span></div>
+            <p class="cd-body">The product shipped in sprints with the recruiting team using it in production throughout. That wasn&#39;t just a process choice &#8212; it was how I found the problems that don&#39;t show up in research.</p>
+            <div class="sprint-block">
+              <div class="sprint-row">
+                <div class="sprint-label">Sprint 3</div>
+                <div class="sprint-body">Candidate scoring rubric. Without a structured rubric, evaluation was left to individual recruiter judgment, which meant no consistent signal for who belonged on the bench vs. who was out. The rubric made &#34;qualified&#34; mean the same thing across the team.</div>
               </div>
-              <div class="cd-outcome-callout cd-oc-orange">
-                <strong>Increased throughput</strong> &#8212; Recruiters built and managed President shortlists faster with clearer, stage-driven workflows
+              <div class="sprint-row">
+                <div class="sprint-label">Post-pilot</div>
+                <div class="sprint-body">Admin tools for assignment management. A gap that only surfaced once real volume hit. Recruiters needed to reassign candidates across openings without losing history. Didn&#39;t come up in research. Came up immediately in production.</div>
               </div>
-              <div class="cd-outcome-callout cd-oc-blue">
-                <strong>Clearer candidate communication</strong> &#8212; Purpose-built status updates and messaging replaced generic email chains, giving candidates visibility into where they stood at every stage
+              <div class="sprint-row">
+                <div class="sprint-label">Later</div>
+                <div class="sprint-body">Bulk actions. Volume grew faster than anyone projected. What worked fine at 20 candidates per recruiter was painful at 60. Bulk status updates and batch communication became necessary, not nice-to-have.</div>
               </div>
-              <div class="cd-outcome-callout cd-oc-purple">
-                <strong>Product maturity</strong> &#8212; The ATS became core infrastructure, used daily until the team was dissolved in a company-wide reorganization
+              <div class="sprint-row">
+                <div class="sprint-label">Ongoing</div>
+                <div class="sprint-body">Email hooks to cut the manual status-update loop. Recruiters were spending significant time on outbound communication that the system could handle. Automating status notifications freed up recruiting capacity for actual relationship work.</div>
+              </div>
+            </div>
+            <div class="cd-screenshots-row">
+              <div class="cd-screenshot-frame">
+                <img src="assets/ats-candidate-detail.png" alt="Candidate detail" />
+                <span>Candidate detail</span>
+              </div>
+              <div class="cd-screenshot-frame">
+                <img src="assets/ats-scoring.png" alt="Scoring rubric" />
+                <span>Scoring rubric</span>
+              </div>
+            </div>
+            <div class="cd-screenshots-row">
+              <div class="cd-screenshot-frame">
+                <img src="assets/ats-archiving.png" alt="Archiving" />
+                <span>Bench &amp; archiving</span>
+              </div>
+              <div class="cd-screenshot-frame">
+                <img src="assets/ats-bulk-edits.png" alt="Bulk edits" />
+                <span>Bulk actions</span>
               </div>
             </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">Impact</h2>
-            <div class="cd-outcomes-grid">
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val">20+</span>
-                <span class="cd-outcome-desc">leaders hired through the platform</span>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">Candidate experience as a design constraint</span></div>
+            <p class="cd-body">Most internal tools treat the candidate as a data object. The kind of person Teamshares was recruiting &#8212; experienced operators, often leaving stable roles &#8212; had real leverage. They could walk.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The design decision that came out of this</div>
+              <p class="cd-body">Purpose-built candidate status messaging at each stage transition, not generic email chains. Candidates knew what stage they were in, what came next, and roughly what the timeline looked like. This wasn&#39;t a UX touch. It was a retention mechanism for high-value candidates in a long process. Losing a finalist at week eight meant restarting a months-long process. The messaging investment paid for itself once.</p>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">The future the data architecture was built for</span></div>
+            <p class="cd-body">Late in the project I started talking to Network Presidents &#8212; candidates who&#39;d been through the process. What I heard shaped a direction nobody had formally proposed: a two-sided platform where candidates maintain profiles between application cycles, and Teamshares proactively matches upcoming openings to warm candidates already in the system.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tc-label">What we shipped</div>
+                <div class="cs-tc-title">One-sided ATS</div>
+                <div class="cs-tc-body">Recruiter-facing tool for managing the President placement pipeline. Candidates are tracked but passive. The system is operated entirely by Teamshares staff.</div>
               </div>
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val">10+</span>
-                <span class="cd-outcome-desc">qualified leaders identified and benched for future placement</span>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tc-label">What the architecture enables <span class="cs-chosen-badge">future state</span></div>
+                <div class="cs-tc-title">Two-sided talent platform</div>
+                <div class="cs-tc-body">Candidates maintain profiles, signal availability, and get matched to openings proactively. Teamshares stops starting from zero on every search. The bench becomes a living network, not a static list.</div>
               </div>
+            </div>
+            <p class="cd-body">The resourcing wasn&#39;t there to build it at the time, and the company reorganized before it could be pursued. But identifying and architecting toward a future state &#8212; even one that doesn&#39;t ship on your watch &#8212; is part of the job at principal level. You&#39;re not just designing for the current sprint. You&#39;re making decisions that either open or close future possibilities.</p>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">What the outcomes actually measured</span></div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">20+</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Leaders placed</div>
+                <div class="cs-od-body">Presidents hired and placed into acquired companies through the platform. Executive placements at this level typically take 2 to 6 months each. 20+ placements through a purpose-built system, with a small recruiting team, represents serious throughput improvement over the spreadsheet baseline.</div>
+              </div>
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">10+</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Leaders benched</div>
+                <div class="cs-od-body">Qualified candidates identified, evaluated, and retained in the system for future placement. Under the old model, these people would have fallen out of the system entirely. This number represents the bench strategy working: recruiting investment that compounds rather than evaporates. It&#39;s the number I&#39;m most proud of because it proves the pipeline model over the transaction model.</div>
+              </div>
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">1</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Source of truth</div>
+                <div class="cs-od-body">All applicant management moved into the platform, replacing Lever and the spreadsheets entirely. With one system, leadership could see pipeline health for the first time. Recruiters stopped duplicating work across tools. Stage data became consistent enough to actually analyze. The product became core infrastructure &#8212; used daily until the team was dissolved in a company-wide reorganization.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">09</span><span class="cs-section-title">What I&#39;d do differently</span></div>
+            <p class="cd-body">The stage vocabulary alignment work was the right call, but I&#39;d do it faster. I spent time working recruiter by recruiter to get buy-in on shared language when I could have run a structured workshop up front, documented the decisions, and moved on.</p>
+            <p class="cd-body">On the candidate experience: I&#39;d push for it earlier. I raised it as a constraint mid-project, when it should have been in scope from the start. If I&#39;d framed candidate retention as a business risk in the initial scoping conversation &#8212; not a UX consideration &#8212; it would have been in scope from day one.</p>
+            <div class="cs-reflection">
+              <div class="cs-reflection-title">What this project was really about</div>
+              <p class="cd-body">Getting the right President into an acquired small business isn&#39;t an HR milestone. It&#39;s the unlock for employee ownership to actually work. Every hire placed through this system represented a business moving from a retiring owner&#39;s legacy into something owned by the people who run it. The spreadsheet couldn&#39;t hold that weight. The platform could. Designing systems that hold serious weight &#8212; and that don&#39;t break when the business scales past what anyone originally planned for &#8212; is the job.</p>
             </div>
           </div>
 
           <div class="cd-block cd-closer">
-            <p class="cd-body">Getting the right President into an acquired small business isn&#39;t just an HR milestone &#8212; it&#39;s the unlock for employee ownership to actually work. Every hire placed through this system represented a business transferring from a retiring owner&#39;s legacy into something owned by the people who run it. The spreadsheet couldn&#39;t hold that weight. The platform could.</p>
+            <p class="cd-body">Teamshares is a private company. Screens shown are representative of shipped work.</p>
           </div>
-
         `,
       },
 
       'marketo-sky': {
         company: 'Marketo / Adobe',
-        headline: 'I built the design system that survived an acquisition — and influenced the one that replaced it.',
-        intro: 'Marketo was mid-platform-redesign with a component library maintained by a single person and no governance. I saw it as an org problem, not a design problem.',
+        headline: 'I didn\'t pitch a design solution. I pitched a structural one.',
+        intro: 'Marketo was mid-platform-redesign with a component library maintained by one person and no governance holding it together. The patterns were diverging. The instinct would have been to clean up the components. I went after the org model instead.',
         metrics: [
           { value: '50+',   label: 'components audited and standardized' },
           { value: '100%',  label: 'adoption across product teams' },
-          { value: '2.5 yrs', label: 'pre + post-acquisition effort' },
+          { value: '2.5 yrs', label: 'pre and post-acquisition runway' },
           { value: '3',     label: 'alumni now leading at LinkedIn, TikTok, AWS' },
         ],
         content: `
-
-          <div class="cd-two-col">
-            <div>
-              <h2 class="cd-h2">The situation</h2>
-              <p class="cd-body">Marketo was mid-platform-redesign. The component library was maintained by a single person with no governance and no authority over what entered it. Divergent patterns were compounding across the product.</p>
-              <p class="cd-body">I didn't pitch a design solution. I pitched a structural one.</p>
-            </div>
-            <div>
-              <h2 class="cd-h2">Team</h2>
-              <ul class="cd-checklist">
-                <li>Design systems lead &#8212; me</li>
-                <li>2 junior designers (assigned)</li>
-                <li>Front-end tech lead</li>
-                <li>Rotating PM model &#8212; by component area</li>
-              </ul>
-            </div>
+          <div class="cs-meta-row">
+            <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Design Systems Lead</div></div>
+            <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Governance, system design, team building</div></div>
+            <div><div class="cs-meta-label">Timeline</div><div class="cs-meta-val">2.5 years, pre and post-acquisition</div></div>
+            <div><div class="cs-meta-label">Team</div><div class="cs-meta-val">2 junior designers, front-end tech lead, rotating PMs</div></div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">The arc</h2>
-            <div class="cd-outcome-callouts">
-              <div class="cd-outcome-callout cd-oc-blue">
-                <strong>Act 1 &#8212; The diagnosis</strong><br>One maintainer, no governance, no authority over what entered the library. Patterns diverging across a platform mid-redesign.
-              </div>
-              <div class="cd-outcome-callout cd-oc-green">
-                <strong>Act 2 &#8212; The build</strong><br>Democratized ownership. Audited 50+ components. New palette, new process, embedded evangelists in every team. 100% adoption.
-              </div>
-              <div class="cd-outcome-callout cd-oc-purple">
-                <strong>Act 3 &#8212; The acquisition multiplier</strong><br>Adobe acquires Marketo. Sky&#39;s grounding in industry-standard systems made migration far smoother than it could have been. Our patterns fed upstream into Adobe&#39;s design language.
-              </div>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">What was actually broken</span></div>
+            <p class="cd-body">Marketo was in the middle of a significant platform redesign. The component library existed, but it was maintained by a single person with no governance process and no real authority over what entered it. Patterns were diverging across the product. Teams were making local decisions that made sense for their surface and created inconsistency everywhere else.</p>
+            <p class="cd-body">The standard response to this situation is a design audit. Clean up the components, establish a style guide, ship an updated library. I didn't think that would work — not because the work wasn't necessary, but because it treated the symptom without touching the cause.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The actual diagnosis</div>
+              <p class="cd-body">A design system maintained by one person with no governance will diverge. That's not a failure of discipline — it's physics. One person can't be everywhere. Without authority over what enters the system, every team becomes a de facto exception. The problem wasn't the components. It was the model that produced the components. Fixing the model first was the only way to make sure the work didn't need to be redone in two years.</p>
             </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">The approach</h2>
-
-            <h3 class="cd-h3">Reframed a design problem as an org problem</h3>
-            <p class="cd-body">One person held all the keys. No one had authority over what entered the library. A system maintained that way will diverge — it's physics. I pitched a structural fix: democratize ownership, embed accountability into the team model itself. Got buy-in from my director and the VP of Product before a single component was touched.</p>
-
-            <h3 class="cd-h3">Assembled and partly vetted the team</h3>
-            <p class="cd-body">I was assigned two junior designers and was responsible for vetting subsequent designers who joined. I added a front-end tech lead and a rotating PM model — product managers rotated in based on which component areas were in scope for their pods. That structure kept the work connected to real product needs instead of becoming a design-team-only exercise.</p>
-
-            <h3 class="cd-h3">Solved adoption before it was a problem</h3>
-            <p class="cd-body">Most design systems fight for adoption after launch. I baked it into the model. When every team has a contributor, every team has a reason to care. The 100% came with the architecture.</p>
-
-            <h3 class="cd-h3">Grounded in industry-standard thinking</h3>
-            <p class="cd-body">We drew inspiration from the leading design systems of the time — Predix, Polaris, Lightning, and Spectrum among them. Not because anyone knew the acquisition was coming, but because building to those standards was the right call. When Adobe acquired Marketo, that foundation made the migration far less disruptive than it could have been.</p>
-
-            <h3 class="cd-h3">Contributed patterns upstream to Spectrum</h3>
-            <p class="cd-body">The conversation went both ways. Several Sky patterns — data visualization approaches, card treatments — found their way into Spectrum, Adobe's own design language. An acquired company leaving fingerprints on the acquirer's system.</p>
-          </div>
-
-          <div class="cd-block">
-            <h2 class="cd-h2">What followed</h2>
-
-            <h3 class="cd-h3">The team that came out of it</h3>
-            <p class="cd-body">The designers I grew through this effort went on to lead design systems and design functions at some of the most design-mature organizations in the industry.</p>
-            <div class="cd-outcomes-grid">
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val cd-outcome-text">LinkedIn</span>
-                <span class="cd-outcome-desc">Design systems lead</span>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">Selling the structural fix before touching anything</span></div>
+            <p class="cd-body">Before any design work started, I got buy-in from my director and the VP of Product on a different model entirely. Not "we need better components." The pitch was: we need democratized ownership, embedded accountability, and governance that gives the design org actual authority over what enters the system.</p>
+            <p class="cd-body">That conversation happened before I had a single artifact to show. That was intentional. If you bring a governance proposal with a component library attached, people react to the components. If you bring the governance proposal alone, they react to the argument. The argument needed to land first.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tradeoff-label">Option A</div>
+                <div class="cs-tradeoff-title">Centralized ownership</div>
+                <div class="cs-tradeoff-body">One team owns the system. All contributions go through them. Consistency is high, velocity is a bottleneck. The model that was already failing — just with more people in the seat.</div>
               </div>
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val cd-outcome-text">TikTok</span>
-                <span class="cd-outcome-desc">Design systems lead</span>
-              </div>
-              <div class="cd-outcome-item">
-                <span class="cd-outcome-val cd-outcome-text">AWS</span>
-                <span class="cd-outcome-desc">Design lead</span>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tradeoff-label">Option B — chosen <span class="cs-chosen-badge">selected</span></div>
+                <div class="cs-tradeoff-title">Federated ownership with governance</div>
+                <div class="cs-tradeoff-body">Every product team has a contributor with a stake in the system. Central governance sets standards and reviews contributions. Ownership is distributed, quality control is centralized. Adoption comes built in.</div>
               </div>
             </div>
-
-            <h3 class="cd-h3">New color palette and formalized governance</h3>
-            <p class="cd-body">The audit didn't just clean up components — it produced a new color system, standardized review processes, and a governance model that gave the design org real authority over what entered the system.</p>
-
-            <h3 class="cd-h3">Acquisition-ready by design</h3>
-            <p class="cd-body">The Adobe transition was less than a year and wasn't immediately enforced — teams migrated over time with minimal friction. The groundwork laid in Sky made that possible.</p>
+            <p class="cd-body">The tradeoff with federated ownership: it's harder to manage. Contributors have other jobs. They're not full-time on the system, which means quality variance is a real risk. The governance layer was the answer to that — not as bureaucracy, but as a review process that gave contributors a clear bar and gave the central team real authority to hold it.</p>
+            <p class="cd-body">The thing I argued most directly: if you want 100% adoption, you need 100% of teams to feel like the system belongs to them. You can't mandate that. You have to architect it.</p>
           </div>
 
-          <div class="cd-block cd-closer">
-            <p class="cd-body">I identified a governance failure, reframed it as a structural org problem, and sold leadership on a democratic model before I had a single artifact to show them. I built a team, a system, and an adoption strategy that hit 100% — then watched that system survive an acquisition and feed patterns upstream into one of the largest design organizations in tech. The designers I mentored are now design systems leads at LinkedIn and TikTok, and a design lead at AWS. That&#39;s not a design system story. That&#39;s a compounding return on a strategic bet.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">Building the team deliberately</span></div>
+            <p class="cd-body">I was assigned two junior designers. I added a front-end tech lead and built a rotating PM model — product managers rotated in based on which component areas were in scope for their pods. That structure kept the work connected to real product needs instead of becoming a design-org-only exercise that shipped into a vacuum.</p>
+            <div class="finding-block">
+              <div class="finding-row">
+                <div class="finding-tag">Junior designers</div>
+                <div class="finding-body">The right call for execution work, and an opportunity to develop people through real systems-level work. I was responsible for vetting subsequent designers who joined. I looked for people who could think in patterns, not just pixels — a different skill than strong visual design.</div>
+              </div>
+              <div class="finding-row">
+                <div class="finding-tag">Front-end tech lead</div>
+                <div class="finding-body">Non-negotiable. A design system that engineering can't implement consistently isn't a system — it's a reference document. Having a technical lead embedded from the start meant components were designed with implementation in mind from day one, not retrofitted after.</div>
+              </div>
+              <div class="finding-row">
+                <div class="finding-tag">Rotating PMs</div>
+                <div class="finding-body">The part most people skip. Product managers rotated in based on which component areas were in scope for their pods. This kept the system tethered to actual product work. It also meant PMs had direct accountability for the components their teams would use — which made adoption a product goal, not just a design goal.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">Solving adoption before it was a problem</span></div>
+            <p class="cd-body">Most design systems fight for adoption after they ship. Teams have already built things their own way. Migrating is work. The system becomes a political negotiation instead of a shared resource.</p>
+            <p class="cd-body">I didn't want to have that fight. The federated model was partly a governance decision and partly an adoption strategy. When every team has a contributor with skin in the game, every team has a reason to use what comes out of it. The 100% adoption number wasn't the result of a mandate. It was baked into the architecture from the start.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The specific mechanism that made it work</div>
+              <p class="cd-body">Embedded evangelists. Each product pod had someone who had contributed to the system and understood it from the inside. When new components shipped, that person wasn't just a user — they were an advocate who could answer questions, explain decisions, and reduce the friction of adoption at the team level. You can't document your way to that. You have to build it into the org model.</p>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">The audit and the new color system</span></div>
+            <p class="cd-body">Once the governance model was in place, the component work started. 50+ components audited, rationalized, and standardized. The audit wasn't just a cleanup exercise — it surfaced the decisions that had never been made explicitly and were producing inconsistency across the product.</p>
+            <p class="cd-body">Color was the clearest example. The existing palette had grown by accretion. Colors got added when someone needed them, without a system behind the choices. The audit produced a new color system built around a coherent semantic model — not just a palette, but rules for how colors were used, when, and why. That made it defensible in review and teachable to contributors who weren't color-system specialists.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">Why the semantic layer mattered</div>
+              <p class="cd-body">A list of hex codes isn't a color system. A color system tells you which color to use in which context and why. Without that layer, every new component becomes a judgment call, and judgment calls at scale produce drift. The semantic model gave contributors a framework to make consistent decisions without needing to escalate every choice to the central team. That's what made the governance scalable.</p>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">Grounding in industry standards, which turned out to matter more than expected</span></div>
+            <p class="cd-body">In building Sky, we drew heavily from the leading design systems of the time: Predix, Polaris, Lightning, Spectrum. Not because there was any awareness that an acquisition was coming — there wasn't — but because building to industry-standard patterns was the right call for a platform at Marketo's scale. Enterprise B2B software has established conventions for a reason. Working against them costs you in onboarding, in accessibility, and in credibility with technical stakeholders.</p>
+            <p class="cd-body">That decision turned out to be a significant factor when Adobe acquired Marketo. The migration to Adobe's design language was less disruptive than it could have been precisely because Sky was already built on patterns that Adobe's Spectrum system recognized. That's a case where doing the right thing for the wrong-sounding reason — "just because it's good practice" — turned out to have real strategic value after the fact.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tradeoff-label">The path not taken</div>
+                <div class="cs-tradeoff-title">Marketo-native patterns</div>
+                <div class="cs-tradeoff-body">Build a system tailored entirely to Marketo's specific product context. Higher short-term coherence within the product, but disconnected from broader industry conventions and harder to migrate when the acquisition happened.</div>
+              </div>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tradeoff-label">What we built <span class="cs-chosen-badge">selected</span></div>
+                <div class="cs-tradeoff-title">Industry-grounded patterns</div>
+                <div class="cs-tradeoff-body">Sky drew from Predix, Polaris, Lightning, and Spectrum. More onboarding investment up front to align contributors, but the system spoke a language the broader industry understood — including Adobe's design org.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">The acquisition: Sky's patterns going upstream into Spectrum</span></div>
+            <p class="cd-body">Adobe acquired Marketo. The expectation would be that the acquired company's design system gets absorbed into the acquirer's. That's mostly what happened. But not entirely.</p>
+            <p class="cd-body">Several Sky patterns — data visualization approaches, card treatments — found their way upstream into Spectrum, Adobe's own design language. An acquired company leaving fingerprints on the acquirer's system. That's not a common outcome, and it happened because Sky was built to a standard that Adobe's design org could recognize and evaluate on its merits, not dismiss as a legacy artifact from an acquired product.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">What this means in practice</div>
+              <p class="cd-body">The upstream contribution isn't just a portfolio footnote. It's evidence that the system was built with enough rigor that one of the largest design organizations in tech looked at it and said: this is better than what we have in this area. That doesn't happen with a component library. It happens with a system that has a real point of view, documented decisions, and patterns that generalize beyond the product they were built for.</p>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">What the team became</span></div>
+            <p class="cd-body">The designers I developed through this work went on to lead design systems and design functions at some of the most design-mature organizations in the industry. That's not incidental to the project — it's a result of it. Working on a real system, with real governance, real contributors, and real stakes is a different kind of development than working on a product feature.</p>
+            <div class="alumni-row">
+              <div class="alumni-card"><div class="alumni-co">LinkedIn</div><div class="alumni-role">Design systems lead</div></div>
+              <div class="alumni-card"><div class="alumni-co">TikTok</div><div class="alumni-role">Design systems lead</div></div>
+              <div class="alumni-card"><div class="alumni-co">AWS</div><div class="alumni-role">Design lead</div></div>
+            </div>
+            <p class="cd-body">I take that seriously as a measure of the work. A design system that produced three alumni at that level means the people who worked on it learned something real. That's only possible if the work itself had depth — if there were hard decisions to make, real tradeoffs to navigate, and a governance model that required people to think in systems rather than in screens.</p>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">09</span><span class="cs-section-title">What the numbers actually mean</span></div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">100%</div>
+              <div class="cs-outcome-detail">
+                <div class="cs-od-title">Adoption</div>
+                <div class="cs-od-body">Every product team using Sky. Worth being clear about what produced this: it wasn't a mandate and it wasn't a rollout campaign. It was an architectural decision made before the system launched. When every team has a contributor with skin in the game, adoption is a natural outcome, not a separate problem to solve. The 100% is the federated model working as intended.</div>
+              </div>
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">50+</div>
+              <div class="cs-outcome-detail">
+                <div class="cs-od-title">Components audited and standardized</div>
+                <div class="cs-od-body">The audit was the mechanism, not the outcome. What the audit actually produced: a shared vocabulary across the design org, a semantic color system, a governance process with real teeth, and a component library that contributors could extend without breaking. The 50+ number represents the scope of the problem that existed before the governance model was in place.</div>
+              </div>
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">2.5 yrs</div>
+              <div class="cs-outcome-detail">
+                <div class="cs-od-title">Pre and post-acquisition runway</div>
+                <div class="cs-od-body">Sky ran for 2.5 years spanning the Adobe acquisition. A design system that survives an acquisition without being immediately deprecated is a system that was built with enough rigor to be recognized on its merits. Most acquired systems don't make it. Sky not only survived but contributed patterns upstream. The 2.5 years matters because it includes the period when Adobe could have simply replaced it, and chose not to immediately.</div>
+              </div>
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">3</div>
+              <div class="cs-outcome-detail">
+                <div class="cs-od-title">Alumni at LinkedIn, TikTok, AWS</div>
+                <div class="cs-od-body">This is the outcome I didn't know to measure while the work was happening. You can't predict where the people you develop will go. But the fact that three of them ended up leading design systems and design functions at organizations that take design seriously tells you something about the quality of the work they did — and the environment that produced it.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">10</span><span class="cs-section-title">What I'd do differently</span></div>
+            <p class="cd-body">The governance model worked, but it took longer to fully operationalize than it should have. The federated ownership concept was sound. The documentation of what that meant in practice — how contributions got reviewed, what the bar was, who had final authority on edge cases — lagged behind the system itself. That created ambiguity in the early months that I had to resolve one conversation at a time instead of by pointing to a process.</p>
+            <p class="cd-body">I'd write the governance playbook first, before the first contributor joined. Not a long document — a one-pager that answered the three questions every contributor needed: what's my responsibility, how does my work get reviewed, and who has final say. That clarity would have shortened the ramp-up time considerably.</p>
+            <p class="cd-body">On the upstream Spectrum contribution: I'd document the pattern decisions more rigorously in real time. Some of what we contributed worked its way into Spectrum through conversations and informal knowledge transfer rather than clean handoffs. The patterns landed, but the reasoning behind them was harder to transfer than it would have been if we'd been writing decision records as we made the decisions. That discipline would have made the contribution more durable.</p>
+            <div class="cs-reflection">
+              <div class="cs-reflection-title">What this was really about</div>
+              <p class="cd-body">A design system is a bet on how a team will make decisions over time. The components are almost beside the point. What matters is whether the governance model produces consistent decisions at scale without requiring a central authority to weigh in on everything. Sky worked because the model worked — and the model worked because it was designed before the components were. That sequencing is the lesson. Get the org right, then build the thing.</p>
+            </div>
           </div>
 
         `,
