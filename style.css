@@ -5,6 +5,19 @@
   padding: 0;
 }
 
+/* ─── Focus styles — WCAG 2.4.7 / 2.4.11 ─── */
+:focus-visible {
+  outline: 2px solid rgba(31,31,31,0.55);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Inputs have border-color focus indicators; restore outline for keyboard nav */
+.pw-input:focus-visible { outline: 2px solid rgba(255,255,255,0.8); outline-offset: 4px; border-radius: 2px; }
+.name-input:focus-visible { outline: 2px solid rgba(31,31,31,0.55); outline-offset: 4px; border-radius: 2px; }
+.chat-input:focus-visible { outline: 2px solid rgba(31,31,31,0.55); outline-offset: 3px; }
+.fit-textarea:focus-visible { outline: 2px solid rgba(31,31,31,0.55); outline-offset: 0px; }
+
 /* ─── Password gate ─── */
 .pw-gate {
   position: fixed;
@@ -59,7 +72,7 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .pw-input-wrap { width: 100%; }
@@ -82,13 +95,13 @@
 
 .pw-input:focus { border-bottom-color: rgba(255, 255, 255, 0.6); }
 
-.pw-input::placeholder { color: rgba(255, 255, 255, 0.12); }
+.pw-input::placeholder { color: rgba(255, 255, 255, 0.45); }
 
 .pw-hint {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 0.02em;
 }
 
@@ -136,12 +149,12 @@ body {
 }
 
 /* Portfolio — case list text */
-.sky-dark .cases-heading      { color: rgba(255, 255, 255, 0.45); }
-.sky-dark .case-company       { color: rgba(255, 255, 255, 0.45); }
+.sky-dark .cases-heading      { color: rgba(255, 255, 255, 0.8); }
+.sky-dark .case-company       { color: rgba(255, 255, 255, 0.75); }
 .sky-dark .case-title-h       { color: rgba(255, 255, 255, 0.95); }
-.sky-dark .case-desc-h        { color: rgba(255, 255, 255, 0.65); }
-.sky-dark .case-chevron                    { color: rgba(255, 255, 255, 0.25); }
-.sky-dark .case-card-h:hover .case-chevron { color: rgba(255, 255, 255, 0.7); }
+.sky-dark .case-desc-h        { color: rgba(255, 255, 255, 0.85); }
+.sky-dark .case-chevron                    { color: rgba(255, 255, 255, 0.6); }
+.sky-dark .case-card-h:hover .case-chevron { color: rgba(255, 255, 255, 0.9); }
 .sky-dark .case-card-h                     { border-bottom-color: rgba(255, 255, 255, 0.14); }
 
 /* Header links */
@@ -162,7 +175,7 @@ body {
 }
 .sky-dark .name-input::placeholder { color: rgba(255, 255, 255, 0.22); }
 .sky-dark .name-input:focus         { border-bottom-color: rgba(255, 255, 255, 0.75); }
-.sky-dark .name-hint               { color: rgba(255, 255, 255, 0.4); }
+.sky-dark .name-hint               { color: rgba(255, 255, 255, 0.7); }
 
 /* Messages */
 .sky-dark .msg-text                { color: rgba(255, 255, 255, 0.92); }
@@ -489,11 +502,11 @@ main {
 /* ─── "Selected cases" label ─── */
 .cases-heading {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(31, 31, 31, 0.4);
+  color: rgba(31, 31, 31, 0.65);
   margin-bottom: 20px;
   max-width: 860px;
 }
@@ -581,11 +594,11 @@ main {
 
 .case-company {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(31, 31, 31, 0.4);
+  color: rgba(31, 31, 31, 0.6);
   margin-bottom: 8px;
 }
 
@@ -934,7 +947,7 @@ main {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: rgba(31, 31, 31, 0.45);
+  color: rgba(31, 31, 31, 0.65);
   letter-spacing: 0.02em;
   line-height: 1.35;
 }
@@ -1007,11 +1020,11 @@ main {
 
 .cd-h3 {
   font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(31, 31, 31, 0.38);
+  color: rgba(31, 31, 31, 0.65);
   margin-top: 28px;
   margin-bottom: 10px;
 }
@@ -1074,13 +1087,13 @@ main {
 .cd-callout-from span,
 .cd-callout-to span {
   font-family: 'Inter', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   display: inline-block;
   margin-right: 8px;
-  color: rgba(31, 31, 31, 0.35);
+  color: rgba(31, 31, 31, 0.65);
 }
 
 .cd-callout-to {
@@ -1422,9 +1435,9 @@ main {
 }
 .cd-outcome-desc {
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  color: rgba(31, 31, 31, 0.45);
+  color: rgba(31, 31, 31, 0.65);
   line-height: 1.4;
   letter-spacing: 0.01em;
 }
@@ -1752,10 +1765,10 @@ main {
 
 .cs-section-num {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
-  color: rgba(31,31,31,0.35);
+  color: rgba(31,31,31,0.55);
   flex-shrink: 0;
 }
 
@@ -1776,11 +1789,11 @@ main {
 
 .cs-callout-label {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: rgba(31,31,31,0.38);
+  color: rgba(31,31,31,0.65);
   margin-bottom: 6px;
 }
 
@@ -1840,11 +1853,11 @@ main {
 
 .cs-tc-label {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: rgba(31,31,31,0.38);
+  color: rgba(31,31,31,0.65);
   margin-bottom: 6px;
 }
 
@@ -1871,7 +1884,7 @@ main {
   display: inline-block;
   background: #dbeafe;
   color: #2563eb;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   padding: 2px 7px;
   border-radius: 6px;
@@ -1945,8 +1958,8 @@ main {
 
 .cs-meta-label {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: rgba(31,31,31,0.38);
+  font-size: 12px;
+  color: rgba(31,31,31,0.65);
   text-transform: uppercase;
   letter-spacing: 0.07em;
   margin-bottom: 4px;
@@ -1984,7 +1997,7 @@ main {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(31,31,31,0.45);
+  color: rgba(31,31,31,0.65);
   width: 160px;
   flex-shrink: 0;
   padding: 0.75rem 1rem;
@@ -2049,7 +2062,7 @@ main {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(31,31,31,0.45);
+  color: rgba(31,31,31,0.65);
   width: 160px;
   flex-shrink: 0;
   padding: 0.75rem 1rem;
@@ -2134,7 +2147,7 @@ main {
 .alumni-role {
   font-family: 'Golos Text', sans-serif;
   font-size: 12px;
-  color: rgba(31,31,31,0.45);
+  color: rgba(31,31,31,0.65);
 }
 
 /* ─── Sprint table (ATS case) ─── */
@@ -2156,7 +2169,7 @@ main {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(31,31,31,0.45);
+  color: rgba(31,31,31,0.65);
   width: 160px;
   flex-shrink: 0;
   padding: 0.75rem 1rem;
@@ -2184,16 +2197,23 @@ main {
   .finding-block--padded .finding-tag { width: 100px; }
 }
 
+/* ─── Tradeoff card aliases (marketo case uses cs-tradeoff-* naming) ─── */
+.cs-tradeoff-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(31,31,31,0.65); margin-bottom: 6px; }
+.cs-tradeoff-card.chosen .cs-tradeoff-label { color: #2563eb; }
+.cs-tradeoff-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: #1f1f1f; margin-bottom: 6px; }
+.cs-tradeoff-card.chosen .cs-tradeoff-title { color: #1d4ed8; }
+.cs-tradeoff-body { font-family: 'Golos Text', sans-serif; font-size: 13px; color: rgba(31,31,31,0.65); line-height: 1.6; }
+
 /* ─── Portfolio is always monochromatic — neutralize sky-dark overrides ─── */
-.sky-dark .portfolio-view .cases-heading    { color: rgba(31, 31, 31, 0.4); }
-.sky-dark .portfolio-view .case-company     { color: rgba(31, 31, 31, 0.4); }
+.sky-dark .portfolio-view .cases-heading    { color: rgba(31, 31, 31, 0.65); }
+.sky-dark .portfolio-view .case-company     { color: rgba(31, 31, 31, 0.6); }
 .sky-dark .portfolio-view .case-title-h     { color: #1f1f1f; }
-.sky-dark .portfolio-view .case-desc-h      { color: rgba(31, 31, 31, 0.6); }
+.sky-dark .portfolio-view .case-desc-h      { color: rgba(31, 31, 31, 0.65); }
 .sky-dark .portfolio-view .chat-rail        { border-left-color: rgba(31, 31, 31, 0.1); }
 .sky-dark .portfolio-view .name-question    { color: #1f1f1f; }
 .sky-dark .portfolio-view .name-input       { color: #1f1f1f; border-bottom-color: rgba(31, 31, 31, 0.25); }
-.sky-dark .portfolio-view .name-input::placeholder { color: rgba(31, 31, 31, 0.22); }
-.sky-dark .portfolio-view .name-hint        { color: rgba(31, 31, 31, 0.4); }
+.sky-dark .portfolio-view .name-input::placeholder { color: rgba(31, 31, 31, 0.45); }
+.sky-dark .portfolio-view .name-hint        { color: rgba(31, 31, 31, 0.6); }
 .sky-dark .portfolio-view .name-send-btn    { background: #1f1f1f; }
 .sky-dark .portfolio-view .name-send-btn:hover { background: #383838; }
 .sky-dark .portfolio-view .msg-text         { color: #1f1f1f; }
@@ -2243,15 +2263,16 @@ main {
     gap: 5px;
     border: none;
     background: none;
-    color: rgba(31, 31, 31, 0.35);
+    color: rgba(31, 31, 31, 0.55);
     font-family: 'Inter', sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
     transition: color 0.2s ease;
     -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
   }
 
   .mob-tab.mob-tab--active { color: #1f1f1f; }
