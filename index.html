@@ -148,17 +148,7 @@
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
-          <div class="cases-heading-row">
-            <p class="cases-heading">Selected cases</p>
-            <div class="case-scroll-btns" id="caseScrollBtns">
-              <button class="case-scroll-btn" id="caseScrollPrev" aria-label="Previous cases" disabled>
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <button class="case-scroll-btn" id="caseScrollNext" aria-label="Next cases">
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
+          <p class="cases-heading">Selected work</p>
           <div class="case-stack" id="caseStack">
 
             <div class="case-item" data-case="teamshares-payroll" role="button" tabindex="0" aria-label="View Teamshares Payroll case study" style="--card-color: #14532d">
@@ -171,6 +161,13 @@
                   <h3 class="case-title-h">Payroll reporting</h3>
                   <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
                 </div>
+              </div>
+            </div>
+
+            <div class="case-item case-item--photo">
+              <div class="photo-tile">
+                <img src="assets/creative-analytics.jpg" alt="Audience segmentation dashboard" class="photo-tile-img" />
+                <div class="photo-tile-caption"><span>Audience segmentation — Marketo</span></div>
               </div>
             </div>
 
@@ -187,6 +184,13 @@
               </div>
             </div>
 
+            <div class="case-item case-item--photo">
+              <div class="photo-tile">
+                <img src="assets/creative-twilight.jpg" alt="Twilight color system" class="photo-tile-img" />
+                <div class="photo-tile-caption"><span>Twilight color system — Marketo</span></div>
+              </div>
+            </div>
+
             <div class="case-item" data-case="marketo-sky" role="button" tabindex="0" aria-label="View Marketo Sky design system case study" style="--card-color: #4c1d95">
               <div class="case-card-v">
                 <div class="case-card-band">
@@ -197,6 +201,13 @@
                   <h3 class="case-title-h">The design system that survived an acquisition</h3>
                   <p class="case-desc-h">Built Sky's design system from the ground up. Patterns contributed upstream to Adobe Spectrum.</p>
                 </div>
+              </div>
+            </div>
+
+            <div class="case-item case-item--photo">
+              <div class="photo-tile">
+                <img src="assets/creative-dashboard.jpg" alt="Mobile service business dashboard" class="photo-tile-img" />
+                <div class="photo-tile-caption"><span>Service dashboard — mobile</span></div>
               </div>
             </div>
 
@@ -1694,30 +1705,7 @@
       }
     }
 
-    // ─── Scroll arrow buttons ─────────────────────────────────────────────────
-    const caseStack    = document.getElementById('caseStack');
-    const scrollPrev   = document.getElementById('caseScrollPrev');
-    const scrollNext   = document.getElementById('caseScrollNext');
-    const CARD_STRIDE  = 304; // card width (288) + gap (16)
-
-    function syncScrollBtns() {
-      if (!caseStack || !scrollPrev || !scrollNext) return;
-      const atStart = caseStack.scrollLeft <= 2;
-      const atEnd   = caseStack.scrollLeft >= caseStack.scrollWidth - caseStack.clientWidth - 2;
-      scrollPrev.disabled = atStart;
-      scrollNext.disabled = atEnd;
-    }
-
-    if (scrollPrev && scrollNext && caseStack) {
-      scrollPrev.addEventListener('click', () => {
-        caseStack.scrollBy({ left: -CARD_STRIDE, behavior: 'smooth' });
-      });
-      scrollNext.addEventListener('click', () => {
-        caseStack.scrollBy({ left: CARD_STRIDE, behavior: 'smooth' });
-      });
-      caseStack.addEventListener('scroll', syncScrollBtns, { passive: true });
-      syncScrollBtns();
-    }
+    // ─── Masonry layout — no scroll button logic needed ──────────────────────
 
     // Card click + keyboard delegation (WCAG 2.1.1)
     document.addEventListener('click', (e) => {
