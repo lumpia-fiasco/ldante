@@ -550,6 +550,8 @@
       document.getElementById('fitPanel').classList.toggle('mob-active', which === 'fit');
       // Hide case list behind the fit panel so it doesn't bleed through
       document.getElementById('caseListPanel').style.display = which === 'fit' ? 'none' : '';
+      // Re-run masonry when work tab becomes visible (offsetWidth was 0 while hidden)
+      if (which === 'work') setTimeout(layoutMasonry, 0);
       if (which === 'chat') {
         setTimeout(() => {
           const prompt = document.getElementById('railNamePrompt');
