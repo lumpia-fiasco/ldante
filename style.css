@@ -1991,6 +1991,8 @@ main {
   align-self: stretch;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  text-align: right;
   flex-shrink: 0;
 }
 
@@ -2053,6 +2055,8 @@ main {
   border-right: 1px solid rgba(31,31,31,0.07);
   display: flex;
   align-items: flex-start;
+  justify-content: flex-end;
+  text-align: right;
   line-height: 1.4;
   flex-shrink: 0;
 }
@@ -2092,6 +2096,8 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   min-width: 110px;
+  justify-content: flex-end;
+  text-align: right;
 }
 
 .finding-block--padded .finding-body {
@@ -2155,6 +2161,8 @@ main {
   border-right: 1px solid rgba(31,31,31,0.07);
   display: flex;
   align-items: flex-start;
+  justify-content: flex-end;
+  text-align: right;
   flex-shrink: 0;
 }
 
