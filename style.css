@@ -456,7 +456,6 @@ main {
 }
 .case-list-panel {
   padding: 56px 60px 80px 60px;
-  position: relative;
 }
 .case-detail-panel {
   padding: 0 60px 80px; /* top padding handled by sticky back button */
@@ -584,15 +583,15 @@ main {
 
 /* ─── Case list — masonry grid ─── */
 .case-stack {
-  column-count: 3;
-  column-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
   padding: 4px 0 40px;
 }
 
 /* ─── Case item wrapper ─── */
 .case-item {
-  break-inside: avoid;
-  margin-bottom: 16px;
   display: block;
 }
 
@@ -1863,7 +1862,7 @@ main {
 
   .rail-input-wrap { padding: 14px 16px 20px; }
 
-  .case-stack { column-count: 2; }
+  .case-stack { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ─── Case study document components (Meroxa v3 style) ─── */
@@ -2450,7 +2449,7 @@ main {
     background: transparent;
   }
 
-  .case-stack { column-count: 1; }
+  .case-stack { grid-template-columns: 1fr; }
   .case-card-v { width: 100%; }
   .case-card-band { height: 128px; }
   .case-title-h { font-size: 1.2rem; }
