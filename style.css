@@ -558,6 +558,12 @@ main {
   transform: translateX(-5px);
 }
 
+/* ─── Inner width cap — prevents over-stretching on ultrawide screens ─── */
+.case-list-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 /* ─── Cases heading row (label + scroll arrows) ─── */
 .cases-heading-row {
   display: flex;
@@ -581,18 +587,17 @@ main {
   max-width: 860px;
 }
 
-/* ─── Case list — masonry grid ─── */
+/* ─── Case list — masonry (JS-positioned) ─── */
 .case-stack {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  align-items: start;
+  position: relative;
   padding: 4px 0 40px;
+  /* height set dynamically by layoutMasonry() */
 }
 
 /* ─── Case item wrapper ─── */
 .case-item {
-  display: block;
+  position: absolute; /* placed by layoutMasonry() */
+  box-sizing: border-box;
 }
 
 /* ─── Vertical case card ─── */
@@ -1862,8 +1867,8 @@ main {
 
   .rail-input-wrap { padding: 14px 16px 20px; }
 
-  .case-stack { grid-template-columns: repeat(2, 1fr); }
 }
+
 
 /* ─── Case study document components (Meroxa v3 style) ─── */
 
@@ -2449,7 +2454,6 @@ main {
     background: transparent;
   }
 
-  .case-stack { grid-template-columns: 1fr; }
   .case-card-v { width: 100%; }
   .case-card-band { height: 128px; }
   .case-title-h { font-size: 1.2rem; }
