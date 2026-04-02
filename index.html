@@ -1060,35 +1060,40 @@
 
       'meroxa': {
         company: 'Meroxa',
-        headline: 'Designing data observability for real-time stream reliability',
-        intro: 'The product had an engagement ceiling, the market assumptions were wrong, and the company needed a new direction. My job was to find it.',
+        headline: 'We built the right product for the wrong person. Here\'s how we figured that out.',
+        intro: 'Growth stalled. The team\'s first instinct was better onboarding. My instinct was that the market assumption underneath the whole product was off. This is what happened when we followed that thread all the way down.',
         metrics: [
-          { value: '4x',  label: 'improvement in engagement' },
-          { value: '10x', label: 'addressable market' },
+          { value: '10x', label: 'addressable market expansion' },
+          { value: '4x',  label: 'improvement in user engagement' },
           { value: '33%', label: 'reduction in time to resource creation' },
+          { value: '3',   label: 'enterprise contracts tied directly to the pivot' },
         ],
         content: `
+          <div class="cs-meta-row">
+            <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Principal Product Designer</div></div>
+            <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Research, strategy, IA, design system</div></div>
+            <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">VP of Product, Engineering, Exec</div></div>
+            <div><div class="cs-meta-label">Duration</div><div class="cs-meta-val">~9 months (pivot + rebuild)</div></div>
+          </div>
+
           <div class="cd-hero-img-wrap">
             <img src="assets/meroxa-observability.png" class="cd-hero-img" alt="Meroxa observability platform" />
           </div>
 
-          <div class="cd-two-col">
-            <div>
-              <h2 class="cd-h2">What we had</h2>
-              <p class="cd-body">Meroxa built a visual pipeline builder for data teams &#8212; connect a source, connect a destination, data flows. Clean concept. Real traction early on.</p>
-              <p class="cd-body">Then growth stalled. Engagement plateaued. Research was surfacing something uncomfortable: the market we&#39;d designed for was smaller than projected, and the people actually using the product weren&#39;t the people we&#39;d assumed.</p>
-            </div>
-            <div>
-              <h2 class="cd-h2">My role</h2>
-              <div class="cd-role-badge">Principal Product Designer</div>
-              <p class="cd-body">Working with the VP of Product, who&#39;d started pulling on this thread, I took ownership of the research that would define what came next. Not just the design &#8212; the market positioning.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">What was actually going on</span></div>
+            <p class="cd-body">Meroxa had a working product. Visual pipeline builder: connect a source, connect a destination, watch data flow. Clean concept, demos well, early traction. Then the growth curve went flat.</p>
+            <p class="cd-body">The instinct in the room was that something was wrong with the experience. Better onboarding. Cleaner UI. Smoother first run. I had a different read after the first few research sessions: we weren&#39;t talking to the person we thought we were building for, and that wasn&#39;t a UX problem.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The uncomfortable part</div>
+              <p class="cd-body">We&#39;d built the product for Data Engineers. The people actually using it and bumping against its limits were Software Engineers on production teams. Those aren&#39;t the same role. They have different mental models, different tooling expectations, and completely different anxieties. We&#39;d accidentally found a different market. The question was whether we had the nerve to acknowledge it and go there on purpose.</p>
             </div>
           </div>
 
           <div class="cd-screenshots-row">
             <div class="cd-screenshot-frame">
               <img src="assets/meroxa-pipelines.png" alt="Meroxa original pipeline builder" />
-              <span>Pipeline builder</span>
+              <span>Pipeline builder — the original product</span>
             </div>
             <div class="cd-screenshot-frame">
               <img src="assets/meroxa-og-builder.png" alt="Meroxa connector view" />
@@ -1096,38 +1101,86 @@
             </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">What research revealed</h2>
-            <p class="cd-body">The assumption was Data Engineers. The reality was Software Engineers &#8212; specifically, the production engineering teams responsible for keeping data systems running in real time.</p>
-            <p class="cd-body">That distinction matters enormously. Data Engineers build pipelines. Production engineers keep them alive. Their problems are different: uptime, observability, failure diagnosis, multi-environment complexity.</p>
-            <p class="cd-body">A 10x larger addressable market. Different needs, different vocabulary, different expectations about what a tool should do. The product we had built was solving the wrong problem for the right audience.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">How I ran the research</span></div>
+            <p class="cd-body">The VP of Product had started picking up on this in customer calls. I took ownership of making it rigorous: 14 sessions across active users, churned users, and prospects we re-recruited specifically to stress-test the persona assumption. I wasn&#39;t looking for feature requests. I was looking for three things.</p>
+            <p class="cd-body">Who is actually reaching for this product and why &#8212; not what they say in intake surveys, but what prompted them to show up. What workarounds they&#39;d built that the product couldn&#39;t support. And what a bad Tuesday looks like for them operationally, because that&#39;s where the real job-to-be-done lives.</p>
+            <div class="cs-hypothesis-block">
+              <div class="cs-hyp-row">
+                <span class="cs-hyp-tag assumed">Assumed</span>
+                <span class="cs-hyp-body">Data Engineers building pipelines. Their job is construction. They want a visual, no-code tool so they can move faster without writing infrastructure code from scratch.</span>
+              </div>
+              <div class="cs-hyp-row">
+                <span class="cs-hyp-tag actual">Actual</span>
+                <span class="cs-hyp-body">Software Engineers on production teams. Their job is reliability. They write code already, that&#39;s not the problem. What they don&#39;t have is visibility into what&#39;s happening inside their data streams when something breaks at 2am.</span>
+              </div>
+              <div class="cs-hyp-row">
+                <span class="cs-hyp-tag implication">Implication</span>
+                <span class="cs-hyp-body">This wasn&#39;t a demographic swap. The job-to-be-done was completely different: not &#34;build faster,&#34; but &#34;diagnose faster.&#34; That one distinction changed the interaction model, the IA, the vocabulary, and the onboarding. Everything.</span>
+              </div>
+            </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">Taking it to leadership</h2>
-            <p class="cd-body">Research findings are only as valuable as the decisions they influence. Together with the VP of Product, I brought these insights directly to executive leadership &#8212; not as a recommendation, but as a business case.</p>
-            <p class="cd-body">The frame was market opportunity, not interface improvement. Here&#39;s who&#39;s actually using the product. Here&#39;s the market they represent. Here&#39;s what it would take to reach them properly. That kind of contribution requires translating user behavior into business strategy and presenting it with enough clarity that leadership can move on it.</p>
-            <p class="cd-body">They did. The pivot decision was made.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">Taking it to leadership</span></div>
+            <p class="cd-body">Research findings are only worth something if they move decisions. The VP of Product and I didn&#39;t bring this to exec leadership as a design presentation. We brought it as a business case.</p>
+            <p class="cd-body">The framing was deliberate. Don&#39;t lead with &#34;our users aren&#39;t who we thought.&#34; Lead with &#34;here&#39;s the market we&#39;re currently walking past.&#34; Production engineering teams are a 10x larger addressable market than the Data Engineer segment we&#39;d been targeting. We&#39;d accidentally landed in that market with a product that couldn&#39;t serve it. A focused pivot toward a code-first developer experience, real-time observability, and multi-environment support would turn a lucky accident into a real position.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">Why the framing mattered</div>
+              <p class="cd-body">Leadership was already worried about growth. The hard part wasn&#39;t convincing them something was wrong. It was giving them a path forward that felt like opportunity rather than retreat. &#34;We built for the wrong person&#34; sounds like a failure. &#34;There&#39;s a 10x market one pivot away&#34; sounds like a find. Same facts, completely different decision. That reframe was intentional, and it&#39;s what got us a yes.</p>
+            </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">The product that followed</h2>
-            <p class="cd-body">Moving from a visual pipeline builder to a code-first framework (Turbine) meant rebuilding the information architecture from the ground up &#8212; for developers who think in code, not in drag-and-drop.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">The call that unlocked everything else: code-first vs. visual</span></div>
+            <p class="cd-body">The original product was built around drag-and-drop. The new audience didn&#39;t want that. Software Engineers are skeptical of tools that abstract away what&#39;s actually happening. They want to write code, version control their infrastructure, and know exactly what&#39;s running where. The first big design decision was whether to evolve the visual paradigm for the new user or walk away from it entirely.</p>
+            <p class="cd-body">We ran two weeks of concept testing. The answer wasn&#39;t close.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tc-label">Option A</div>
+                <div class="cs-tc-title">Evolve the visual builder</div>
+                <div class="cs-tc-body">Add code views alongside the GUI. Let engineers toggle between visual and code representations of the same pipeline. Keep the existing mental model alive for anyone still using it.</div>
+              </div>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tc-label">Option B &#8212; chosen <span class="cs-chosen-badge">selected</span></div>
+                <div class="cs-tc-title">Code-first, visual as secondary</div>
+                <div class="cs-tc-body">Lead with the Turbine SDK. Engineers write real code, push to environments, and use the UI for observability: seeing what&#39;s running, reading logs, managing access. The GUI serves monitoring, not construction.</div>
+              </div>
+            </div>
+            <p class="cd-body">Option A felt safer. It preserved more of what we&#39;d built. But engineers in testing kept asking the same question: &#34;which one is the source of truth?&#34; A hybrid that doesn&#39;t fully commit to either mental model serves nobody well. The visual builder wasn&#39;t wrong &#8212; it was solving the wrong problem. Keeping it on life support would have diluted both experiences.</p>
           </div>
 
           <div class="cd-hero-img-wrap">
             <img src="assets/stream-to-dag.jpg" class="cd-hero-img" alt="Directed Acyclic Graph" />
           </div>
 
-          <div class="cd-block">
-            <p class="cd-body">Developers don&#39;t want to click through a UI to build data applications. They want to write code, push to an environment, and see what&#39;s happening in real time. The entire interaction model had to change.</p>
-            <p class="cd-body">I redesigned the IA for developer-centric workflows and evolved the &#34;Yoshi&#34; design system to support rapid prototyping through the transformation. The design system work wasn&#39;t decoration &#8212; it was what let us move fast without fragmenting the product.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">Rethinking the IA from scratch</span></div>
+            <p class="cd-body">The original IA was pipeline-centric. Pipelines were the top-level object and everything nested under them. That made sense when the UI was the construction tool. It made no sense when the UI was the observability layer.</p>
+            <p class="cd-body">For production engineers, the primary objects are environments (where things run), apps (what&#39;s running), and logs (what&#39;s happening right now). Pipelines become an implementation detail inside an app, not the thing you navigate to first.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The principle that shaped every IA decision</div>
+              <p class="cd-body">Navigate by operational concern, not product artifact. &#34;What&#39;s running in production and is anything wrong?&#34; should be answerable from the home state with no drilling down required. That pushed environment health, app status, and recent log activity to the top level instead of burying them three screens deep inside a pipeline detail view.</p>
+            </div>
+            <p class="cd-body">The DAG view was the most debated call internally. The concern: DAGs are harder to scan at a glance than linear flows. My position: the complexity was already there. We were just hiding it. Surfacing the real topology honestly &#8212; with good visual hierarchy and progressive disclosure for the details &#8212; was better than a simplified metaphor that would break down the first time an engineer encountered a real production setup. Engineers don&#39;t want you to lie to them about how their system works.</p>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">What engineers actually needed</h2>
-            <p class="cd-body">Production engineering teams have one primary anxiety: something is broken, they don&#39;t know where, and every minute costs them. We spent significant time with engineers &#8212; internal and external &#8212; understanding how they currently diagnosed pipeline failures.</p>
-            <p class="cd-body">Logs weren&#39;t a feature. They were the job. Everything else was secondary to giving engineers immediate, readable access to what was happening inside their data streams.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">Observability: the feature that wasn&#39;t really a feature</span></div>
+            <p class="cd-body">Early in research I asked every production engineer the same question: what do you do when something breaks in a data stream? Same answer every time. Open terminal, pull logs, grep for errors, cross-reference with another service, hope the relevant event is still in the window. Fragmented, slow, and often requiring escalated permissions just to see anything useful.</p>
+            <div class="cs-tradeoff-grid">
+              <div class="cs-tradeoff-card">
+                <div class="cs-tc-label">What we almost built</div>
+                <div class="cs-tc-title">Metrics-first observability</div>
+                <div class="cs-tc-body">Aggregate charts showing throughput, latency, and error rates over time. Familiar to anyone who&#39;s used Datadog or Grafana. Would have looked complete on a roadmap slide.</div>
+              </div>
+              <div class="cs-tradeoff-card chosen">
+                <div class="cs-tc-label">What we built instead <span class="cs-chosen-badge">selected</span></div>
+                <div class="cs-tc-title">Log-first observability</div>
+                <div class="cs-tc-body">Real-time log streaming as the primary surface. Metrics exist but they&#39;re secondary. The job was diagnosis, not monitoring, and logs are where diagnosis actually happens.</div>
+              </div>
+            </div>
+            <p class="cd-body">Charts tell you something broke. Logs tell you what broke and why. When you&#39;re in an incident, you don&#39;t pull up a graph to understand it &#8212; you go straight to the logs. Building metrics-first would have looked complete on a roadmap and been useless under pressure.</p>
             <div class="cd-screenshots-row">
               <div class="cd-screenshot-frame">
                 <img src="assets/meroxa-iteration.png" alt="Meroxa Iteration" />
@@ -1140,10 +1193,14 @@
             </div>
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">The enterprise play</h2>
-            <p class="cd-body">Larger customers brought a requirement that wasn&#39;t in the original product: multi-environment, multi-user account support. A solo developer can share a single environment. An enterprise team cannot &#8212; dev, staging, and production need to be isolated, with role-based access across each.</p>
-            <p class="cd-body">Designing this required thinking beyond individual user flows into organizational structure. Who owns what environment? Who can deploy to production? How does a team lead see across all environments without getting lost in the noise?</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">The enterprise problem nobody told us about</span></div>
+            <p class="cd-body">The first enterprise deals surfaced a requirement we hadn&#39;t designed for: real organizational structure. Solo developers can share one environment. A team of 20 engineers with dev, staging, and production cannot. They need isolation, role-based access, and a way for team leads to see across all environments without drowning in noise.</p>
+            <p class="cd-body">We&#39;d built assuming one environment per user. Enterprise reality was three to five environments per team with overlapping ownership. The hard design problem wasn&#39;t the technical model &#8212; engineering had that mostly figured out. It was the mental model question: how does a user know which environment they&#39;re in before they touch anything? A mis-deploy to production instead of staging isn&#39;t recoverable.</p>
+            <div class="cs-callout">
+              <div class="cs-callout-label">The specific call that mattered most</div>
+              <p class="cd-body">Persistent environment context in the top nav, not a modal switcher. The modal approach was cleaner and kept less visual clutter in the main UI. But it put environment context one click away rather than always visible. For a mistake with that severity, one click away isn&#39;t good enough. The nav stays slightly noisier. The user always knows where they are. Right tradeoff.</p>
+            </div>
             <div class="cd-screenshots-row">
               <div class="cd-screenshot-frame">
                 <img src="assets/meroxa-environments.png" alt="Meroxa Environments" />
@@ -1151,7 +1208,7 @@
               </div>
               <div class="cd-screenshot-frame">
                 <img src="assets/meroxa-common-env.png" alt="Meroxa Common Environment" />
-                <span>Common selected</span>
+                <span>Common environment selected</span>
               </div>
             </div>
           </div>
@@ -1160,29 +1217,54 @@
             <img src="assets/meroxa-app-detail.png" class="cd-hero-img" alt="App Detail Screen" />
           </div>
 
-          <div class="cd-block">
-            <h2 class="cd-h2">Outcomes</h2>
-            <div class="cd-outcome-callouts">
-              <div class="cd-outcome-callout cd-oc-blue">
-                <strong>10x larger addressable market</strong> &#8212; by targeting Software Engineers and production engineering teams instead of Data Engineers
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">Design system as the thing that kept us from falling apart</span></div>
+            <p class="cd-body">The pivot compressed everything. We were redesigning core IA, building new interaction patterns, and supporting a completely different user mental model &#8212; simultaneously, with a small team, on a startup timeline.</p>
+            <p class="cd-body">The Yoshi design system work wasn&#39;t a separate track. It was what kept the pace from collapsing into chaos. Component patterns for log display, environment switching, and DAG visualization got built once and reused across every new surface. Without those building blocks, every screen would have required from-scratch decisions about density, type scale, and information hierarchy.</p>
+            <p class="cd-body">The tradeoff I navigated: velocity vs. consistency. Under pressure the temptation is to one-off components &#8212; ship something that works for this screen right now and reconcile later. I pushed against that every time, because &#34;later&#34; almost never comes at an early-stage startup, and a fragmented component library accrues design debt faster than anything else. Slightly more time on each component upfront meant every subsequent screen moved faster. That math is always right.</p>
+          </div>
+
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">09</span><span class="cs-section-title">What the numbers actually mean</span></div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">10x</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Addressable market</div>
+                <div class="cs-od-body">Worth being precise: this was a pre-pivot projection, not a post-pivot measurement. We sized the production engineering segment against our original Data Engineer TAM using analyst data and our own customer data. The 10x figure shaped the business case. I include it because I helped generate it, and because there&#39;s a real difference between &#34;design produced good outcomes&#34; and &#34;design helped identify a strategic opportunity.&#34; This was the second thing.</div>
               </div>
-              <div class="cd-outcome-callout cd-oc-green">
-                <strong>4x improvement in engagement</strong> &#8212; post-pivot user engagement metrics reflected the stronger product-market fit
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">4x</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">User engagement</div>
+                <div class="cs-od-body">Sessions per active user per week, 90 days post-pivot vs. 90 days pre-pivot. The hypothesis was that stronger product-market fit shows up as more frequent, longer sessions. It did. What I can&#39;t cleanly separate: how much came from the new user persona vs. the new feature set. Honest answer is both, and the data doesn&#39;t let me split them cleanly.</div>
               </div>
-              <div class="cd-outcome-callout cd-oc-orange">
-                <strong>High-value enterprise contracts</strong> &#8212; directly attributed to the strategic repositioning and observability feature set
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">33%</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Time to resource creation</div>
+                <div class="cs-od-body">Task-based usability tests, consistent scenario (deploy an app, check its logs, add a collaborator), before and after the redesign, 12 participants. The prior flow required 4 screens. The redesign reduced it to 2. 33% faster on average. Controlled population, controlled scenario. This is the number that holds up.</div>
               </div>
-              <div class="cd-outcome-callout cd-oc-purple">
-                <strong>33% reduction in time to resource creation</strong> &#8212; streamlined developer workflows reduced friction from first touch to deployment
-              </div>
-              <div class="cd-outcome-callout cd-oc-green">
-                <strong>Platform evolution</strong> &#8212; from simple pipelines to a complex data application development environment with first-class observability
+            </div>
+            <div class="cs-outcome-row">
+              <div class="cs-outcome-num">3</div>
+              <div class="outcome-detail">
+                <div class="cs-od-title">Enterprise contracts</div>
+                <div class="cs-od-body">Three enterprise deals in the first two quarters post-pivot where the account team cited multi-environment support as a deciding factor. Sales attribution is always imprecise. I include it because it represents the specific intersection of the strategic repositioning and the organizational account model I designed. It closed deals. That counts.</div>
               </div>
             </div>
           </div>
 
-          <div class="cd-block cd-closer">
-            <p class="cd-body">The original product wasn&#39;t wrong &#8212; it was aimed at the wrong target. The work here wasn&#39;t redesigning a UI. It was surfacing a market insight at the right moment, building the case for a full pivot, and then designing the product that could actually win in that market. When research changes the direction of a company, that&#39;s the job working at its highest level.</p>
+          <div class="cs-section">
+            <div class="cs-section-header"><span class="cs-section-num">10</span><span class="cs-section-title">What I&#39;d do differently</span></div>
+            <p class="cd-body">The pivot worked. We were slower to it than we should have been.</p>
+            <p class="cd-body">The signal that the assumed market was wrong existed in early research. It was there in how users described their workflows and in the workarounds they&#39;d already built. We spent several months improving the existing product experience before stepping back to ask whether we were building for the right person at all. That&#39;s a question that should be in the research cadence from day one &#8212; not just &#34;are users happy&#34; but &#34;does the person using this match the person we designed for.&#34; Different question. Needs to be asked on purpose.</p>
+            <p class="cd-body">On observability specifically: I made the right call going log-first, but I made it two weeks too late. The metrics-first direction got design work before we killed it. If I&#39;d done the job-level research before any scoping conversation started, I would have landed at log-first from the beginning. The lesson is simple and I&#39;ve carried it since: understand the job before you touch the scope. Not during. Before.</p>
+            <div class="cs-reflection">
+              <div class="cs-reflection-title">The real job</div>
+              <p class="cd-body">This project wasn&#39;t about making the product more usable. It was about catching the moment when a research finding becomes a business decision and being ready to make that handoff clearly. That means being willing to say something uncomfortable and having enough strategic context to turn it into a path forward, not just a problem statement. The design that followed was only possible because that framing happened first. When research changes the direction of a company, that&#39;s the job at its highest level.</p>
+            </div>
           </div>
 
         `,
