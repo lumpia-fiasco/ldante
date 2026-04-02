@@ -148,7 +148,17 @@
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
-          <p class="cases-heading">Selected cases</p>
+          <div class="cases-heading-row">
+            <p class="cases-heading">Selected cases</p>
+            <div class="case-scroll-btns" id="caseScrollBtns">
+              <button class="case-scroll-btn" id="caseScrollPrev" aria-label="Previous cases" disabled>
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="case-scroll-btn" id="caseScrollNext" aria-label="Next cases">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
           <div class="case-stack" id="caseStack">
 
             <div class="case-item" data-case="teamshares-payroll" role="button" tabindex="0" aria-label="View Teamshares Payroll case study" style="--card-color: #14532d">
@@ -1682,6 +1692,31 @@
         errorEl.textContent = err.message || 'Something went wrong. Try again.';
         errorEl.hidden = false;
       }
+    }
+
+    // ─── Scroll arrow buttons ─────────────────────────────────────────────────
+    const caseStack    = document.getElementById('caseStack');
+    const scrollPrev   = document.getElementById('caseScrollPrev');
+    const scrollNext   = document.getElementById('caseScrollNext');
+    const CARD_STRIDE  = 304; // card width (288) + gap (16)
+
+    function syncScrollBtns() {
+      if (!caseStack || !scrollPrev || !scrollNext) return;
+      const atStart = caseStack.scrollLeft <= 2;
+      const atEnd   = caseStack.scrollLeft >= caseStack.scrollWidth - caseStack.clientWidth - 2;
+      scrollPrev.disabled = atStart;
+      scrollNext.disabled = atEnd;
+    }
+
+    if (scrollPrev && scrollNext && caseStack) {
+      scrollPrev.addEventListener('click', () => {
+        caseStack.scrollBy({ left: -CARD_STRIDE, behavior: 'smooth' });
+      });
+      scrollNext.addEventListener('click', () => {
+        caseStack.scrollBy({ left: CARD_STRIDE, behavior: 'smooth' });
+      });
+      caseStack.addEventListener('scroll', syncScrollBtns, { passive: true });
+      syncScrollBtns();
     }
 
     // Card click + keyboard delegation (WCAG 2.1.1)
