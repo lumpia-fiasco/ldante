@@ -607,6 +607,7 @@ main {
 /* ─── Vertical case card ─── */
 .case-card-v {
   width: 288px;
+  height: 420px;
   display: flex;
   flex-direction: column;
   border-radius: 18px;
@@ -2413,7 +2414,7 @@ main {
     background: transparent;
   }
 
-  .case-card-v { width: 256px; }
+  .case-card-v { width: 256px; height: 380px; }
   .case-card-band { height: 128px; }
   .case-title-h { font-size: 1.2rem; }
   .case-desc-h  { font-size: 0.85rem; }
