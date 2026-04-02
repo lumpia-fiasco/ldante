@@ -277,6 +277,10 @@
   <script>
     // ─── Password gate ────────────────────────────────────────────────────────
     // ─── Password field: one sky cycle on first focus ─────────────────────────
+    // ─── Glitch effect on pw-name ─────────────────────────────────────────────
+    const pwName = document.querySelector('.pw-name');
+    if (pwName) pwName.dataset.text = 'L Dante Guarin\nProduct Design';
+
     const PW_DARK_BG = 'linear-gradient(to top, #0f172a, #0b0f1e 45%, #020617)';
     document.getElementById('pwInput').addEventListener('focus', function runPwCycle() {
       const gate = document.getElementById('pwGate');

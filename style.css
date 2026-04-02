@@ -64,6 +64,65 @@
   color: #ffffff;
   margin: 0 0 12px;
   letter-spacing: -0.02em;
+  position: relative;
+  animation: glitch-shake 0.65s step-end 0.2s forwards;
+}
+
+/* ─── RGB-split glitch layers ─── */
+.pw-name::before,
+.pw-name::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  white-space: pre-line;
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 65px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.pw-name::before {
+  color: #ff2d55;
+  animation: glitch-r 0.65s step-end 0.2s forwards;
+}
+
+.pw-name::after {
+  color: #00e5ff;
+  animation: glitch-b 0.65s step-end 0.2s forwards;
+}
+
+@keyframes glitch-r {
+  0%   { opacity: 1; clip-path: inset(8% 0 76% 0);  transform: translateX(-9px); }
+  15%  { clip-path: inset(54% 0 18% 0);              transform: translateX(8px);  }
+  30%  { opacity: 0; clip-path: inset(0 0 100% 0);   transform: translateX(0);    }
+  46%  { opacity: 1; clip-path: inset(27% 0 45% 0);  transform: translateX(-6px); }
+  61%  { clip-path: inset(71% 0 7% 0);               transform: translateX(5px);  }
+  76%  { opacity: 0; clip-path: inset(0 0 100% 0);   transform: translateX(0);    }
+  100% { opacity: 0; }
+}
+
+@keyframes glitch-b {
+  0%   { opacity: 1; clip-path: inset(41% 0 33% 0);  transform: translateX(9px);  }
+  15%  { clip-path: inset(11% 0 66% 0);              transform: translateX(-8px); }
+  30%  { opacity: 0; clip-path: inset(0 0 100% 0);   transform: translateX(0);    }
+  46%  { opacity: 1; clip-path: inset(62% 0 16% 0);  transform: translateX(6px);  }
+  61%  { clip-path: inset(23% 0 54% 0);              transform: translateX(-5px); }
+  76%  { opacity: 0; clip-path: inset(0 0 100% 0);   transform: translateX(0);    }
+  100% { opacity: 0; }
+}
+
+@keyframes glitch-shake {
+  0%   { transform: translateX(-3px); }
+  15%  { transform: translateX(3px);  }
+  30%  { transform: translateX(0);    }
+  46%  { transform: translateX(-2px); }
+  61%  { transform: translateX(2px);  }
+  76%  { transform: translateX(0);    }
+  100% { transform: translateX(0);    }
 }
 
 .pw-label {
