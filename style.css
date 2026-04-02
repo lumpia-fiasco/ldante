@@ -1984,7 +1984,8 @@ main {
   font-size: 12px;
   font-weight: 500;
   color: rgba(31,31,31,0.45);
-  min-width: 120px;
+  width: 160px;
+  flex-shrink: 0;
   padding: 0.75rem 1rem;
   background: rgba(31,31,31,0.03);
   border-right: 1px solid rgba(31,31,31,0.07);
@@ -1993,7 +1994,6 @@ main {
   align-items: center;
   justify-content: flex-end;
   text-align: right;
-  flex-shrink: 0;
 }
 
 .workflow-body {
@@ -2049,7 +2049,8 @@ main {
   font-size: 12px;
   font-weight: 500;
   color: rgba(31,31,31,0.45);
-  min-width: 130px;
+  width: 160px;
+  flex-shrink: 0;
   padding: 0.75rem 1rem;
   background: rgba(31,31,31,0.03);
   border-right: 1px solid rgba(31,31,31,0.07);
@@ -2058,7 +2059,6 @@ main {
   justify-content: flex-end;
   text-align: right;
   line-height: 1.4;
-  flex-shrink: 0;
 }
 
 .finding-body {
@@ -2095,7 +2095,8 @@ main {
   padding-top: 2px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  min-width: 110px;
+  width: 160px;
+  flex-shrink: 0;
   justify-content: flex-end;
   text-align: right;
 }
@@ -2155,7 +2156,8 @@ main {
   font-size: 12px;
   font-weight: 500;
   color: rgba(31,31,31,0.45);
-  min-width: 110px;
+  width: 160px;
+  flex-shrink: 0;
   padding: 0.75rem 1rem;
   background: rgba(31,31,31,0.03);
   border-right: 1px solid rgba(31,31,31,0.07);
@@ -2163,7 +2165,6 @@ main {
   align-items: flex-start;
   justify-content: flex-end;
   text-align: right;
-  flex-shrink: 0;
 }
 
 .sprint-body {
@@ -2175,10 +2176,11 @@ main {
 }
 
 @media (max-width: 680px) {
-  .workflow-step { min-width: 80px; }
+  .workflow-step { width: 100px; }
   .workflow-tag { display: none; }
-  .finding-tag { min-width: 90px; }
-  .sprint-label { min-width: 80px; }
+  .finding-tag { width: 100px; }
+  .sprint-label { width: 100px; }
+  .finding-block--padded .finding-tag { width: 100px; }
 }
 
 /* ─── Portfolio is always monochromatic — neutralize sky-dark overrides ─── */
