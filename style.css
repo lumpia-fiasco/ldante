@@ -592,7 +592,7 @@ main {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 4px 0 28px;
+  padding: 12px 60px 40px 4px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -697,7 +697,7 @@ main {
   font-weight: 400;
   color: rgba(31, 31, 31, 0.6);
   line-height: 1.5;
-  margin-top: auto;
+  margin-top: 4px;
 }
 
 /* ─── Right: chat rail ─── */
