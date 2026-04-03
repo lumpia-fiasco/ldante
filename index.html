@@ -288,6 +288,15 @@
   </main>
 
   <script>
+    // ─── Screen-transition glitch helper ──────────────────────────────────────
+    function triggerGlitch(el) {
+      if (!el) return;
+      el.classList.remove('glitch-in');
+      void el.offsetWidth; // force reflow to restart animation
+      el.classList.add('glitch-in');
+      el.addEventListener('animationend', () => el.classList.remove('glitch-in'), { once: true });
+    }
+
     // ─── Password gate ────────────────────────────────────────────────────────
     // ─── Password field: one sky cycle on first focus ─────────────────────────
     // ─── Glitch effect on pw-name ─────────────────────────────────────────────
@@ -504,6 +513,7 @@
       const pv = document.getElementById('portfolioView');
       pv.classList.add('active');
       pv.removeAttribute('aria-hidden');
+      triggerGlitch(pv);
 
       applyExperience(EXPERIENCE);
 
@@ -536,6 +546,12 @@
       document.getElementById('caseListPanel').style.display = which === 'fit' ? 'none' : '';
       // Re-run masonry when work tab becomes visible (offsetWidth was 0 while hidden)
       if (which === 'work') setTimeout(() => layoutMasonry(true), 0);
+      // Glitch the incoming panel
+      const glitchTarget = which === 'work' ? document.getElementById('portfolioLeft')
+                         : which === 'chat' ? document.getElementById('chatRail')
+                         : which === 'fit'  ? document.getElementById('fitPanel')
+                         : null;
+      triggerGlitch(glitchTarget);
       if (which === 'chat') {
         setTimeout(() => {
           const prompt = document.getElementById('railNamePrompt');
@@ -1520,6 +1536,7 @@
       listPanel.classList.add('hidden');
       detailPanel.classList.add('active');
       detailPanel.scrollTop = 0;
+      triggerGlitch(detailPanel);
     }
 
     function showCaseList() {
@@ -1529,6 +1546,7 @@
       // Slide detail out to right, fade list back in
       detailPanel.classList.remove('active');
       listPanel.classList.remove('hidden');
+      triggerGlitch(listPanel);
     }
 
     // Back buttons
@@ -1553,6 +1571,7 @@
       listPanel.classList.add('hidden');
       fitPanel.classList.add('active');
       fitPanel.scrollTop = 0;
+      triggerGlitch(fitPanel);
       document.getElementById('fitTextarea').focus();
     }
 
@@ -1561,6 +1580,7 @@
       const fitPanel  = document.getElementById('fitPanel');
       fitPanel.classList.remove('active');
       listPanel.classList.remove('hidden');
+      triggerGlitch(listPanel);
     }
 
     document.getElementById('fitBtn').addEventListener('click', showFitPanel);
