@@ -612,18 +612,8 @@ main {
   background: var(--card-color, #1f1f1f);
   box-shadow: 0 4px 20px rgba(0,0,0,0.18);
   cursor: pointer;
-  opacity: 0;
-  transform: translateY(-48px);
-  transition:
-    opacity 0.55s ease,
-    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s ease;
+  transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease;
   will-change: transform, opacity;
-}
-
-.case-card-v.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .case-card-v:hover {

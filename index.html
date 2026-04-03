@@ -521,14 +521,8 @@
 
       applyExperience(EXPERIENCE);
 
-      // Stagger case cards in
-      const cards = document.querySelectorAll('.case-card-v');
-      cards.forEach((card, i) => {
-        setTimeout(() => card.classList.add('visible'), i * 100);
-      });
-
-      // Run masonry after cards have staggered in
-      setTimeout(layoutMasonry, cards.length * 100 + 80);
+      // Layout masonry and animate cards in from scattered positions
+      layoutMasonry(true);
 
       // Mobile: default to Fit tab
       if (window.innerWidth <= 680) {
@@ -555,7 +549,7 @@
       // Hide case list behind the fit panel so it doesn't bleed through
       document.getElementById('caseListPanel').style.display = which === 'fit' ? 'none' : '';
       // Re-run masonry when work tab becomes visible (offsetWidth was 0 while hidden)
-      if (which === 'work') setTimeout(layoutMasonry, 0);
+      if (which === 'work') setTimeout(() => layoutMasonry(true), 0);
       if (which === 'chat') {
         setTimeout(() => {
           const prompt = document.getElementById('railNamePrompt');
@@ -1717,25 +1711,29 @@
     }
 
     // ─── Masonry layout ───────────────────────────────────────────────────────
-    function layoutMasonry() {
+    let masonryAnimated = false;
+
+    function layoutMasonry(animate) {
       const stack = document.getElementById('caseStack');
       if (!stack) return;
 
       const GAP = 16;
       const W   = stack.offsetWidth;
+      if (W === 0) return; // panel not visible yet
       const cols = W >= 860 ? 3 : W >= 520 ? 2 : 1;
       const colW = (W - GAP * (cols - 1)) / cols;
       const colH = new Array(cols).fill(0);
 
       const items = Array.from(stack.children);
 
-      // Set widths first so the browser can calculate heights
+      // Kill transitions while measuring
       items.forEach(item => {
+        item.style.transition = 'none';
         item.style.position = 'absolute';
         item.style.width = colW + 'px';
       });
 
-      // Read heights and place items
+      // Place items into their final positions
       items.forEach(item => {
         const col = colH.indexOf(Math.min(...colH));
         item.style.left = (col * (colW + GAP)) + 'px';
@@ -1744,13 +1742,43 @@
       });
 
       stack.style.height = Math.max(...colH) + 'px';
+
+      // Scatter → settle animation (first layout only)
+      if (animate && !masonryAnimated) {
+        masonryAnimated = true;
+
+        // Scatter each item to a random position below
+        items.forEach(item => {
+          const rx = (Math.random() - 0.5) * 200;
+          const ry = 220 + Math.random() * 140;
+          const rr = (Math.random() - 0.5) * 18;
+          item.style.opacity = '0';
+          item.style.transform = `translate(${rx}px, ${ry}px) rotate(${rr}deg)`;
+        });
+
+        // Let browser paint the scattered state, then float up into place
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          items.forEach((item, i) => {
+            const delay = i * 65;
+            item.style.transition = `opacity 0.5s ease ${delay}ms, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`;
+            item.style.opacity = '1';
+            item.style.transform = 'none';
+          });
+        }));
+      } else if (!animate) {
+        // Resize: snap into place immediately, no animation
+        items.forEach(item => {
+          item.style.opacity = '1';
+          item.style.transform = 'none';
+        });
+      }
     }
 
-    // Re-layout on resize
+    // Re-layout on resize (no animation)
     let masonryTimer;
     window.addEventListener('resize', () => {
       clearTimeout(masonryTimer);
-      masonryTimer = setTimeout(layoutMasonry, 120);
+      masonryTimer = setTimeout(() => layoutMasonry(false), 120);
     });
 
     // Card click + keyboard delegation (WCAG 2.1.1)
