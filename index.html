@@ -1962,6 +1962,12 @@
       }
     }
 
+    // ─── Random card tilts ──────────────────────────────────────────────────────
+    document.querySelectorAll('.case-item[data-case] .case-card-v').forEach(card => {
+      const tilt = ((Math.random() - 0.5) * 3.2).toFixed(2); // ±1.6deg
+      card.style.setProperty('--tilt', tilt + 'deg');
+    });
+
     // ─── Masonry layout ───────────────────────────────────────────────────────
     let masonryAnimated = false;
 

@@ -555,11 +555,56 @@ main {
   cursor: pointer;
   transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease;
   will-change: transform, opacity;
+  --tilt: 0deg;
+  transform: rotate(var(--tilt));
 }
 
 .case-card-v:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 24px 56px rgba(0,0,0,0.16);
+  transform: rotate(var(--tilt)) scale(1.04);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.22);
+}
+
+/* ─── Glitch effect on hover ─── */
+.case-card-v::before,
+.case-card-v::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+  mix-blend-mode: screen;
+  transition: opacity 0.15s ease;
+}
+.case-card-v::before {
+  background: rgba(255, 0, 80, 0.12);
+  clip-path: inset(0);
+}
+.case-card-v::after {
+  background: rgba(0, 255, 200, 0.10);
+  clip-path: inset(0);
+}
+.case-card-v:hover::before {
+  opacity: 1;
+  animation: glitch-r 0.3s steps(3) infinite;
+}
+.case-card-v:hover::after {
+  opacity: 1;
+  animation: glitch-c 0.3s steps(3) infinite;
+}
+
+@keyframes glitch-r {
+  0%   { clip-path: inset(15% 0 60% 0); transform: translate(-3px, 1px); }
+  33%  { clip-path: inset(55% 0 10% 0); transform: translate(2px, -1px); }
+  66%  { clip-path: inset(30% 0 40% 0); transform: translate(-1px, 2px); }
+  100% { clip-path: inset(70% 0 5% 0);  transform: translate(3px, 0px); }
+}
+@keyframes glitch-c {
+  0%   { clip-path: inset(40% 0 30% 0); transform: translate(3px, -1px); }
+  33%  { clip-path: inset(10% 0 65% 0); transform: translate(-2px, 1px); }
+  66%  { clip-path: inset(60% 0 15% 0); transform: translate(1px, -2px); }
+  100% { clip-path: inset(5% 0 75% 0);  transform: translate(-3px, 0px); }
 }
 
 /* ─── Photo tile ─── */
