@@ -1968,20 +1968,6 @@
       card.style.setProperty('--tilt', tilt + 'deg');
     });
 
-    // ─── RGB split clones for photo tiles ──────────────────────────────────────
-    document.querySelectorAll('.photo-tile').forEach(tile => {
-      const img = tile.querySelector('.photo-tile-img');
-      if (!img) return;
-      ['r', 'b'].forEach(ch => {
-        const clone = img.cloneNode();
-        clone.classList.remove('photo-tile-img');
-        clone.classList.add('rgb-clone', 'rgb-clone--' + ch);
-        clone.removeAttribute('alt');
-        clone.setAttribute('aria-hidden', 'true');
-        tile.appendChild(clone);
-      });
-    });
-
     // ─── Masonry layout ───────────────────────────────────────────────────────
     let masonryAnimated = false;
 
