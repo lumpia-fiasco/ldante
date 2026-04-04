@@ -564,49 +564,6 @@ main {
   box-shadow: 0 24px 56px rgba(0,0,0,0.22);
 }
 
-/* ─── Glitch effect on hover ─── */
-.case-card-v::before,
-.case-card-v::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 10;
-  mix-blend-mode: screen;
-  transition: opacity 0.15s ease;
-}
-.case-card-v::before {
-  background: rgba(255, 0, 80, 0.12);
-  clip-path: inset(0);
-}
-.case-card-v::after {
-  background: rgba(0, 255, 200, 0.10);
-  clip-path: inset(0);
-}
-.case-card-v:hover::before {
-  opacity: 1;
-  animation: glitch-r 0.3s steps(3) infinite;
-}
-.case-card-v:hover::after {
-  opacity: 1;
-  animation: glitch-c 0.3s steps(3) infinite;
-}
-
-@keyframes glitch-r {
-  0%   { clip-path: inset(15% 0 60% 0); transform: translate(-3px, 1px); }
-  33%  { clip-path: inset(55% 0 10% 0); transform: translate(2px, -1px); }
-  66%  { clip-path: inset(30% 0 40% 0); transform: translate(-1px, 2px); }
-  100% { clip-path: inset(70% 0 5% 0);  transform: translate(3px, 0px); }
-}
-@keyframes glitch-c {
-  0%   { clip-path: inset(40% 0 30% 0); transform: translate(3px, -1px); }
-  33%  { clip-path: inset(10% 0 65% 0); transform: translate(-2px, 1px); }
-  66%  { clip-path: inset(60% 0 15% 0); transform: translate(1px, -2px); }
-  100% { clip-path: inset(5% 0 75% 0);  transform: translate(-3px, 0px); }
-}
-
 /* ─── Photo tile ─── */
 .photo-tile {
   position: relative;
@@ -619,12 +576,40 @@ main {
   width: 100%;
   height: auto;
   display: block;
-  display: block;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .photo-tile:hover .photo-tile-img {
   transform: scale(1.05);
+}
+
+/* ─── RGB split on photo tiles ─── */
+.photo-tile .rgb-clone {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.2s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.photo-tile .rgb-clone--r {
+  mix-blend-mode: lighten;
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='r'%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#r");
+}
+.photo-tile .rgb-clone--b {
+  mix-blend-mode: lighten;
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='b'%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3C/svg%3E#b");
+}
+.photo-tile:hover .rgb-clone--r {
+  opacity: 0.85;
+  transform: translate(-5px, -2px);
+}
+.photo-tile:hover .rgb-clone--b {
+  opacity: 0.85;
+  transform: translate(5px, 2px);
 }
 
 .photo-tile-caption {
