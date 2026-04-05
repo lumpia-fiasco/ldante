@@ -1838,6 +1838,32 @@ main {
 
   .rail-input-wrap { padding: 14px 16px 20px; }
 
+  /* ── Fit panel on tablet ── */
+  .fit-panel {
+    position: absolute;
+    inset: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0 24px 64px;
+    display: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    overflow-y: scroll;
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .fit-panel.mob-active { display: block; }
+  .fit-panel.active { display: block; }
+
+  /* Hide the fit button — fit is a top-level tab */
+  .fit-btn-wrap { display: none; }
+
 }
 
 
