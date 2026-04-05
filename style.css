@@ -5,18 +5,18 @@
   padding: 0;
 }
 
-/* ─── Focus styles — WCAG 2.4.7 / 2.4.11 ─── */
+/* ─── Focus styles — soft glow ─── */
 :focus-visible {
-  outline: 2px solid rgba(31,31,31,0.55);
-  outline-offset: 3px;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31,31,31,0.1), 0 0 12px rgba(31,31,31,0.06);
   border-radius: 4px;
 }
 
-/* Inputs have border-color focus indicators; restore outline for keyboard nav */
-.pw-input:focus-visible { outline: 2px solid rgba(255,255,255,0.8); outline-offset: 4px; border-radius: 2px; }
-.name-input:focus-visible { outline: 2px solid rgba(31,31,31,0.55); outline-offset: 4px; border-radius: 2px; }
-.chat-input:focus-visible { outline: 2px solid rgba(31,31,31,0.55); outline-offset: 3px; }
-.fit-textarea:focus-visible { outline: 2px solid rgba(31,31,31,0.55); outline-offset: 0px; }
+/* Inputs — subtle glow for keyboard nav */
+.pw-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.15), 0 0 12px rgba(255,255,255,0.08); border-radius: 2px; }
+.name-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); border-radius: 2px; }
+.chat-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); }
+.fit-textarea:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); }
 
 /* ─── Password gate ─── */
 .pw-gate {
