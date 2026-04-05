@@ -2080,11 +2080,23 @@
       }
     }
 
-    // Re-layout on resize (no animation)
+    // Re-layout on resize (no animation) + clean up mobile state on breakpoint cross
     let masonryTimer;
+    let wasTablet = window.innerWidth <= 900;
     window.addEventListener('resize', () => {
       clearTimeout(masonryTimer);
       masonryTimer = setTimeout(() => layoutMasonry(false), 120);
+
+      const isTablet = window.innerWidth <= 900;
+      if (wasTablet && !isTablet) {
+        // Crossed from tablet/mobile → desktop: reset mobile tab state
+        document.getElementById('portfolioLeft').classList.remove('mob-active');
+        document.getElementById('chatRail').classList.remove('mob-active');
+        document.getElementById('fitPanel').classList.remove('mob-active');
+        document.getElementById('caseListPanel').style.display = '';
+        currentMobTab = null;
+      }
+      wasTablet = isTablet;
     });
 
     // Card click + keyboard delegation (WCAG 2.1.1)
