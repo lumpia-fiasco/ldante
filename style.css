@@ -767,16 +767,16 @@ main {
   font-weight: 400;
   letter-spacing: -0.03em;
   color: #1f1f1f;
-  background: transparent;
-  border: none;
-  border-bottom: 2.5px solid rgba(31, 31, 31, 0.25);
+  background: #f8f8f7;
+  border: 1.5px solid rgba(31, 31, 31, 0.12);
+  border-radius: 8px;
   outline: none;
   width: 100%;
-  padding: 6px 0 14px;
-  transition: border-color 0.2s ease;
+  padding: 12px 16px;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.name-input:focus { border-bottom-color: #1f1f1f; }
+.name-input:focus { border-color: rgba(31,31,31,0.35); background: #ffffff; }
 
 .name-input::placeholder { color: rgba(31, 31, 31, 0.22); }
 
