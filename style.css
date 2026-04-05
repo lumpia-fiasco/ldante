@@ -609,18 +609,11 @@ main {
 }
 
 /* ─── Logo — top left ─── */
-.case-card-band {
+.case-card-logo {
   position: absolute;
   top: 24px;
   left: 24px;
   z-index: 2;
-  height: auto;
-  background: none;
-  padding: 0;
-  display: block;
-}
-
-.case-card-logo {
   max-width: 100px;
   max-height: 36px;
   object-fit: contain;
