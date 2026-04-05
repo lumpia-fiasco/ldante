@@ -2147,12 +2147,7 @@
       const menu = document.getElementById('ctxMenu');
       const menuItems = menu.querySelectorAll('[data-case]');
 
-      document.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-
-        const x = e.clientX;
-        const y = e.clientY;
-
+      function showMenu(x, y) {
         menu.style.left = x + 'px';
         menu.style.top = y + 'px';
         menu.classList.add('ctx-visible');
@@ -2167,18 +2162,58 @@
             menu.style.top = (y - rect.height) + 'px';
           }
         });
+      }
+
+      function hideMenu() { menu.classList.remove('ctx-visible'); }
+
+      // Desktop: right-click
+      document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        showMenu(e.clientX, e.clientY);
       });
 
-      document.addEventListener('click', () => menu.classList.remove('ctx-visible'));
-      document.addEventListener('scroll', () => menu.classList.remove('ctx-visible'), true);
-      window.addEventListener('resize', () => menu.classList.remove('ctx-visible'));
+      // Mobile: long press
+      let lpTimer = null;
+      let lpFired = false;
+
+      document.addEventListener('touchstart', (e) => {
+        if (menu.contains(e.target)) return; // don't interfere with menu taps
+        lpFired = false;
+        const touch = e.touches[0];
+        const tx = touch.clientX;
+        const ty = touch.clientY;
+        lpTimer = setTimeout(() => {
+          lpFired = true;
+          navigator.vibrate && navigator.vibrate(20); // subtle haptic if supported
+          showMenu(tx, ty);
+        }, 500);
+      }, { passive: true });
+
+      document.addEventListener('touchmove', () => {
+        clearTimeout(lpTimer);
+      }, { passive: true });
+
+      document.addEventListener('touchend', (e) => {
+        clearTimeout(lpTimer);
+        // If long press just fired, prevent the tap from immediately closing/triggering
+        if (lpFired) {
+          e.preventDefault();
+          lpFired = false;
+        }
+      });
+
+      // Dismiss
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target)) hideMenu();
+      });
+      document.addEventListener('scroll', hideMenu, true);
+      window.addEventListener('resize', hideMenu);
 
       // Case study links
       menuItems.forEach(item => {
         item.addEventListener('click', () => {
-          menu.classList.remove('ctx-visible');
+          hideMenu();
           const caseId = item.dataset.case;
-          // Make sure portfolio view is showing
           const pv = document.getElementById('portfolioView');
           if (pv && !pv.classList.contains('active')) {
             document.getElementById('startBtn').click();
