@@ -549,7 +549,7 @@
       layoutMasonry(true);
 
       // Mobile: default to Fit tab
-      if (window.innerWidth <= 680) {
+      if (window.innerWidth <= 900) {
         activateMobTab('fit');
         return;
       }
@@ -1805,7 +1805,7 @@
         document.getElementById('caseListPanel').classList.add('hidden');
         const fp = document.getElementById('fitPanel');
         fp.classList.add('active');
-        if (window.innerWidth <= 680) activateMobTab('fit');
+        if (window.innerWidth <= 900) activateMobTab('fit');
       } else {
         showCaseList();
       }
@@ -1830,7 +1830,7 @@
 
     document.getElementById('fitBtn').addEventListener('click', showFitPanel);
     document.getElementById('fitBackBtn').addEventListener('click', function() {
-      if (window.innerWidth <= 680) {
+      if (window.innerWidth <= 900) {
         activateMobTab('work'); // on mobile: back = switch to Work tab
       } else {
         hideFitPanel();
