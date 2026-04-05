@@ -562,23 +562,20 @@
     }
 
     // ─── Mobile tab switching ─────────────────────────────────────────────────
-    function activateMobTab(which) {
+    let currentMobTab = 'fit'; // default on load
+
+    function switchToPanel(which) {
       document.querySelectorAll('.mob-tab').forEach(t =>
         t.classList.toggle('mob-tab--active', t.dataset.tab === which)
       );
-      // portfolioLeft must stay visible for both 'work' and 'fit' — fitPanel lives inside it
       document.getElementById('portfolioLeft').classList.toggle('mob-active', which === 'work' || which === 'fit');
       document.getElementById('chatRail').classList.toggle('mob-active', which === 'chat');
       document.getElementById('fitPanel').classList.toggle('mob-active', which === 'fit');
-      // Hide case list behind the fit panel so it doesn't bleed through
       document.getElementById('caseListPanel').style.display = which === 'fit' ? 'none' : '';
-      // Re-run masonry when work tab becomes visible (offsetWidth was 0 while hidden)
-      if (which === 'work') setTimeout(() => layoutMasonry(true), 0);
-      // Glitch the incoming panel
-      const glitchTarget = which === 'work' ? document.getElementById('portfolioLeft')
-                         : which === 'chat' ? document.getElementById('chatRail')
-                         : which === 'fit'  ? document.getElementById('fitPanel')
-                         : null;
+      if (which === 'work') {
+        masonryAnimated = false;
+        setTimeout(() => layoutMasonry(true), 0);
+      }
       if (which === 'chat') {
         setTimeout(() => {
           const prompt = document.getElementById('railNamePrompt');
@@ -590,7 +587,48 @@
           }
         }, 80);
       }
+      currentMobTab = which;
     }
+
+    function fallAwayCards(callback) {
+      const stack = document.getElementById('caseStack');
+      if (!stack) { callback(); return; }
+      const items = Array.from(stack.children);
+      if (!items.length) { callback(); return; }
+
+      // Animate each card falling down with random scatter
+      const total = items.length;
+      let longestDuration = 0;
+      items.forEach((item, i) => {
+        const rx = (Math.random() - 0.5) * 160;
+        const ry = 300 + Math.random() * 200;
+        const rr = (Math.random() - 0.5) * 25;
+        const delay = i * 40;
+        const duration = 450;
+        longestDuration = Math.max(longestDuration, delay + duration);
+        item.style.transition = `opacity ${duration}ms ease ${delay}ms, transform ${duration}ms cubic-bezier(0.55, 0, 1, 0.45) ${delay}ms`;
+        item.style.opacity = '0';
+        item.style.transform = `translate(${rx}px, ${ry}px) rotate(${rr}deg)`;
+      });
+
+      setTimeout(callback, longestDuration * 0.6); // switch panels partway through for smooth feel
+    }
+
+    function activateMobTab(which) {
+      if (which === currentMobTab) return;
+
+      // If leaving the work tab, animate cards falling away first
+      if (currentMobTab === 'work' && which !== 'work') {
+        // Update tab highlight immediately
+        document.querySelectorAll('.mob-tab').forEach(t =>
+          t.classList.toggle('mob-tab--active', t.dataset.tab === which)
+        );
+        fallAwayCards(() => switchToPanel(which));
+      } else {
+        switchToPanel(which);
+      }
+    }
+
     document.getElementById('mobTabs').addEventListener('click', function(e) {
       const tab = e.target.closest('[data-tab]');
       if (!tab) return;
