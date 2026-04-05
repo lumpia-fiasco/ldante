@@ -319,6 +319,18 @@
   </main>
 
   <script>
+    // ─── Analytics logging ────────────────────────────────────────────────────
+    const _sid = Math.random().toString(36).slice(2, 10);
+    function logEvent(event, data) {
+      try {
+        fetch('/api/log', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event, data: { ...data, sessionId: _sid } }),
+        }).catch(() => {});
+      } catch (e) {}
+    }
+
     // ─── Password gate ────────────────────────────────────────────────────────
 
     const PW_DARK_BG = 'linear-gradient(to top, #0f172a, #0b0f1e 45%, #020617)';
@@ -706,6 +718,7 @@
       aiLocked = true;
 
       chatHistory.push({ role: 'user', content: userText });
+      logEvent('chat_message', { name: visitorName, message: userText });
 
       const inner = document.getElementById('convoInner');
       const row = document.createElement('div');
@@ -1789,6 +1802,7 @@
     function showCase(caseId) {
       const data = CASE_DATA[caseId];
       if (!data) return;
+      logEvent('case_view', { case: caseId, company: data.company });
 
       const listPanel   = document.getElementById('caseListPanel');
       const detailPanel = document.getElementById('caseDetailPanel');
@@ -1928,6 +1942,12 @@
           errorEl.hidden = false;
           return;
         }
+
+        logEvent('fit_submit', {
+          jd: text.slice(0, 300),
+          score: data.fitLevel,
+          headline: data.fitHeadline || '',
+        });
 
         const levelColors = {
           strong:  { bg: 'rgba(22,163,74,0.08)',   border: 'rgba(22,163,74,0.22)',   text: '#15803d' },
