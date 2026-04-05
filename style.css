@@ -629,6 +629,10 @@ main {
   transition: opacity 0.3s ease;
 }
 
+.case-card-logo.logo-white {
+  filter: none;
+}
+
 .case-card-v:hover .case-card-logo {
   opacity: 1;
 }
