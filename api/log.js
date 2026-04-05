@@ -10,11 +10,7 @@ export default async function handler(req, res) {
     const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
     if (!url || !token) {
-      return res.status(500).json({
-        error: 'Missing Redis config',
-        project: process.env.VERCEL_PROJECT_NAME,
-        prodUrl: process.env.VERCEL_PROJECT_PRODUCTION_URL,
-      });
+      return res.status(500).json({ error: 'Missing Redis config' });
     }
 
     const redis = new Redis({ url, token });

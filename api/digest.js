@@ -7,10 +7,13 @@ const redis = new Redis({
 });
 
 export default async function handler(req, res) {
+  // Vercel crons auto-send Authorization: Bearer <CRON_SECRET>
+  // Also allow manual test via ?test=1 query param (remove after testing)
   const authHeader = req.headers['authorization'];
   const cronSecret = process.env.CRON_SECRET;
+  const isTest = req.query.test === '1';
 
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!isTest && cronSecret && authHeader !== `Bearer ${cronSecret}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
