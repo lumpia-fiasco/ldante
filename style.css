@@ -2644,3 +2644,74 @@ main {
     background: rgba(255, 255, 255, 0.4);
   }
 }
+
+/* ─── Custom right-click context menu ─── */
+.ctx-menu {
+  position: fixed;
+  z-index: 99999;
+  min-width: 220px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(31, 31, 31, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transform: scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.ctx-menu.ctx-visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.ctx-label {
+  padding: 7px 10px 5px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(31, 31, 31, 0.4);
+}
+
+.ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 450;
+  color: #1f1f1f;
+  text-align: left;
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.ctx-item:hover {
+  background: rgba(31, 31, 31, 0.06);
+}
+
+.ctx-item:active {
+  background: rgba(31, 31, 31, 0.1);
+}
+
+.ctx-divider {
+  height: 1px;
+  margin: 4px 8px;
+  background: rgba(31, 31, 31, 0.08);
+}
+
+.ctx-item--link svg {
+  opacity: 0.55;
+}
