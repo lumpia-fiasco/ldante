@@ -321,6 +321,12 @@
 
   </main>
 
+  <!-- ─── Cheat code toast ─── -->
+  <div class="ctx-toast" id="ctxToast">
+    <span>Psst, here's a cheat code. Right-click for the menu.</span>
+    <button class="ctx-toast-close" id="ctxToastClose" aria-label="Dismiss">&times;</button>
+  </div>
+
   <!-- ─── Custom right-click menu ─── -->
   <div class="ctx-menu" id="ctxMenu">
     <div class="ctx-label">Case Studies</div>
@@ -2225,6 +2231,46 @@
             showCase(caseId);
           }
         });
+      });
+    })();
+
+    // ─── Cheat code toast ────────────────────────────────────────────────────
+    (function() {
+      const toast = document.getElementById('ctxToast');
+      const closeBtn = document.getElementById('ctxToastClose');
+      let shown = false;
+      let clickCount = 0;
+      let timerHandle = null;
+
+      function showToast() {
+        if (shown) return;
+        shown = true;
+        toast.classList.add('ctx-toast--visible');
+        // Auto-dismiss after 5s
+        setTimeout(() => toast.classList.remove('ctx-toast--visible'), 5000);
+      }
+
+      closeBtn.addEventListener('click', () => {
+        toast.classList.remove('ctx-toast--visible');
+        shown = true; // prevent re-showing
+      });
+
+      // Trigger after 10s once portfolio is visible
+      const observer = new MutationObserver(() => {
+        const pv = document.getElementById('portfolioView');
+        if (pv && pv.classList.contains('active')) {
+          timerHandle = setTimeout(showToast, 10000);
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.getElementById('portfolioView'), { attributes: true, attributeFilter: ['class'] });
+
+      // Also trigger after a few clicks anywhere in the portfolio
+      document.addEventListener('click', () => {
+        const pv = document.getElementById('portfolioView');
+        if (!pv || !pv.classList.contains('active')) return;
+        clickCount++;
+        if (clickCount >= 3) showToast();
       });
     })();
   </script>
