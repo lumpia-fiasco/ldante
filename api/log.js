@@ -28,6 +28,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Log error:', err);
-    return res.status(500).json({ error: 'Failed to log event' });
+    return res.status(500).json({ error: 'Failed to log event', detail: err.message });
   }
 }
