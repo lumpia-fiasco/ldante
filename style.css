@@ -608,6 +608,23 @@ main {
   letter-spacing: 0.01em;
 }
 
+/* ─── Spotify tile ─── */
+a.spotify-tile {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.spotify-tile .photo-tile-caption {
+  gap: 7px;
+  align-items: flex-end;
+}
+
+.spotify-icon {
+  flex-shrink: 0;
+  margin-bottom: 1px;
+}
+
 /* ─── Logo — top left ─── */
 .case-card-logo {
   position: absolute;
