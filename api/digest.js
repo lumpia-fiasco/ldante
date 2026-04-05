@@ -1,15 +1,10 @@
-import { createClient } from 'redis';
+import { Redis } from '@upstash/redis';
 import { Resend } from 'resend';
 
-let client;
-async function getClient() {
-  if (!client) {
-    client = createClient({ url: process.env.REDIS_URL });
-    client.on('error', err => console.error('Redis error:', err));
-    await client.connect();
-  }
-  return client;
-}
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
 export default async function handler(req, res) {
   const authHeader = req.headers['authorization'];
@@ -21,9 +16,7 @@ export default async function handler(req, res) {
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const r = await getClient();
 
-    // Get today's events (for manual test) and yesterday's
     const today = new Date().toISOString().slice(0, 10);
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -35,10 +28,10 @@ export default async function handler(req, res) {
     });
 
     // Try yesterday first, fall back to today for testing
-    let raw = await r.zRange(yesterdayKey, 0, -1);
+    let raw = await redis.zrange(yesterdayKey, 0, -1);
     let label = dateLabel;
     if (!raw || raw.length === 0) {
-      raw = await r.zRange(todayKey, 0, -1);
+      raw = await redis.zrange(todayKey, 0, -1);
       label = new Date().toLocaleDateString('en-US', {
         weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
       }) + ' (today so far)';
@@ -79,11 +72,9 @@ function compile(events) {
 
   for (const e of events) {
     if (e.ip) totalVisitors.add(e.ip);
-
     switch (e.event) {
       case 'case_view':
-        const caseName = e.data?.case || 'unknown';
-        caseViews[caseName] = (caseViews[caseName] || 0) + 1;
+        caseViews[e.data?.case || 'unknown'] = (caseViews[e.data?.case || 'unknown'] || 0) + 1;
         break;
       case 'fit_submit':
         fitSubmissions.push({
@@ -138,7 +129,6 @@ function buildEmail(dateLabel, stats, totalEvents) {
         <h1 style="font-size:22px;font-weight:600;margin:0 0 4px;">ldante.com</h1>
         <p style="color:#888;font-size:14px;margin:0;">${dateLabel} — ${totalEvents} event${totalEvents !== 1 ? 's' : ''}</p>
       </div>
-
       <div style="display:flex;gap:12px;margin-bottom:24px;">
         <div style="background:#f8f8f7;border-radius:8px;padding:16px 20px;flex:1;">
           <div style="font-size:28px;font-weight:600;">${stats.uniqueVisitors}</div>
@@ -153,24 +143,18 @@ function buildEmail(dateLabel, stats, totalEvents) {
           <div style="font-size:12px;color:#888;margin-top:2px;">Chat sessions</div>
         </div>
       </div>
-
       ${Object.keys(stats.caseViews).length > 0 ? `
         <h2 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Case study views</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:14px;">
-          ${caseRows}
-        </table>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">${caseRows}</table>
       ` : ''}
-
       ${stats.fitSubmissions.length > 0 ? `
         <h2 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Fit evaluations</h2>
         ${fitRows}
       ` : ''}
-
       ${stats.chatSessions.length > 0 ? `
         <h2 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Chat sessions</h2>
         ${chatRows}
       ` : ''}
-
       <p style="font-size:12px;color:#bbb;margin-top:32px;padding-top:16px;border-top:1px solid #f0f0f0;">Sent automatically from ldante.com</p>
     </div>
   `;

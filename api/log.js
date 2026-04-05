@@ -1,14 +1,9 @@
-import { createClient } from 'redis';
+import { Redis } from '@upstash/redis';
 
-let client;
-async function getClient() {
-  if (!client) {
-    client = createClient({ url: process.env.REDIS_URL });
-    client.on('error', err => console.error('Redis error:', err));
-    await client.connect();
-  }
-  return client;
-}
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -28,10 +23,9 @@ export default async function handler(req, res) {
       ip: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '',
     };
 
-    const r = await getClient();
     const dayKey = `events:${new Date().toISOString().slice(0, 10)}`;
-    await r.zAdd(dayKey, { score: entry.ts, value: JSON.stringify(entry) });
-    await r.expire(dayKey, 90 * 24 * 60 * 60);
+    await redis.zadd(dayKey, { score: entry.ts, member: JSON.stringify(entry) });
+    await redis.expire(dayKey, 90 * 24 * 60 * 60);
 
     return res.status(200).json({ ok: true });
   } catch (err) {
