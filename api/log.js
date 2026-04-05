@@ -10,7 +10,8 @@ export default async function handler(req, res) {
     const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
     if (!url || !token) {
-      return res.status(500).json({ error: 'Missing Redis config', hasUrl: !!url, hasToken: !!token });
+      const envKeys = Object.keys(process.env).filter(k => k.includes('UPSTASH') || k.includes('REDIS') || k.includes('KV'));
+      return res.status(500).json({ error: 'Missing Redis config', hasUrl: !!url, hasToken: !!token, envKeys });
     }
 
     const redis = new Redis({ url, token });
