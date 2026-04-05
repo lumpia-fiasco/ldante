@@ -1,4 +1,14 @@
-import { kv } from '@vercel/kv';
+import { createClient } from 'redis';
+
+let client;
+async function getClient() {
+  if (!client) {
+    client = createClient({ url: process.env.REDIS_URL });
+    client.on('error', err => console.error('Redis error:', err));
+    await client.connect();
+  }
+  return client;
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -18,12 +28,10 @@ export default async function handler(req, res) {
       ip: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '',
     };
 
-    // Store in a daily sorted set keyed by date
+    const r = await getClient();
     const dayKey = `events:${new Date().toISOString().slice(0, 10)}`;
-    await kv.zadd(dayKey, { score: entry.ts, member: JSON.stringify(entry) });
-
-    // Auto-expire after 90 days
-    await kv.expire(dayKey, 90 * 24 * 60 * 60);
+    await r.zAdd(dayKey, { score: entry.ts, value: JSON.stringify(entry) });
+    await r.expire(dayKey, 90 * 24 * 60 * 60);
 
     return res.status(200).json({ ok: true });
   } catch (err) {

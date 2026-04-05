@@ -1,56 +1,73 @@
-import { kv } from '@vercel/kv';
+import { createClient } from 'redis';
 import { Resend } from 'resend';
 
+let client;
+async function getClient() {
+  if (!client) {
+    client = createClient({ url: process.env.REDIS_URL });
+    client.on('error', err => console.error('Redis error:', err));
+    await client.connect();
+  }
+  return client;
+}
+
 export default async function handler(req, res) {
-  // Allow manual trigger via GET or cron trigger
   const authHeader = req.headers['authorization'];
   const cronSecret = process.env.CRON_SECRET;
 
-  // Cron requests come with the secret; manual requests need it too
   if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
+    const r = await getClient();
 
-    // Get yesterday's events
+    // Get today's events (for manual test) and yesterday's
+    const today = new Date().toISOString().slice(0, 10);
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const dayKey = `events:${yesterday.toISOString().slice(0, 10)}`;
+    const yesterdayKey = `events:${yesterday.toISOString().slice(0, 10)}`;
+    const todayKey = `events:${today}`;
+
     const dateLabel = yesterday.toLocaleDateString('en-US', {
       weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
     });
 
-    const raw = await kv.zrange(dayKey, 0, -1);
+    // Try yesterday first, fall back to today for testing
+    let raw = await r.zRange(yesterdayKey, 0, -1);
+    let label = dateLabel;
     if (!raw || raw.length === 0) {
-      // No activity — still send a short note
+      raw = await r.zRange(todayKey, 0, -1);
+      label = new Date().toLocaleDateString('en-US', {
+        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+      }) + ' (today so far)';
+    }
+
+    if (!raw || raw.length === 0) {
       await resend.emails.send({
-        from: 'ldante.com <digest@ldante.com>',
+        from: 'ldante.com <onboarding@resend.dev>',
         to: 'hello@ldante.com',
-        subject: `Portfolio digest — ${dateLabel}`,
-        html: buildNoActivityEmail(dateLabel),
+        subject: `Portfolio digest — ${label}`,
+        html: buildNoActivityEmail(label),
       });
       return res.status(200).json({ ok: true, events: 0 });
     }
 
     const events = raw.map(r => typeof r === 'string' ? JSON.parse(r) : r);
-
-    // Compile stats
     const stats = compile(events);
 
-    // Send email
     await resend.emails.send({
-      from: 'ldante.com <digest@ldante.com>',
+      from: 'ldante.com <onboarding@resend.dev>',
       to: 'hello@ldante.com',
-      subject: `Portfolio digest — ${dateLabel} — ${events.length} events`,
-      html: buildEmail(dateLabel, stats, events.length),
+      subject: `Portfolio digest — ${label} — ${events.length} events`,
+      html: buildEmail(label, stats, events.length),
     });
 
     return res.status(200).json({ ok: true, events: events.length });
   } catch (err) {
     console.error('Digest error:', err);
-    return res.status(500).json({ error: 'Failed to send digest' });
+    return res.status(500).json({ error: 'Failed to send digest', detail: err.message });
   }
 }
 
@@ -61,7 +78,6 @@ function compile(events) {
   let totalVisitors = new Set();
 
   for (const e of events) {
-    // Track unique IPs
     if (e.ip) totalVisitors.add(e.ip);
 
     switch (e.event) {
@@ -69,7 +85,6 @@ function compile(events) {
         const caseName = e.data?.case || 'unknown';
         caseViews[caseName] = (caseViews[caseName] || 0) + 1;
         break;
-
       case 'fit_submit':
         fitSubmissions.push({
           jd_preview: (e.data?.jd || '').slice(0, 200),
@@ -78,7 +93,6 @@ function compile(events) {
           time: new Date(e.ts).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
         });
         break;
-
       case 'chat_message':
         const sid = e.data?.sessionId || 'unknown';
         if (!chatSessions[sid]) chatSessions[sid] = { count: 0, name: e.data?.name || '', firstMsg: '' };
