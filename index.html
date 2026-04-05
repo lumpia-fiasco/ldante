@@ -564,7 +564,7 @@
     }
 
     // ─── Mobile tab switching ─────────────────────────────────────────────────
-    let currentMobTab = 'fit'; // default on load
+    let currentMobTab = null; // unset so first activateMobTab always runs
 
     function switchToPanel(which) {
       document.querySelectorAll('.mob-tab').forEach(t =>
