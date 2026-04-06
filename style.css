@@ -2737,7 +2737,8 @@ a.spotify-tile {
 .ctx-toast {
   position: fixed;
   top: 20px;
-  right: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
   z-index: 99998;
   display: flex;
   align-items: center;
@@ -2752,15 +2753,16 @@ a.spotify-tile {
   font-size: 13px;
   font-weight: 450;
   color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
   opacity: 0;
-  transform: translateY(-12px);
   pointer-events: none;
   transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ctx-toast--visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
   pointer-events: auto;
 }
 
