@@ -2259,7 +2259,7 @@
       const observer = new MutationObserver(() => {
         const pv = document.getElementById('portfolioView');
         if (pv && pv.classList.contains('active')) {
-          timerHandle = setTimeout(showToast, 10000);
+          timerHandle = setTimeout(showToast, 3000);
           observer.disconnect();
         }
       });
