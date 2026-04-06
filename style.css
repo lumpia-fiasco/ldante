@@ -625,6 +625,43 @@ a.spotify-tile {
   margin-bottom: 1px;
 }
 
+.spotify-popover {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  padding: 10px 16px;
+  background: rgba(31, 31, 31, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 9px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  font-weight: 450;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.45;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.spotify-popover::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(31, 31, 31, 0.92);
+}
+
+.spotify-tile:hover .spotify-popover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* ─── Logo — top left ─── */
 .case-card-logo {
   position: absolute;
