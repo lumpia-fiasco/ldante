@@ -381,20 +381,28 @@
 
     // ─── Landing letter float (boat-through-water effect) ────────────────────
     (function setupLandingFloat() {
-      // Wrap each non-space character in a span so we can transform them individually.
+      // Split into words then letters. Each word is its own inline-block so it
+      // stays together; line breaks only happen at spaces between words.
       function splitText(el) {
         const text = el.textContent;
+        const words = text.split(' ');
         el.textContent = '';
-        for (const ch of text) {
-          if (ch === ' ') {
-            el.appendChild(document.createTextNode(' '));
-          } else {
-            const s = document.createElement('span');
-            s.className = 'float-letter';
-            s.textContent = ch;
-            el.appendChild(s);
+        words.forEach((word, idx) => {
+          if (word.length) {
+            const wrap = document.createElement('span');
+            wrap.className = 'float-word';
+            for (const ch of word) {
+              const s = document.createElement('span');
+              s.className = 'float-letter';
+              s.textContent = ch;
+              wrap.appendChild(s);
+            }
+            el.appendChild(wrap);
           }
-        }
+          if (idx < words.length - 1) {
+            el.appendChild(document.createTextNode(' '));
+          }
+        });
       }
       const tagline = document.querySelector('.hero-tagline');
       const desc    = document.querySelector('.hero-desc');
