@@ -379,6 +379,96 @@
       requestAnimationFrame(frame);
     }, { once: true }); // only fires on first focus
 
+    // ─── Landing letter float (boat-through-water effect) ────────────────────
+    (function setupLandingFloat() {
+      // Wrap each non-space character in a span so we can transform them individually.
+      function splitText(el) {
+        const text = el.textContent;
+        el.textContent = '';
+        for (const ch of text) {
+          if (ch === ' ') {
+            el.appendChild(document.createTextNode(' '));
+          } else {
+            const s = document.createElement('span');
+            s.className = 'float-letter';
+            s.textContent = ch;
+            el.appendChild(s);
+          }
+        }
+      }
+      const tagline = document.querySelector('.hero-tagline');
+      const desc    = document.querySelector('.hero-desc');
+      if (tagline) splitText(tagline);
+      if (desc)    splitText(desc);
+
+      // Build the list of float targets (letters + the LDG logo as a single unit)
+      const FLOAT = [];
+      document.querySelectorAll('.hero-tagline .float-letter').forEach(el =>
+        FLOAT.push({ el, radius: 95,  maxPush: 28 })
+      );
+      document.querySelectorAll('.hero-desc .float-letter').forEach(el =>
+        FLOAT.push({ el, radius: 80,  maxPush: 22 })
+      );
+      const logo = document.querySelector('.hero-logo');
+      if (logo) FLOAT.push({ el: logo, radius: 230, maxPush: 75 });
+
+      let cached = false;
+      function cachePositions() {
+        FLOAT.forEach(item => {
+          const prev = item.el.style.transform;
+          item.el.style.transform = 'none';
+          const r = item.el.getBoundingClientRect();
+          item.cx = r.left + r.width / 2;
+          item.cy = r.top  + r.height / 2;
+          item.el.style.transform = prev;
+        });
+        cached = true;
+      }
+      // Expose so the entrance trigger can call it once balloons settle
+      window._cacheFloatPositions = cachePositions;
+
+      let mouseX = -9999, mouseY = -9999;
+      let rafScheduled = false;
+      function update() {
+        rafScheduled = false;
+        if (!cached) return;
+        for (const item of FLOAT) {
+          const dx = item.cx - mouseX;
+          const dy = item.cy - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < item.radius && dist > 0.001) {
+            const force = Math.pow((item.radius - dist) / item.radius, 1.4);
+            const px = (dx / dist) * force * item.maxPush;
+            const py = (dy / dist) * force * item.maxPush;
+            item.el.style.transform = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px)`;
+          } else {
+            item.el.style.transform = '';
+          }
+        }
+      }
+
+      const landingEl = document.getElementById('landing');
+      if (landingEl) {
+        landingEl.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          if (!rafScheduled) {
+            rafScheduled = true;
+            requestAnimationFrame(update);
+          }
+        });
+        landingEl.addEventListener('mouseleave', () => {
+          FLOAT.forEach(item => { item.el.style.transform = ''; });
+        });
+      }
+
+      let resizeT;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeT);
+        resizeT = setTimeout(cachePositions, 200);
+      });
+    })();
+
     // ─── Landing balloon entrance ─────────────────────────────────────────────
     // Generates a damped-spring keyframe sequence that simulates a balloon
     // floating up, overshooting, and oscillating into place.
@@ -501,6 +591,10 @@
           fill: 'backwards',
         });
       });
+      // After the longest balloon has settled, cache letter positions for the float effect
+      setTimeout(() => {
+        if (window._cacheFloatPositions) window._cacheFloatPositions();
+      }, 930 + 50 * 3 + 50);
     }
 
     // Password is verified server-side via /api/auth — never exposed in source.
