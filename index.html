@@ -429,6 +429,61 @@
       return frames;
     }
 
+    // Pop the landing elements: tiny scale-up "pop" then fall off-screen with gravity.
+    function popLandingBalloons(callback) {
+      const items = [
+        document.getElementById('heroLogo'),
+        document.querySelector('.hero-tagline'),
+        document.querySelector('.hero-desc'),
+        document.getElementById('startBtn'),
+      ];
+
+      const POP_DUR  = 110;
+      const FALL_DUR = 720;
+      const STAGGER  = 55;
+      const total    = POP_DUR + FALL_DUR;
+      let longest    = 0;
+
+      items.forEach((el, i) => {
+        if (!el) return;
+
+        // Cancel any in-flight entrance animations to avoid stacking
+        el.getAnimations().forEach(a => a.cancel());
+
+        const xDrift = (Math.random() - 0.5) * 260;
+        const fallY  = window.innerHeight + 240;
+        const rotate = (Math.random() - 0.5) * 110;
+        const delay  = i * STAGGER;
+        longest = Math.max(longest, delay + total);
+
+        el.animate([
+          {
+            transform: 'translate(0, 0) rotate(0deg) scale(1)',
+            opacity: 1,
+            offset: 0,
+            easing: 'cubic-bezier(0.34, 1.7, 0.64, 1)', // snappy overshoot for the pop
+          },
+          {
+            transform: 'translate(0, 0) rotate(0deg) scale(1.22)',
+            opacity: 1,
+            offset: POP_DUR / total,
+            easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)', // ease-in for gravity
+          },
+          {
+            transform: `translate(${xDrift}px, ${fallY}px) rotate(${rotate}deg) scale(0.85)`,
+            opacity: 0,
+            offset: 1,
+          },
+        ], {
+          duration: total,
+          delay: delay,
+          fill: 'forwards',
+        });
+      });
+
+      setTimeout(callback, longest);
+    }
+
     function triggerLandingBalloons() {
       const items = [
         document.getElementById('heroLogo'),
@@ -440,8 +495,8 @@
         if (!el) return;
         const keyframes = generateBalloonKeyframes(i);
         el.animate(keyframes, {
-          duration: 1690,
-          delay: i * 91,
+          duration: 930,
+          delay: i * 50,
           easing: 'linear',
           fill: 'backwards',
         });
@@ -606,11 +661,10 @@
 
     startBtn.addEventListener('click', () => {
       const landing = document.getElementById('landing');
-      landing.classList.add('exiting');
-      setTimeout(() => {
+      popLandingBalloons(() => {
         landing.style.display = 'none';
         showPortfolio();
-      }, 600);
+      });
     });
 
     // ─── Experience routing ───────────────────────────────────────────────────
@@ -2211,8 +2265,8 @@
 
           if (item._springAnim) item._springAnim.cancel();
           item._springAnim = item.animate(keyframes, {
-            duration: 1235,
-            delay: i * 49,
+            duration: 680,
+            delay: i * 27,
             easing: 'linear',
             fill: 'backwards',
           });
