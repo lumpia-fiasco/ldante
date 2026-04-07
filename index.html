@@ -72,7 +72,7 @@
           </svg>
         </div>
 
-        <p class="hero-tagline">I'm a senior to principal-level designer who thinks in systems</p>
+        <p class="hero-tagline">I design systems. I build design systems too.</p>
         <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
 
         <button class="start-btn" id="startBtn">Start</button>
@@ -409,16 +409,18 @@
       if (tagline) splitText(tagline);
       if (desc)    splitText(desc);
 
-      // Build the list of float targets (letters + the LDG logo as a single unit)
+      // Build the list of float targets. boost = how much velocity-based
+      // amplification this item receives (logo gets dampened so it doesn't
+      // fly off-screen on fast flicks).
       const FLOAT = [];
-      document.querySelectorAll('.hero-tagline .float-letter').forEach(el =>
-        FLOAT.push({ el, radius: 95,  maxPush: 28 })
+      document.querySelectorAll('.hero-tagline .float-letter').forEach((el, i) =>
+        FLOAT.push({ el, radius: 115, maxPush: 44, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
       );
-      document.querySelectorAll('.hero-desc .float-letter').forEach(el =>
-        FLOAT.push({ el, radius: 80,  maxPush: 22 })
+      document.querySelectorAll('.hero-desc .float-letter').forEach((el, i) =>
+        FLOAT.push({ el, radius: 100, maxPush: 38, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
       );
       const logo = document.querySelector('.hero-logo');
-      if (logo) FLOAT.push({ el: logo, radius: 230, maxPush: 75 });
+      if (logo) FLOAT.push({ el: logo, radius: 260, maxPush: 85, boost: 0.45, rotSign: 0 });
 
       let cached = false;
       function cachePositions() {
@@ -435,37 +437,126 @@
       // Expose so the entrance trigger can call it once balloons settle
       window._cacheFloatPositions = cachePositions;
 
+      // Cursor + velocity state
       let mouseX = -9999, mouseY = -9999;
-      let rafScheduled = false;
+      let prevX  = -9999, prevY  = -9999;
+      let prevT  = 0;
+      let velX = 0, velY = 0;   // smoothed cursor velocity, px/ms
+      let speed = 0;            // |velocity|
+
+      // Tunables
+      const VEL_SMOOTH       = 0.30;  // higher = more responsive (less smoothing)
+      const SPEED_TO_BOOST   = 1.5;   // speed (px/ms) at which boost contribution = 1.0
+      const MAX_BOOST        = 2.4;   // cap on the velocity-driven push multiplier
+      const RADIUS_BOOST_MAX = 0.65;  // up to +65% radius at high speed
+      const DIR_BIAS         = 0.45;  // fraction of push applied along cursor direction
+      const DECAY_TAU        = 130;   // ms; exponential decay time constant for velocity
+
+      let tickRunning  = false;
+      let lastTickTime = 0;
+
       function update() {
-        rafScheduled = false;
         if (!cached) return;
+
+        // Global speed-derived multipliers (per-item is scaled by item.boost)
+        const gSpeedMult  = Math.min(speed / SPEED_TO_BOOST, MAX_BOOST);
+        const gRadiusMult = Math.min(speed / 2.5, RADIUS_BOOST_MAX);
+
+        // Unit vector of cursor velocity (zero if standing still)
+        const velMag = Math.sqrt(velX * velX + velY * velY);
+        let velUx = 0, velUy = 0;
+        if (velMag > 0.001) {
+          velUx = velX / velMag;
+          velUy = velY / velMag;
+        }
+
         for (const item of FLOAT) {
           const dx = item.cx - mouseX;
           const dy = item.cy - mouseY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < item.radius && dist > 0.001) {
-            const force = Math.pow((item.radius - dist) / item.radius, 1.4);
-            const px = (dx / dist) * force * item.maxPush;
-            const py = (dy / dist) * force * item.maxPush;
-            item.el.style.transform = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px)`;
+
+          // Per-item boost-scaled multipliers
+          const sm = 1 + gSpeedMult  * item.boost;
+          const rm = 1 + gRadiusMult * item.boost;
+          const db = DIR_BIAS        * item.boost;
+          const radius = item.radius * rm;
+
+          if (dist < radius && dist > 0.001) {
+            const force = Math.pow((radius - dist) / radius, 1.4);
+            const mag = force * item.maxPush * sm;
+
+            // Radial push away from cursor
+            let px = (dx / dist) * mag;
+            let py = (dy / dist) * mag;
+            // Wake bias: extra push along cursor direction of travel
+            px += velUx * mag * db;
+            py += velUy * mag * db;
+
+            // Subtle rotation for chaos (skipped on logo, rotSign === 0)
+            if (item.rotSign !== 0) {
+              const rot = item.rotSign * force * sm * 4;
+              item.el.style.transform =
+                `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
+            } else {
+              item.el.style.transform =
+                `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px)`;
+            }
           } else {
             item.el.style.transform = '';
           }
         }
       }
 
+      // Continuous tick loop — runs while there is velocity left to dissipate.
+      // This lets the wake settle even if the cursor stops moving inside a radius.
+      function tick(now) {
+        if (lastTickTime === 0) lastTickTime = now;
+        const dt = now - lastTickTime;
+        lastTickTime = now;
+
+        // Exponential decay of velocity
+        const decay = Math.exp(-dt / DECAY_TAU);
+        velX *= decay;
+        velY *= decay;
+        speed = Math.sqrt(velX * velX + velY * velY);
+
+        update();
+
+        if (speed > 0.005) {
+          requestAnimationFrame(tick);
+        } else {
+          tickRunning  = false;
+          lastTickTime = 0;
+          velX = 0; velY = 0; speed = 0;
+          update();   // final settle pass at zero velocity
+        }
+      }
+
       const landingEl = document.getElementById('landing');
       if (landingEl) {
         landingEl.addEventListener('mousemove', (e) => {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          if (!rafScheduled) {
-            rafScheduled = true;
-            requestAnimationFrame(update);
+          const now = performance.now();
+          if (prevT > 0) {
+            const dt = Math.max(now - prevT, 1);   // ms; clamp to avoid /0
+            const instX = (e.clientX - prevX) / dt;
+            const instY = (e.clientY - prevY) / dt;
+            velX = velX * (1 - VEL_SMOOTH) + instX * VEL_SMOOTH;
+            velY = velY * (1 - VEL_SMOOTH) + instY * VEL_SMOOTH;
+            speed = Math.sqrt(velX * velX + velY * velY);
+          }
+          prevX = e.clientX; prevY = e.clientY; prevT = now;
+          mouseX = e.clientX; mouseY = e.clientY;
+
+          if (!tickRunning) {
+            tickRunning  = true;
+            lastTickTime = 0;
+            requestAnimationFrame(tick);
           }
         });
         landingEl.addEventListener('mouseleave', () => {
+          mouseX = -9999; mouseY = -9999;
+          velX = 0; velY = 0; speed = 0;
+          prevT = 0;
           FLOAT.forEach(item => { item.el.style.transform = ''; });
         });
       }
