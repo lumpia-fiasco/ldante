@@ -576,56 +576,6 @@
       });
     })();
 
-    // ─── Landing balloon entrance ─────────────────────────────────────────────
-    // Generates a damped-spring keyframe sequence that simulates a balloon
-    // floating up, overshooting, and oscillating into place.
-    function generateBalloonKeyframes(seed) {
-      const STEPS = 80;
-      const RISE_END = 0.42;             // when the upward float lands
-      const freq    = 2.35 + (seed % 3) * 0.18;
-      const damping = 3.4 + (seed % 2) * 0.25;
-      const yAmp    = 58 + (seed % 3) * 6;
-      const xAmp    = 22 + (seed % 4) * 4;
-      const rotAmp  = 4.2 + (seed % 3) * 0.6;
-      const xPhase  = seed * 0.85;
-      const startVH = 118 + (seed % 4) * 4;
-
-      const vhPx = window.innerHeight / 100;
-      const frames = [];
-
-      for (let i = 0; i <= STEPS; i++) {
-        const t = i / STEPS;
-
-        // Phase 1 — buoyant rise (ease-out cubic from startVH → 0)
-        let baseY;
-        if (t < RISE_END) {
-          const rt = t / RISE_END;
-          const eased = 1 - Math.pow(1 - rt, 2.6);
-          baseY = startVH * (1 - eased) * vhPx;
-        } else {
-          baseY = 0;
-        }
-
-        // Phase 2 — damped oscillation, starting partway through the rise
-        const bt = Math.max(0, (t - 0.30) / 0.70);
-        const decay = Math.exp(-damping * bt);
-        const yBounce = -Math.sin(bt * Math.PI * 2 * freq) * decay * yAmp;
-        const xBounce =  Math.cos(bt * Math.PI * 2 * freq + xPhase) * decay * xAmp;
-        const rBounce =  Math.sin(bt * Math.PI * 2 * freq + xPhase + 0.4) * decay * rotAmp;
-
-        const x = xBounce;
-        const y = baseY + yBounce;
-        const r = rBounce;
-        const op = t < 0.08 ? (t / 0.08) : 1;
-
-        frames.push({
-          transform: `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${r.toFixed(3)}deg)`,
-          opacity: op.toFixed(3),
-        });
-      }
-      return frames;
-    }
-
     // Pop the landing elements: tiny scale-up "pop" then fall off-screen with gravity.
     // Logo and Start button pop as whole units; tagline + desc letters pop and
     // fall individually with random drift, rotation, and timing.
@@ -731,97 +681,10 @@
       setTimeout(callback, longest);
     }
 
-    // Per-letter spring keyframes — lighter and faster than the full balloons.
-    // Each letter floats up from below with a small oscillation into place.
-    function generateLetterKeyframes(seed) {
-      const STEPS = 40;
-      const RISE_END = 0.46;
-      const freq    = 1.6 + (seed % 4) * 0.18;
-      const damping = 4.5 + (seed % 3) * 0.40;
-      const yAmp    = 8  + (seed % 4) * 2;
-      const xAmp    = 3  + (seed % 5) * 1.2;
-      const rotAmp  = 1.5 + (seed % 3) * 0.4;
-      const startY  = 80 + ((seed * 17) % 90);   // 80–170 px below rest
-      const startX  = ((seed * 13) % 24) - 12;   // -12 to +12 px lateral
-      const xPhase  = seed * 0.7;
-      const rotSign = (seed % 2) ? 1 : -1;
-
-      const frames = [];
-      for (let i = 0; i <= STEPS; i++) {
-        const t = i / STEPS;
-
-        // Phase 1 — buoyant rise
-        let baseY = 0, baseX = 0;
-        if (t < RISE_END) {
-          const rt = t / RISE_END;
-          const eased = 1 - Math.pow(1 - rt, 2.6);
-          baseY = startY * (1 - eased);
-          baseX = startX * (1 - eased);
-        }
-
-        // Phase 2 — damped oscillation overlapping the rise
-        const bt = Math.max(0, (t - 0.30) / 0.70);
-        const decay = Math.exp(-damping * bt);
-        const yBounce = -Math.sin(bt * Math.PI * 2 * freq) * decay * yAmp;
-        const xBounce =  Math.cos(bt * Math.PI * 2 * freq + xPhase) * decay * xAmp;
-        const rBounce =  Math.sin(bt * Math.PI * 2 * freq + xPhase + 0.4) * decay * rotAmp * rotSign;
-
-        const x = baseX + xBounce;
-        const y = baseY + yBounce;
-        const r = rBounce;
-        const op = t < 0.18 ? (t / 0.18) : 1;
-
-        frames.push({
-          transform: `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${r.toFixed(3)}deg)`,
-          opacity: op.toFixed(3),
-        });
-      }
-      return frames;
-    }
-
+    // No entry float — landing elements appear in their natural state.
+    // Still cache float positions for the cursor scatter effect.
     function triggerLandingBalloons() {
-      // Logo and Start button still animate as single balloon-like units.
-      const wholeItems = [
-        { el: document.getElementById('heroLogo'), seed: 0, delay: 0   },
-        { el: document.getElementById('startBtn'), seed: 3, delay: 120 },
-      ];
-      wholeItems.forEach(item => {
-        if (!item.el) return;
-        const keyframes = generateBalloonKeyframes(item.seed);
-        item.el.animate(keyframes, {
-          duration: 930,
-          delay: item.delay,
-          easing: 'linear',
-          fill: 'backwards',
-        });
-      });
-
-      // Tagline + desc letters float up individually at varying speeds.
-      const letters = document.querySelectorAll(
-        '.hero-tagline .float-letter, .hero-desc .float-letter'
-      );
-      let maxFinish = 0;
-      letters.forEach((el, i) => {
-        const seed = i + 5;
-        const keyframes = generateLetterKeyframes(seed);
-        const duration = 720 + ((seed * 73) % 380);  // 720–1100 ms
-        const delay    = (seed * 41) % 580;            // 0–580 ms
-        const finish   = duration + delay;
-        if (finish > maxFinish) maxFinish = finish;
-        el.animate(keyframes, {
-          duration: duration,
-          delay: delay,
-          easing: 'linear',
-          fill: 'backwards',
-        });
-      });
-
-      // Cache float positions once the longest entrance has settled
-      const wholeLongest = 930 + 120;
-      const settleDelay  = Math.max(wholeLongest, maxFinish) + 80;
-      setTimeout(() => {
-        if (window._cacheFloatPositions) window._cacheFloatPositions();
-      }, settleDelay);
+      if (window._cacheFloatPositions) window._cacheFloatPositions();
     }
 
     // Password is verified server-side via /api/auth — never exposed in source.
