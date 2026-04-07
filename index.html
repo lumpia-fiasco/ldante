@@ -380,6 +380,55 @@
     }, { once: true }); // only fires on first focus
 
     // ─── Landing balloon entrance ─────────────────────────────────────────────
+    // Generates a damped-spring keyframe sequence that simulates a balloon
+    // floating up, overshooting, and oscillating into place.
+    function generateBalloonKeyframes(seed) {
+      const STEPS = 80;
+      const RISE_END = 0.42;             // when the upward float lands
+      const freq    = 2.35 + (seed % 3) * 0.18;
+      const damping = 3.4 + (seed % 2) * 0.25;
+      const yAmp    = 58 + (seed % 3) * 6;
+      const xAmp    = 22 + (seed % 4) * 4;
+      const rotAmp  = 4.2 + (seed % 3) * 0.6;
+      const xPhase  = seed * 0.85;
+      const startVH = 118 + (seed % 4) * 4;
+
+      const vhPx = window.innerHeight / 100;
+      const frames = [];
+
+      for (let i = 0; i <= STEPS; i++) {
+        const t = i / STEPS;
+
+        // Phase 1 — buoyant rise (ease-out cubic from startVH → 0)
+        let baseY;
+        if (t < RISE_END) {
+          const rt = t / RISE_END;
+          const eased = 1 - Math.pow(1 - rt, 2.6);
+          baseY = startVH * (1 - eased) * vhPx;
+        } else {
+          baseY = 0;
+        }
+
+        // Phase 2 — damped oscillation, starting partway through the rise
+        const bt = Math.max(0, (t - 0.30) / 0.70);
+        const decay = Math.exp(-damping * bt);
+        const yBounce = -Math.sin(bt * Math.PI * 2 * freq) * decay * yAmp;
+        const xBounce =  Math.cos(bt * Math.PI * 2 * freq + xPhase) * decay * xAmp;
+        const rBounce =  Math.sin(bt * Math.PI * 2 * freq + xPhase + 0.4) * decay * rotAmp;
+
+        const x = xBounce;
+        const y = baseY + yBounce;
+        const r = rBounce;
+        const op = t < 0.08 ? (t / 0.08) : 1;
+
+        frames.push({
+          transform: `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${r.toFixed(3)}deg)`,
+          opacity: op.toFixed(3),
+        });
+      }
+      return frames;
+    }
+
     function triggerLandingBalloons() {
       const items = [
         document.getElementById('heroLogo'),
@@ -389,10 +438,13 @@
       ];
       items.forEach((el, i) => {
         if (!el) return;
-        el.classList.remove('balloon-in', 'balloon-in--1', 'balloon-in--2', 'balloon-in--3', 'balloon-in--4');
-        // Force reflow so re-adding the class restarts the animation
-        void el.offsetWidth;
-        el.classList.add('balloon-in', 'balloon-in--' + (i + 1));
+        const keyframes = generateBalloonKeyframes(i);
+        el.animate(keyframes, {
+          duration: 2600,
+          delay: i * 140,
+          easing: 'linear',
+          fill: 'backwards',
+        });
       });
     }
 
