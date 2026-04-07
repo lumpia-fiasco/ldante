@@ -627,43 +627,30 @@
     }
 
     // Pop the landing elements: tiny scale-up "pop" then fall off-screen with gravity.
+    // Logo and Start button pop as whole units; tagline + desc letters pop and
+    // fall individually with random drift, rotation, and timing.
     function popLandingBalloons(callback) {
-      // Cancel any in-flight per-letter entrance animations and clear their
-      // inline transforms so the parent pop can move tagline/desc as a unit.
-      document.querySelectorAll(
-        '.hero-tagline .float-letter, .hero-desc .float-letter'
-      ).forEach(letter => {
-        letter.getAnimations().forEach(a => a.cancel());
-        letter.style.transform = '';
-        letter.style.opacity = '';
-      });
+      const POP_DUR = 110;
+      let longest = 0;
 
-      const items = [
-        document.getElementById('heroLogo'),
-        document.querySelector('.hero-tagline'),
-        document.querySelector('.hero-desc'),
-        document.getElementById('startBtn'),
+      // ── Logo + Start button: whole-unit pop & fall ──
+      const wholeItems = [
+        { el: document.getElementById('heroLogo'), delay: 0,   fallDur: 720 },
+        { el: document.getElementById('startBtn'), delay: 240, fallDur: 720 },
       ];
-
-      const POP_DUR  = 110;
-      const FALL_DUR = 720;
-      const STAGGER  = 55;
-      const total    = POP_DUR + FALL_DUR;
-      let longest    = 0;
-
-      items.forEach((el, i) => {
-        if (!el) return;
+      wholeItems.forEach(item => {
+        if (!item.el) return;
 
         // Cancel any in-flight entrance animations to avoid stacking
-        el.getAnimations().forEach(a => a.cancel());
+        item.el.getAnimations().forEach(a => a.cancel());
 
         const xDrift = (Math.random() - 0.5) * 260;
         const fallY  = window.innerHeight + 240;
         const rotate = (Math.random() - 0.5) * 110;
-        const delay  = i * STAGGER;
-        longest = Math.max(longest, delay + total);
+        const total  = POP_DUR + item.fallDur;
+        longest = Math.max(longest, item.delay + total);
 
-        el.animate([
+        item.el.animate([
           {
             transform: 'translate(0, 0) rotate(0deg) scale(1)',
             opacity: 1,
@@ -683,8 +670,61 @@
           },
         ], {
           duration: total,
-          delay: delay,
+          delay: item.delay,
           fill: 'forwards',
+        });
+      });
+
+      // ── Tagline + desc letters: per-letter pop & fall ──
+      const taglineLetters = document.querySelectorAll('.hero-tagline .float-letter');
+      const descLetters    = document.querySelectorAll('.hero-desc .float-letter');
+      const letterGroups = [
+        { list: taglineLetters, baseDelay: 40  },
+        { list: descLetters,    baseDelay: 130 },
+      ];
+
+      letterGroups.forEach((group, gi) => {
+        group.list.forEach((letter, li) => {
+          // Cancel any in-flight entrance animation and clear inline styles
+          letter.getAnimations().forEach(a => a.cancel());
+          letter.style.transform = '';
+          letter.style.opacity   = '';
+
+          const seed = li * 13 + gi * 97 + 11;
+
+          const fallDur = 660 + ((seed * 53) % 380);   // 660–1040 ms
+          const total   = POP_DUR + fallDur;
+          const delay   = group.baseDelay + ((seed * 19) % 220);  // baseDelay + 0–219 ms
+          longest = Math.max(longest, delay + total);
+
+          const xDrift = ((seed * 37) % 280) - 140;    // -140 to +140 px
+          const fallY  = window.innerHeight + 220;
+          const rotate = ((seed * 71) % 220) - 110;    // -110 to +110 deg
+          const popScale = 1.15 + ((seed % 5) * 0.04); // 1.15–1.31
+
+          letter.animate([
+            {
+              transform: 'translate(0, 0) rotate(0deg) scale(1)',
+              opacity: 1,
+              offset: 0,
+              easing: 'cubic-bezier(0.34, 1.7, 0.64, 1)', // snappy overshoot for the pop
+            },
+            {
+              transform: `translate(0, 0) rotate(0deg) scale(${popScale})`,
+              opacity: 1,
+              offset: POP_DUR / total,
+              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)', // ease-in for gravity
+            },
+            {
+              transform: `translate(${xDrift}px, ${fallY}px) rotate(${rotate}deg) scale(0.7)`,
+              opacity: 0,
+              offset: 1,
+            },
+          ], {
+            duration: total,
+            delay: delay,
+            fill: 'forwards',
+          });
         });
       });
 
