@@ -2121,6 +2121,53 @@
     // ─── Masonry layout ───────────────────────────────────────────────────────
     let masonryAnimated = false;
 
+    // Damped-spring keyframes for cards (smaller amplitudes than landing balloons)
+    function generateCardSpringKeyframes(seed, startX, startY, startR) {
+      const STEPS    = 70;
+      const RISE_END = 0.40;
+      const freq     = 2.2 + (seed % 4) * 0.18;
+      const damping  = 3.6 + (seed % 3) * 0.25;
+      const yAmp     = 24 + (seed % 4) * 5;
+      const xAmp     = 11 + (seed % 4) * 3;
+      const rotAmp   = 2.4 + (seed % 3) * 0.5;
+      const xPhase   = seed * 0.7;
+
+      const frames = [];
+      for (let i = 0; i <= STEPS; i++) {
+        const t = i / STEPS;
+
+        // Phase 1 — buoyant float from scatter → final position (ease-out)
+        let bx, by, br;
+        if (t < RISE_END) {
+          const rt = t / RISE_END;
+          const eased = 1 - Math.pow(1 - rt, 2.6);
+          bx = startX * (1 - eased);
+          by = startY * (1 - eased);
+          br = startR * (1 - eased);
+        } else {
+          bx = 0; by = 0; br = 0;
+        }
+
+        // Phase 2 — damped sinusoidal oscillation around the target
+        const bt = Math.max(0, (t - 0.28) / 0.72);
+        const decay = Math.exp(-damping * bt);
+        const yBounce = -Math.sin(bt * Math.PI * 2 * freq) * decay * yAmp;
+        const xBounce =  Math.cos(bt * Math.PI * 2 * freq + xPhase) * decay * xAmp;
+        const rBounce =  Math.sin(bt * Math.PI * 2 * freq + xPhase + 0.4) * decay * rotAmp;
+
+        const x = bx + xBounce;
+        const y = by + yBounce;
+        const r = br + rBounce;
+        const op = t < 0.10 ? (t / 0.10) : 1;
+
+        frames.push({
+          transform: `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${r.toFixed(3)}deg)`,
+          opacity: op.toFixed(3),
+        });
+      }
+      return frames;
+    }
+
     function layoutMasonry(animate) {
       const stack = document.getElementById('caseStack');
       if (!stack) return;
@@ -2155,24 +2202,21 @@
       if (animate && !masonryAnimated) {
         masonryAnimated = true;
 
-        // Scatter each item to a random position below
-        items.forEach(item => {
-          const rx = (Math.random() - 0.5) * 200;
-          const ry = 220 + Math.random() * 140;
-          const rr = (Math.random() - 0.5) * 18;
-          item.style.opacity = '0';
-          item.style.transform = `translate(${rx}px, ${ry}px) rotate(${rr}deg)`;
-        });
+        items.forEach((item, i) => {
+          const rx = (Math.random() - 0.5) * 220;
+          const ry = 240 + Math.random() * 160;
+          const rr = (Math.random() - 0.5) * 20;
 
-        // Let browser paint the scattered state, then float up into place
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          items.forEach((item, i) => {
-            const delay = i * 65;
-            item.style.transition = `opacity 0.5s ease ${delay}ms, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`;
-            item.style.opacity = '1';
-            item.style.transform = 'none';
+          const keyframes = generateCardSpringKeyframes(i, rx, ry, rr);
+
+          if (item._springAnim) item._springAnim.cancel();
+          item._springAnim = item.animate(keyframes, {
+            duration: 1900,
+            delay: i * 75,
+            easing: 'linear',
+            fill: 'backwards',
           });
-        }));
+        });
       } else if (!animate) {
         // Resize: snap into place immediately, no animation
         items.forEach(item => {
