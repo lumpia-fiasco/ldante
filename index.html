@@ -379,6 +379,23 @@
       requestAnimationFrame(frame);
     }, { once: true }); // only fires on first focus
 
+    // ─── Landing balloon entrance ─────────────────────────────────────────────
+    function triggerLandingBalloons() {
+      const items = [
+        document.getElementById('heroLogo'),
+        document.querySelector('.hero-tagline'),
+        document.querySelector('.hero-desc'),
+        document.getElementById('startBtn'),
+      ];
+      items.forEach((el, i) => {
+        if (!el) return;
+        el.classList.remove('balloon-in', 'balloon-in--1', 'balloon-in--2', 'balloon-in--3', 'balloon-in--4');
+        // Force reflow so re-adding the class restarts the animation
+        void el.offsetWidth;
+        el.classList.add('balloon-in', 'balloon-in--' + (i + 1));
+      });
+    }
+
     // Password is verified server-side via /api/auth — never exposed in source.
     // Each password maps to an experience token stored in sessionStorage.
     (function () {
@@ -389,7 +406,10 @@
         sessionStorage.setItem('pw-auth', '1');
         sessionStorage.setItem('portfolio-experience', experience || 'standard');
         gate.classList.add('unlocking');
-        setTimeout(() => gate.style.display = 'none', 500);
+        setTimeout(() => {
+          gate.style.display = 'none';
+          triggerLandingBalloons();
+        }, 500);
       }
 
       function shake() {
@@ -400,6 +420,7 @@
 
       if (sessionStorage.getItem('pw-auth') === '1') {
         gate.style.display = 'none';
+        triggerLandingBalloons();
       } else {
         setTimeout(() => input.focus(), 100);
         input.addEventListener('keydown', async function (e) {
