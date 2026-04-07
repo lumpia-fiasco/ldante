@@ -72,7 +72,7 @@
           </svg>
         </div>
 
-        <p class="hero-tagline">I design systems. I build design systems too.</p>
+        <p class="hero-tagline">I design systems.<br>I build design systems too.</p>
         <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
 
         <button class="start-btn" id="startBtn">Start</button>
@@ -383,24 +383,32 @@
     (function setupLandingFloat() {
       // Split into words then letters. Each word is its own inline-block so it
       // stays together; line breaks only happen at spaces between words.
+      // Element nodes (like <br>) are preserved so authored line breaks survive.
       function splitText(el) {
-        const text = el.textContent;
-        const words = text.split(' ');
+        const children = Array.from(el.childNodes);
         el.textContent = '';
-        words.forEach((word, idx) => {
-          if (word.length) {
-            const wrap = document.createElement('span');
-            wrap.className = 'float-word';
-            for (const ch of word) {
-              const s = document.createElement('span');
-              s.className = 'float-letter';
-              s.textContent = ch;
-              wrap.appendChild(s);
-            }
-            el.appendChild(wrap);
-          }
-          if (idx < words.length - 1) {
-            el.appendChild(document.createTextNode(' '));
+        children.forEach(child => {
+          if (child.nodeType === Node.TEXT_NODE) {
+            const words = child.textContent.split(' ');
+            words.forEach((word, idx) => {
+              if (word.length) {
+                const wrap = document.createElement('span');
+                wrap.className = 'float-word';
+                for (const ch of word) {
+                  const s = document.createElement('span');
+                  s.className = 'float-letter';
+                  s.textContent = ch;
+                  wrap.appendChild(s);
+                }
+                el.appendChild(wrap);
+              }
+              if (idx < words.length - 1) {
+                el.appendChild(document.createTextNode(' '));
+              }
+            });
+          } else {
+            // Preserve element nodes (e.g. authored <br>) as-is
+            el.appendChild(child);
           }
         });
       }
@@ -414,13 +422,13 @@
       // fly off-screen on fast flicks).
       const FLOAT = [];
       document.querySelectorAll('.hero-tagline .float-letter').forEach((el, i) =>
-        FLOAT.push({ el, radius: 115, maxPush: 44, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
+        FLOAT.push({ el, radius: 115, maxPush: 88, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
       );
       document.querySelectorAll('.hero-desc .float-letter').forEach((el, i) =>
-        FLOAT.push({ el, radius: 100, maxPush: 38, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
+        FLOAT.push({ el, radius: 100, maxPush: 76, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
       );
       const logo = document.querySelector('.hero-logo');
-      if (logo) FLOAT.push({ el: logo, radius: 260, maxPush: 85, boost: 0.45, rotSign: 0 });
+      if (logo) FLOAT.push({ el: logo, radius: 260, maxPush: 170, boost: 0.45, rotSign: 0 });
 
       let cached = false;
       function cachePositions() {
