@@ -458,6 +458,16 @@
         if (!img.dataset.lazySrc) return;
         img.dataset.lazyInit = '1';
 
+        // Reserve vertical space using the HTML width/height attributes so
+        // the masonry layout measures the correct card height BEFORE the
+        // image actually loads. Without this, mobile Safari can collapse
+        // the tile to ~0px and the next card stacks on top of it.
+        const wAttr = parseFloat(img.getAttribute('width'));
+        const hAttr = parseFloat(img.getAttribute('height'));
+        if (wAttr > 0 && hAttr > 0 && !img.style.aspectRatio) {
+          img.style.aspectRatio = wAttr + ' / ' + hAttr;
+        }
+
         const host = img.parentElement;
         if (!host) return;
 
