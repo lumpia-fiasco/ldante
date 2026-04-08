@@ -290,6 +290,17 @@
               </article>
             </div>
 
+            <div class="case-item case-item--thought" data-thought="spongebob-would" role="button" tabindex="0" aria-label="Read Squidward would never. SpongeBob would.">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/spongebob.jpeg" alt="Squidward would never. SpongeBob would. — article thumbnail" class="thought-tile-img" width="1920" height="1080" />
+                <span class="thought-tile-badge">Thoughts</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Squidward would never. SpongeBob would.</h3>
+                  <p class="thought-tile-desc">Squidward is the designer who's seen it all. Too experienced to be surprised. Too "sensible" to chase anything that might not scale. SpongeBob, though? He's the one sketching fish with arms just to see what happens.</p>
+                </div>
+              </article>
+            </div>
+
           </div>
           </div><!-- /.case-list-inner -->
 
@@ -2561,6 +2572,97 @@
           },
         ],
       },
+
+      'spongebob-would': {
+        kicker: 'Thoughts',
+        title:  'Squidward would never. SpongeBob would.',
+        hero: {
+          src: 'assets/spongebob.jpeg',
+          alt: 'SpongeBob and Squidward in a fish costume — article image',
+          w:   1920,
+          h:   1080,
+        },
+        dek: "On why the weird, metaphor-happy sketches almost always beat the sensible ones — and why I keep betting on SpongeBob over Squidward.",
+        sections: [
+          {
+            // intro run — no heading, reads as the opening of the piece
+            paragraphs: [
+              "Squidward is the designer who's seen it all. Too experienced to be surprised. Too \"sensible\" to chase anything that might not scale. His process is efficient, his feedback is brutal, and his best ideas are three versions behind him.",
+              "SpongeBob, though? He's the one sketching fish with arms just to see what happens. Clicking every button in the prototype, narrating the user journey like it's a Broadway show. He's annoying. He's relentless. He's probably onto something.",
+              "If you've been in this field long enough, you've got a little of both in you.",
+              "But the longer I've been doing this, the more I think: SpongeBob gets the better ideas.",
+            ],
+          },
+          {
+            heading: 'Play is not the opposite of professionalism',
+            paragraphs: [
+              "Somewhere along the way, \"playfulness\" got turned into a design aesthetic—rounded corners, pastel gradients, kawaii characters, and the occasional microinteraction that spins before it lands.",
+              "That's not what I mean.",
+              "SpongeBob-level play isn't decoration—it's how you approach the work. It's about curiosity. Lightness. Movement. Willingness to try the thing that might not work because something about it feels interesting.",
+              "Squidward would rather not. He doesn't want to waste time. He's been burned by too many brainstorms that led nowhere, too many stakeholders who said \"cute, but no.\"",
+              "But here's the thing: Squidward is rarely surprised. SpongeBob is, constantly. And in design, surprise is a feature—not a bug.",
+            ],
+          },
+          {
+            heading: 'How the TV Guide happened',
+            paragraphs: [
+              "In a recent project for Adobe Sales Insights, we were trying to help sales reps understand buyer behavior—who was doing what, when, and why it mattered.",
+              "The expected solution was… exactly what you'd expect. Tables, calendars, maybe a feed. All reasonable. All very Squidward.",
+              "But that didn't sit right.",
+              "So I sketched something dumb: a TV Guide.",
+              "Not literally, but close. Blocks of scheduled behavior, horizontal rhythm, a visual metaphor pulled from old cable interfaces. A completely unserious reference applied to a very serious tool.",
+              "And it worked.",
+              "The TV Guide reframed the conversation. It helped the team—designers, salespeople, even execs—understand the pacing of buyer intent like a schedule you could tune into. It made behavior feel broadcastable. It turned noise into programming.",
+              "It was weird. It was fun.\nSpongeBob would.",
+            ],
+          },
+          {
+            heading: 'Play breaks sameness',
+            paragraphs: [
+              "A lot of \"serious\" design processes aren't actually that serious. They're just safe.",
+              "Squidward knows what the pattern library says. He knows the system constraints. He builds what's been proven. He optimizes.",
+              "SpongeBob plays.",
+              "He breaks things early and often. He follows an idea until it collapses, then glues it back together just to see what happens. He mocks up things no one asked for. Half of it is nonsense. The other half contains seeds that become the final solution.",
+              "And honestly? It's usually the stuff no one asked for that shifts the work from fine to right.",
+            ],
+          },
+          {
+            heading: 'Play is structure, too',
+            paragraphs: [
+              "This doesn't mean chaos. SpongeBob isn't random. He's just open.",
+              "Real play happens within structure. That's what makes it meaningful. Boundaries make the choices sharper.",
+              "In practice, this might look like:",
+              { list: [
+                "Setting aside a sprint for weird ideas that break the model",
+                "Prototyping metaphors instead of screens",
+                "Asking \"what would make this fun for the user to experience?\"",
+                "Letting the new hire own the risky concept",
+                "Laughing in the design review because someone snuck in an idea shaped like a sea cucumber, and it's actually pretty good",
+              ] },
+              "You still ship. You still measure. But you get there with a little more air in the process.",
+            ],
+          },
+          {
+            heading: "Squidward is useful. He's just not where the ideas start.",
+            paragraphs: [
+              "There's a time and place for structure, critique, pruning. That's where Squidward shines. You need him to stress-test the ideas, poke holes, trim fat.",
+              "But if he shows up too early, party done.",
+              "SpongeBob, on the other hand, doesn't worry about looking smart. He's not trying to impress anyone. He just wants to know what happens if you move the button here or name the feature that or explain the concept with a metaphor from children's TV.",
+              "And in my experience, that's where the real ideas tend to live—in the playful sketches you almost deleted.",
+            ],
+          },
+          {
+            heading: 'So what?',
+            paragraphs: [
+              "I'm not saying every design project needs to feel like Saturday morning cartoons.",
+              "But when work becomes too serious too fast, it collapses under its own weight. When we forget how to play, we forget how to see.",
+              "So yeah—Squidward might roll his eyes. But I'll keep choosing SpongeBob.",
+              "Because SpongeBob prototypes the weird thing.\nSpongeBob uses metaphors no one asked for.\nSpongeBob asks the dumb question that unlocks the actual insight.",
+              "And SpongeBob gets to the better work.",
+            ],
+          },
+        ],
+      },
     };
 
     function showThought(thoughtId) {
@@ -2577,14 +2679,29 @@
       // the paragraphs directly (used for intro runs).
       // Numbering only counts titled sections — heading-less intro runs
       // don't consume a number, so the first real section is always 01.
+      //
+      // Each entry in `paragraphs` is normally a string, but may also be
+      // an object like `{ list: [...] }` which renders as a cd-list
+      // inline with the rest of the section. Useful for articles that
+      // want to drop a bulleted aside in the middle of prose.
+      const renderBlock = (entry) => {
+        if (typeof entry === 'string') {
+          return '<p class="cd-body">' + safeHtml(entry) + '</p>';
+        }
+        if (entry && Array.isArray(entry.list)) {
+          return '<ul class="cd-list">' +
+            entry.list.map(item => '<li>' + safeHtml(item) + '</li>').join('') +
+          '</ul>';
+        }
+        return '';
+      };
+
       let titledCount = 0;
       const sectionsHtml = (data.sections || []).map((section) => {
-        const paragraphs = (section.paragraphs || []).map(p =>
-          '<p class="cd-body">' + safeHtml(p) + '</p>'
-        ).join('');
+        const blocks = (section.paragraphs || []).map(renderBlock).join('');
 
         if (!section.heading) {
-          return '<div class="cs-section cs-section--plain">' + paragraphs + '</div>';
+          return '<div class="cs-section cs-section--plain">' + blocks + '</div>';
         }
 
         titledCount += 1;
@@ -2595,7 +2712,7 @@
               '<span class="cs-section-num">' + num + '</span>' +
               '<span class="cs-section-title">' + esc(section.heading) + '</span>' +
             '</div>' +
-            paragraphs +
+            blocks +
           '</div>'
         );
       }).join('');
