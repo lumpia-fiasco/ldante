@@ -2650,53 +2650,6 @@
     // ─── Masonry layout ───────────────────────────────────────────────────────
     let masonryAnimated = false;
 
-    // Damped-spring keyframes for cards (smaller amplitudes than landing balloons)
-    function generateCardSpringKeyframes(seed, startX, startY, startR) {
-      const STEPS    = 70;
-      const RISE_END = 0.40;
-      const freq     = 2.2 + (seed % 4) * 0.18;
-      const damping  = 3.6 + (seed % 3) * 0.25;
-      const yAmp     = 24 + (seed % 4) * 5;
-      const xAmp     = 11 + (seed % 4) * 3;
-      const rotAmp   = 2.4 + (seed % 3) * 0.5;
-      const xPhase   = seed * 0.7;
-
-      const frames = [];
-      for (let i = 0; i <= STEPS; i++) {
-        const t = i / STEPS;
-
-        // Phase 1 — buoyant float from scatter → final position (ease-out)
-        let bx, by, br;
-        if (t < RISE_END) {
-          const rt = t / RISE_END;
-          const eased = 1 - Math.pow(1 - rt, 2.6);
-          bx = startX * (1 - eased);
-          by = startY * (1 - eased);
-          br = startR * (1 - eased);
-        } else {
-          bx = 0; by = 0; br = 0;
-        }
-
-        // Phase 2 — damped sinusoidal oscillation around the target
-        const bt = Math.max(0, (t - 0.28) / 0.72);
-        const decay = Math.exp(-damping * bt);
-        const yBounce = -Math.sin(bt * Math.PI * 2 * freq) * decay * yAmp;
-        const xBounce =  Math.cos(bt * Math.PI * 2 * freq + xPhase) * decay * xAmp;
-        const rBounce =  Math.sin(bt * Math.PI * 2 * freq + xPhase + 0.4) * decay * rotAmp;
-
-        const x = bx + xBounce;
-        const y = by + yBounce;
-        const r = br + rBounce;
-        const op = t < 0.10 ? (t / 0.10) : 1;
-
-        frames.push({
-          transform: `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${r.toFixed(3)}deg)`,
-          opacity: op.toFixed(3),
-        });
-      }
-      return frames;
-    }
-
     function layoutMasonry(animate) {
       const stack = document.getElementById('caseStack');
       if (!stack) return;
@@ -2727,7 +2680,8 @@
 
       stack.style.height = Math.max(...colH) + 'px';
 
-      // Scatter → settle animation (first layout only)
+      // Scatter → settle animation (first layout only).
+      // Smooth ease-out with no overshoot — cards glide in and stop cleanly.
       if (animate && !masonryAnimated) {
         masonryAnimated = true;
 
@@ -2736,13 +2690,21 @@
           const ry = 240 + Math.random() * 160;
           const rr = (Math.random() - 0.5) * 20;
 
-          const keyframes = generateCardSpringKeyframes(i, rx, ry, rr);
-
           if (item._springAnim) item._springAnim.cancel();
-          item._springAnim = item.animate(keyframes, {
-            duration: 680,
+          item._springAnim = item.animate([
+            {
+              transform: `translate(${rx.toFixed(1)}px, ${ry.toFixed(1)}px) rotate(${rr.toFixed(2)}deg)`,
+              opacity: 0,
+            },
+            {
+              transform: 'translate(0px, 0px) rotate(0deg)',
+              opacity: 1,
+            },
+          ], {
+            duration: 720,
             delay: i * 27,
-            easing: 'linear',
+            // ease-out-quart — decelerates smoothly into place, no bounce
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
             fill: 'backwards',
           });
         });
