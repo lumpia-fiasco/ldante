@@ -213,28 +213,28 @@
 
             <div class="case-item case-item--photo">
               <div class="photo-tile">
-                <img src="assets/IMG_4543.jpeg" alt="Flower wall" class="photo-tile-img" />
+                <img data-lazy-src="assets/IMG_4543.jpeg" alt="Flower wall" class="photo-tile-img" width="1200" height="1600" />
                 <div class="photo-tile-caption"><span>Flower wall — color study</span></div>
               </div>
             </div>
 
             <div class="case-item case-item--photo">
               <div class="photo-tile">
-                <img src="assets/_MG_1247.jpg" alt="Junkyard cars" class="photo-tile-img" />
+                <img data-lazy-src="assets/_MG_1247.jpg" alt="Junkyard cars" class="photo-tile-img" width="3504" height="2336" />
                 <div class="photo-tile-caption"><span>Stacked — junkyard</span></div>
               </div>
             </div>
 
             <div class="case-item case-item--photo">
               <div class="photo-tile">
-                <img src="assets/_MG_4128.jpg" alt="Industrial window" class="photo-tile-img" />
+                <img data-lazy-src="assets/_MG_4128.jpg" alt="Industrial window" class="photo-tile-img" width="1378" height="1723" />
                 <div class="photo-tile-caption"><span>518 — urban texture</span></div>
               </div>
             </div>
 
             <div class="case-item case-item--photo">
               <a class="photo-tile spotify-tile" href="https://open.spotify.com/playlist/5XsZdgwU4ZsOPAwqzlY1cK?si=COncaPMNTHS7VJ0XTbLd0w" target="_blank" rel="noopener">
-                <img src="assets/playlist.jpeg" alt="Gordon Gartrell playlist" class="photo-tile-img" />
+                <img data-lazy-src="assets/playlist.jpeg" alt="Gordon Gartrell playlist" class="photo-tile-img" width="1652" height="1126" />
                 <div class="photo-tile-caption">
                   <svg class="spotify-icon" width="18" height="18" viewBox="0 0 24 24" fill="#1DB954" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
                   <span>Gordon Gartrell</span>
@@ -245,7 +245,7 @@
 
             <div class="case-item case-item--photo">
               <div class="photo-tile">
-                <img src="assets/_MG_8265.jpg" alt="Classic car interior" class="photo-tile-img" />
+                <img data-lazy-src="assets/_MG_8265.jpg" alt="Classic car interior" class="photo-tile-img" width="5087" height="3391" />
                 <div class="photo-tile-caption"><span>Vintage — interior detail</span></div>
               </div>
             </div>
@@ -378,6 +378,114 @@
       }
       requestAnimationFrame(frame);
     }, { once: true }); // only fires on first focus
+
+    // ─── Lazy image loading with pink progress bar ───────────────────────────
+    // Images flagged with data-lazy-src are intercepted: when their host enters
+    // the viewport, fetch() streams the bytes and updates a thin pink progress
+    // bar at the top edge of the host. Once complete, the image is swapped in
+    // via a blob URL and the bar fades out.
+    (function setupLazyImagesGlobal() {
+      const lazyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          lazyObserver.unobserve(entry.target);
+          loadLazyHost(entry.target);
+        });
+      }, { rootMargin: '300px' });
+
+      async function loadLazyHost(host) {
+        const img  = host.querySelector('img[data-lazy-src]');
+        const fill = host.querySelector('.lazy-progress-fill');
+        if (!img) return;
+        const src = img.dataset.lazySrc;
+        if (!src) return;
+
+        const markLoaded = () => {
+          delete img.dataset.lazySrc;
+          requestAnimationFrame(() => host.classList.add('lazy-loaded'));
+        };
+
+        try {
+          const response = await fetch(src);
+          if (!response.ok) throw new Error('fetch failed: ' + response.status);
+
+          const total = parseInt(response.headers.get('Content-Length') || '0', 10);
+
+          if (!total || !response.body || !response.body.getReader) {
+            // No progress info available — set src and bail
+            if (fill) fill.style.transform = 'scaleX(1)';
+            img.addEventListener('load', markLoaded, { once: true });
+            img.src = src;
+            return;
+          }
+
+          const reader = response.body.getReader();
+          const chunks = [];
+          let received = 0;
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            chunks.push(value);
+            received += value.length;
+            if (fill) fill.style.transform = `scaleX(${(received / total).toFixed(3)})`;
+          }
+
+          const blob = new Blob(chunks);
+          const url  = URL.createObjectURL(blob);
+          img.addEventListener('load', () => {
+            markLoaded();
+            setTimeout(() => URL.revokeObjectURL(url), 2000);
+          }, { once: true });
+          img.src = url;
+        } catch (err) {
+          // Network or stream failure — fall back to direct browser load
+          img.addEventListener('load', markLoaded, { once: true });
+          img.src = src;
+        }
+      }
+
+      function setupLazyImage(img) {
+        if (img.dataset.lazyInit === '1') return;
+        if (!img.dataset.lazySrc) return;
+        img.dataset.lazyInit = '1';
+
+        const host = img.parentElement;
+        if (!host) return;
+
+        // Make sure the host can position the bar absolutely
+        if (getComputedStyle(host).position === 'static') {
+          host.style.position = 'relative';
+        }
+        host.classList.add('lazy-host');
+
+        // Inject the progress bar (only once per host)
+        if (!host.querySelector(':scope > .lazy-progress')) {
+          const bar = document.createElement('div');
+          bar.className = 'lazy-progress';
+          bar.innerHTML = '<div class="lazy-progress-fill"></div>';
+          host.insertBefore(bar, host.firstChild);
+        }
+
+        lazyObserver.observe(host);
+      }
+
+      // Public: scan a root for any data-lazy-src imgs and wire them up
+      function setupLazyImagesIn(root) {
+        if (!root) return;
+        const imgs = root.querySelectorAll('img[data-lazy-src]');
+        imgs.forEach(setupLazyImage);
+      }
+
+      // Initial pass on the static document
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setupLazyImagesIn(document));
+      } else {
+        setupLazyImagesIn(document);
+      }
+
+      // Expose for dynamically-rendered content (case study templates etc.)
+      window._setupLazyImagesIn = setupLazyImagesIn;
+    })();
 
     // ─── Landing letter float (boat-through-water effect) ────────────────────
     (function setupLandingFloat() {
@@ -2155,13 +2263,24 @@
           <span class="cd-metric-label">${m.label}</span>
         </div>`).join('');
 
+      // Convert any assets/* image src into data-lazy-src so the browser
+      // doesn't immediately preload them — the lazy loader will fetch them
+      // with progress feedback once they enter the viewport.
+      const lazyContent = data.content.replace(
+        /<img\s+([^>]*?)src="(assets\/[^"]+)"([^>]*?)>/g,
+        '<img $1data-lazy-src="$2"$3>'
+      );
+
       content.innerHTML = `
         <p class="cd-company">${data.company}</p>
         <h2 class="cd-headline">${data.headline}</h2>
         <p class="cd-intro">${data.intro}</p>
         <div class="cd-metrics">${metricsHtml}</div>
-        ${data.content}
+        ${lazyContent}
       `;
+
+      // Wire up progress bars on the freshly-rendered case detail images
+      if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
 
       // Fade list out, slide detail in from right
       listPanel.classList.add('hidden');

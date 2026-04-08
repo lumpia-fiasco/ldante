@@ -579,6 +579,37 @@ main {
   box-shadow: 0 24px 56px rgba(0,0,0,0.22);
 }
 
+/* ─── Lazy image loading + pink progress bar ─── */
+.lazy-host {
+  position: relative;
+}
+.lazy-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.10);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.lazy-progress-fill {
+  position: absolute;
+  inset: 0;
+  background: #DB1980;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 140ms linear, opacity 500ms ease;
+  will-change: transform;
+}
+.lazy-host.lazy-loaded .lazy-progress-fill {
+  opacity: 0;
+  transition: opacity 500ms ease 200ms;
+}
+
 /* ─── Photo tile ─── */
 .photo-tile {
   position: relative;
