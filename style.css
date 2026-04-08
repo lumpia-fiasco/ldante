@@ -560,6 +560,39 @@ main {
   margin: 0 auto;
 }
 
+/* ─── About / Brass Tacks blurb (above the Selected Work grid) ─── */
+.about-section {
+  max-width: 860px;
+  margin: 0 0 44px 0;
+}
+
+.about-title {
+  /* Matches the sidebar's "Hi, I'm Dante" treatment exactly */
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.9rem, 2.6vw, 2.7rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 20px 0;
+}
+
+.about-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(31, 31, 31, 0.78);
+  max-width: 640px;
+  margin: 0 0 14px 0;
+}
+.about-desc:last-child { margin-bottom: 0; }
+
+/* Portfolio view is always on a white background, so force dark text
+   even when the global sky-dark theme is active. */
+.sky-dark .portfolio-view .about-title { color: #1f1f1f; }
+.sky-dark .portfolio-view .about-desc  { color: rgba(31, 31, 31, 0.78); }
+
 /* ─── Cases heading row (label + scroll arrows) ─── */
 .cases-heading-row {
   display: flex;
