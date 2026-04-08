@@ -487,7 +487,12 @@
       window._setupLazyImagesIn = setupLazyImagesIn;
     })();
 
-    // ─── Landing letter float (boat-through-water effect) ────────────────────
+    // ─── Landing letter sandbox (cursor pushes letters around, no return) ───
+    // The cursor shoves letters (and the logo) around the viewport. Displaced
+    // items NEVER snap back to their origin — it's a sandbox where you can
+    // drag things wherever you want. The Start button is deliberately left
+    // out of FLOAT, so it stays in place. On Start click the existing fall
+    // animation kicks in from each letter's current scattered position.
     (function setupLandingFloat() {
       // Split into words then letters. Each word is its own inline-block so it
       // stays together; line breaks only happen at spaces between words.
@@ -525,22 +530,28 @@
       if (tagline) splitText(tagline);
       if (desc)    splitText(desc);
 
-      // Build the list of float targets. boost = how much velocity-based
-      // amplification this item receives (logo gets dampened so it doesn't
-      // fly off-screen on fast flicks).
+      // FLOAT holds every draggable item. Each entry accumulates ox/oy over
+      // time — the push per frame is added to this offset so the letter stays
+      // wherever the cursor last shoved it.
       const FLOAT = [];
       document.querySelectorAll('.hero-tagline .float-letter').forEach((el, i) =>
-        FLOAT.push({ el, radius: 115, maxPush: 88, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
+        FLOAT.push({ el, radius: 105, boost: 1.0,  rotSign: (i % 2) ? 1 : -1, ox: 0, oy: 0 })
       );
       document.querySelectorAll('.hero-desc .float-letter').forEach((el, i) =>
-        FLOAT.push({ el, radius: 100, maxPush: 76, boost: 1.0, rotSign: (i % 2) ? 1 : -1 })
+        FLOAT.push({ el, radius:  95, boost: 1.0,  rotSign: (i % 2) ? 1 : -1, ox: 0, oy: 0 })
       );
       const logo = document.querySelector('.hero-logo');
-      if (logo) FLOAT.push({ el: logo, radius: 260, maxPush: 170, boost: 0.45, rotSign: 0 });
+      if (logo) FLOAT.push({ el: logo, radius: 230, boost: 0.55, rotSign: 0, ox: 0, oy: 0 });
+
+      // NOTE: startBtn is intentionally NOT in FLOAT — it stays put.
 
       let cached = false;
       function cachePositions() {
         FLOAT.forEach(item => {
+          // Only (re)cache items that haven't been dragged yet. Once an item
+          // has a non-zero offset, its cached natural center should stick so
+          // the sandbox math stays consistent across resizes.
+          if (item.ox !== 0 || item.oy !== 0) return;
           const prev = item.el.style.transform;
           item.el.style.transform = 'none';
           const r = item.el.getBoundingClientRect();
@@ -550,130 +561,84 @@
         });
         cached = true;
       }
-      // Expose so the entrance trigger can call it once balloons settle
+      // Expose so the entrance trigger can call it after the gate unlocks
       window._cacheFloatPositions = cachePositions;
 
-      // Cursor + velocity state
+      // Rotation is derived from total displacement — the further you drag
+      // a letter, the more it tilts (capped to keep it readable).
+      function rotFor(item) {
+        if (item.rotSign === 0) return 0;
+        const disp = Math.sqrt(item.ox * item.ox + item.oy * item.oy);
+        return Math.min(disp * 0.30, 55) * item.rotSign;
+      }
+      function applyTransform(item) {
+        const rot = rotFor(item);
+        item.el.style.transform =
+          `translate(${item.ox.toFixed(1)}px, ${item.oy.toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
+      }
+
+      // popLandingBalloons needs each item's natural center + current offset
+      // so it can start the fall animation from the scattered position.
+      window._getFloatState = function (el) {
+        const item = FLOAT.find(i => i.el === el);
+        if (!item) return null;
+        return { cx: item.cx, cy: item.cy, ox: item.ox, oy: item.oy, rot: rotFor(item) };
+      };
+
+      // Tunables for the push feel
+      const PUSH_FALLOFF = 1.25;  // exponent on (radius - dist) / radius
+      const DRAG_GAIN    = 0.90;  // how strongly the letter is dragged with cursor
+      const DRAG_CAP     = 0.78;  // cap so cursor always outruns the letter
+      const NUDGE_GAIN   = 0.22;  // small radial kick so letters eject out of cursor
+
       let mouseX = -9999, mouseY = -9999;
-      let prevX  = -9999, prevY  = -9999;
-      let prevT  = 0;
-      let velX = 0, velY = 0;   // smoothed cursor velocity, px/ms
-      let speed = 0;            // |velocity|
-
-      // Tunables
-      const VEL_SMOOTH       = 0.30;  // higher = more responsive (less smoothing)
-      const SPEED_TO_BOOST   = 1.5;   // speed (px/ms) at which boost contribution = 1.0
-      const MAX_BOOST        = 2.4;   // cap on the velocity-driven push multiplier
-      const RADIUS_BOOST_MAX = 0.65;  // up to +65% radius at high speed
-      const DIR_BIAS         = 0.45;  // fraction of push applied along cursor direction
-      const DECAY_TAU        = 130;   // ms; exponential decay time constant for velocity
-
-      let tickRunning  = false;
-      let lastTickTime = 0;
-
-      function update() {
-        if (!cached) return;
-
-        // Global speed-derived multipliers (per-item is scaled by item.boost)
-        const gSpeedMult  = Math.min(speed / SPEED_TO_BOOST, MAX_BOOST);
-        const gRadiusMult = Math.min(speed / 2.5, RADIUS_BOOST_MAX);
-
-        // Unit vector of cursor velocity (zero if standing still)
-        const velMag = Math.sqrt(velX * velX + velY * velY);
-        let velUx = 0, velUy = 0;
-        if (velMag > 0.001) {
-          velUx = velX / velMag;
-          velUy = velY / velMag;
-        }
-
-        for (const item of FLOAT) {
-          const dx = item.cx - mouseX;
-          const dy = item.cy - mouseY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          // Per-item boost-scaled multipliers
-          const sm = 1 + gSpeedMult  * item.boost;
-          const rm = 1 + gRadiusMult * item.boost;
-          const db = DIR_BIAS        * item.boost;
-          const radius = item.radius * rm;
-
-          if (dist < radius && dist > 0.001) {
-            const force = Math.pow((radius - dist) / radius, 1.4);
-            const mag = force * item.maxPush * sm;
-
-            // Radial push away from cursor
-            let px = (dx / dist) * mag;
-            let py = (dy / dist) * mag;
-            // Wake bias: extra push along cursor direction of travel
-            px += velUx * mag * db;
-            py += velUy * mag * db;
-
-            // Subtle rotation for chaos (skipped on logo, rotSign === 0)
-            if (item.rotSign !== 0) {
-              const rot = item.rotSign * force * sm * 4;
-              item.el.style.transform =
-                `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
-            } else {
-              item.el.style.transform =
-                `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px)`;
-            }
-          } else {
-            item.el.style.transform = '';
-          }
-        }
-      }
-
-      // Continuous tick loop — runs while there is velocity left to dissipate.
-      // This lets the wake settle even if the cursor stops moving inside a radius.
-      function tick(now) {
-        if (lastTickTime === 0) lastTickTime = now;
-        const dt = now - lastTickTime;
-        lastTickTime = now;
-
-        // Exponential decay of velocity
-        const decay = Math.exp(-dt / DECAY_TAU);
-        velX *= decay;
-        velY *= decay;
-        speed = Math.sqrt(velX * velX + velY * velY);
-
-        update();
-
-        if (speed > 0.005) {
-          requestAnimationFrame(tick);
-        } else {
-          tickRunning  = false;
-          lastTickTime = 0;
-          velX = 0; velY = 0; speed = 0;
-          update();   // final settle pass at zero velocity
-        }
-      }
 
       const landingEl = document.getElementById('landing');
       if (landingEl) {
         landingEl.addEventListener('mousemove', (e) => {
-          const now = performance.now();
-          if (prevT > 0) {
-            const dt = Math.max(now - prevT, 1);   // ms; clamp to avoid /0
-            const instX = (e.clientX - prevX) / dt;
-            const instY = (e.clientY - prevY) / dt;
-            velX = velX * (1 - VEL_SMOOTH) + instX * VEL_SMOOTH;
-            velY = velY * (1 - VEL_SMOOTH) + instY * VEL_SMOOTH;
-            speed = Math.sqrt(velX * velX + velY * velY);
-          }
-          prevX = e.clientX; prevY = e.clientY; prevT = now;
-          mouseX = e.clientX; mouseY = e.clientY;
+          if (!cached) return;
 
-          if (!tickRunning) {
-            tickRunning  = true;
-            lastTickTime = 0;
-            requestAnimationFrame(tick);
+          const prevX = mouseX;
+          const prevY = mouseY;
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          if (prevX < -9000) return;              // first move — no delta yet
+
+          const dmx = mouseX - prevX;
+          const dmy = mouseY - prevY;
+          const moveMag = Math.sqrt(dmx * dmx + dmy * dmy);
+          if (moveMag < 0.01) return;
+
+          for (const item of FLOAT) {
+            // Vector from cursor to the letter's CURRENT visible center
+            const curCx = item.cx + item.ox;
+            const curCy = item.cy + item.oy;
+            const relX  = curCx - mouseX;
+            const relY  = curCy - mouseY;
+            const dist  = Math.sqrt(relX * relX + relY * relY);
+
+            if (dist < item.radius && dist > 0.001) {
+              const force = Math.pow((item.radius - dist) / item.radius, PUSH_FALLOFF);
+
+              // Drag component — letter follows cursor motion. Capped below 1
+              // so the cursor always catches up and passes through.
+              const dragMult = Math.min(force * DRAG_GAIN * item.boost, DRAG_CAP);
+              item.ox += dmx * dragMult;
+              item.oy += dmy * dragMult;
+
+              // Radial nudge — ensures the letter is actively shoved away
+              // from the cursor as it passes (prevents sticky cursors).
+              const nudge = moveMag * force * NUDGE_GAIN * item.boost;
+              item.ox += (relX / dist) * nudge;
+              item.oy += (relY / dist) * nudge;
+
+              applyTransform(item);
+            }
           }
         });
         landingEl.addEventListener('mouseleave', () => {
           mouseX = -9999; mouseY = -9999;
-          velX = 0; velY = 0; speed = 0;
-          prevT = 0;
-          FLOAT.forEach(item => { item.el.style.transform = ''; });
+          // Sandbox: letters stay wherever they were last pushed.
         });
       }
 
@@ -695,6 +660,8 @@
       let longest = 0;
 
       // ── Logo + Start button: whole-unit pop & fall off-screen ──
+      // The logo can be dragged in the sandbox, so we start its fall from
+      // its current scattered offset. The Start button stays in place.
       const wholeItems = [
         { el: document.getElementById('heroLogo'), delay: 0,   fallDur: 720 },
         { el: document.getElementById('startBtn'), delay: 240, fallDur: 720 },
@@ -705,6 +672,13 @@
         // Cancel any in-flight entrance animations to avoid stacking
         item.el.getAnimations().forEach(a => a.cancel());
 
+        // Pull any sandbox offset so the pop starts from the current visible
+        // position (the logo may have been dragged around).
+        const st = (window._getFloatState && window._getFloatState(item.el)) || null;
+        const startOx  = st ? st.ox  : 0;
+        const startOy  = st ? st.oy  : 0;
+        const startRot = st ? st.rot : 0;
+
         const xDrift = (Math.random() - 0.5) * 260;
         const fallY  = window.innerHeight + 240;
         const rotate = (Math.random() - 0.5) * 110;
@@ -713,26 +687,26 @@
 
         item.el.animate([
           {
-            transform: 'translate(0, 0) rotate(0deg) scale(1)',
+            transform: `translate(${startOx}px, ${startOy}px) rotate(${startRot}deg) scale(1)`,
             opacity: 1,
             offset: 0,
             easing: 'cubic-bezier(0.34, 1.7, 0.64, 1)', // snappy overshoot for the pop
           },
           {
-            transform: 'translate(0, 0) rotate(0deg) scale(1.22)',
+            transform: `translate(${startOx}px, ${startOy}px) rotate(${startRot}deg) scale(1.22)`,
             opacity: 1,
             offset: POP_DUR / total,
             easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)', // ease-in for gravity
           },
           {
-            transform: `translate(${xDrift}px, ${fallY}px) rotate(${rotate}deg) scale(0.85)`,
+            transform: `translate(${startOx + xDrift}px, ${startOy + fallY}px) rotate(${startRot + rotate}deg) scale(0.85)`,
             opacity: 0,
             offset: 1,
           },
         ], {
           duration: total,
           delay: item.delay,
-          fill: 'forwards',
+          fill: 'both',
         });
       });
 
@@ -751,44 +725,66 @@
 
       letterGroups.forEach((group, gi) => {
         group.list.forEach((letter, li) => {
-          // Cancel any in-flight entrance animation and clear inline styles
+          // Cancel any in-flight entrance animation (don't clear inline
+          // transform yet — the sandbox may have pushed this letter and we
+          // need its offset for keyframe 0 to avoid a visual jump).
           letter.getAnimations().forEach(a => a.cancel());
-          letter.style.transform = '';
-          letter.style.opacity   = '';
 
           const seed = li * 13 + gi * 97 + 11;
 
-          // Current viewport position of the letter (in case it was scattered
-          // by the cursor effect at the moment of click)
-          const rect    = letter.getBoundingClientRect();
-          const startCx = rect.left + rect.width  / 2;
-          const startCy = rect.top  + rect.height / 2;
+          // Pull the letter's natural position + current sandbox offset
+          const st = (window._getFloatState && window._getFloatState(letter)) || null;
+          const cx = st ? st.cx : null;
+          const cy = st ? st.cy : null;
+          const ox = st ? st.ox : 0;
+          const oy = st ? st.oy : 0;
+          const curRot = st ? st.rot : 0;
 
-          // Target Y: let each letter rest at a slightly different height so
-          // the pile has a jagged silhouette rather than a perfect line
-          const pileOffset = ((seed * 17) % 80);                          // 0–79 px above the floor
-          const targetCy   = (FLOOR_BASE - pileOffset) - rect.height / 2; // center target
-          let   dy         = targetCy - startCy;
-          if (dy < 0) dy = 0;                                             // never animate upward
+          // Fallback: if no sandbox state, read the rect directly and treat
+          // the letter as un-pushed (ox = oy = 0 relative to its natural rect)
+          let natCx, natCy, letterH;
+          if (cx !== null) {
+            natCx   = cx;
+            natCy   = cy;
+            letterH = letter.offsetHeight || 20;
+          } else {
+            const rect = letter.getBoundingClientRect();
+            natCx   = rect.left + rect.width  / 2;
+            natCy   = rect.top  + rect.height / 2;
+            letterH = rect.height;
+          }
 
-          // Horizontal drift as the letter falls — clamped to the viewport
-          let   rawDx      = ((seed * 37) % 280) - 140;                   // -140..+140 px
-          const finalCx    = startCx + rawDx;
+          // Clear inline transform AFTER we've captured ox/oy — the WAAPI
+          // animation will take over immediately (fill: 'both' means keyframe
+          // 0 also applies during the delay phase, so there's no snap-back).
+          letter.style.transform = '';
+          letter.style.opacity   = '';
+
+          // Target Y for the pile — each letter rests at a slightly different
+          // height so the pile has a jagged silhouette
+          const pileOffset = ((seed * 17) % 80);                         // 0–79 px above the floor
+          const targetCy   = (FLOOR_BASE - pileOffset) - letterH / 2;
+          let   dy         = targetCy - natCy;                           // translate Δy from natural
+          if (dy < oy) dy = oy;                                          // never go UP from current position
+
+          // Horizontal drift, clamped so letters don't fly off the sides
+          let   rawDx   = ((seed * 37) % 280) - 140;                     // -140..+140 px
+          const finalCx = natCx + rawDx;
           if (finalCx < EDGE_PAD) {
-            rawDx = EDGE_PAD - startCx;
+            rawDx = EDGE_PAD - natCx;
           } else if (finalCx > window.innerWidth - EDGE_PAD) {
-            rawDx = (window.innerWidth - EDGE_PAD) - startCx;
+            rawDx = (window.innerWidth - EDGE_PAD) - natCx;
           }
           const dx = rawDx;
 
           // Resting angle in the pile + a subtle settle bounce
-          const rotate     = ((seed * 71) % 220) - 110;                   // -110..+110 deg
-          const popScale   = 1.12 + ((seed % 5) * 0.04);                  // 1.12..1.28
-          const bounceY    = dy + 14;                                     // compress 14 px past rest
+          const rotate   = ((seed * 71) % 220) - 110;                    // -110..+110 deg
+          const popScale = 1.12 + ((seed % 5) * 0.04);                   // 1.12..1.28
+          const bounceY  = dy + 14;                                      // compress 14 px past rest
 
-          const fallDur = 720 + ((seed * 53) % 400);                      // 720–1120 ms
+          const fallDur = 720 + ((seed * 53) % 400);                     // 720–1120 ms
           const total   = POP_DUR + fallDur;
-          const delay   = group.baseDelay + ((seed * 19) % 220);          // baseDelay + 0–219 ms
+          const delay   = group.baseDelay + ((seed * 19) % 220);         // baseDelay + 0–219 ms
           longest       = Math.max(longest, delay + total);
 
           const popOffset  = POP_DUR / total;
@@ -796,26 +792,28 @@
 
           letter.animate([
             {
-              transform: 'translate(0, 0) rotate(0deg) scale(1)',
+              // Start exactly where the letter was (possibly scattered)
+              transform: `translate(${ox}px, ${oy}px) rotate(${curRot}deg) scale(1)`,
               opacity: 1,
               offset: 0,
               easing: 'cubic-bezier(0.34, 1.7, 0.64, 1)', // snappy overshoot for the pop
             },
             {
-              transform: `translate(0, 0) rotate(0deg) scale(${popScale})`,
+              // Pop in place
+              transform: `translate(${ox}px, ${oy}px) rotate(${curRot}deg) scale(${popScale})`,
               opacity: 1,
               offset: popOffset,
-              easing: 'cubic-bezier(0.7, 0, 0.95, 0.2)', // strong ease-in for gravity
+              easing: 'cubic-bezier(0.7, 0, 0.95, 0.2)', // strong ease-in gravity
             },
             {
-              // Overshoot the resting position slightly (compress on impact)
+              // Overshoot the pile slightly (compress on impact)
               transform: `translate(${dx}px, ${bounceY}px) rotate(${rotate}deg) scale(1)`,
               opacity: 1,
               offset: landOffset,
               easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', // settle ease
             },
             {
-              // Final resting state — letter stays visible as part of the pile
+              // Final resting state in the pile
               transform: `translate(${dx}px, ${dy}px) rotate(${rotate}deg) scale(1)`,
               opacity: 1,
               offset: 1,
@@ -823,7 +821,7 @@
           ], {
             duration: total,
             delay: delay,
-            fill: 'forwards',
+            fill: 'both',
           });
         });
       });
