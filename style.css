@@ -1389,9 +1389,12 @@ a.spotify-tile {
 
 /* ─── Article template (used by Thoughts tiles) ─── */
 /* Reuses the case detail panel: same back button, same scroll container.
-   Only the typography + rhythm change to read more like long-form writing. */
+   Only the typography + rhythm change to read more like long-form writing.
+   Note: .cd-article has NO max-width — individual elements cap their own
+   measure. This lets .cd-hero-img-wrap keep its existing `calc(100% + 120px)`
+   bleed math, which resolves to the full panel width. */
 .cd-article {
-  max-width: 760px;
+  /* full panel width — element-level max-widths handle readability */
 }
 
 .cd-article-title {
@@ -1407,6 +1410,7 @@ a.spotify-tile {
   letter-spacing: -0.02em;
   line-height: 1.2;
   margin: 8px 0 24px 0;
+  max-width: 28em;
 }
 
 .cd-article-body {
@@ -1417,6 +1421,15 @@ a.spotify-tile {
   margin-bottom: 1.25em;
 }
 .cd-article-body:last-child { margin-bottom: 0; }
+
+/* Hero image — always span the panel's full inner width, even when the
+   source image is smaller. We're happy to upscale here; the vertical
+   dimension scales with it so the aspect ratio is preserved. */
+.cd-article .cd-hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
 .cd-list {
   list-style: none;
