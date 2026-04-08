@@ -279,6 +279,17 @@
               </article>
             </div>
 
+            <div class="case-item case-item--thought" data-thought="culture-power-permits" role="button" tabindex="0" aria-label="Read Culture lives in what power permits">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/lumbergh.jpeg" alt="Culture lives in what power permits — article thumbnail" class="thought-tile-img" width="1098" height="836" />
+                <span class="thought-tile-badge">Thoughts</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Culture lives in what power permits</h3>
+                  <p class="thought-tile-desc">I used to think culture was set by the people in the room. The tone of a standup. The way a lead gave feedback. But the more places I've worked, the more I believe culture is shaped less by what people do and more by what leadership lets them get away with.</p>
+                </div>
+              </article>
+            </div>
+
           </div>
           </div><!-- /.case-list-inner -->
 
@@ -2439,25 +2450,115 @@
     };
 
     // ─── Thoughts (article) data ─────────────────────────────────────────────
-    // Articles reuse the case detail panel — same back-button, same scroll
-    // container — but render a simpler template: kicker, title, hero image,
-    // subhead, body paragraphs.
+    // Articles reuse the case detail panel AND the case-study component kit
+    // (.cd-headline, .cd-intro, .cs-section, .cd-body) so the typography
+    // matches case studies exactly. Each article is modeled as:
+    //   kicker    — the small caps label at the top
+    //   title     — the big Cal Sans headline
+    //   hero      — { src, alt, w, h } full-bleed image
+    //   dek       — optional lede paragraph (rendered with .cd-intro)
+    //   sections  — array of { heading?, paragraphs[] }. If heading is
+    //               omitted the section renders as body paragraphs with
+    //               no header rule (useful for intro runs).
     const THOUGHT_DATA = {
       'charlie-murphys-law': {
-        kicker:    'Thoughts',
-        title:     "Charlie Murphy's Law",
-        heroSrc:   'assets/charlie.jpeg',
-        heroAlt:   "Charlie Murphy's Law — article image",
-        heroW:     1500,
-        heroH:     900,
-        subhead:   'Habitual Line-Steppers',
-        body: [
-          "Surprises in product design come in a few flavors. There are the ones you bring on yourself by not staying close enough to your PM or Engineering. There are the last minute asks that appear from nowhere. And then there's the category that gets you even when you're doing everything right, in lockstep with your team, following the process, checking every box. Those ones hit different. They almost always feel like a punch to the face a la Charlie Murphy via Rick James. The habitual line-steppers of Product Design.",
-          "The Marketo Sales Insight redesign had been going well. I'd done the due diligence. Vetted the design with customers, confirmed feasibility with Engineering, met acceptance criteria with my PM. Got buy-in from the VP of Product with high fives all around. T'was a good day. Handoff happened and all was lovely.",
-          "Until standup.",
-          "The Engineering team in Ukraine had flagged something. Salesforce's VisualForce specs had a height constraint the Engineers hadn't accounted for. I had designed a panel somewhere between 700 and 800 pixels tall. VisualForce allows 400. Max.",
-          "Keeping the freak-out quiet, I got back into the design. My PM and I worked through it together, the two of us figuring out what could be reduced, what could move, and what had to go altogether. That collaboration mattered. I could have spiraled alone. Instead we problem-solved our way back to something that worked, and the high fives resumed.",
-          "The surprise wasn't the failure. The response to it was the whole thing.",
+        kicker: 'Thoughts',
+        title:  "Charlie Murphy's Law",
+        hero: {
+          src: 'assets/charlie.jpeg',
+          alt: "Charlie Murphy's Law — article image",
+          w:   1500,
+          h:   900,
+        },
+        dek: "Habitual Line-Steppers — on the surprises product design keeps in its back pocket, and the only thing that really matters when one of them lands.",
+        sections: [
+          {
+            paragraphs: [
+              "Surprises in product design come in a few flavors. There are the ones you bring on yourself by not staying close enough to your PM or Engineering. There are the last minute asks that appear from nowhere. And then there's the category that gets you even when you're doing everything right, in lockstep with your team, following the process, checking every box. Those ones hit different. They almost always feel like a punch to the face a la Charlie Murphy via Rick James. The habitual line-steppers of Product Design.",
+              "The Marketo Sales Insight redesign had been going well. I'd done the due diligence. Vetted the design with customers, confirmed feasibility with Engineering, met acceptance criteria with my PM. Got buy-in from the VP of Product with high fives all around. T'was a good day. Handoff happened and all was lovely.",
+              "Until standup.",
+              "The Engineering team in Ukraine had flagged something. Salesforce's VisualForce specs had a height constraint the Engineers hadn't accounted for. I had designed a panel somewhere between 700 and 800 pixels tall. VisualForce allows 400. Max.",
+              "Keeping the freak-out quiet, I got back into the design. My PM and I worked through it together, the two of us figuring out what could be reduced, what could move, and what had to go altogether. That collaboration mattered. I could have spiraled alone. Instead we problem-solved our way back to something that worked, and the high fives resumed.",
+              "The surprise wasn't the failure. The response to it was the whole thing.",
+            ],
+          },
+        ],
+      },
+
+      'culture-power-permits': {
+        kicker: 'Thoughts',
+        title:  'Culture lives in what power permits',
+        hero: {
+          src: 'assets/lumbergh.jpeg',
+          alt: 'Bill Lumbergh from Office Space — article image',
+          w:   1098,
+          h:   836,
+        },
+        dek: "A personal reflection on what actually shapes team culture — and how I try to stay aligned when the systems around me don't. Written for myself, but shared for anyone wrestling with the same tension.",
+        sections: [
+          {
+            // intro run — no heading, reads as the opening of the piece
+            paragraphs: [
+              "I used to think culture was set by the people in the room. The tone of a standup. The way a lead gave feedback. Whether the senior folks made room for the junior ones. And to a point, that's still true. Culture is absolutely shaped by the humans who show up every day.",
+              "But the older I get, and the more places I've worked, the more I believe culture is shaped less by what people do and more by what leadership lets them get away with. Culture lives in what power permits.",
+              "What gets rewarded. What gets ignored. What behaviors get quietly tolerated because someone is senior, or productive, or politically inconvenient to challenge. That's the real culture. The rest is a poster on the wall.",
+            ],
+          },
+          {
+            heading: 'The quiet rewrite',
+            paragraphs: [
+              "The thing about culture is that it gets rewritten the moment leadership lets something slide. It doesn't take an announcement. It doesn't take a new policy. It just takes one moment where a boundary should have been held and wasn't.",
+              "Everyone in the room notices. Not consciously, necessarily. But the temperature shifts. The line moves. And from that moment forward, the new line is the actual line, regardless of what the handbook says.",
+              "I've watched it happen in big companies and small ones. It looks the same every time.",
+            ],
+          },
+          {
+            heading: "It's not the values, it's the boundaries",
+            paragraphs: [
+              "Every company has values. Most of them are fine. Honest, even. The problem isn't that the values are wrong. The problem is that values without boundaries are just vibes.",
+              "A value says what you care about. A boundary says what you won't tolerate. Only one of those actually shapes behavior. And boundaries only mean anything if the people with power are the ones enforcing them — especially on themselves.",
+              "If a boundary only applies to the people at the bottom of the org chart, it's not a boundary. It's a filter.",
+            ],
+          },
+          {
+            heading: 'What you let slide is who you become',
+            paragraphs: [
+              "There's a version of this I keep coming back to. It's blunt, but it fits:\nWhat you let slide is who you become.\nNot who you say you are. Not who the mission statement says you are. Who you actually are.",
+              "And the thing about letting things slide is that it's almost always the easier move in the moment. Holding a boundary is awkward. It costs something — a relationship, a quarter, a deal, a tough conversation. Letting it slide costs nothing today. It just compounds.",
+              "The bill comes later, and it's usually paid by the people with the least power in the room.",
+            ],
+          },
+          {
+            heading: "I don't think culture can be maintained anymore",
+            paragraphs: [
+              "That's probably the part I've had to make peace with. I used to believe culture was something you could maintain if you just got enough good people together and defended the thing. I don't really believe that anymore. Not at scale. Not under pressure. Not when incentives pull in the other direction.",
+              "Culture, for me, has become something closer to a practice. A thing you do, quietly and repeatedly, inside whatever environment you're in. You model it. You hold your own line. You try to make the small rooms you're in — a review, a 1:1, a working session — feel like the place you wish the whole company was.",
+              "Sometimes that's enough to pull a team in a better direction. Sometimes it isn't. Either way, it's the part I can actually control.",
+            ],
+          },
+          {
+            heading: 'What I try to do now',
+            paragraphs: [
+              "I try to be honest about what I'm seeing, even when it's uncomfortable.\nI try to say the quiet thing out loud in the meetings where it matters.\nI try not to confuse being liked with being trusted.\nI try to make room for people who don't have as much room as I do.\nI try to notice when I'm the one letting something slide, because that's the part that's easiest to miss.",
+              "None of that is heroic. It's just the stuff I wish more of the leaders above me had done when I was earlier in my career.",
+            ],
+          },
+          {
+            heading: "If you're trying to shape culture, start small and mean it",
+            paragraphs: [
+              "I don't think culture is fixed with all-hands meetings or values workshops. I think it's fixed one uncomfortable moment at a time, by the people with enough standing to hold a line and the willingness to actually do it.",
+              "And if you don't have that standing yet, you can still start. You can decide what you will and won't tolerate in the rooms you're in. You can be specific with the people you work with about what you expect from them and from yourself. You can stop laughing at the joke that isn't funny.",
+              "It's small. It's not a strategy. But it's real, and it adds up.",
+            ],
+          },
+          {
+            heading: "I'm still in it",
+            paragraphs: [
+              "I'm not writing this from the other side of figuring it out. I'm writing it from the middle. I still get this wrong. I still notice things I should've said something about a week after the moment has passed. I still catch myself optimizing for comfort when the situation called for friction.",
+              "But I think the work is the work. Culture isn't a thing you inherit or protect. It's a thing you keep choosing, out loud, in the small moments where it would be easier not to.",
+              "That's the version I'm trying to live with now.",
+            ],
+          },
         ],
       },
     };
@@ -2471,22 +2572,50 @@
       const detailPanel = document.getElementById('caseDetailPanel');
       const content     = document.getElementById('caseDetailContent');
 
-      const bodyHtml = data.body.map(p =>
-        '<p class="cd-body cd-article-body">' + esc(p) + '</p>'
-      ).join('');
+      // Sections: if a section has a heading, render the same numbered
+      // header + rule combo case studies use. If no heading, just dump
+      // the paragraphs directly (used for intro runs).
+      // Numbering only counts titled sections — heading-less intro runs
+      // don't consume a number, so the first real section is always 01.
+      let titledCount = 0;
+      const sectionsHtml = (data.sections || []).map((section) => {
+        const paragraphs = (section.paragraphs || []).map(p =>
+          '<p class="cd-body">' + safeHtml(p) + '</p>'
+        ).join('');
+
+        if (!section.heading) {
+          return '<div class="cs-section cs-section--plain">' + paragraphs + '</div>';
+        }
+
+        titledCount += 1;
+        const num = String(titledCount).padStart(2, '0');
+        return (
+          '<div class="cs-section">' +
+            '<div class="cs-section-header">' +
+              '<span class="cs-section-num">' + num + '</span>' +
+              '<span class="cs-section-title">' + esc(section.heading) + '</span>' +
+            '</div>' +
+            paragraphs +
+          '</div>'
+        );
+      }).join('');
+
+      const dekHtml = data.dek
+        ? '<p class="cd-intro">' + safeHtml(data.dek) + '</p>'
+        : '';
 
       content.innerHTML =
         '<article class="cd-article">' +
           '<p class="cd-company">' + esc(data.kicker) + '</p>' +
-          '<h2 class="cd-headline cd-article-title">' + esc(data.title) + '</h2>' +
+          '<h2 class="cd-headline">' + esc(data.title) + '</h2>' +
           '<div class="cd-hero-img-wrap">' +
-            '<img data-lazy-src="' + esc(data.heroSrc) + '" ' +
+            '<img data-lazy-src="' + esc(data.hero.src) + '" ' +
                  'class="cd-hero-img" ' +
-                 'alt="' + esc(data.heroAlt) + '" ' +
-                 'width="' + data.heroW + '" height="' + data.heroH + '" />' +
+                 'alt="' + esc(data.hero.alt) + '" ' +
+                 'width="' + data.hero.w + '" height="' + data.hero.h + '" />' +
           '</div>' +
-          '<h3 class="cd-article-subhead">' + esc(data.subhead) + '</h3>' +
-          bodyHtml +
+          dekHtml +
+          sectionsHtml +
         '</article>';
 
       // Wire progress bars on the freshly-rendered hero image
