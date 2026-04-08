@@ -228,7 +228,7 @@
               </div>
             </div>
 
-            <div class="case-item case-item--thought">
+            <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0" aria-label="Read Charlie Murphy's Law">
               <article class="thought-tile">
                 <img data-lazy-src="assets/charlie.jpeg" alt="Charlie Murphy's Law — article thumbnail" class="thought-tile-img" width="1500" height="900" />
                 <span class="thought-tile-badge">Thoughts</span>
@@ -2437,6 +2437,67 @@
       },
     };
 
+    // ─── Thoughts (article) data ─────────────────────────────────────────────
+    // Articles reuse the case detail panel — same back-button, same scroll
+    // container — but render a simpler template: kicker, title, hero image,
+    // subhead, body paragraphs.
+    const THOUGHT_DATA = {
+      'charlie-murphys-law': {
+        kicker:    'Thoughts',
+        title:     "Charlie Murphy's Law",
+        heroSrc:   'assets/charlie.jpeg',
+        heroAlt:   "Charlie Murphy's Law — article image",
+        heroW:     1500,
+        heroH:     900,
+        subhead:   'Habitual Line-Steppers',
+        body: [
+          "Surprises in product design come in a few flavors. There are the ones you bring on yourself by not staying close enough to your PM or Engineering. There are the last minute asks that appear from nowhere. And then there's the category that gets you even when you're doing everything right, in lockstep with your team, following the process, checking every box. Those ones hit different. They almost always feel like a punch to the face a la Charlie Murphy via Rick James. The habitual line-steppers of Product Design.",
+          "The Marketo Sales Insight redesign had been going well. I'd done the due diligence. Vetted the design with customers, confirmed feasibility with Engineering, met acceptance criteria with my PM. Got buy-in from the VP of Product with high fives all around. T'was a good day. Handoff happened and all was lovely.",
+          "Until standup.",
+          "The Engineering team in Ukraine had flagged something. Salesforce's VisualForce specs had a height constraint the Engineers hadn't accounted for. I had designed a panel somewhere between 700 and 800 pixels tall. VisualForce allows 400. Max.",
+          "Keeping the freak-out quiet, I got back into the design. My PM and I worked through it together, the two of us figuring out what could be reduced, what could move, and what had to go altogether. That collaboration mattered. I could have spiraled alone. Instead we problem-solved our way back to something that worked, and the high fives resumed.",
+          "The surprise wasn't the failure. The response to it was the whole thing.",
+        ],
+      },
+    };
+
+    function showThought(thoughtId) {
+      const data = THOUGHT_DATA[thoughtId];
+      if (!data) return;
+      logEvent('thought_view', { thought: thoughtId });
+
+      const listPanel   = document.getElementById('caseListPanel');
+      const detailPanel = document.getElementById('caseDetailPanel');
+      const content     = document.getElementById('caseDetailContent');
+
+      const bodyHtml = data.body.map(p =>
+        '<p class="cd-body cd-article-body">' + esc(p) + '</p>'
+      ).join('');
+
+      content.innerHTML =
+        '<article class="cd-article">' +
+          '<p class="cd-company">' + esc(data.kicker) + '</p>' +
+          '<h2 class="cd-headline cd-article-title">' + esc(data.title) + '</h2>' +
+          '<div class="cd-hero-img-wrap">' +
+            '<img data-lazy-src="' + esc(data.heroSrc) + '" ' +
+                 'class="cd-hero-img" ' +
+                 'alt="' + esc(data.heroAlt) + '" ' +
+                 'width="' + data.heroW + '" height="' + data.heroH + '" />' +
+          '</div>' +
+          '<h3 class="cd-article-subhead">' + esc(data.subhead) + '</h3>' +
+          bodyHtml +
+        '</article>';
+
+      // Wire progress bars on the freshly-rendered hero image
+      if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
+
+      // Fade list out, slide detail in from the right — same transition
+      // as case studies so the UX feels consistent.
+      listPanel.classList.add('hidden');
+      detailPanel.classList.add('active');
+      detailPanel.scrollTop = 0;
+    }
+
     // ─── Case navigation ──────────────────────────────────────────────────────
     function showCase(caseId) {
       const data = CASE_DATA[caseId];
@@ -2757,13 +2818,17 @@
 
     // Card click + keyboard delegation (WCAG 2.1.1)
     document.addEventListener('click', (e) => {
-      const item = e.target.closest('.case-item[data-case]');
-      if (item) showCase(item.dataset.case);
+      const caseItem = e.target.closest('.case-item[data-case]');
+      if (caseItem) { showCase(caseItem.dataset.case); return; }
+      const thoughtItem = e.target.closest('.case-item[data-thought]');
+      if (thoughtItem) { showThought(thoughtItem.dataset.thought); return; }
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        const item = document.activeElement.closest('.case-item[data-case]');
-        if (item) { e.preventDefault(); showCase(item.dataset.case); }
+        const caseItem = document.activeElement.closest('.case-item[data-case]');
+        if (caseItem) { e.preventDefault(); showCase(caseItem.dataset.case); return; }
+        const thoughtItem = document.activeElement.closest('.case-item[data-thought]');
+        if (thoughtItem) { e.preventDefault(); showThought(thoughtItem.dataset.thought); return; }
       }
     });
 

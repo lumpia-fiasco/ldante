@@ -1387,6 +1387,37 @@ a.spotify-tile {
   margin-bottom: 12px;
 }
 
+/* ─── Article template (used by Thoughts tiles) ─── */
+/* Reuses the case detail panel: same back button, same scroll container.
+   Only the typography + rhythm change to read more like long-form writing. */
+.cd-article {
+  max-width: 760px;
+}
+
+.cd-article-title {
+  max-width: 14em;
+  margin-bottom: 28px;
+}
+
+.cd-article-subhead {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 8px 0 24px 0;
+}
+
+.cd-article-body {
+  font-size: clamp(1rem, 1.15vw, 1.12rem);
+  line-height: 1.72;
+  max-width: 36em;
+  color: rgba(31, 31, 31, 0.82);
+  margin-bottom: 1.25em;
+}
+.cd-article-body:last-child { margin-bottom: 0; }
+
 .cd-list {
   list-style: none;
   padding: 0;
