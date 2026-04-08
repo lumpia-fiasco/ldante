@@ -270,6 +270,10 @@ main {
   align-items: center;
   padding: 80px 60px;
   z-index: 10;
+  /* Mobile: let JS handle every touch gesture so finger swipes push the
+     letters around instead of scrolling / rubber-banding the page. Button
+     taps (Start, Reset) still work — click synthesis is unaffected. */
+  touch-action: none;
 }
 
 .landing.exiting {

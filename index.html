@@ -649,57 +649,99 @@
         requestAnimationFrame(tick);
       };
 
+      // Shared push kernel — computes the (prev → cur) delta and applies the
+      // scatter physics to any FLOAT item within range. Used by BOTH the
+      // desktop mousemove handler and the mobile touchmove handler so
+      // swiping a finger feels identical to dragging the cursor.
+      function pushFromPoint(prevX, prevY, curX, curY) {
+        if (prevX < -9000) return;              // first-ever point — no delta yet
+        const dmx = curX - prevX;
+        const dmy = curY - prevY;
+        const moveMag = Math.sqrt(dmx * dmx + dmy * dmy);
+        if (moveMag < 0.01) return;
+
+        for (const item of FLOAT) {
+          // Vector from the pointer to the letter's CURRENT visible center
+          const curCx = item.cx + item.ox;
+          const curCy = item.cy + item.oy;
+          const relX  = curCx - curX;
+          const relY  = curCy - curY;
+          const dist  = Math.sqrt(relX * relX + relY * relY);
+
+          if (dist < item.radius && dist > 0.001) {
+            const force = Math.pow((item.radius - dist) / item.radius, PUSH_FALLOFF);
+
+            // Drag component — letter follows pointer motion. Capped below 1
+            // so the pointer always catches up and passes through.
+            const dragMult = Math.min(force * DRAG_GAIN * item.boost, DRAG_CAP);
+            item.ox += dmx * dragMult;
+            item.oy += dmy * dragMult;
+
+            // Radial nudge — ensures the letter is actively shoved away
+            // from the pointer as it passes (prevents sticky pointers).
+            const nudge = moveMag * force * NUDGE_GAIN * item.boost;
+            item.ox += (relX / dist) * nudge;
+            item.oy += (relY / dist) * nudge;
+
+            applyTransform(item);
+          }
+        }
+      }
+
       const landingEl = document.getElementById('landing');
       if (landingEl) {
+        // ── Desktop: cursor push ───────────────────────────────────────────
         landingEl.addEventListener('mousemove', (e) => {
           if (!cached) return;
           if (resetActive) {                      // elastic reset in flight
             mouseX = e.clientX; mouseY = e.clientY;
             return;
           }
-
           const prevX = mouseX;
           const prevY = mouseY;
           mouseX = e.clientX;
           mouseY = e.clientY;
-          if (prevX < -9000) return;              // first move — no delta yet
-
-          const dmx = mouseX - prevX;
-          const dmy = mouseY - prevY;
-          const moveMag = Math.sqrt(dmx * dmx + dmy * dmy);
-          if (moveMag < 0.01) return;
-
-          for (const item of FLOAT) {
-            // Vector from cursor to the letter's CURRENT visible center
-            const curCx = item.cx + item.ox;
-            const curCy = item.cy + item.oy;
-            const relX  = curCx - mouseX;
-            const relY  = curCy - mouseY;
-            const dist  = Math.sqrt(relX * relX + relY * relY);
-
-            if (dist < item.radius && dist > 0.001) {
-              const force = Math.pow((item.radius - dist) / item.radius, PUSH_FALLOFF);
-
-              // Drag component — letter follows cursor motion. Capped below 1
-              // so the cursor always catches up and passes through.
-              const dragMult = Math.min(force * DRAG_GAIN * item.boost, DRAG_CAP);
-              item.ox += dmx * dragMult;
-              item.oy += dmy * dragMult;
-
-              // Radial nudge — ensures the letter is actively shoved away
-              // from the cursor as it passes (prevents sticky cursors).
-              const nudge = moveMag * force * NUDGE_GAIN * item.boost;
-              item.ox += (relX / dist) * nudge;
-              item.oy += (relY / dist) * nudge;
-
-              applyTransform(item);
-            }
-          }
+          pushFromPoint(prevX, prevY, mouseX, mouseY);
         });
         landingEl.addEventListener('mouseleave', () => {
           mouseX = -9999; mouseY = -9999;
           // Sandbox: letters stay wherever they were last pushed.
         });
+
+        // ── Mobile: finger-swipe push ──────────────────────────────────────
+        // Touch events mirror the mouse handlers so dragging a finger across
+        // the screen pushes letters the same way. touchmove uses
+        // { passive: false } so we can preventDefault() to stop the page
+        // from scrolling / rubber-banding while the user is dragging letters.
+        // Button taps (Reset, Start) still work because click synthesis runs
+        // off touchstart/touchend, not touchmove.
+        landingEl.addEventListener('touchstart', (e) => {
+          if (!cached) return;
+          if (!e.touches || e.touches.length === 0) return;
+          const t = e.touches[0];
+          mouseX = t.clientX;                   // prime so first touchmove has a valid delta
+          mouseY = t.clientY;
+        }, { passive: true });
+
+        landingEl.addEventListener('touchmove', (e) => {
+          if (!cached) return;
+          if (!e.touches || e.touches.length === 0) return;
+          const t = e.touches[0];
+          if (resetActive) {                    // elastic reset in flight
+            mouseX = t.clientX; mouseY = t.clientY;
+            return;
+          }
+          const prevX = mouseX;
+          const prevY = mouseY;
+          mouseX = t.clientX;
+          mouseY = t.clientY;
+          pushFromPoint(prevX, prevY, mouseX, mouseY);
+          e.preventDefault();                   // block page scroll while dragging
+        }, { passive: false });
+
+        const clearTouch = () => { mouseX = -9999; mouseY = -9999; };
+        landingEl.addEventListener('touchend',    clearTouch);
+        landingEl.addEventListener('touchcancel', clearTouch);
       }
 
       let resizeT;
