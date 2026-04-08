@@ -684,14 +684,17 @@
       });
     })();
 
-    // Pop the landing elements: tiny scale-up "pop" then fall off-screen with gravity.
-    // Logo and Start button pop as whole units; tagline + desc letters pop and
-    // fall individually with random drift, rotation, and timing.
+    // Pop the landing elements on Start click:
+    //  • Logo + Start button: whole-unit pop, then fall off-screen with gravity.
+    //  • Tagline + desc letters: per-letter pop, then fall with gravity and
+    //    LAND at the bottom of the viewport to form a pile of letters. Each
+    //    letter rests at a slightly different height (jagged pile silhouette),
+    //    rotated randomly, and stays visible until the portfolio transitions in.
     function popLandingBalloons(callback) {
       const POP_DUR = 110;
       let longest = 0;
 
-      // ── Logo + Start button: whole-unit pop & fall ──
+      // ── Logo + Start button: whole-unit pop & fall off-screen ──
       const wholeItems = [
         { el: document.getElementById('heroLogo'), delay: 0,   fallDur: 720 },
         { el: document.getElementById('startBtn'), delay: 240, fallDur: 720 },
@@ -733,13 +736,18 @@
         });
       });
 
-      // ── Tagline + desc letters: per-letter pop & fall ──
+      // ── Tagline + desc letters: pop, fall with gravity, pile at the bottom ──
       const taglineLetters = document.querySelectorAll('.hero-tagline .float-letter');
       const descLetters    = document.querySelectorAll('.hero-desc .float-letter');
       const letterGroups = [
         { list: taglineLetters, baseDelay: 40  },
         { list: descLetters,    baseDelay: 130 },
       ];
+
+      // Where the bottom of the pile sits (small margin from the viewport bottom)
+      const FLOOR_BASE = window.innerHeight - 36;
+      // Maximum horizontal drift, clamped so letters don't fly off the sides
+      const EDGE_PAD   = 24;
 
       letterGroups.forEach((group, gi) => {
         group.list.forEach((letter, li) => {
@@ -750,15 +758,41 @@
 
           const seed = li * 13 + gi * 97 + 11;
 
-          const fallDur = 660 + ((seed * 53) % 380);   // 660–1040 ms
-          const total   = POP_DUR + fallDur;
-          const delay   = group.baseDelay + ((seed * 19) % 220);  // baseDelay + 0–219 ms
-          longest = Math.max(longest, delay + total);
+          // Current viewport position of the letter (in case it was scattered
+          // by the cursor effect at the moment of click)
+          const rect    = letter.getBoundingClientRect();
+          const startCx = rect.left + rect.width  / 2;
+          const startCy = rect.top  + rect.height / 2;
 
-          const xDrift = ((seed * 37) % 280) - 140;    // -140 to +140 px
-          const fallY  = window.innerHeight + 220;
-          const rotate = ((seed * 71) % 220) - 110;    // -110 to +110 deg
-          const popScale = 1.15 + ((seed % 5) * 0.04); // 1.15–1.31
+          // Target Y: let each letter rest at a slightly different height so
+          // the pile has a jagged silhouette rather than a perfect line
+          const pileOffset = ((seed * 17) % 80);                          // 0–79 px above the floor
+          const targetCy   = (FLOOR_BASE - pileOffset) - rect.height / 2; // center target
+          let   dy         = targetCy - startCy;
+          if (dy < 0) dy = 0;                                             // never animate upward
+
+          // Horizontal drift as the letter falls — clamped to the viewport
+          let   rawDx      = ((seed * 37) % 280) - 140;                   // -140..+140 px
+          const finalCx    = startCx + rawDx;
+          if (finalCx < EDGE_PAD) {
+            rawDx = EDGE_PAD - startCx;
+          } else if (finalCx > window.innerWidth - EDGE_PAD) {
+            rawDx = (window.innerWidth - EDGE_PAD) - startCx;
+          }
+          const dx = rawDx;
+
+          // Resting angle in the pile + a subtle settle bounce
+          const rotate     = ((seed * 71) % 220) - 110;                   // -110..+110 deg
+          const popScale   = 1.12 + ((seed % 5) * 0.04);                  // 1.12..1.28
+          const bounceY    = dy + 14;                                     // compress 14 px past rest
+
+          const fallDur = 720 + ((seed * 53) % 400);                      // 720–1120 ms
+          const total   = POP_DUR + fallDur;
+          const delay   = group.baseDelay + ((seed * 19) % 220);          // baseDelay + 0–219 ms
+          longest       = Math.max(longest, delay + total);
+
+          const popOffset  = POP_DUR / total;
+          const landOffset = 0.92;
 
           letter.animate([
             {
@@ -770,12 +804,20 @@
             {
               transform: `translate(0, 0) rotate(0deg) scale(${popScale})`,
               opacity: 1,
-              offset: POP_DUR / total,
-              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)', // ease-in for gravity
+              offset: popOffset,
+              easing: 'cubic-bezier(0.7, 0, 0.95, 0.2)', // strong ease-in for gravity
             },
             {
-              transform: `translate(${xDrift}px, ${fallY}px) rotate(${rotate}deg) scale(0.7)`,
-              opacity: 0,
+              // Overshoot the resting position slightly (compress on impact)
+              transform: `translate(${dx}px, ${bounceY}px) rotate(${rotate}deg) scale(1)`,
+              opacity: 1,
+              offset: landOffset,
+              easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', // settle ease
+            },
+            {
+              // Final resting state — letter stays visible as part of the pile
+              transform: `translate(${dx}px, ${dy}px) rotate(${rotate}deg) scale(1)`,
+              opacity: 1,
               offset: 1,
             },
           ], {
@@ -786,7 +828,8 @@
         });
       });
 
-      setTimeout(callback, longest);
+      // Give the pile a brief beat to settle before the portfolio transitions in
+      setTimeout(callback, longest + 260);
     }
 
     // No entry float — landing elements appear in their natural state.
