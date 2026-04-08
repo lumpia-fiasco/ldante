@@ -78,6 +78,15 @@
         <button class="start-btn" id="startBtn">Start</button>
 
       </div>
+
+      <!-- Sandbox reset: elastic-snap letters back to their origin -->
+      <button class="reset-btn" id="resetBtn" type="button" aria-label="Reset letter positions">
+        Reset
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.08" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          <path d="M6.5 3.5v3h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </section>
 
     <!-- ─── Portfolio view (split: chat left, cards right) ─── -->
@@ -592,11 +601,62 @@
       const NUDGE_GAIN   = 0.22;  // small radial kick so letters eject out of cursor
 
       let mouseX = -9999, mouseY = -9999;
+      let resetActive = false;    // true while the elastic reset animation runs
+
+      // ── Sandbox reset: elastic snap every displaced item back to origin ──
+      // Uses a single rAF loop driving an easeOutElastic curve, writing directly
+      // into each item's ox/oy so the live FLOAT state stays consistent. The
+      // scatter mousemove handler bails out while resetActive is true so cursor
+      // motion during the reset doesn't fight the animation.
+      function easeOutElastic(t) {
+        if (t <= 0) return 0;
+        if (t >= 1) return 1;
+        const p = 0.42;
+        return Math.pow(2, -10 * t) * Math.sin((t - p / 4) * (2 * Math.PI) / p) + 1;
+      }
+      window._resetLandingFloat = function resetLandingFloat() {
+        const targets = FLOAT.filter(it => it.ox !== 0 || it.oy !== 0);
+        if (!targets.length || resetActive) return;
+
+        // Snapshot the starting offsets so we can interpolate FROM them.
+        targets.forEach(it => { it._rsOx = it.ox; it._rsOy = it.oy; });
+
+        resetActive = true;
+        const DUR = 1150;
+        const t0  = performance.now();
+
+        function tick(now) {
+          const t = Math.min((now - t0) / DUR, 1);
+          const e = easeOutElastic(t);
+          for (const it of targets) {
+            it.ox = it._rsOx * (1 - e);
+            it.oy = it._rsOy * (1 - e);
+            applyTransform(it);
+          }
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            for (const it of targets) {
+              it.ox = 0;
+              it.oy = 0;
+              delete it._rsOx;
+              delete it._rsOy;
+              applyTransform(it);
+            }
+            resetActive = false;
+          }
+        }
+        requestAnimationFrame(tick);
+      };
 
       const landingEl = document.getElementById('landing');
       if (landingEl) {
         landingEl.addEventListener('mousemove', (e) => {
           if (!cached) return;
+          if (resetActive) {                      // elastic reset in flight
+            mouseX = e.clientX; mouseY = e.clientY;
+            return;
+          }
 
           const prevX = mouseX;
           const prevY = mouseY;
@@ -1002,11 +1062,22 @@
 
     startBtn.addEventListener('click', () => {
       const landing = document.getElementById('landing');
+      // Fade the sandbox reset button out of the way while letters pile
+      const resetBtn = document.getElementById('resetBtn');
+      if (resetBtn) resetBtn.classList.add('hidden');
       popLandingBalloons(() => {
         landing.style.display = 'none';
         showPortfolio();
       });
     });
+
+    // ─── Sandbox reset button: elastic snap letters back to origin ──────────
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (window._resetLandingFloat) window._resetLandingFloat();
+      });
+    }
 
     // ─── Experience routing ───────────────────────────────────────────────────
     // Each password unlocks a different experience. The token is stored in
