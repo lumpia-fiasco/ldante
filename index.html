@@ -874,8 +874,6 @@
 
       // Where the bottom of the pile sits (small margin from the viewport bottom)
       const FLOOR_BASE = window.innerHeight - 36;
-      // Maximum horizontal drift, clamped so letters don't fly off the sides
-      const EDGE_PAD   = 24;
 
       letterGroups.forEach((group, gi) => {
         group.list.forEach((letter, li) => {
@@ -921,15 +919,10 @@
           let   dy         = targetCy - natCy;                           // translate Δy from natural
           if (dy < oy) dy = oy;                                          // never go UP from current position
 
-          // Horizontal drift, clamped so letters don't fly off the sides
-          let   rawDx   = ((seed * 37) % 280) - 140;                     // -140..+140 px
-          const finalCx = natCx + rawDx;
-          if (finalCx < EDGE_PAD) {
-            rawDx = EDGE_PAD - natCx;
-          } else if (finalCx > window.innerWidth - EDGE_PAD) {
-            rawDx = (window.innerWidth - EDGE_PAD) - natCx;
-          }
-          const dx = rawDx;
+          // Pure gravity drop — letters fall straight down from wherever
+          // they currently are (including any sandbox offset the user
+          // has pushed them to). No horizontal drift at all.
+          const dx = ox;
 
           // Resting angle in the pile + a subtle settle bounce
           const rotate   = ((seed * 71) % 220) - 110;                    // -110..+110 deg
