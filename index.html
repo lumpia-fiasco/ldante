@@ -1418,8 +1418,9 @@
 
       applyExperience(EXPERIENCE);
 
-      // Layout masonry and animate cards in from scattered positions
-      layoutMasonry(true);
+      // Layout masonry and animate cards in from scattered positions.
+      // rAF ensures the browser has painted display:flex before we measure.
+      requestAnimationFrame(() => layoutMasonry(true));
 
       // Mobile: default to Fit tab
       if (window.innerWidth <= 900) {
@@ -2987,6 +2988,13 @@
       listPanel.classList.add('hidden');
       detailPanel.classList.add('active');
       detailPanel.scrollTop = 0;
+
+      // If recruiter panel is active, hide it so the detail panel is visible
+      const rp = document.getElementById('recruiterPanel');
+      if (rp && rp.classList.contains('active')) {
+        rp.classList.add('detail-open');
+        rp.classList.remove('active');
+      }
     }
 
     function showCaseList() {
@@ -2995,7 +3003,15 @@
 
       // Slide detail out to right, fade list back in
       detailPanel.classList.remove('active');
-      listPanel.classList.remove('hidden');
+
+      // If we came from the recruiter panel, restore it instead of the list
+      const rp = document.getElementById('recruiterPanel');
+      if (rp && rp.classList.contains('detail-open')) {
+        rp.classList.remove('detail-open');
+        rp.classList.add('active');
+      } else {
+        listPanel.classList.remove('hidden');
+      }
     }
 
     // Back buttons

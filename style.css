@@ -13,10 +13,10 @@
 }
 
 /* Inputs — subtle glow for keyboard nav */
-.pw-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,0.15), 0 0 12px rgba(255,255,255,0.08); border-radius: 2px; }
-.name-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); border-radius: 2px; }
-.chat-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); }
-.fit-textarea:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); }
+.pw-input:focus-visible { outline: none; }
+.name-input:focus-visible { outline: none; }
+.chat-input:focus-visible { outline: none; }
+.fit-textarea:focus-visible { outline: none; }
 
 /* ─── Password gate (also houses landing letters + logo) ─── */
 .pw-gate {
@@ -131,12 +131,7 @@
 
 .pw-gate--role-step .pw-inner {
   justify-content: center;
-  align-items: center;
-  text-align: center;
   min-height: 100%;
-}
-.pw-gate--role-step .pw-role-btns {
-  justify-content: center;
 }
 
 .pw-role-picker {
@@ -2012,16 +2007,7 @@ a.spotify-tile {
 }
 @media (max-width: 900px) {
   .recruiter-cases-grid {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: 75vw;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
-  }
-  .recruiter-cases-grid .case-item {
-    scroll-snap-align: start;
+    grid-template-columns: 1fr;
   }
 }
 
