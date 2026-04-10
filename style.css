@@ -1939,27 +1939,28 @@ a.spotify-tile {
 }
 
 .recruiter-role {
-  font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1.1rem, 1.3vw, 1.25rem);
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
   font-weight: 400;
   color: rgba(31,31,31,0.75);
-  line-height: 1.4;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
   margin: 0 0 6px;
 }
 
 .recruiter-meta {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1.1rem, 1.3vw, 1.25rem);
   font-weight: 400;
   color: rgba(31,31,31,0.5);
-  letter-spacing: 0.01em;
+  line-height: 1.4;
   margin: 0 0 20px;
 }
 
 .recruiter-exp {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .recruiter-exp-label {
@@ -1971,12 +1972,26 @@ a.spotify-tile {
   color: rgba(31,31,31,0.4);
 }
 
-.recruiter-exp-list {
-  font-family: 'Golos Text', sans-serif;
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  color: rgba(31,31,31,0.75);
-  line-height: 1.5;
+.recruiter-exp-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
+
+.recruiter-pill {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1.07rem, 1.2vw, 1.17rem);
+  font-weight: 500;
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.recruiter-pill--adobe      { background: #e01b2a; }
+.recruiter-pill--upwork      { background: #14a800; }
+.recruiter-pill--teamshares  { background: #1e3a5f; }
+.recruiter-pill--meroxa      { background: #0E8FA5; }
+.recruiter-pill--tmobile     { background: #e20074; }
 
 .recruiter-cases {
   margin-bottom: 48px;
