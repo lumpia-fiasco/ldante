@@ -2003,7 +2003,6 @@ a.spotify-tile {
 }
 .recruiter-cases-grid .case-card-v {
   height: 100%;
-  padding: 28px 24px;
 }
 @media (max-width: 900px) {
   .recruiter-cases-grid {
