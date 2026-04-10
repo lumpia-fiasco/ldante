@@ -52,6 +52,14 @@
 
     </div>
 
+    <!-- Sandbox reset: elastic-snap letters back to their origin -->
+    <button class="reset-btn" id="resetBtn" type="button" aria-label="Reset letter positions">
+      Reset
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.08" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        <path d="M6.5 3.5v3h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 
   <!-- ─── Sticky Header ─── -->
@@ -313,6 +321,45 @@
             <div class="recruiter-exp">
               <span class="recruiter-exp-label">Experience at:</span>
               <span class="recruiter-exp-list">Adobe/Marketo, Upwork, Teamshares, Meroxa, T-Mobile</span>
+            </div>
+          </div>
+
+          <div class="recruiter-cases">
+            <h2 class="recruiter-cases-title">Selected work</h2>
+            <div class="recruiter-cases-grid">
+              <div class="case-item" data-case="teamshares-payroll" role="button" tabindex="0" aria-label="View Teamshares Payroll case study" style="--card-color: #DB8319">
+                <div class="case-card-v">
+                  <span class="case-study-badge">Case Study</span>
+                  <img src="assets/teamshares.svg" alt="Teamshares" class="case-card-logo" />
+                  <div class="case-card-content">
+                    <p class="case-company">Teamshares</p>
+                    <h3 class="case-title-h">Payroll reporting</h3>
+                    <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="case-item" data-case="teamshares-ats" role="button" tabindex="0" aria-label="View Teamshares ATS case study" style="--card-color: #1e3a5f">
+                <div class="case-card-v">
+                  <span class="case-study-badge">Case Study</span>
+                  <img src="assets/teamshares.svg" alt="Teamshares" class="case-card-logo" />
+                  <div class="case-card-content">
+                    <p class="case-company">Teamshares</p>
+                    <h3 class="case-title-h">A hiring engine for a company of companies</h3>
+                    <p class="case-desc-h">Reframing a recruiting tool into talent pipeline infrastructure for 90+ acquired businesses.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="case-item" data-case="meroxa" role="button" tabindex="0" aria-label="View Meroxa case study" style="--card-color: #0E8FA5">
+                <div class="case-card-v">
+                  <span class="case-study-badge">Case Study</span>
+                  <img src="assets/meroxa.svg" alt="Meroxa" class="case-card-logo" />
+                  <div class="case-card-content">
+                    <p class="case-company">Meroxa</p>
+                    <h3 class="case-title-h">Pivoting from a builder to a data observability platform</h3>
+                    <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1010,6 +1057,108 @@
       setTimeout(callback, longest + 260);
     }
 
+    // ── Role picker letter fall ──────────────────────────────────────────────
+    // When the user picks a role, the greeting / sub-text / buttons split into
+    // individual letters that pop and fall into a pile at the viewport bottom,
+    // just like the hero tagline/desc letters.
+    function popRolePickerLetters(callback) {
+      const POP_DUR = 110;
+      let longest = 0;
+      const FLOOR_BASE = window.innerHeight - 36;
+
+      // Split an element's text content into individual .float-letter spans,
+      // preserving spaces as text nodes so layout stays correct momentarily.
+      function splitIntoLetters(el) {
+        const text = el.textContent;
+        el.textContent = '';
+        const words = text.split(' ');
+        words.forEach((word, idx) => {
+          if (word.length) {
+            const wrap = document.createElement('span');
+            wrap.style.display = 'inline-block';
+            wrap.style.whiteSpace = 'nowrap';
+            for (const ch of word) {
+              const s = document.createElement('span');
+              s.className = 'float-letter';
+              s.textContent = ch;
+              wrap.appendChild(s);
+            }
+            el.appendChild(wrap);
+          }
+          if (idx < words.length - 1) {
+            el.appendChild(document.createTextNode(' '));
+          }
+        });
+        return el.querySelectorAll('.float-letter');
+      }
+
+      // Gather groups: greeting, sub, each button
+      const groups = [];
+      const greeting = document.querySelector('.pw-role-greeting');
+      const sub      = document.querySelector('.pw-role-sub');
+      const btns     = document.querySelectorAll('.pw-role-btn');
+
+      if (greeting) groups.push({ list: splitIntoLetters(greeting), baseDelay: 0 });
+      if (sub)      groups.push({ list: splitIntoLetters(sub),      baseDelay: 80 });
+      btns.forEach((btn, i) => {
+        groups.push({ list: splitIntoLetters(btn), baseDelay: 140 + i * 60 });
+      });
+
+      groups.forEach((group, gi) => {
+        group.list.forEach((letter, li) => {
+          const seed = li * 13 + gi * 97 + 11;
+
+          const rect    = letter.getBoundingClientRect();
+          const natCy   = rect.top + rect.height / 2;
+          const letterH = rect.height;
+
+          const pileOffset = ((seed * 17) % 80);
+          const targetCy   = (FLOOR_BASE - pileOffset) - letterH / 2;
+          const dy         = Math.max(0, targetCy - natCy);
+
+          const rotate   = ((seed * 71) % 220) - 110;
+          const popScale = 1.12 + ((seed % 5) * 0.04);
+          const bounceY  = dy + 14;
+
+          const fallDur = 720 + ((seed * 53) % 400);
+          const total   = POP_DUR + fallDur;
+          const delay   = group.baseDelay + ((seed * 19) % 220);
+          longest       = Math.max(longest, delay + total);
+
+          const popOffset  = POP_DUR / total;
+          const landOffset = 0.92;
+
+          letter.animate([
+            {
+              transform: 'translate(0, 0) rotate(0deg) scale(1)',
+              opacity: 1, offset: 0,
+              easing: 'cubic-bezier(0.34, 1.7, 0.64, 1)',
+            },
+            {
+              transform: `translate(0, 0) rotate(0deg) scale(${popScale})`,
+              opacity: 1, offset: popOffset,
+              easing: 'cubic-bezier(0.7, 0, 0.95, 0.2)',
+            },
+            {
+              transform: `translate(0, ${bounceY}px) rotate(${rotate}deg) scale(1)`,
+              opacity: 1, offset: landOffset,
+              easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            },
+            {
+              transform: `translate(0, ${dy}px) rotate(${rotate}deg) scale(1)`,
+              opacity: 1, offset: 1,
+            },
+          ], {
+            duration: total,
+            delay: delay,
+            fill: 'both',
+          });
+        });
+      });
+
+      setTimeout(callback, longest + 260);
+    }
+
     // Cache float positions immediately — letters are visible inside pw-gate
     // from page load, so the sandbox push effect works right away.
     if (window._cacheFloatPositions) window._cacheFloatPositions();
@@ -1037,8 +1186,8 @@
         // Hide the reset button while letters fall
         const resetBtn = document.getElementById('resetBtn');
         if (resetBtn) resetBtn.classList.add('hidden');
-        // Letters fall, then gate fades out and portfolio comes in
-        popLandingBalloons(() => {
+        // Role picker letters pop & fall into a pile, then gate fades out
+        popRolePickerLetters(() => {
           gate.classList.add('unlocking');
           setTimeout(() => {
             gate.style.display = 'none';

@@ -123,6 +123,7 @@
 .pw-gate--role-step .hero-tagline { animation-delay: 0.05s; }
 .pw-gate--role-step .hero-desc    { animation-delay: 0.10s; }
 .pw-gate--role-step .pw-input-wrap { animation-delay: 0.15s; }
+.pw-gate--role-step .reset-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 
 @keyframes pushUp {
   to { transform: translateY(-140px); opacity: 0; height: 0; margin: 0; padding: 0; overflow: hidden; }
@@ -1975,6 +1976,33 @@ a.spotify-tile {
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   color: rgba(31,31,31,0.75);
   line-height: 1.5;
+}
+
+.recruiter-cases {
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(31,31,31,0.07);
+}
+.recruiter-cases-title {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+.recruiter-cases-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.recruiter-cases-grid .case-item {
+  width: 100%;
+}
+.recruiter-cases-grid .case-card-v {
+  min-height: 180px;
+  padding: 28px 24px;
 }
 
 .recruiter-fit {
