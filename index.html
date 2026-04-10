@@ -318,7 +318,53 @@
           <div class="case-detail-content" id="caseDetailContent"></div>
         </div>
 
-        <!-- Panel C: fit assessment -->
+        <!-- Panel C: recruiter view -->
+        <div class="recruiter-panel" id="recruiterPanel">
+          <div class="recruiter-card">
+            <h1 class="recruiter-name">L Dante Guarin</h1>
+            <p class="recruiter-role">Principal Product Designer</p>
+            <p class="recruiter-meta">Irvine, CA &middot; Over 13 years exp.</p>
+            <div class="recruiter-exp">
+              <span class="recruiter-exp-label">Experience at:</span>
+              <span class="recruiter-exp-list">Adobe/Marketo, Upwork, Teamshares, Meroxa, T-Mobile</span>
+            </div>
+          </div>
+
+          <div class="recruiter-fit">
+            <h2 class="recruiter-fit-title">How does Dante match up?</h2>
+            <p class="recruiter-fit-desc">Paste a job description or URL and let's see how he matches up.</p>
+            <div class="fit-input-wrap">
+              <textarea
+                class="fit-textarea"
+                id="recruiterFitTextarea"
+                maxlength="10000"
+                placeholder="Paste a job description or drop in a URL…"
+                spellcheck="false"
+                autocomplete="off"
+                aria-label="Job description or URL"
+              ></textarea>
+              <div class="fit-char-row">
+                <span id="recruiterFitCharCount">0</span> / 10,000
+                <button class="fit-clear-btn" id="recruiterFitClearBtn" hidden>Clear</button>
+                <button class="fit-assess-btn" id="recruiterFitAssessBtn" aria-label="Check fit">
+                  Check Fit
+                </button>
+              </div>
+            </div>
+            <div class="fit-error" id="recruiterFitError" hidden></div>
+            <div class="fit-results" id="recruiterFitResults" hidden></div>
+          </div>
+
+          <div class="recruiter-cta">
+            <h3 class="recruiter-cta-title">Ready to move forward?</h3>
+            <a class="recruiter-book-btn" href="https://calendly.com" target="_blank" rel="noopener">
+              Book a 30-min intro
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Panel D: fit assessment (original, for hiring-manager "How we match up" button) -->
         <div class="fit-panel" id="fitPanel">
           <button class="case-back-btn" id="fitBackBtn" aria-label="Back to cases">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -995,12 +1041,13 @@
       function showRolePicker(experience) {
         sessionStorage.setItem('pw-auth', '1');
         sessionStorage.setItem('portfolio-experience', experience || 'standard');
-        // Swap password row for role picker
+        // Push letters + password off-screen, reveal role picker full-viewport
+        gate.classList.add('pw-gate--role-step');
         inputWrap.hidden = true;
         rolePicker.hidden = false;
       }
 
-      function enterPortfolio() {
+      function enterPortfolio(role) {
         // Hide the reset button while letters fall
         const resetBtn = document.getElementById('resetBtn');
         if (resetBtn) resetBtn.classList.add('hidden');
@@ -1009,6 +1056,7 @@
           gate.classList.add('unlocking');
           setTimeout(() => {
             gate.style.display = 'none';
+            applyVisitorRole(role);
             showPortfolio();
           }, 420);
         });
@@ -1018,8 +1066,9 @@
       rolePicker.addEventListener('click', (e) => {
         const btn = e.target.closest('.pw-role-btn');
         if (!btn) return;
-        sessionStorage.setItem('visitor-role', btn.dataset.role);
-        enterPortfolio();
+        const role = btn.dataset.role;
+        sessionStorage.setItem('visitor-role', role);
+        enterPortfolio(role);
       });
 
       function shake() {
@@ -1050,6 +1099,7 @@
 
       if (sessionStorage.getItem('pw-auth') === '1') {
         gate.style.display = 'none';
+        applyVisitorRole(sessionStorage.getItem('visitor-role') || 'hiring-manager');
         showPortfolio();
       } else {
         setTimeout(() => input.focus(), 100);
@@ -1175,6 +1225,26 @@
       resetBtn.addEventListener('click', () => {
         if (window._resetLandingFloat) window._resetLandingFloat();
       });
+    }
+
+    // ─── Visitor role routing ────────────────────────────────────────────────
+    // Recruiter → recruiter panel (summary card + fit + CTA). Everything else
+    // (hiring-manager) → brass tacks + portfolio grid. Both get the chat rail.
+    function applyVisitorRole(role) {
+      const recruiterPanel = document.getElementById('recruiterPanel');
+      const caseListPanel  = document.getElementById('caseListPanel');
+      const fitBtnWrap     = document.querySelector('.fit-btn-wrap');
+
+      if (role === 'recruiter') {
+        // Show recruiter panel, hide case list and "How we match up" button
+        recruiterPanel.classList.add('active');
+        caseListPanel.style.display = 'none';
+        if (fitBtnWrap) fitBtnWrap.style.display = 'none';
+      } else {
+        // Hiring manager — normal portfolio with brass tacks + grid
+        recruiterPanel.classList.remove('active');
+        caseListPanel.style.display = '';
+      }
     }
 
     // ─── Experience routing ───────────────────────────────────────────────────

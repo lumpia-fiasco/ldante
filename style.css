@@ -110,47 +110,71 @@
 }
 
 /* ─── Role picker (shown after password success) ─── */
+
+/* When role-step is active, the letters + password push off-screen and
+   the role picker takes over the full viewport. */
+.pw-gate--role-step .hero-logo,
+.pw-gate--role-step .hero-tagline,
+.pw-gate--role-step .hero-desc,
+.pw-gate--role-step .pw-input-wrap {
+  animation: pushUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+.pw-gate--role-step .hero-tagline { animation-delay: 0.03s; }
+.pw-gate--role-step .hero-desc    { animation-delay: 0.06s; }
+.pw-gate--role-step .pw-input-wrap { animation-delay: 0.09s; }
+
+@keyframes pushUp {
+  to { transform: translateY(-140px); opacity: 0; height: 0; margin: 0; padding: 0; overflow: hidden; }
+}
+
+.pw-gate--role-step .pw-inner {
+  justify-content: center;
+  min-height: 100%;
+}
+
 .pw-role-picker {
-  animation: rolePickerIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: rolePickerIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
 }
 
 @keyframes rolePickerIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 .pw-role-greeting {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-size: clamp(3rem, 5vw, 5rem);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.95);
-  letter-spacing: -0.02em;
-  margin: 0 0 20px 0;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 32px 0;
 }
 
 .pw-role-btns {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
 .pw-role-btn {
-  font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1.5rem, 2.1vw, 2.25rem);
   font-weight: 400;
-  letter-spacing: -0.01em;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 16px;
+  padding: 18px 36px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
 .pw-role-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
 }
 
 .pw-role-btn:active {
@@ -1872,6 +1896,154 @@ a.spotify-tile {
 .sky-dark .portfolio-view .fit-btn:hover { background: #383838; }
 
 /* ─── Fit panel (same sheet mechanic as case detail) ─── */
+/* ─── Recruiter panel ─── */
+.recruiter-panel {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  padding: 56px 60px 80px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+.recruiter-panel.active {
+  display: block;
+}
+
+.recruiter-card {
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(31,31,31,0.07);
+}
+
+.recruiter-name {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+
+.recruiter-role {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1.1rem, 1.3vw, 1.25rem);
+  font-weight: 400;
+  color: rgba(31,31,31,0.75);
+  line-height: 1.4;
+  margin: 0 0 6px;
+}
+
+.recruiter-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(31,31,31,0.5);
+  letter-spacing: 0.01em;
+  margin: 0 0 20px;
+}
+
+.recruiter-exp {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recruiter-exp-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(31,31,31,0.4);
+}
+
+.recruiter-exp-list {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  color: rgba(31,31,31,0.75);
+  line-height: 1.5;
+}
+
+.recruiter-fit {
+  margin-bottom: 48px;
+}
+
+.recruiter-fit-title {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 10px;
+}
+
+.recruiter-fit-desc {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  color: rgba(31,31,31,0.55);
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+/* Text-style assess button for recruiter panel */
+.recruiter-fit .fit-assess-btn {
+  width: auto;
+  height: auto;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.recruiter-cta {
+  padding-top: 40px;
+  border-top: 1px solid rgba(31,31,31,0.07);
+}
+
+.recruiter-cta-title {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+
+.recruiter-book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  background: #1f1f1f;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 28px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.recruiter-book-btn:hover {
+  background: #383838;
+  transform: translateY(-3px) scale(1.02);
+}
+
+.recruiter-book-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
 .fit-panel {
   position: absolute;
   inset: 0;
