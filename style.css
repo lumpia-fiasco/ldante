@@ -131,7 +131,12 @@
 
 .pw-gate--role-step .pw-inner {
   justify-content: center;
+  align-items: center;
+  text-align: center;
   min-height: 100%;
+}
+.pw-gate--role-step .pw-role-btns {
+  justify-content: center;
 }
 
 .pw-role-picker {
@@ -1994,15 +1999,30 @@ a.spotify-tile {
 }
 .recruiter-cases-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 .recruiter-cases-grid .case-item {
+  position: relative;
   width: 100%;
 }
 .recruiter-cases-grid .case-card-v {
-  min-height: 180px;
+  height: 100%;
   padding: 28px 24px;
+}
+@media (max-width: 900px) {
+  .recruiter-cases-grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 75vw;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .recruiter-cases-grid .case-item {
+    scroll-snap-align: start;
+  }
 }
 
 .recruiter-fit {
