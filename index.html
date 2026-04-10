@@ -12,11 +12,21 @@
 </head>
 <body>
 
-  <!-- ─── Password gate ─── -->
+  <!-- ─── Password gate (also houses the landing letters) ─── -->
   <div class="pw-gate" id="pwGate">
-    <div class="pw-inner">
-      <h1 class="pw-name">L Dante Guarin<br>Product Design</h1>
-      <p class="pw-label">Enter password to continue</p>
+    <div class="pw-inner" id="landingInner">
+
+      <div class="hero-logo" id="heroLogo" role="img" aria-label="LDG Logo">
+        <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <polygon fill="currentColor" points="36 432 221.36 432 36 27.57 36 432"/>
+          <path fill="currentColor" d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
+          <path fill="currentColor" d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21,0,13.96,1.41,27.59,4.11,40.75,1.01,4.94,2.2,9.81,3.56,14.61,1.82,6.4,3.94,12.67,6.36,18.79,8.45,21.43,20.45,41.07,35.28,58.19,2.12,2.45,4.3,4.84,6.53,7.18,2.23,2.34,4.52,4.63,6.86,6.86,2.34,2.23,4.74,4.41,7.18,6.53,4.89,4.24,9.99,8.24,15.27,12,11.89,8.46,24.74,15.66,38.35,21.42,3.02,1.28,6.09,2.49,9.18,3.62,21.68,7.94,45.1,12.27,69.53,12.27,111.68,0,202.21-90.53,202.21-202.21h-202.21Z"/>
+        </svg>
+      </div>
+
+      <p class="hero-tagline">I design systems.<br>I build design systems too.</p>
+      <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
+
       <div class="pw-input-wrap">
         <input
           class="pw-input"
@@ -28,9 +38,19 @@
           maxlength="40"
           aria-label="Password"
         >
+        <button class="pw-enter-btn" id="pwEnterBtn" type="button">Enter</button>
       </div>
-      <p class="pw-hint">press Enter ↵</p>
+
     </div>
+
+    <!-- Sandbox reset: elastic-snap letters back to their origin -->
+    <button class="reset-btn" id="resetBtn" type="button" aria-label="Reset letter positions">
+      Reset
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.08" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        <path d="M6.5 3.5v3h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 
   <!-- ─── Sticky Header ─── -->
@@ -60,34 +80,7 @@
 
   <main>
 
-    <!-- ─── Landing ─── -->
-    <section class="landing" id="landing">
-      <div class="landing-inner" id="landingInner">
-
-        <div class="hero-logo" id="heroLogo" role="img" aria-label="LDG Logo">
-          <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <polygon fill="currentColor" points="36 432 221.36 432 36 27.57 36 432"/>
-            <path fill="currentColor" d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
-            <path fill="currentColor" d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21,0,13.96,1.41,27.59,4.11,40.75,1.01,4.94,2.2,9.81,3.56,14.61,1.82,6.4,3.94,12.67,6.36,18.79,8.45,21.43,20.45,41.07,35.28,58.19,2.12,2.45,4.3,4.84,6.53,7.18,2.23,2.34,4.52,4.63,6.86,6.86,2.34,2.23,4.74,4.41,7.18,6.53,4.89,4.24,9.99,8.24,15.27,12,11.89,8.46,24.74,15.66,38.35,21.42,3.02,1.28,6.09,2.49,9.18,3.62,21.68,7.94,45.1,12.27,69.53,12.27,111.68,0,202.21-90.53,202.21-202.21h-202.21Z"/>
-          </svg>
-        </div>
-
-        <p class="hero-tagline">I design systems.<br>I build design systems too.</p>
-        <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
-
-        <button class="start-btn" id="startBtn">Start</button>
-
-      </div>
-
-      <!-- Sandbox reset: elastic-snap letters back to their origin -->
-      <button class="reset-btn" id="resetBtn" type="button" aria-label="Reset letter positions">
-        Reset
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.08" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-          <path d="M6.5 3.5v3h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </section>
+    <!-- Landing section removed — content now lives inside pw-gate -->
 
     <!-- ─── Portfolio view (split: chat left, cards right) ─── -->
     <section class="portfolio-view" id="portfolioView" aria-hidden="true">
@@ -604,7 +597,7 @@
       const logo = document.querySelector('.hero-logo');
       if (logo) FLOAT.push({ el: logo, radius: 230, boost: 0.55, rotSign: 0, ox: 0, oy: 0 });
 
-      // NOTE: startBtn is intentionally NOT in FLOAT — it stays put.
+      // NOTE: pw-input-wrap is intentionally NOT in FLOAT — it stays put.
 
       let cached = false;
       function cachePositions() {
@@ -740,10 +733,10 @@
         }
       }
 
-      const landingEl = document.getElementById('landing');
-      if (landingEl) {
+      const gateEl = document.getElementById('pwGate');
+      if (gateEl) {
         // ── Desktop: cursor push ───────────────────────────────────────────
-        landingEl.addEventListener('mousemove', (e) => {
+        gateEl.addEventListener('mousemove', (e) => {
           if (!cached) return;
           if (resetActive) {                      // elastic reset in flight
             mouseX = e.clientX; mouseY = e.clientY;
@@ -755,7 +748,7 @@
           mouseY = e.clientY;
           pushFromPoint(prevX, prevY, mouseX, mouseY);
         });
-        landingEl.addEventListener('mouseleave', () => {
+        gateEl.addEventListener('mouseleave', () => {
           mouseX = -9999; mouseY = -9999;
           // Sandbox: letters stay wherever they were last pushed.
         });
@@ -765,9 +758,9 @@
         // the screen pushes letters the same way. touchmove uses
         // { passive: false } so we can preventDefault() to stop the page
         // from scrolling / rubber-banding while the user is dragging letters.
-        // Button taps (Reset, Start) still work because click synthesis runs
+        // Button taps (Reset, Enter) still work because click synthesis runs
         // off touchstart/touchend, not touchmove.
-        landingEl.addEventListener('touchstart', (e) => {
+        gateEl.addEventListener('touchstart', (e) => {
           if (!cached) return;
           if (!e.touches || e.touches.length === 0) return;
           const t = e.touches[0];
@@ -775,7 +768,7 @@
           mouseY = t.clientY;
         }, { passive: true });
 
-        landingEl.addEventListener('touchmove', (e) => {
+        gateEl.addEventListener('touchmove', (e) => {
           if (!cached) return;
           if (!e.touches || e.touches.length === 0) return;
           const t = e.touches[0];
@@ -792,8 +785,8 @@
         }, { passive: false });
 
         const clearTouch = () => { mouseX = -9999; mouseY = -9999; };
-        landingEl.addEventListener('touchend',    clearTouch);
-        landingEl.addEventListener('touchcancel', clearTouch);
+        gateEl.addEventListener('touchend',    clearTouch);
+        gateEl.addEventListener('touchcancel', clearTouch);
       }
 
       let resizeT;
@@ -803,8 +796,8 @@
       });
     })();
 
-    // Pop the landing elements on Start click:
-    //  • Logo + Start button: whole-unit pop, then fall off-screen with gravity.
+    // Pop the landing elements on password unlock:
+    //  • Logo + password row: whole-unit pop, then fall off-screen with gravity.
     //  • Tagline + desc letters: per-letter pop, then fall with gravity and
     //    LAND at the bottom of the viewport to form a pile of letters. Each
     //    letter rests at a slightly different height (jagged pile silhouette),
@@ -813,12 +806,12 @@
       const POP_DUR = 110;
       let longest = 0;
 
-      // ── Logo + Start button: whole-unit pop & fall off-screen ──
+      // ── Logo + password row: whole-unit pop & fall off-screen ──
       // The logo can be dragged in the sandbox, so we start its fall from
-      // its current scattered offset. The Start button stays in place.
+      // its current scattered offset. The password row drops from in-place.
       const wholeItems = [
-        { el: document.getElementById('heroLogo'), delay: 0,   fallDur: 720 },
-        { el: document.getElementById('startBtn'), delay: 240, fallDur: 720 },
+        { el: document.getElementById('heroLogo'),    delay: 0,   fallDur: 720 },
+        { el: document.querySelector('.pw-input-wrap'), delay: 180, fallDur: 720 },
       ];
       wholeItems.forEach(item => {
         if (!item.el) return;
@@ -977,14 +970,13 @@
       setTimeout(callback, longest + 260);
     }
 
-    // No entry float — landing elements appear in their natural state.
-    // Still cache float positions for the cursor scatter effect.
-    function triggerLandingBalloons() {
-      if (window._cacheFloatPositions) window._cacheFloatPositions();
-    }
+    // Cache float positions immediately — letters are visible inside pw-gate
+    // from page load, so the sandbox push effect works right away.
+    if (window._cacheFloatPositions) window._cacheFloatPositions();
 
     // Password is verified server-side via /api/auth — never exposed in source.
     // Each password maps to an experience token stored in sessionStorage.
+    // On success the letters fall, the gate fades, and the portfolio appears.
     (function () {
       const gate  = document.getElementById('pwGate');
       const input = document.getElementById('pwInput');
@@ -992,11 +984,17 @@
       function unlock(experience) {
         sessionStorage.setItem('pw-auth', '1');
         sessionStorage.setItem('portfolio-experience', experience || 'standard');
-        gate.classList.add('unlocking');
-        setTimeout(() => {
-          gate.style.display = 'none';
-          triggerLandingBalloons();
-        }, 500);
+        // Hide the reset button while letters fall
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) resetBtn.classList.add('hidden');
+        // Letters fall, then gate fades out and portfolio comes in
+        popLandingBalloons(() => {
+          gate.classList.add('unlocking');
+          setTimeout(() => {
+            gate.style.display = 'none';
+            showPortfolio();
+          }, 420);
+        });
       }
 
       function shake() {
@@ -1005,31 +1003,35 @@
         setTimeout(() => gate.classList.remove('shake'), 500);
       }
 
-      if (sessionStorage.getItem('pw-auth') === '1') {
-        gate.style.display = 'none';
-        triggerLandingBalloons();
-      } else {
-        setTimeout(() => input.focus(), 100);
-        input.addEventListener('keydown', async function (e) {
-          if (e.key !== 'Enter') return;
-          const attempt = this.value.trim();
-          if (!attempt) return;
-          try {
-            const res = await fetch('/api/auth', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ password: attempt }),
-            });
-            const data = await res.json();
-            if (data.ok) {
-              unlock(data.experience);
-            } else {
-              shake();
-            }
-          } catch {
+      async function attemptUnlock() {
+        const attempt = input.value.trim();
+        if (!attempt) return;
+        try {
+          const res = await fetch('/api/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: attempt }),
+          });
+          const data = await res.json();
+          if (data.ok) {
+            unlock(data.experience);
+          } else {
             shake();
           }
+        } catch {
+          shake();
+        }
+      }
+
+      if (sessionStorage.getItem('pw-auth') === '1') {
+        gate.style.display = 'none';
+        showPortfolio();
+      } else {
+        setTimeout(() => input.focus(), 100);
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') attemptUnlock();
         });
+        document.getElementById('pwEnterBtn').addEventListener('click', attemptUnlock);
       }
     })();
 
@@ -1140,22 +1142,6 @@
     logo.addEventListener('mouseleave', () => {
       stopSkyCycle();
       tagline.style.transform = 'translateY(0)';
-    });
-
-    // ─── Start button: same sky cycle on hover ───────────────────────────────
-    const startBtn = document.getElementById('startBtn');
-    startBtn.addEventListener('mouseenter', startSkyCycle);
-    startBtn.addEventListener('mouseleave', stopSkyCycle);
-
-    startBtn.addEventListener('click', () => {
-      const landing = document.getElementById('landing');
-      // Fade the sandbox reset button out of the way while letters pile
-      const resetBtn = document.getElementById('resetBtn');
-      if (resetBtn) resetBtn.classList.add('hidden');
-      popLandingBalloons(() => {
-        landing.style.display = 'none';
-        showPortfolio();
-      });
     });
 
     // ─── Sandbox reset button: elastic snap letters back to origin ──────────
@@ -3105,9 +3091,16 @@
 
       function hideMenu() { menu.classList.remove('ctx-visible'); }
 
+      // Gate: suppress context menu while pw-gate is visible
+      const pwGateEl = document.getElementById('pwGate');
+      function gateVisible() {
+        return pwGateEl && pwGateEl.style.display !== 'none';
+      }
+
       // Desktop: right-click
       document.addEventListener('contextmenu', (e) => {
         e.preventDefault();
+        if (gateVisible()) return;
         showMenu(e.clientX, e.clientY);
       });
 
@@ -3116,6 +3109,7 @@
       let lpFired = false;
 
       document.addEventListener('touchstart', (e) => {
+        if (gateVisible()) return;
         if (menu.contains(e.target)) return; // don't interfere with menu taps
         lpFired = false;
         const touch = e.touches[0];
@@ -3148,18 +3142,12 @@
       document.addEventListener('scroll', hideMenu, true);
       window.addEventListener('resize', hideMenu);
 
-      // Case study links
+      // Case study links — context menu is gated behind pw-gate, so
+      // portfolio is always active when these fire.
       menuItems.forEach(item => {
         item.addEventListener('click', () => {
           hideMenu();
-          const caseId = item.dataset.case;
-          const pv = document.getElementById('portfolioView');
-          if (pv && !pv.classList.contains('active')) {
-            document.getElementById('startBtn').click();
-            setTimeout(() => showCase(caseId), 600);
-          } else {
-            showCase(caseId);
-          }
+          showCase(item.dataset.case);
         });
       });
     })();

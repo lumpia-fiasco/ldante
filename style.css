@@ -18,7 +18,7 @@
 .chat-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); }
 .fit-textarea:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(31,31,31,0.08), 0 0 12px rgba(31,31,31,0.05); }
 
-/* ─── Password gate ─── */
+/* ─── Password gate (also houses landing letters + logo) ─── */
 .pw-gate {
   position: fixed;
   inset: 0;
@@ -26,8 +26,9 @@
   background: linear-gradient(to top, #0f172a, #0b0f1e 45%, #020617);
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 80px 60px;
   transition: opacity 0.4s ease, transform 0.4s ease;
+  touch-action: none;
 }
 
 .pw-gate.unlocking {
@@ -50,45 +51,32 @@
 .pw-inner {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 20px;
-  width: clamp(280px, 60vw, 640px);
+  align-items: flex-start;
+  gap: 28px;
+  max-width: 640px;
 }
 
-.pw-name {
-  font-family: 'Cal Sans', sans-serif;
-  font-size: 65px;
-  font-weight: 400;
-  line-height: 1.1;
-  color: #ffffff;
-  margin: 0 0 12px;
-  letter-spacing: -0.02em;
+.pw-input-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
 }
-
-.pw-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.pw-input-wrap { width: 100%; }
 
 .pw-input {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
   font-weight: 400;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   color: #ffffff;
   background: transparent;
   border: none;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   outline: none;
-  width: 100%;
-  padding: 6px 0 14px;
+  flex: 1;
+  min-width: 0;
+  padding: 6px 0 10px;
   transition: border-color 0.2s ease;
   caret-color: #ffffff;
 }
@@ -97,12 +85,28 @@
 
 .pw-input::placeholder { color: rgba(255, 255, 255, 0.45); }
 
-.pw-hint {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+.pw-enter-btn {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.65);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 8px 24px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.pw-enter-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+.pw-enter-btn:active {
+  transform: translateY(0) scale(0.97);
 }
 
 /* ─── Base ─── */
@@ -136,6 +140,11 @@ body {
 .sky-dark .hero-desc { color: rgba(255, 255, 255, 0.95); }
 
 .sky-dark .hero-logo { color: rgba(255, 255, 255, 0.95); }
+
+/* pw-gate is always dark sky — force white text on hero elements */
+.pw-gate .hero-tagline,
+.pw-gate .hero-desc { color: rgba(255, 255, 255, 0.95); }
+.pw-gate .hero-logo { color: rgba(255, 255, 255, 0.95); }
 
 .sky-dark .start-btn {
   background: rgba(255, 255, 255, 0.14);
@@ -263,37 +272,7 @@ main {
 }
 
 /* ─── Landing ─── */
-.landing {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  padding: 80px 60px;
-  z-index: 10;
-  /* Mobile: let JS handle every touch gesture so finger swipes push the
-     letters around instead of scrolling / rubber-banding the page. Button
-     taps (Start, Reset) still work — click synthesis is unaffected. */
-  touch-action: none;
-}
-
-.landing.exiting {
-  animation: landingExit 0.55s cubic-bezier(0.4, 0, 0.6, 1) both;
-}
-
-@keyframes landingExit {
-  to {
-    transform: translateY(-80px);
-    opacity: 0;
-  }
-}
-
-.landing-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 28px;
-  max-width: 640px;
-}
+/* .landing section removed — content now lives inside .pw-gate */
 
 /* Balloon entrance state — JS will animate these via Web Animations API */
 .balloon-prep {
@@ -351,32 +330,7 @@ main {
 }
 
 
-/* ─── Start button ─── */
-.start-btn {
-  font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.6rem, 2.2vw, 2.5rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  background: #1f1f1f;
-  border: none;
-  border-radius: 18px;
-  padding: clamp(16px, 2vh, 28px) clamp(40px, 4vw, 64px);
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.15s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.start-btn:hover {
-  background: #383838;
-  transform: translateY(-4px) scale(1.02);
-}
-
-.start-btn:active {
-  transform: translateY(0) scale(0.98);
-}
-
-/* ─── Sandbox reset button (mirrors the "How we match up" button) ─── */
+/* ─── Sandbox reset button ─── */
 .reset-btn {
   position: fixed;
   right: 20px;
@@ -2098,7 +2052,7 @@ a.spotify-tile {
 @media (max-width: 900px) {
   .site-header { padding: 14px 24px; }
 
-  .landing { padding: 60px 24px; }
+  .pw-gate { padding: 60px 24px; }
 
   .portfolio-view.active {
     display: block;
@@ -2752,7 +2706,7 @@ a.spotify-tile {
   .site-header { padding: 12px 20px; }
 
   /* ── Landing ── */
-  .landing { padding: 48px 20px; }
+  .pw-gate { padding: 48px 20px; }
   .hero-logo { height: 72px; }
   .hero-logo svg { height: 72px; }
 
@@ -2862,7 +2816,7 @@ a.spotify-tile {
 
   /* ── Header padding fix — prevent overlap on mobile ── */
   main { padding-top: 0; }
-  .landing { padding-top: 60px; }
+  .pw-gate { padding-top: 60px; }
 
   /* ── Fit panel on mobile ── */
   .fit-panel {
