@@ -504,8 +504,8 @@
       const gate = document.getElementById('pwGate');
       let progress = 0, t = 0;
       function frame() {
-        t = (t + 0.00252) % 1;
-        progress += 0.00252;
+        t = (t + 0.001764) % 1;
+        progress += 0.001764;
         gate.style.background = skyGradientAt(t);
         if (progress < 1) {
           requestAnimationFrame(frame);
@@ -1326,7 +1326,7 @@
     // cycle from 0.
     function tick() {
       if (hover) {
-        hoverT += 0.00252; // full 24h cycle ≈ 7 s
+        hoverT += 0.001764; // full 24h cycle ≈ 10 s (30% slower)
         if (hoverT >= 1) {
           hoverT = 1;
           document.body.style.background = skyGradientAt(hoverT);
