@@ -66,9 +66,9 @@
 
 .pw-input {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
   font-weight: 400;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   color: #ffffff;
   background: transparent;
   border: none;
@@ -106,6 +106,54 @@
 }
 
 .pw-enter-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ─── Role picker (shown after password success) ─── */
+.pw-role-picker {
+  animation: rolePickerIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rolePickerIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pw-role-greeting {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.02em;
+  margin: 0 0 20px 0;
+}
+
+.pw-role-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pw-role-btn {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.pw-role-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+.pw-role-btn:active {
   transform: translateY(0) scale(0.97);
 }
 

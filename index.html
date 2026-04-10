@@ -27,7 +27,7 @@
       <p class="hero-tagline">I design systems.<br>I build design systems too.</p>
       <p class="hero-desc">I'm building an AI-enabled mobile platform that explores the relationships between customer and business.</p>
 
-      <div class="pw-input-wrap">
+      <div class="pw-input-wrap" id="pwInputWrap">
         <input
           class="pw-input"
           id="pwInput"
@@ -39,6 +39,14 @@
           aria-label="Password"
         >
         <button class="pw-enter-btn" id="pwEnterBtn" type="button">Enter</button>
+      </div>
+
+      <div class="pw-role-picker" id="pwRolePicker" hidden>
+        <p class="pw-role-greeting">Oh hi! You are a:</p>
+        <div class="pw-role-btns">
+          <button class="pw-role-btn" data-role="recruiter" type="button">Recruiter</button>
+          <button class="pw-role-btn" data-role="hiring-manager" type="button">Hiring Manager / Designer</button>
+        </div>
       </div>
 
     </div>
@@ -976,14 +984,23 @@
 
     // Password is verified server-side via /api/auth — never exposed in source.
     // Each password maps to an experience token stored in sessionStorage.
-    // On success the letters fall, the gate fades, and the portfolio appears.
+    // On success a role picker appears; choosing a role triggers the letter
+    // fall, gate fade, and portfolio reveal.
     (function () {
-      const gate  = document.getElementById('pwGate');
-      const input = document.getElementById('pwInput');
+      const gate       = document.getElementById('pwGate');
+      const input      = document.getElementById('pwInput');
+      const inputWrap  = document.getElementById('pwInputWrap');
+      const rolePicker = document.getElementById('pwRolePicker');
 
-      function unlock(experience) {
+      function showRolePicker(experience) {
         sessionStorage.setItem('pw-auth', '1');
         sessionStorage.setItem('portfolio-experience', experience || 'standard');
+        // Swap password row for role picker
+        inputWrap.hidden = true;
+        rolePicker.hidden = false;
+      }
+
+      function enterPortfolio() {
         // Hide the reset button while letters fall
         const resetBtn = document.getElementById('resetBtn');
         if (resetBtn) resetBtn.classList.add('hidden');
@@ -996,6 +1013,14 @@
           }, 420);
         });
       }
+
+      // Role buttons — store the chosen role and enter
+      rolePicker.addEventListener('click', (e) => {
+        const btn = e.target.closest('.pw-role-btn');
+        if (!btn) return;
+        sessionStorage.setItem('visitor-role', btn.dataset.role);
+        enterPortfolio();
+      });
 
       function shake() {
         input.value = '';
@@ -1014,7 +1039,7 @@
           });
           const data = await res.json();
           if (data.ok) {
-            unlock(data.experience);
+            showRolePicker(data.experience);
           } else {
             shake();
           }
