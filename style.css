@@ -66,9 +66,9 @@
 
 .pw-input {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: #ffffff;
   background: transparent;
   border: none;
