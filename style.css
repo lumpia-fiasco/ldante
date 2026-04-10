@@ -2912,8 +2912,7 @@ a.spotify-tile {
 .cs-tradeoff-body { font-family: 'Golos Text', sans-serif; font-size: 13px; color: rgba(31,31,31,0.65); line-height: 1.6; }
 
 /* ─── Portfolio is always monochromatic — neutralize sky-dark overrides ─── */
-.sky-dark .portfolio-view .cases-heading    { color: rgba(31, 31, 31, 0.65); }
-.sky-dark .portfolio-view .cases-heading    { color: rgba(31, 31, 31, 0.65); }
+.sky-dark .portfolio-view .cases-heading    { color: #1f1f1f; }
 /* Cards are colored — keep white text regardless of sky theme */
 .sky-dark .portfolio-view .case-card-v .case-company { color: rgba(255,255,255,0.55); }
 .sky-dark .portfolio-view .case-card-v .case-title-h { color: #ffffff; }
