@@ -117,12 +117,12 @@
 .pw-gate--role-step .hero-tagline,
 .pw-gate--role-step .hero-desc,
 .pw-gate--role-step .pw-input-wrap {
-  animation: pushUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: pushUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   pointer-events: none;
 }
-.pw-gate--role-step .hero-tagline { animation-delay: 0.03s; }
-.pw-gate--role-step .hero-desc    { animation-delay: 0.06s; }
-.pw-gate--role-step .pw-input-wrap { animation-delay: 0.09s; }
+.pw-gate--role-step .hero-tagline { animation-delay: 0.05s; }
+.pw-gate--role-step .hero-desc    { animation-delay: 0.10s; }
+.pw-gate--role-step .pw-input-wrap { animation-delay: 0.15s; }
 
 @keyframes pushUp {
   to { transform: translateY(-140px); opacity: 0; height: 0; margin: 0; padding: 0; overflow: hidden; }
@@ -134,11 +134,11 @@
 }
 
 .pw-role-picker {
-  animation: rolePickerIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  animation: rolePickerIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
 }
 
 @keyframes rolePickerIn {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -149,7 +149,15 @@
   color: rgba(255, 255, 255, 0.95);
   letter-spacing: -0.03em;
   line-height: 1;
-  margin: 0 0 32px 0;
+  margin: 0 0 12px 0;
+}
+
+.pw-role-sub {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 28px 0;
 }
 
 .pw-role-btns {
