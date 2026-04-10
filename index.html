@@ -692,6 +692,10 @@
 
       // NOTE: pw-input-wrap is intentionally NOT in FLOAT — it stays put.
 
+      // Exclusion zone — letters bounce off the password field + enter button
+      let excludeRect = null;
+      const EXCL_PAD = 12; // breathing room around the field
+
       let cached = false;
       function cachePositions() {
         FLOAT.forEach(item => {
@@ -706,6 +710,17 @@
           item.cy = r.top  + r.height / 2;
           item.el.style.transform = prev;
         });
+        // Cache password field rect for bounce collisions
+        const pwWrap = document.getElementById('pwInputWrap');
+        if (pwWrap) {
+          const r = pwWrap.getBoundingClientRect();
+          excludeRect = {
+            left:   r.left   - EXCL_PAD,
+            right:  r.right  + EXCL_PAD,
+            top:    r.top    - EXCL_PAD,
+            bottom: r.bottom + EXCL_PAD,
+          };
+        }
         cached = true;
       }
       // Expose so the entrance trigger can call it after the gate unlocks
@@ -820,6 +835,25 @@
             const nudge = moveMag * force * NUDGE_GAIN * item.boost;
             item.ox += (relX / dist) * nudge;
             item.oy += (relY / dist) * nudge;
+
+            // Bounce off password field exclusion zone
+            if (excludeRect) {
+              const visCx = item.cx + item.ox;
+              const visCy = item.cy + item.oy;
+              if (visCx > excludeRect.left && visCx < excludeRect.right &&
+                  visCy > excludeRect.top  && visCy < excludeRect.bottom) {
+                const dL = visCx - excludeRect.left;
+                const dR = excludeRect.right - visCx;
+                const dT = visCy - excludeRect.top;
+                const dB = excludeRect.bottom - visCy;
+                const minD = Math.min(dL, dR, dT, dB);
+                const BOUNCE = 6;
+                if      (minD === dL) item.ox -= dL + BOUNCE;
+                else if (minD === dR) item.ox += dR + BOUNCE;
+                else if (minD === dT) item.oy -= dT + BOUNCE;
+                else                  item.oy += dB + BOUNCE;
+              }
+            }
 
             applyTransform(item);
           }
