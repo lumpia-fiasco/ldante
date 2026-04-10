@@ -3065,48 +3065,15 @@
       }
     });
 
-    // Character counter + clear button + assess button
-    const fitTextarea  = document.getElementById('fitTextarea');
-    const fitCharCount = document.getElementById('fitCharCount');
-    const fitClearBtn  = document.getElementById('fitClearBtn');
-    document.getElementById('fitAssessBtn').addEventListener('click', runAssessment);
-
-    fitTextarea.addEventListener('input', () => {
-      const len = fitTextarea.value.length;
-      fitCharCount.textContent = len;
-      fitClearBtn.hidden = len === 0;
-    });
-
-    fitClearBtn.addEventListener('click', () => {
-      fitTextarea.value = '';
-      fitCharCount.textContent = '0';
-      fitClearBtn.hidden = true;
-      document.getElementById('fitError').hidden   = true;
-      document.getElementById('fitResults').hidden  = true;
-      document.getElementById('fitResults').innerHTML = '';
-      fitTextarea.focus();
-    });
-
-    // Submit on Enter (but allow Shift+Enter for newlines)
-    fitTextarea.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        runAssessment();
-      }
-    });
-
-    async function runAssessment() {
-      const text     = fitTextarea.value.trim();
-      const errorEl  = document.getElementById('fitError');
-      const resultsEl = document.getElementById('fitResults');
-
+    // ── Shared fit assessment logic ──────────────────────────────────────────
+    async function runFitAssessment(textareaEl, errorEl, resultsEl, opts) {
+      const text = textareaEl.value.trim();
       if (!text) return;
 
       errorEl.hidden  = true;
       resultsEl.hidden = true;
       resultsEl.innerHTML = '';
 
-      // Show loading state
       resultsEl.innerHTML = '<div class="fit-loading"><span></span><span></span><span></span></div>';
       resultsEl.hidden = false;
 
@@ -3179,12 +3146,10 @@
           ` : ''}
         `;
 
-        // Wire case links in results — close fit panel first so detail isn't buried behind it
+        // Wire case links in results
         resultsEl.querySelectorAll('.fit-case-link[data-case]').forEach(btn => {
           btn.addEventListener('click', () => {
-            document.getElementById('fitPanel').classList.remove('active');
-            document.getElementById('fitPanel').classList.remove('mob-active');
-            window._returnToFit = true; // back button returns to fit, not just case list
+            if (opts && opts.onCaseClick) opts.onCaseClick();
             showCase(btn.dataset.case);
           });
         });
@@ -3195,6 +3160,66 @@
         errorEl.hidden = false;
       }
     }
+
+    // Wire up a fit panel (textarea, char count, clear, assess, enter-to-submit)
+    function wireFitPanel(ids, runFn) {
+      const textarea  = document.getElementById(ids.textarea);
+      const charCount = document.getElementById(ids.charCount);
+      const clearBtn  = document.getElementById(ids.clearBtn);
+      const assessBtn = document.getElementById(ids.assessBtn);
+      const errorEl   = document.getElementById(ids.error);
+      const resultsEl = document.getElementById(ids.results);
+
+      assessBtn.addEventListener('click', () => runFn(textarea, errorEl, resultsEl));
+
+      textarea.addEventListener('input', () => {
+        const len = textarea.value.length;
+        charCount.textContent = len;
+        clearBtn.hidden = len === 0;
+      });
+
+      clearBtn.addEventListener('click', () => {
+        textarea.value = '';
+        charCount.textContent = '0';
+        clearBtn.hidden = true;
+        errorEl.hidden   = true;
+        resultsEl.hidden  = true;
+        resultsEl.innerHTML = '';
+        textarea.focus();
+      });
+
+      textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          runFn(textarea, errorEl, resultsEl);
+        }
+      });
+    }
+
+    // Hiring manager fit panel
+    wireFitPanel(
+      { textarea: 'fitTextarea', charCount: 'fitCharCount', clearBtn: 'fitClearBtn',
+        assessBtn: 'fitAssessBtn', error: 'fitError', results: 'fitResults' },
+      (ta, err, res) => runFitAssessment(ta, err, res, {
+        onCaseClick() {
+          document.getElementById('fitPanel').classList.remove('active');
+          document.getElementById('fitPanel').classList.remove('mob-active');
+          window._returnToFit = true;
+        },
+      })
+    );
+
+    // Recruiter fit panel
+    wireFitPanel(
+      { textarea: 'recruiterFitTextarea', charCount: 'recruiterFitCharCount',
+        clearBtn: 'recruiterFitClearBtn', assessBtn: 'recruiterFitAssessBtn',
+        error: 'recruiterFitError', results: 'recruiterFitResults' },
+      (ta, err, res) => runFitAssessment(ta, err, res, {
+        onCaseClick() {
+          // Case links from recruiter fit results — recruiter panel hides via showCase logic
+        },
+      })
+    );
 
     // ─── Random card tilts ──────────────────────────────────────────────────────
     document.querySelectorAll('.case-item[data-case] .case-card-v').forEach(card => {
