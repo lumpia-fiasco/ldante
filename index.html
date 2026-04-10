@@ -1234,8 +1234,12 @@
 
       if (sessionStorage.getItem('pw-auth') === '1') {
         gate.style.display = 'none';
-        applyVisitorRole(sessionStorage.getItem('visitor-role') || 'hiring-manager');
-        showPortfolio();
+        // Defer so the rest of the script finishes initialising (avoids
+        // temporal-dead-zone errors from let/const variables declared later).
+        setTimeout(() => {
+          applyVisitorRole(sessionStorage.getItem('visitor-role') || 'hiring-manager');
+          showPortfolio();
+        }, 0);
       } else {
         setTimeout(() => input.focus(), 100);
         input.addEventListener('keydown', (e) => {
@@ -1418,9 +1422,8 @@
 
       applyExperience(EXPERIENCE);
 
-      // Layout masonry and animate cards in from scattered positions.
-      // rAF ensures the browser has painted display:flex before we measure.
-      requestAnimationFrame(() => layoutMasonry(true));
+      // Layout masonry and animate cards in from scattered positions
+      layoutMasonry(true);
 
       // Mobile: default to Fit tab
       if (window.innerWidth <= 900) {
@@ -3046,7 +3049,8 @@
       listPanel.classList.remove('hidden');
     }
 
-    document.getElementById('fitBtn').addEventListener('click', showFitPanel);
+    const fitBtnEl = document.getElementById('fitBtn');
+    if (fitBtnEl) fitBtnEl.addEventListener('click', showFitPanel);
     document.getElementById('fitBackBtn').addEventListener('click', function() {
       if (window.innerWidth <= 900) {
         activateMobTab('work'); // on mobile: back = switch to Work tab

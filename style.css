@@ -642,14 +642,14 @@ main {
 
 /* ─── "Selected cases" label ─── */
 .cases-heading {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(31, 31, 31, 0.65);
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #1f1f1f;
+  line-height: 1.1;
   max-width: 860px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 /* ─── Case list — masonry (JS-positioned) ─── */
