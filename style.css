@@ -2990,13 +2990,19 @@ a.spotify-tile {
   .pw-gate--role-step {
     align-items: flex-start;
     overflow-y: auto;
-    padding-top: 48px;
+    padding-top: 36px;
   }
   .pw-gate--role-step .pw-inner {
     flex-direction: column;
-    gap: 32px;
+    gap: 24px;
     align-items: flex-start;
     min-height: auto;
+  }
+  .pw-gate--role-step .pw-intro {
+    gap: 16px;
+  }
+  .pw-gate--role-step .pw-input-wrap {
+    display: none;
   }
 
   /* ── Recruiter panel: match hiring manager padding on mobile ── */
