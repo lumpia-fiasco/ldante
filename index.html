@@ -1046,46 +1046,60 @@
           // has pushed them to). No horizontal drift at all.
           const dx = ox;
 
-          // Resting angle in the pile + a subtle settle bounce
+          // Resting angle in the pile + bounce physics
           const rotate   = ((seed * 71) % 220) - 110;                    // -110..+110 deg
           const popScale = 1.12 + ((seed % 5) * 0.04);                   // 1.12..1.28
-          const bounceY  = dy + 14;                                      // compress 14 px past rest
+          const bounce1  = Math.min(Math.abs(dy) * 0.14, 45);            // first bounce height
+          const bounce2  = bounce1 * 0.38;                               // second bounce (damped)
 
           const fallDur = 720 + ((seed * 53) % 400);                     // 720–1120 ms
           const total   = POP_DUR + fallDur;
           const delay   = group.baseDelay + ((seed * 19) % 220);         // baseDelay + 0–219 ms
           longest       = Math.max(longest, delay + total);
 
-          const popOffset  = POP_DUR / total;
-          const landOffset = 0.92;
+          const popOffset = POP_DUR / total;
 
           letter.animate([
             {
               // Start exactly where the letter was (possibly scattered)
               transform: `translate(${ox}px, ${oy}px) rotate(${curRot}deg) scale(1)`,
-              opacity: 1,
-              offset: 0,
-              easing: 'cubic-bezier(0.34, 1.7, 0.64, 1)', // snappy overshoot for the pop
+              opacity: 1, offset: 0,
+              easing: 'cubic-bezier(0.34, 1.7, 0.64, 1)',
             },
             {
               // Pop in place
               transform: `translate(${ox}px, ${oy}px) rotate(${curRot}deg) scale(${popScale})`,
-              opacity: 1,
-              offset: popOffset,
-              easing: 'cubic-bezier(0.7, 0, 0.95, 0.2)', // strong ease-in gravity
+              opacity: 1, offset: popOffset,
+              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)',           // gravity fall
             },
             {
-              // Overshoot the pile slightly (compress on impact)
-              transform: `translate(${dx}px, ${bounceY}px) rotate(${rotate}deg) scale(1)`,
-              opacity: 1,
-              offset: landOffset,
-              easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', // settle ease
-            },
-            {
-              // Final resting state in the pile
+              // First impact
               transform: `translate(${dx}px, ${dy}px) rotate(${rotate}deg) scale(1)`,
-              opacity: 1,
-              offset: 1,
+              opacity: 1, offset: 0.52,
+              easing: 'cubic-bezier(0.33, 1, 0.68, 1)',                  // bounce up (ease-out)
+            },
+            {
+              // First bounce peak
+              transform: `translate(${dx}px, ${dy - bounce1}px) rotate(${rotate * 0.85}deg) scale(1)`,
+              opacity: 1, offset: 0.64,
+              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)',           // gravity back down
+            },
+            {
+              // Second impact
+              transform: `translate(${dx}px, ${dy}px) rotate(${rotate * 0.95}deg) scale(1)`,
+              opacity: 1, offset: 0.76,
+              easing: 'cubic-bezier(0.33, 1, 0.68, 1)',                  // bounce up
+            },
+            {
+              // Second bounce peak
+              transform: `translate(${dx}px, ${dy - bounce2}px) rotate(${rotate * 0.97}deg) scale(1)`,
+              opacity: 1, offset: 0.86,
+              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)',           // gravity settle
+            },
+            {
+              // Final rest
+              transform: `translate(${dx}px, ${dy}px) rotate(${rotate}deg) scale(1)`,
+              opacity: 1, offset: 1,
             },
           ], {
             duration: total,
@@ -1184,15 +1198,15 @@
           const dx       = ox;
           const rotate   = ((seed * 71) % 220) - 110;
           const popScale = 1.12 + ((seed % 5) * 0.04);
-          const bounceY  = dy + 14;
+          const bounce1  = Math.min(Math.abs(dy) * 0.14, 45);
+          const bounce2  = bounce1 * 0.38;
 
           const fallDur = 720 + ((seed * 53) % 400);
           const total   = POP_DUR + fallDur;
           const delay   = group.baseDelay + ((seed * 19) % 220);
           longest       = Math.max(longest, delay + total);
 
-          const popOffset  = POP_DUR / total;
-          const landOffset = 0.92;
+          const popOffset = POP_DUR / total;
 
           letter.animate([
             {
@@ -1203,14 +1217,34 @@
             {
               transform: `translate(${ox}px, ${oy}px) rotate(${curRot}deg) scale(${popScale})`,
               opacity: 1, offset: popOffset,
-              easing: 'cubic-bezier(0.7, 0, 0.95, 0.2)',
+              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)',
             },
             {
-              transform: `translate(${dx}px, ${bounceY}px) rotate(${rotate}deg) scale(1)`,
-              opacity: 1, offset: landOffset,
-              easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              // First impact
+              transform: `translate(${dx}px, ${dy}px) rotate(${rotate}deg) scale(1)`,
+              opacity: 1, offset: 0.52,
+              easing: 'cubic-bezier(0.33, 1, 0.68, 1)',
             },
             {
+              // First bounce peak
+              transform: `translate(${dx}px, ${dy - bounce1}px) rotate(${rotate * 0.85}deg) scale(1)`,
+              opacity: 1, offset: 0.64,
+              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)',
+            },
+            {
+              // Second impact
+              transform: `translate(${dx}px, ${dy}px) rotate(${rotate * 0.95}deg) scale(1)`,
+              opacity: 1, offset: 0.76,
+              easing: 'cubic-bezier(0.33, 1, 0.68, 1)',
+            },
+            {
+              // Second bounce peak
+              transform: `translate(${dx}px, ${dy - bounce2}px) rotate(${rotate * 0.97}deg) scale(1)`,
+              opacity: 1, offset: 0.86,
+              easing: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)',
+            },
+            {
+              // Final rest
               transform: `translate(${dx}px, ${dy}px) rotate(${rotate}deg) scale(1)`,
               opacity: 1, offset: 1,
             },
