@@ -127,7 +127,7 @@
   pointer-events: none;
   transition: opacity 0.45s ease;
 }
-.pw-gate--role-step .reset-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+/* Reset button stays visible on selector screen — hidden only when letters start falling */
 
 /* Inner becomes side-by-side: intro left, role picker right */
 .pw-gate--role-step .pw-inner {
@@ -2987,10 +2987,21 @@ a.spotify-tile {
   .hero-logo svg { height: 72px; }
 
   /* ── Role picker: stack below intro on mobile ── */
+  .pw-gate--role-step {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding-top: 48px;
+  }
   .pw-gate--role-step .pw-inner {
     flex-direction: column;
-    gap: 40px;
+    gap: 32px;
     align-items: flex-start;
+    min-height: auto;
+  }
+
+  /* ── Recruiter panel: match hiring manager padding on mobile ── */
+  .recruiter-panel {
+    padding: 28px 20px 80px 20px;
   }
 
   /* ── Tab bar — accounts for iPhone home indicator ── */
