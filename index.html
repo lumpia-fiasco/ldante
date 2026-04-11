@@ -16,33 +16,34 @@
   <div class="pw-gate" id="pwGate">
     <div class="pw-inner" id="landingInner">
 
-      <div class="hero-logo" id="heroLogo" role="img" aria-label="LDG Logo">
-        <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <polygon fill="currentColor" points="36 432 221.36 432 36 27.57 36 432"/>
-          <path fill="currentColor" d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
-          <path fill="currentColor" d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21,0,13.96,1.41,27.59,4.11,40.75,1.01,4.94,2.2,9.81,3.56,14.61,1.82,6.4,3.94,12.67,6.36,18.79,8.45,21.43,20.45,41.07,35.28,58.19,2.12,2.45,4.3,4.84,6.53,7.18,2.23,2.34,4.52,4.63,6.86,6.86,2.34,2.23,4.74,4.41,7.18,6.53,4.89,4.24,9.99,8.24,15.27,12,11.89,8.46,24.74,15.66,38.35,21.42,3.02,1.28,6.09,2.49,9.18,3.62,21.68,7.94,45.1,12.27,69.53,12.27,111.68,0,202.21-90.53,202.21-202.21h-202.21Z"/>
-        </svg>
-      </div>
+      <div class="pw-intro">
+        <div class="hero-logo" id="heroLogo" role="img" aria-label="LDG Logo">
+          <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon fill="currentColor" points="36 432 221.36 432 36 27.57 36 432"/>
+            <path fill="currentColor" d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
+            <path fill="currentColor" d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21,0,13.96,1.41,27.59,4.11,40.75,1.01,4.94,2.2,9.81,3.56,14.61,1.82,6.4,3.94,12.67,6.36,18.79,8.45,21.43,20.45,41.07,35.28,58.19,2.12,2.45,4.3,4.84,6.53,7.18,2.23,2.34,4.52,4.63,6.86,6.86,2.34,2.23,4.74,4.41,7.18,6.53,4.89,4.24,9.99,8.24,15.27,12,11.89,8.46,24.74,15.66,38.35,21.42,3.02,1.28,6.09,2.49,9.18,3.62,21.68,7.94,45.1,12.27,69.53,12.27,111.68,0,202.21-90.53,202.21-202.21h-202.21Z"/>
+          </svg>
+        </div>
 
-      <p class="hero-tagline">I design systems.<br>I build design systems too.</p>
-      <p class="hero-desc">I'm currently building a platform that explores the relationships between customer and business — intelligently.</p>
+        <p class="hero-tagline">I design systems.<br>I build design systems too.</p>
+        <p class="hero-desc">I'm currently building a platform that explores the relationships between customer and business — intelligently.</p>
 
-      <div class="pw-input-wrap" id="pwInputWrap">
-        <input
-          class="pw-input"
-          id="pwInput"
-          type="password"
-          placeholder="password"
-          autocomplete="new-password"
-          spellcheck="false"
-          maxlength="40"
-          aria-label="Password"
-        >
-        <button class="pw-enter-btn" id="pwEnterBtn" type="button">Enter</button>
+        <div class="pw-input-wrap" id="pwInputWrap">
+          <input
+            class="pw-input"
+            id="pwInput"
+            type="password"
+            placeholder="password"
+            autocomplete="new-password"
+            spellcheck="false"
+            maxlength="40"
+            aria-label="Password"
+          >
+          <button class="pw-enter-btn" id="pwEnterBtn" type="button">Enter</button>
+        </div>
       </div>
 
       <div class="pw-role-picker" id="pwRolePicker" hidden>
-        <p class="pw-role-greeting">Oh hi! Welcome!</p>
         <p class="pw-role-sub">You are a:</p>
         <div class="pw-role-btns">
           <button class="pw-role-btn" data-role="recruiter" type="button">Recruiter</button>
@@ -1133,14 +1134,12 @@
         return el.querySelectorAll('.float-letter');
       }
 
-      // Gather groups: greeting, sub, each button
+      // Gather groups: sub text, each button
       const groups = [];
-      const greeting = document.querySelector('.pw-role-greeting');
       const sub      = document.querySelector('.pw-role-sub');
       const btns     = document.querySelectorAll('.pw-role-btn');
 
-      if (greeting) groups.push({ list: splitIntoLetters(greeting), baseDelay: 0 });
-      if (sub)      groups.push({ list: splitIntoLetters(sub),      baseDelay: 80 });
+      if (sub)      groups.push({ list: splitIntoLetters(sub),      baseDelay: 0 });
       btns.forEach((btn, i) => {
         groups.push({ list: splitIntoLetters(btn), baseDelay: 140 + i * 60 });
       });
@@ -1217,9 +1216,8 @@
       function showRolePicker(experience) {
         sessionStorage.setItem('pw-auth', '1');
         sessionStorage.setItem('portfolio-experience', experience || 'standard');
-        // Push letters + password off-screen, reveal role picker full-viewport
+        // Fade out password field, show role picker on the right
         gate.classList.add('pw-gate--role-step');
-        inputWrap.hidden = true;
         rolePicker.hidden = false;
       }
 

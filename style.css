@@ -56,6 +56,16 @@
   max-width: 640px;
 }
 
+/* ─── Intro wrapper (left column on role step) ─── */
+.pw-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  max-width: 640px;
+  width: 100%;
+}
+
 .pw-input-wrap {
   display: flex;
   align-items: stretch;
@@ -111,46 +121,37 @@
 
 /* ─── Role picker (shown after password success) ─── */
 
-/* When role-step is active, the letters + password push off-screen and
-   the role picker takes over the full viewport. */
-.pw-gate--role-step .hero-logo,
-.pw-gate--role-step .hero-tagline,
-.pw-gate--role-step .hero-desc,
+/* Password field fades out; intro content stays visible */
 .pw-gate--role-step .pw-input-wrap {
-  animation: pushUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 0.45s ease;
 }
-.pw-gate--role-step .hero-tagline { animation-delay: 0.05s; }
-.pw-gate--role-step .hero-desc    { animation-delay: 0.10s; }
-.pw-gate--role-step .pw-input-wrap { animation-delay: 0.15s; }
 .pw-gate--role-step .reset-btn { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 
-@keyframes pushUp {
-  to { transform: translateY(-140px); opacity: 0; height: 0; margin: 0; padding: 0; overflow: hidden; }
-}
-
+/* Inner becomes side-by-side: intro left, role picker right */
 .pw-gate--role-step .pw-inner {
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  max-width: none;
+  gap: 80px;
   min-height: 100%;
 }
 
+.pw-gate--role-step .pw-intro {
+  flex: 1;
+  min-width: 0;
+}
+
 .pw-role-picker {
-  animation: rolePickerIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+  flex: 1;
+  min-width: 0;
+  animation: rolePickerIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 
 @keyframes rolePickerIn {
-  from { opacity: 0; transform: translateY(32px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.pw-role-greeting {
-  font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(3rem, 5vw, 5rem);
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.95);
-  letter-spacing: -0.03em;
-  line-height: 1;
-  margin: 0 0 12px 0;
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 .pw-role-sub {
@@ -163,8 +164,8 @@
 
 .pw-role-btns {
   display: flex;
+  flex-direction: column;
   gap: 16px;
-  flex-wrap: wrap;
 }
 
 .pw-role-btn {
@@ -299,7 +300,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #1f1f1f;
+  background: #0f172a;
   padding: 16px 60px;
   height: 80px;
   flex-shrink: 0;
@@ -2984,6 +2985,13 @@ a.spotify-tile {
   .pw-gate { padding: 48px 20px; }
   .hero-logo { height: 72px; }
   .hero-logo svg { height: 72px; }
+
+  /* ── Role picker: stack below intro on mobile ── */
+  .pw-gate--role-step .pw-inner {
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+  }
 
   /* ── Tab bar — accounts for iPhone home indicator ── */
   .mob-tabs {
