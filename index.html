@@ -1272,7 +1272,31 @@
         }
       }
 
-      if (sessionStorage.getItem('pw-auth') === '1') {
+      // ── URL parameter auto-unlock (?p=password) ──────────────────────────
+      // Lets you share a direct-access link like ldante.com?p=yourpassword
+      // so recruiters land straight on the role picker with zero friction.
+      const urlPw = new URLSearchParams(window.location.search).get('p');
+      if (urlPw) {
+        // Strip the ?p= from the URL so it's not visible / bookmark-able
+        window.history.replaceState({}, '', window.location.pathname);
+        (async () => {
+          try {
+            const res = await fetch('/api/auth', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ password: urlPw }),
+            });
+            const data = await res.json();
+            if (data.ok) {
+              showRolePicker(data.experience);
+            } else {
+              setTimeout(() => input.focus(), 100);
+            }
+          } catch {
+            setTimeout(() => input.focus(), 100);
+          }
+        })();
+      } else if (sessionStorage.getItem('pw-auth') === '1') {
         gate.style.display = 'none';
         // Defer so the rest of the script finishes initialising (avoids
         // temporal-dead-zone errors from let/const variables declared later).
