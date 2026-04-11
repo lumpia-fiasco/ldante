@@ -25,7 +25,7 @@
           </svg>
         </div>
 
-        <p class="hero-tagline">I design systems.<br>I build design systems too.</p>
+        <p class="hero-tagline">I design systems.</p>
         <p class="hero-desc">I'm currently building a platform that explores the relationships between customer and business — intelligently.</p>
 
         <div class="pw-input-wrap" id="pwInputWrap">
@@ -994,8 +994,8 @@
         { list: descLetters,    baseDelay: 130 },
       ];
 
-      // Where the bottom of the pile sits (small margin from the viewport bottom)
-      const FLOOR_BASE = window.innerHeight - 36;
+      // Where the bottom of the pile sits (flush with viewport bottom)
+      const FLOOR_BASE = window.innerHeight;
 
       letterGroups.forEach((group, gi) => {
         group.list.forEach((letter, li) => {
@@ -1108,7 +1108,7 @@
     function popRolePickerLetters(callback) {
       const POP_DUR = 110;
       let longest = 0;
-      const FLOOR_BASE = window.innerHeight - 36;
+      const FLOOR_BASE = window.innerHeight;
 
       // Split an element's text content into individual .float-letter spans
       function splitIntoLetters(el) {
