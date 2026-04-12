@@ -3603,7 +3603,7 @@
       const colW = (W - GAP * (cols - 1)) / cols;
       const colH = new Array(cols).fill(0);
 
-      const items = Array.from(stack.children);
+      const items = Array.from(stack.children).filter(el => el.style.display !== 'none');
 
       // Kill transitions while measuring
       items.forEach(item => {
