@@ -2988,6 +2988,24 @@ a.spotify-tile {
 .sky-dark .portfolio-view .chat-input::placeholder { color: rgba(31, 31, 31, 0.4); }
 .sky-dark .portfolio-view .chat-input:focus { border-color: rgba(31, 31, 31, 0.4); background: #ffffff; }
 
+/* ─── Netflix: override sky-dark portfolio-view chat forced colors ─── */
+body[data-experience="netflix"] .portfolio-view .chat-rail        { background: #1a1a1a; border-left-color: rgba(255, 255, 255, 0.08); }
+body[data-experience="netflix"] .portfolio-view .name-question    { color: #ffffff; }
+body[data-experience="netflix"] .portfolio-view .name-input       { color: #ffffff; border-bottom-color: rgba(255, 255, 255, 0.25); }
+body[data-experience="netflix"] .portfolio-view .name-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+body[data-experience="netflix"] .portfolio-view .name-hint        { color: rgba(255, 255, 255, 0.55); }
+body[data-experience="netflix"] .portfolio-view .name-send-btn    { background: #E50914; }
+body[data-experience="netflix"] .portfolio-view .name-send-btn:hover { background: #b20710; }
+body[data-experience="netflix"] .portfolio-view .msg-text         { color: #ffffff; }
+body[data-experience="netflix"] .portfolio-view .msg--user .msg-text { color: #ffffff; background: rgba(255, 255, 255, 0.14); }
+body[data-experience="netflix"] .portfolio-view .msg-dot-wrap span { background: rgba(255, 255, 255, 0.4); }
+body[data-experience="netflix"] .portfolio-view .rail-input-wrap  { background: #2d2d2d; border-top-color: rgba(255, 255, 255, 0.08); }
+body[data-experience="netflix"] .portfolio-view .chat-input       { color: #ffffff; background: #3d3d3d; border-color: rgba(255, 255, 255, 0.15); }
+body[data-experience="netflix"] .portfolio-view .chat-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+body[data-experience="netflix"] .portfolio-view .chat-input:focus { background: #4a4a4a; border-color: rgba(255, 255, 255, 0.3); }
+body[data-experience="netflix"] .portfolio-view .chat-send-btn    { background: #E50914; color: #ffffff; }
+body[data-experience="netflix"] .portfolio-view .chat-send-btn:hover { background: #b20710; }
+
 /* ─── Mobile/tablet tab bar (hidden on desktop) ─── */
 .mob-tabs { display: none; }
 
@@ -3256,6 +3274,18 @@ a.spotify-tile {
     border-top-color: rgba(31, 31, 31, 0.08);
     background: rgba(255, 255, 255, 0.4);
   }
+
+  /* ── Netflix mobile: override forced-dark-text chat styles ── */
+  body[data-experience="netflix"] .chat-rail { background: #1a1a1a; }
+  body[data-experience="netflix"] .name-question,
+  body[data-experience="netflix"] .name-hint { color: #ffffff; }
+  body[data-experience="netflix"] .name-input { color: #ffffff; border-bottom-color: rgba(255, 255, 255, 0.25); }
+  body[data-experience="netflix"] .name-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+  body[data-experience="netflix"] .name-input:focus { border-bottom-color: rgba(255, 255, 255, 0.6); }
+  body[data-experience="netflix"] .msg-text { color: #ffffff; }
+  body[data-experience="netflix"] .msg--user .msg-text { color: #ffffff; background: rgba(255, 255, 255, 0.14); }
+  body[data-experience="netflix"] .msg-dot-wrap span { background: rgba(255, 255, 255, 0.4); }
+  body[data-experience="netflix"] .rail-input-wrap { background: #2d2d2d; border-top-color: rgba(255, 255, 255, 0.08); }
 }
 
 /* ─── Custom right-click context menu ─── */
