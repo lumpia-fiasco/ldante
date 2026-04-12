@@ -15,6 +15,7 @@ export default function handler(req, res) {
     [process.env.PW_CREATIVE]:       'creative',
     [process.env.PW_MOBILE]:         'mobile',
     [process.env.PW_LATTICE]:        'lattice',
+    [process.env.PW_NETFLIX]:        'netflix',
   };
 
   const experience = map[password];

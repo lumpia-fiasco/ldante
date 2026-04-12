@@ -1601,6 +1601,12 @@
         return;
       }
 
+      // ── Netflix experience ─────────────────────────────────────────
+      if (exp === 'netflix') {
+        // Theme is handled entirely via CSS scoped to body[data-experience="netflix"]
+        return;
+      }
+
       // For non-standard experiences, hide cases that aren't relevant.
       // Populate these arrays once the experiences have defined content.
       const EXPERIENCE_CASES = {

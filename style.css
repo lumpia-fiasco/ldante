@@ -3376,3 +3376,365 @@ a.spotify-tile {
 .ctx-toast-close:hover {
   color: #ffffff;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   NETFLIX EXPERIENCE THEME
+   Scoped entirely to body[data-experience="netflix"].
+   Every other experience is unaffected.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Core surfaces ─── */
+body[data-experience="netflix"] .portfolio-view {
+  background: #141414;
+}
+
+body[data-experience="netflix"] .case-list-panel {
+  background: #141414;
+}
+
+body[data-experience="netflix"] .case-detail-panel {
+  background: #141414;
+}
+
+/* ─── Brass Tacks / about section ─── */
+body[data-experience="netflix"] .about-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .about-lede {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+body[data-experience="netflix"] .about-desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ─── Cases heading ─── */
+body[data-experience="netflix"] .cases-heading {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ─── Case cards — darken backgrounds, keep text white ─── */
+body[data-experience="netflix"] .case-card-v {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+body[data-experience="netflix"] .case-study-badge {
+  background: #E50914;
+}
+
+/* ─── Thought tiles ─── */
+body[data-experience="netflix"] .thought-tile {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Case detail interior ─── */
+body[data-experience="netflix"] .cd-company {
+  color: #E50914;
+}
+
+body[data-experience="netflix"] .cd-headline {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .cd-intro {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+body[data-experience="netflix"] .cd-body {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+body[data-experience="netflix"] .cs-section-num {
+  color: #E50914;
+}
+
+body[data-experience="netflix"] .cs-section-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .cs-section-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Callouts & reflections ─── */
+body[data-experience="netflix"] .cs-callout {
+  background: rgba(229, 9, 20, 0.06);
+  border-color: rgba(229, 9, 20, 0.25);
+}
+
+body[data-experience="netflix"] .cs-callout-label {
+  color: #E50914;
+}
+
+body[data-experience="netflix"] .cs-reflection {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-experience="netflix"] .cs-reflection-title {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ─── Tradeoff cards ─── */
+body[data-experience="netflix"] .cs-tradeoff-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-experience="netflix"] .cs-tradeoff-card.chosen {
+  border-color: rgba(229, 9, 20, 0.5);
+  background: rgba(229, 9, 20, 0.08);
+}
+
+body[data-experience="netflix"] .cs-tc-label,
+body[data-experience="netflix"] .cs-tradeoff-label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+body[data-experience="netflix"] .cs-tc-title,
+body[data-experience="netflix"] .cs-tradeoff-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .cs-tc-body,
+body[data-experience="netflix"] .cs-tradeoff-body {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body[data-experience="netflix"] .cs-chosen-badge {
+  background: #E50914;
+  color: #ffffff;
+}
+
+/* ─── Outcome rows ─── */
+body[data-experience="netflix"] .cs-outcome-num {
+  color: #E50914;
+}
+
+body[data-experience="netflix"] .cs-od-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .cs-od-body {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ─── Finding blocks ─── */
+body[data-experience="netflix"] .finding-tag {
+  background: rgba(229, 9, 20, 0.12);
+  color: #E50914;
+}
+
+body[data-experience="netflix"] .finding-body {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+body[data-experience="netflix"] .finding-row {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Sprint blocks ─── */
+body[data-experience="netflix"] .sprint-label {
+  color: #E50914;
+}
+
+body[data-experience="netflix"] .sprint-body {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+body[data-experience="netflix"] .sprint-row {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Pull quotes ─── */
+body[data-experience="netflix"] .cs-pull-quote {
+  border-left-color: #E50914;
+}
+
+body[data-experience="netflix"] .cs-pull-quote-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+body[data-experience="netflix"] .cs-pull-quote-attr {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Hypothesis blocks ─── */
+body[data-experience="netflix"] .cs-hyp-body {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ─── Workflow rows ─── */
+body[data-experience="netflix"] .workflow-step {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .workflow-body {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body[data-experience="netflix"] .workflow-row {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Screenshot frames ─── */
+body[data-experience="netflix"] .cd-screenshot-frame span {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Metrics bar ─── */
+body[data-experience="netflix"] .cs-metrics {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body[data-experience="netflix"] .cs-metric-val {
+  color: #E50914;
+}
+
+body[data-experience="netflix"] .cs-metric-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ─── Back button ─── */
+body[data-experience="netflix"] .back-to-list {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+body[data-experience="netflix"] .back-to-list:hover {
+  color: #ffffff;
+}
+
+/* ─── Chat rail ─── */
+body[data-experience="netflix"] .chat-rail {
+  background: #1a1a1a;
+  border-left-color: rgba(255, 255, 255, 0.08);
+}
+
+body[data-experience="netflix"] .chat-input {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body[data-experience="netflix"] .chat-input:focus {
+  border-color: #E50914;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.15);
+}
+
+body[data-experience="netflix"] .chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ─── Fit panel ─── */
+body[data-experience="netflix"] .fit-panel {
+  background: #141414;
+}
+
+body[data-experience="netflix"] .fit-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .fit-desc {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body[data-experience="netflix"] .fit-textarea {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body[data-experience="netflix"] .fit-textarea:focus {
+  border-color: #E50914;
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.15);
+}
+
+body[data-experience="netflix"] .fit-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+body[data-experience="netflix"] .fit-assess-btn {
+  background: #E50914;
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .fit-assess-btn:hover {
+  background: #b20710;
+}
+
+body[data-experience="netflix"] .fit-char-row {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+body[data-experience="netflix"] .fit-btn {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+body[data-experience="netflix"] .fit-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Recruiter panel ─── */
+body[data-experience="netflix"] .recruiter-panel {
+  background: #141414;
+}
+
+body[data-experience="netflix"] .recruiter-heading {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .recruiter-desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+body[data-experience="netflix"] .recruiter-cta-btn {
+  background: #E50914;
+  border-color: #E50914;
+}
+
+body[data-experience="netflix"] .recruiter-cta-btn:hover {
+  background: #b20710;
+}
+
+/* ─── Mobile tabs ─── */
+body[data-experience="netflix"] .mob-tabs {
+  background: rgba(20, 20, 20, 0.95);
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+body[data-experience="netflix"] .mob-tab {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+body[data-experience="netflix"] .mob-tab.mob-tab--active {
+  color: #E50914;
+}
+
+/* ─── Scrollbar styling ─── */
+body[data-experience="netflix"] .case-list-panel::-webkit-scrollbar-track,
+body[data-experience="netflix"] .case-detail-panel::-webkit-scrollbar-track,
+body[data-experience="netflix"] .fit-panel::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+body[data-experience="netflix"] .case-list-panel::-webkit-scrollbar-thumb,
+body[data-experience="netflix"] .case-detail-panel::-webkit-scrollbar-thumb,
+body[data-experience="netflix"] .fit-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+body[data-experience="netflix"] .case-list-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="netflix"] .case-detail-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="netflix"] .fit-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ─── Override sky-dark portfolio-view forced colors ─── */
+body[data-experience="netflix"].sky-dark .portfolio-view .about-title { color: #ffffff; }
+body[data-experience="netflix"].sky-dark .portfolio-view .about-lede  { color: rgba(255, 255, 255, 0.92); }
+body[data-experience="netflix"].sky-dark .portfolio-view .about-desc  { color: rgba(255, 255, 255, 0.65); }
+body[data-experience="netflix"].sky-dark .portfolio-view .cases-heading { color: rgba(255, 255, 255, 0.8); }
+body[data-experience="netflix"].sky-dark .portfolio-view .fit-btn { color: rgba(255, 255, 255, 0.7); }
