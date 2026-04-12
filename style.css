@@ -3784,6 +3784,46 @@ body[data-experience="netflix"] .fit-btn:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
+body[data-experience="netflix"] .fit-clear-btn {
+  color: rgba(255, 255, 255, 0.5);
+}
+body[data-experience="netflix"] .fit-clear-btn:hover {
+  color: #ffffff;
+}
+
+/* Loading dots */
+body[data-experience="netflix"] .fit-loading span {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Results */
+body[data-experience="netflix"] .fit-headline {
+  color: #ffffff;
+}
+body[data-experience="netflix"] .fit-rationale {
+  color: rgba(255, 255, 255, 0.72);
+}
+body[data-experience="netflix"] .fit-section-label {
+  color: rgba(255, 255, 255, 0.4);
+}
+body[data-experience="netflix"] .fit-list li {
+  color: rgba(255, 255, 255, 0.8);
+}
+body[data-experience="netflix"] .fit-list--strengths li::before {
+  color: #46d369;
+}
+body[data-experience="netflix"] .fit-list--considerations li::before {
+  color: rgba(255, 255, 255, 0.4);
+}
+body[data-experience="netflix"] .fit-case-link {
+  color: #E50914;
+  background: rgba(229, 9, 20, 0.08);
+  border-color: rgba(229, 9, 20, 0.25);
+}
+body[data-experience="netflix"] .fit-case-link:hover {
+  background: rgba(229, 9, 20, 0.14);
+}
+
 /* ─── Recruiter panel ─── */
 body[data-experience="netflix"] .recruiter-panel {
   background: #141414;
@@ -3860,6 +3900,37 @@ body[data-experience="netflix"] .recruiter-fit .fit-assess-btn {
 
 body[data-experience="netflix"] .recruiter-fit .fit-assess-btn:hover {
   background: #b20710;
+}
+
+/* Recruiter fit results */
+body[data-experience="netflix"] .recruiter-fit .fit-loading span {
+  background: rgba(255, 255, 255, 0.3);
+}
+body[data-experience="netflix"] .recruiter-fit .fit-headline {
+  color: #ffffff;
+}
+body[data-experience="netflix"] .recruiter-fit .fit-rationale {
+  color: rgba(255, 255, 255, 0.72);
+}
+body[data-experience="netflix"] .recruiter-fit .fit-section-label {
+  color: rgba(255, 255, 255, 0.4);
+}
+body[data-experience="netflix"] .recruiter-fit .fit-list li {
+  color: rgba(255, 255, 255, 0.8);
+}
+body[data-experience="netflix"] .recruiter-fit .fit-list--strengths li::before {
+  color: #46d369;
+}
+body[data-experience="netflix"] .recruiter-fit .fit-list--considerations li::before {
+  color: rgba(255, 255, 255, 0.4);
+}
+body[data-experience="netflix"] .recruiter-fit .fit-case-link {
+  color: #E50914;
+  background: rgba(229, 9, 20, 0.08);
+  border-color: rgba(229, 9, 20, 0.25);
+}
+body[data-experience="netflix"] .recruiter-fit .fit-case-link:hover {
+  background: rgba(229, 9, 20, 0.14);
 }
 
 body[data-experience="netflix"] .recruiter-cta {
