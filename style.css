@@ -3457,16 +3457,39 @@ body[data-experience="netflix"] .cs-section-header {
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
-/* ─── Callouts & reflections ─── */
+/* ─── Meta row (Role / Scope / Timeline) ─── */
+body[data-experience="netflix"] .cs-meta-row {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-experience="netflix"] .cs-meta-label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+body[data-experience="netflix"] .cs-meta-val {
+  color: #ffffff;
+}
+
+/* ─── Callouts — resolution (default) = blue, problem = red ─── */
 body[data-experience="netflix"] .cs-callout {
-  background: rgba(229, 9, 20, 0.06);
-  border-color: rgba(229, 9, 20, 0.25);
+  background: rgba(74, 144, 217, 0.08);
+  border-color: rgba(74, 144, 217, 0.35);
 }
 
 body[data-experience="netflix"] .cs-callout-label {
+  color: #4A90D9;
+}
+
+body[data-experience="netflix"] .cs-callout--problem {
+  background: rgba(229, 9, 20, 0.08);
+  border-color: rgba(229, 9, 20, 0.35);
+}
+
+body[data-experience="netflix"] .cs-callout--problem .cs-callout-label {
   color: #E50914;
 }
 
+/* ─── Reflections ─── */
 body[data-experience="netflix"] .cs-reflection {
   background: rgba(255, 255, 255, 0.04);
   border-color: rgba(255, 255, 255, 0.1);
@@ -3519,7 +3542,7 @@ body[data-experience="netflix"] .cs-chosen-badge {
 
 /* ─── Outcome rows ─── */
 body[data-experience="netflix"] .cs-outcome-num {
-  color: #E50914;
+  color: #46d369;
 }
 
 body[data-experience="netflix"] .cs-od-title {
@@ -3567,7 +3590,11 @@ body[data-experience="netflix"] .cs-pull-quote-text {
 }
 
 body[data-experience="netflix"] .cs-pull-quote-attr {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+body[data-experience="netflix"] .cs-pull-quote-attr strong {
+  color: #ffffff;
 }
 
 /* ─── Hypothesis blocks ─── */
@@ -3600,7 +3627,7 @@ body[data-experience="netflix"] .cs-metrics {
 }
 
 body[data-experience="netflix"] .cs-metric-val {
-  color: #E50914;
+  color: #46d369;
 }
 
 body[data-experience="netflix"] .cs-metric-label {
@@ -3633,28 +3660,42 @@ body[data-experience="netflix"] .chat-rail {
 }
 
 body[data-experience="netflix"] .msg-text {
-  color: rgba(255, 255, 255, 0.92);
+  color: #ffffff;
 }
 
 body[data-experience="netflix"] .msg--user .msg-text {
-  color: rgba(255, 255, 255, 0.92);
-  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+body[data-experience="netflix"] .rail-input-wrap {
+  background: #2d2d2d;
+  border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 body[data-experience="netflix"] .chat-input {
-  background: rgba(255, 255, 255, 0.88);
-  color: #141414;
-  border-color: rgba(255, 255, 255, 0.5);
+  background: #3d3d3d;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 body[data-experience="netflix"] .chat-input:focus {
-  background: #ffffff;
-  border-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+  background: #4a4a4a;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
 }
 
 body[data-experience="netflix"] .chat-input::placeholder {
-  color: rgba(20, 20, 20, 0.45);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+body[data-experience="netflix"] .chat-send-btn {
+  background: #E50914;
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .chat-send-btn:hover {
+  background: #b20710;
 }
 
 /* ─── Fit panel ─── */
