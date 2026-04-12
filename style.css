@@ -3413,6 +3413,11 @@ body[data-experience="netflix"] .portfolio-view .chat-send-btn:hover { backgroun
    Every other experience is unaffected.
    ═══════════════════════════════════════════════════════════════════ */
 
+/* ─── Header ─── */
+body[data-experience="netflix"] .site-header {
+  background: #000000;
+}
+
 /* ─── Core surfaces ─── */
 body[data-experience="netflix"] .portfolio-view {
   background: #141414;
@@ -3742,18 +3747,19 @@ body[data-experience="netflix"] .fit-desc {
 }
 
 body[data-experience="netflix"] .fit-textarea {
-  background: rgba(255, 255, 255, 0.06);
+  background: #3d3d3d;
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 body[data-experience="netflix"] .fit-textarea:focus {
-  border-color: #E50914;
-  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.15);
+  background: #4a4a4a;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
 }
 
 body[data-experience="netflix"] .fit-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.35);
 }
 
 body[data-experience="netflix"] .fit-assess-btn {
@@ -3783,20 +3789,93 @@ body[data-experience="netflix"] .recruiter-panel {
   background: #141414;
 }
 
-body[data-experience="netflix"] .recruiter-heading {
+body[data-experience="netflix"] .recruiter-card {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-experience="netflix"] .recruiter-name {
   color: #ffffff;
 }
 
-body[data-experience="netflix"] .recruiter-desc {
-  color: rgba(255, 255, 255, 0.65);
+body[data-experience="netflix"] .recruiter-role {
+  color: rgba(255, 255, 255, 0.7);
 }
 
-body[data-experience="netflix"] .recruiter-cta-btn {
+body[data-experience="netflix"] .recruiter-meta {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+body[data-experience="netflix"] .recruiter-exp-label {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+body[data-experience="netflix"] .recruiter-cases {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-experience="netflix"] .recruiter-cases-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .recruiter-fit-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .recruiter-fit-desc {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body[data-experience="netflix"] .recruiter-fit .fit-textarea {
+  background: #3d3d3d;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+body[data-experience="netflix"] .recruiter-fit .fit-textarea:focus {
+  background: #4a4a4a;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+body[data-experience="netflix"] .recruiter-fit .fit-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+body[data-experience="netflix"] .recruiter-fit .fit-char-row {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+body[data-experience="netflix"] .recruiter-fit .fit-clear-btn {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+body[data-experience="netflix"] .recruiter-fit .fit-clear-btn:hover {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .recruiter-fit .fit-assess-btn {
   background: #E50914;
-  border-color: #E50914;
+  color: #ffffff;
 }
 
-body[data-experience="netflix"] .recruiter-cta-btn:hover {
+body[data-experience="netflix"] .recruiter-fit .fit-assess-btn:hover {
+  background: #b20710;
+}
+
+body[data-experience="netflix"] .recruiter-cta {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+body[data-experience="netflix"] .recruiter-cta-title {
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .recruiter-book-btn {
+  background: #E50914;
+  color: #ffffff;
+}
+
+body[data-experience="netflix"] .recruiter-book-btn:hover {
   background: #b20710;
 }
 
