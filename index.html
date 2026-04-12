@@ -236,6 +236,18 @@
               </article>
             </div>
 
+            <!-- ─── Rippling POV (only visible in rippling experience) ─── -->
+            <div class="case-item case-item--thought case-item--rippling-pov" data-thought="financial-platforms-systems-problems" role="button" tabindex="0" aria-label="Read Why financial platforms are systems problems" style="display:none">
+              <article class="thought-tile thought-tile--pov thought-tile--rippling-pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--rippling"></div>
+                <span class="thought-tile-badge">Point of View</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Why financial platforms are systems problems</h3>
+                  <p class="thought-tile-desc">On fragmentation, dual personas, and what payroll across 90+ companies taught me about designing for money that moves.</p>
+                </div>
+              </article>
+            </div>
+
             <!-- ─── Thoughts (articles) ─── -->
             <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0" aria-label="Read Charlie Murphy's Law">
               <article class="thought-tile">
@@ -1607,6 +1619,25 @@
       // ── Netflix experience ─────────────────────────────────────────
       if (exp === 'netflix') {
         // Theme is handled entirely via CSS scoped to body[data-experience="netflix"]
+        return;
+      }
+
+      // ── Rippling experience ────────────────────────────────────────
+      if (exp === 'rippling') {
+        // Show the POV thought tile (hidden by default)
+        const povTile = document.querySelector('.case-item--rippling-pov');
+        if (povTile) povTile.style.display = '';
+
+        // Pre-fill both fit assessment textareas with the Rippling JD
+        const jdText = 'Product Design Lead, Finance\nRippling\n\nSet the vision for Rippling\u2019s Spend Management Platform and drive it from concept to shipped reality. Lead design for cards, expenses, bill pay, procurement, travel, and reporting. Create experiences that feel effortless for employees and powerful enough for global finance teams. Define patterns that scale from one-person startup to 10,000-person company.\n\n6\u20138+ years shipping complex, high-impact products. Portfolio showing ambiguous problems turned into simple workflows. Strong interaction and visual design craft. Relentless customer focus. Excellent communication and storytelling. Track record with Product and Engineering in fast-moving environments.';
+        ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+          const ta = document.getElementById(id);
+          if (ta) {
+            ta.value = jdText;
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        });
+
         return;
       }
 
@@ -3143,6 +3174,61 @@
               'I think in systems before I think in screens. I care about governance as much as I care about components. I\u2019ve shipped systems that achieved full adoption not because they were mandated, but because they were genuinely better than the alternative.',
               'And I believe the best design systems are culture \u2014 a shared language that lets teams build coherently without coordinating on every detail.',
               'That\u2019s the kind of work I\u2019m built for.',
+            ],
+          },
+        ],
+      },
+
+      'financial-platforms-systems-problems': {
+        kicker: 'Point of View',
+        title:  'Why financial platforms are systems problems',
+        dek: 'On fragmentation, dual personas, and what payroll across 90+ companies taught me about designing for money that moves.',
+        sections: [
+          {
+            paragraphs: [
+              'Financial products tend to start as individual tools. A card program here, an expense workflow there, bill pay in one system, travel booking in another. Each one solves its slice well enough. But the moment you try to connect them, the seams show.',
+              'I\u2019ve spent the last few years designing platforms where financial data sits at the center. The pattern keeps repeating: the design problem that matters most lives in the connections between surfaces.',
+            ],
+          },
+          {
+            heading: 'Fragmentation is the default',
+            paragraphs: [
+              'Most companies run their spend across five or six tools. Each tool has its own data model, its own approval flow, its own reporting structure. Finance teams spend hours reconciling across systems because the data was never meant to talk.',
+              'At Teamshares, I saw this firsthand. Payroll data lived in disparate systems across 90+ companies. Industry Leads had no centralized visibility into payroll health. Analyses were delayed three to five days by manual processes. The original ask was to make reports easier to generate, but through discovery we found the data architecture couldn\u2019t support real-time visibility at scale.',
+              'We reframed the project from "better reports" to "centralized visibility." That reframe changed every design decision downstream, and the result was a 50% increase in team productivity and 135 hours saved per cycle.',
+              'When you solve for the connections first, the individual surfaces get simpler. Data flows through instead of getting stuck at the boundaries.',
+            ],
+          },
+          {
+            heading: 'Two users, one workflow',
+            paragraphs: [
+              'The hardest tension in financial platform design is that every workflow serves two users with opposing needs. The employee wants speed and minimal friction. The finance team wants control, compliance, and audit trails. Both are right.',
+              'The temptation is to optimize for one and tolerate the other. The strongest financial products encode the tension into the system itself. Policies apply automatically so employees don\u2019t need to think about compliance and finance teams don\u2019t need to chase approvals.',
+              'At Teamshares, the payroll reporting work served both audiences through the same underlying system. Network Company operators got simple visibility into their own data. Industry Leads got aggregated views across all 90+ companies. The experience adapted to the role. The infrastructure was shared.',
+              'That pattern scales across every financial domain. Cards, expenses, travel, bill pay, procurement. Each has its own version of the employee-versus-admin tension. The design work is figuring out where the policy layer lives and making it invisible to the person who just needs to get something done.',
+            ],
+          },
+          {
+            heading: 'Policy is invisible design',
+            paragraphs: [
+              'In financial products, the policy layer is where the real design lives. Approval routing, spending limits, compliance rules, budget controls. These decisions shape whether a product feels effortless or adversarial.',
+              'Good policy design means the employee rarely encounters a wall. The guardrails are built into the workflow so that by the time they submit something, it\u2019s already compliant. The finance team gets clean data because the system enforced the rules upstream.',
+              'This is systems thinking applied to money. Before you design any screen, you map the policy logic. Who can approve what, up to what amount, under what conditions, with what exceptions. Those rules shape every interface decision downstream.',
+            ],
+          },
+          {
+            heading: 'Consumer-grade craft in enterprise complexity',
+            paragraphs: [
+              'Complex doesn\u2019t have to mean complicated. The best B2B financial products feel like consumer apps on the surface while handling enterprise-grade logic underneath.',
+              'At Marketo, the Sky design system achieved 100% adoption across product teams because we treated internal adoption like a product launch. We studied how designers and engineers actually used the system, identified friction points, and designed the DX around their real workflows. Several Sky patterns were later contributed upstream to Adobe\u2019s Spectrum system after the acquisition.',
+              'That same thinking applies to financial platforms. An expense report should feel as easy as texting a photo. A procurement approval should be as clear as a notification. The craft is in making the complexity disappear while keeping the controls accessible for the people who need them.',
+            ],
+          },
+          {
+            heading: 'What I\u2019d bring to a spend platform',
+            paragraphs: [
+              'Unifying fragmented financial domains into a single platform is the exact kind of problem I\u2019ve been solving. At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface and achieved full adoption. At Meroxa, I led a strategic pivot that expanded the addressable market by 10x through rethinking who the product actually served.',
+              'The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural. The payoff for getting the structure right compounds across every surface you ship.',
             ],
           },
         ],

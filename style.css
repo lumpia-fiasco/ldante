@@ -3989,3 +3989,282 @@ body[data-experience="netflix"].sky-dark .portfolio-view .about-lede  { color: r
 body[data-experience="netflix"].sky-dark .portfolio-view .about-desc  { color: rgba(255, 255, 255, 0.65); }
 body[data-experience="netflix"].sky-dark .portfolio-view .cases-heading { color: rgba(255, 255, 255, 0.8); }
 body[data-experience="netflix"].sky-dark .portfolio-view .fit-btn { color: rgba(255, 255, 255, 0.7); }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RIPPLING EXPERIENCE
+   Warm cream surfaces (#F2EEEB), dark plum header (#321B25),
+   yellow CTAs (#FDB71C), berry accents (#7A005D).
+   Scoped entirely to body[data-experience="rippling"].
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Core surfaces ─── */
+body[data-experience="rippling"] .portfolio-view {
+  background: #F2EEEB;
+}
+
+body[data-experience="rippling"] .case-list-panel {
+  background: #F2EEEB;
+}
+
+body[data-experience="rippling"] .case-detail-panel {
+  background: #F2EEEB;
+}
+
+/* ─── Header ─── */
+body[data-experience="rippling"] .site-header {
+  background: #321B25;
+}
+
+/* ─── Case-back fade — cream instead of white ─── */
+body[data-experience="rippling"] .case-back-btn {
+  background: #F2EEEB;
+  box-shadow: 0 12px 20px 8px #F2EEEB;
+}
+
+/* ─── Case cards — white cards on cream ─── */
+body[data-experience="rippling"] .case-card-v {
+  border-color: rgba(50, 27, 37, 0.08);
+}
+
+body[data-experience="rippling"] .case-card-v:hover {
+  border-color: rgba(50, 27, 37, 0.15);
+}
+
+/* ─── Case detail typography ─── */
+body[data-experience="rippling"] .cs-section-num {
+  color: #7A005D;
+}
+
+/* ─── Callouts — problem = plum, resolution = blue ─── */
+body[data-experience="rippling"] .cs-callout {
+  background: rgba(74, 144, 217, 0.07);
+  border-color: rgba(74, 144, 217, 0.3);
+}
+
+body[data-experience="rippling"] .cs-callout-label {
+  color: #4A90D9;
+}
+
+body[data-experience="rippling"] .cs-callout--problem {
+  background: rgba(122, 0, 93, 0.06);
+  border-color: rgba(122, 0, 93, 0.25);
+}
+
+body[data-experience="rippling"] .cs-callout--problem .cs-callout-label {
+  color: #7A005D;
+}
+
+/* ─── Outcome stats — berry ─── */
+body[data-experience="rippling"] .cs-outcome-num {
+  color: #7A005D;
+}
+
+body[data-experience="rippling"] .cs-metric-val {
+  color: #7A005D;
+}
+
+/* ─── Tradeoff chosen — yellow ─── */
+body[data-experience="rippling"] .cs-tradeoff-card.chosen {
+  border-color: rgba(253, 183, 28, 0.5);
+  background: rgba(253, 183, 28, 0.07);
+}
+
+body[data-experience="rippling"] .cs-chosen-badge {
+  background: #FDB71C;
+  color: #321B25;
+}
+
+/* ─── Chat rail ─── */
+body[data-experience="rippling"] .chat-rail {
+  background: #FDFBF9;
+  border-left-color: rgba(50, 27, 37, 0.08);
+}
+
+body[data-experience="rippling"] .msg--user .msg-text {
+  background: rgba(122, 0, 93, 0.07);
+}
+
+body[data-experience="rippling"] .name-send-btn {
+  background: #FDB71C;
+  color: #321B25;
+}
+
+body[data-experience="rippling"] .name-send-btn:hover {
+  background: #E5A318;
+}
+
+body[data-experience="rippling"] .rail-input-wrap {
+  background: #F5F1EE;
+  border-top-color: rgba(50, 27, 37, 0.08);
+}
+
+body[data-experience="rippling"] .chat-input {
+  background: #ffffff;
+  border-color: rgba(50, 27, 37, 0.12);
+}
+
+body[data-experience="rippling"] .chat-input:focus {
+  border-color: rgba(122, 0, 93, 0.35);
+  box-shadow: 0 0 0 3px rgba(122, 0, 93, 0.08);
+}
+
+body[data-experience="rippling"] .chat-send-btn {
+  background: #FDB71C;
+  color: #321B25;
+}
+
+body[data-experience="rippling"] .chat-send-btn:hover {
+  background: #E5A318;
+}
+
+/* ─── Fit panel ─── */
+body[data-experience="rippling"] .fit-panel {
+  background: #F2EEEB;
+}
+
+body[data-experience="rippling"] .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(50, 27, 37, 0.12);
+}
+
+body[data-experience="rippling"] .fit-textarea:focus {
+  border-color: rgba(122, 0, 93, 0.35);
+  box-shadow: 0 0 0 3px rgba(122, 0, 93, 0.08);
+}
+
+body[data-experience="rippling"] .fit-assess-btn {
+  background: #FDB71C;
+  color: #321B25;
+}
+
+body[data-experience="rippling"] .fit-assess-btn:hover {
+  background: #E5A318;
+}
+
+body[data-experience="rippling"] .fit-btn {
+  background: #FDB71C;
+  color: #321B25;
+  border-color: rgba(50, 27, 37, 0.15);
+}
+
+body[data-experience="rippling"] .fit-btn:hover {
+  background: #E5A318;
+}
+
+body[data-experience="rippling"] .fit-case-link {
+  color: #7A005D;
+  background: rgba(122, 0, 93, 0.05);
+  border-color: rgba(122, 0, 93, 0.18);
+}
+
+body[data-experience="rippling"] .fit-case-link:hover {
+  background: rgba(122, 0, 93, 0.1);
+}
+
+body[data-experience="rippling"] .fit-list--strengths li::before {
+  color: #16a34a;
+}
+
+/* ─── Recruiter panel ─── */
+body[data-experience="rippling"] .recruiter-panel {
+  background: #F2EEEB;
+}
+
+body[data-experience="rippling"] .recruiter-book-btn {
+  background: #FDB71C;
+  color: #321B25;
+}
+
+body[data-experience="rippling"] .recruiter-book-btn:hover {
+  background: #E5A318;
+}
+
+body[data-experience="rippling"] .recruiter-fit .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(50, 27, 37, 0.12);
+}
+
+body[data-experience="rippling"] .recruiter-fit .fit-textarea:focus {
+  border-color: rgba(122, 0, 93, 0.35);
+  box-shadow: 0 0 0 3px rgba(122, 0, 93, 0.08);
+}
+
+body[data-experience="rippling"] .recruiter-fit .fit-assess-btn {
+  background: #FDB71C;
+  color: #321B25;
+}
+
+body[data-experience="rippling"] .recruiter-fit .fit-assess-btn:hover {
+  background: #E5A318;
+}
+
+body[data-experience="rippling"] .recruiter-fit .fit-case-link {
+  color: #7A005D;
+  background: rgba(122, 0, 93, 0.05);
+  border-color: rgba(122, 0, 93, 0.18);
+}
+
+body[data-experience="rippling"] .recruiter-fit .fit-case-link:hover {
+  background: rgba(122, 0, 93, 0.1);
+}
+
+/* ─── Mobile tabs ─── */
+body[data-experience="rippling"] .mob-tabs {
+  background: rgba(242, 238, 235, 0.95);
+  border-top-color: rgba(50, 27, 37, 0.1);
+}
+
+body[data-experience="rippling"] .mob-tab.mob-tab--active {
+  color: #7A005D;
+}
+
+/* ─── Scrollbar styling ─── */
+body[data-experience="rippling"] .case-list-panel::-webkit-scrollbar-track,
+body[data-experience="rippling"] .case-detail-panel::-webkit-scrollbar-track,
+body[data-experience="rippling"] .fit-panel::-webkit-scrollbar-track {
+  background: #F2EEEB;
+}
+
+body[data-experience="rippling"] .case-list-panel::-webkit-scrollbar-thumb,
+body[data-experience="rippling"] .case-detail-panel::-webkit-scrollbar-thumb,
+body[data-experience="rippling"] .fit-panel::-webkit-scrollbar-thumb {
+  background: rgba(50, 27, 37, 0.12);
+}
+
+body[data-experience="rippling"] .case-list-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="rippling"] .case-detail-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="rippling"] .fit-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(50, 27, 37, 0.22);
+}
+
+/* ─── Rippling POV tile gradient ─── */
+.thought-tile-pov-bg--rippling {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(253, 183, 28, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(122, 0, 93, 0.35) 0%, transparent 70%),
+    linear-gradient(160deg, #321B25 0%, #502D3C 40%, #321B25 100%);
+}
+
+.thought-tile--rippling-pov .thought-tile-badge {
+  background: rgba(253, 183, 28, 0.92);
+  color: #321B25;
+}
+
+/* ─── Focus glow — berry ─── */
+body[data-experience="rippling"] :focus-visible {
+  box-shadow: 0 0 0 3px rgba(122, 0, 93, 0.12), 0 0 12px rgba(122, 0, 93, 0.06);
+}
+
+/* ─── sky-dark overrides — keep text readable on cream ─── */
+body[data-experience="rippling"].sky-dark .portfolio-view .fit-btn {
+  background: #FDB71C;
+  color: #321B25;
+}
+
+/* ─── Mobile overrides ─── */
+@media (max-width: 900px) {
+  body[data-experience="rippling"] .fit-panel {
+    background: rgba(242, 238, 235, 0.95);
+  }
+}
