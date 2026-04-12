@@ -224,6 +224,18 @@
               </div>
             </div>
 
+            <!-- ─── Lattice POV (only visible in lattice experience) ─── -->
+            <div class="case-item case-item--thought case-item--lattice-pov" data-thought="design-systems-that-last" role="button" tabindex="0" aria-label="Read What I've learned building design systems that last" style="display:none">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg"></div>
+                <span class="thought-tile-badge">Point of View</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">What I've learned building design systems that last</h3>
+                  <p class="thought-tile-desc">On governance, breaking patterns intentionally, and why the org chart matters more than the component library.</p>
+                </div>
+              </article>
+            </div>
+
             <!-- ─── Thoughts (articles) ─── -->
             <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0" aria-label="Read Charlie Murphy's Law">
               <article class="thought-tile">
@@ -1569,6 +1581,25 @@
       document.body.dataset.experience = exp;
 
       if (exp === 'standard') return; // default — nothing to hide/show
+
+      // ── Lattice experience ──────────────────────────────────────────
+      if (exp === 'lattice') {
+        // Show the POV thought tile (hidden by default)
+        const povTile = document.querySelector('.case-item--lattice-pov');
+        if (povTile) povTile.style.display = '';
+
+        // Pre-fill both fit assessment textareas with the Lattice JD
+        const jdText = 'Staff Product Designer — Core UI\nLattice\n\nDesign and evolve Lattice\u2019s design system as a Staff Product Designer on the Core UI team. Lead cross-product design patterns, build scalable and responsive component systems, and drive cohesion across Lattice\u2019s product suite. Requires deep systems thinking, front-end fluency (CSS, HTML, React), experience governing design systems at scale, and mentorship of other designers. B2B SaaS, complex workflows, platform-level impact.';
+        ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+          const ta = document.getElementById(id);
+          if (ta) {
+            ta.value = jdText;
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        });
+
+        return;
+      }
 
       // For non-standard experiences, hide cases that aren't relevant.
       // Populate these arrays once the experiences have defined content.
@@ -3042,6 +3073,71 @@
           },
         ],
       },
+      'design-systems-that-last': {
+        kicker: 'Point of View',
+        title:  'What I\u2019ve learned building design systems that last',
+        dek: 'On governance, breaking patterns intentionally, and why the org chart matters more than the component library.',
+        sections: [
+          {
+            paragraphs: [
+              'Design systems are easy to start. The hard part is keeping them alive two years later, when the original team has turned over, the product has outgrown half the components, and three teams are quietly forking the button because \u201Cour use case is different.\u201D',
+              'I\u2019ve built systems from scratch, inherited systems mid-drift, and watched good systems die slow deaths from neglect. The lessons that stuck have almost nothing to do with tokens or components. They\u2019re about people, governance, and knowing when the system should bend.',
+            ],
+          },
+          {
+            heading: 'The org chart is the real architecture',
+            paragraphs: [
+              'Every design system inherits the shape of the organization that builds it. If the org is siloed, the system will be fragmented. If the org has unclear ownership, the system will have inconsistent adoption. You can have the cleanest component library in the world and still fail if the team structure doesn\u2019t support it.',
+              'At Marketo, when I founded Sky, one of the first things I did was audit how teams were organized \u2014 not how components were organized. Who owned what surfaces? Who made decisions about shared patterns? Where did authority actually live versus where the org chart said it lived?',
+              'That mapping told me more about what the system needed than any component audit ever could. The components came later. The governance model came first.',
+            ],
+          },
+          {
+            heading: 'Governance isn\u2019t a document \u2014 it\u2019s a habit',
+            paragraphs: [
+              'The worst design systems I\u2019ve seen have beautiful governance documents that no one follows. The best ones have almost no documentation about governance, but everyone knows how decisions get made because the process is embedded in how the team already works.',
+              'With Sky, I democratized governance deliberately. Designers across product teams could propose patterns, challenge existing ones, and contribute directly. It wasn\u2019t a request queue funneled to a central team \u2014 it was a federated model where ownership was distributed but standards were shared.',
+              'That\u2019s harder than it sounds. Federated governance means you need clear principles people can apply independently. You need to trust that a designer on the campaign tools team can make a sound call about a pattern without escalating it. And you need to be comfortable with the fact that sometimes they\u2019ll make a different call than you would \u2014 and that\u2019s fine, as long as the reasoning holds.',
+              'The 50+ component audit wasn\u2019t just about cleaning house. It was about establishing a shared vocabulary. Once everyone could name the same pattern the same way, contribution became natural instead of forced.',
+            ],
+          },
+          {
+            heading: 'Break patterns on purpose, not by accident',
+            paragraphs: [
+              'Consistency is the point of a design system, right up until it\u2019s not.',
+              'The biggest mistake I see in mature systems is treating consistency as an absolute. It\u2019s not. It\u2019s a default. And defaults should be broken when there\u2019s a good enough reason \u2014 but only when the break is intentional, documented, and reversible.',
+              'At Marketo, there were moments where the right design for a specific product surface didn\u2019t fit the system. The temptation is always to force it \u2014 reshape the design to match the components. But sometimes the design is right and the system needs to stretch. The question isn\u2019t \u201Cdoes this fit?\u201D It\u2019s \u201Cshould it?\u201D',
+              'The distinction matters. Drift is when teams break patterns because they don\u2019t know the pattern exists, or because it\u2019s easier to build custom. Intentional deviation is when a team breaks a pattern because the user\u2019s context demands it, and they document why. One erodes the system. The other strengthens it, because now you have a signal about where the system needs to grow.',
+            ],
+          },
+          {
+            heading: 'Cross-product cohesion is a design problem, not a component problem',
+            paragraphs: [
+              'Components alone don\u2019t create cohesion. You can ship the same button, the same card, the same modal to every product surface and still end up with experiences that feel nothing alike.',
+              'Cohesion comes from shared interaction patterns, consistent information hierarchy, predictable navigation models, and aligned mental models across products. Those are design decisions, not library exports.',
+              'This is where systems thinking pays off. Before touching any surface, I study how the pieces connect \u2014 not just within a product, but across them. How does a user\u2019s mental model shift when they move from one tool to another? Where do workflows cross product boundaries? Those seams are where cohesion either lives or dies.',
+              'At Marketo, the system\u2019s real value wasn\u2019t that every product used the same components. It was that a user could move between products and feel like they were still in the same world. That\u2019s harder than matching hex values.',
+            ],
+          },
+          {
+            heading: 'Adoption is a design problem too',
+            paragraphs: [
+              'Getting to 100% adoption on Sky wasn\u2019t a mandate \u2014 it was a campaign. I treated internal adoption the same way I\u2019d treat a product launch. Who are the users (in this case, designers and engineers)? What are their objections? Where\u2019s the friction in adoption? What does the onboarding experience look like?',
+              'Most systems fail at adoption because they optimize for the system and forget about the people using it. Engineers don\u2019t care that your tokens are semantically named if the DX is painful. Designers won\u2019t use the Figma library if the component naming doesn\u2019t match how they think about the UI.',
+              'Adoption is the design problem hiding inside every design system.',
+            ],
+          },
+          {
+            heading: 'What I\u2019d bring to a platform team',
+            paragraphs: [
+              'If you\u2019re building a design system at a company with multiple product surfaces, complex workflows, and teams that need to move fast without breaking each other\u2019s work \u2014 that\u2019s the exact problem I\u2019ve spent the last decade learning how to solve.',
+              'I think in systems before I think in screens. I care about governance as much as I care about components. I\u2019ve shipped systems that achieved full adoption not because they were mandated, but because they were genuinely better than the alternative.',
+              'And I believe the best design systems aren\u2019t infrastructure. They\u2019re culture \u2014 a shared language that lets teams build coherently without coordinating on every detail.',
+              'That\u2019s the kind of work I\u2019m built for.',
+            ],
+          },
+        ],
+      },
     };
 
     function showThought(thoughtId) {
@@ -3100,16 +3196,20 @@
         ? '<p class="cd-intro">' + safeHtml(data.dek) + '</p>'
         : '';
 
-      content.innerHTML =
-        '<article class="cd-article">' +
-          '<p class="cd-company">' + esc(data.kicker) + '</p>' +
-          '<h2 class="cd-headline">' + esc(data.title) + '</h2>' +
-          '<div class="cd-hero-img-wrap">' +
+      const heroHtml = data.hero
+        ? '<div class="cd-hero-img-wrap">' +
             '<img data-lazy-src="' + esc(data.hero.src) + '" ' +
                  'class="cd-hero-img" ' +
                  'alt="' + esc(data.hero.alt) + '" ' +
                  'width="' + data.hero.w + '" height="' + data.hero.h + '" />' +
-          '</div>' +
+          '</div>'
+        : '';
+
+      content.innerHTML =
+        '<article class="cd-article">' +
+          '<p class="cd-company">' + esc(data.kicker) + '</p>' +
+          '<h2 class="cd-headline">' + esc(data.title) + '</h2>' +
+          heroHtml +
           dekHtml +
           sectionsHtml +
         '</article>';

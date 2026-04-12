@@ -919,6 +919,49 @@ a.spotify-tile {
   .thought-tile:hover .thought-tile-badge { opacity: 0; }
 }
 
+/* ─── POV thought tile (no image — gradient background) ─── */
+.thought-tile--pov {
+  aspect-ratio: 5 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.thought-tile-pov-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(99, 102, 241, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(219, 25, 128, 0.25) 0%, transparent 70%),
+    linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);
+  z-index: 0;
+}
+
+.thought-tile--pov .thought-tile-badge {
+  z-index: 2;
+  background: rgba(99, 102, 241, 0.85);
+}
+
+.thought-tile--pov .thought-tile-overlay {
+  z-index: 1;
+  opacity: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.35) 50%,
+    transparent 100%
+  );
+}
+
+@media (hover: hover) {
+  .thought-tile--pov .thought-tile-overlay { opacity: 1; }
+  .thought-tile--pov:hover .thought-tile-pov-bg {
+    filter: brightness(1.15);
+    transition: filter 0.5s ease;
+  }
+  .thought-tile--pov:hover .thought-tile-badge { opacity: 0; }
+}
+
 /* ─── Logo — top left ─── */
 .case-card-logo {
   position: absolute;

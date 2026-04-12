@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teamshares ATS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #ffffff; color: #111827; font-size: 14px; overflow-x: hidden; }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 56px; background: #fff; border-bottom: 1px solid #e5e7eb;
+    display: flex; align-items: center; padding: 0 24px; gap: 0;
+  }
+  .nav-brand {
+    font-size: 17px; font-weight: 700; color: #111827; letter-spacing: -0.3px;
+    display: flex; align-items: baseline; gap: 1px; margin-right: 40px;
+  }
+  .nav-brand sup { font-size: 9px; color: #0d9488; font-weight: 700; vertical-align: super; }
+  .nav-links { display: flex; gap: 6px; align-items: center; flex: 1; }
+  .nav-link {
+    padding: 6px 12px; font-size: 13.5px; font-weight: 500; color: #6b7280;
+    text-decoration: none; border-radius: 6px; cursor: pointer; transition: color 0.15s;
+  }
+  .nav-link:hover { color: #111827; }
+  .nav-link.active { color: #0d9488; }
+  .nav-right { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+  .nav-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: #0d9488;
+    color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center;
+  }
+  .nav-user { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .nav-user-name { font-size: 13.5px; font-weight: 500; color: #111827; }
+
+  /* ── MAIN LAYOUT ── */
+  .page { margin-top: 56px; min-height: calc(100vh - 56px); position: relative; }
+
+  /* ── OPENING HEADER ── */
+  .opening-header {
+    background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 16px 24px 14px;
+  }
+  .opening-header-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+  .opening-title-block { display: flex; align-items: flex-start; gap: 10px; }
+  .back-btn {
+    background: none; border: none; cursor: pointer; color: #6b7280;
+    padding: 2px 0; display: flex; align-items: center; margin-top: 3px;
+    font-size: 18px; line-height: 1; transition: color 0.15s;
+  }
+  .back-btn:hover { color: #111827; }
+  .opening-company { font-size: 20px; font-weight: 700; color: #111827; line-height: 1.2; }
+  .opening-role { font-size: 14px; color: #6b7280; margin-top: 2px; }
+  .location-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 6px; font-size: 12.5px; color: #6b7280;
+  }
+  .location-tag svg { flex-shrink: 0; }
+  .opening-meta {
+    display: flex; align-items: center; gap: 16px;
+    margin-top: 10px; font-size: 13px; color: #6b7280;
+  }
+  .opening-meta-item { display: flex; align-items: center; gap: 5px; }
+  .meta-dot { width: 3px; height: 3px; background: #d1d5db; border-radius: 50%; }
+  .menu-btn {
+    background: none; border: 1px solid #e5e7eb; border-radius: 6px;
+    padding: 6px 10px; cursor: pointer; color: #6b7280; font-size: 18px;
+    line-height: 1; display: flex; align-items: center; transition: background 0.15s;
+  }
+  .menu-btn:hover { background: #f9fafb; }
+
+  /* ── STAGE TABS ── */
+  .stage-tabs-bar {
+    background: #fff; border-bottom: 1px solid #e5e7eb;
+    padding: 0 24px; display: flex; align-items: center; gap: 0;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .stage-tabs-bar::-webkit-scrollbar { display: none; }
+  .stage-tab {
+    display: flex; align-items: center; gap: 6px;
+    padding: 12px 16px; cursor: pointer; border-bottom: 2px solid transparent;
+    font-size: 13.5px; font-weight: 500; color: #6b7280; white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s; user-select: none;
+    flex-shrink: 0;
+  }
+  .stage-tab:hover { color: #111827; }
+  .stage-tab.active { color: #0d9488; border-bottom-color: #0d9488; }
+  .tab-count {
+    font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 10px;
+    background: #f3f4f6; color: #6b7280; min-width: 20px; text-align: center;
+  }
+  .stage-tab.active .tab-count { background: #ccfbf1; color: #0d9488; }
+
+  /* ── SEARCH / TOOLBAR ── */
+  .toolbar {
+    padding: 14px 24px; display: flex; align-items: center; gap: 12px;
+    background: #fff; border-bottom: 1px solid #e5e7eb;
+  }
+  .search-wrap { position: relative; flex: 1; max-width: 320px; }
+  .search-icon {
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    color: #9ca3af; pointer-events: none;
+  }
+  .search-input {
+    width: 100%; padding: 7px 12px 7px 34px; border: 1px solid #e5e7eb;
+    border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 13.5px;
+    color: #111827; outline: none; transition: border-color 0.15s;
+  }
+  .search-input::placeholder { color: #9ca3af; }
+  .search-input:focus { border-color: #0d9488; }
+  .toolbar-right { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+  .icon-btn {
+    background: none; border: 1px solid #e5e7eb; border-radius: 6px;
+    padding: 6px 8px; cursor: pointer; color: #6b7280; display: flex;
+    align-items: center; transition: background 0.15s, color 0.15s;
+  }
+  .icon-btn:hover { background: #f9fafb; color: #111827; }
+  .icon-btn.active { background: #f0fdf9; border-color: #0d9488; color: #0d9488; }
+
+  /* ── SELECTION BAR ── */
+  .selection-bar {
+    padding: 10px 24px; background: #eff6ff; border-bottom: 1px solid #dbeafe;
+    display: flex; align-items: center; gap: 12px;
+    transition: all 0.2s;
+  }
+  .selection-bar.hidden { display: none; }
+  .selection-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #3b82f6; color: #fff; border-radius: 20px;
+    padding: 4px 12px; font-size: 13px; font-weight: 600;
+  }
+  .btn-advance {
+    background: #0d9488; color: #fff; border: none; border-radius: 6px;
+    padding: 7px 16px; font-family: 'Inter', sans-serif; font-size: 13.5px;
+    font-weight: 600; cursor: pointer; transition: background 0.15s;
+  }
+  .btn-advance:hover { background: #0f766e; }
+  .btn-deselect {
+    background: none; border: none; cursor: pointer; color: #6b7280;
+    font-size: 13px; margin-left: auto;
+  }
+
+  /* ── CANDIDATE TABLE ── */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    padding: 10px 16px; text-align: left; font-size: 11.5px; font-weight: 600;
+    color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 1px solid #e5e7eb; background: #fff; white-space: nowrap;
+  }
+  thead th:first-child { width: 40px; padding-left: 24px; }
+  thead th:last-child { padding-right: 24px; }
+  tbody tr {
+    border-bottom: 1px solid #f3f4f6; cursor: pointer;
+    transition: background 0.1s;
+  }
+  tbody tr:hover { background: #f9fafb; }
+  tbody tr.selected { background: #eff6ff; }
+  tbody td { padding: 13px 16px; vertical-align: middle; }
+  tbody td:first-child { padding-left: 24px; width: 40px; }
+  tbody td:last-child { padding-right: 24px; }
+  .candidate-name { font-weight: 600; color: #111827; font-size: 14px; }
+  .candidate-email { font-size: 12.5px; color: #6b7280; margin-top: 1px; }
+  .candidate-location { font-size: 13.5px; color: #374151; }
+  .assign-date { font-size: 13px; color: #6b7280; }
+  input[type="checkbox"] {
+    width: 15px; height: 15px; accent-color: #0d9488; cursor: pointer; border-radius: 3px;
+  }
+
+  /* ── STATUS BADGES ── */
+  .status { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 500; }
+  .status.awaiting { color: #d97706; }
+  .status.awaiting::before { content: '●'; font-size: 10px; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #fff;
+  }
+  .pill-blue { background: #3b82f6; }
+  .pill-gray { background: #6b7280; }
+  .pill-teal { background: #0d9488; }
+  .pill-indigo { background: #4f46e5; }
+  .pill-amber { background: #f59e0b; }
+  .pill-green { background: #10b981; }
+  .pill-dark { background: #111827; }
+  .pill-orange { background: #f97316; }
+
+  /* ── DETAIL PANEL ── */
+  .detail-overlay {
+    position: fixed; inset: 56px 0 0 0; z-index: 50;
+    pointer-events: none;
+  }
+  .detail-panel {
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 100%; background: #fff;
+    transform: translateX(100%);
+    transition: transform 280ms ease;
+    display: flex; flex-direction: column;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+    pointer-events: all;
+  }
+  .detail-panel.open { transform: translateX(0); }
+
+  /* Panel top bar */
+  .panel-topbar {
+    height: 56px; border-bottom: 1px solid #e5e7eb;
+    display: flex; align-items: center; padding: 0 20px; gap: 12px;
+    flex-shrink: 0; background: #fff;
+  }
+  .panel-back {
+    background: none; border: none; cursor: pointer; color: #6b7280;
+    display: flex; align-items: center; padding: 4px; border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .panel-back:hover { color: #111827; background: #f3f4f6; }
+  .panel-name { font-size: 17px; font-weight: 700; color: #111827; }
+  .panel-pronouns { font-size: 12.5px; color: #9ca3af; }
+  .panel-linkedin {
+    color: #0a66c2; cursor: pointer; display: flex; align-items: center;
+    padding: 4px; border-radius: 4px; transition: background 0.15s;
+  }
+  .panel-linkedin:hover { background: #e8f0fe; }
+  .panel-topbar-right {
+    margin-left: auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .panel-contact-item { display: flex; align-items: center; gap: 5px; font-size: 13px; color: #374151; }
+  .panel-contact-item svg { color: #9ca3af; }
+  .check-item { display: flex; align-items: center; gap: 5px; font-size: 12.5px; color: #059669; font-weight: 500; }
+  .btn-update {
+    background: none; border: 1px solid #e5e7eb; border-radius: 6px;
+    padding: 6px 14px; font-family: 'Inter', sans-serif; font-size: 13px;
+    font-weight: 500; cursor: pointer; color: #374151; transition: background 0.15s;
+  }
+  .btn-update:hover { background: #f9fafb; }
+  .score-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #3b82f6; color: #fff; border-radius: 20px;
+    padding: 4px 10px 4px 12px; font-size: 13px; font-weight: 700; cursor: pointer;
+    position: relative;
+  }
+  .score-dropdown {
+    position: absolute; top: 110%; right: 0; background: #fff;
+    border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 200; min-width: 100px; overflow: hidden; display: none;
+  }
+  .score-dropdown.open { display: block; }
+  .score-option {
+    padding: 8px 16px; font-size: 13.5px; color: #111827; cursor: pointer;
+    transition: background 0.1s; display: flex; align-items: center; gap: 8px;
+  }
+  .score-option:hover { background: #f0fdf9; color: #0d9488; }
+  .score-option.selected { font-weight: 600; color: #0d9488; }
+
+  /* Panel body */
+  .panel-body { display: flex; flex: 1; overflow: hidden; }
+
+  /* Sidebar */
+  .panel-sidebar {
+    width: 180px; flex-shrink: 0; border-right: 1px solid #e5e7eb;
+    padding: 16px 0; display: flex; flex-direction: column; gap: 2px;
+    overflow-y: auto;
+  }
+  .sidebar-tab {
+    padding: 9px 20px; font-size: 13.5px; font-weight: 500; color: #6b7280;
+    cursor: pointer; border-right: 2px solid transparent; transition: all 0.15s;
+  }
+  .sidebar-tab:hover { color: #111827; background: #f9fafb; }
+  .sidebar-tab.active { color: #0d9488; border-right-color: #0d9488; background: #f0fdf9; }
+
+  /* Main content */
+  .panel-main { flex: 1; overflow-y: auto; padding: 20px; display: flex; gap: 16px; }
+
+  /* Center content */
+  .panel-center { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+  /* Opening card */
+  .opening-card {
+    background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px;
+  }
+  .opening-card-label { font-size: 11px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .opening-card-company { font-size: 15px; font-weight: 700; color: #111827; }
+  .opening-card-switch { font-size: 12.5px; color: #0d9488; cursor: pointer; text-decoration: none; margin-top: 2px; display: inline-block; }
+  .opening-card-switch:hover { text-decoration: underline; }
+  .opening-card-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .on-deck-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f3f4f6; color: #6b7280; border-radius: 20px;
+    padding: 3px 10px; font-size: 12px; font-weight: 500;
+  }
+  .reconnect-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; margin-top: 8px; }
+  .reconnect-row svg { color: #9ca3af; }
+  .view-hireflix { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #0d9488; cursor: pointer; margin-top: 6px; }
+  .view-hireflix:hover { text-decoration: underline; }
+  .btn-transition {
+    width: 100%; background: #0d9488; color: #fff; border: none; border-radius: 6px;
+    padding: 10px; font-family: 'Inter', sans-serif; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: background 0.15s; margin-top: 14px;
+  }
+  .btn-transition:hover { background: #0f766e; }
+
+  /* Timeline */
+  .timeline-section { margin-top: 4px; }
+  .section-title { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 12px; }
+  .timeline-table { width: 100%; border-collapse: collapse; }
+  .timeline-table th {
+    font-size: 11px; font-weight: 600; color: #9ca3af; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 6px 10px 6px 0; text-align: left; border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+  }
+  .timeline-table td {
+    padding: 10px 10px 10px 0; font-size: 13px; color: #374151;
+    border-bottom: 1px solid #f3f4f6; vertical-align: top;
+  }
+  .timeline-table td:first-child { font-weight: 500; color: #111827; }
+  .timeline-score { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: #eff6ff; color: #3b82f6; font-size: 12px; font-weight: 700; }
+  .timeline-na { color: #9ca3af; font-size: 12px; }
+  .elapsed-text { font-size: 12px; color: #9ca3af; }
+  .notes-icon-btn { background: none; border: none; cursor: pointer; color: #9ca3af; padding: 2px; }
+  .notes-icon-btn:hover { color: #374151; }
+
+  /* Application content */
+  .application-content { display: flex; flex-direction: column; gap: 20px; }
+  .app-section-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+  .app-question { margin-bottom: 16px; }
+  .app-q { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 5px; }
+  .app-a { font-size: 13.5px; color: #111827; line-height: 1.6; }
+  .app-essay { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+  .app-essay-q { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 8px; }
+  .app-essay-a { font-size: 13.5px; color: #374151; line-height: 1.65; }
+
+  /* Notes panel */
+  .notes-panel { width: 220px; flex-shrink: 0; border-left: 1px solid #e5e7eb; padding: 16px; display: flex; flex-direction: column; }
+  .notes-header { display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: #111827; margin-bottom: 12px; }
+  .notes-empty { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 13px; color: #9ca3af; line-height: 1.5; }
+  .notes-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 12px; border-top: 1px solid #e5e7eb; }
+  .btn-clear { background: none; border: none; cursor: pointer; color: #9ca3af; font-size: 13px; font-family: 'Inter', sans-serif; }
+  .btn-clear:hover { color: #6b7280; }
+  .btn-add-note {
+    background: #0d9488; color: #fff; border: none; border-radius: 6px;
+    padding: 6px 14px; font-family: 'Inter', sans-serif; font-size: 13px;
+    font-weight: 600; cursor: pointer; transition: background 0.15s;
+  }
+  .btn-add-note:hover { background: #0f766e; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: #111827; color: #fff; border-radius: 8px; padding: 12px 20px;
+    font-size: 14px; font-weight: 500; z-index: 999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast-check { color: #10b981; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    padding: 60px 24px; text-align: center; color: #9ca3af;
+  }
+  .empty-state-icon { font-size: 32px; margin-bottom: 12px; }
+  .empty-state-text { font-size: 15px; font-weight: 500; color: #6b7280; }
+  .empty-state-sub { font-size: 13px; margin-top: 4px; }
+
+  /* Menu dropdown */
+  .menu-dropdown {
+    position: absolute; top: 100%; right: 0; margin-top: 4px;
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1); z-index: 300; min-width: 160px;
+    overflow: hidden; display: none;
+  }
+  .menu-dropdown.open { display: block; }
+  .menu-item {
+    padding: 9px 16px; font-size: 13.5px; color: #374151; cursor: pointer;
+    transition: background 0.1s; display: flex; align-items: center; gap: 8px;
+  }
+  .menu-item:hover { background: #f9fafb; }
+  .menu-item.danger { color: #ef4444; }
+  .menu-wrap { position: relative; }
+
+  @media (max-width: 900px) {
+    .panel-topbar-right { display: none; }
+    .notes-panel { display: none; }
+    .panel-sidebar { width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="nav-brand">Teamshares<sup>1</sup></div>
+  <div class="nav-links">
+    <span class="nav-link">Dashboard</span>
+    <span class="nav-link active">Openings</span>
+    <span class="nav-link">Companies</span>
+    <span class="nav-link">Candidates</span>
+  </div>
+  <div class="nav-right">
+    <div class="nav-user">
+      <div class="nav-avatar">P</div>
+      <span class="nav-user-name">Peyton</span>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ── OPENING HEADER ── -->
+  <div class="opening-header">
+    <div class="opening-header-top">
+      <div class="opening-title-block">
+        <button class="back-btn" title="Back to openings">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <div>
+          <div class="opening-company">Blue Ridge HVAC Services</div>
+          <div class="opening-role">Small Business President</div>
+          <div class="location-tag">
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            Broader Market: Asheville, NC
+          </div>
+          <div class="opening-meta">
+            <span class="opening-meta-item">Full-time</span>
+            <span class="meta-dot"></span>
+            <span class="opening-meta-item">$140,000</span>
+            <span class="meta-dot"></span>
+            <span class="opening-meta-item">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Recruiter: Maya Azzi
+            </span>
+            <span class="meta-dot"></span>
+            <span class="opening-meta-item">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              Closing: March 15, 2025
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-wrap">
+        <button class="menu-btn" onclick="toggleMenu()" title="More options">···</button>
+        <div class="menu-dropdown" id="openingMenu">
+          <div class="menu-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            Edit Opening
+          </div>
+          <div class="menu-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Duplicate
+          </div>
+          <div class="menu-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            Copy Link
+          </div>
+          <div class="menu-item danger">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            Close Opening
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STAGE TABS ── -->
+  <div class="stage-tabs-bar" id="stageTabs"></div>
+
+  <!-- ── TOOLBAR ── -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input class="search-input" type="text" placeholder="Search candidates…" id="searchInput" oninput="filterSearch()" />
+    </div>
+    <div class="toolbar-right">
+      <button class="icon-btn active" title="List view" id="listViewBtn" onclick="setView('list')">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+      </button>
+      <button class="icon-btn" title="Grid view" id="gridViewBtn" onclick="setView('grid')">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── SELECTION BAR ── -->
+  <div class="selection-bar hidden" id="selectionBar">
+    <div class="selection-badge">
+      <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+      <span id="selectionCount">0</span> selected
+    </div>
+    <button class="btn-advance" onclick="advanceSelected()">Advance stage →</button>
+    <button class="btn-deselect" onclick="clearSelection()">✕ Deselect all</button>
+  </div>
+
+  <!-- ── CANDIDATE TABLE ── -->
+  <div class="table-wrap" id="tableWrap">
+    <table id="candidateTable">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="selectAll" onchange="toggleSelectAll(this)" /></th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Assign Date</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+</div><!-- .page -->
+
+<!-- ── DETAIL PANEL OVERLAY ── -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-panel" id="detailPanel">
+
+    <!-- Top bar -->
+    <div class="panel-topbar">
+      <button class="panel-back" onclick="closePanel()">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="panel-name" id="panelName">—</span>
+      <span class="panel-pronouns" id="panelPronouns">he/him/his</span>
+      <span class="panel-linkedin" title="View LinkedIn profile">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </span>
+      <div class="panel-topbar-right">
+        <div class="panel-contact-item">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span id="panelEmail">—</span>
+        </div>
+        <div class="panel-contact-item">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <span id="panelPhone">—</span>
+        </div>
+        <div class="check-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          Authorized to work in U.S.
+        </div>
+        <div class="check-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          Compensation package accepted
+        </div>
+        <button class="btn-update">Update contact</button>
+        <div class="score-badge" id="scoreBadge" onclick="toggleScoreDropdown(event)">
+          <span id="scoreValue">4.0</span>
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          <div class="score-dropdown" id="scoreDropdown">
+            <div class="score-option" onclick="setScore('5.0', event)">⭐ 5.0 — Exceptional</div>
+            <div class="score-option selected" onclick="setScore('4.0', event)">⭐ 4.0 — Strong</div>
+            <div class="score-option" onclick="setScore('3.0', event)">⭐ 3.0 — Meets Bar</div>
+            <div class="score-option" onclick="setScore('2.0', event)">⭐ 2.0 — Below Bar</div>
+            <div class="score-option" onclick="setScore('1.0', event)">⭐ 1.0 — Not a Fit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="panel-body">
+      <!-- Sidebar -->
+      <div class="panel-sidebar">
+        <div class="sidebar-tab active" onclick="switchTab('summary', this)">Summary</div>
+        <div class="sidebar-tab" onclick="switchTab('application', this)">Application</div>
+      </div>
+
+      <!-- Main content -->
+      <div class="panel-main" id="panelMain">
+        <!-- Summary content rendered by JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">
+  <svg class="toast-check" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+  <span id="toastMsg">Action completed</span>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const STAGES = [
+  { key: 'applied',       label: 'Applied' },
+  { key: 'video',         label: 'Video Interview' },
+  { key: 'first',         label: 'First Round' },
+  { key: 'final',         label: 'Final Round' },
+  { key: 'offer',         label: 'Offer' },
+  { key: 'hired',         label: 'Hired' },
+  { key: 'archive',       label: 'Archive' },
+];
+
+function statusBadge(status) {
+  const s = status.toLowerCase();
+  if (s.includes('awaiting')) return `<span class="status awaiting">${status}</span>`;
+  if (s.includes('reviewing video')) return `<span class="status-pill pill-blue">${status}</span>`;
+  if (s.includes('video interview complete') || s.includes('complete')) return `<span class="status-pill pill-gray">${status}</span>`;
+  if (s.includes('first interview')) return `<span class="status-pill pill-teal">${status}</span>`;
+  if (s.includes('final interview')) return `<span class="status-pill pill-indigo">★ ${status}</span>`;
+  if (s.includes('offer outstanding')) return `<span class="status-pill pill-amber">${status}</span>`;
+  if (s.includes('offer accepted')) return `<span class="status-pill pill-green">${status}</span>`;
+  if (s.includes('hired')) return `<span class="status-pill pill-dark">${status}</span>`;
+  if (s.includes('under review') || s.includes('screening')) return `<span class="status-pill pill-orange">${status}</span>`;
+  if (s.includes('archived') || s.includes('withdrawn') || s.includes('not selected')) return `<span class="status-pill pill-gray">${status}</span>`;
+  return `<span class="status-pill pill-gray">${status}</span>`;
+}
+
+let candidates = {
+  applied: [
+    { id:'a1', name:'Patricia Nguyen', email:'p.nguyen@gmail.com', location:'Charlotte, NC', status:'Under review', date:'Feb 2, 2025', phone:'(704) 555-0142', pronouns:'she/her/hers' },
+    { id:'a2', name:'Derek Sullivan', email:'d.sullivan@yahoo.com', location:'Knoxville, TN', status:'Screening call scheduled', date:'Feb 1, 2025', phone:'(865) 555-0231', pronouns:'he/him/his' },
+    { id:'a3', name:'Monique Taylor', email:'m.taylor@gmail.com', location:'Greenville, SC', status:'Under review', date:'Jan 30, 2025', phone:'(864) 555-0187', pronouns:'she/her/hers' },
+    { id:'a4', name:'Brendan Hooper', email:'b.hooper@gmail.com', location:'Winston-Salem, NC', status:'Screening call scheduled', date:'Jan 28, 2025', phone:'(336) 555-0099', pronouns:'he/him/his' },
+    { id:'a5', name:'Vanessa Cruz', email:'v.cruz@protonmail.com', location:'Columbia, SC', status:'Under review', date:'Jan 25, 2025', phone:'(803) 555-0174', pronouns:'she/her/hers' },
+    { id:'a6', name:'Thomas Garrett', email:'t.garrett@gmail.com', location:'Chattanooga, TN', status:'Screening call scheduled', date:'Jan 22, 2025', phone:'(423) 555-0063', pronouns:'he/him/his' },
+  ],
+  video: [
+    { id:'v1', name:'Marcus Williams', email:'marcus.w@gmail.com', location:'Charlotte, NC', status:'Awaiting video interview', date:'Jan 14, 2025', phone:'(704) 555-0198', pronouns:'he/him/his' },
+    { id:'v2', name:'Sarah Chen', email:'s.chen@protonmail.com', location:'Denver, CO', status:'Reviewing video interview', date:'Jan 10, 2025', phone:'(303) 555-0221', pronouns:'she/her/hers' },
+    { id:'v3', name:'David Okonkwo', email:'dokonkwo@gmail.com', location:'Atlanta, GA', status:'Reviewing video interview', date:'Jan 8, 2025', phone:'(404) 555-0139', pronouns:'he/him/his' },
+    { id:'v4', name:'Jennifer Patel', email:'jpatel@gmail.com', location:'Nashville, TN', status:'Video interview complete', date:'Jan 5, 2025', phone:'(615) 555-0082', pronouns:'she/her/hers' },
+    { id:'v5', name:'Robert Vasquez', email:'r.vasquez@gmail.com', location:'Phoenix, AZ', status:'Awaiting video interview', date:'Jan 3, 2025', phone:'(602) 555-0166', pronouns:'he/him/his' },
+    { id:'v6', name:'Amanda Foster', email:'afoster@gmail.com', location:'Raleigh, NC', status:'Reviewing video interview', date:'Dec 28, 2024', phone:'(919) 555-0047', pronouns:'she/her/hers' },
+  ],
+  first: [
+    { id:'f1', name:'Jennifer Patel', email:'jpatel@gmail.com', location:'Nashville, TN', status:'First interview', date:'Dec 20, 2024', phone:'(615) 555-0082', pronouns:'she/her/hers' },
+    { id:'f2', name:'James Thornton', email:'jthornton@gmail.com', location:'Richmond, VA', status:'First interview', date:'Dec 18, 2024', phone:'(804) 555-0215', pronouns:'he/him/his' },
+    { id:'f3', name:'Lisa Nakamura', email:'l.nakamura@gmail.com', location:'Austin, TX', status:'First interview', date:'Dec 15, 2024', phone:'(512) 555-0078', pronouns:'she/her/hers' },
+    { id:'f4', name:'Carlos Reyes', email:'c.reyes@gmail.com', location:'Tampa, FL', status:'First interview', date:'Dec 10, 2024', phone:'(813) 555-0193', pronouns:'he/him/his' },
+    { id:'f5', name:'Michelle Brooks', email:'m.brooks@gmail.com', location:'Baltimore, MD', status:'First interview', date:'Dec 8, 2024', phone:'(410) 555-0054', pronouns:'she/her/hers' },
+    { id:'f6', name:'Kevin Park', email:'k.park@gmail.com', location:'Seattle, WA', status:'First interview', date:'Dec 5, 2024', phone:'(206) 555-0127', pronouns:'he/him/his' },
+    { id:'f7', name:'Tanya Wilson', email:'t.wilson@gmail.com', location:'Columbus, OH', status:'First interview', date:'Dec 3, 2024', phone:'(614) 555-0083', pronouns:'she/her/hers' },
+    { id:'f8', name:'Andre Johnson', email:'a.johnson@gmail.com', location:'Houston, TX', status:'First interview', date:'Nov 28, 2024', phone:'(713) 555-0241', pronouns:'he/him/his' },
+  ],
+  final: [
+    { id:'fn1', name:'Jennifer Patel', email:'jpatel@gmail.com', location:'Nashville, TN', status:'Final interview', date:'Dec 28, 2024', phone:'(615) 555-0082', pronouns:'she/her/hers' },
+    { id:'fn2', name:'James Thornton', email:'jthornton@gmail.com', location:'Richmond, VA', status:'Final interview', date:'Dec 22, 2024', phone:'(804) 555-0215', pronouns:'he/him/his' },
+    { id:'fn3', name:'Lisa Nakamura', email:'l.nakamura@gmail.com', location:'Austin, TX', status:'Final interview', date:'Dec 20, 2024', phone:'(512) 555-0078', pronouns:'she/her/hers' },
+    { id:'fn4', name:'Carlos Reyes', email:'c.reyes@gmail.com', location:'Tampa, FL', status:'Final interview', date:'Dec 16, 2024', phone:'(813) 555-0193', pronouns:'he/him/his' },
+  ],
+  offer: [
+    { id:'o1', name:'Jennifer Patel', email:'jpatel@gmail.com', location:'Nashville, TN', status:'Offer outstanding', date:'Jan 2, 2025', phone:'(615) 555-0082', pronouns:'she/her/hers' },
+    { id:'o2', name:'James Thornton', email:'jthornton@gmail.com', location:'Richmond, VA', status:'Offer accepted', date:'Jan 5, 2025', phone:'(804) 555-0215', pronouns:'he/him/his' },
+  ],
+  hired: [
+    { id:'h1', name:'James Thornton', email:'jthornton@gmail.com', location:'Richmond, VA', status:'Hired', date:'Jan 10, 2025', phone:'(804) 555-0215', pronouns:'he/him/his' },
+  ],
+  archive: [
+    { id:'ar1', name:'Elliot Ramsey', email:'e.ramsey@gmail.com', location:'Norfolk, VA', status:'Withdrawn by candidate', date:'Jan 6, 2025', phone:'(757) 555-0032', pronouns:'he/him/his' },
+    { id:'ar2', name:'Diana Flowers', email:'d.flowers@yahoo.com', location:'Memphis, TN', status:'Not selected — culture fit', date:'Jan 4, 2025', phone:'(901) 555-0117', pronouns:'she/her/hers' },
+    { id:'ar3', name:'Samuel Pierce', email:'s.pierce@gmail.com', location:'Baton Rouge, LA', status:'Not selected — experience gap', date:'Dec 30, 2024', phone:'(225) 555-0086', pronouns:'he/him/his' },
+    { id:'ar4', name:'Heather Moss', email:'h.moss@gmail.com', location:'Lexington, KY', status:'Withdrawn by candidate', date:'Dec 22, 2024', phone:'(859) 555-0203', pronouns:'she/her/hers' },
+    { id:'ar5', name:'Jerome Caldwell', email:'j.caldwell@gmail.com', location:'Little Rock, AR', status:'Archived — duplicate application', date:'Dec 18, 2024', phone:'(501) 555-0149', pronouns:'he/him/his' },
+  ],
+};
+
+const STAGE_NEXT = { applied:'video', video:'first', first:'final', final:'offer', offer:'hired', hired:'hired', archive:'archive' };
+const STAGE_NEXT_STATUS = {
+  applied: 'Awaiting video interview',
+  video: 'First interview',
+  first: 'Final interview',
+  final: 'Offer outstanding',
+  offer: 'Hired',
+  hired: 'Hired',
+};
+
+const APPLICATION_DATA = {
+  questions: [
+    { q: 'When is the right time for you to start?', a: '3–4 months from now, ideally May 2025. I want to wrap up responsibilities properly and ensure a clean handoff at my current role.' },
+    { q: 'Do you have a specific company in mind that you'd like to work for?', a: 'Not specifically — I'm drawn to operationally mature small businesses in trades and services. A company with a strong local reputation, a tenured team, and real growth potential would be an excellent fit.' },
+    { q: 'If you are willing to relocate, which cities are you open to?', a: 'I'm open to the broader Southeast — particularly the Carolinas, Tennessee, and Virginia. Asheville would be a wonderful place to put down roots.' },
+    { q: 'Which best describes your geographic situation?', a: 'Currently renting and highly mobile. My family supports relocation and we've already explored the Asheville market specifically.' },
+    { q: 'What's the largest team size you have led before?', a: '64 direct and indirect reports across three sites during my time leading regional operations at Horizon Mechanical. Built from 22 over four years.' },
+    { q: 'What else should we know when thinking about matching you with a company?', a: 'I've spent my career in field-services businesses and I understand the rhythms of seasonal demand, labor retention, and customer retention in residential service. I'm not looking to parachute in and reinvent — I want to steward what's already working and build thoughtfully on top of it.' },
+  ],
+  essays: [
+    { q: 'Describe your approach to inheriting an existing leadership team. How do you build trust while also driving change?', a: 'I start by listening more than I speak. In my first 90 days at Horizon Mechanical, I held one-on-ones with all 18 managers before changing a single process. Trust isn't declared — it's earned through follow-through and consistency. Once I understand the existing culture, I identify the two or three things that will make the biggest difference and pursue them with full transparency about the why. Change that's explained lands differently than change that's mandated.' },
+    { q: 'What does "ownership" mean to you in the context of a Teamshares company?', a: 'Ownership means I'm accountable for outcomes, not just activities. It means I think about the long-term health of the business — employee satisfaction, customer experience, financial sustainability — not just the quarter. When employees have a stake in the outcome, good operators channel that energy. I've seen what shared ownership does to a team's engagement, and I believe it's one of the most powerful levers in small business leadership.' },
+    { q: 'Tell us about a time you navigated a significant operational challenge.', a: 'In 2022, our HVAC division faced a 40% technician attrition rate driven by a competitor's aggressive wage campaign. Rather than simply matching wages, we redesigned the total compensation structure — adding performance bonuses tied to customer satisfaction scores and a path to lead technician in 18 months. Within two quarters, attrition dropped to 11% and our NPS improved 22 points. The lesson: retention is a system problem, not a pay problem.' },
+  ]
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let currentStage = 'video';
+let selectedIds = new Set();
+let currentCandidate = null;
+let currentPanelTab = 'summary';
+let searchQuery = '';
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+function init() {
+  renderTabs();
+  renderTable();
+  document.addEventListener('click', handleOutsideClick);
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+function renderTabs() {
+  const bar = document.getElementById('stageTabs');
+  bar.innerHTML = STAGES.map(s => {
+    const count = candidates[s.key].length;
+    return `<div class="stage-tab ${s.key === currentStage ? 'active' : ''}" onclick="setStage('${s.key}', this)">
+      ${s.label}
+      <span class="tab-count">${count}</span>
+    </div>`;
+  }).join('');
+}
+
+function setStage(key, el) {
+  currentStage = key;
+  selectedIds.clear();
+  searchQuery = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.stage-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderTable();
+  updateSelectionBar();
+}
+
+// ── TABLE ─────────────────────────────────────────────────────────────────────
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  let rows = candidates[currentStage];
+
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    rows = rows.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      (c.email && c.email.toLowerCase().includes(q)) ||
+      c.location.toLowerCase().includes(q) ||
+      c.status.toLowerCase().includes(q)
+    );
+  }
+
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="5">
+      <div class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <div class="empty-state-text">No candidates found</div>
+        <div class="empty-state-sub">Try adjusting your search or select a different stage.</div>
+      </div>
+    </td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = rows.map(c => {
+    const checked = selectedIds.has(c.id) ? 'checked' : '';
+    const rowClass = selectedIds.has(c.id) ? 'selected' : '';
+    return `<tr class="${rowClass}" data-id="${c.id}" onclick="rowClick(event, '${c.id}')">
+      <td onclick="event.stopPropagation()">
+        <input type="checkbox" ${checked} data-id="${c.id}" onchange="toggleSelect('${c.id}', this)" />
+      </td>
+      <td>
+        <div class="candidate-name">${c.name}</div>
+        ${c.email ? `<div class="candidate-email">${c.email}</div>` : ''}
+      </td>
+      <td class="candidate-location">${c.location}</td>
+      <td>${statusBadge(c.status)}</td>
+      <td class="assign-date">${c.date}</td>
+    </tr>`;
+  }).join('');
+
+  // Sync select-all checkbox
+  const allChecked = rows.length > 0 && rows.every(c => selectedIds.has(c.id));
+  const someChecked = rows.some(c => selectedIds.has(c.id));
+  const sa = document.getElementById('selectAll');
+  sa.checked = allChecked;
+  sa.indeterminate = someChecked && !allChecked;
+}
+
+function filterSearch() {
+  searchQuery = document.getElementById('searchInput').value;
+  renderTable();
+}
+
+function rowClick(e, id) {
+  // Don't open if clicking the checkbox cell
+  if (e.target.type === 'checkbox') return;
+  const c = candidates[currentStage].find(x => x.id === id);
+  if (c) openPanel(c);
+}
+
+// ── SELECTION ─────────────────────────────────────────────────────────────────
+function toggleSelect(id, cb) {
+  if (cb.checked) selectedIds.add(id);
+  else selectedIds.delete(id);
+  const tr = cb.closest('tr');
+  tr.classList.toggle('selected', cb.checked);
+  updateSelectionBar();
+  // Sync select-all
+  const rows = candidates[currentStage];
+  const allChecked = rows.length > 0 && rows.every(c => selectedIds.has(c.id));
+  const someChecked = rows.some(c => selectedIds.has(c.id));
+  const sa = document.getElementById('selectAll');
+  sa.checked = allChecked;
+  sa.indeterminate = someChecked && !allChecked;
+}
+
+function toggleSelectAll(cb) {
+  const rows = candidates[currentStage];
+  if (cb.checked) rows.forEach(c => selectedIds.add(c.id));
+  else selectedIds.clear();
+  renderTable();
+  updateSelectionBar();
+}
+
+function clearSelection() {
+  selectedIds.clear();
+  renderTable();
+  updateSelectionBar();
+}
+
+function updateSelectionBar() {
+  const bar = document.getElementById('selectionBar');
+  const count = selectedIds.size;
+  document.getElementById('selectionCount').textContent = count;
+  bar.classList.toggle('hidden', count === 0);
+}
+
+function advanceSelected() {
+  const nextStage = STAGE_NEXT[currentStage];
+  const nextStatus = STAGE_NEXT_STATUS[currentStage];
+  if (!nextStage || nextStage === currentStage) {
+    showToast('These candidates are already at the final stage.');
+    return;
+  }
+  const toMove = candidates[currentStage].filter(c => selectedIds.has(c.id));
+  candidates[currentStage] = candidates[currentStage].filter(c => !selectedIds.has(c.id));
+  toMove.forEach(c => {
+    c.status = nextStatus;
+    candidates[nextStage].push(c);
+  });
+  const count = toMove.length;
+  selectedIds.clear();
+  renderTabs();
+  renderTable();
+  updateSelectionBar();
+  showToast(`${count} candidate${count !== 1 ? 's' : ''} advanced to ${STAGES.find(s => s.key === nextStage).label}`);
+}
+
+// ── DETAIL PANEL ──────────────────────────────────────────────────────────────
+function openPanel(c) {
+  currentCandidate = c;
+  currentPanelTab = 'summary';
+  document.getElementById('panelName').textContent = c.name;
+  document.getElementById('panelPronouns').textContent = c.pronouns || 'he/him/his';
+  document.getElementById('panelEmail').textContent = c.email || '—';
+  document.getElementById('panelPhone').textContent = c.phone || '—';
+  document.getElementById('scoreValue').textContent = '4.0';
+  // Reset sidebar tabs
+  document.querySelectorAll('.sidebar-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === 0);
+  });
+  renderPanelContent();
+  document.getElementById('detailOverlay').style.pointerEvents = 'all';
+  setTimeout(() => document.getElementById('detailPanel').classList.add('open'), 10);
+}
+
+function closePanel() {
+  document.getElementById('detailPanel').classList.remove('open');
+  setTimeout(() => {
+    document.getElementById('detailOverlay').style.pointerEvents = 'none';
+    currentCandidate = null;
+  }, 290);
+}
+
+function switchTab(tab, el) {
+  currentPanelTab = tab;
+  document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderPanelContent();
+}
+
+function renderPanelContent() {
+  const main = document.getElementById('panelMain');
+  if (currentPanelTab === 'summary') {
+    main.innerHTML = renderSummaryContent();
+  } else {
+    main.innerHTML = renderApplicationContent();
+  }
+}
+
+function renderSummaryContent() {
+  if (!currentCandidate) return '';
+  const c = currentCandidate;
+  const nextStage = STAGE_NEXT[currentStage];
+  const nextLabel = nextStage ? STAGES.find(s => s.key === nextStage).label : 'Final';
+  const reconnectDate = 'Jan 20, 2025';
+  return `
+  <div class="panel-center">
+    <div class="opening-card">
+      <div class="opening-card-label">Currently Assigned Opening</div>
+      <div class="opening-card-company">Blue Ridge HVAC Services</div>
+      <a class="opening-card-switch">Switch Assigned Opening</a>
+      <div class="opening-card-row">
+        ${statusBadge(c.status)}
+        <span class="on-deck-pill">On Deck</span>
+      </div>
+      <div class="reconnect-row">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Reconnect: ${reconnectDate}
+      </div>
+      <div class="view-hireflix">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        View Hireflix
+      </div>
+      <button class="btn-transition" onclick="transitionCandidate()">Transition Candidate →</button>
+    </div>
+
+    <div class="timeline-section">
+      <div class="section-title">Timeline</div>
+      <table class="timeline-table">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Score</th>
+            <th>Company</th>
+            <th>Transitioned By</th>
+            <th>Date</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${renderTimeline(c)}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes-panel">
+    <div class="notes-header">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+      Notes
+    </div>
+    <div class="notes-empty">No notes have been added yet.</div>
+    <div class="notes-footer">
+      <button class="btn-clear">Clear</button>
+      <button class="btn-add-note">Add note</button>
+    </div>
+  </div>
+  `;
+}
+
+function renderTimeline(c) {
+  const rows = getTimeline(c);
+  return rows.map(r => `
+    <tr>
+      <td>${r.stage}</td>
+      <td>${r.score !== 'N/A' ? `<span class="timeline-score">${r.score}</span>` : `<span class="timeline-na">N/A</span>`}</td>
+      <td style="font-size:13px;color:#6b7280;">${r.company}</td>
+      <td style="font-size:13px;color:#6b7280;">${r.by}</td>
+      <td>
+        <div class="elapsed-text">${r.elapsed}</div>
+        <div style="font-size:13px;">${r.date}</div>
+      </td>
+      <td>
+        <button class="notes-icon-btn" title="Add note">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function getTimeline(c) {
+  const timelines = {
+    v1: [
+      { stage:'Video interview sent', score:'N/A', company:'Blue Ridge HVAC Services', by:'Maya Azzi', elapsed:'2 days elapsed', date:'Jan 14, 2025' },
+      { stage:'Online application submitted', score:'N/A', company:'—', by:'—', elapsed:'4 days elapsed', date:'Jan 12, 2025' },
+    ],
+    v2: [
+      { stage:'Video interview review started', score:'4.0', company:'Blue Ridge HVAC Services', by:'Maya Azzi', elapsed:'3 days elapsed', date:'Jan 10, 2025' },
+      { stage:'Video interview submitted', score:'N/A', company:'—', by:'—', elapsed:'2 days elapsed', date:'Jan 8, 2025' },
+      { stage:'Online application submitted', score:'N/A', company:'—', by:'—', elapsed:'5 days elapsed', date:'Jan 6, 2025' },
+    ],
+    v3: [
+      { stage:'Video interview review started', score:'3.5', company:'Blue Ridge HVAC Services', by:'Maya Azzi', elapsed:'1 day elapsed', date:'Jan 8, 2025' },
+      { stage:'Video interview submitted', score:'N/A', company:'—', by:'—', elapsed:'3 days elapsed', date:'Jan 6, 2025' },
+      { stage:'Online application submitted', score:'N/A', company:'—', by:'—', elapsed:'2 days elapsed', date:'Jan 4, 2025' },
+    ],
+  };
+  return timelines[c.id] || [
+    { stage:`${c.status}`, score:'4.0', company:'Blue Ridge HVAC Services', by:'Maya Azzi', elapsed:'2 days elapsed', date:c.date },
+    { stage:'Online application submitted', score:'N/A', company:'—', by:'—', elapsed:'5 days elapsed', date:'Jan 5, 2025' },
+  ];
+}
+
+function renderApplicationContent() {
+  const qs = APPLICATION_DATA.questions;
+  const essays = APPLICATION_DATA.essays;
+  return `
+  <div class="panel-center">
+    <div class="application-content">
+      <div>
+        <div class="app-section-title">Screening Questions</div>
+        ${qs.map(q => `
+          <div class="app-question">
+            <div class="app-q">${q.q}</div>
+            <div class="app-a">${q.a}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div>
+        <div class="app-section-title">Essays</div>
+        ${essays.map(e => `
+          <div class="app-essay">
+            <div class="app-essay-q">${e.q}</div>
+            <div class="app-essay-a">${e.a}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="notes-panel">
+    <div class="notes-header">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+      Notes
+    </div>
+    <div class="notes-empty">No notes have been added yet.</div>
+    <div class="notes-footer">
+      <button class="btn-clear">Clear</button>
+      <button class="btn-add-note">Add note</button>
+    </div>
+  </div>
+  `;
+}
+
+function transitionCandidate() {
+  if (!currentCandidate) return;
+  const nextStage = STAGE_NEXT[currentStage];
+  const nextStatus = STAGE_NEXT_STATUS[currentStage];
+  if (!nextStage || nextStage === currentStage) {
+    showToast('Candidate is already at the final stage.');
+    return;
+  }
+  const id = currentCandidate.id;
+  candidates[currentStage] = candidates[currentStage].filter(c => c.id !== id);
+  currentCandidate.status = nextStatus;
+  candidates[nextStage].push(currentCandidate);
+  const nextLabel = STAGES.find(s => s.key === nextStage).label;
+  closePanel();
+  renderTabs();
+  renderTable();
+  showToast(`${currentCandidate.name} advanced to ${nextLabel}`);
+  currentCandidate = null;
+}
+
+// ── SCORE DROPDOWN ────────────────────────────────────────────────────────────
+function toggleScoreDropdown(e) {
+  e.stopPropagation();
+  document.getElementById('scoreDropdown').classList.toggle('open');
+}
+
+function setScore(val, e) {
+  e.stopPropagation();
+  document.getElementById('scoreValue').textContent = val;
+  document.getElementById('scoreDropdown').classList.remove('open');
+  document.querySelectorAll('.score-option').forEach(o => {
+    o.classList.toggle('selected', o.textContent.includes(val));
+  });
+  showToast(`Score updated to ${val}`);
+}
+
+// ── MENU ──────────────────────────────────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('openingMenu').classList.toggle('open');
+}
+
+function handleOutsideClick(e) {
+  if (!e.target.closest('.menu-wrap')) {
+    document.getElementById('openingMenu').classList.remove('open');
+  }
+  if (!e.target.closest('.score-badge')) {
+    document.getElementById('scoreDropdown').classList.remove('open');
+  }
+}
+
+// ── VIEW TOGGLE ───────────────────────────────────────────────────────────────
+function setView(v) {
+  document.getElementById('listViewBtn').classList.toggle('active', v === 'list');
+  document.getElementById('gridViewBtn').classList.toggle('active', v === 'grid');
+  // Grid view stub — just shows a toast in this prototype
+  if (v === 'grid') showToast('Grid view — coming soon');
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

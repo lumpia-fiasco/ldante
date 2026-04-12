@@ -14,6 +14,7 @@ export default function handler(req, res) {
     [process.env.PW_DESIGN_SYSTEM]:  'designsystem',
     [process.env.PW_CREATIVE]:       'creative',
     [process.env.PW_MOBILE]:         'mobile',
+    [process.env.PW_LATTICE]:        'lattice',
   };
 
   const experience = map[password];
