@@ -3442,7 +3442,7 @@ body[data-experience="netflix"] .cd-intro {
 }
 
 body[data-experience="netflix"] .cd-body {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 body[data-experience="netflix"] .cs-section-num {
@@ -3483,8 +3483,8 @@ body[data-experience="netflix"] .cs-tradeoff-card {
 }
 
 body[data-experience="netflix"] .cs-tradeoff-card.chosen {
-  border-color: rgba(229, 9, 20, 0.5);
-  background: rgba(229, 9, 20, 0.08);
+  border-color: rgba(70, 211, 105, 0.4);
+  background: rgba(70, 211, 105, 0.08);
 }
 
 body[data-experience="netflix"] .cs-tc-label,
@@ -3499,12 +3499,22 @@ body[data-experience="netflix"] .cs-tradeoff-title {
 
 body[data-experience="netflix"] .cs-tc-body,
 body[data-experience="netflix"] .cs-tradeoff-body {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.78);
+}
+
+body[data-experience="netflix"] .cs-tradeoff-card.chosen .cs-tc-label,
+body[data-experience="netflix"] .cs-tradeoff-card.chosen .cs-tradeoff-label {
+  color: #46d369;
+}
+
+body[data-experience="netflix"] .cs-tradeoff-card.chosen .cs-tc-title,
+body[data-experience="netflix"] .cs-tradeoff-card.chosen .cs-tradeoff-title {
+  color: #3abb5c;
 }
 
 body[data-experience="netflix"] .cs-chosen-badge {
-  background: #E50914;
-  color: #ffffff;
+  background: #46d369;
+  color: #141414;
 }
 
 /* ─── Outcome rows ─── */
@@ -3517,7 +3527,7 @@ body[data-experience="netflix"] .cs-od-title {
 }
 
 body[data-experience="netflix"] .cs-od-body {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 /* ─── Finding blocks ─── */
@@ -3527,7 +3537,7 @@ body[data-experience="netflix"] .finding-tag {
 }
 
 body[data-experience="netflix"] .finding-body {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 body[data-experience="netflix"] .finding-row {
@@ -3540,7 +3550,7 @@ body[data-experience="netflix"] .sprint-label {
 }
 
 body[data-experience="netflix"] .sprint-body {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 body[data-experience="netflix"] .sprint-row {
@@ -3562,7 +3572,7 @@ body[data-experience="netflix"] .cs-pull-quote-attr {
 
 /* ─── Hypothesis blocks ─── */
 body[data-experience="netflix"] .cs-hyp-body {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 /* ─── Workflow rows ─── */
@@ -3571,7 +3581,7 @@ body[data-experience="netflix"] .workflow-step {
 }
 
 body[data-experience="netflix"] .workflow-body {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 body[data-experience="netflix"] .workflow-row {
@@ -3597,7 +3607,17 @@ body[data-experience="netflix"] .cs-metric-label {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* ─── Back button ─── */
+/* ─── Back button + case detail top fade ─── */
+body[data-experience="netflix"] .case-back-btn {
+  background: #141414;
+  box-shadow: 0 12px 20px 8px #141414;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+body[data-experience="netflix"] .case-back-btn:hover {
+  color: #ffffff;
+}
+
 body[data-experience="netflix"] .back-to-list {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -3612,19 +3632,29 @@ body[data-experience="netflix"] .chat-rail {
   border-left-color: rgba(255, 255, 255, 0.08);
 }
 
+body[data-experience="netflix"] .msg-text {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+body[data-experience="netflix"] .msg--user .msg-text {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.12);
+}
+
 body[data-experience="netflix"] .chat-input {
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  color: #141414;
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 body[data-experience="netflix"] .chat-input:focus {
-  border-color: #E50914;
-  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.15);
+  background: #ffffff;
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
 }
 
 body[data-experience="netflix"] .chat-input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(20, 20, 20, 0.45);
 }
 
 /* ─── Fit panel ─── */
