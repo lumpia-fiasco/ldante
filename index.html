@@ -1573,8 +1573,11 @@
 
     // ─── Experience routing ───────────────────────────────────────────────────
     // Each password unlocks a different experience. The token is stored in
-    // sessionStorage as 'portfolio-experience'. Add content per experience below.
-    const EXPERIENCE = sessionStorage.getItem('portfolio-experience') || 'standard';
+    // sessionStorage as 'portfolio-experience'. Read at call time (not parse
+    // time) so async URL-param auth has a chance to write it first.
+    function getExperience() {
+      return sessionStorage.getItem('portfolio-experience') || 'standard';
+    }
 
     function applyExperience(exp) {
       // Tag the body so CSS can scope experience-specific styles
@@ -1630,7 +1633,7 @@
       pv.removeAttribute('aria-hidden');
 
 
-      applyExperience(EXPERIENCE);
+      applyExperience(getExperience());
 
       // Layout masonry and animate cards in from scattered positions
       layoutMasonry(true);
