@@ -4543,3 +4543,284 @@ body[data-experience="five9"].sky-dark .portfolio-view .fit-btn {
     background: rgba(247, 247, 247, 0.95);
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RIVIAN EXPERIENCE
+   Clean white/light gray surfaces (#F2F2F2), dark header (#151515),
+   golden yellow accents (#FFAC00), premium minimal feel.
+   Scoped entirely to body[data-experience="rivian"].
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Core surfaces ─── */
+body[data-experience="rivian"] .portfolio-view {
+  background: #F2F2F2;
+}
+
+body[data-experience="rivian"] .case-list-panel {
+  background: #F2F2F2;
+}
+
+body[data-experience="rivian"] .case-detail-panel {
+  background: #F2F2F2;
+}
+
+/* ─── Header ─── */
+body[data-experience="rivian"] .site-header {
+  background: #151515;
+}
+
+/* ─── Case-back fade ─── */
+body[data-experience="rivian"] .case-back-btn {
+  background: #F2F2F2;
+  box-shadow: 0 12px 20px 8px #F2F2F2;
+}
+
+/* ─── Case cards ─── */
+body[data-experience="rivian"] .case-card-v {
+  border-color: rgba(21, 21, 21, 0.06);
+}
+
+body[data-experience="rivian"] .case-card-v:hover {
+  border-color: rgba(21, 21, 21, 0.12);
+}
+
+/* ─── Case detail ─── */
+body[data-experience="rivian"] .cs-section-num {
+  color: #FFAC00;
+}
+
+/* ─── Callouts ─── */
+body[data-experience="rivian"] .cs-callout {
+  background: rgba(139, 168, 189, 0.08);
+  border-color: rgba(139, 168, 189, 0.3);
+}
+
+body[data-experience="rivian"] .cs-callout-label {
+  color: #6B8FA8;
+}
+
+body[data-experience="rivian"] .cs-callout--problem {
+  background: rgba(255, 172, 0, 0.06);
+  border-color: rgba(255, 172, 0, 0.3);
+}
+
+body[data-experience="rivian"] .cs-callout--problem .cs-callout-label {
+  color: #D49200;
+}
+
+/* ─── Outcome stats ─── */
+body[data-experience="rivian"] .cs-outcome-num {
+  color: #FFAC00;
+}
+
+body[data-experience="rivian"] .cs-metric-val {
+  color: #FFAC00;
+}
+
+/* ─── Tradeoff chosen ─── */
+body[data-experience="rivian"] .cs-tradeoff-card.chosen {
+  border-color: rgba(255, 172, 0, 0.45);
+  background: rgba(255, 172, 0, 0.06);
+}
+
+body[data-experience="rivian"] .cs-chosen-badge {
+  background: #FFAC00;
+  color: #151515;
+}
+
+/* ─── Chat rail ─── */
+body[data-experience="rivian"] .chat-rail {
+  background: #FAFAFA;
+  border-left-color: rgba(21, 21, 21, 0.06);
+}
+
+body[data-experience="rivian"] .msg--user .msg-text {
+  background: rgba(255, 172, 0, 0.08);
+}
+
+body[data-experience="rivian"] .name-send-btn {
+  background: #FFAC00;
+  color: #151515;
+}
+
+body[data-experience="rivian"] .name-send-btn:hover {
+  background: #333333;
+  color: #ffffff;
+}
+
+body[data-experience="rivian"] .rail-input-wrap {
+  background: #EDEDED;
+  border-top-color: rgba(21, 21, 21, 0.06);
+}
+
+body[data-experience="rivian"] .chat-input {
+  background: #ffffff;
+  border-color: rgba(21, 21, 21, 0.1);
+}
+
+body[data-experience="rivian"] .chat-input:focus {
+  border-color: rgba(255, 172, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 172, 0, 0.1);
+}
+
+body[data-experience="rivian"] .chat-send-btn {
+  background: #FFAC00;
+  color: #151515;
+}
+
+body[data-experience="rivian"] .chat-send-btn:hover {
+  background: #333333;
+  color: #ffffff;
+}
+
+/* ─── Fit panel ─── */
+body[data-experience="rivian"] .fit-panel {
+  background: #F2F2F2;
+}
+
+body[data-experience="rivian"] .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(21, 21, 21, 0.1);
+}
+
+body[data-experience="rivian"] .fit-textarea:focus {
+  border-color: rgba(255, 172, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 172, 0, 0.1);
+}
+
+body[data-experience="rivian"] .fit-assess-btn {
+  background: #FFAC00;
+  color: #151515;
+}
+
+body[data-experience="rivian"] .fit-assess-btn:hover {
+  background: #333333;
+  color: #ffffff;
+}
+
+body[data-experience="rivian"] .fit-btn {
+  background: #FFAC00;
+  color: #151515;
+  border-color: transparent;
+}
+
+body[data-experience="rivian"] .fit-btn:hover {
+  background: #333333;
+  color: #ffffff;
+}
+
+body[data-experience="rivian"] .fit-case-link {
+  color: #151515;
+  background: rgba(255, 172, 0, 0.06);
+  border-color: rgba(255, 172, 0, 0.25);
+}
+
+body[data-experience="rivian"] .fit-case-link:hover {
+  background: rgba(255, 172, 0, 0.12);
+}
+
+/* ─── Recruiter panel ─── */
+body[data-experience="rivian"] .recruiter-panel {
+  background: #F2F2F2;
+}
+
+body[data-experience="rivian"] .recruiter-book-btn {
+  background: #FFAC00;
+  color: #151515;
+}
+
+body[data-experience="rivian"] .recruiter-book-btn:hover {
+  background: #333333;
+  color: #ffffff;
+}
+
+body[data-experience="rivian"] .recruiter-fit .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(21, 21, 21, 0.1);
+}
+
+body[data-experience="rivian"] .recruiter-fit .fit-textarea:focus {
+  border-color: rgba(255, 172, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 172, 0, 0.1);
+}
+
+body[data-experience="rivian"] .recruiter-fit .fit-assess-btn {
+  background: #FFAC00;
+  color: #151515;
+}
+
+body[data-experience="rivian"] .recruiter-fit .fit-assess-btn:hover {
+  background: #333333;
+  color: #ffffff;
+}
+
+body[data-experience="rivian"] .recruiter-fit .fit-case-link {
+  color: #151515;
+  background: rgba(255, 172, 0, 0.06);
+  border-color: rgba(255, 172, 0, 0.25);
+}
+
+body[data-experience="rivian"] .recruiter-fit .fit-case-link:hover {
+  background: rgba(255, 172, 0, 0.12);
+}
+
+/* ─── Mobile tabs ─── */
+body[data-experience="rivian"] .mob-tabs {
+  background: rgba(242, 242, 242, 0.95);
+  border-top-color: rgba(21, 21, 21, 0.08);
+}
+
+body[data-experience="rivian"] .mob-tab.mob-tab--active {
+  color: #FFAC00;
+}
+
+/* ─── Scrollbar styling ─── */
+body[data-experience="rivian"] .case-list-panel::-webkit-scrollbar-track,
+body[data-experience="rivian"] .case-detail-panel::-webkit-scrollbar-track,
+body[data-experience="rivian"] .fit-panel::-webkit-scrollbar-track {
+  background: #F2F2F2;
+}
+
+body[data-experience="rivian"] .case-list-panel::-webkit-scrollbar-thumb,
+body[data-experience="rivian"] .case-detail-panel::-webkit-scrollbar-thumb,
+body[data-experience="rivian"] .fit-panel::-webkit-scrollbar-thumb {
+  background: rgba(21, 21, 21, 0.1);
+}
+
+body[data-experience="rivian"] .case-list-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="rivian"] .case-detail-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="rivian"] .fit-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(21, 21, 21, 0.2);
+}
+
+/* ─── Rivian Perspective tile gradient ─── */
+.thought-tile-pov-bg--rivian {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255, 172, 0, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(139, 168, 189, 0.35) 0%, transparent 70%),
+    linear-gradient(160deg, #151515 0%, #2a2a2a 40%, #151515 100%);
+}
+
+.thought-tile--rivian-pov .thought-tile-badge {
+  background: rgba(255, 172, 0, 0.92);
+  color: #151515;
+}
+
+/* ─── Focus glow ─── */
+body[data-experience="rivian"] :focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 172, 0, 0.15), 0 0 12px rgba(255, 172, 0, 0.08);
+}
+
+/* ─── sky-dark overrides ─── */
+body[data-experience="rivian"].sky-dark .portfolio-view .fit-btn {
+  background: #FFAC00;
+  color: #151515;
+}
+
+/* ─── Mobile overrides ─── */
+@media (max-width: 900px) {
+  body[data-experience="rivian"] .fit-panel {
+    background: rgba(242, 242, 242, 0.95);
+  }
+}

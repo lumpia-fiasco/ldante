@@ -18,6 +18,7 @@ export default function handler(req, res) {
     [process.env.PW_NETFLIX]:        'netflix',
     [process.env.PW_RIPPLING]:       'rippling',
     [process.env.PW_FIVE9]:          'five9',
+    [process.env.PW_RIVIAN]:         'rivian',
   };
 
   const experience = map[password];

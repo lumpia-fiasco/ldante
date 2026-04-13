@@ -188,6 +188,18 @@
               </article>
             </div>
 
+            <!-- ─── Rivian Perspective (only visible in rivian experience) ─── -->
+            <div class="case-item case-item--thought case-item--rivian-pov" data-thought="where-brand-meets-the-buy-button" role="button" tabindex="0" aria-label="Read Where brand storytelling meets the buy button" style="display:none">
+              <article class="thought-tile thought-tile--pov thought-tile--rivian-pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--rivian"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Where brand storytelling meets the buy button</h3>
+                  <p class="thought-tile-desc">On product narratives, commerce flows, and what selling guitars taught me about the moment a story becomes a transaction.</p>
+                </div>
+              </article>
+            </div>
+
             <!-- ─── Five9 Perspective (only visible in five9 experience) ─── -->
             <div class="case-item case-item--thought case-item--five9-pov" data-thought="designing-for-people-who-live-in-the-product" role="button" tabindex="0" aria-label="Read Designing for people who live in the product" style="display:none">
               <article class="thought-tile thought-tile--pov thought-tile--five9-pov">
@@ -1381,6 +1393,10 @@
             tagline: 'I design platforms people live in.',
             desc:    '10 years building complex, data-rich applications for power users. Design systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.',
           },
+          rivian: {
+            tagline: 'I design where story meets transaction.',
+            desc:    'Brand storytelling at Gibson Guitar and Nashville\u2019s music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. Both worlds in one designer.',
+          },
         };
         const copy = HERO_COPY[experience];
         if (copy) {
@@ -1657,6 +1673,23 @@
       // ── Netflix experience ─────────────────────────────────────────
       if (exp === 'netflix') {
         // Theme is handled entirely via CSS scoped to body[data-experience="netflix"]
+        return;
+      }
+
+      // ── Rivian experience ─────────────────────────────────────────
+      if (exp === 'rivian') {
+        const povTile = document.querySelector('.case-item--rivian-pov');
+        if (povTile) povTile.style.display = '';
+
+        const jdText = 'Product Designer, Digital Studio\nRivian\n\nCreate customer-facing experiences on Rivian\u2019s website with a focus on product stories and commerce flows. Design the end-to-end user experience from brand discovery through product comprehension through multi-step purchase. Work across narrative storytelling and transactional checkout experiences. Contribute to and stretch the design system.\n\n5\u20137+ years product design with web expertise. 2+ years e-commerce. Deep knowledge of commerce and checkout flows. Experience localizing DTC purchase experiences across domestic and global geographies. Strong visual design and experience design craft.';
+        ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+          const ta = document.getElementById(id);
+          if (ta) {
+            ta.value = jdText;
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        });
+
         return;
       }
 
@@ -3284,6 +3317,50 @@
             paragraphs: [
               'Unifying fragmented financial domains into a single platform is the exact kind of problem I\u2019ve been solving. At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface and achieved full adoption. At Meroxa, I led a strategic pivot that expanded the addressable market by 10x through rethinking who the product actually served.',
               'The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural. The payoff for getting the structure right compounds across every surface you ship.',
+            ],
+          },
+        ],
+      },
+
+      'where-brand-meets-the-buy-button': {
+        kicker: 'Point of View',
+        title:  'Where brand storytelling meets the buy button',
+        dek: 'On product narratives, commerce flows, and what selling guitars taught me about the moment a story becomes a transaction.',
+        sections: [
+          {
+            paragraphs: [
+              'The best product pages do two things at once. They build emotional connection and they move you toward a purchase. Most e-commerce experiences hand the story off to the funnel somewhere in the middle, and the experience breaks at the seam.',
+              'I\u2019ve worked on both sides. Brand campaigns for Gibson Guitar and Nashville\u2019s country music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. The lesson from both worlds is the same: the story and the transaction are one continuous experience. When you design them together, both get better.',
+            ],
+          },
+          {
+            heading: 'Product comprehension is emotional first',
+            paragraphs: [
+              'At Gibson, a guitar page had to make you hear the tone before you ever touched the fretboard. The specs matter, but they matter after you\u2019ve already felt something. The grain of the wood, the curve of the neck, the lineage of the model. These are emotional entry points that lead to rational justification.',
+              'You fall in love with a Les Paul before you ever check the specs. The product page has to honor that sequence.',
+              'Electric vehicles work the same way. The adventure, the terrain, the silence of the motor on a trail. These are stories that create desire. The range, the towing capacity, the charging network: those are the rational confirmations that close the deal. The product page needs to carry both, in the right order.',
+            ],
+          },
+          {
+            heading: 'Commerce flows need the brand to follow through',
+            paragraphs: [
+              'The story can\u2019t stop at the product page. Configuration, checkout, financing, delivery tracking. Each step is still the brand experience. When the visual language drops from cinematic to generic during checkout, you lose the emotional thread that got the customer there.',
+              'At Gibson, this meant carrying the craftsmanship narrative through the entire purchase journey. The product page was a chapter. The cart, the customization options, the confirmation: all of it needed to feel like Gibson.',
+              'In my platform work, I\u2019ve seen the same pattern from the systems side. At Marketo, the design system\u2019s value was that a user could move between products and feel like they were still in the same world. That discipline applied to commerce means visual consistency, interaction consistency, and tonal consistency from first impression through post-purchase.',
+            ],
+          },
+          {
+            heading: 'Global means adapting the story',
+            paragraphs: [
+              'Working with country music labels across markets taught me that localization goes deeper than translation. Cultural context shapes how people discover products, evaluate them, and decide to buy. The story that resonates in Nashville lands differently in Tokyo or Berlin.',
+              'Effective localization means knowing which product attributes lead in which market, and designing the experience to flex accordingly. The emotional sequence stays. The emphasis shifts.',
+            ],
+          },
+          {
+            heading: 'What I\u2019d bring to a product-story-to-purchase platform',
+            paragraphs: [
+              'I\u2019ve designed across both worlds: the emotional, brand-driven side and the structural, systems-driven side. At Gibson and in the Nashville music industry, I learned how to make products feel alive on screen. At Marketo, Teamshares, and Meroxa, I learned how to build the design infrastructure that keeps complex, multi-surface experiences coherent at scale.',
+              'Rivian\u2019s website sits at that intersection. Product pages that tell adventure stories. Commerce flows that handle configuration, financing, and global checkout. A design system that holds it all together. That\u2019s the synthesis of everything I\u2019ve spent my career building.',
             ],
           },
         ],
