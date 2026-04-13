@@ -5103,3 +5103,250 @@ body[data-experience="circle"].sky-dark .portfolio-view .fit-btn {
     background: rgba(249, 247, 255, 0.95);
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   TWITCH EXPERIENCE
+   Dark surfaces (#0e0e10, #18181b), Twitch purple accents (#9147ff),
+   light text (#efeff1). Modeled on Twitch's dark theme.
+   Scoped entirely to body[data-experience="twitch"].
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Core surfaces ─── */
+body[data-experience="twitch"] .portfolio-view { background: #0e0e10; }
+body[data-experience="twitch"] .case-list-panel { background: #0e0e10; }
+body[data-experience="twitch"] .case-detail-panel { background: #0e0e10; }
+
+/* ─── Header ─── */
+body[data-experience="twitch"] .site-header { background: #18181b; }
+
+/* ─── Brass Tacks / About ─── */
+body[data-experience="twitch"] .about-title { color: #efeff1; }
+body[data-experience="twitch"] .about-lede { color: rgba(239, 239, 241, 0.9); }
+body[data-experience="twitch"] .about-desc { color: rgba(239, 239, 241, 0.6); }
+body[data-experience="twitch"] .cases-heading { color: rgba(239, 239, 241, 0.7); }
+
+/* ─── Case-back fade ─── */
+body[data-experience="twitch"] .case-back-btn {
+  background: #0e0e10;
+  box-shadow: 0 12px 20px 8px #0e0e10;
+  color: rgba(239, 239, 241, 0.7);
+}
+
+/* ─── Case detail text ─── */
+body[data-experience="twitch"] .cd-title { color: #efeff1; }
+body[data-experience="twitch"] .cd-kicker { color: rgba(239, 239, 241, 0.5); }
+body[data-experience="twitch"] .cd-body { color: rgba(239, 239, 241, 0.78); }
+body[data-experience="twitch"] .cs-section-heading { color: #efeff1; }
+body[data-experience="twitch"] .cs-section-num { color: #9147ff; }
+body[data-experience="twitch"] .cs-label { color: rgba(239, 239, 241, 0.45); }
+body[data-experience="twitch"] .cs-value { color: rgba(239, 239, 241, 0.85); }
+body[data-experience="twitch"] .cs-quote { color: rgba(239, 239, 241, 0.7); }
+body[data-experience="twitch"] .cs-quote-attr { color: rgba(239, 239, 241, 0.5); }
+
+/* ─── Callouts — problem = warm, resolution = purple ─── */
+body[data-experience="twitch"] .cs-callout {
+  background: rgba(145, 71, 255, 0.08);
+  border-color: rgba(145, 71, 255, 0.3);
+}
+body[data-experience="twitch"] .cs-callout-label { color: #bf94ff; }
+body[data-experience="twitch"] .cs-callout--problem {
+  background: rgba(255, 107, 107, 0.08);
+  border-color: rgba(255, 107, 107, 0.3);
+}
+body[data-experience="twitch"] .cs-callout--problem .cs-callout-label { color: #ff6b6b; }
+
+/* ─── Outcome stats ─── */
+body[data-experience="twitch"] .cs-outcome-num { color: #9147ff; }
+body[data-experience="twitch"] .cs-metric-val { color: #9147ff; }
+
+/* ─── Tradeoff chosen ─── */
+body[data-experience="twitch"] .cs-tradeoff-card {
+  background: #18181b;
+  border-color: rgba(239, 239, 241, 0.08);
+  color: rgba(239, 239, 241, 0.7);
+}
+body[data-experience="twitch"] .cs-tradeoff-card.chosen {
+  border-color: rgba(145, 71, 255, 0.5);
+  background: rgba(145, 71, 255, 0.08);
+}
+body[data-experience="twitch"] .cs-chosen-badge { background: #9147ff; color: #ffffff; }
+body[data-experience="twitch"] .cs-tradeoff-label { color: rgba(239, 239, 241, 0.5); }
+body[data-experience="twitch"] .cs-tradeoff-title { color: #efeff1; }
+body[data-experience="twitch"] .cs-tradeoff-desc { color: rgba(239, 239, 241, 0.65); }
+
+/* ─── Chat rail ─── */
+body[data-experience="twitch"] .chat-rail {
+  background: #18181b;
+  border-left-color: rgba(239, 239, 241, 0.08);
+}
+body[data-experience="twitch"] .name-question { color: #efeff1; }
+body[data-experience="twitch"] .name-input { color: #efeff1; border-bottom-color: rgba(239, 239, 241, 0.2); }
+body[data-experience="twitch"] .name-input::placeholder { color: rgba(239, 239, 241, 0.35); }
+body[data-experience="twitch"] .name-hint { color: rgba(239, 239, 241, 0.5); }
+body[data-experience="twitch"] .name-send-btn { background: #9147ff; color: #ffffff; }
+body[data-experience="twitch"] .name-send-btn:hover { background: #772ce8; }
+body[data-experience="twitch"] .msg-text { color: #efeff1; }
+body[data-experience="twitch"] .msg--user .msg-text { color: #efeff1; background: rgba(145, 71, 255, 0.14); }
+body[data-experience="twitch"] .msg-dot-wrap span { background: rgba(239, 239, 241, 0.35); }
+body[data-experience="twitch"] .rail-input-wrap {
+  background: #1f1f23;
+  border-top-color: rgba(239, 239, 241, 0.08);
+}
+body[data-experience="twitch"] .chat-input {
+  background: #26262c;
+  color: #efeff1;
+  border-color: rgba(239, 239, 241, 0.1);
+}
+body[data-experience="twitch"] .chat-input:focus {
+  background: #303036;
+  border-color: rgba(145, 71, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.12);
+}
+body[data-experience="twitch"] .chat-input::placeholder { color: rgba(239, 239, 241, 0.35); }
+body[data-experience="twitch"] .chat-send-btn { background: #9147ff; color: #ffffff; }
+body[data-experience="twitch"] .chat-send-btn:hover { background: #772ce8; }
+
+/* ─── Fit panel ─── */
+body[data-experience="twitch"] .fit-panel { background: #0e0e10; }
+body[data-experience="twitch"] .fit-title { color: #efeff1; }
+body[data-experience="twitch"] .fit-desc { color: rgba(239, 239, 241, 0.55); }
+body[data-experience="twitch"] .fit-textarea {
+  background: #26262c;
+  color: #efeff1;
+  border-color: rgba(239, 239, 241, 0.1);
+}
+body[data-experience="twitch"] .fit-textarea:focus {
+  background: #303036;
+  border-color: rgba(145, 71, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.12);
+}
+body[data-experience="twitch"] .fit-textarea::placeholder { color: rgba(239, 239, 241, 0.3); }
+body[data-experience="twitch"] .fit-assess-btn { background: #9147ff; color: #ffffff; }
+body[data-experience="twitch"] .fit-assess-btn:hover { background: #772ce8; }
+body[data-experience="twitch"] .fit-char-row { color: rgba(239, 239, 241, 0.3); }
+body[data-experience="twitch"] .fit-clear-btn { color: rgba(239, 239, 241, 0.45); }
+body[data-experience="twitch"] .fit-clear-btn:hover { color: #efeff1; }
+body[data-experience="twitch"] .fit-btn { background: #9147ff; color: #ffffff; border-color: transparent; }
+body[data-experience="twitch"] .fit-btn:hover { background: #772ce8; }
+body[data-experience="twitch"] .fit-headline { color: #efeff1; }
+body[data-experience="twitch"] .fit-rationale { color: rgba(239, 239, 241, 0.7); }
+body[data-experience="twitch"] .fit-section-label { color: rgba(239, 239, 241, 0.4); }
+body[data-experience="twitch"] .fit-list li { color: rgba(239, 239, 241, 0.78); }
+body[data-experience="twitch"] .fit-list--strengths li::before { color: #9147ff; }
+body[data-experience="twitch"] .fit-list--considerations li::before { color: rgba(239, 239, 241, 0.35); }
+body[data-experience="twitch"] .fit-loading span { background: rgba(239, 239, 241, 0.25); }
+body[data-experience="twitch"] .fit-case-link {
+  color: #bf94ff;
+  background: rgba(145, 71, 255, 0.08);
+  border-color: rgba(145, 71, 255, 0.25);
+}
+body[data-experience="twitch"] .fit-case-link:hover { background: rgba(145, 71, 255, 0.14); }
+
+/* ─── Recruiter panel ─── */
+body[data-experience="twitch"] .recruiter-panel { background: #0e0e10; }
+body[data-experience="twitch"] .recruiter-name { color: #efeff1; }
+body[data-experience="twitch"] .recruiter-role { color: rgba(239, 239, 241, 0.6); }
+body[data-experience="twitch"] .recruiter-exp-label { color: rgba(239, 239, 241, 0.45); }
+body[data-experience="twitch"] .recruiter-exp-title { color: #efeff1; }
+body[data-experience="twitch"] .recruiter-exp-co { color: rgba(239, 239, 241, 0.6); }
+body[data-experience="twitch"] .recruiter-card {
+  background: #18181b;
+  border-color: rgba(239, 239, 241, 0.06);
+}
+body[data-experience="twitch"] .recruiter-fit-title { color: #efeff1; }
+body[data-experience="twitch"] .recruiter-fit-desc { color: rgba(239, 239, 241, 0.55); }
+body[data-experience="twitch"] .recruiter-fit .fit-textarea {
+  background: #26262c;
+  color: #efeff1;
+  border-color: rgba(239, 239, 241, 0.1);
+}
+body[data-experience="twitch"] .recruiter-fit .fit-textarea:focus {
+  background: #303036;
+  border-color: rgba(145, 71, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.12);
+}
+body[data-experience="twitch"] .recruiter-fit .fit-textarea::placeholder { color: rgba(239, 239, 241, 0.3); }
+body[data-experience="twitch"] .recruiter-fit .fit-char-row { color: rgba(239, 239, 241, 0.3); }
+body[data-experience="twitch"] .recruiter-fit .fit-clear-btn { color: rgba(239, 239, 241, 0.45); }
+body[data-experience="twitch"] .recruiter-fit .fit-clear-btn:hover { color: #efeff1; }
+body[data-experience="twitch"] .recruiter-fit .fit-assess-btn { background: #9147ff; color: #ffffff; }
+body[data-experience="twitch"] .recruiter-fit .fit-assess-btn:hover { background: #772ce8; }
+body[data-experience="twitch"] .recruiter-fit .fit-headline { color: #efeff1; }
+body[data-experience="twitch"] .recruiter-fit .fit-rationale { color: rgba(239, 239, 241, 0.7); }
+body[data-experience="twitch"] .recruiter-fit .fit-section-label { color: rgba(239, 239, 241, 0.4); }
+body[data-experience="twitch"] .recruiter-fit .fit-list li { color: rgba(239, 239, 241, 0.78); }
+body[data-experience="twitch"] .recruiter-fit .fit-list--strengths li::before { color: #9147ff; }
+body[data-experience="twitch"] .recruiter-fit .fit-list--considerations li::before { color: rgba(239, 239, 241, 0.35); }
+body[data-experience="twitch"] .recruiter-fit .fit-loading span { background: rgba(239, 239, 241, 0.25); }
+body[data-experience="twitch"] .recruiter-fit .fit-case-link {
+  color: #bf94ff;
+  background: rgba(145, 71, 255, 0.08);
+  border-color: rgba(145, 71, 255, 0.25);
+}
+body[data-experience="twitch"] .recruiter-fit .fit-case-link:hover { background: rgba(145, 71, 255, 0.14); }
+body[data-experience="twitch"] .recruiter-cta { border-top-color: rgba(239, 239, 241, 0.08); }
+body[data-experience="twitch"] .recruiter-cta-title { color: #efeff1; }
+body[data-experience="twitch"] .recruiter-book-btn { background: #9147ff; color: #ffffff; }
+body[data-experience="twitch"] .recruiter-book-btn:hover { background: #772ce8; }
+
+/* ─── Mobile tabs ─── */
+body[data-experience="twitch"] .mob-tabs {
+  background: rgba(14, 14, 16, 0.95);
+  border-top-color: rgba(239, 239, 241, 0.08);
+}
+body[data-experience="twitch"] .mob-tab { color: rgba(239, 239, 241, 0.4); }
+body[data-experience="twitch"] .mob-tab.mob-tab--active { color: #9147ff; }
+
+/* ─── Scrollbar styling ─── */
+body[data-experience="twitch"] .case-list-panel::-webkit-scrollbar-track,
+body[data-experience="twitch"] .case-detail-panel::-webkit-scrollbar-track,
+body[data-experience="twitch"] .fit-panel::-webkit-scrollbar-track { background: #0e0e10; }
+body[data-experience="twitch"] .case-list-panel::-webkit-scrollbar-thumb,
+body[data-experience="twitch"] .case-detail-panel::-webkit-scrollbar-thumb,
+body[data-experience="twitch"] .fit-panel::-webkit-scrollbar-thumb { background: rgba(239, 239, 241, 0.1); }
+body[data-experience="twitch"] .case-list-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="twitch"] .case-detail-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="twitch"] .fit-panel::-webkit-scrollbar-thumb:hover { background: rgba(239, 239, 241, 0.2); }
+
+/* ─── Twitch Perspective tile gradient ─── */
+.thought-tile-pov-bg--twitch {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(145, 71, 255, 0.4) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(191, 148, 255, 0.2) 0%, transparent 70%),
+    linear-gradient(160deg, #0e0e10 0%, #1f1f23 40%, #0e0e10 100%);
+}
+.thought-tile--twitch-pov .thought-tile-badge { background: rgba(145, 71, 255, 0.9); color: #ffffff; }
+
+/* ─── Focus glow ─── */
+body[data-experience="twitch"] :focus-visible {
+  box-shadow: 0 0 0 3px rgba(145, 71, 255, 0.15), 0 0 12px rgba(145, 71, 255, 0.08);
+}
+
+/* ─── Override sky-dark portfolio-view forced colors ─── */
+body[data-experience="twitch"] .portfolio-view .name-input { color: #1f1f1f; }
+body[data-experience="twitch"] .portfolio-view .name-input::placeholder { color: rgba(31, 31, 31, 0.3); }
+body[data-experience="twitch"] .portfolio-view .msg-text { color: #efeff1; }
+body[data-experience="twitch"] .portfolio-view .msg--user .msg-text { color: #efeff1; background: rgba(145, 71, 255, 0.14); }
+body[data-experience="twitch"] .portfolio-view .rail-input-wrap { background: #1f1f23; }
+body[data-experience="twitch"] .portfolio-view .chat-input { color: #efeff1; background: #26262c; }
+body[data-experience="twitch"] .portfolio-view .chat-send-btn { background: #9147ff; }
+
+body[data-experience="twitch"].sky-dark .portfolio-view .about-title { color: #efeff1; }
+body[data-experience="twitch"].sky-dark .portfolio-view .about-lede { color: rgba(239, 239, 241, 0.9); }
+body[data-experience="twitch"].sky-dark .portfolio-view .about-desc { color: rgba(239, 239, 241, 0.6); }
+body[data-experience="twitch"].sky-dark .portfolio-view .cases-heading { color: rgba(239, 239, 241, 0.7); }
+body[data-experience="twitch"].sky-dark .portfolio-view .fit-btn { background: #9147ff; color: #ffffff; }
+
+/* ─── Mobile overrides ─── */
+@media (max-width: 900px) {
+  body[data-experience="twitch"] .fit-panel { background: rgba(14, 14, 16, 0.95); }
+  body[data-experience="twitch"] .name-input { color: #1f1f1f; }
+  body[data-experience="twitch"] .name-input::placeholder { color: rgba(31, 31, 31, 0.3); }
+  body[data-experience="twitch"] .chat-rail { background: #18181b; }
+  body[data-experience="twitch"] .msg-text { color: #efeff1; }
+  body[data-experience="twitch"] .msg--user .msg-text { color: #efeff1; background: rgba(145, 71, 255, 0.14); }
+  body[data-experience="twitch"] .rail-input-wrap { background: #1f1f23; }
+  body[data-experience="twitch"] .chat-input { color: #efeff1; background: #26262c; }
+  body[data-experience="twitch"] .chat-send-btn { background: #9147ff; }
+}

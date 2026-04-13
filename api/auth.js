@@ -20,6 +20,7 @@ export default function handler(req, res) {
     [process.env.PW_FIVE9]:          'five9',
     [process.env.PW_RIVIAN]:         'rivian',
     [process.env.PW_CIRCLE]:         'circle',
+    [process.env.PW_TWITCH]:         'twitch',
   };
 
   const experience = map[password];

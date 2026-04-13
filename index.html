@@ -188,6 +188,18 @@
               </article>
             </div>
 
+            <!-- ─── Twitch Perspective (only visible in twitch experience) ─── -->
+            <div class="case-item case-item--thought case-item--twitch-pov" data-thought="designing-platforms-where-two-sides-need-each-other" role="button" tabindex="0" aria-label="Read Designing platforms where two sides need each other" style="display:none">
+              <article class="thought-tile thought-tile--pov thought-tile--twitch-pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--twitch"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Designing platforms where two sides need each other</h3>
+                  <p class="thought-tile-desc">On dual-persona design, the craft of making both sides feel served, and what payroll networks and data pipelines share with creator platforms.</p>
+                </div>
+              </article>
+            </div>
+
             <!-- ─── Circle Perspective (only visible in circle experience) ─── -->
             <div class="case-item case-item--thought case-item--circle-pov" data-thought="designing-infrastructure-people-trust" role="button" tabindex="0" aria-label="Read Designing infrastructure people trust with their money" style="display:none">
               <article class="thought-tile thought-tile--pov thought-tile--circle-pov">
@@ -1413,6 +1425,10 @@
             tagline: 'I design infrastructure people trust.',
             desc:    '10 years building complex financial systems, cross-product platforms, and the design discipline that keeps high-stakes workflows clear at scale.',
           },
+          twitch: {
+            tagline: 'I design platforms where two sides meet.',
+            desc:    '10 years building for dual-persona platforms, design systems at scale, and the research-driven empathy that keeps both sides coming back.',
+          },
         };
         const copy = HERO_COPY[experience];
         if (copy) {
@@ -1689,6 +1705,23 @@
       // ── Netflix experience ─────────────────────────────────────────
       if (exp === 'netflix') {
         // Theme is handled entirely via CSS scoped to body[data-experience="netflix"]
+        return;
+      }
+
+      // ── Twitch experience ─────────────────────────────────────────
+      if (exp === 'twitch') {
+        const povTile = document.querySelector('.case-item--twitch-pov');
+        if (povTile) povTile.style.display = '';
+
+        const jdText = 'Senior Product Designer\nTwitch\n\nDesign for content discovery and engagement experiences on Twitch. Hands-on research, close collaboration with engineers, PMs, and designers. Think creatively about sustaining streamer communities. Give back to the design community by using and improving existing patterns. Mentor junior designers.\n\n5+ years UX design. Content discovery and engagement. Interaction design and visual craft. Prototyping mobile experiences. Impact product strategy. Empathy for users. Figma expertise. Desirable: AI workflows, content creator or UGC platform experience, design systems knowledge.';
+        ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+          const ta = document.getElementById(id);
+          if (ta) {
+            ta.value = jdText;
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        });
+
         return;
       }
 
@@ -3350,6 +3383,50 @@
             paragraphs: [
               'Unifying fragmented financial domains into a single platform is the exact kind of problem I\u2019ve been solving. At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface and achieved full adoption. At Meroxa, I led a strategic pivot that expanded the addressable market by 10x through rethinking who the product actually served.',
               'The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural. The payoff for getting the structure right compounds across every surface you ship.',
+            ],
+          },
+        ],
+      },
+
+      'designing-platforms-where-two-sides-need-each-other': {
+        kicker: 'Point of View',
+        title:  'Designing platforms where two sides need each other',
+        dek: 'On dual-persona design, the craft of making both sides feel served, and what payroll networks and data pipelines share with creator platforms.',
+        sections: [
+          {
+            paragraphs: [
+              'Every platform with two distinct user types faces the same structural challenge: each side has different needs, different mental models, and different definitions of success. The platform has to serve both without compromising either.',
+              'I\u2019ve designed for this dynamic across my career. At Teamshares, employees and network operators. At Upwork, freelancers and the clients hiring them. At Meroxa, data engineers building pipelines and the teams consuming the output. The design challenge repeats: how do you build one product that feels purpose-built for two very different people?',
+            ],
+          },
+          {
+            heading: 'The relationship is the product',
+            paragraphs: [
+              'In two-sided platforms, the most important surface is the connection between them. The moment where one side\u2019s work reaches the other. How that handoff feels shapes whether both sides keep coming back.',
+              'At Teamshares, Industry Leads depended on data that Network Company operators produced. The reporting system had to make the operator\u2019s job feel simple and give the Industry Lead confidence that the data was accurate and current. If either side lost trust in the system, both sides suffered.',
+              'That dynamic maps directly to creator platforms. A streamer needs tools that feel powerful and immediate. A viewer needs an experience that feels effortless and engaging. The platform succeeds when both sides feel like the product was designed specifically for them.',
+            ],
+          },
+          {
+            heading: 'Empathy multiplied',
+            paragraphs: [
+              'Designing for one persona requires deep empathy. Designing for two requires holding both perspectives simultaneously, and knowing when they conflict.',
+              'At Upwork, I worked at the intersection of freelancer experience and client experience. The platform had to give freelancers visibility and control over how they presented their work, while giving clients confidence and clarity in evaluating candidates. The research I did there taught me that the most productive design decisions came from understanding where both sides\u2019 motivations aligned and designing for that overlap.',
+              'In creator platforms, the overlap is the content itself. Both creators and audiences care about the quality of what\u2019s being shared. Both benefit from discovery that surfaces the right content. The design work is in amplifying that shared interest.',
+            ],
+          },
+          {
+            heading: 'Systems that scale community',
+            paragraphs: [
+              'When a platform grows, consistency becomes community infrastructure. A shared interaction language across every surface means that both creators and viewers can navigate the product intuitively, regardless of which feature they\u2019re using.',
+              'At Marketo, Sky\u2019s design system unified 50+ components across every product surface. The outcome was coherence at scale. Users moved between tools without having to relearn the interface. That same principle applies to platforms where creators and viewers interact across live streams, chat, clips, profiles, and discovery surfaces. The design system is what keeps the experience feeling like one product.',
+            ],
+          },
+          {
+            heading: 'What I\u2019d bring to a creator platform',
+            paragraphs: [
+              'I\u2019ve spent my career designing platforms that serve multiple user types through shared infrastructure. Systems thinking, research-driven empathy, design systems that scale. These are the tools that make two-sided platforms coherent.',
+              'Twitch\u2019s challenge is a version of the same problem I\u2019ve been solving: how do you give creators the power they need and viewers the experience they want, all within one product that feels intentional? That\u2019s the intersection of craft and systems where I do my best work.',
             ],
           },
         ],
