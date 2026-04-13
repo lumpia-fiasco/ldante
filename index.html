@@ -1350,6 +1350,28 @@
       function showRolePicker(experience) {
         sessionStorage.setItem('pw-auth', '1');
         sessionStorage.setItem('portfolio-experience', experience || 'standard');
+
+        // Tailor hero copy for experience-specific passwords
+        const HERO_COPY = {
+          lattice: {
+            tagline: 'I build design systems that last.',
+            desc:    'Systems thinking, cross-product cohesion, federated governance. Marketo Sky hit 100% adoption and contributed patterns upstream to Adobe Spectrum.',
+          },
+          netflix: {
+            tagline: 'I design for complexity.',
+            desc:    'A decade shipping complex products across ambiguous domains. I hold the product together when the rules haven\u2019t been written yet.',
+          },
+          rippling: {
+            tagline: 'I design financial platforms.',
+            desc:    '10 years unifying fragmented domains and shipping complex B2B workflows. From payroll across 90+ companies to design systems at enterprise scale.',
+          },
+        };
+        const copy = HERO_COPY[experience];
+        if (copy) {
+          document.querySelector('.hero-tagline').textContent = copy.tagline;
+          document.querySelector('.hero-desc').textContent = copy.desc;
+        }
+
         // Fade out password field, show role picker on the right
         gate.classList.add('pw-gate--role-step');
         rolePicker.hidden = false;
