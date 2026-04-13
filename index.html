@@ -188,6 +188,18 @@
               </article>
             </div>
 
+            <!-- ─── Circle Perspective (only visible in circle experience) ─── -->
+            <div class="case-item case-item--thought case-item--circle-pov" data-thought="designing-infrastructure-people-trust" role="button" tabindex="0" aria-label="Read Designing infrastructure people trust with their money" style="display:none">
+              <article class="thought-tile thought-tile--pov thought-tile--circle-pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--circle"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Designing infrastructure people trust with their money</h3>
+                  <p class="thought-tile-desc">On visibility, complex workflows, and why the design patterns that matter in traditional payments carry directly into digital currency.</p>
+                </div>
+              </article>
+            </div>
+
             <!-- ─── Rivian Perspective (only visible in rivian experience) ─── -->
             <div class="case-item case-item--thought case-item--rivian-pov" data-thought="where-brand-meets-the-buy-button" role="button" tabindex="0" aria-label="Read Where brand storytelling meets the buy button" style="display:none">
               <article class="thought-tile thought-tile--pov thought-tile--rivian-pov">
@@ -1397,6 +1409,10 @@
             tagline: 'I design where story meets transaction.',
             desc:    'Brand storytelling at Gibson Guitar and Nashville\u2019s music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. Both worlds in one designer.',
           },
+          circle: {
+            tagline: 'I design infrastructure people trust.',
+            desc:    '10 years building complex financial systems, cross-product platforms, and the design discipline that keeps high-stakes workflows clear at scale.',
+          },
         };
         const copy = HERO_COPY[experience];
         if (copy) {
@@ -1673,6 +1689,23 @@
       // ── Netflix experience ─────────────────────────────────────────
       if (exp === 'netflix') {
         // Theme is handled entirely via CSS scoped to body[data-experience="netflix"]
+        return;
+      }
+
+      // ── Circle experience ─────────────────────────────────────────
+      if (exp === 'circle') {
+        const povTile = document.querySelector('.case-item--circle-pov');
+        if (povTile) povTile.style.display = '';
+
+        const jdText = 'Lead Product Designer\nCircle\n\nOwn end-to-end design for currency, treasury, and payments solutions. Apply systems thinking to craft intuitive, scalable experiences serving thousands of businesses and millions of end users globally. Partner with Product and Engineering to define high-impact problem spaces. Drive cross-functional alignment on problem definition and solution strategy.\n\n7+ years UX/product design. Complex, high-impact product experiences. Strong systems thinking across interconnected product areas. Research and data-informed decisions. Experience with complex workflows, service design, enterprise-grade products.';
+        ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+          const ta = document.getElementById(id);
+          if (ta) {
+            ta.value = jdText;
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        });
+
         return;
       }
 
@@ -3317,6 +3350,51 @@
             paragraphs: [
               'Unifying fragmented financial domains into a single platform is the exact kind of problem I\u2019ve been solving. At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface and achieved full adoption. At Meroxa, I led a strategic pivot that expanded the addressable market by 10x through rethinking who the product actually served.',
               'The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural. The payoff for getting the structure right compounds across every surface you ship.',
+            ],
+          },
+        ],
+      },
+
+      'designing-infrastructure-people-trust': {
+        kicker: 'Point of View',
+        title:  'Designing infrastructure people trust with their money',
+        dek: 'On visibility, complex workflows, and why the design patterns that matter in traditional payments carry directly into digital currency.',
+        sections: [
+          {
+            paragraphs: [
+              'Every product that touches money has the same foundational design constraint: trust. The interface has to communicate precision, status, and control at every step. Users need to know exactly where their money is, what\u2019s happening to it, and that they can intervene if something goes wrong.',
+              'I\u2019ve designed financial infrastructure at Teamshares, where payroll data flowed across 90+ companies. The patterns I learned there, around visibility, status clarity, and policy-driven workflows, are the same patterns that matter in currency, treasury, and payments. The design principles hold regardless of the underlying asset.',
+            ],
+          },
+          {
+            heading: 'Visibility is trust',
+            paragraphs: [
+              'In financial products, the most important design decision is what you make visible. At Teamshares, Industry Leads had no real-time visibility into payroll health across their network. Analyses were delayed days by manual processes. The system worked, but nobody could see it working. That invisibility eroded confidence.',
+              'We redesigned the reporting system around centralized visibility. Real-time data across 90+ companies. The result was a 50% increase in team productivity, and the deeper outcome was trust. When people can see the state of their money at a glance, they stop worrying about whether the system is doing its job.',
+              'That principle applies directly to treasury and payments infrastructure. Whether someone is managing USDC reserves or routing cross-border payments, they need to see the state of every transaction, every balance, every policy in real time. Visibility is how you build trust at scale.',
+            ],
+          },
+          {
+            heading: 'Complex workflows need calm design',
+            paragraphs: [
+              'Financial workflows are inherently complex. Multi-step approvals, compliance checks, reconciliation across systems, edge cases for every jurisdiction. The design challenge is making this complexity navigable without hiding it.',
+              'At Teamshares, payroll reporting involved disparate data sources, multiple user roles, and compliance requirements that varied by company. The design work was in creating clear paths through the complexity: progressive disclosure that surfaced the right information at the right moment, status indicators that made the current state unambiguous, and defaults that handled the common case so users only had to intervene on exceptions.',
+              'That same discipline scales to crypto payments infrastructure. The workflows share the same structure: multi-party transactions, regulatory requirements, global variation, and users who need confidence in every step.',
+            ],
+          },
+          {
+            heading: 'Systems thinking across interconnected products',
+            paragraphs: [
+              'Currency, treasury, and payments are interconnected domains. A change in how currency is issued affects how treasury manages reserves affects how payments settle. Designing any one surface in isolation misses the connections.',
+              'This is where my experience at Marketo and Meroxa maps directly. At Marketo, I built a design system that unified 50+ components across every product surface because the real value was in the connections between tools. At Meroxa, the strategic pivot from a pipeline builder to an observability platform came from recognizing that the product\u2019s surfaces were more connected than the team realized.',
+              'Designing across interconnected product areas requires mapping the system before designing any screen. Where does data flow? Where do user workflows cross product boundaries? Where do changes in one area cascade into others? Those are the questions that shape a cohesive platform.',
+            ],
+          },
+          {
+            heading: 'What I\u2019d bring to Circle',
+            paragraphs: [
+              'I\u2019ve spent my career designing complex, interconnected systems that handle high-stakes data. Payroll across 90+ companies. Design systems that unified dozens of product surfaces. Data infrastructure pivots that reshaped entire platforms. The common thread is infrastructure that people rely on, and the design discipline required to keep it clear, trustworthy, and scalable.',
+              'Circle\u2019s challenge, building intuitive experiences for currency, treasury, and payments at global scale, sits at the exact intersection of systems thinking, financial domain knowledge, and craft that my career has been building toward.',
             ],
           },
         ],

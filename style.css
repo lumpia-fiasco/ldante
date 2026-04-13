@@ -4824,3 +4824,282 @@ body[data-experience="rivian"].sky-dark .portfolio-view .fit-btn {
     background: rgba(242, 242, 242, 0.95);
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CIRCLE EXPERIENCE
+   Light purple-tinted surfaces (#F9F7FF), dark navy header (#1A1A2E),
+   signature cyan-to-green gradient CTAs, blue accents (#007AFF).
+   Scoped entirely to body[data-experience="circle"].
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Core surfaces ─── */
+body[data-experience="circle"] .portfolio-view {
+  background: #F9F7FF;
+}
+
+body[data-experience="circle"] .case-list-panel {
+  background: #F9F7FF;
+}
+
+body[data-experience="circle"] .case-detail-panel {
+  background: #F9F7FF;
+}
+
+/* ─── Header ─── */
+body[data-experience="circle"] .site-header {
+  background: #1A1A2E;
+}
+
+/* ─── Case-back fade ─── */
+body[data-experience="circle"] .case-back-btn {
+  background: #F9F7FF;
+  box-shadow: 0 12px 20px 8px #F9F7FF;
+}
+
+/* ─── Case cards ─── */
+body[data-experience="circle"] .case-card-v {
+  border-color: rgba(134, 86, 239, 0.06);
+}
+
+body[data-experience="circle"] .case-card-v:hover {
+  border-color: rgba(134, 86, 239, 0.14);
+}
+
+/* ─── Case detail ─── */
+body[data-experience="circle"] .cs-section-num {
+  color: #8656EF;
+}
+
+/* ─── Callouts — problem = purple, resolution = blue ─── */
+body[data-experience="circle"] .cs-callout {
+  background: rgba(0, 122, 255, 0.05);
+  border-color: rgba(0, 122, 255, 0.25);
+}
+
+body[data-experience="circle"] .cs-callout-label {
+  color: #007AFF;
+}
+
+body[data-experience="circle"] .cs-callout--problem {
+  background: rgba(134, 86, 239, 0.06);
+  border-color: rgba(134, 86, 239, 0.25);
+}
+
+body[data-experience="circle"] .cs-callout--problem .cs-callout-label {
+  color: #8656EF;
+}
+
+/* ─── Outcome stats — green ─── */
+body[data-experience="circle"] .cs-outcome-num {
+  color: #00B871;
+}
+
+body[data-experience="circle"] .cs-metric-val {
+  color: #00B871;
+}
+
+/* ─── Tradeoff chosen ─── */
+body[data-experience="circle"] .cs-tradeoff-card.chosen {
+  border-color: rgba(98, 226, 164, 0.45);
+  background: rgba(98, 226, 164, 0.06);
+}
+
+body[data-experience="circle"] .cs-chosen-badge {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+/* ─── Chat rail ─── */
+body[data-experience="circle"] .chat-rail {
+  background: #FDFCFF;
+  border-left-color: rgba(134, 86, 239, 0.06);
+}
+
+body[data-experience="circle"] .msg--user .msg-text {
+  background: rgba(134, 86, 239, 0.06);
+}
+
+body[data-experience="circle"] .name-send-btn {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+body[data-experience="circle"] .name-send-btn:hover {
+  background: linear-gradient(90deg, #52C8ED, #6BE0A5);
+}
+
+body[data-experience="circle"] .rail-input-wrap {
+  background: #F3F0FA;
+  border-top-color: rgba(134, 86, 239, 0.06);
+}
+
+body[data-experience="circle"] .chat-input {
+  background: #ffffff;
+  border-color: rgba(134, 86, 239, 0.1);
+}
+
+body[data-experience="circle"] .chat-input:focus {
+  border-color: rgba(0, 122, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.08);
+}
+
+body[data-experience="circle"] .chat-send-btn {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+body[data-experience="circle"] .chat-send-btn:hover {
+  background: linear-gradient(90deg, #52C8ED, #6BE0A5);
+}
+
+/* ─── Fit panel ─── */
+body[data-experience="circle"] .fit-panel {
+  background: #F9F7FF;
+}
+
+body[data-experience="circle"] .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(134, 86, 239, 0.1);
+}
+
+body[data-experience="circle"] .fit-textarea:focus {
+  border-color: rgba(0, 122, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.08);
+}
+
+body[data-experience="circle"] .fit-assess-btn {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+body[data-experience="circle"] .fit-assess-btn:hover {
+  background: linear-gradient(90deg, #52C8ED, #6BE0A5);
+}
+
+body[data-experience="circle"] .fit-btn {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+  border-color: transparent;
+}
+
+body[data-experience="circle"] .fit-btn:hover {
+  background: linear-gradient(90deg, #52C8ED, #6BE0A5);
+}
+
+body[data-experience="circle"] .fit-case-link {
+  color: #007AFF;
+  background: rgba(0, 122, 255, 0.04);
+  border-color: rgba(0, 122, 255, 0.18);
+}
+
+body[data-experience="circle"] .fit-case-link:hover {
+  background: rgba(0, 122, 255, 0.09);
+}
+
+body[data-experience="circle"] .fit-list--strengths li::before {
+  color: #00B871;
+}
+
+/* ─── Recruiter panel ─── */
+body[data-experience="circle"] .recruiter-panel {
+  background: #F9F7FF;
+}
+
+body[data-experience="circle"] .recruiter-book-btn {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+body[data-experience="circle"] .recruiter-book-btn:hover {
+  background: linear-gradient(90deg, #52C8ED, #6BE0A5);
+}
+
+body[data-experience="circle"] .recruiter-fit .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(134, 86, 239, 0.1);
+}
+
+body[data-experience="circle"] .recruiter-fit .fit-textarea:focus {
+  border-color: rgba(0, 122, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.08);
+}
+
+body[data-experience="circle"] .recruiter-fit .fit-assess-btn {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+body[data-experience="circle"] .recruiter-fit .fit-assess-btn:hover {
+  background: linear-gradient(90deg, #52C8ED, #6BE0A5);
+}
+
+body[data-experience="circle"] .recruiter-fit .fit-case-link {
+  color: #007AFF;
+  background: rgba(0, 122, 255, 0.04);
+  border-color: rgba(0, 122, 255, 0.18);
+}
+
+body[data-experience="circle"] .recruiter-fit .fit-case-link:hover {
+  background: rgba(0, 122, 255, 0.09);
+}
+
+/* ─── Mobile tabs ─── */
+body[data-experience="circle"] .mob-tabs {
+  background: rgba(249, 247, 255, 0.95);
+  border-top-color: rgba(134, 86, 239, 0.08);
+}
+
+body[data-experience="circle"] .mob-tab.mob-tab--active {
+  color: #007AFF;
+}
+
+/* ─── Scrollbar styling ─── */
+body[data-experience="circle"] .case-list-panel::-webkit-scrollbar-track,
+body[data-experience="circle"] .case-detail-panel::-webkit-scrollbar-track,
+body[data-experience="circle"] .fit-panel::-webkit-scrollbar-track {
+  background: #F9F7FF;
+}
+
+body[data-experience="circle"] .case-list-panel::-webkit-scrollbar-thumb,
+body[data-experience="circle"] .case-detail-panel::-webkit-scrollbar-thumb,
+body[data-experience="circle"] .fit-panel::-webkit-scrollbar-thumb {
+  background: rgba(134, 86, 239, 0.1);
+}
+
+body[data-experience="circle"] .case-list-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="circle"] .case-detail-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="circle"] .fit-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(134, 86, 239, 0.2);
+}
+
+/* ─── Circle Perspective tile gradient ─── */
+.thought-tile-pov-bg--circle {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(103, 214, 249, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(126, 240, 179, 0.3) 0%, transparent 70%),
+    linear-gradient(160deg, #1A1A2E 0%, #2A2244 40%, #1A1A2E 100%);
+}
+
+.thought-tile--circle-pov .thought-tile-badge {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+/* ─── Focus glow ─── */
+body[data-experience="circle"] :focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12), 0 0 12px rgba(134, 86, 239, 0.06);
+}
+
+/* ─── sky-dark overrides ─── */
+body[data-experience="circle"].sky-dark .portfolio-view .fit-btn {
+  background: linear-gradient(90deg, #67D6F9, #7EF0B3);
+  color: #1A1A2E;
+}
+
+/* ─── Mobile overrides ─── */
+@media (max-width: 900px) {
+  body[data-experience="circle"] .fit-panel {
+    background: rgba(249, 247, 255, 0.95);
+  }
+}
