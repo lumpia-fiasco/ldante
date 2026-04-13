@@ -188,6 +188,18 @@
               </article>
             </div>
 
+            <!-- ─── Five9 Perspective (only visible in five9 experience) ─── -->
+            <div class="case-item case-item--thought case-item--five9-pov" data-thought="designing-for-people-who-live-in-the-product" role="button" tabindex="0" aria-label="Read Designing for people who live in the product" style="display:none">
+              <article class="thought-tile thought-tile--pov thought-tile--five9-pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--five9"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Designing for people who live in the product</h3>
+                  <p class="thought-tile-desc">On cognitive load, multi-persona platforms, and what full-day software demands from a design system.</p>
+                </div>
+              </article>
+            </div>
+
             <div class="case-item" data-case="teamshares-payroll" role="button" tabindex="0" aria-label="View Teamshares Payroll case study" style="--card-color: #DB8319">
               <div class="case-card-v">
                 <span class="case-study-badge">Case Study</span>
@@ -1365,6 +1377,10 @@
             tagline: 'I design financial platforms.',
             desc:    '10 years unifying fragmented domains and shipping complex B2B workflows. From payroll across 90+ companies to design systems at enterprise scale.',
           },
+          five9: {
+            tagline: 'I design platforms people live in.',
+            desc:    '10 years building complex, data-rich applications for power users. Design systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.',
+          },
         };
         const copy = HERO_COPY[experience];
         if (copy) {
@@ -1641,6 +1657,23 @@
       // ── Netflix experience ─────────────────────────────────────────
       if (exp === 'netflix') {
         // Theme is handled entirely via CSS scoped to body[data-experience="netflix"]
+        return;
+      }
+
+      // ── Five9 experience ──────────────────────────────────────────
+      if (exp === 'five9') {
+        const povTile = document.querySelector('.case-item--five9-pov');
+        if (povTile) povTile.style.display = '';
+
+        const jdText = 'Senior Product Designer\nFive9\n\nShape the user experience of Five9\u2019s cloud contact center platform, advocating for Agent, Supervisor, and Admin personas. Lead design from concept to launch for complex, data-rich applications. Contribute to and maintain the design system, ensuring consistency across all products. Drive the \u201Cone platform\u201D strategy to create a seamless, integrated experience. Mentor other designers.\n\n5+ years on complex, data-rich applications. Proficiency in Figma, Sketch, Adobe. Web and mobile design principles. User research and usability testing. Strong communication and collaboration.';
+        ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+          const ta = document.getElementById(id);
+          if (ta) {
+            ta.value = jdText;
+            ta.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        });
+
         return;
       }
 
@@ -3251,6 +3284,50 @@
             paragraphs: [
               'Unifying fragmented financial domains into a single platform is the exact kind of problem I\u2019ve been solving. At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface and achieved full adoption. At Meroxa, I led a strategic pivot that expanded the addressable market by 10x through rethinking who the product actually served.',
               'The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural. The payoff for getting the structure right compounds across every surface you ship.',
+            ],
+          },
+        ],
+      },
+
+      'designing-for-people-who-live-in-the-product': {
+        kicker: 'Point of View',
+        title:  'Designing for people who live in the product',
+        dek: 'On cognitive load, multi-persona platforms, and what full-day software demands from a design system.',
+        sections: [
+          {
+            paragraphs: [
+              'Some products are visited for a few minutes a day. Others are inhabited. Contact center software, marketing automation, data pipelines. When someone spends eight hours inside your product, every design decision either compounds into clarity or compounds into fatigue.',
+              'I\u2019ve spent most of my career designing platforms that people live in. Marketo, where marketers built and managed campaigns across dozens of surfaces. Teamshares, where operators managed hiring and payroll across 90+ companies. Meroxa, where engineers monitored real-time data pipelines. These users aren\u2019t browsing. They\u2019re working. And the bar for what "intuitive" means goes up dramatically when the session never ends.',
+            ],
+          },
+          {
+            heading: 'Cognitive load is a design debt',
+            paragraphs: [
+              'In full-day software, every unnecessary interaction is a tax. An extra click to reach a common action. A dashboard that shows everything but highlights nothing. A label that\u2019s technically accurate but takes a beat too long to parse.',
+              'These aren\u2019t UX issues in isolation. They\u2019re compounding debt. Over an eight-hour shift, a three-click workflow costs twenty minutes more than a one-click workflow. A noisy dashboard creates decision fatigue by lunch.',
+              'At Marketo, I learned this building Sky. The design system unified 50+ components across every product surface. But the real value was in the decisions we made about information density. Which data needed to be visible at a glance. Which actions deserved primary placement. Which elements could be progressively disclosed to reduce noise. Those decisions scaled across every product team that adopted the system.',
+            ],
+          },
+          {
+            heading: 'Three personas, one platform',
+            paragraphs: [
+              'Platform products often serve multiple personas with fundamentally different relationships to the same data. An agent needs speed and simplicity. A supervisor needs oversight and intervention tools. An admin needs configuration and control.',
+              'The design challenge is building a unified experience that adapts to each persona without fragmenting into three separate products. Shared navigation, shared mental models, shared language. Differentiated workflows, differentiated information hierarchy, differentiated defaults.',
+              'At Teamshares, the payroll reporting system served network company operators and industry leads through the same underlying platform. Operators saw their own company data. Industry leads saw aggregated views across all 90+ companies. The interface adapted to the role. The architecture was shared. That pattern is how you build "one platform" for multiple personas without losing coherence.',
+            ],
+          },
+          {
+            heading: 'Design systems carry the weight',
+            paragraphs: [
+              'When a platform spans dozens of surfaces and serves multiple personas, the design system is what keeps the experience from fragmenting. Consistent interaction patterns, predictable layouts, shared vocabulary. These aren\u2019t polish. They\u2019re infrastructure.',
+              'At Marketo, Sky achieved 100% adoption across product teams. Patterns were eventually contributed upstream to Adobe Spectrum. That happened because the system was built to serve the people using it: both the end users of the product and the designers and engineers building on it. We treated internal adoption as a design problem and solved it the same way we\u2019d solve any product problem: by studying real behavior, identifying friction, and designing the DX around actual workflows.',
+            ],
+          },
+          {
+            heading: 'What I\u2019d bring to a platform people live in',
+            paragraphs: [
+              'I\u2019ve spent my career on the kind of products where users don\u2019t just visit. They set up camp. Designing for that context means caring about information density, cognitive load over long sessions, multi-persona flexibility, and the design system infrastructure that holds it all together.',
+              'The "one platform" challenge is one I\u2019ve solved before, at different companies and at different scales. The underlying problem is always the same: how do you give three very different users a coherent experience without building three separate products? That\u2019s systems thinking applied to product design, and it\u2019s the work I do best.',
             ],
           },
         ],

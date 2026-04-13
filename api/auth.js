@@ -17,6 +17,7 @@ export default function handler(req, res) {
     [process.env.PW_LATTICE]:        'lattice',
     [process.env.PW_NETFLIX]:        'netflix',
     [process.env.PW_RIPPLING]:       'rippling',
+    [process.env.PW_FIVE9]:          'five9',
   };
 
   const experience = map[password];

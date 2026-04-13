@@ -4268,3 +4268,278 @@ body[data-experience="rippling"].sky-dark .portfolio-view .fit-btn {
     background: rgba(242, 238, 235, 0.95);
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FIVE9 EXPERIENCE
+   Light gray surfaces (#f7f7f7), dark navy header (#0c006c),
+   blue accents (#2a4cf9), lime hover (#dffc92).
+   Scoped entirely to body[data-experience="five9"].
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Core surfaces ─── */
+body[data-experience="five9"] .portfolio-view {
+  background: #f7f7f7;
+}
+
+body[data-experience="five9"] .case-list-panel {
+  background: #f7f7f7;
+}
+
+body[data-experience="five9"] .case-detail-panel {
+  background: #f7f7f7;
+}
+
+/* ─── Header ─── */
+body[data-experience="five9"] .site-header {
+  background: #0c006c;
+}
+
+/* ─── Case-back fade ─── */
+body[data-experience="five9"] .case-back-btn {
+  background: #f7f7f7;
+  box-shadow: 0 12px 20px 8px #f7f7f7;
+}
+
+/* ─── Case cards ─── */
+body[data-experience="five9"] .case-card-v {
+  border-color: rgba(12, 0, 108, 0.06);
+}
+
+body[data-experience="five9"] .case-card-v:hover {
+  border-color: rgba(12, 0, 108, 0.12);
+}
+
+/* ─── Case detail ─── */
+body[data-experience="five9"] .cs-section-num {
+  color: #2a4cf9;
+}
+
+/* ─── Callouts — problem = magenta, resolution = blue ─── */
+body[data-experience="five9"] .cs-callout {
+  background: rgba(42, 76, 249, 0.06);
+  border-color: rgba(42, 76, 249, 0.25);
+}
+
+body[data-experience="five9"] .cs-callout-label {
+  color: #2a4cf9;
+}
+
+body[data-experience="five9"] .cs-callout--problem {
+  background: rgba(255, 2, 102, 0.05);
+  border-color: rgba(255, 2, 102, 0.25);
+}
+
+body[data-experience="five9"] .cs-callout--problem .cs-callout-label {
+  color: #ff0266;
+}
+
+/* ─── Outcome stats ─── */
+body[data-experience="five9"] .cs-outcome-num {
+  color: #2a4cf9;
+}
+
+body[data-experience="five9"] .cs-metric-val {
+  color: #2a4cf9;
+}
+
+/* ─── Tradeoff chosen ─── */
+body[data-experience="five9"] .cs-tradeoff-card.chosen {
+  border-color: rgba(42, 76, 249, 0.4);
+  background: rgba(42, 76, 249, 0.05);
+}
+
+body[data-experience="five9"] .cs-chosen-badge {
+  background: #2a4cf9;
+  color: #ffffff;
+}
+
+/* ─── Chat rail ─── */
+body[data-experience="five9"] .chat-rail {
+  background: #ffffff;
+  border-left-color: rgba(12, 0, 108, 0.06);
+}
+
+body[data-experience="five9"] .msg--user .msg-text {
+  background: rgba(42, 76, 249, 0.07);
+}
+
+body[data-experience="five9"] .name-send-btn {
+  background: #2a4cf9;
+  color: #ffffff;
+}
+
+body[data-experience="five9"] .name-send-btn:hover {
+  background: #0931d0;
+}
+
+body[data-experience="five9"] .rail-input-wrap {
+  background: #f0f0f0;
+  border-top-color: rgba(12, 0, 108, 0.06);
+}
+
+body[data-experience="five9"] .chat-input {
+  background: #ffffff;
+  border-color: rgba(12, 0, 108, 0.1);
+}
+
+body[data-experience="five9"] .chat-input:focus {
+  border-color: rgba(42, 76, 249, 0.4);
+  box-shadow: 0 0 0 3px rgba(42, 76, 249, 0.1);
+}
+
+body[data-experience="five9"] .chat-send-btn {
+  background: #2a4cf9;
+  color: #ffffff;
+}
+
+body[data-experience="five9"] .chat-send-btn:hover {
+  background: #0931d0;
+}
+
+/* ─── Fit panel ─── */
+body[data-experience="five9"] .fit-panel {
+  background: #f7f7f7;
+}
+
+body[data-experience="five9"] .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(12, 0, 108, 0.1);
+}
+
+body[data-experience="five9"] .fit-textarea:focus {
+  border-color: rgba(42, 76, 249, 0.4);
+  box-shadow: 0 0 0 3px rgba(42, 76, 249, 0.1);
+}
+
+body[data-experience="five9"] .fit-assess-btn {
+  background: #2a4cf9;
+  color: #ffffff;
+}
+
+body[data-experience="five9"] .fit-assess-btn:hover {
+  background: #0931d0;
+}
+
+body[data-experience="five9"] .fit-btn {
+  background: #2a4cf9;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+body[data-experience="five9"] .fit-btn:hover {
+  background: #0931d0;
+}
+
+body[data-experience="five9"] .fit-case-link {
+  color: #2a4cf9;
+  background: rgba(42, 76, 249, 0.05);
+  border-color: rgba(42, 76, 249, 0.18);
+}
+
+body[data-experience="five9"] .fit-case-link:hover {
+  background: rgba(42, 76, 249, 0.1);
+}
+
+/* ─── Recruiter panel ─── */
+body[data-experience="five9"] .recruiter-panel {
+  background: #f7f7f7;
+}
+
+body[data-experience="five9"] .recruiter-book-btn {
+  background: #2a4cf9;
+  color: #ffffff;
+}
+
+body[data-experience="five9"] .recruiter-book-btn:hover {
+  background: #0931d0;
+}
+
+body[data-experience="five9"] .recruiter-fit .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(12, 0, 108, 0.1);
+}
+
+body[data-experience="five9"] .recruiter-fit .fit-textarea:focus {
+  border-color: rgba(42, 76, 249, 0.4);
+  box-shadow: 0 0 0 3px rgba(42, 76, 249, 0.1);
+}
+
+body[data-experience="five9"] .recruiter-fit .fit-assess-btn {
+  background: #2a4cf9;
+  color: #ffffff;
+}
+
+body[data-experience="five9"] .recruiter-fit .fit-assess-btn:hover {
+  background: #0931d0;
+}
+
+body[data-experience="five9"] .recruiter-fit .fit-case-link {
+  color: #2a4cf9;
+  background: rgba(42, 76, 249, 0.05);
+  border-color: rgba(42, 76, 249, 0.18);
+}
+
+body[data-experience="five9"] .recruiter-fit .fit-case-link:hover {
+  background: rgba(42, 76, 249, 0.1);
+}
+
+/* ─── Mobile tabs ─── */
+body[data-experience="five9"] .mob-tabs {
+  background: rgba(247, 247, 247, 0.95);
+  border-top-color: rgba(12, 0, 108, 0.08);
+}
+
+body[data-experience="five9"] .mob-tab.mob-tab--active {
+  color: #2a4cf9;
+}
+
+/* ─── Scrollbar styling ─── */
+body[data-experience="five9"] .case-list-panel::-webkit-scrollbar-track,
+body[data-experience="five9"] .case-detail-panel::-webkit-scrollbar-track,
+body[data-experience="five9"] .fit-panel::-webkit-scrollbar-track {
+  background: #f7f7f7;
+}
+
+body[data-experience="five9"] .case-list-panel::-webkit-scrollbar-thumb,
+body[data-experience="five9"] .case-detail-panel::-webkit-scrollbar-thumb,
+body[data-experience="five9"] .fit-panel::-webkit-scrollbar-thumb {
+  background: rgba(12, 0, 108, 0.1);
+}
+
+body[data-experience="five9"] .case-list-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="five9"] .case-detail-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="five9"] .fit-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(12, 0, 108, 0.2);
+}
+
+/* ─── Five9 Perspective tile gradient ─── */
+.thought-tile-pov-bg--five9 {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(42, 76, 249, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(223, 252, 146, 0.25) 0%, transparent 70%),
+    linear-gradient(160deg, #0c006c 0%, #1a1066 40%, #0c006c 100%);
+}
+
+.thought-tile--five9-pov .thought-tile-badge {
+  background: rgba(42, 76, 249, 0.9);
+  color: #ffffff;
+}
+
+/* ─── Focus glow ─── */
+body[data-experience="five9"] :focus-visible {
+  box-shadow: 0 0 0 3px rgba(42, 76, 249, 0.12), 0 0 12px rgba(42, 76, 249, 0.06);
+}
+
+/* ─── sky-dark overrides ─── */
+body[data-experience="five9"].sky-dark .portfolio-view .fit-btn {
+  background: #2a4cf9;
+  color: #ffffff;
+}
+
+/* ─── Mobile overrides ─── */
+@media (max-width: 900px) {
+  body[data-experience="five9"] .fit-panel {
+    background: rgba(247, 247, 247, 0.95);
+  }
+}
