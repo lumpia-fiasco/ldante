@@ -3992,6 +3992,168 @@ body[data-experience="netflix"].sky-dark .portfolio-view .fit-btn { color: rgba(
 
 
 /* ═══════════════════════════════════════════════════════════════
+   LATTICE EXPERIENCE
+   Clean light surfaces (#f7f9f9), deep teal-black header (#001f1f),
+   teal accents (#008080), turquoise highlights (#00A3A3).
+   Modeled on Lattice's brand: lattice.com
+   Scoped entirely to body[data-experience="lattice"].
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Core surfaces ─── */
+body[data-experience="lattice"] .portfolio-view { background: #f7f9f9; }
+body[data-experience="lattice"] .case-list-panel { background: #f7f9f9; }
+body[data-experience="lattice"] .case-detail-panel { background: #f7f9f9; }
+
+/* ─── Header ─── */
+body[data-experience="lattice"] .site-header { background: #001f1f; }
+
+/* ─── Case-back fade ─── */
+body[data-experience="lattice"] .case-back-btn {
+  background: #f7f9f9;
+  box-shadow: 0 12px 20px 8px #f7f9f9;
+}
+
+/* ─── Case cards ─── */
+body[data-experience="lattice"] .case-card-v { border-color: rgba(0, 61, 61, 0.06); }
+body[data-experience="lattice"] .case-card-v:hover { border-color: rgba(0, 61, 61, 0.12); }
+
+/* ─── Case detail ─── */
+body[data-experience="lattice"] .cs-section-num { color: #008080; }
+
+/* ─── Callouts — problem = coral, resolution = teal ─── */
+body[data-experience="lattice"] .cs-callout {
+  background: rgba(0, 128, 128, 0.05);
+  border-color: rgba(0, 128, 128, 0.22);
+}
+body[data-experience="lattice"] .cs-callout-label { color: #008080; }
+body[data-experience="lattice"] .cs-callout--problem {
+  background: rgba(220, 80, 60, 0.05);
+  border-color: rgba(220, 80, 60, 0.22);
+}
+body[data-experience="lattice"] .cs-callout--problem .cs-callout-label { color: #c84030; }
+
+/* ─── Outcome stats ─── */
+body[data-experience="lattice"] .cs-outcome-num { color: #008080; }
+body[data-experience="lattice"] .cs-metric-val { color: #008080; }
+
+/* ─── Tradeoff chosen ─── */
+body[data-experience="lattice"] .cs-tradeoff-card.chosen {
+  border-color: rgba(0, 128, 128, 0.4);
+  background: rgba(0, 128, 128, 0.04);
+}
+body[data-experience="lattice"] .cs-chosen-badge { background: #008080; color: #ffffff; }
+
+/* ─── Chat rail ─── */
+body[data-experience="lattice"] .chat-rail {
+  background: #ffffff;
+  border-left-color: rgba(0, 61, 61, 0.06);
+}
+body[data-experience="lattice"] .msg--user .msg-text { background: rgba(0, 128, 128, 0.07); }
+body[data-experience="lattice"] .name-send-btn { background: #008080; color: #ffffff; }
+body[data-experience="lattice"] .name-send-btn:hover { background: #006666; }
+body[data-experience="lattice"] .rail-input-wrap {
+  background: #f0f4f4;
+  border-top-color: rgba(0, 61, 61, 0.06);
+}
+body[data-experience="lattice"] .chat-input {
+  background: #ffffff;
+  border-color: rgba(0, 61, 61, 0.1);
+}
+body[data-experience="lattice"] .chat-input:focus {
+  border-color: rgba(0, 128, 128, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.1);
+}
+body[data-experience="lattice"] .chat-send-btn { background: #008080; color: #ffffff; }
+body[data-experience="lattice"] .chat-send-btn:hover { background: #006666; }
+
+/* ─── Fit panel ─── */
+body[data-experience="lattice"] .fit-panel { background: #f7f9f9; }
+body[data-experience="lattice"] .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(0, 61, 61, 0.1);
+}
+body[data-experience="lattice"] .fit-textarea:focus {
+  border-color: rgba(0, 128, 128, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.1);
+}
+body[data-experience="lattice"] .fit-assess-btn { background: #008080; color: #ffffff; }
+body[data-experience="lattice"] .fit-assess-btn:hover { background: #006666; }
+body[data-experience="lattice"] .fit-btn { background: #008080; color: #ffffff; border-color: transparent; }
+body[data-experience="lattice"] .fit-btn:hover { background: #006666; }
+body[data-experience="lattice"] .fit-case-link {
+  color: #008080;
+  background: rgba(0, 128, 128, 0.05);
+  border-color: rgba(0, 128, 128, 0.18);
+}
+body[data-experience="lattice"] .fit-case-link:hover { background: rgba(0, 128, 128, 0.1); }
+body[data-experience="lattice"] .fit-list--strengths li::before { color: #008080; }
+
+/* ─── Recruiter panel ─── */
+body[data-experience="lattice"] .recruiter-panel { background: #f7f9f9; }
+body[data-experience="lattice"] .recruiter-book-btn { background: #008080; color: #ffffff; }
+body[data-experience="lattice"] .recruiter-book-btn:hover { background: #006666; }
+body[data-experience="lattice"] .recruiter-fit .fit-textarea {
+  background: #ffffff;
+  border-color: rgba(0, 61, 61, 0.1);
+}
+body[data-experience="lattice"] .recruiter-fit .fit-textarea:focus {
+  border-color: rgba(0, 128, 128, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.1);
+}
+body[data-experience="lattice"] .recruiter-fit .fit-assess-btn { background: #008080; color: #ffffff; }
+body[data-experience="lattice"] .recruiter-fit .fit-assess-btn:hover { background: #006666; }
+body[data-experience="lattice"] .recruiter-fit .fit-case-link {
+  color: #008080;
+  background: rgba(0, 128, 128, 0.05);
+  border-color: rgba(0, 128, 128, 0.18);
+}
+body[data-experience="lattice"] .recruiter-fit .fit-case-link:hover { background: rgba(0, 128, 128, 0.1); }
+
+/* ─── Mobile tabs ─── */
+body[data-experience="lattice"] .mob-tabs {
+  background: rgba(247, 249, 249, 0.95);
+  border-top-color: rgba(0, 61, 61, 0.08);
+}
+body[data-experience="lattice"] .mob-tab.mob-tab--active { color: #008080; }
+
+/* ─── Scrollbar styling ─── */
+body[data-experience="lattice"] .case-list-panel::-webkit-scrollbar-track,
+body[data-experience="lattice"] .case-detail-panel::-webkit-scrollbar-track,
+body[data-experience="lattice"] .fit-panel::-webkit-scrollbar-track { background: #f7f9f9; }
+body[data-experience="lattice"] .case-list-panel::-webkit-scrollbar-thumb,
+body[data-experience="lattice"] .case-detail-panel::-webkit-scrollbar-thumb,
+body[data-experience="lattice"] .fit-panel::-webkit-scrollbar-thumb { background: rgba(0, 61, 61, 0.1); }
+body[data-experience="lattice"] .case-list-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="lattice"] .case-detail-panel::-webkit-scrollbar-thumb:hover,
+body[data-experience="lattice"] .fit-panel::-webkit-scrollbar-thumb:hover { background: rgba(0, 61, 61, 0.2); }
+
+/* ─── Lattice Perspective tile gradient ─── */
+.thought-tile-pov-bg--lattice {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0, 128, 128, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 30%, rgba(81, 224, 205, 0.25) 0%, transparent 70%),
+    linear-gradient(160deg, #001f1f 0%, #003d3d 40%, #001f1f 100%);
+}
+.thought-tile--lattice-pov .thought-tile-badge { background: rgba(0, 128, 128, 0.9); color: #ffffff; }
+
+/* ─── Focus glow ─── */
+body[data-experience="lattice"] :focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.12), 0 0 12px rgba(0, 128, 128, 0.06);
+}
+
+/* ─── sky-dark overrides ─── */
+body[data-experience="lattice"].sky-dark .portfolio-view .fit-btn {
+  background: #008080;
+  color: #ffffff;
+}
+
+/* ─── Mobile overrides ─── */
+@media (max-width: 900px) {
+  body[data-experience="lattice"] .fit-panel { background: rgba(247, 249, 249, 0.95); }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
    RIPPLING EXPERIENCE
    Warm cream surfaces (#F2EEEB), dark plum header (#321B25),
    yellow CTAs (#FDB71C), berry accents (#7A005D).
