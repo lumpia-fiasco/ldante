@@ -389,11 +389,22 @@
         <!-- Panel C: recruiter view -->
         <div class="recruiter-panel" id="recruiterPanel">
           <div class="recruiter-card">
-            <h1 class="recruiter-name">L Dante Guarin</h1>
-            <p class="recruiter-role">Principal Product Designer</p>
-            <p class="recruiter-meta">Irvine, CA &middot; Over 13 years exp.</p>
+            <div class="r-hero">
+              <img class="r-avatar" src="assets/profile.png" alt="L Dante Guarin" width="64" height="64">
+              <div class="r-hero-copy">
+                <h1 class="recruiter-name">L Dante Guarin</h1>
+                <p class="recruiter-role">Principal Product Designer</p>
+                <p class="recruiter-meta">Irvine, CA</p>
+              </div>
+            </div>
+            <div class="r-stats">
+              <div class="r-stat"><span class="r-stat-val">13+</span><span class="r-stat-label">Years exp.</span></div>
+              <div class="r-stat"><span class="r-stat-val">50M+</span><span class="r-stat-label">Users reached</span></div>
+              <div class="r-stat"><span class="r-stat-val">5</span><span class="r-stat-label">Companies</span></div>
+              <div class="r-stat"><span class="r-stat-val">3</span><span class="r-stat-label">Design systems</span></div>
+            </div>
             <div class="recruiter-exp">
-              <span class="recruiter-exp-label">Experience at:</span>
+              <span class="recruiter-exp-label">Experience at</span>
               <div class="recruiter-exp-pills">
                 <span class="recruiter-pill recruiter-pill--adobe">Adobe/Marketo</span>
                 <span class="recruiter-pill recruiter-pill--upwork">Upwork</span>
@@ -469,7 +480,10 @@
           </div>
 
           <div class="recruiter-cta">
-            <h3 class="recruiter-cta-title">Ready to move forward?</h3>
+            <div class="r-cta-inner">
+              <h3 class="recruiter-cta-title">Ready to talk?</h3>
+              <p class="r-cta-desc">If the role looks right, let's get on a call.</p>
+            </div>
             <a class="recruiter-book-btn" href="https://tidycal.com/ldante/30-minute-intro-call" target="_blank" rel="noopener">
               Book a 30-min intro
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -3643,6 +3657,11 @@
       // Wire progress bars on the freshly-rendered hero image
       if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
 
+      // Trigger stagger entrance animation on new content
+      content.classList.remove('content-entering');
+      void content.offsetWidth;
+      content.classList.add('content-entering');
+
       // Fade list out, slide detail in from the right — same transition
       // as case studies so the UX feels consistent.
       listPanel.classList.add('hidden');
@@ -3685,6 +3704,11 @@
 
       // Wire up progress bars on the freshly-rendered case detail images
       if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
+
+      // Trigger stagger entrance animation on new content
+      content.classList.remove('content-entering');
+      void content.offsetWidth;
+      content.classList.add('content-entering');
 
       // Fade list out, slide detail in from right
       listPanel.classList.add('hidden');
@@ -3838,6 +3862,11 @@
             <div class="fit-cases">${casesHtml}</div>
           ` : ''}
         `;
+
+        // Trigger reveal animation on freshly-populated results
+        resultsEl.classList.remove('is-entering');
+        void resultsEl.offsetWidth;
+        resultsEl.classList.add('is-entering');
 
         // Wire case links in results
         resultsEl.querySelectorAll('.fit-case-link[data-case]').forEach(btn => {

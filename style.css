@@ -560,6 +560,27 @@ main {
   pointer-events: auto;
 }
 
+/* ─── Case / thought detail — staggered content entrance ─── */
+@keyframes contentFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#caseDetailContent.content-entering > *:nth-child(1) {
+  animation: contentFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+}
+#caseDetailContent.content-entering > *:nth-child(2) {
+  animation: contentFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+#caseDetailContent.content-entering > *:nth-child(3) {
+  animation: contentFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+#caseDetailContent.content-entering > *:nth-child(4) {
+  animation: contentFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+#caseDetailContent.content-entering > *:nth-child(n+5) {
+  animation: contentFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both;
+}
+
 /* ─── Back button — sticky so it's always accessible ─── */
 .case-back-btn {
   position: sticky;
@@ -1966,66 +1987,120 @@ a.spotify-tile {
   position: absolute;
   inset: 0;
   background: #ffffff;
-  padding: 56px 60px 80px;
+  padding: 48px 60px 80px;
   overflow-y: scroll;
   overflow-x: hidden;
   touch-action: pan-y;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  display: none;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .recruiter-panel.active {
-  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ─── Hero: photo + name block ─── */
+.r-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.r-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.r-hero-copy { flex: 1; min-width: 0; }
+
+/* ─── Stats row ─── */
+.r-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0 0 24px;
+  padding: 16px 0;
+  border-top: 1px solid rgba(31,31,31,0.07);
+  border-bottom: 1px solid rgba(31,31,31,0.07);
+}
+.r-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0 16px;
+}
+.r-stat:first-child { padding-left: 0; }
+.r-stat + .r-stat { border-left: 1px solid rgba(31,31,31,0.07); }
+.r-stat-val {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+  font-weight: 400;
+  color: #1f1f1f;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.r-stat-label {
+  font-family: 'Golos Text', sans-serif;
+  font-size: 0.73rem;
+  color: rgba(31,31,31,0.4);
+  line-height: 1.4;
 }
 
 .recruiter-card {
-  margin-bottom: 48px;
+  margin-bottom: 40px;
   padding-bottom: 40px;
   border-bottom: 1px solid rgba(31,31,31,0.07);
 }
 
 .recruiter-name {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
   font-weight: 400;
   color: #1f1f1f;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  margin: 0 0 8px;
+  margin: 0 0 3px;
 }
 
 .recruiter-role {
-  font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
-  font-weight: 400;
-  color: rgba(31,31,31,0.75);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin: 0 0 6px;
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 500;
+  color: rgba(31,31,31,0.65);
+  line-height: 1.3;
+  margin: 0 0 2px;
 }
 
 .recruiter-meta {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1.1rem, 1.3vw, 1.25rem);
+  font-size: 0.82rem;
   font-weight: 400;
-  color: rgba(31,31,31,0.5);
+  color: rgba(31,31,31,0.4);
   line-height: 1.4;
-  margin: 0 0 20px;
+  margin: 0;
 }
 
 .recruiter-exp {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .recruiter-exp-label {
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(31,31,31,0.4);
+  color: rgba(31,31,31,0.35);
 }
 
 .recruiter-exp-pills {
@@ -2036,10 +2111,10 @@ a.spotify-tile {
 
 .recruiter-pill {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1.07rem, 1.2vw, 1.17rem);
+  font-size: 0.825rem;
   font-weight: 500;
   color: #ffffff;
-  padding: 6px 16px;
+  padding: 4px 13px;
   border-radius: 999px;
   white-space: nowrap;
 }
@@ -2055,18 +2130,18 @@ a.spotify-tile {
   border-bottom: 1px solid rgba(31,31,31,0.07);
 }
 .recruiter-cases-title {
-  font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
-  font-weight: 400;
-  color: #1f1f1f;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  margin: 0 0 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(31,31,31,0.35);
+  margin: 0 0 14px;
 }
 .recruiter-cases-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 .recruiter-cases-grid .case-item {
   position: relative;
@@ -2075,11 +2150,6 @@ a.spotify-tile {
 .recruiter-cases-grid .case-card-v {
   height: 100%;
 }
-@media (max-width: 900px) {
-  .recruiter-cases-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 .recruiter-fit {
   margin-bottom: 48px;
@@ -2087,20 +2157,20 @@ a.spotify-tile {
 
 .recruiter-fit-title {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
   font-weight: 400;
   color: #1f1f1f;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  margin: 0 0 10px;
+  margin: 0 0 8px;
 }
 
 .recruiter-fit-desc {
   font-family: 'Golos Text', sans-serif;
-  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
   color: rgba(31,31,31,0.55);
   line-height: 1.5;
-  margin: 0 0 24px;
+  margin: 0 0 20px;
 }
 
 /* Text-style assess button for recruiter panel */
@@ -2116,17 +2186,28 @@ a.spotify-tile {
 }
 
 .recruiter-cta {
-  padding-top: 40px;
+  padding-top: 36px;
   border-top: 1px solid rgba(31,31,31,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
 }
-
+.r-cta-inner { flex: 1; }
 .recruiter-cta-title {
   font-family: 'Cal Sans', sans-serif;
-  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
   font-weight: 400;
   color: #1f1f1f;
   letter-spacing: -0.02em;
-  margin: 0 0 16px;
+  margin: 0 0 4px;
+}
+.r-cta-desc {
+  font-family: 'Golos Text', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(31,31,31,0.5);
+  margin: 0;
 }
 
 .recruiter-book-btn {
@@ -2134,16 +2215,18 @@ a.spotify-tile {
   align-items: center;
   gap: 8px;
   font-family: 'Cal Sans', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 400;
   letter-spacing: -0.01em;
   color: #ffffff;
   background: #1f1f1f;
   border: none;
   border-radius: 14px;
-  padding: 14px 28px;
+  padding: 12px 24px;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: background 0.15s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -2154,6 +2237,17 @@ a.spotify-tile {
 
 .recruiter-book-btn:active {
   transform: translateY(0) scale(0.97);
+}
+
+@media (max-width: 900px) {
+  .recruiter-panel { padding: 28px 20px 80px; }
+  .recruiter-cases-grid { grid-template-columns: 1fr; }
+  .r-stats { grid-template-columns: repeat(2, 1fr); row-gap: 16px; }
+  .r-stat:nth-child(odd)  { border-left: none; padding-left: 0; }
+  .r-stat:nth-child(n+3)  { border-top: 1px solid rgba(31,31,31,0.07); padding-top: 16px; }
+  .r-stat:nth-child(even) { border-left: 1px solid rgba(31,31,31,0.07); }
+  .recruiter-cta { flex-direction: column; align-items: flex-start; }
+  .recruiter-book-btn { width: 100%; justify-content: center; }
 }
 
 .fit-panel {
@@ -2292,9 +2386,19 @@ a.spotify-tile {
   0%, 80%, 100% { opacity: 0.25; transform: scale(0.9); }
   40%           { opacity: 1;    transform: scale(1.1); }
 }
+@keyframes fitReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fit-error:not([hidden]) {
+  animation: fitReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
 /* Results */
 .fit-results { margin-top: 28px; }
+.fit-results.is-entering {
+  animation: fitReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
 .fit-badge {
   display: inline-block;
@@ -3950,6 +4054,16 @@ body[data-experience="netflix"] .recruiter-book-btn:hover {
   background: #b20710;
 }
 
+/* ─── r-hero / r-stats / r-cta new elements ─── */
+body[data-experience="netflix"] .r-stat-val { color: #ffffff; }
+body[data-experience="netflix"] .r-stat-label { color: rgba(255, 255, 255, 0.4); }
+body[data-experience="netflix"] .r-stats {
+  border-top-color: rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+body[data-experience="netflix"] .r-stat + .r-stat { border-left-color: rgba(255, 255, 255, 0.08); }
+body[data-experience="netflix"] .r-cta-desc { color: rgba(255, 255, 255, 0.4); }
+
 /* ─── Mobile tabs ─── */
 body[data-experience="netflix"] .mob-tabs {
   background: rgba(20, 20, 20, 0.95);
@@ -5526,6 +5640,16 @@ body[data-experience="twitch"] .recruiter-cta-title { color: #efeff1; }
 body[data-experience="twitch"] .recruiter-book-btn { background: #9147ff; color: #ffffff; }
 body[data-experience="twitch"] .recruiter-book-btn:hover { background: #772ce8; }
 
+/* ─── r-hero / r-stats / r-cta new elements ─── */
+body[data-experience="twitch"] .r-stat-val { color: #efeff1; }
+body[data-experience="twitch"] .r-stat-label { color: rgba(239, 239, 241, 0.4); }
+body[data-experience="twitch"] .r-stats {
+  border-top-color: rgba(239, 239, 241, 0.08);
+  border-bottom-color: rgba(239, 239, 241, 0.08);
+}
+body[data-experience="twitch"] .r-stat + .r-stat { border-left-color: rgba(239, 239, 241, 0.08); }
+body[data-experience="twitch"] .r-cta-desc { color: rgba(239, 239, 241, 0.4); }
+
 /* ─── Mobile tabs ─── */
 body[data-experience="twitch"] .mob-tabs {
   background: rgba(14, 14, 16, 0.95);
@@ -5601,4 +5725,50 @@ body[data-experience="twitch"].sky-dark .portfolio-view .fit-btn { background: #
   body[data-experience="twitch"] .chat-input::placeholder { color: rgba(239, 239, 241, 0.35); }
   body[data-experience="twitch"] .chat-input:focus { background: #303036; border-color: rgba(145, 71, 255, 0.5); }
   body[data-experience="twitch"] .chat-send-btn { background: #9147ff; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   For users with prefers-reduced-motion: reduce, collapse all
+   entrance animations to instant state changes. Transitions on
+   interactive elements (hover, focus) are preserved since they
+   are user-triggered and very short.
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  /* Content stagger — instant appear, no slide */
+  #caseDetailContent.content-entering > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Fit results / error reveal — instant */
+  .fit-results.is-entering,
+  .fit-error:not([hidden]) {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Recruiter panel entrance — instant */
+  .recruiter-panel {
+    transition: opacity 0.01ms, transform 0.01ms !important;
+  }
+
+  /* Case / thought detail panel slide — instant */
+  .case-detail-panel,
+  .context-detail-panel {
+    transition: opacity 0.01ms, transform 0.01ms !important;
+  }
+
+  /* Loading dots — keep visible but remove bounce */
+  .msg-dot-wrap span {
+    animation: none !important;
+    opacity: 0.5 !important;
+  }
+
+  /* Shimmer skeleton — freeze, no sweep */
+  .lazy-placeholder::after {
+    animation: none !important;
+  }
 }
