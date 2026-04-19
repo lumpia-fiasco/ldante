@@ -44,7 +44,9 @@
       </div>
 
       <div class="pw-role-picker" id="pwRolePicker" hidden>
-        <p class="pw-role-sub">You are a:</p>
+        <h2 class="pw-role-greeting" id="pwRoleGreeting"></h2>
+        <p class="pw-role-body" id="pwRoleBody"></p>
+        <p class="pw-role-bridge">But first, let's get you to your destination. Make your selection.</p>
         <div class="pw-role-btns">
           <button class="pw-role-btn" data-role="recruiter" type="button">Recruiter</button>
           <button class="pw-role-btn" data-role="hiring-manager" type="button">Hiring Manager / Designer</button>
@@ -1433,46 +1435,39 @@
         sessionStorage.setItem('pw-auth', '1');
         sessionStorage.setItem('portfolio-experience', experience || 'standard');
 
-        // Tailor hero copy for experience-specific passwords
-        const HERO_COPY = {
-          lattice: {
-            tagline: 'I build design systems that last.',
-            desc:    'Systems thinking, cross-product cohesion, federated governance. Marketo Sky hit 100% adoption and contributed patterns upstream to Adobe Spectrum.',
-          },
-          netflix: {
-            tagline: 'I design for complexity.',
-            desc:    'A decade shipping complex products across ambiguous domains. I hold the product together when the rules haven\u2019t been written yet.',
-          },
-          rippling: {
-            tagline: 'I design financial platforms.',
-            desc:    '10 years unifying fragmented domains and shipping complex B2B workflows. From payroll across 90+ companies to design systems at enterprise scale.',
-          },
-          five9: {
-            tagline: 'I design platforms people live in.',
-            desc:    '10 years building complex, data-rich applications for power users. Design systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.',
-          },
-          rivian: {
-            tagline: 'I design where story meets transaction.',
-            desc:    'Brand storytelling at Gibson Guitar and Nashville\u2019s music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. Both worlds in one designer.',
-          },
-          circle: {
-            tagline: 'I design infrastructure people trust.',
-            desc:    '10 years building complex financial systems, cross-product platforms, and the design discipline that keeps high-stakes workflows clear at scale.',
-          },
-          twitch: {
-            tagline: 'I design platforms where two sides meet.',
-            desc:    '10 years building for dual-persona platforms, design systems at scale, and the research-driven empathy that keeps both sides coming back.',
-          },
+        // Company display names for the tailored greeting
+        const COMPANY_NAME = {
+          lattice:  'Lattice',
+          netflix:  'Netflix',
+          rippling: 'Rippling',
+          five9:    'Five9',
+          rivian:   'Rivian',
+          circle:   'Circle',
+          twitch:   'Twitch',
         };
-        const copy = HERO_COPY[experience];
-        if (copy) {
-          document.querySelector('.hero-tagline').textContent = copy.tagline;
-          document.querySelector('.hero-desc').textContent = copy.desc;
-          // Re-split into float-letter spans so the push effect works on the new text
-          if (window._resplitFloat) window._resplitFloat();
-        }
 
-        // Fade out password field, show role picker on the right
+        // Experience-specific body paragraph shown on the role-picker screen
+        const EXPERIENCE_BODY = {
+          lattice:  'Systems thinking, cross-product cohesion, federated governance. Marketo Sky hit 100% adoption and contributed patterns upstream to Adobe Spectrum.',
+          netflix:  'A decade shipping complex products across ambiguous domains. I hold the product together when the rules haven\u2019t been written yet.',
+          rippling: '10 years unifying fragmented domains and shipping complex B2B workflows. From payroll across 90+ companies to design systems at enterprise scale.',
+          five9:    '10 years building complex, data-rich applications for power users. Design systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.',
+          rivian:   'Brand storytelling at Gibson Guitar and Nashville\u2019s music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. Both worlds in one designer.',
+          circle:   '10 years building complex financial systems, cross-product platforms, and the design discipline that keeps high-stakes workflows clear at scale.',
+          twitch:   '10 years building for dual-persona platforms, design systems at scale, and the research-driven empathy that keeps both sides coming back.',
+        };
+
+        const GENERAL_BODY = 'I\u2019m a Product Designer with over a decade of experience specializing in B2B\u2009/\u2009SaaS and developer tools. If we drew a Venn diagram of complex systems and real user needs \u2014 I operate where the two overlap.';
+
+        // Populate the new greeting + body in the role-picker panel
+        const greetingEl = document.getElementById('pwRoleGreeting');
+        const bodyEl     = document.getElementById('pwRoleBody');
+        const company    = COMPANY_NAME[experience];
+
+        if (greetingEl) greetingEl.textContent = company ? `Hello ${company} team,` : 'So glad you made it!';
+        if (bodyEl)     bodyEl.textContent = EXPERIENCE_BODY[experience] || GENERAL_BODY;
+
+        // Reveal the role picker
         gate.classList.add('pw-gate--role-step');
         rolePicker.hidden = false;
       }
