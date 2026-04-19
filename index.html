@@ -814,6 +814,26 @@
       // Expose so the entrance trigger can call it after the gate unlocks
       window._cacheFloatPositions = cachePositions;
 
+      // Re-split the tagline/desc into float-letter spans after text is swapped
+      // (showRolePicker replaces textContent which destroys the letter spans).
+      window._resplitFloat = function () {
+        const taglineEl = document.querySelector('.hero-tagline');
+        const descEl    = document.querySelector('.hero-desc');
+        if (taglineEl) splitText(taglineEl);
+        if (descEl)    splitText(descEl);
+        // Clear and rebuild FLOAT with the new letter elements
+        FLOAT.length = 0;
+        document.querySelectorAll('.hero-tagline .float-letter').forEach((el, i) =>
+          FLOAT.push({ el, radius: 105, boost: 1.0, rotSign: (i % 2) ? 1 : -1, ox: 0, oy: 0 })
+        );
+        document.querySelectorAll('.hero-desc .float-letter').forEach((el, i) =>
+          FLOAT.push({ el, radius:  95, boost: 1.0, rotSign: (i % 2) ? 1 : -1, ox: 0, oy: 0 })
+        );
+        const logoEl = document.querySelector('.hero-logo');
+        if (logoEl) FLOAT.push({ el: logoEl, radius: 230, boost: 0.55, rotSign: 0, ox: 0, oy: 0 });
+        cachePositions();
+      };
+
       // Rotation is derived from total displacement — the further you drag
       // a letter, the more it tilts (capped to keep it readable).
       function rotFor(item) {
@@ -1448,6 +1468,8 @@
         if (copy) {
           document.querySelector('.hero-tagline').textContent = copy.tagline;
           document.querySelector('.hero-desc').textContent = copy.desc;
+          // Re-split into float-letter spans so the push effect works on the new text
+          if (window._resplitFloat) window._resplitFloat();
         }
 
         // Fade out password field, show role picker on the right
