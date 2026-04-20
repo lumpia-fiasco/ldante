@@ -657,6 +657,128 @@ const THOUGHTS = {
       <p class="cd-body">SpongeBob would.</p>
     `,
   },
+
+  // ── Point of View / Perspective articles ───────────────────────
+
+  'design-systems-that-last': {
+    kicker: 'Point of View',
+    title: 'What I\u2019ve learned building design systems that last',
+    dek: 'On governance, breaking patterns intentionally, and why the org chart matters more than the component library.',
+    content: `
+      <p class="cd-body">Design systems are easy to start. The hard part is keeping them alive two years later, when the original team has turned over, the product has outgrown half the components, and three teams are quietly forking the button because \u201Cour use case is different.\u201D</p>
+      <p class="cd-body">I\u2019ve built systems from scratch, inherited systems mid-drift, and watched good systems die slow deaths from neglect. The lessons that stuck have almost nothing to do with tokens or components. They\u2019re about people, governance, and knowing when the system should bend.</p>
+      <h2 class="cd-h2">The org chart is the real architecture</h2>
+      <p class="cd-body">Every design system inherits the shape of the organization that builds it. If the org is siloed, the system will be fragmented. If the org has unclear ownership, the system will have inconsistent adoption. You can have the cleanest component library in the world and still fail if the team structure doesn\u2019t support it.</p>
+      <p class="cd-body">At Marketo, when I founded Sky, one of the first things I did was audit how teams were organized \u2014 not how components were organized. Who owned what surfaces? Who made decisions about shared patterns? Where did authority actually live versus where the org chart said it lived? That mapping told me more than any component audit ever could. The components came later. The governance model came first.</p>
+      <h2 class="cd-h2">Governance is a habit</h2>
+      <p class="cd-body">The worst design systems I\u2019ve seen have beautiful governance documents that no one follows. The best ones have almost no documentation about governance, but everyone knows how decisions get made because the process is embedded in how the team already works.</p>
+      <p class="cd-body">With Sky, I democratized governance deliberately. Designers across product teams could propose patterns, challenge existing ones, and contribute directly. A federated model where ownership was distributed but standards were shared \u2014 replacing the bottleneck of a centralized request queue. That\u2019s harder than it sounds. Federated governance means you need clear principles people can apply independently, and you need to be comfortable with the fact that sometimes they\u2019ll make a different call than you would \u2014 and that\u2019s fine, as long as the reasoning holds.</p>
+      <h2 class="cd-h2">Break patterns on purpose</h2>
+      <p class="cd-body">Consistency is the point of a design system, right up until it isn\u2019t. The biggest mistake I see in mature systems is treating consistency as an absolute. It\u2019s a default. And defaults should be broken when there\u2019s a good enough reason \u2014 but only when the break is intentional, documented, and reversible.</p>
+      <p class="cd-body">Drift is when teams break patterns because they don\u2019t know the pattern exists, or because it\u2019s easier to build custom. Intentional deviation is when a team breaks a pattern because the user\u2019s context demands it, and they document why. One erodes the system. The other strengthens it, because now you have a signal about where the system needs to grow.</p>
+      <h2 class="cd-h2">Cross-product cohesion is a design problem</h2>
+      <p class="cd-body">Components alone don\u2019t create cohesion. You can ship the same button, the same card, the same modal to every product surface and still end up with experiences that feel nothing alike. Cohesion comes from shared interaction patterns, consistent information hierarchy, predictable navigation models, and aligned mental models across products.</p>
+      <p class="cd-body">At Marketo, the system\u2019s real value was that a user could move between products and feel like they were still in the same world. That\u2019s harder than matching hex values.</p>
+      <h2 class="cd-h2">Adoption is a design problem too</h2>
+      <p class="cd-body">Getting to 100% adoption on Sky took a campaign. I treated internal adoption the same way I\u2019d treat a product launch. Who are the users? What are their objections? Where\u2019s the friction? Most systems fail at adoption because they optimize for the system and forget about the people using it. Engineers don\u2019t care that your tokens are semantically named if the DX is painful. Adoption is the design problem hiding inside every design system.</p>
+      <p class="cd-body">I think in systems before I think in screens. I care about governance as much as I care about components. And I believe the best design systems are culture \u2014 a shared language that lets teams build coherently without coordinating on every detail.</p>
+    `,
+  },
+
+  'financial-platforms-systems-problems': {
+    kicker: 'Point of View',
+    title: 'Why financial platforms are systems problems',
+    dek: 'On fragmentation, dual personas, and what payroll across 90+ companies taught me about designing for money that moves.',
+    content: `
+      <p class="cd-body">Financial products tend to start as individual tools. A card program here, an expense workflow there, bill pay in one system, travel booking in another. Each one solves its slice well enough. But the moment you try to connect them, the seams show.</p>
+      <p class="cd-body">I\u2019ve spent the last few years designing platforms where financial data sits at the center. The pattern keeps repeating: the design problem that matters most lives in the connections between surfaces.</p>
+      <h2 class="cd-h2">Fragmentation is the default</h2>
+      <p class="cd-body">At Teamshares, payroll data lived in disparate systems across 90+ companies. Industry Leads had no centralized visibility into payroll health. Analyses were delayed three to five days by manual processes. The original ask was to make reports easier to generate, but through discovery we found the data architecture couldn\u2019t support real-time visibility at scale.</p>
+      <p class="cd-body">We reframed the project from \u201Cbetter reports\u201D to \u201Ccentralized visibility.\u201D That reframe changed every design decision downstream, and the result was a 50% increase in team productivity and 135 hours saved per cycle. When you solve for the connections first, the individual surfaces get simpler.</p>
+      <h2 class="cd-h2">Two users, one workflow</h2>
+      <p class="cd-body">The hardest tension in financial platform design is that every workflow serves two users with opposing needs. The employee wants speed and minimal friction. The finance team wants control, compliance, and audit trails. Both are right. The strongest financial products encode the tension into the system itself \u2014 policies apply automatically so employees don\u2019t need to think about compliance and finance teams don\u2019t need to chase approvals.</p>
+      <p class="cd-body">At Teamshares, Network Company operators got simple visibility into their own data. Industry Leads got aggregated views across all 90+ companies. The experience adapted to the role. The infrastructure was shared. That pattern scales across every financial domain.</p>
+      <h2 class="cd-h2">Policy is invisible design</h2>
+      <p class="cd-body">In financial products, the policy layer is where the real design lives. Approval routing, spending limits, compliance rules, budget controls. Good policy design means the employee rarely encounters a wall. The guardrails are built into the workflow so that by the time they submit something, it\u2019s already compliant. This is systems thinking applied to money \u2014 before you design any screen, you map the policy logic.</p>
+      <h2 class="cd-h2">Consumer-grade craft in enterprise complexity</h2>
+      <p class="cd-body">Complex doesn\u2019t have to mean complicated. The best B2B financial products feel like consumer apps on the surface while handling enterprise-grade logic underneath. An expense report should feel as easy as texting a photo. A procurement approval should be as clear as a notification. The craft is in making the complexity disappear while keeping the controls accessible for the people who need them.</p>
+      <p class="cd-body">At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface. The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural.</p>
+    `,
+  },
+
+  'designing-platforms-where-two-sides-need-each-other': {
+    kicker: 'Point of View',
+    title: 'Designing platforms where two sides need each other',
+    dek: 'On dual-persona design, the craft of making both sides feel served, and what payroll networks and data pipelines share with creator platforms.',
+    content: `
+      <p class="cd-body">Every platform with two distinct user types faces the same structural challenge: each side has different needs, different mental models, and different definitions of success. The platform has to serve both without compromising either.</p>
+      <p class="cd-body">I\u2019ve designed for this dynamic across my career. At Teamshares, employees and network operators. At Upwork, freelancers and the clients hiring them. At Meroxa, data engineers building pipelines and the teams consuming the output. The design challenge repeats: how do you build one product that feels purpose-built for two very different people?</p>
+      <h2 class="cd-h2">The relationship is the product</h2>
+      <p class="cd-body">In two-sided platforms, the most important surface is the connection between them \u2014 the moment where one side\u2019s work reaches the other. At Teamshares, Industry Leads depended on data that Network Company operators produced. The reporting system had to make the operator\u2019s job feel simple and give the Industry Lead confidence that the data was accurate and current. If either side lost trust in the system, both sides suffered.</p>
+      <p class="cd-body">That dynamic maps directly to creator platforms. A streamer needs tools that feel powerful and immediate. A viewer needs an experience that feels effortless and engaging. The platform succeeds when both sides feel like the product was designed specifically for them.</p>
+      <h2 class="cd-h2">Empathy multiplied</h2>
+      <p class="cd-body">Designing for one persona requires deep empathy. Designing for two requires holding both perspectives simultaneously, and knowing when they conflict. At Upwork, the platform had to give freelancers visibility and control over how they presented their work, while giving clients confidence and clarity in evaluating candidates. The most productive design decisions came from understanding where both sides\u2019 motivations aligned and designing for that overlap.</p>
+      <h2 class="cd-h2">Systems that scale community</h2>
+      <p class="cd-body">When a platform grows, consistency becomes community infrastructure. A shared interaction language across every surface means that both creators and viewers can navigate the product intuitively, regardless of which feature they\u2019re using. At Marketo, Sky\u2019s design system unified 50+ components across every product surface. Users moved between tools without having to relearn the interface. That same principle applies across live streams, chat, clips, profiles, and discovery surfaces.</p>
+      <p class="cd-body">I\u2019ve spent my career designing platforms that serve multiple user types through shared infrastructure. Twitch\u2019s challenge is a version of the same problem I\u2019ve been solving: how do you give creators the power they need and viewers the experience they want, all within one product that feels intentional? That\u2019s the intersection of craft and systems where I do my best work.</p>
+    `,
+  },
+
+  'designing-infrastructure-people-trust': {
+    kicker: 'Point of View',
+    title: 'Designing infrastructure people trust with their money',
+    dek: 'On visibility, complex workflows, and why the design patterns that matter in traditional payments carry directly into digital currency.',
+    content: `
+      <p class="cd-body">Every product that touches money has the same foundational design constraint: trust. The interface has to communicate precision, status, and control at every step. Users need to know exactly where their money is, what\u2019s happening to it, and that they can intervene if something goes wrong.</p>
+      <p class="cd-body">I\u2019ve designed financial infrastructure at Teamshares, where payroll data flowed across 90+ companies. The patterns I learned there \u2014 around visibility, status clarity, and policy-driven workflows \u2014 are the same patterns that matter in currency, treasury, and payments.</p>
+      <h2 class="cd-h2">Visibility is trust</h2>
+      <p class="cd-body">In financial products, the most important design decision is what you make visible. At Teamshares, Industry Leads had no real-time visibility into payroll health across their network. We redesigned the reporting system around centralized visibility \u2014 real-time data across 90+ companies. The result was a 50% increase in team productivity, and the deeper outcome was trust. When people can see the state of their money at a glance, they stop worrying about whether the system is doing its job.</p>
+      <p class="cd-body">That principle applies directly to treasury and payments infrastructure. Whether someone is managing USDC reserves or routing cross-border payments, they need to see the state of every transaction, every balance, every policy in real time. Visibility is how you build trust at scale.</p>
+      <h2 class="cd-h2">Complex workflows need calm design</h2>
+      <p class="cd-body">Financial workflows are inherently complex. Multi-step approvals, compliance checks, reconciliation across systems, edge cases for every jurisdiction. The design challenge is making this complexity navigable without hiding it. At Teamshares, the design work was in creating clear paths: progressive disclosure that surfaced the right information at the right moment, status indicators that made the current state unambiguous, and defaults that handled the common case so users only had to intervene on exceptions.</p>
+      <h2 class="cd-h2">Systems thinking across interconnected products</h2>
+      <p class="cd-body">Currency, treasury, and payments are interconnected domains. A change in how currency is issued affects how treasury manages reserves affects how payments settle. Designing any one surface in isolation misses the connections. At Marketo, I built a design system that unified 50+ components across every product surface because the real value was in the connections between tools. At Meroxa, the strategic pivot came from recognizing that the product\u2019s surfaces were more connected than the team realized.</p>
+      <p class="cd-body">I\u2019ve spent my career designing complex, interconnected systems that handle high-stakes data. Payroll across 90+ companies. Design systems that unified dozens of product surfaces. Data infrastructure pivots that reshaped entire platforms. Circle\u2019s challenge \u2014 building intuitive experiences for currency, treasury, and payments at global scale \u2014 sits at the exact intersection of systems thinking, financial domain knowledge, and craft that my career has been building toward.</p>
+    `,
+  },
+
+  'where-brand-meets-the-buy-button': {
+    kicker: 'Point of View',
+    title: 'Where brand storytelling meets the buy button',
+    dek: 'On product narratives, commerce flows, and what selling guitars taught me about the moment a story becomes a transaction.',
+    content: `
+      <p class="cd-body">The best product pages do two things at once. They build emotional connection and they move you toward a purchase. Most e-commerce experiences hand the story off to the funnel somewhere in the middle, and the experience breaks at the seam.</p>
+      <p class="cd-body">I\u2019ve worked on both sides. Brand campaigns for Gibson Guitar and Nashville\u2019s country music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. The lesson from both worlds is the same: the story and the transaction are one continuous experience. When you design them together, both get better.</p>
+      <h2 class="cd-h2">Product comprehension is emotional first</h2>
+      <p class="cd-body">At Gibson, a guitar page had to make you hear the tone before you ever touched the fretboard. The specs matter, but they matter after you\u2019ve already felt something. You fall in love with a Les Paul before you ever check the specs. The product page has to honor that sequence.</p>
+      <p class="cd-body">Electric vehicles work the same way. The adventure, the terrain, the silence of the motor on a trail \u2014 these are stories that create desire. The range, the towing capacity, the charging network: those are the rational confirmations that close the deal. The product page needs to carry both, in the right order.</p>
+      <h2 class="cd-h2">Commerce flows need the brand to follow through</h2>
+      <p class="cd-body">The story can\u2019t stop at the product page. Configuration, checkout, financing, delivery tracking \u2014 each step is still the brand experience. When the visual language drops from cinematic to generic during checkout, you lose the emotional thread that got the customer there.</p>
+      <p class="cd-body">At Gibson, this meant carrying the craftsmanship narrative through the entire purchase journey. In my platform work at Marketo, the design system\u2019s value was that a user could move between products and feel like they were still in the same world. That discipline applied to commerce means visual consistency, interaction consistency, and tonal consistency from first impression through post-purchase.</p>
+      <h2 class="cd-h2">Global means adapting the story</h2>
+      <p class="cd-body">Working with country music labels across markets taught me that localization goes deeper than translation. Cultural context shapes how people discover products, evaluate them, and decide to buy. The story that resonates in Nashville lands differently in Tokyo or Berlin. Effective localization means knowing which product attributes lead in which market, and designing the experience to flex accordingly.</p>
+      <p class="cd-body">Rivian\u2019s website sits at the intersection of product storytelling and commerce infrastructure. Product pages that tell adventure stories. Commerce flows that handle configuration, financing, and global checkout. A design system that holds it all together. That\u2019s the synthesis of everything I\u2019ve spent my career building.</p>
+    `,
+  },
+
+  'designing-for-people-who-live-in-the-product': {
+    kicker: 'Point of View',
+    title: 'Designing for people who live in the product',
+    dek: 'On cognitive load, multi-persona platforms, and what full-day software demands from a design system.',
+    content: `
+      <p class="cd-body">Contact center software, marketing automation, data pipelines. These are products people inhabit. When someone spends eight hours inside your product, every design decision either compounds into clarity or compounds into fatigue.</p>
+      <p class="cd-body">I\u2019ve spent most of my career designing platforms that people live in. Marketo, where marketers built and managed campaigns across dozens of surfaces. Teamshares, where operators managed hiring and payroll across 90+ companies. Meroxa, where engineers monitored real-time data pipelines. These users are working. And the bar for what \u201Cintuitive\u201D means goes up dramatically when the session never ends.</p>
+      <h2 class="cd-h2">Cognitive load is a design debt</h2>
+      <p class="cd-body">In full-day software, every unnecessary interaction is a tax. An extra click to reach a common action. A dashboard that shows everything but highlights nothing. A label that\u2019s technically accurate but takes a beat too long to parse. These compound. Over an eight-hour shift, a three-click workflow costs twenty minutes more than a one-click workflow. A noisy dashboard creates decision fatigue by lunch.</p>
+      <p class="cd-body">At Marketo, I learned this building Sky. The design system unified 50+ components across every product surface. The deeper value was in the decisions we made about information density \u2014 which data needed to be visible at a glance, which actions deserved primary placement, which elements could be progressively disclosed to reduce noise.</p>
+      <h2 class="cd-h2">Three personas, one platform</h2>
+      <p class="cd-body">Platform products often serve multiple personas with fundamentally different relationships to the same data. An agent needs speed and simplicity. A supervisor needs oversight and intervention tools. An admin needs configuration and control. The design challenge is building a unified experience that adapts to each persona without fragmenting into three separate products.</p>
+      <p class="cd-body">At Teamshares, the payroll reporting system served network company operators and industry leads through the same underlying platform. Operators saw their own company data. Industry leads saw aggregated views across all 90+ companies. The interface adapted to the role. The architecture was shared. That pattern is how you build \u201Cone platform\u201D for multiple personas without losing coherence.</p>
+      <h2 class="cd-h2">Design systems carry the weight</h2>
+      <p class="cd-body">When a platform spans dozens of surfaces and serves multiple personas, the design system is what keeps the experience from fragmenting. Consistent interaction patterns, predictable layouts, shared vocabulary. At Marketo, Sky achieved 100% adoption across product teams and patterns were eventually contributed upstream to Adobe Spectrum \u2014 because the system was built to serve the people using it, treating internal adoption as a design problem the same way we\u2019d solve any product problem.</p>
+      <p class="cd-body">I\u2019ve spent my career on the kind of products where users set up camp. The \u201Cone platform\u201D challenge is one I\u2019ve solved before, at different companies and at different scales. The underlying problem is always the same: how do you give three very different users a coherent experience without building three separate products? That\u2019s systems thinking applied to product design, and it\u2019s the work I do best.</p>
+    `,
+  },
 };
 
 function openCase(id) {
@@ -733,7 +855,9 @@ function openThought(id) {
   const content = document.getElementById('caseDetailContent');
   let html = '';
   if (data.img) html += `<div style="width:calc(100% + 120px);margin-left:-60px;margin-bottom:40px;overflow:hidden"><img src="${data.img}" style="width:100%;display:block;height:auto" alt=""></div>`;
+  if (data.kicker) html += `<p class="cd-company">${data.kicker}</p>`;
   html += `<h1 class="cd-headline">${data.title}</h1>`;
+  if (data.dek) html += `<p class="cd-intro">${data.dek}</p>`;
   html += data.content;
   content.innerHTML = html;
   content.classList.remove('content-entering');

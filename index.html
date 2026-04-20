@@ -577,6 +577,55 @@
       .thought-tile:hover .thought-tile-badge { opacity: 0; }
     }
 
+    /* POV / Perspective tiles (text-only, gradient background) */
+    .thought-tile--pov { min-height: 240px; }
+    .thought-tile--pov .thought-tile-img { display: none; }
+    .thought-tile-pov-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+    .thought-tile--pov .thought-tile-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+    }
+    .thought-tile--pov .thought-tile-badge { z-index: 2; position: absolute; top: 16px; left: 16px; }
+    @media (hover:hover) {
+      .thought-tile--pov .thought-tile-overlay { opacity: 1; }
+      .thought-tile--pov:hover .thought-tile-pov-bg { filter: brightness(1.15); }
+    }
+    /* Per-experience gradients */
+    .thought-tile-pov-bg--lattice {
+      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0,128,128,0.5) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 50% at 80% 30%, rgba(81,224,205,0.2) 0%, transparent 70%),
+                  linear-gradient(160deg, #001f1f 0%, #003d3d 50%, #001f1f 100%);
+    }
+    .thought-tile-pov-bg--netflix {
+      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(229,9,20,0.4) 0%, transparent 70%),
+                  linear-gradient(160deg, #141414 0%, #200000 50%, #141414 100%);
+    }
+    .thought-tile-pov-bg--rippling {
+      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(255,90,0,0.4) 0%, transparent 70%),
+                  linear-gradient(160deg, #0a0a0a 0%, #1a0f00 50%, #0a0a0a 100%);
+    }
+    .thought-tile-pov-bg--twitch {
+      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(145,71,255,0.45) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 50% at 80% 30%, rgba(191,148,255,0.2) 0%, transparent 70%),
+                  linear-gradient(160deg, #0e0e10 0%, #1f1f23 50%, #0e0e10 100%);
+    }
+    .thought-tile-pov-bg--circle {
+      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0,120,210,0.4) 0%, transparent 70%),
+                  linear-gradient(160deg, #050d1a 0%, #0a1a30 50%, #050d1a 100%);
+    }
+    .thought-tile-pov-bg--rivian {
+      background: radial-gradient(ellipse 80% 60% at 20% 80%, rgba(0,168,93,0.4) 0%, transparent 70%),
+                  linear-gradient(160deg, #081210 0%, #0d2018 50%, #081210 100%);
+    }
+    .thought-tile-pov-bg--five9 {
+      background: radial-gradient(ellipse 80% 60% at 30% 70%, rgba(230,30,30,0.35) 0%, transparent 70%),
+                  linear-gradient(160deg, #100000 0%, #1a0505 50%, #100000 100%);
+    }
+
     /* Photo tile */
     .photo-tile {
       position: relative; border-radius: 18px; overflow: hidden;
@@ -1194,6 +1243,72 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
                 <div class="thought-tile-overlay">
                   <h3 class="thought-tile-title">Squidward would never. SpongeBob would.</h3>
                   <p class="thought-tile-desc">Squidward is the designer who's seen it all. Too experienced to be surprised…</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="design-systems-that-last" role="button" tabindex="0" aria-label="Read What I've learned building design systems that last">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--lattice"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">What I've learned building design systems that last</h3>
+                  <p class="thought-tile-desc">On governance, breaking patterns intentionally, and why the org chart matters more than the component library.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="financial-platforms-systems-problems" role="button" tabindex="0" aria-label="Read Why financial platforms are systems problems">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--rippling"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Why financial platforms are systems problems</h3>
+                  <p class="thought-tile-desc">On fragmentation, dual personas, and what payroll across 90+ companies taught me about designing for money that moves.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="designing-platforms-where-two-sides-need-each-other" role="button" tabindex="0" aria-label="Read Designing platforms where two sides need each other">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--twitch"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Designing platforms where two sides need each other</h3>
+                  <p class="thought-tile-desc">On dual-persona design, the craft of making both sides feel served, and what payroll networks share with creator platforms.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="designing-infrastructure-people-trust" role="button" tabindex="0" aria-label="Read Designing infrastructure people trust with their money">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--circle"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Designing infrastructure people trust with their money</h3>
+                  <p class="thought-tile-desc">On visibility, complex workflows, and why the design patterns in traditional payments carry into digital currency.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="where-brand-meets-the-buy-button" role="button" tabindex="0" aria-label="Read Where brand storytelling meets the buy button">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--rivian"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Where brand storytelling meets the buy button</h3>
+                  <p class="thought-tile-desc">On product narratives, commerce flows, and what selling guitars taught me about the moment a story becomes a transaction.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="designing-for-people-who-live-in-the-product" role="button" tabindex="0" aria-label="Read Designing for people who live in the product">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--five9"></div>
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Designing for people who live in the product</h3>
+                  <p class="thought-tile-desc">On cognitive load, multi-persona platforms, and what full-day software demands from a design system.</p>
                 </div>
               </article>
             </div>
