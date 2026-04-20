@@ -985,11 +985,11 @@ function setupRecruiterPanel() {
         raw = await window.claude.complete({
           messages: [{
             role: 'user',
-            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nGive an accurate fit assessment. Use the three verdicts as defined:\n\nSCORING:\n- STRONG MATCH: The JD's core requirements map directly to his experience. The domain, platform type, and user base are familiar territory.\n- MODERATE MATCH: Transferable skills exist but real gaps are present — an unfamiliar domain, a platform type he hasn't focused on, or key requirements he can't directly demonstrate.\n- WEAK MATCH: The role primarily requires things outside his background — managing a team, native mobile depth, consumer gaming/social/entertainment, or an industry he has no track record in.\n\nFormat your response EXACTLY as:\n\nVERDICT: [STRONG MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct, unspun sentence about fit. No filler. No padding.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another direct match]\n- [Another direct match]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with]\n- [Another gap, or 'None identified' if genuinely none]\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
+            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nCompare Dante's experience against this job description and give an accurate fit verdict.\n\nSCORING:\n- VERY STRONG MATCH: Near-perfect. His specific past work is a direct answer to what the JD is asking for. He's done this exact type of work.\n- STRONG MATCH: His experience maps well to the core requirements. Domain, platform type, and user base are familiar territory.\n- GOOD MATCH: Solid overlap on the main requirements, but some secondary requirements are outside his primary experience.\n- MODERATE MATCH: Real gaps exist — an unfamiliar domain, a platform type he hasn't focused on, or key requirements he can't directly demonstrate.\n- WEAK MATCH: The role primarily requires things outside his background — managing a team, native mobile, consumer gaming/social/entertainment, or an industry he has no track record in.\n\nFormat your response EXACTLY as:\n\nVERDICT: [VERY STRONG MATCH / STRONG MATCH / GOOD MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct sentence about fit. No filler.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another]\n- [Another]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with, or 'None identified']\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
           }]
         });
       } else {
-        raw = "VERDICT: MODERATE MATCH\n\nSUMMARY: Strong B2B and design systems background, but domain alignment depends on how much this role leans into enterprise vs. consumer.\n\nSTRENGTHS:\n- 13+ years of B2B/SaaS product design across complex, data-heavy tools\n- Design systems depth: founded Sky at Marketo/Adobe, 50+ components, contributed to Adobe Spectrum\n- Solo IC leadership at scale — has been the lead or only designer on multiple 0-to-1 products\n\nGAPS:\n- Paste the actual job description to get an accurate assessment\n- Domain fit can't be determined without knowing the role's focus area\n\nRECOMMENDED CASES: teamshares-ats, marketo-sky, meroxa";
+        throw new Error('AI not available');
       }
       const text = typeof raw === 'string' ? raw : (raw.content || raw.completion || '');
       renderRecruiterResult(text);
@@ -1053,8 +1053,11 @@ function renderRecruiterResult(text) {
   const verdict = verdictMatch ? verdictMatch[1].trim() : 'MATCH';
   pill.textContent = verdict;
   pill.className = 'rp-result-pill';
-  if (/MODERATE/i.test(verdict)) pill.classList.add('moderate');
-  else if (/WEAK/i.test(verdict)) pill.classList.add('weak');
+  if (/VERY STRONG/i.test(verdict))      pill.classList.add('very-strong');
+  else if (/GOOD/i.test(verdict))        pill.classList.add('good');
+  else if (/MODERATE/i.test(verdict))   pill.classList.add('moderate');
+  else if (/WEAK/i.test(verdict))        pill.classList.add('weak');
+  // plain STRONG MATCH stays default green
 
   // Summary
   const summaryMatch = text.match(/SUMMARY:\s*([\s\S]+?)(?=\n\nSTRENGTHS|\n\nGAPS|\n\nRECOMMENDED|$)/i);
