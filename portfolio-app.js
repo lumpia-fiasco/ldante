@@ -461,351 +461,1500 @@ function openFitPanel() {
   document.getElementById('fitPanel').scrollTop = 0;
 }
 
+
 // ── Case studies ────────────────────────────────────────────────
 const CASES = {
   'teamshares-payroll': {
     company: 'Teamshares',
-    title: 'Payroll reporting',
-    chips: ['B2B SaaS','Product Design','System Design','Research'],
+    headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.',
+    intro: 'Industry leads were spending half their day on manual prep before they could have a single useful conversation with a network president. The brief said "one place to view payroll data." The real job was getting that prep time down to zero.',
     metrics: [
-      { val: '~$3.1M', label: 'Saved annually' },
-      { val: '90+', label: 'Portfolio companies' },
-      { val: '0', label: 'Headcount added' },
+      { value: '1.5 hrs', label: 'end-to-end workflow, down from 3' },
+      { value: '135 hrs', label: 'saved per cycle across six leads' },
+      { value: '$3.1M',   label: 'annual efficiency gains' },
     ],
-    intro: `Teamshares acquires small businesses and transitions them toward employee ownership. Each acquisition runs its own payroll -- but the reporting tools to manage that across the portfolio didn\'t exist. We had to design them.`,
-    sections: [
-      {
-        h2: 'The problem',
-        body: `Each of Teamshares\'s 90+ portfolio companies ran payroll in isolation. There was no way to roll it up, compare it, or spot issues before they became crises. The cost of that blind spot was measured in hours of manual reconciliation and, in some cases, errors that reached employees.`,
-        img: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/teamshares-payroll-home.png',
-        imgCaption: 'Home state of the new payroll reporting dashboard',
-      },
-      {
-        h2: 'The design challenge',
-        body: `We weren\'t building a payroll tool -- we were building the layer above payroll that made 90 different payroll tools legible. That reframe shaped every decision: what to surface, what to suppress, and where to push users toward action.`,
-        screenshots: [
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/teamshares-payroll-home.png', caption: 'Dashboard overview' },
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/teamshares-integration.png', caption: 'Integration state' },
-        ],
-      },
-      {
-        h2: 'The outcome',
-        body: `The reporting layer became the single source of truth for Teamshares\'s finance team. It eliminated the majority of the manual reconciliation work -- work that was estimated at $3.1M/year in labor cost -- without adding or removing anyone from the team. The design goal was to make invisible work visible, and measurable.`,
-      },
-    ],
-    haiku: ['Payroll just happens.', 'Ninety quiet engines run.', 'You finally see.'],
+    content: `
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Solo Design Lead</div></div>
+        <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Discovery, product design, integration architecture</div></div>
+        <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">PM, finance leadership, data engineering, 2 engineers</div></div>
+        <div><div class="cs-meta-label">Pilot users</div><div class="cs-meta-val">6 industry leads across 90+ network companies</div></div>
+      </div>
+
+      <div class="cd-hero-img-wrap">
+        <img src="assets/teamshares%20payroll.png" class="cd-hero-img" alt="Teamshares Payroll Dashboard" />
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">What industry leads actually do</span></div>
+        <p class="cd-body">Teamshares acquires small businesses from retiring owners and hands them to new presidents &#8212; MBAs and aspiring operators who want to run something without starting from scratch. The employees get equity. The president gets a company. And Teamshares sends in industry leads to make sure the whole thing doesn&#39;t fall apart.</p>
+        <p class="cd-body">Industry leads are the operational version of Gordon Ramsay. They walk into a network company, look at the books, find the leaks, and help the president fix them. Payroll is always on the list: it&#39;s one of the clearest windows into how a company is actually running. Headcount changes, overtime patterns, bonus timing &#8212; it all tells a story if you can read it fast enough.</p>
+        <p class="cd-body">The ask made sense on the surface: one place to view payroll data per network company and generate reports. But that framing assumed the problem was display. It wasn&#39;t.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">What discovery actually found</span></div>
+        <p class="cd-body">Before opening Figma I spent time with the leads &#8212; shadowing their workflow, studying the payroll tools they were already using, learning the vocabulary. The goal wasn&#39;t to understand what they wanted in a dashboard. It was to understand what they were doing before the dashboard existed.</p>
+        <p class="cd-body">What I found: three hours of manual prep standing between a lead and every conversation that mattered.</p>
+        <div class="workflow-block">
+          <div class="workflow-row">
+            <div class="workflow-step">Export</div>
+            <div class="workflow-body">Pull a CSV from the payroll system &#8212; Gusto, ADP, Paychex, BambooHR, depending on the company.</div>
+            <span class="workflow-tag tag-gone">eliminated</span>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Import</div>
+            <div class="workflow-body">Bring it into a spreadsheet. Map columns. Clean the format. Every system exports slightly differently.</div>
+            <span class="workflow-tag tag-gone">eliminated</span>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Calculate</div>
+            <div class="workflow-body">Run formulas. Build waterfall charts by hand. Period-over-period comparisons. Changes in overtime, PTO, headcount, bonuses.</div>
+            <span class="workflow-tag tag-gone">eliminated</span>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Import again</div>
+            <div class="workflow-body">Pull into Metabase for visualization. Then analyze.</div>
+            <span class="workflow-tag tag-gone">eliminated</span>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">The conversation</div>
+            <div class="workflow-body">Finally: sit down with the president and share the insight.</div>
+            <span class="workflow-tag tag-kept">the actual job</span>
+          </div>
+        </div>
+        <p class="cd-body">Multiply that by six leads across 90+ network companies and you&#39;re looking at a significant operational drag on the whole model. The leads were highly paid operators doing spreadsheet work. That&#39;s a business problem &#8212; and it needed to be framed that way before any design work could start.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The reframe that changed the brief</div>
+          <p class="cd-body">From: &#34;How do we display payroll data?&#34; To: &#34;How do we get leads straight to analysis &#8212; and straight to the conversation?&#34; Those are fundamentally different products. The second one is a workflow tool that happens to display data. Every design decision downstream came from that distinction.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">What the leads actually needed to see</span></div>
+        <p class="cd-body">I got a full walkthrough of how leads did analysis in their spreadsheets before the dashboard existed. Waterfall charts. Period-over-period comparisons. Changes in overtime, PTO, headcount, bonuses &#8212; laid out so you could spot the story at a glance without doing math first.</p>
+        <p class="cd-body">The key insight: leads needed comparative data. Prior period vs. current. The delta matters more than the number. A payroll run showing $180K in overtime means nothing in isolation. A payroll run showing overtime up 40% from the prior period is a conversation starter.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">Why this shaped every component decision</div>
+          <p class="cd-body">Once I understood that the job was spotting change, the information hierarchy became clear. Deltas go at the top, in large type, with directional indicators. Absolute values are secondary &#8212; they provide context, while the deltas carry the signal. That distinction flows all the way down to arrow indicators at the component level.</p>
+        </div>
+        <p class="cd-body">I found a charting library that could replicate the waterfall and period-over-period views leads were already building by hand. Meeting them in their existing mental model meant less re-learning and faster adoption from a pilot group that didn&#39;t have time for a learning curve.</p>
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/teamshares-industry-lead-workflow.png" class="cd-screenshot" alt="Industry Lead workflow" />
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/teamshares-payroll-home.png" class="cd-screenshot" alt="Payroll home dashboard" />
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">The integration scope problem</span></div>
+        <p class="cd-body">Payroll data at Teamshares doesn&#39;t live in one place. Ninety-plus network companies running everything from Gusto to ADP to Paychex to BambooHR. Disparate systems, disparate export formats, a lot of manual process stitching it together.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">Option A</div>
+            <div class="cs-tc-title">Manual import flow</div>
+            <div class="cs-tc-body">Leads upload CSVs. The dashboard handles display and calculation. Faster to build, simpler integration surface. But leads still own the export-import loop, which was most of the three hours we were trying to eliminate.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">Option B &#8212; chosen <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Live integrations via Merge</div>
+            <div class="cs-tc-body">Connect directly to each payroll system. Leads open the dashboard and the data is already there. More engineering investment up front, but it&#39;s the only version that actually eliminates the prep work instead of just organizing it.</div>
+          </div>
+        </div>
+        <p class="cd-body">We used Merge for implementation &#8212; it let us move fast against a fragmented vendor landscape without building bespoke connectors for every payroll system. The tradeoff was a dependency on a third-party integration layer. The alternative was more internal engineering work for every new payroll system added to the network. Given that Teamshares was acquiring companies constantly, the Merge dependency was the right bet.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">Designing for the platform</span></div>
+        <p class="cd-body">Once the integrations were in place, payroll data was live and structured inside Teamshares for the first time. I pushed hard to design the integration layer to serve the full platform beyond the industry leads workflow.</p>
+        <div class="finding-block">
+          <div class="finding-row">
+            <div class="finding-tag">Roster sync</div>
+            <div class="finding-body">Once connected, payroll became the source of truth for employee rosters. A hire in BambooHR would surface automatically in TeamsharesOS. A departure would trigger a deactivation flow.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Cap table updates</div>
+            <div class="finding-body">Employee roster changes cascaded into cap table updates automatically. New hires entering the equity program, departures exiting it &#8212; all flowing from the payroll integration without manual reconciliation.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Platform foundation</div>
+            <div class="finding-body">The payroll section established a new pattern in TeamsharesOS for how financial data surfaces platform-wide. Every subsequent financial data feature had a template to build from instead of starting from scratch.</div>
+          </div>
+        </div>
+        <p class="cd-body">The argument I made internally: the integration work is the expensive part. Building it for one workflow and then rebuilding it for three more is three times the cost for the same outcome. Do it once, do it right, and let the whole platform inherit it.</p>
+      </div>
+
+      <div class="cd-screenshots-row">
+        <div class="cd-screenshot-frame">
+          <img src="assets/teamshares-system-effect.png" alt="System effect" />
+          <span>Platform-wide cascade</span>
+        </div>
+        <div class="cd-screenshot-frame">
+          <img src="assets/teamshares-integration.png" alt="Integration hub" />
+          <span>Integration hub</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">The concession: anomaly detection vs. delta highlighting</span></div>
+        <p class="cd-body">The vision I wanted to ship was anomaly detection &#8212; a dashboard that could flag unusual patterns automatically before a lead even opened the screen. The problem was data maturity. The integrations were brand new. There was no historical baseline to define what &#34;normal&#34; looked like for any given company.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">What I wanted</div>
+            <div class="cs-tc-title">Anomaly detection</div>
+            <div class="cs-tc-body">Automatic flagging of unusual patterns against historical baselines. Leads open the dashboard and the outliers are already surfaced. Requires sufficient historical data to establish what normal looks like.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">What we shipped <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Delta highlighting</div>
+            <div class="cs-tc-body">Surface change clearly. Make movement visible between pay periods at a glance. A deliberate foothold that starts collecting the behavioral signal needed for smarter detection later.</div>
+          </div>
+        </div>
+        <p class="cd-body">The delta highlighting was the right call given the constraint. But I made a mistake in how I reasoned about it: I let the ideal version crowd out a good-enough intermediate. A simple threshold-based alert &#8212; flag any payroll run that&#39;s 20% or more above the prior period &#8212; doesn&#39;t require historical patterns, just a rule. That was buildable from day one and I didn&#39;t push for it. The lesson I&#39;ve carried since: the right question isn&#39;t &#34;can we ship the full vision?&#34; It&#39;s &#34;what&#39;s the best version of this we can ship now, given what we actually have?&#34;</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">What the outcomes actually mean</span></div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">1.5 hrs</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">End-to-end workflow, down from 3</div>
+            <div class="cs-od-body">The 1.5 hours that remained after the dashboard shipped was the actual job: analysis, drafting advice, having the conversation with the president. The prep was gone. The 50% number undersells it. The remaining 1.5 hours was the actual job — analysis and conversation. The prep was gone entirely. Measured through workflow observation with pilot leads before and after launch.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">135 hrs</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Saved per cycle across six leads</div>
+            <div class="cs-od-body">Six leads, 1.5 hours saved per company per cycle, across 90+ companies. The math compounds fast when you&#39;re operating at network scale. Worth noting: this is capacity freed — nobody was cut. The leads used that time for more companies, deeper analysis, and higher-value conversations &#8212; which was the point.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">$3.1M</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Annual efficiency gains</div>
+            <div class="cs-od-body">Finance leadership calculated this based on fully-loaded lead costs against hours recovered. I didn&#39;t generate this number &#8212; they did, using the workflow time data from the pilot. It&#39;s the clearest signal that the reframe from &#34;display problem&#34; to &#34;workflow problem&#34; was the right one. A better dashboard wouldn&#39;t have gotten there. Eliminating the prep did.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-video-wrap">
+        <iframe src="https://www.youtube.com/embed/g3VFUV3jO3c?si=waezLVp14mnNbrpc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">What I&#39;d do differently</span></div>
+        <p class="cd-body">The threshold-based alert is the obvious one. Letting the full anomaly detection vision crowd out a simpler, shippable version was a failure of prioritization that I owned.</p>
+        <p class="cd-body">The other thing: I&#39;d push earlier and harder for the platform scope. The argument that the integration layer should serve the full platform rather than just the leads workflow landed eventually, but it landed mid-build rather than at the start of scoping. Some architectural decisions had already been made with a narrower surface in mind. That conversation needed to happen before the first design review.</p>
+        <div class="cs-reflection">
+          <div class="cs-reflection-title">The thing this project was really testing</div>
+          <p class="cd-body">Every Teamshares network company is a small business with real employees who took a bet on employee ownership. The industry lead&#39;s job is to make sure that bet pays off. If they&#39;re spending half their day doing spreadsheet prep, they&#39;re not doing their job &#8212; and the companies they&#39;re responsible for are getting less of what they need. The dashboard was bigger than productivity — it was a lever on a model that matters. Getting the framing right at the start was what made everything else possible.</p>
+        </div>
+      </div>
+
+      <div class="cd-block cd-closer">
+        <p class="cd-body">Teamshares is a private company. Screens shown are representative of shipped work.</p>
+      </div>
+    `,
   },
 
   'teamshares-ats': {
     company: 'Teamshares',
-    title: 'A hiring engine for a company of companies',
-    chips: ['B2B SaaS','Enterprise Design','Research','Systems'],
+    headline: 'The ask was "build an ATS." The real problem was a broken hiring model.',
+    intro: 'Teamshares was acquiring small businesses faster than it could place leaders to run them. The tool holding the whole operation together was a spreadsheet. Fixing that wasn\'t a tooling problem. It was a system design problem.',
     metrics: [
-      { val: '90+', label: 'Companies served' },
-      { val: '1', label: 'Unified pipeline' },
-      { val: '↑40%', label: 'Time-to-fill reduction' },
+      { value: '20+', label: 'leaders placed through the platform' },
+      { value: '10+', label: 'qualified leaders benched for future placement' },
+      { value: '1',   label: 'source of truth, replacing Lever and spreadsheets entirely' },
     ],
-    intro: "Every Teamshares portfolio company hires independently -- without a shared view of the talent pool, without cross-company pipeline visibility, and without a way to standardize what 'a good hire' even means across industries. That was the problem.",
-    sections: [
-      {
-        h2: 'From tool to infrastructure',
-        reframe: {
-          from: 'A recruiting app for individual companies to post jobs and track candidates.',
-          to: 'A talent pipeline layer that surfaces signal across an entire portfolio.',
-        },
-      },
-      {
-        h2: 'What we built',
-        body: `A unified ATS that treated each portfolio company as a node in a larger network. Hiring managers could see only their company\'s activity; Teamshares ops could see the full picture. The same underlying data served both views without overwhelming either.`,
-        screenshots: [
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/teamshares ats.png', caption: 'Candidate pipeline' },
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/ats-candidate-detail.png', caption: 'Candidate detail' },
-        ],
-      },
-      {
-        h2: 'The details that mattered',
-        body: "Scoring and bulk edits were the two biggest time drains for recruiters. We rebuilt both. The new scoring model made 'this person is worth a second look' a one-click action. Bulk edits turned a 20-minute status update into a 90-second one.",
-        screenshots: [
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/ats-scoring.png', caption: 'Scoring interface' },
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/ats-bulk-edits.png', caption: 'Bulk edit flow' },
-        ],
-      },
-    ],
-    haiku: ['Ninety doors to jobs.', 'Same face walks through each of them.', 'Finally, a map.'],
+    content: `
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Solo Design Lead</div></div>
+        <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Discovery, system design, product design</div></div>
+        <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">PM, recruiting team, engineering</div></div>
+        <div><div class="cs-meta-label">Constraint</div><div class="cs-meta-val">80+ acquired companies, growing fast</div></div>
+      </div>
+
+      <div class="cd-hero-img-wrap">
+        <img src="assets/teamshares%20ats.png" class="cd-hero-img" alt="Teamshares ATS" />
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">Why this wasn&#39;t an ATS problem</span></div>
+        <p class="cd-body">The brief was straightforward: build an applicant tracking system to replace the spreadsheet the recruiting team was running on. But a few conversations in, it was obvious that a better tracker wasn&#39;t going to solve what was actually broken.</p>
+        <p class="cd-body">Teamshares&#39; business model is specific. They acquire small businesses, transition them to employee ownership, and install a President to run each one. That President placement is the unlock. Without the right person in place, the whole model stalls. And executive hiring takes 2 to 6 months on average &#8212; which meant every open President slot was a company sitting in limbo.</p>
+        <p class="cd-body">They had 80+ companies acquired. Some Presidents were running two companies at once just to cover gaps. The spreadsheet wasn&#39;t failing because spreadsheets are bad. It was failing because nobody had designed for what recruiting at this volume and this stakes level actually required.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The reframe that changed the project</div>
+          <p class="cd-body">The team was thinking: &#34;How do we track candidates better?&#34; The right question was: &#34;How do we build a talent pipeline that ensures Teamshares always has qualified leaders ready to place?&#34; A candidate tracker optimizes individual hires. A talent pipeline is infrastructure that compounds over time. I pushed for the second framing before a single screen was designed.</p>
+        </div>
+        <div class="cs-pull-quote">
+          <p class="cs-pull-quote-text">"A knack for turning complex problems into clear, user-friendly solutions, always keeping the user's needs at the forefront."</p>
+          <p class="cs-pull-quote-attr"><strong>Kevin Rikio Shiiba</strong> · Co-founder &amp; CTO, Teamshares</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">What discovery actually looked like</span></div>
+        <p class="cd-body">Discovery here wasn&#39;t just recruiter interviews. It was mapping the entire operating model: how acquisitions flowed, how President slots opened, how candidates moved through the process, and what happened to the ones who didn&#39;t get placed. That last part mattered more than anyone had thought to document.</p>
+        <div class="finding-block--padded">
+          <div class="finding-row">
+            <span class="finding-tag">No shared language</span>
+            <span class="finding-body">Each recruiter tracked candidates differently. What one called &#34;phone screen&#34; another called &#34;intro call.&#34; There was no agreed-upon vocabulary for where someone stood &#8212; which made pipeline visibility across the team essentially impossible.</span>
+          </div>
+          <div class="finding-row">
+            <span class="finding-tag">No bench</span>
+            <span class="finding-body">Qualified candidates who didn&#39;t get placed would fall completely out of the system. Every new opening started from zero. The team was doing significant work to source and evaluate candidates, then throwing that work away when a hire didn&#39;t close.</span>
+          </div>
+          <div class="finding-row">
+            <span class="finding-tag">No visibility</span>
+            <span class="finding-body">Executives had no way to see pipeline health &#8212; how many Presidents-in-waiting were in the system, how close they were to placement-ready, or where bottlenecks were forming. Flying blind on a metric central to the business model.</span>
+          </div>
+          <div class="finding-row">
+            <span class="finding-tag">Transaction mindset</span>
+            <span class="finding-body">The team was treating each hire as a one-time event. Source, evaluate, place, done. What the business actually needed was a continuously warm talent pipeline. That&#39;s a fundamentally different operating model, and no amount of UI improvement would get there without first changing the underlying system.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-hero-img-wrap">
+        <img src="assets/ats-brads.jpg" class="cd-hero-img" alt="Teamshares candidates" />
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">The hardest design work happened before Figma opened</span></div>
+        <p class="cd-body">Before I touched any UI, I mapped every state a candidate could be in across the full lifecycle &#8212; not just the happy path, but every edge case I could find. What happens when someone gets placed but the company folds six months later? What happens to a finalist who didn&#39;t get the offer? What happens when a placed President leaves?</p>
+        <p class="cd-body">Those edge cases defined the data model. The data model defined the product. Getting that wrong in design would have meant building something that looked right but broke the moment it hit real operational load.</p>
+        <div class="cs-callout cs-callout--problem">
+          <div class="cs-callout-label">The stage vocabulary problem</div>
+          <p class="cd-body">I spent significant time before designing any screens just getting the recruiting team aligned on a shared stage vocabulary. Recruiter by recruiter. What does &#34;screening&#34; mean? What moves someone from &#34;interested&#34; to &#34;qualified&#34;? When is someone on the bench vs. out of consideration? That alignment work was unglamorous and it was the most important design work on the project. Every workflow downstream depended on it being consistent.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">The core design decision: purpose-built vs. adapted</span></div>
+        <p class="cd-body">Teamshares was already using Lever, a standard enterprise ATS. The obvious path was to configure Lever more intentionally and build tooling around it. I pushed back on that direction early.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">Option A</div>
+            <div class="cs-tc-title">Extend Lever</div>
+            <div class="cs-tc-body">Lean on the existing ATS. Add structure through custom fields, stages, and integrations. Less build, faster to ship, familiar to the team. The tradeoff: Lever was built for general hiring at volume. The Teamshares model didn&#39;t fit its assumptions.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">Option B &#8212; chosen <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Purpose-built internal tool</div>
+            <div class="cs-tc-body">Design an ATS from scratch around the specific operating model. Slower to ship, more engineering investment. But it could model the bench, support placement-based workflows, give leadership pipeline visibility, and be built with a two-sided future in mind.</div>
+          </div>
+        </div>
+        <p class="cd-body">Lever&#39;s data model treated every candidate as moving toward a single job opening. Teamshares needed candidates to exist independently of any specific opening and be matchable to future placements. That&#39;s a fundamentally different architecture — beyond what any configuration of Lever could support.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">Shipping incrementally, learning under real load</span></div>
+        <p class="cd-body">The product shipped in sprints with the recruiting team using it in production throughout. That wasn&#39;t just a process choice &#8212; it was how I found the problems that don&#39;t show up in research.</p>
+        <div class="sprint-block">
+          <div class="sprint-row">
+            <div class="sprint-label">Sprint 3</div>
+            <div class="sprint-body">Candidate scoring rubric. Without a structured rubric, evaluation was left to individual recruiter judgment, which meant no consistent signal for who belonged on the bench vs. who was out. The rubric made &#34;qualified&#34; mean the same thing across the team.</div>
+          </div>
+          <div class="sprint-row">
+            <div class="sprint-label">Post-pilot</div>
+            <div class="sprint-body">Admin tools for assignment management. A gap that only surfaced once real volume hit. Recruiters needed to reassign candidates across openings without losing history. Didn&#39;t come up in research. Came up immediately in production.</div>
+          </div>
+          <div class="sprint-row">
+            <div class="sprint-label">Later</div>
+            <div class="sprint-body">Bulk actions. Volume grew faster than anyone projected. What worked fine at 20 candidates per recruiter was painful at 60. Bulk status updates and batch communication became necessary, not nice-to-have.</div>
+          </div>
+          <div class="sprint-row">
+            <div class="sprint-label">Ongoing</div>
+            <div class="sprint-body">Email hooks to cut the manual status-update loop. Recruiters were spending significant time on outbound communication that the system could handle. Automating status notifications freed up recruiting capacity for actual relationship work.</div>
+          </div>
+        </div>
+        <div class="cd-screenshots-row">
+          <div class="cd-screenshot-frame">
+            <img src="assets/ats-candidate-detail.png" alt="Candidate detail" />
+            <span>Candidate detail</span>
+          </div>
+          <div class="cd-screenshot-frame">
+            <img src="assets/ats-scoring.png" alt="Scoring rubric" />
+            <span>Scoring rubric</span>
+          </div>
+        </div>
+        <div class="cd-screenshots-row">
+          <div class="cd-screenshot-frame">
+            <img src="assets/ats-archiving.png" alt="Archiving" />
+            <span>Bench &amp; archiving</span>
+          </div>
+          <div class="cd-screenshot-frame">
+            <img src="assets/ats-bulk-edits.png" alt="Bulk edits" />
+            <span>Bulk actions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-pull-quote">
+        <p class="cs-pull-quote-text">"He's quick to step up and guide the team, especially in challenging situations."</p>
+        <p class="cs-pull-quote-attr"><strong>Kevin Rikio Shiiba</strong> · Co-founder &amp; CTO, Teamshares</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">Candidate experience as a design constraint</span></div>
+        <p class="cd-body">Most internal tools treat the candidate as a data object. The kind of person Teamshares was recruiting &#8212; experienced operators, often leaving stable roles &#8212; had real leverage. They could walk.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The design decision that came out of this</div>
+          <p class="cd-body">Purpose-built candidate status messaging at each stage transition. Candidates knew what stage they were in, what came next, and roughly what the timeline looked like. This was a strategic retention mechanism for high-value candidates in a long process. Losing a finalist at week eight meant restarting a months-long process. The messaging investment paid for itself once.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">The future the data architecture was built for</span></div>
+        <p class="cd-body">Late in the project I started talking to Network Presidents &#8212; candidates who&#39;d been through the process. What I heard shaped a direction nobody had formally proposed: a two-sided platform where candidates maintain profiles between application cycles, and Teamshares proactively matches upcoming openings to warm candidates already in the system.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">What we shipped</div>
+            <div class="cs-tc-title">One-sided ATS</div>
+            <div class="cs-tc-body">Recruiter-facing tool for managing the President placement pipeline. Candidates are tracked but passive. The system is operated entirely by Teamshares staff.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">What the architecture enables <span class="cs-chosen-badge">future state</span></div>
+            <div class="cs-tc-title">Two-sided talent platform</div>
+            <div class="cs-tc-body">Candidates maintain profiles, signal availability, and get matched to openings proactively. Teamshares stops starting from zero on every search. The bench becomes a living network.</div>
+          </div>
+        </div>
+        <p class="cd-body">The resourcing wasn&#39;t there to build it at the time, and the company reorganized before it could be pursued. But identifying and architecting toward a future state &#8212; even one that doesn&#39;t ship on your watch &#8212; is part of the job at principal level. You&#39;re not just designing for the current sprint. You&#39;re making decisions that either open or close future possibilities.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">What the outcomes actually measured</span></div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">20+</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Leaders placed</div>
+            <div class="cs-od-body">Presidents hired and placed into acquired companies through the platform. Executive placements at this level typically take 2 to 6 months each. 20+ placements through a purpose-built system, with a small recruiting team, represents serious throughput improvement over the spreadsheet baseline.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">10+</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Leaders benched</div>
+            <div class="cs-od-body">Qualified candidates identified, evaluated, and retained in the system for future placement. Under the old model, these people would have fallen out of the system entirely. This number represents the bench strategy working: recruiting investment that compounds rather than evaporates. It&#39;s the number I&#39;m most proud of because it proves the pipeline model over the transaction model.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">1</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Source of truth</div>
+            <div class="cs-od-body">All applicant management moved into the platform, replacing Lever and the spreadsheets entirely. With one system, leadership could see pipeline health for the first time. Recruiters stopped duplicating work across tools. Stage data became consistent enough to actually analyze. The product became core infrastructure &#8212; used daily until the team was dissolved in a company-wide reorganization.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">09</span><span class="cs-section-title">What I&#39;d do differently</span></div>
+        <p class="cd-body">The stage vocabulary alignment work was the right call, but I&#39;d do it faster. I spent time working recruiter by recruiter to get buy-in on shared language when I could have run a structured workshop up front, documented the decisions, and moved on.</p>
+        <p class="cd-body">On the candidate experience: I&#39;d push for it earlier. I raised it as a constraint mid-project, when it should have been in scope from the start. If I&#39;d framed candidate retention as a business risk in the initial scoping conversation, it would have been in scope from day one.</p>
+        <div class="cs-reflection">
+          <div class="cs-reflection-title">What this project was really about</div>
+          <p class="cd-body">Getting the right President into an acquired small business isn&#39;t an HR milestone. It&#39;s the unlock for employee ownership to actually work. Every hire placed through this system represented a business moving from a retiring owner&#39;s legacy into something owned by the people who run it. The spreadsheet couldn&#39;t hold that weight. The platform could. Designing systems that hold serious weight &#8212; and that don&#39;t break when the business scales past what anyone originally planned for &#8212; is the job.</p>
+        </div>
+      </div>
+
+      <div class="cd-block cd-closer">
+        <p class="cd-body">Teamshares is a private company. Screens shown are representative of shipped work.</p>
+      </div>
+    `,
   },
 
   'marketo-sky': {
     company: 'Marketo / Adobe',
-    title: 'The design system that survived an acquisition',
-    chips: ['Design Systems','Component Library','Adobe Spectrum','Scale'],
+    headline: 'I didn\'t pitch a design solution. I pitched a structural one.',
+    intro: 'Marketo was mid-platform-redesign with a component library maintained by one person and no governance holding it together. The patterns were diverging. The instinct would have been to clean up the components. I went after the org model instead.',
     metrics: [
-      { val: 'Sky', label: 'Design system shipped' },
-      { val: '→', label: 'Contributed to Spectrum' },
-      { val: '100+', label: 'Components built' },
+      { value: '50+',   label: 'components audited and standardized' },
+      { value: '100%',  label: 'adoption across product teams' },
+      { value: '2.5 yrs', label: 'pre and post-acquisition runway' },
+      { value: '3',     label: 'alumni now leading at LinkedIn, TikTok, AWS' },
     ],
-    intro: 'When Adobe acquired Marketo, we had a choice: wait for Spectrum to absorb us, or build something that could stand on its own and influence what came next. We chose the latter. Sky became the design language that gave Marketo Engage its coherence -- and sent patterns upstream into Adobe Spectrum.',
-    sections: [
-      {
-        h2: 'The constraints',
-        body: 'We were designing for a 15-year-old B2B product used by marketing operations teams who spent 8+ hours a day inside it. The system had to be accessible, dense, and calm. It could not be loud or aggressive. It needed to shrink out of the way of the work.',
-        img: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/sky-brandcolor.jpeg',
-        imgCaption: 'Sky brand color exploration',
-      },
-      {
-        h2: 'Color and density',
-        body: 'The Sky color system was built around a single principle: information density should not create cognitive noise. We derived a semantic palette from a restricted primitives set, and then validated every combination against WCAG AA at the data-table density our users required.',
-        screenshots: [
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/sky-colorpalette.jpeg', caption: 'Color palette' },
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/sky-primitivecolor.jpeg', caption: 'Primitive tokens' },
-        ],
-      },
-      {
-        h2: 'Data visualization',
-        body: 'Marketo Engage runs reporting at its core. The data visualization component set was one of the most complex parts of Sky -- charts, trend lines, comparison views -- all needing to read cleanly at multiple sizes inside a product where space was already at a premium.',
-        screenshots: [
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/sky-dataviz.jpeg', caption: 'Data viz -- bar' },
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/sky-dataviz2.jpeg', caption: 'Data viz -- line' },
-        ],
-      },
-    ],
-    haiku: ['Colors not chosen.', 'Each one earned a second look.', 'The system holds still.'],
-  },
+    content: `
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Design Systems Lead</div></div>
+        <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Governance, system design, team building</div></div>
+        <div><div class="cs-meta-label">Timeline</div><div class="cs-meta-val">2.5 years, pre and post-acquisition</div></div>
+        <div><div class="cs-meta-label">Team</div><div class="cs-meta-val">2 junior designers, front-end tech lead, rotating PMs</div></div>
+      </div>
 
-  'marketo-migration': {
-    company: 'Marketo / Adobe',
-    title: '733% adoption increase through trust-first migration',
-    chips: ['UX Strategy','Change Management','B2B SaaS','Research'],
-    metrics: [
-      { val: '733%', label: 'Adoption increase' },
-      { val: 'Trust', label: 'First design principle' },
-      { val: '↓62%', label: 'Support tickets' },
-    ],
-    intro: 'Users were resistant. That was the finding. Not confused, not blocked -- resistant. They had learned to work around the old interface, and they had no reason to trust a new one. That was the real design problem: not migration, but trust.',
-    sections: [
-      {
-        h2: 'What the research found',
-        body: `Every usability session we ran early in the Sky rollout surfaced the same pattern: users would encounter the new UI, recognize it was different, and immediately look for the old path. They weren\'t struggling -- they were avoiding. The product had to earn its way in.`,
-        reframe: {
-          from: 'Ship the new interface and let users adapt.',
-          to: 'Design the migration itself as a product experience.',
-        },
-      },
-      {
-        h2: 'The migration design',
-        body: 'We built a parallel-path system: users could opt in to the new experience on a feature-by-feature basis, with a clear path back if they needed it. Each new feature surfaced its value before asking for commitment. The old UI stayed available as a fallback, not a default.',
-        img: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/design-sas.jpg',
-        imgCaption: 'Migration flow and opt-in design',
-      },
-      {
-        h2: 'The result',
-        body: `Within two quarters, voluntary adoption of the new UI exceeded projections by 733%. Support tickets dropped 62%. The critical insight was that users didn\'t need a better UI -- they needed a reason to trust the one they had.`,
-      },
-    ],
-    haiku: ['Trust is not assumed.', 'Each feature must earn its place.', 'Then: 733%.'],
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">What was actually broken</span></div>
+        <p class="cd-body">Marketo was in the middle of a significant platform redesign. The component library existed, but it was maintained by a single person with no governance process and no real authority over what entered it. Patterns were diverging across the product. Teams were making local decisions that made sense for their surface and created inconsistency everywhere else.</p>
+        <p class="cd-body">The standard response to this situation is a design audit. Clean up the components, establish a style guide, ship an updated library. I didn't think that would work because it treated the symptom without touching the cause.</p>
+        <div class="cs-callout cs-callout--problem">
+          <div class="cs-callout-label">The actual diagnosis</div>
+          <p class="cd-body">A design system maintained by one person with no governance will diverge. That's structural — physics, really. One person can't be everywhere. Without authority over what enters the system, every team becomes a de facto exception. The model that produced the components needed to change first. Fixing the model first was the only way to make sure the work didn't need to be redone in two years.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">Selling the structural fix before touching anything</span></div>
+        <p class="cd-body">Before any design work started, I got buy-in from my director and the VP of Product on a different model entirely. Not "we need better components." The pitch was: we need democratized ownership, embedded accountability, and governance that gives the design org actual authority over what enters the system.</p>
+        <p class="cd-body">That conversation happened before I had a single artifact to show. That was intentional. If you bring a governance proposal with a component library attached, people react to the components. If you bring the governance proposal alone, they react to the argument. The argument needed to land first.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tradeoff-label">Option A</div>
+            <div class="cs-tradeoff-title">Centralized ownership</div>
+            <div class="cs-tradeoff-body">One team owns the system. All contributions go through them. Consistency is high, velocity is a bottleneck. The model that was already failing — just with more people in the seat.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tradeoff-label">Option B — chosen <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tradeoff-title">Federated ownership with governance</div>
+            <div class="cs-tradeoff-body">Every product team has a contributor with a stake in the system. Central governance sets standards and reviews contributions. Ownership is distributed, quality control is centralized. Adoption comes built in.</div>
+          </div>
+        </div>
+        <p class="cd-body">The tradeoff with federated ownership: it's harder to manage. Contributors have other jobs. They're not full-time on the system, which means quality variance is a real risk. The governance layer was the answer to that — not as bureaucracy, but as a review process that gave contributors a clear bar and gave the central team real authority to hold it.</p>
+        <p class="cd-body">The thing I argued most directly: if you want 100% adoption, you need 100% of teams to feel like the system belongs to them. You can't mandate that. You have to architect it.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">Building the team deliberately</span></div>
+        <p class="cd-body">I was assigned two junior designers. I added a front-end tech lead and built a rotating PM model — product managers rotated in based on which component areas were in scope for their pods. That structure kept the work connected to real product needs instead of becoming a design-org-only exercise that shipped into a vacuum.</p>
+        <div class="finding-block">
+          <div class="finding-row">
+            <div class="finding-tag">Junior designers</div>
+            <div class="finding-body">The right call for execution work, and an opportunity to develop people through real systems-level work. I was responsible for vetting subsequent designers who joined. I looked for people who could think in patterns — a different skill than strong visual design.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Front-end tech lead</div>
+            <div class="finding-body">Non-negotiable. A design system that engineering can't implement consistently is just a reference document. Having a technical lead embedded from the start meant components were designed with implementation in mind from day one, not retrofitted after.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Rotating PMs</div>
+            <div class="finding-body">The part most people skip. Product managers rotated in based on which component areas were in scope for their pods. This kept the system tethered to actual product work. It also meant PMs had direct accountability for the components their teams would use — which made adoption a product goal too.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">Solving adoption before it was a problem</span></div>
+        <p class="cd-body">Most design systems fight for adoption after they ship. Teams have already built things their own way. Migrating is work. The system becomes a political negotiation instead of a shared resource.</p>
+        <p class="cd-body">I didn't want to have that fight. The federated model was partly a governance decision and partly an adoption strategy. When every team has a contributor with skin in the game, every team has a reason to use what comes out of it. The 100% adoption number was baked into the architecture from the start.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The specific mechanism that made it work</div>
+          <p class="cd-body">Embedded evangelists. Each product pod had someone who had contributed to the system and understood it from the inside. When new components shipped, that person was an advocate who could answer questions, explain decisions, and reduce the friction of adoption at the team level. You can't document your way to that. You have to build it into the org model.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">The audit and the new color system</span></div>
+        <p class="cd-body">Once the governance model was in place, the component work started. 50+ components audited, rationalized, and standardized. The audit surfaced the decisions that had never been made explicitly and were producing inconsistency across the product.</p>
+        <p class="cd-body">Color was the clearest example. The existing palette had grown by accretion. Colors got added when someone needed them, without a system behind the choices. The audit produced a new color system built around a coherent semantic model — not just a palette, but rules for how colors were used, when, and why. That made it defensible in review and teachable to contributors who weren't color-system specialists.</p>
+
+        <div class="cd-screenshot-wrap">
+          <img src="assets/sky-brandcolor.jpeg" class="cd-screenshot" alt="App framework colors and brand color integration" />
+        </div>
+
+        <div class="cd-screenshot-wrap">
+          <img src="assets/sky-primitivecolor.jpeg" class="cd-screenshot" alt="Semantic color system — red, orange, green, blue scales with usage definitions" />
+        </div>
+
+        <div class="cs-callout">
+          <div class="cs-callout-label">Why the semantic layer mattered</div>
+          <p class="cd-body">A color system tells you which color to use in which context and why. Without that layer, every new component becomes a judgment call, and judgment calls at scale produce drift. The semantic model gave contributors a framework to make consistent decisions without needing to escalate every choice to the central team. That's what made the governance scalable.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">Grounding in industry standards, which turned out to matter more than expected</span></div>
+        <p class="cd-body">In building Sky, we drew heavily from the leading design systems of the time: Predix, Polaris, Lightning, Spectrum. Not because there was any awareness that an acquisition was coming — there wasn't — but because building to industry-standard patterns was the right call for a platform at Marketo's scale. Enterprise B2B software has established conventions for a reason. Working against them costs you in onboarding, in accessibility, and in credibility with technical stakeholders.</p>
+        <p class="cd-body">That decision turned out to be a significant factor when Adobe acquired Marketo. The migration to Adobe's design language was less disruptive than it could have been precisely because Sky was already built on patterns that Adobe's Spectrum system recognized. That's a case where doing the right thing for the wrong-sounding reason — "just because it's good practice" — turned out to have real strategic value after the fact.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tradeoff-label">The path not taken</div>
+            <div class="cs-tradeoff-title">Marketo-native patterns</div>
+            <div class="cs-tradeoff-body">Build a system tailored entirely to Marketo's specific product context. Higher short-term coherence within the product, but disconnected from broader industry conventions and harder to migrate when the acquisition happened.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tradeoff-label">What we built <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tradeoff-title">Industry-grounded patterns</div>
+            <div class="cs-tradeoff-body">Sky drew from Predix, Polaris, Lightning, and Spectrum. More onboarding investment up front to align contributors, but the system spoke a language the broader industry understood — including Adobe's design org.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">The acquisition: Sky's patterns going upstream into Spectrum</span></div>
+        <p class="cd-body">Adobe acquired Marketo. The expectation would be that the acquired company's design system gets absorbed into the acquirer's. That's mostly what happened. But not entirely.</p>
+        <p class="cd-body">Several Sky patterns — data visualization approaches, card treatments — found their way upstream into Spectrum, Adobe's own design language. An acquired company leaving fingerprints on the acquirer's system. That's not a common outcome, and it happened because Sky was built to a standard that Adobe's design org could recognize and evaluate on its merits, not dismiss as a legacy artifact from an acquired product.</p>
+
+        <div class="cd-screenshot-wrap">
+          <img src="assets/sky-colorpalette.jpeg" class="cd-screenshot" alt="Data visualization color system — Midnight and Twilight palettes" />
+        </div>
+
+        <div class="cd-screenshot-wrap">
+          <img src="assets/sky-dataviz.jpeg" class="cd-screenshot" alt="Data visualization examples — trend reports and radar charts" />
+        </div>
+
+        <div class="cd-screenshot-wrap">
+          <img src="assets/sky-dataviz2.jpeg" class="cd-screenshot" alt="Data visualization examples — cluster analysis and segmentation" />
+        </div>
+
+        <div class="cs-callout">
+          <div class="cs-callout-label">What this means in practice</div>
+          <p class="cd-body">The upstream contribution is evidence that the system was built with enough rigor that one of the largest design organizations in tech looked at it and said: this is better than what we have in this area. That happens with a system that has a real point of view, documented decisions, and patterns that generalize beyond the product they were built for.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">What the team became</span></div>
+        <p class="cd-body">The designers I developed through this work went on to lead design systems and design functions at some of the most design-mature organizations in the industry. That's not incidental to the project — it's a result of it. Working on a real system, with real governance, real contributors, and real stakes is a different kind of development than working on a product feature.</p>
+        <div class="alumni-row">
+          <div class="alumni-card"><div class="alumni-co">LinkedIn</div><div class="alumni-role">Design systems lead</div></div>
+          <div class="alumni-card"><div class="alumni-co">TikTok</div><div class="alumni-role">Design systems lead</div></div>
+          <div class="alumni-card"><div class="alumni-co">AWS</div><div class="alumni-role">Design lead</div></div>
+        </div>
+        <p class="cd-body">I take that seriously as a measure of the work. A design system that produced three alumni at that level means the people who worked on it learned something real. That's only possible if the work itself had depth — if there were hard decisions to make, real tradeoffs to navigate, and a governance model that required people to think in systems rather than in screens.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">09</span><span class="cs-section-title">What the numbers actually mean</span></div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">100%</div>
+          <div class="cs-outcome-detail">
+            <div class="cs-od-title">Adoption</div>
+            <div class="cs-od-body">Every product team using Sky. Worth being clear about what produced this: it was an architectural decision made before the system launched. When every team has a contributor with skin in the game, adoption is a natural outcome. The 100% is the federated model working as intended.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">50+</div>
+          <div class="cs-outcome-detail">
+            <div class="cs-od-title">Components audited and standardized</div>
+            <div class="cs-od-body">The audit was the mechanism. What it actually produced: a shared vocabulary across the design org, a semantic color system, a governance process with real teeth, and a component library that contributors could extend without breaking. The 50+ number represents the scope of the problem that existed before the governance model was in place.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">2.5 yrs</div>
+          <div class="cs-outcome-detail">
+            <div class="cs-od-title">Pre and post-acquisition runway</div>
+            <div class="cs-od-body">Sky ran for 2.5 years spanning the Adobe acquisition. A design system that survives an acquisition without being immediately deprecated is a system that was built with enough rigor to be recognized on its merits. Most acquired systems don't make it. Sky not only survived but contributed patterns upstream. The 2.5 years matters because it includes the period when Adobe could have simply replaced it, and chose not to immediately.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">3</div>
+          <div class="cs-outcome-detail">
+            <div class="cs-od-title">Alumni at LinkedIn, TikTok, AWS</div>
+            <div class="cs-od-body">This is the outcome I didn't know to measure while the work was happening. You can't predict where the people you develop will go. But the fact that three of them ended up leading design systems and design functions at organizations that take design seriously tells you something about the quality of the work they did — and the environment that produced it.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">10</span><span class="cs-section-title">What I'd do differently</span></div>
+        <p class="cd-body">The governance model worked, but it took longer to fully operationalize than it should have. The federated ownership concept was sound. The documentation of what that meant in practice — how contributions got reviewed, what the bar was, who had final authority on edge cases — lagged behind the system itself. That created ambiguity in the early months that I had to resolve one conversation at a time instead of by pointing to a process.</p>
+        <p class="cd-body">I'd write the governance playbook first, before the first contributor joined. Not a long document — a one-pager that answered the three questions every contributor needed: what's my responsibility, how does my work get reviewed, and who has final say. That clarity would have shortened the ramp-up time considerably.</p>
+        <p class="cd-body">On the upstream Spectrum contribution: I'd document the pattern decisions more rigorously in real time. Some of what we contributed worked its way into Spectrum through conversations and informal knowledge transfer rather than clean handoffs. The patterns landed, but the reasoning behind them was harder to transfer than it would have been if we'd been writing decision records as we made the decisions. That discipline would have made the contribution more durable.</p>
+        <div class="cs-reflection">
+          <div class="cs-reflection-title">What this was really about</div>
+          <p class="cd-body">A design system is a bet on how a team will make decisions over time. The components are almost beside the point. What matters is whether the governance model produces consistent decisions at scale without requiring a central authority to weigh in on everything. Sky worked because the model worked — and the model worked because it was designed before the components were. That sequencing is the lesson. Get the org right, then build the thing.</p>
+        </div>
+      </div>
+
+    `,
   },
 
   'meroxa': {
     company: 'Meroxa',
-    title: 'Pivoting from a builder to a data observability platform',
-    chips: ['Developer Tools','Data Platform','Discovery Research','Pivot'],
+    headline: 'We built the right product for the wrong person. Here\'s how we figured that out.',
+    intro: 'Growth stalled. The team\'s first instinct was better onboarding. My instinct was that the market assumption underneath the whole product was off. This is what happened when we followed that thread all the way down.',
     metrics: [
-      { val: 'Pivot', label: 'Research-driven' },
-      { val: '↑3x', label: 'Qualified pipeline' },
-      { val: 'Series A', label: 'Raised post-pivot' },
+      { value: '10x', label: 'addressable market expansion' },
+      { value: '4x',  label: 'improvement in user engagement' },
+      { value: '33%', label: 'reduction in time to resource creation' },
+      { value: '3',   label: 'enterprise contracts tied directly to the pivot' },
     ],
-    intro: 'Meroxa was a data pipeline builder. Then we ran research. What we found forced a pivot -- not because the product was wrong, but because the problem it was solving had already been solved elsewhere. The real opportunity was one layer up.',
-    sections: [
-      {
-        h2: 'The discovery',
-        body: `In user interviews, we kept hearing the same thing: "I don\'t need help building pipelines. I need to know when they break.' Pipeline observability -- not pipeline construction -- was the pain. Meroxa was building the wrong thing for the right market.`,
-        img: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/meroxa-observability.png',
-        imgCaption: 'Observability dashboard -- new platform direction',
-      },
-      {
-        h2: 'Reframing the product',
-        body: 'The pivot meant rebuilding the core product surface. We moved from a pipeline builder (a graph canvas) to a monitoring and alerting layer that gave data teams signal when something went wrong -- and enough context to fix it fast.',
-        screenshots: [
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/meroxa-environments.png', caption: 'Environments view' },
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/meroxa-common-env.png', caption: 'Common environment' },
-        ],
-      },
-      {
-        h2: 'The new experience',
-        body: `The Turbine apps experience gave developers a code-first entry point that didn\'t require them to leave their mental model. The UI surfaced just enough: status, throughput, error rate, last-seen. The complexity was in the backend. The experience was supposed to feel quiet.`,
-        screenshots: [
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/meroxa-turbine-apps.png', caption: 'Turbine apps' },
-          { src: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/meroxa-log.png', caption: 'Log view' },
-        ],
-      },
+    content: `
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Principal Product Designer</div></div>
+        <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Research, strategy, IA, design system</div></div>
+        <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">VP of Product, Engineering, Exec</div></div>
+        <div><div class="cs-meta-label">Duration</div><div class="cs-meta-val">~9 months (pivot + rebuild)</div></div>
+      </div>
+
+      <div class="cd-hero-img-wrap">
+        <img src="assets/meroxa-observability.png" class="cd-hero-img" alt="Meroxa observability platform" />
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">What was actually going on</span></div>
+        <p class="cd-body">Meroxa had a working product. Visual pipeline builder: connect a source, connect a destination, watch data flow. Clean concept, demos well, early traction. Then the growth curve went flat.</p>
+        <p class="cd-body">The instinct in the room was that something was wrong with the experience. Better onboarding. Cleaner UI. Smoother first run. I had a different read after the first few research sessions: we weren&#39;t talking to the person we thought we were building for, and that wasn&#39;t a UX problem.</p>
+        <div class="cs-callout cs-callout--problem">
+          <div class="cs-callout-label">The uncomfortable part</div>
+          <p class="cd-body">We&#39;d built the product for Data Engineers. The people actually using it and bumping against its limits were Software Engineers on production teams. Those aren&#39;t the same role. They have different mental models, different tooling expectations, and completely different anxieties. We&#39;d accidentally found a different market. The question was whether we had the nerve to acknowledge it and go there on purpose.</p>
+        </div>
+      </div>
+
+      <div class="cd-screenshots-row">
+        <div class="cd-screenshot-frame">
+          <img src="assets/meroxa-pipelines.png" alt="Meroxa original pipeline builder" />
+          <span>Pipeline builder — the original product</span>
+        </div>
+        <div class="cd-screenshot-frame">
+          <img src="assets/meroxa-og-builder.png" alt="Meroxa connector view" />
+          <span>Connector view</span>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">How I ran the research</span></div>
+        <p class="cd-body">The VP of Product had started picking up on this in customer calls. I took ownership of making it rigorous: 14 sessions across active users, churned users, and prospects we re-recruited specifically to stress-test the persona assumption. I wasn&#39;t looking for feature requests. I was looking for three things.</p>
+        <p class="cd-body">Who is actually reaching for this product and why &#8212; not what they say in intake surveys, but what prompted them to show up. What workarounds they&#39;d built that the product couldn&#39;t support. And what a bad Tuesday looks like for them operationally, because that&#39;s where the real job-to-be-done lives.</p>
+        <div class="cs-hypothesis-block">
+          <div class="cs-hyp-row">
+            <span class="cs-hyp-tag assumed">Assumed</span>
+            <span class="cs-hyp-body">Data Engineers building pipelines. Their job is construction. They want a visual, no-code tool so they can move faster without writing infrastructure code from scratch.</span>
+          </div>
+          <div class="cs-hyp-row">
+            <span class="cs-hyp-tag actual">Actual</span>
+            <span class="cs-hyp-body">Software Engineers on production teams. Their job is reliability. They write code already, that&#39;s not the problem. What they don&#39;t have is visibility into what&#39;s happening inside their data streams when something breaks at 2am.</span>
+          </div>
+          <div class="cs-hyp-row">
+            <span class="cs-hyp-tag implication">Implication</span>
+            <span class="cs-hyp-body">This wasn&#39;t a demographic swap. The job-to-be-done was completely different: &#34;diagnose faster&#34; rather than &#34;build faster.&#34; That one distinction changed the interaction model, the IA, the vocabulary, and the onboarding. Everything.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">Taking it to leadership</span></div>
+        <p class="cd-body">Research findings are only worth something if they move decisions. The VP of Product and I didn&#39;t bring this to exec leadership as a design presentation. We brought it as a business case.</p>
+        <p class="cd-body">The framing was deliberate. Don&#39;t lead with &#34;our users aren&#39;t who we thought.&#34; Lead with &#34;here&#39;s the market we&#39;re currently walking past.&#34; Production engineering teams are a 10x larger addressable market than the Data Engineer segment we&#39;d been targeting. We&#39;d accidentally landed in that market with a product that couldn&#39;t serve it. A focused pivot toward a code-first developer experience, real-time observability, and multi-environment support would turn a lucky accident into a real position.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">Why the framing mattered</div>
+          <p class="cd-body">Leadership was already worried about growth. The hard part wasn&#39;t convincing them something was wrong. It was giving them a path forward that felt like opportunity rather than retreat. &#34;There&#39;s a 10x market one pivot away&#34; reframes the same facts into an opportunity. That reframe was intentional, and it&#39;s what got us a yes.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">The call that unlocked everything else: code-first vs. visual</span></div>
+        <p class="cd-body">The original product was built around drag-and-drop. The new audience didn&#39;t want that. Software Engineers are skeptical of tools that abstract away what&#39;s actually happening. They want to write code, version control their infrastructure, and know exactly what&#39;s running where. The first big design decision was whether to evolve the visual paradigm for the new user or walk away from it entirely.</p>
+        <p class="cd-body">We ran two weeks of concept testing. The answer wasn&#39;t close.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">Option A</div>
+            <div class="cs-tc-title">Evolve the visual builder</div>
+            <div class="cs-tc-body">Add code views alongside the GUI. Let engineers toggle between visual and code representations of the same pipeline. Keep the existing mental model alive for anyone still using it.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">Option B &#8212; chosen <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Code-first, visual as secondary</div>
+            <div class="cs-tc-body">Lead with the Turbine SDK. Engineers write real code, push to environments, and use the UI for observability: seeing what&#39;s running, reading logs, managing access. The GUI serves monitoring.</div>
+          </div>
+        </div>
+        <p class="cd-body">Option A felt safer. It preserved more of what we&#39;d built. But engineers in testing kept asking the same question: &#34;which one is the source of truth?&#34; A hybrid that doesn&#39;t fully commit to either mental model serves nobody well. The visual builder wasn&#39;t wrong &#8212; it was solving the wrong problem. Keeping it on life support would have diluted both experiences.</p>
+      </div>
+
+      <div class="cd-hero-img-wrap">
+        <img src="assets/stream-to-dag.jpg" class="cd-hero-img" alt="Directed Acyclic Graph" />
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">Rethinking the IA from scratch</span></div>
+        <p class="cd-body">The original IA was pipeline-centric. Pipelines were the top-level object and everything nested under them. That made sense when the UI was the construction tool. It made no sense when the UI was the observability layer.</p>
+        <p class="cd-body">For production engineers, the primary objects are environments (where things run), apps (what&#39;s running), and logs (what&#39;s happening right now). Pipelines become an implementation detail inside an app.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The principle that shaped every IA decision</div>
+          <p class="cd-body">Navigate by operational concern. &#34;What&#39;s running in production and is anything wrong?&#34; should be answerable from the home state with no drilling down required. That pushed environment health, app status, and recent log activity to the top level instead of burying them three screens deep inside a pipeline detail view.</p>
+        </div>
+        <p class="cd-body">The DAG view was the most debated call internally. The concern: DAGs are harder to scan at a glance than linear flows. My position: the complexity was already there. We were just hiding it. Surfacing the real topology honestly &#8212; with good visual hierarchy and progressive disclosure for the details &#8212; was better than a simplified metaphor that would break down the first time an engineer encountered a real production setup. Engineers don&#39;t want you to lie to them about how their system works.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">Observability: the feature that wasn&#39;t really a feature</span></div>
+        <p class="cd-body">Early in research I asked every production engineer the same question: what do you do when something breaks in a data stream? Same answer every time. Open terminal, pull logs, grep for errors, cross-reference with another service, hope the relevant event is still in the window. Fragmented, slow, and often requiring escalated permissions just to see anything useful.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">What we almost built</div>
+            <div class="cs-tc-title">Metrics-first observability</div>
+            <div class="cs-tc-body">Aggregate charts showing throughput, latency, and error rates over time. Familiar to anyone who&#39;s used Datadog or Grafana. Would have looked complete on a roadmap slide.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">What we built instead <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Log-first observability</div>
+            <div class="cs-tc-body">Real-time log streaming as the primary surface. Metrics exist but they&#39;re secondary. The job was diagnosis, and logs are where diagnosis actually happens.</div>
+          </div>
+        </div>
+        <p class="cd-body">Charts tell you something broke. Logs tell you what broke and why. When you&#39;re in an incident, you don&#39;t pull up a graph to understand it &#8212; you go straight to the logs. Building metrics-first would have looked complete on a roadmap and been useless under pressure.</p>
+        <div class="cd-screenshots-row">
+          <div class="cd-screenshot-frame">
+            <img src="assets/meroxa-iteration.png" alt="Meroxa Iteration" />
+            <span>Observability dashboard, an iteration</span>
+          </div>
+          <div class="cd-screenshot-frame">
+            <img src="assets/meroxa-log.png" alt="Meroxa log explorer" />
+            <span>Log explorer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">The enterprise problem nobody told us about</span></div>
+        <p class="cd-body">The first enterprise deals surfaced a requirement we hadn&#39;t designed for: real organizational structure. Solo developers can share one environment. A team of 20 engineers with dev, staging, and production cannot. They need isolation, role-based access, and a way for team leads to see across all environments without drowning in noise.</p>
+        <p class="cd-body">We&#39;d built assuming one environment per user. Enterprise reality was three to five environments per team with overlapping ownership. The hard design problem wasn&#39;t the technical model &#8212; engineering had that mostly figured out. It was the mental model question: how does a user know which environment they&#39;re in before they touch anything? A mis-deploy to production instead of staging isn&#39;t recoverable.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The specific call that mattered most</div>
+          <p class="cd-body">Persistent environment context in the top nav. The modal approach was cleaner and kept less visual clutter in the main UI. But it put environment context one click away rather than always visible. For a mistake with that severity, one click away isn&#39;t good enough. The nav stays slightly noisier. The user always knows where they are. Right tradeoff.</p>
+        </div>
+        <div class="cd-screenshots-row">
+          <div class="cd-screenshot-frame">
+            <img src="assets/meroxa-environments.png" alt="Meroxa Environments" />
+            <span>Environment selection</span>
+          </div>
+          <div class="cd-screenshot-frame">
+            <img src="assets/meroxa-common-env.png" alt="Meroxa Common Environment" />
+            <span>Common environment selected</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-hero-img-wrap">
+        <img src="assets/meroxa-app-detail.png" class="cd-hero-img" alt="App Detail Screen" />
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">Design system as the thing that kept us from falling apart</span></div>
+        <p class="cd-body">The pivot compressed everything. We were redesigning core IA, building new interaction patterns, and supporting a completely different user mental model &#8212; simultaneously, with a small team, on a startup timeline.</p>
+        <p class="cd-body">The Yoshi design system work wasn&#39;t a separate track. It was what kept the pace from collapsing into chaos. Component patterns for log display, environment switching, and DAG visualization got built once and reused across every new surface. Without those building blocks, every screen would have required from-scratch decisions about density, type scale, and information hierarchy.</p>
+        <p class="cd-body">The tradeoff I navigated: velocity vs. consistency. Under pressure the temptation is to one-off components &#8212; ship something that works for this screen right now and reconcile later. I pushed against that every time, because &#34;later&#34; almost never comes at an early-stage startup, and a fragmented component library accrues design debt faster than anything else. Slightly more time on each component upfront meant every subsequent screen moved faster. That math is always right.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">09</span><span class="cs-section-title">What the numbers actually mean</span></div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">10x</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Addressable market</div>
+            <div class="cs-od-body">Worth being precise: this was a pre-pivot projection, not a post-pivot measurement. We sized the production engineering segment against our original Data Engineer TAM using analyst data and our own customer data. The 10x figure shaped the business case. I include it because I helped generate it, and because there&#39;s a real difference between &#34;design produced good outcomes&#34; and &#34;design helped identify a strategic opportunity.&#34; This was the second thing.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">4x</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">User engagement</div>
+            <div class="cs-od-body">Sessions per active user per week, 90 days post-pivot vs. 90 days pre-pivot. The hypothesis was that stronger product-market fit shows up as more frequent, longer sessions. It did. What I can&#39;t cleanly separate: how much came from the new user persona vs. the new feature set. Honest answer is both, and the data doesn&#39;t let me split them cleanly.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">33%</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Time to resource creation</div>
+            <div class="cs-od-body">Task-based usability tests, consistent scenario (deploy an app, check its logs, add a collaborator), before and after the redesign, 12 participants. The prior flow required 4 screens. The redesign reduced it to 2. 33% faster on average. Controlled population, controlled scenario. This is the number that holds up.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">3</div>
+          <div class="outcome-detail">
+            <div class="cs-od-title">Enterprise contracts</div>
+            <div class="cs-od-body">Three enterprise deals in the first two quarters post-pivot where the account team cited multi-environment support as a deciding factor. Sales attribution is always imprecise. I include it because it represents the specific intersection of the strategic repositioning and the organizational account model I designed. It closed deals. That counts.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">10</span><span class="cs-section-title">What I&#39;d do differently</span></div>
+        <p class="cd-body">The pivot worked. We were slower to it than we should have been.</p>
+        <p class="cd-body">The signal that the assumed market was wrong existed in early research. It was there in how users described their workflows and in the workarounds they&#39;d already built. We spent several months improving the existing product experience before stepping back to ask whether we were building for the right person at all. That&#39;s a question that should be in the research cadence from day one &#8212; not just &#34;are users happy&#34; but &#34;does the person using this match the person we designed for.&#34; Different question. Needs to be asked on purpose.</p>
+        <p class="cd-body">On observability specifically: I made the right call going log-first, but I made it two weeks too late. The metrics-first direction got design work before we killed it. If I&#39;d done the job-level research before any scoping conversation started, I would have landed at log-first from the beginning. The lesson is simple and I&#39;ve carried it since: understand the job before you touch the scope. Not during. Before.</p>
+        <div class="cs-reflection">
+          <div class="cs-reflection-title">The real job</div>
+          <p class="cd-body">This project wasn&#39;t about making the product more usable. It was about catching the moment when a research finding becomes a business decision and being ready to make that handoff clearly. That means being willing to say something uncomfortable and having enough strategic context to turn it into a path forward. The design that followed was only possible because that framing happened first. When research changes the direction of a company, that&#39;s the job at its highest level.</p>
+        </div>
+      </div>
+
+    `,
+  },
+  'marketo-migration': {
+    company: 'Marketo / Adobe',
+    headline: '733% adoption increase. The product was ready. Users weren\'t — and that was a design problem.',
+    intro: 'Sky had been in development for years. The platform was better. The investment was massive. And fewer than 600 users had opted in. The VP of Product and CPO assembled a task force. The product was ready. Nobody had designed the transition.',
+    metrics: [
+      { value: '733%', label: 'Increase in user adoption' },
+      { value: '600 to 5K+', label: 'Opt-ins before and after' },
+      { value: 'Q1 2020', label: 'Shipped on schedule' },
     ],
-    haiku: ['We built the right thing.', 'Research said: look one floor up.', 'There was the problem.'],
+    content: `
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Lead Product Designer, Group Lead</div></div>
+        <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Research, strategy, migration design, workshop facilitation</div></div>
+        <div><div class="cs-meta-label">Team</div><div class="cs-meta-val">2 designers, 2 PMs, 1 researcher</div></div>
+        <div><div class="cs-meta-label">Timeline</div><div class="cs-meta-val">3 months</div></div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">Why a better product wasn&#39;t enough</span></div>
+        <p class="cd-body">Marketo&#39;s Classic platform had been the operating environment for thousands of marketing teams since 2008. Sky was years in the making &#8212; a full redesign of the technology stack and user experience. By the time I was pulled onto this effort, Sky was substantially built. The design team had grown from six to twelve people under my tenure. The investment was enormous.</p>
+        <p class="cd-body">And fewer than 600 users had opted in.</p>
+        <p class="cd-body">The instinct from leadership was to push harder on awareness, maybe force the migration. My read after the first round of research was different: the product being better wasn&#39;t the problem. The transition being undesigned was the problem. Users weren&#39;t resistant to Sky specifically &#8212; they were resistant to disruption of workflows they&#39;d been running on for five-plus years with business-critical data. That&#39;s a rational response, not an irrational one. And it required a different solution than better marketing.</p>
+        <div class="cs-callout cs-callout--problem">
+          <div class="cs-callout-label">The real risk on the table</div>
+          <p class="cd-body">Low adoption wasn&#39;t just a UX metric. It was a business risk: the ROI case for the entire Sky redesign investment depended on users actually moving to it. If adoption stayed under 600, years of engineering and design work would depreciate against a user base that never showed up. The CPO was involved for a reason. This was a company-level problem dressed up as a product problem.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">What research actually surfaced</span></div>
+        <p class="cd-body">We interviewed 13 users &#8212; a mix of power users (Champions) and typical users. I also ran competitive analysis on how other enterprise platforms had handled similar transitions, specifically looking for what Salesforce, Asana, Pendo, and Amplitude did differently.</p>
+        <p class="cd-body">What the research surfaced wasn&#39;t primarily a feature parity problem, though that was real. It was a trust problem.</p>
+        <div class="finding-block">
+          <div class="finding-row">
+            <div class="finding-tag">Trust damage</div>
+            <div class="finding-body">Previous negative experiences with Sky had left lasting resistance. Users who&#39;d tried Sky early, hit incomplete features, and retreated to Classic weren&#39;t neutral anymore &#8212; they were actively skeptical. Rebuilding that trust required transparency and user control.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Workflow anxiety</div>
+            <div class="finding-body">The anxiety wasn&#39;t about learning a new UI. It was about making mistakes with business-critical data during the learning curve. Marketing workflows at this level &#8212; campaign automation, lead management, reporting &#8212; don&#39;t have room for errors.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Parity gaps</div>
+            <div class="finding-body">Feature parity between Classic and Sky was incomplete in enough areas that users couldn&#39;t commit fully to Sky without maintaining Classic access as a fallback. Any migration strategy had to account for an incomplete product, not assume completion first.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Familiarity over aesthetics</div>
+            <div class="finding-body">Across every session, users expressed clear preference for Classic navigation even while acknowledging Sky&#39;s visual improvements. Familiarity wasn&#39;t nostalgia &#8212; it was efficiency. Users had years of muscle memory invested in Classic.</div>
+          </div>
+        </div>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The competitive analysis finding that shaped the strategy</div>
+          <p class="cd-body">Salesforce&#39;s Classic to Lightning migration is the canonical enterprise platform transition. The lesson: forced migration with an incomplete feature set produces backlash that takes years to recover from. Pendo and Amplitude&#39;s phased, modular approaches produced steadier adoption curves with less resistance. The pattern was clear &#8212; user control over timing, combined with progressive enhancement, outperformed any version of forced migration.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">Four options, one winner</span></div>
+        <p class="cd-body">I led workshops to evaluate four distinct migration approaches before any design work started. The point was to genuinely stress-test each option against the research findings and force explicit tradeoffs into the open before we committed to a direction.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card rejected">
+            <div class="cs-tc-label">Option 1 <span class="cs-reject-badge">rejected</span></div>
+            <div class="cs-tc-title">Complete migration</div>
+            <div class="cs-tc-body">Finish Sky entirely before transitioning any users. Clean from a product standpoint, but required full feature parity first. Timeline was unacceptable &#8212; adoption crisis couldn&#39;t wait for complete parity.</div>
+          </div>
+          <div class="cs-tradeoff-card rejected">
+            <div class="cs-tc-label">Option 2 <span class="cs-partial-badge">partial</span></div>
+            <div class="cs-tc-title">Functional-level switching</div>
+            <div class="cs-tc-body">Allow switching between complete functional areas (email, campaigns, reporting). Viable in concept but required significant resource reallocation to reach functional completeness across enough areas.</div>
+          </div>
+          <div class="cs-tradeoff-card rejected">
+            <div class="cs-tc-label">Option 3 <span class="cs-partial-badge">partial</span></div>
+            <div class="cs-tc-title">Feature-level switching</div>
+            <div class="cs-tc-body">Enable switching on individual ready features while keeping Classic access. More granular than Option 2. The risk: too granular creates a confusing, fragmented experience with no coherent narrative for users.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">Option 4 <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Merge and blend</div>
+            <div class="cs-tc-body">Phased hybrid: keep Classic navigation while introducing ready Sky features into the main interface. Gradually align visuals, then transition navigation once parity is achieved. Users experience improvement without disruption.</div>
+          </div>
+        </div>
+        <p class="cd-body">The reason merge and blend won wasn&#39;t that it was the most elegant solution &#8212; it wasn&#39;t. Running two systems in parallel is expensive to maintain and complex to communicate. It won because it was the only option that addressed the actual barrier: trust. Users needed to experience Sky improving their work before they&#39;d commit to it.</p>
+        <p class="cd-body">The explicit tradeoff we accepted: engineering and design complexity. Maintaining Classic navigation while gradually introducing Sky meant more states to manage, more edge cases, and a longer period of dual-system support. I made the case that this complexity was the cost of addressing a trust problem correctly rather than a technical problem incorrectly.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">The four-phase rollout</span></div>
+        <p class="cd-body">Merge and blend wasn&#39;t a single design decision &#8212; it was a sequenced strategy with distinct phases, each with a specific job to do. The sequencing mattered as much as the phases themselves.</p>
+        <div class="sprint-block">
+          <div class="sprint-row">
+            <div class="sprint-label">Phase 1: Hybrid interface</div>
+            <div class="sprint-body">Classic navigation stays. Ready Sky features surface in the main interface. Users get improvements without any navigation disruption. This is where trust starts to rebuild &#8212; Sky demonstrating value inside a familiar environment.</div>
+          </div>
+          <div class="sprint-row">
+            <div class="sprint-label">Phase 2: Visual alignment</div>
+            <div class="sprint-body">Sky&#39;s visual design gradually introduced to Classic navigation. Users start associating the new aesthetic with familiar patterns. Preparing for navigation change without triggering it yet.</div>
+          </div>
+          <div class="sprint-row">
+            <div class="sprint-label">Phase 3: Nav transition</div>
+            <div class="sprint-body">Classic navigation replaced with Sky navigation once feature parity is achieved. By this point users have been working with Sky features for weeks or months. The navigation change lands on a foundation of trust.</div>
+          </div>
+          <div class="sprint-row">
+            <div class="sprint-label">Phase 4: Full Sky</div>
+            <div class="sprint-body">Complete Sky experience delivered. Classic fully deprecated. The transition is complete, but users arrived here through choice and incremental familiarity, every step earned.</div>
+          </div>
+        </div>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The sequencing principle that everything depended on</div>
+          <p class="cd-body">Each phase had to earn the next one. Users needed to experience Sky as better before they&#39;d accept Sky as their navigation. Navigation as their anchor before they&#39;d accept full Sky as their home. The order wasn&#39;t arbitrary &#8212; it was designed to follow the order in which trust actually rebuilds.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">The key design decisions inside the strategy</span></div>
+        <p class="cd-body">The strategy was the hard part. The implementation had its own tradeoffs worth documenting.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">Considered</div>
+            <div class="cs-tc-title">Forced migration with rollback</div>
+            <div class="cs-tc-body">Move all users to Sky by default, with Classic available as a rollback option. Faster path to full adoption on paper. In practice, users who&#39;d already lost trust in Sky would exercise the rollback immediately and never return.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">Chosen <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Opt-in with progressive defaults</div>
+            <div class="cs-tc-body">Users choose when to try Sky features. Features become Sky-default as they reach readiness. Admin controls let organizations enable Sky preview for their teams. Control stays with users throughout.</div>
+          </div>
+        </div>
+        <p class="cd-body">The opt-in model felt slower. It was. The alternative was faster in the short term and would have produced a trust collapse in the medium term. Users who feel forced into a platform they don&#39;t trust don&#39;t adapt &#8212; they escalate to their admins, file support tickets, and generate noise that slows adoption for everyone else.</p>
+        <div class="cs-tradeoff-grid">
+          <div class="cs-tradeoff-card">
+            <div class="cs-tc-label">Considered</div>
+            <div class="cs-tc-title">Single entry point to Sky</div>
+            <div class="cs-tc-body">One clear path for users to discover and try Sky. Simpler to design and communicate. But puts all adoption eggs in one basket &#8212; if users miss or ignore that entry point, there&#39;s no recovery mechanism.</div>
+          </div>
+          <div class="cs-tradeoff-card chosen">
+            <div class="cs-tc-label">Chosen <span class="cs-chosen-badge">selected</span></div>
+            <div class="cs-tc-title">Multiple discovery pathways</div>
+            <div class="cs-tc-body">Sky preview widget in My Marketo. Periodic gentle nudges for opted-out users. Admin-level enablement. Feature-specific entry points. Different users discover Sky through different paths &#8212; meeting them where they are rather than forcing them to find a single door.</div>
+          </div>
+        </div>
+        <p class="cd-body">The multiple pathways decision came directly from the Champions interviews. Power users wanted feature-level discovery. Typical users wanted a simpler, guided path. Designing one entry point would have served one of those users and frustrated the other.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">06</span><span class="cs-section-title">Validation before commit</span></div>
+        <p class="cd-body">Before anything shipped, I ran validation sessions with 13 users &#8212; same split of Champions and typical users as the discovery phase. The specific thing I was testing wasn&#39;t &#34;do users like this&#34; &#8212; it was &#34;does the merge and blend approach actually reduce the anxiety that research identified as the primary barrier?&#34;</p>
+        <p class="cd-body">Champions were unanimous in their preference for merge and blend in the forum session. The specific finding that shaped final decisions: users wanted experience toggles to remember their last state. A toggle that resets to default every session creates cognitive overhead every session. State persistence was a prerequisite for the opt-in model to feel like genuine control rather than a daily choice tax.</p>
+        <div class="cs-callout">
+          <div class="cs-callout-label">The validation finding I didn&#39;t expect</div>
+          <p class="cd-body">Users consistently preferred Classic navigation during the transition even when they acknowledged Sky looked better. That confirmed the research finding about familiarity, but the strength of the preference surprised me. It recalibrated how aggressively to sequence Phase 2 and Phase 3. We slowed down the visual alignment phase specifically because of this &#8212; users needed more time in Phase 1 than the original timeline assumed.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">07</span><span class="cs-section-title">What the outcomes actually mean</span></div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">733%</div>
+          <div class="cs-outcome-detail">
+            <div class="cs-od-title">Adoption increase</div>
+            <div class="cs-od-body">From fewer than 600 opt-ins to 5,000+ after launch. Worth contextualizing: this is opt-in adoption, not total user base. The 5,000+ represents users who actively chose to try Sky &#8212; which, given the trust problem we started with, is a more meaningful signal than forced migration numbers would have been.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">Q1 2020</div>
+          <div class="cs-outcome-detail">
+            <div class="cs-od-title">On-schedule launch</div>
+            <div class="cs-od-body">Three months from task force assembly to shipped switching experience. The merge and blend approach added engineering complexity. The reason it shipped on time: the option evaluation workshops happened early, the direction was committed to quickly, and the phased model meant we weren&#39;t trying to ship everything at once.</div>
+          </div>
+        </div>
+        <div class="cs-outcome-row">
+          <div class="cs-outcome-num">1</div>
+          <div class="cs-outcome-detail">
+            <div class="cs-od-title">Cross-functional process improvement</div>
+            <div class="cs-od-body">The work prompted formalization of Product Requirement Documentation across the org &#8212; a process artifact that outlasted the project. The migration effort exposed communication gaps between design, product, and research that the PRD process was built to address.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">08</span><span class="cs-section-title">What I&#39;d do differently</span></div>
+        <p class="cd-body">The phased timeline was adjusted mid-project based on validation feedback &#8212; users needed more time in Phase 1 than originally planned. That was the right call, but it was reactive. If I&#39;d weighted the familiarity finding more heavily in the initial timeline, the adjustment would have been built in rather than bolted on.</p>
+        <p class="cd-body">On the measurement side: we tracked opt-ins clearly, but we didn&#39;t instrument engagement depth within Sky post-adoption. Getting a user to opt in and getting a user to actually do meaningful work in Sky are different things. I&#39;d push for active usage instrumentation alongside opt-in tracking from day one.</p>
+        <p class="cd-body">The process improvement &#8212; the PRD formalization &#8212; happened as a consequence of this project rather than as an intentional design. Looking back, the communication gaps we discovered were visible in the early workshops. I could have raised them explicitly to leadership during the project rather than letting the solution emerge organically afterward.</p>
+        <div class="cs-reflection">
+          <div class="cs-reflection-title">What this project was really testing</div>
+          <p class="cd-body">Enterprise users don&#39;t resist change because they&#39;re stubborn. They resist it because their workflows carry real business risk and they&#39;ve learned &#8212; often through bad experiences &#8212; that platform transitions are where things break. The design challenge here wasn&#39;t making Sky better. Sky was already better. It was making the path to Sky feel safe enough that users would take it. Trust is a design problem. It responds to design solutions. That&#39;s what this project proved.</p>
+        </div>
+      </div>
+
+    `,
   },
 };
 
 // ── Thought articles ────────────────────────────────────────────
 const THOUGHTS = {
   'charlie-murphys-law': {
-    title: `Charlie Murphy's Law`,
-    img: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/charlie.jpeg',
-    content: `
-      <p class="cd-body">Surprises in product design come in a few flavors. There are the ones you bring on yourself by not staying close enough to your PM or Engineering. There are the last-minute asks that appear from nowhere -- a stakeholder's nephew had an idea, a competitor shipped something, a board deck needs a new slide by Thursday.</p>
-      <p class="cd-body">And then there's Charlie Murphy's Law.</p>
-      <p class="cd-body">Charlie Murphy's Law states: <em>if something can be misunderstood by the user, it will be misunderstood by the user.</em> Not might. Will.</p>
-      <p class="cd-body">I've seen it play out in every product I've worked on. A tooltip that's too small. A modal that fires too early. A button label that tests fine in English and means something different in context. The gap between what we meant and what the user experienced is almost always a design gap -- even when it looks like a communication gap or an engineering gap.</p>
-      <p class="cd-body">The antidote isn't more user testing, though that helps. It's design humility: the practice of assuming the user didn't read what you wrote, didn't see the indicator you added, didn't follow the flow in the order you imagined. Design for the path of least resistance, not the path of most thought.</p>
-    `,
+    kicker: 'Thoughts',
+    title:  "Charlie Murphy's Law",
+    hero: {
+      src: 'assets/charlie.jpeg',
+      alt: "Charlie Murphy's Law — article image",
+      w:   1500,
+      h:   900,
+    },
+    dek: "Habitual Line-Steppers — on the surprises product design keeps in its back pocket, and the only thing that really matters when one of them lands.",
+    sections: [
+      {
+        paragraphs: [
+          "Surprises in product design come in a few flavors. There are the ones you bring on yourself by not staying close enough to your PM or Engineering. There are the last minute asks that appear from nowhere. And then there's the category that gets you even when you're doing everything right, in lockstep with your team, following the process, checking every box. Those ones hit different. They almost always feel like a punch to the face a la Charlie Murphy via Rick James. The habitual line-steppers of Product Design.",
+          "The Marketo Sales Insight redesign had been going well. I'd done the due diligence. Vetted the design with customers, confirmed feasibility with Engineering, met acceptance criteria with my PM. Got buy-in from the VP of Product with high fives all around. T'was a good day. Handoff happened and all was lovely.",
+          "Until standup.",
+          "The Engineering team in Ukraine had flagged something. Salesforce's VisualForce specs had a height constraint the Engineers hadn't accounted for. I had designed a panel somewhere between 700 and 800 pixels tall. VisualForce allows 400. Max.",
+          "Keeping the freak-out quiet, I got back into the design. My PM and I worked through it together, the two of us figuring out what could be reduced, what could move, and what had to go altogether. That collaboration mattered. I could have spiraled alone. Instead we problem-solved our way back to something that worked, and the high fives resumed.",
+          "The response to the surprise was the whole thing.",
+        ],
+      },
+    ],
   },
+
   'culture-power-permits': {
-    title: 'Culture lives in what power permits',
-    img: 'https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/lumbergh.jpeg',
-    content: `
-      <p class="cd-body">I used to think culture was set by the people in the room. The tone of a standup. The way a lead gave feedback. But the more places I've worked, the more I believe culture is shaped by what leadership lets people get away with.</p>
-      <p class="cd-body">Not what the handbook says. Not the all-hands slides. What actually happens when someone cuts a corner. What actually happens when a team ships without QA. What actually happens when a designer raises a concern that slows things down.</p>
-      <p class="cd-body">Culture is the residue of consequences. Or the absence of them.</p>
-      <p class="cd-body">The healthiest teams I've been on weren't the ones with the best stated values. They were the ones where stated values and actual behavior aligned -- where saying 'this is wrong" was welcomed, not tolerated. Where slowing down for quality wasn't martyrdom, it was standard.</p>
-      <p class="cd-body">That alignment doesn't happen on its own. It's the result of leaders who act the way they say they want everyone else to act. Nothing else comes close.</p>
-    `,
-  },
-  "spongebob-would": {
-    title: 'Squidward would never. SpongeBob would.',
-    img: "https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/spongebob.jpeg",
-    content: `
-      <p class="cd-body">Squidward is the designer who's seen it all. Too experienced to be surprised. Too 'sensible" to chase anything that might not scale. He's done the research. He knows how this ends. He won't waste his energy on that.</p>
-      <p class="cd-body">SpongeBob, though? He's the one sketching fish with arms just to see what happens. He's genuinely excited about the ketchup bottle. He doesn't know the idea won't work, so he tries it anyway. Sometimes it doesn't work. Sometimes it becomes a Krabby Patty.</p>
-      <p class="cd-body">I've been both. I prefer being SpongeBob.</p>
-      <p class="cd-body">Seniority is useful -- pattern recognition, stakeholder navigation, knowing when to push and when to fold. But seniority can also calcify into cynicism. The antidote is to stay genuinely curious about the thing you're working on. Not because it helps your career. Because it makes the work better.</p>
-      <p class="cd-body">The best design I've seen came from people who were enthusiastic in the face of constraints, not in spite of them. People who treated every boring form field like it might have a better version hiding inside it.</p>
-      <p class="cd-body">SpongeBob would.</p>
-    `,
+    kicker: 'Thoughts',
+    title:  'Culture lives in what power permits',
+    hero: {
+      src: 'assets/lumbergh.jpeg',
+      alt: 'Bill Lumbergh from Office Space — article image',
+      w:   1098,
+      h:   836,
+    },
+    dek: "A personal reflection on what actually shapes team culture — and how I try to stay aligned when the systems around me don't. Written for myself, but shared for anyone wrestling with the same tension.",
+    sections: [
+      {
+        // intro run — no heading, reads as the opening of the piece
+        paragraphs: [
+          "I used to think culture was set by the people in the room. The tone of a standup. The way a lead gave feedback. Whether the senior folks made room for the junior ones. And to a point, that's still true. Culture is absolutely shaped by the humans who show up every day.",
+          "But the older I get, and the more places I've worked, the more I believe culture is shaped by what leadership lets people get away with. Culture lives in what power permits.",
+          "What gets rewarded. What gets ignored. What behaviors get quietly tolerated because someone is senior, or productive, or politically inconvenient to challenge. That's the real culture. The rest is a poster on the wall.",
+        ],
+      },
+      {
+        heading: 'The quiet rewrite',
+        paragraphs: [
+          "The thing about culture is that it gets rewritten the moment leadership lets something slide. It doesn't take an announcement. It doesn't take a new policy. It just takes one moment where a boundary should have been held and wasn't.",
+          "Everyone in the room notices. Not consciously, necessarily. But the temperature shifts. The line moves. And from that moment forward, the new line is the actual line, regardless of what the handbook says.",
+          "I've watched it happen in big companies and small ones. It looks the same every time.",
+        ],
+      },
+      {
+        heading: 'Boundaries over values',
+        paragraphs: [
+          "Every company has values. Most of them are fine. Honest, even. But values without boundaries are just vibes.",
+          "A value says what you care about. A boundary says what you won't tolerate. Boundaries are what actually shape behavior. And they only mean anything if the people with power are the ones enforcing them — especially on themselves.",
+          "A boundary that only applies to the people at the bottom of the org chart is just a filter.",
+        ],
+      },
+      {
+        heading: 'What you let slide is who you become',
+        paragraphs: [
+          "There's a version of this I keep coming back to. It's blunt, but it fits:\nWhat you let slide is who you become.\nWho you actually are.",
+          "And the thing about letting things slide is that it's almost always the easier move in the moment. Holding a boundary is awkward. It costs something — a relationship, a quarter, a deal, a tough conversation. Letting it slide costs nothing today. It just compounds.",
+          "The bill comes later, and it's usually paid by the people with the least power in the room.",
+        ],
+      },
+      {
+        heading: "I don't think culture can be maintained anymore",
+        paragraphs: [
+          "That's probably the part I've had to make peace with. I used to believe culture was something you could maintain if you just got enough good people together and defended the thing. I don't really believe that anymore. Not at scale. Not under pressure. Not when incentives pull in the other direction.",
+          "Culture, for me, has become something closer to a practice. A thing you do, quietly and repeatedly, inside whatever environment you're in. You model it. You hold your own line. You try to make the small rooms you're in — a review, a 1:1, a working session — feel like the place you wish the whole company was.",
+          "Sometimes that's enough to pull a team in a better direction. Sometimes it isn't. Either way, it's the part I can actually control.",
+        ],
+      },
+      {
+        heading: "If you're trying to shape culture, start small and mean it",
+        paragraphs: [
+          "I don't think culture is fixed with all-hands meetings or values workshops. I think it's fixed one uncomfortable moment at a time, by the people with enough standing to hold a line and the willingness to actually do it.",
+          "And if you don't have that standing yet, you can still start. You can decide what you will and won't tolerate in the rooms you're in. You can be specific with the people you work with about what you expect from them and from yourself. You can stop laughing at the joke that isn't funny.",
+          "It's small. But it's real, and it adds up.",
+        ],
+      },
+      {
+        heading: "I'm still in it",
+        paragraphs: [
+          "I'm not writing this from the other side of figuring it out. I'm writing it from the middle. I still get this wrong. I still notice things I should've said something about a week after the moment has passed. I still catch myself optimizing for comfort when the situation called for friction.",
+          "But I think the work is the work. Culture is a thing you keep choosing, out loud, in the small moments where it would be easier not to.",
+          "That's the version I'm trying to live with now.",
+        ],
+      },
+    ],
   },
 
-  // ── Point of View / Perspective articles ───────────────────────
-
+  'spongebob-would': {
+    kicker: 'Thoughts',
+    title:  'Squidward would never. SpongeBob would.',
+    hero: {
+      src: 'assets/spongebob.jpeg',
+      alt: 'SpongeBob and Squidward in a fish costume — article image',
+      w:   1920,
+      h:   1080,
+    },
+    dek: "On why the weird, metaphor-happy sketches almost always beat the sensible ones — and why I keep betting on SpongeBob over Squidward.",
+    sections: [
+      {
+        // intro run — no heading, reads as the opening of the piece
+        paragraphs: [
+          "Squidward is the designer who's seen it all. Too experienced to be surprised. Too \"sensible\" to chase anything that might not scale. His process is efficient, his feedback is brutal, and his best ideas are three versions behind him.",
+          "SpongeBob, though? He's the one sketching fish with arms just to see what happens. Clicking every button in the prototype, narrating the user journey like it's a Broadway show. He's annoying. He's relentless. He's probably onto something.",
+          "If you've been in this field long enough, you've got a little of both in you.",
+          "But the longer I've been doing this, the more I think: SpongeBob gets the better ideas.",
+        ],
+      },
+      {
+        heading: 'Play is professionalism',
+        paragraphs: [
+          "Somewhere along the way, \"playfulness\" got turned into a design aesthetic—rounded corners, pastel gradients, kawaii characters, and the occasional microinteraction that spins before it lands.",
+          "That's not what I mean.",
+          "SpongeBob-level play is how you approach the work. It's about curiosity. Lightness. Movement. Willingness to try the thing that might not work because something about it feels interesting.",
+          "Squidward would rather not. He doesn't want to waste time. He's been burned by too many brainstorms that led nowhere, too many stakeholders who said \"cute, but no.\"",
+          "But here's the thing: Squidward is rarely surprised. SpongeBob is, constantly. And in design, surprise is a feature.",
+        ],
+      },
+      {
+        heading: 'How the TV Guide happened',
+        paragraphs: [
+          "In a recent project for Adobe Sales Insights, we were trying to help sales reps understand buyer behavior—who was doing what, when, and why it mattered.",
+          "The expected solution was… exactly what you'd expect. Tables, calendars, maybe a feed. All reasonable. All very Squidward.",
+          "But that didn't sit right.",
+          "So I sketched something dumb: a TV Guide.",
+          "Not literally, but close. Blocks of scheduled behavior, horizontal rhythm, a visual metaphor pulled from old cable interfaces. A completely unserious reference applied to a very serious tool.",
+          "And it worked.",
+          "The TV Guide reframed the conversation. It helped the team—designers, salespeople, even execs—understand the pacing of buyer intent like a schedule you could tune into. It made behavior feel broadcastable. It turned noise into programming.",
+          "It was weird. It was fun.\nSpongeBob would.",
+        ],
+      },
+      {
+        heading: 'Play breaks sameness',
+        paragraphs: [
+          "A lot of \"serious\" design processes are really just safe.",
+          "Squidward knows what the pattern library says. He knows the system constraints. He builds what's been proven. He optimizes.",
+          "SpongeBob plays.",
+          "He breaks things early and often. He follows an idea until it collapses, then glues it back together just to see what happens. He mocks up things no one asked for. Half of it is nonsense. The other half contains seeds that become the final solution.",
+          "And honestly? It's usually the stuff no one asked for that shifts the work from fine to right.",
+        ],
+      },
+      {
+        heading: 'Play is structure, too',
+        paragraphs: [
+          "This doesn't mean chaos. SpongeBob is just open.",
+          "Real play happens within structure. That's what makes it meaningful. Boundaries make the choices sharper.",
+          "In practice, this might look like:",
+          { list: [
+            "Setting aside a sprint for weird ideas that break the model",
+            "Prototyping metaphors instead of screens",
+            "Asking \"what would make this fun for the user to experience?\"",
+            "Letting the new hire own the risky concept",
+            "Laughing in the design review because someone snuck in an idea shaped like a sea cucumber, and it's actually pretty good",
+          ] },
+          "You still ship. You still measure. But you get there with a little more air in the process.",
+        ],
+      },
+      {
+        heading: "Squidward is useful. He's just not where the ideas start.",
+        paragraphs: [
+          "There's a time and place for structure, critique, pruning. That's where Squidward shines. You need him to stress-test the ideas, poke holes, trim fat.",
+          "But if he shows up too early, party done.",
+          "SpongeBob, on the other hand, doesn't worry about looking smart. He's not trying to impress anyone. He just wants to know what happens if you move the button here or name the feature that or explain the concept with a metaphor from children's TV.",
+          "And in my experience, that's where the real ideas tend to live—in the playful sketches you almost deleted.",
+        ],
+      },
+      {
+        heading: 'So what?',
+        paragraphs: [
+          "I'm not saying every design project needs to feel like Saturday morning cartoons.",
+          "But when work becomes too serious too fast, it collapses under its own weight. When we forget how to play, we forget how to see.",
+          "So yeah—Squidward might roll his eyes. But I'll keep choosing SpongeBob.",
+          "Because SpongeBob prototypes the weird thing.\nSpongeBob uses metaphors no one asked for.\nSpongeBob asks the dumb question that unlocks the actual insight.",
+          "And SpongeBob gets to the better work.",
+        ],
+      },
+    ],
+  },
   'design-systems-that-last': {
     kicker: 'Point of View',
-    title: 'What I\u2019ve learned building design systems that last',
+    title:  'What I\u2019ve learned building design systems that last',
     dek: 'On governance, breaking patterns intentionally, and why the org chart matters more than the component library.',
-    content: `
-      <p class="cd-body">Design systems are easy to start. The hard part is keeping them alive two years later, when the original team has turned over, the product has outgrown half the components, and three teams are quietly forking the button because \u201Cour use case is different.\u201D</p>
-      <p class="cd-body">I\u2019ve built systems from scratch, inherited systems mid-drift, and watched good systems die slow deaths from neglect. The lessons that stuck have almost nothing to do with tokens or components. They\u2019re about people, governance, and knowing when the system should bend.</p>
-      <h2 class="cd-h2">The org chart is the real architecture</h2>
-      <p class="cd-body">Every design system inherits the shape of the organization that builds it. If the org is siloed, the system will be fragmented. If the org has unclear ownership, the system will have inconsistent adoption. You can have the cleanest component library in the world and still fail if the team structure doesn\u2019t support it.</p>
-      <p class="cd-body">At Marketo, when I founded Sky, one of the first things I did was audit how teams were organized \u2014 not how components were organized. Who owned what surfaces? Who made decisions about shared patterns? Where did authority actually live versus where the org chart said it lived? That mapping told me more than any component audit ever could. The components came later. The governance model came first.</p>
-      <h2 class="cd-h2">Governance is a habit</h2>
-      <p class="cd-body">The worst design systems I\u2019ve seen have beautiful governance documents that no one follows. The best ones have almost no documentation about governance, but everyone knows how decisions get made because the process is embedded in how the team already works.</p>
-      <p class="cd-body">With Sky, I democratized governance deliberately. Designers across product teams could propose patterns, challenge existing ones, and contribute directly. A federated model where ownership was distributed but standards were shared \u2014 replacing the bottleneck of a centralized request queue. That\u2019s harder than it sounds. Federated governance means you need clear principles people can apply independently, and you need to be comfortable with the fact that sometimes they\u2019ll make a different call than you would \u2014 and that\u2019s fine, as long as the reasoning holds.</p>
-      <h2 class="cd-h2">Break patterns on purpose</h2>
-      <p class="cd-body">Consistency is the point of a design system, right up until it isn\u2019t. The biggest mistake I see in mature systems is treating consistency as an absolute. It\u2019s a default. And defaults should be broken when there\u2019s a good enough reason \u2014 but only when the break is intentional, documented, and reversible.</p>
-      <p class="cd-body">Drift is when teams break patterns because they don\u2019t know the pattern exists, or because it\u2019s easier to build custom. Intentional deviation is when a team breaks a pattern because the user\u2019s context demands it, and they document why. One erodes the system. The other strengthens it, because now you have a signal about where the system needs to grow.</p>
-      <h2 class="cd-h2">Cross-product cohesion is a design problem</h2>
-      <p class="cd-body">Components alone don\u2019t create cohesion. You can ship the same button, the same card, the same modal to every product surface and still end up with experiences that feel nothing alike. Cohesion comes from shared interaction patterns, consistent information hierarchy, predictable navigation models, and aligned mental models across products.</p>
-      <p class="cd-body">At Marketo, the system\u2019s real value was that a user could move between products and feel like they were still in the same world. That\u2019s harder than matching hex values.</p>
-      <h2 class="cd-h2">Adoption is a design problem too</h2>
-      <p class="cd-body">Getting to 100% adoption on Sky took a campaign. I treated internal adoption the same way I\u2019d treat a product launch. Who are the users? What are their objections? Where\u2019s the friction? Most systems fail at adoption because they optimize for the system and forget about the people using it. Engineers don\u2019t care that your tokens are semantically named if the DX is painful. Adoption is the design problem hiding inside every design system.</p>
-      <p class="cd-body">I think in systems before I think in screens. I care about governance as much as I care about components. And I believe the best design systems are culture \u2014 a shared language that lets teams build coherently without coordinating on every detail.</p>
-    `,
+    sections: [
+      {
+        paragraphs: [
+          'Design systems are easy to start. The hard part is keeping them alive two years later, when the original team has turned over, the product has outgrown half the components, and three teams are quietly forking the button because \u201Cour use case is different.\u201D',
+          'I\u2019ve built systems from scratch, inherited systems mid-drift, and watched good systems die slow deaths from neglect. The lessons that stuck have almost nothing to do with tokens or components. They\u2019re about people, governance, and knowing when the system should bend.',
+        ],
+      },
+      {
+        heading: 'The org chart is the real architecture',
+        paragraphs: [
+          'Every design system inherits the shape of the organization that builds it. If the org is siloed, the system will be fragmented. If the org has unclear ownership, the system will have inconsistent adoption. You can have the cleanest component library in the world and still fail if the team structure doesn\u2019t support it.',
+          'At Marketo, when I founded Sky, one of the first things I did was audit how teams were organized \u2014 not how components were organized. Who owned what surfaces? Who made decisions about shared patterns? Where did authority actually live versus where the org chart said it lived?',
+          'That mapping told me more about what the system needed than any component audit ever could. The components came later. The governance model came first.',
+        ],
+      },
+      {
+        heading: 'Governance is a habit',
+        paragraphs: [
+          'The worst design systems I\u2019ve seen have beautiful governance documents that no one follows. The best ones have almost no documentation about governance, but everyone knows how decisions get made because the process is embedded in how the team already works.',
+          'With Sky, I democratized governance deliberately. Designers across product teams could propose patterns, challenge existing ones, and contribute directly. A federated model where ownership was distributed but standards were shared — replacing the bottleneck of a centralized request queue.',
+          'That\u2019s harder than it sounds. Federated governance means you need clear principles people can apply independently. You need to trust that a designer on the campaign tools team can make a sound call about a pattern without escalating it. And you need to be comfortable with the fact that sometimes they\u2019ll make a different call than you would \u2014 and that\u2019s fine, as long as the reasoning holds.',
+          'The 50+ component audit was about establishing a shared vocabulary. Once everyone could name the same pattern the same way, contribution became natural instead of forced.',
+        ],
+      },
+      {
+        heading: 'Break patterns on purpose',
+        paragraphs: [
+          'Consistency is the point of a design system, right up until it isn\u2019t.',
+          'The biggest mistake I see in mature systems is treating consistency as an absolute. It\u2019s a default. And defaults should be broken when there\u2019s a good enough reason \u2014 but only when the break is intentional, documented, and reversible.',
+          'At Marketo, there were moments where the right design for a specific product surface didn\u2019t fit the system. The temptation is always to force it \u2014 reshape the design to match the components. But sometimes the design is right and the system needs to stretch. The question is \u201Cshould it?\u201D',
+          'The distinction matters. Drift is when teams break patterns because they don\u2019t know the pattern exists, or because it\u2019s easier to build custom. Intentional deviation is when a team breaks a pattern because the user\u2019s context demands it, and they document why. One erodes the system. The other strengthens it, because now you have a signal about where the system needs to grow.',
+        ],
+      },
+      {
+        heading: 'Cross-product cohesion is a design problem',
+        paragraphs: [
+          'Components alone don\u2019t create cohesion. You can ship the same button, the same card, the same modal to every product surface and still end up with experiences that feel nothing alike.',
+          'Cohesion comes from shared interaction patterns, consistent information hierarchy, predictable navigation models, and aligned mental models across products. Those are design decisions.',
+          'This is where systems thinking pays off. Before touching any surface, I study how the pieces connect \u2014 not just within a product, but across them. How does a user\u2019s mental model shift when they move from one tool to another? Where do workflows cross product boundaries? Those seams are where cohesion either lives or dies.',
+          'At Marketo, the system\u2019s real value was that a user could move between products and feel like they were still in the same world. That\u2019s harder than matching hex values.',
+        ],
+      },
+      {
+        heading: 'Adoption is a design problem too',
+        paragraphs: [
+          'Getting to 100% adoption on Sky took a campaign. I treated internal adoption the same way I\u2019d treat a product launch. Who are the users (in this case, designers and engineers)? What are their objections? Where\u2019s the friction in adoption? What does the onboarding experience look like?',
+          'Most systems fail at adoption because they optimize for the system and forget about the people using it. Engineers don\u2019t care that your tokens are semantically named if the DX is painful. Designers won\u2019t use the Figma library if the component naming doesn\u2019t match how they think about the UI.',
+          'Adoption is the design problem hiding inside every design system.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to a platform team',
+        paragraphs: [
+          'If you\u2019re building a design system at a company with multiple product surfaces, complex workflows, and teams that need to move fast without breaking each other\u2019s work \u2014 that\u2019s the exact problem I\u2019ve spent the last decade learning how to solve.',
+          'I think in systems before I think in screens. I care about governance as much as I care about components. I\u2019ve shipped systems that achieved full adoption not because they were mandated, but because they were genuinely better than the alternative.',
+          'And I believe the best design systems are culture \u2014 a shared language that lets teams build coherently without coordinating on every detail.',
+          'That\u2019s the kind of work I\u2019m built for.',
+        ],
+      },
+    ],
   },
 
   'financial-platforms-systems-problems': {
     kicker: 'Point of View',
-    title: 'Why financial platforms are systems problems',
+    title:  'Why financial platforms are systems problems',
     dek: 'On fragmentation, dual personas, and what payroll across 90+ companies taught me about designing for money that moves.',
-    content: `
-      <p class="cd-body">Financial products tend to start as individual tools. A card program here, an expense workflow there, bill pay in one system, travel booking in another. Each one solves its slice well enough. But the moment you try to connect them, the seams show.</p>
-      <p class="cd-body">I\u2019ve spent the last few years designing platforms where financial data sits at the center. The pattern keeps repeating: the design problem that matters most lives in the connections between surfaces.</p>
-      <h2 class="cd-h2">Fragmentation is the default</h2>
-      <p class="cd-body">At Teamshares, payroll data lived in disparate systems across 90+ companies. Industry Leads had no centralized visibility into payroll health. Analyses were delayed three to five days by manual processes. The original ask was to make reports easier to generate, but through discovery we found the data architecture couldn\u2019t support real-time visibility at scale.</p>
-      <p class="cd-body">We reframed the project from \u201Cbetter reports\u201D to \u201Ccentralized visibility.\u201D That reframe changed every design decision downstream, and the result was a 50% increase in team productivity and 135 hours saved per cycle. When you solve for the connections first, the individual surfaces get simpler.</p>
-      <h2 class="cd-h2">Two users, one workflow</h2>
-      <p class="cd-body">The hardest tension in financial platform design is that every workflow serves two users with opposing needs. The employee wants speed and minimal friction. The finance team wants control, compliance, and audit trails. Both are right. The strongest financial products encode the tension into the system itself \u2014 policies apply automatically so employees don\u2019t need to think about compliance and finance teams don\u2019t need to chase approvals.</p>
-      <p class="cd-body">At Teamshares, Network Company operators got simple visibility into their own data. Industry Leads got aggregated views across all 90+ companies. The experience adapted to the role. The infrastructure was shared. That pattern scales across every financial domain.</p>
-      <h2 class="cd-h2">Policy is invisible design</h2>
-      <p class="cd-body">In financial products, the policy layer is where the real design lives. Approval routing, spending limits, compliance rules, budget controls. Good policy design means the employee rarely encounters a wall. The guardrails are built into the workflow so that by the time they submit something, it\u2019s already compliant. This is systems thinking applied to money \u2014 before you design any screen, you map the policy logic.</p>
-      <h2 class="cd-h2">Consumer-grade craft in enterprise complexity</h2>
-      <p class="cd-body">Complex doesn\u2019t have to mean complicated. The best B2B financial products feel like consumer apps on the surface while handling enterprise-grade logic underneath. An expense report should feel as easy as texting a photo. A procurement approval should be as clear as a notification. The craft is in making the complexity disappear while keeping the controls accessible for the people who need them.</p>
-      <p class="cd-body">At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface. The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural.</p>
-    `,
+    sections: [
+      {
+        paragraphs: [
+          'Financial products tend to start as individual tools. A card program here, an expense workflow there, bill pay in one system, travel booking in another. Each one solves its slice well enough. But the moment you try to connect them, the seams show.',
+          'I\u2019ve spent the last few years designing platforms where financial data sits at the center. The pattern keeps repeating: the design problem that matters most lives in the connections between surfaces.',
+        ],
+      },
+      {
+        heading: 'Fragmentation is the default',
+        paragraphs: [
+          'Most companies run their spend across five or six tools. Each tool has its own data model, its own approval flow, its own reporting structure. Finance teams spend hours reconciling across systems because the data was never meant to talk.',
+          'At Teamshares, I saw this firsthand. Payroll data lived in disparate systems across 90+ companies. Industry Leads had no centralized visibility into payroll health. Analyses were delayed three to five days by manual processes. The original ask was to make reports easier to generate, but through discovery we found the data architecture couldn\u2019t support real-time visibility at scale.',
+          'We reframed the project from "better reports" to "centralized visibility." That reframe changed every design decision downstream, and the result was a 50% increase in team productivity and 135 hours saved per cycle.',
+          'When you solve for the connections first, the individual surfaces get simpler. Data flows through instead of getting stuck at the boundaries.',
+        ],
+      },
+      {
+        heading: 'Two users, one workflow',
+        paragraphs: [
+          'The hardest tension in financial platform design is that every workflow serves two users with opposing needs. The employee wants speed and minimal friction. The finance team wants control, compliance, and audit trails. Both are right.',
+          'The temptation is to optimize for one and tolerate the other. The strongest financial products encode the tension into the system itself. Policies apply automatically so employees don\u2019t need to think about compliance and finance teams don\u2019t need to chase approvals.',
+          'At Teamshares, the payroll reporting work served both audiences through the same underlying system. Network Company operators got simple visibility into their own data. Industry Leads got aggregated views across all 90+ companies. The experience adapted to the role. The infrastructure was shared.',
+          'That pattern scales across every financial domain. Cards, expenses, travel, bill pay, procurement. Each has its own version of the employee-versus-admin tension. The design work is figuring out where the policy layer lives and making it invisible to the person who just needs to get something done.',
+        ],
+      },
+      {
+        heading: 'Policy is invisible design',
+        paragraphs: [
+          'In financial products, the policy layer is where the real design lives. Approval routing, spending limits, compliance rules, budget controls. These decisions shape whether a product feels effortless or adversarial.',
+          'Good policy design means the employee rarely encounters a wall. The guardrails are built into the workflow so that by the time they submit something, it\u2019s already compliant. The finance team gets clean data because the system enforced the rules upstream.',
+          'This is systems thinking applied to money. Before you design any screen, you map the policy logic. Who can approve what, up to what amount, under what conditions, with what exceptions. Those rules shape every interface decision downstream.',
+        ],
+      },
+      {
+        heading: 'Consumer-grade craft in enterprise complexity',
+        paragraphs: [
+          'Complex doesn\u2019t have to mean complicated. The best B2B financial products feel like consumer apps on the surface while handling enterprise-grade logic underneath.',
+          'At Marketo, the Sky design system achieved 100% adoption across product teams because we treated internal adoption like a product launch. We studied how designers and engineers actually used the system, identified friction points, and designed the DX around their real workflows. Several Sky patterns were later contributed upstream to Adobe\u2019s Spectrum system after the acquisition.',
+          'That same thinking applies to financial platforms. An expense report should feel as easy as texting a photo. A procurement approval should be as clear as a notification. The craft is in making the complexity disappear while keeping the controls accessible for the people who need them.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to a spend platform',
+        paragraphs: [
+          'Unifying fragmented financial domains into a single platform is the exact kind of problem I\u2019ve been solving. At Teamshares, I turned fragmented payroll data across 90+ companies into centralized visibility that saved $3.1M in annual efficiency gains. At Marketo, I built a design system that unified 50+ components across every product surface and achieved full adoption. At Meroxa, I led a strategic pivot that expanded the addressable market by 10x through rethinking who the product actually served.',
+          'The through line: I start with the system, understand how the pieces connect, and design the logic underneath the screens. Financial platforms reward that approach because the complexity is structural. The payoff for getting the structure right compounds across every surface you ship.',
+        ],
+      },
+    ],
   },
 
   'designing-platforms-where-two-sides-need-each-other': {
     kicker: 'Point of View',
-    title: 'Designing platforms where two sides need each other',
+    title:  'Designing platforms where two sides need each other',
     dek: 'On dual-persona design, the craft of making both sides feel served, and what payroll networks and data pipelines share with creator platforms.',
-    content: `
-      <p class="cd-body">Every platform with two distinct user types faces the same structural challenge: each side has different needs, different mental models, and different definitions of success. The platform has to serve both without compromising either.</p>
-      <p class="cd-body">I\u2019ve designed for this dynamic across my career. At Teamshares, employees and network operators. At Upwork, freelancers and the clients hiring them. At Meroxa, data engineers building pipelines and the teams consuming the output. The design challenge repeats: how do you build one product that feels purpose-built for two very different people?</p>
-      <h2 class="cd-h2">The relationship is the product</h2>
-      <p class="cd-body">In two-sided platforms, the most important surface is the connection between them \u2014 the moment where one side\u2019s work reaches the other. At Teamshares, Industry Leads depended on data that Network Company operators produced. The reporting system had to make the operator\u2019s job feel simple and give the Industry Lead confidence that the data was accurate and current. If either side lost trust in the system, both sides suffered.</p>
-      <p class="cd-body">That dynamic maps directly to creator platforms. A streamer needs tools that feel powerful and immediate. A viewer needs an experience that feels effortless and engaging. The platform succeeds when both sides feel like the product was designed specifically for them.</p>
-      <h2 class="cd-h2">Empathy multiplied</h2>
-      <p class="cd-body">Designing for one persona requires deep empathy. Designing for two requires holding both perspectives simultaneously, and knowing when they conflict. At Upwork, the platform had to give freelancers visibility and control over how they presented their work, while giving clients confidence and clarity in evaluating candidates. The most productive design decisions came from understanding where both sides\u2019 motivations aligned and designing for that overlap.</p>
-      <h2 class="cd-h2">Systems that scale community</h2>
-      <p class="cd-body">When a platform grows, consistency becomes community infrastructure. A shared interaction language across every surface means that both creators and viewers can navigate the product intuitively, regardless of which feature they\u2019re using. At Marketo, Sky\u2019s design system unified 50+ components across every product surface. Users moved between tools without having to relearn the interface. That same principle applies across live streams, chat, clips, profiles, and discovery surfaces.</p>
-      <p class="cd-body">I\u2019ve spent my career designing platforms that serve multiple user types through shared infrastructure. Twitch\u2019s challenge is a version of the same problem I\u2019ve been solving: how do you give creators the power they need and viewers the experience they want, all within one product that feels intentional? That\u2019s the intersection of craft and systems where I do my best work.</p>
-    `,
+    sections: [
+      {
+        paragraphs: [
+          'Every platform with two distinct user types faces the same structural challenge: each side has different needs, different mental models, and different definitions of success. The platform has to serve both without compromising either.',
+          'I\u2019ve designed for this dynamic across my career. At Teamshares, employees and network operators. At Upwork, freelancers and the clients hiring them. At Meroxa, data engineers building pipelines and the teams consuming the output. The design challenge repeats: how do you build one product that feels purpose-built for two very different people?',
+        ],
+      },
+      {
+        heading: 'The relationship is the product',
+        paragraphs: [
+          'In two-sided platforms, the most important surface is the connection between them. The moment where one side\u2019s work reaches the other. How that handoff feels shapes whether both sides keep coming back.',
+          'At Teamshares, Industry Leads depended on data that Network Company operators produced. The reporting system had to make the operator\u2019s job feel simple and give the Industry Lead confidence that the data was accurate and current. If either side lost trust in the system, both sides suffered.',
+          'That dynamic maps directly to creator platforms. A streamer needs tools that feel powerful and immediate. A viewer needs an experience that feels effortless and engaging. The platform succeeds when both sides feel like the product was designed specifically for them.',
+        ],
+      },
+      {
+        heading: 'Empathy multiplied',
+        paragraphs: [
+          'Designing for one persona requires deep empathy. Designing for two requires holding both perspectives simultaneously, and knowing when they conflict.',
+          'At Upwork, I worked at the intersection of freelancer experience and client experience. The platform had to give freelancers visibility and control over how they presented their work, while giving clients confidence and clarity in evaluating candidates. The research I did there taught me that the most productive design decisions came from understanding where both sides\u2019 motivations aligned and designing for that overlap.',
+          'In creator platforms, the overlap is the content itself. Both creators and audiences care about the quality of what\u2019s being shared. Both benefit from discovery that surfaces the right content. The design work is in amplifying that shared interest.',
+        ],
+      },
+      {
+        heading: 'Systems that scale community',
+        paragraphs: [
+          'When a platform grows, consistency becomes community infrastructure. A shared interaction language across every surface means that both creators and viewers can navigate the product intuitively, regardless of which feature they\u2019re using.',
+          'At Marketo, Sky\u2019s design system unified 50+ components across every product surface. The outcome was coherence at scale. Users moved between tools without having to relearn the interface. That same principle applies to platforms where creators and viewers interact across live streams, chat, clips, profiles, and discovery surfaces. The design system is what keeps the experience feeling like one product.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to a creator platform',
+        paragraphs: [
+          'I\u2019ve spent my career designing platforms that serve multiple user types through shared infrastructure. Systems thinking, research-driven empathy, design systems that scale. These are the tools that make two-sided platforms coherent.',
+          'Twitch\u2019s challenge is a version of the same problem I\u2019ve been solving: how do you give creators the power they need and viewers the experience they want, all within one product that feels intentional? That\u2019s the intersection of craft and systems where I do my best work.',
+        ],
+      },
+    ],
   },
 
   'designing-infrastructure-people-trust': {
     kicker: 'Point of View',
-    title: 'Designing infrastructure people trust with their money',
+    title:  'Designing infrastructure people trust with their money',
     dek: 'On visibility, complex workflows, and why the design patterns that matter in traditional payments carry directly into digital currency.',
-    content: `
-      <p class="cd-body">Every product that touches money has the same foundational design constraint: trust. The interface has to communicate precision, status, and control at every step. Users need to know exactly where their money is, what\u2019s happening to it, and that they can intervene if something goes wrong.</p>
-      <p class="cd-body">I\u2019ve designed financial infrastructure at Teamshares, where payroll data flowed across 90+ companies. The patterns I learned there \u2014 around visibility, status clarity, and policy-driven workflows \u2014 are the same patterns that matter in currency, treasury, and payments.</p>
-      <h2 class="cd-h2">Visibility is trust</h2>
-      <p class="cd-body">In financial products, the most important design decision is what you make visible. At Teamshares, Industry Leads had no real-time visibility into payroll health across their network. We redesigned the reporting system around centralized visibility \u2014 real-time data across 90+ companies. The result was a 50% increase in team productivity, and the deeper outcome was trust. When people can see the state of their money at a glance, they stop worrying about whether the system is doing its job.</p>
-      <p class="cd-body">That principle applies directly to treasury and payments infrastructure. Whether someone is managing USDC reserves or routing cross-border payments, they need to see the state of every transaction, every balance, every policy in real time. Visibility is how you build trust at scale.</p>
-      <h2 class="cd-h2">Complex workflows need calm design</h2>
-      <p class="cd-body">Financial workflows are inherently complex. Multi-step approvals, compliance checks, reconciliation across systems, edge cases for every jurisdiction. The design challenge is making this complexity navigable without hiding it. At Teamshares, the design work was in creating clear paths: progressive disclosure that surfaced the right information at the right moment, status indicators that made the current state unambiguous, and defaults that handled the common case so users only had to intervene on exceptions.</p>
-      <h2 class="cd-h2">Systems thinking across interconnected products</h2>
-      <p class="cd-body">Currency, treasury, and payments are interconnected domains. A change in how currency is issued affects how treasury manages reserves affects how payments settle. Designing any one surface in isolation misses the connections. At Marketo, I built a design system that unified 50+ components across every product surface because the real value was in the connections between tools. At Meroxa, the strategic pivot came from recognizing that the product\u2019s surfaces were more connected than the team realized.</p>
-      <p class="cd-body">I\u2019ve spent my career designing complex, interconnected systems that handle high-stakes data. Payroll across 90+ companies. Design systems that unified dozens of product surfaces. Data infrastructure pivots that reshaped entire platforms. Circle\u2019s challenge \u2014 building intuitive experiences for currency, treasury, and payments at global scale \u2014 sits at the exact intersection of systems thinking, financial domain knowledge, and craft that my career has been building toward.</p>
-    `,
+    sections: [
+      {
+        paragraphs: [
+          'Every product that touches money has the same foundational design constraint: trust. The interface has to communicate precision, status, and control at every step. Users need to know exactly where their money is, what\u2019s happening to it, and that they can intervene if something goes wrong.',
+          'I\u2019ve designed financial infrastructure at Teamshares, where payroll data flowed across 90+ companies. The patterns I learned there, around visibility, status clarity, and policy-driven workflows, are the same patterns that matter in currency, treasury, and payments. The design principles hold regardless of the underlying asset.',
+        ],
+      },
+      {
+        heading: 'Visibility is trust',
+        paragraphs: [
+          'In financial products, the most important design decision is what you make visible. At Teamshares, Industry Leads had no real-time visibility into payroll health across their network. Analyses were delayed days by manual processes. The system worked, but nobody could see it working. That invisibility eroded confidence.',
+          'We redesigned the reporting system around centralized visibility. Real-time data across 90+ companies. The result was a 50% increase in team productivity, and the deeper outcome was trust. When people can see the state of their money at a glance, they stop worrying about whether the system is doing its job.',
+          'That principle applies directly to treasury and payments infrastructure. Whether someone is managing USDC reserves or routing cross-border payments, they need to see the state of every transaction, every balance, every policy in real time. Visibility is how you build trust at scale.',
+        ],
+      },
+      {
+        heading: 'Complex workflows need calm design',
+        paragraphs: [
+          'Financial workflows are inherently complex. Multi-step approvals, compliance checks, reconciliation across systems, edge cases for every jurisdiction. The design challenge is making this complexity navigable without hiding it.',
+          'At Teamshares, payroll reporting involved disparate data sources, multiple user roles, and compliance requirements that varied by company. The design work was in creating clear paths through the complexity: progressive disclosure that surfaced the right information at the right moment, status indicators that made the current state unambiguous, and defaults that handled the common case so users only had to intervene on exceptions.',
+          'That same discipline scales to crypto payments infrastructure. The workflows share the same structure: multi-party transactions, regulatory requirements, global variation, and users who need confidence in every step.',
+        ],
+      },
+      {
+        heading: 'Systems thinking across interconnected products',
+        paragraphs: [
+          'Currency, treasury, and payments are interconnected domains. A change in how currency is issued affects how treasury manages reserves affects how payments settle. Designing any one surface in isolation misses the connections.',
+          'This is where my experience at Marketo and Meroxa maps directly. At Marketo, I built a design system that unified 50+ components across every product surface because the real value was in the connections between tools. At Meroxa, the strategic pivot from a pipeline builder to an observability platform came from recognizing that the product\u2019s surfaces were more connected than the team realized.',
+          'Designing across interconnected product areas requires mapping the system before designing any screen. Where does data flow? Where do user workflows cross product boundaries? Where do changes in one area cascade into others? Those are the questions that shape a cohesive platform.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Circle',
+        paragraphs: [
+          'I\u2019ve spent my career designing complex, interconnected systems that handle high-stakes data. Payroll across 90+ companies. Design systems that unified dozens of product surfaces. Data infrastructure pivots that reshaped entire platforms. The common thread is infrastructure that people rely on, and the design discipline required to keep it clear, trustworthy, and scalable.',
+          'Circle\u2019s challenge, building intuitive experiences for currency, treasury, and payments at global scale, sits at the exact intersection of systems thinking, financial domain knowledge, and craft that my career has been building toward.',
+        ],
+      },
+    ],
   },
 
   'where-brand-meets-the-buy-button': {
     kicker: 'Point of View',
-    title: 'Where brand storytelling meets the buy button',
+    title:  'Where brand storytelling meets the buy button',
     dek: 'On product narratives, commerce flows, and what selling guitars taught me about the moment a story becomes a transaction.',
-    content: `
-      <p class="cd-body">The best product pages do two things at once. They build emotional connection and they move you toward a purchase. Most e-commerce experiences hand the story off to the funnel somewhere in the middle, and the experience breaks at the seam.</p>
-      <p class="cd-body">I\u2019ve worked on both sides. Brand campaigns for Gibson Guitar and Nashville\u2019s country music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. The lesson from both worlds is the same: the story and the transaction are one continuous experience. When you design them together, both get better.</p>
-      <h2 class="cd-h2">Product comprehension is emotional first</h2>
-      <p class="cd-body">At Gibson, a guitar page had to make you hear the tone before you ever touched the fretboard. The specs matter, but they matter after you\u2019ve already felt something. You fall in love with a Les Paul before you ever check the specs. The product page has to honor that sequence.</p>
-      <p class="cd-body">Electric vehicles work the same way. The adventure, the terrain, the silence of the motor on a trail \u2014 these are stories that create desire. The range, the towing capacity, the charging network: those are the rational confirmations that close the deal. The product page needs to carry both, in the right order.</p>
-      <h2 class="cd-h2">Commerce flows need the brand to follow through</h2>
-      <p class="cd-body">The story can\u2019t stop at the product page. Configuration, checkout, financing, delivery tracking \u2014 each step is still the brand experience. When the visual language drops from cinematic to generic during checkout, you lose the emotional thread that got the customer there.</p>
-      <p class="cd-body">At Gibson, this meant carrying the craftsmanship narrative through the entire purchase journey. In my platform work at Marketo, the design system\u2019s value was that a user could move between products and feel like they were still in the same world. That discipline applied to commerce means visual consistency, interaction consistency, and tonal consistency from first impression through post-purchase.</p>
-      <h2 class="cd-h2">Global means adapting the story</h2>
-      <p class="cd-body">Working with country music labels across markets taught me that localization goes deeper than translation. Cultural context shapes how people discover products, evaluate them, and decide to buy. The story that resonates in Nashville lands differently in Tokyo or Berlin. Effective localization means knowing which product attributes lead in which market, and designing the experience to flex accordingly.</p>
-      <p class="cd-body">Rivian\u2019s website sits at the intersection of product storytelling and commerce infrastructure. Product pages that tell adventure stories. Commerce flows that handle configuration, financing, and global checkout. A design system that holds it all together. That\u2019s the synthesis of everything I\u2019ve spent my career building.</p>
-    `,
+    sections: [
+      {
+        paragraphs: [
+          'The best product pages do two things at once. They build emotional connection and they move you toward a purchase. Most e-commerce experiences hand the story off to the funnel somewhere in the middle, and the experience breaks at the seam.',
+          'I\u2019ve worked on both sides. Brand campaigns for Gibson Guitar and Nashville\u2019s country music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. The lesson from both worlds is the same: the story and the transaction are one continuous experience. When you design them together, both get better.',
+        ],
+      },
+      {
+        heading: 'Product comprehension is emotional first',
+        paragraphs: [
+          'At Gibson, a guitar page had to make you hear the tone before you ever touched the fretboard. The specs matter, but they matter after you\u2019ve already felt something. The grain of the wood, the curve of the neck, the lineage of the model. These are emotional entry points that lead to rational justification.',
+          'You fall in love with a Les Paul before you ever check the specs. The product page has to honor that sequence.',
+          'Electric vehicles work the same way. The adventure, the terrain, the silence of the motor on a trail. These are stories that create desire. The range, the towing capacity, the charging network: those are the rational confirmations that close the deal. The product page needs to carry both, in the right order.',
+        ],
+      },
+      {
+        heading: 'Commerce flows need the brand to follow through',
+        paragraphs: [
+          'The story can\u2019t stop at the product page. Configuration, checkout, financing, delivery tracking. Each step is still the brand experience. When the visual language drops from cinematic to generic during checkout, you lose the emotional thread that got the customer there.',
+          'At Gibson, this meant carrying the craftsmanship narrative through the entire purchase journey. The product page was a chapter. The cart, the customization options, the confirmation: all of it needed to feel like Gibson.',
+          'In my platform work, I\u2019ve seen the same pattern from the systems side. At Marketo, the design system\u2019s value was that a user could move between products and feel like they were still in the same world. That discipline applied to commerce means visual consistency, interaction consistency, and tonal consistency from first impression through post-purchase.',
+        ],
+      },
+      {
+        heading: 'Global means adapting the story',
+        paragraphs: [
+          'Working with country music labels across markets taught me that localization goes deeper than translation. Cultural context shapes how people discover products, evaluate them, and decide to buy. The story that resonates in Nashville lands differently in Tokyo or Berlin.',
+          'Effective localization means knowing which product attributes lead in which market, and designing the experience to flex accordingly. The emotional sequence stays. The emphasis shifts.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to a product-story-to-purchase platform',
+        paragraphs: [
+          'I\u2019ve designed across both worlds: the emotional, brand-driven side and the structural, systems-driven side. At Gibson and in the Nashville music industry, I learned how to make products feel alive on screen. At Marketo, Teamshares, and Meroxa, I learned how to build the design infrastructure that keeps complex, multi-surface experiences coherent at scale.',
+          'Rivian\u2019s website sits at that intersection. Product pages that tell adventure stories. Commerce flows that handle configuration, financing, and global checkout. A design system that holds it all together. That\u2019s the synthesis of everything I\u2019ve spent my career building.',
+        ],
+      },
+    ],
   },
 
   'designing-for-people-who-live-in-the-product': {
     kicker: 'Point of View',
-    title: 'Designing for people who live in the product',
+    title:  'Designing for people who live in the product',
     dek: 'On cognitive load, multi-persona platforms, and what full-day software demands from a design system.',
-    content: `
-      <p class="cd-body">Contact center software, marketing automation, data pipelines. These are products people inhabit. When someone spends eight hours inside your product, every design decision either compounds into clarity or compounds into fatigue.</p>
-      <p class="cd-body">I\u2019ve spent most of my career designing platforms that people live in. Marketo, where marketers built and managed campaigns across dozens of surfaces. Teamshares, where operators managed hiring and payroll across 90+ companies. Meroxa, where engineers monitored real-time data pipelines. These users are working. And the bar for what \u201Cintuitive\u201D means goes up dramatically when the session never ends.</p>
-      <h2 class="cd-h2">Cognitive load is a design debt</h2>
-      <p class="cd-body">In full-day software, every unnecessary interaction is a tax. An extra click to reach a common action. A dashboard that shows everything but highlights nothing. A label that\u2019s technically accurate but takes a beat too long to parse. These compound. Over an eight-hour shift, a three-click workflow costs twenty minutes more than a one-click workflow. A noisy dashboard creates decision fatigue by lunch.</p>
-      <p class="cd-body">At Marketo, I learned this building Sky. The design system unified 50+ components across every product surface. The deeper value was in the decisions we made about information density \u2014 which data needed to be visible at a glance, which actions deserved primary placement, which elements could be progressively disclosed to reduce noise.</p>
-      <h2 class="cd-h2">Three personas, one platform</h2>
-      <p class="cd-body">Platform products often serve multiple personas with fundamentally different relationships to the same data. An agent needs speed and simplicity. A supervisor needs oversight and intervention tools. An admin needs configuration and control. The design challenge is building a unified experience that adapts to each persona without fragmenting into three separate products.</p>
-      <p class="cd-body">At Teamshares, the payroll reporting system served network company operators and industry leads through the same underlying platform. Operators saw their own company data. Industry leads saw aggregated views across all 90+ companies. The interface adapted to the role. The architecture was shared. That pattern is how you build \u201Cone platform\u201D for multiple personas without losing coherence.</p>
-      <h2 class="cd-h2">Design systems carry the weight</h2>
-      <p class="cd-body">When a platform spans dozens of surfaces and serves multiple personas, the design system is what keeps the experience from fragmenting. Consistent interaction patterns, predictable layouts, shared vocabulary. At Marketo, Sky achieved 100% adoption across product teams and patterns were eventually contributed upstream to Adobe Spectrum \u2014 because the system was built to serve the people using it, treating internal adoption as a design problem the same way we\u2019d solve any product problem.</p>
-      <p class="cd-body">I\u2019ve spent my career on the kind of products where users set up camp. The \u201Cone platform\u201D challenge is one I\u2019ve solved before, at different companies and at different scales. The underlying problem is always the same: how do you give three very different users a coherent experience without building three separate products? That\u2019s systems thinking applied to product design, and it\u2019s the work I do best.</p>
-    `,
+    sections: [
+      {
+        paragraphs: [
+          'Contact center software, marketing automation, data pipelines. These are products people inhabit. When someone spends eight hours inside your product, every design decision either compounds into clarity or compounds into fatigue.',
+          'I\u2019ve spent most of my career designing platforms that people live in. Marketo, where marketers built and managed campaigns across dozens of surfaces. Teamshares, where operators managed hiring and payroll across 90+ companies. Meroxa, where engineers monitored real-time data pipelines. These users are working. And the bar for what "intuitive" means goes up dramatically when the session never ends.',
+        ],
+      },
+      {
+        heading: 'Cognitive load is a design debt',
+        paragraphs: [
+          'In full-day software, every unnecessary interaction is a tax. An extra click to reach a common action. A dashboard that shows everything but highlights nothing. A label that\u2019s technically accurate but takes a beat too long to parse.',
+          'These are compounding debt. Over an eight-hour shift, a three-click workflow costs twenty minutes more than a one-click workflow. A noisy dashboard creates decision fatigue by lunch.',
+          'At Marketo, I learned this building Sky. The design system unified 50+ components across every product surface. The deeper value was in the decisions we made about information density. Which data needed to be visible at a glance. Which actions deserved primary placement. Which elements could be progressively disclosed to reduce noise. Those decisions scaled across every product team that adopted the system.',
+        ],
+      },
+      {
+        heading: 'Three personas, one platform',
+        paragraphs: [
+          'Platform products often serve multiple personas with fundamentally different relationships to the same data. An agent needs speed and simplicity. A supervisor needs oversight and intervention tools. An admin needs configuration and control.',
+          'The design challenge is building a unified experience that adapts to each persona without fragmenting into three separate products. Shared navigation, shared mental models, shared language. Differentiated workflows, differentiated information hierarchy, differentiated defaults.',
+          'At Teamshares, the payroll reporting system served network company operators and industry leads through the same underlying platform. Operators saw their own company data. Industry leads saw aggregated views across all 90+ companies. The interface adapted to the role. The architecture was shared. That pattern is how you build "one platform" for multiple personas without losing coherence.',
+        ],
+      },
+      {
+        heading: 'Design systems carry the weight',
+        paragraphs: [
+          'When a platform spans dozens of surfaces and serves multiple personas, the design system is what keeps the experience from fragmenting. Consistent interaction patterns, predictable layouts, shared vocabulary. These are infrastructure.',
+          'At Marketo, Sky achieved 100% adoption across product teams. Patterns were eventually contributed upstream to Adobe Spectrum. That happened because the system was built to serve the people using it: both the end users of the product and the designers and engineers building on it. We treated internal adoption as a design problem and solved it the same way we\u2019d solve any product problem: by studying real behavior, identifying friction, and designing the DX around actual workflows.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to a platform people live in',
+        paragraphs: [
+          'I\u2019ve spent my career on the kind of products where users set up camp. Designing for that context means caring about information density, cognitive load over long sessions, multi-persona flexibility, and the design system infrastructure that holds it all together.',
+          'The "one platform" challenge is one I\u2019ve solved before, at different companies and at different scales. The underlying problem is always the same: how do you give three very different users a coherent experience without building three separate products? That\u2019s systems thinking applied to product design, and it\u2019s the work I do best.',
+        ],
+      },
+    ],
   },
 };
+
 
 function openCase(id) {
   const data = CASES[id];
   if (!data) return;
-  // Track which panel to return to
   const rPanel = document.getElementById('recruiterPanel');
   if (rPanel && rPanel.classList.contains('active')) {
     returnPanel = 'recruiterPanel';
@@ -821,53 +1970,57 @@ function openCase(id) {
   content.classList.add('content-entering');
   document.getElementById('caseDetailPanel').classList.add('active');
   document.getElementById('caseDetailPanel').scrollTop = 0;
-  // Reinit lazy images in new content
-  content.querySelectorAll('img[data-lazy-src]').forEach(img => {
-    img.src = img.dataset.lazySrc;
-    delete img.dataset.lazySrc;
-  });
+  // Lazy-load images in freshly rendered content
+  if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
 }
 
 function buildCaseHTML(d) {
-  let html = `<p class="cd-company">${d.company}</p>`;
-  html += `<h1 class="cd-headline">${d.title}</h1>`;
-  if (d.chips?.length) {
-    html += `<div class="cd-chips">${d.chips.map(c => `<span>${c}</span>`).join('')}</div>`;
-  }
-  if (d.metrics?.length) {
-    html += `<div class="cd-metrics">${d.metrics.map(m => `<div class="cd-metric"><span class="cd-metric-value">${m.val}</span><span class="cd-metric-label">${m.label}</span></div>`).join('')}</div>`;
-  }
-  html += `<p class="cd-intro">${d.intro}</p>`;
+  const metricsHtml = (d.metrics || []).map(m =>
+    `<div class="cd-metric"><span class="cd-metric-value">${m.value || m.val}</span><span class="cd-metric-label">${m.label}</span></div>`
+  ).join('');
 
-  d.sections?.forEach(s => {
-    html += `<div class="cd-block">`;
-    if (s.h2) html += `<h2 class="cd-h2">${s.h2}</h2>`;
-    if (s.body) html += `<p class="cd-body">${s.body}</p>`;
-    if (s.reframe) {
-      html += `<div class="cd-reframe">
-        <div class="cd-reframe-from"><span class="cd-reframe-label">Before</span>${s.reframe.from}</div>
-        <div class="cd-reframe-to"><span class="cd-reframe-label">After</span>${s.reframe.to}</div>
-      </div>`;
-    }
-    if (s.img) {
-      html += `<div class="cd-screenshot-wrap"><img src="${s.img}" alt="${s.imgCaption || ''}"></div>`;
-      if (s.imgCaption) html += `<p class="cd-body" style="font-size:0.78rem;color:rgba(31,31,31,0.38);margin-top:-32px;margin-bottom:40px">${s.imgCaption}</p>`;
-    }
-    if (s.screenshots?.length) {
-      html += `<div class="cd-screenshots-row">`;
-      s.screenshots.forEach(sc => {
-        html += `<div class="cd-screenshot-frame"><img src="${sc.src}" alt="${sc.caption}"><span>${sc.caption}</span></div>`;
-      });
-      html += `</div>`;
-    }
-    html += `</div>`;
-  });
+  let html = `<p class="cd-company">${d.company}</p>`;
+  html += `<h1 class="cd-headline">${d.headline || d.title}</h1>`;
+  if (d.intro) html += `<p class="cd-intro">${d.intro}</p>`;
+  if (metricsHtml) html += `<div class="cd-metrics">${metricsHtml}</div>`;
+
+  if (d.content) {
+    // Old format — raw HTML, convert inline src= to data-lazy-src= for images
+    html += d.content.replace(
+      /<img(\s+[^>]*?)src="(assets\/[^"]+)"([^>]*?)>/g,
+      '<img$1data-lazy-src="$2"$3>'
+    );
+  } else if (d.sections) {
+    // New simplified format
+    d.sections.forEach(s => {
+      html += '<div class="cd-block">';
+      if (s.h2) html += `<h2 class="cd-h2">${s.h2}</h2>`;
+      if (s.body) html += `<p class="cd-body">${s.body}</p>`;
+      if (s.reframe) {
+        html += `<div class="cd-reframe">
+          <div class="cd-reframe-from"><span class="cd-reframe-label">Before</span>${s.reframe.from}</div>
+          <div class="cd-reframe-to"><span class="cd-reframe-label">After</span>${s.reframe.to}</div>
+        </div>`;
+      }
+      if (s.img) {
+        html += `<div class="cd-screenshot-wrap"><img src="${s.img}" alt="${s.imgCaption || ''}"></div>`;
+        if (s.imgCaption) html += `<p class="cd-body" style="font-size:0.78rem;color:rgba(31,31,31,0.38);margin-top:-32px;margin-bottom:40px">${s.imgCaption}</p>`;
+      }
+      if (s.screenshots?.length) {
+        html += '<div class="cd-screenshots-row">';
+        s.screenshots.forEach(sc => {
+          html += `<div class="cd-screenshot-frame"><img src="${sc.src}" alt="${sc.caption}"><span>${sc.caption}</span></div>`;
+        });
+        html += '</div>';
+      }
+      html += '</div>';
+    });
+  }
 
   if (d.haiku?.length) {
     html += `<div class="cd-haiku">${d.haiku.map(l => `<p>${l}</p>`).join('')}</div>`;
   }
 
-  // Fit button
   html += `<div class="fit-btn-wrap" style="margin-top:48px">
     <button class="fit-btn">
       How do we match up?
@@ -881,7 +2034,6 @@ function buildCaseHTML(d) {
 function openThought(id) {
   const data = THOUGHTS[id];
   if (!data) return;
-  // Track which panel to return to
   const rPanel = document.getElementById('recruiterPanel');
   if (rPanel && rPanel.classList.contains('active')) {
     returnPanel = 'recruiterPanel';
@@ -891,19 +2043,56 @@ function openThought(id) {
     document.getElementById('caseListPanel').classList.add('hidden');
   }
   const content = document.getElementById('caseDetailContent');
+
+  // Build HTML
+  const heroSrc = data.hero ? data.hero.src : data.img;
+  const heroAlt = data.hero ? data.hero.alt : '';
+
   let html = '';
-  if (data.img) html += `<div style="width:calc(100% + 120px);margin-left:-60px;margin-bottom:40px;overflow:hidden"><img src="${data.img}" style="width:100%;display:block;height:auto" alt=""></div>`;
+  if (heroSrc) {
+    html += `<div class="cd-hero-img-wrap"><img data-lazy-src="${heroSrc}" class="cd-hero-img" alt="${heroAlt}" width="${data.hero ? data.hero.w : ''}" height="${data.hero ? data.hero.h : ''}"></div>`;
+  }
   if (data.kicker) html += `<p class="cd-company">${data.kicker}</p>`;
   html += `<h1 class="cd-headline">${data.title}</h1>`;
   if (data.dek) html += `<p class="cd-intro">${data.dek}</p>`;
-  html += data.content;
+
+  if (data.sections) {
+    // Rich article format — sections with heading + paragraphs[]
+    const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    let titledCount = 0;
+    data.sections.forEach(section => {
+      const blocks = (section.paragraphs || []).map(p => {
+        if (typeof p === 'string') {
+          return `<p class="cd-body">${esc(p).replace(/\n/g, '<br>')}</p>`;
+        }
+        if (p.list) {
+          return `<ul class="cd-list">${p.list.map(li => `<li class="cd-body">${esc(li)}</li>`).join('')}</ul>`;
+        }
+        return '';
+      }).join('');
+
+      if (!section.heading) {
+        html += `<div class="cs-section cs-section--plain">${blocks}</div>`;
+      } else {
+        titledCount++;
+        const num = String(titledCount).padStart(2, '0');
+        html += `<div class="cs-section"><div class="cs-section-header"><span class="cs-section-num">${num}</span><span class="cs-section-title">${esc(section.heading)}</span></div>${blocks}</div>`;
+      }
+    });
+  } else if (data.content) {
+    // Flat HTML content (legacy)
+    html += data.content;
+  }
+
   content.innerHTML = html;
+  if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
   content.classList.remove('content-entering');
   void content.offsetWidth;
   content.classList.add('content-entering');
   document.getElementById('caseDetailPanel').classList.add('active');
   document.getElementById('caseDetailPanel').scrollTop = 0;
 }
+
 
 // ── Fit panel ────────────────────────────────────────────────────
 const DANTE_CONTEXT = `You are assessing whether L Dante Guarin is a fit for a given role.
