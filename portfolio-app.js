@@ -917,30 +917,34 @@ function openThought(id) {
 }
 
 // ── Fit panel ────────────────────────────────────────────────────
-const DANTE_CONTEXT = `You are an objective third-party reviewer assessing whether L Dante Guarin is a fit for a given role. Be direct and honest. Do not flatter. Do not default to positivity. If there are genuine gaps, name them plainly.
+const DANTE_CONTEXT = `You are assessing whether L Dante Guarin is a fit for a given role.
 
 WHO HE IS:
-Principal Product Designer, 13+ years. IC contributor — not a people manager, not looking to manage a team. Based in Irvine, CA. His depth is web-based product design; not native mobile.
+Principal Product Designer, 13+ years. IC contributor — not a people manager. Based in Irvine, CA. Web-based product design is his focus; no deep native iOS/Android work.
 
-WHERE HE GENUINELY FITS (use these to argue STRONG MATCH):
-- B2B / SaaS product design — this is his entire career
-- Design systems at scale: founded Sky at Marketo/Adobe, 50+ components, patterns contributed upstream to Adobe Spectrum
-- Complex data-heavy tools and dashboards (Teamshares payroll reporting, Meroxa observability platform)
-- Financial infrastructure and HR tech (payroll, ATS, employee ownership workflows)
+CAREER:
+- Marketo / Adobe: Founded Sky design system (50+ components, patterns contributed upstream to Adobe Spectrum). Led design through acquisition.
+- Teamshares: Payroll reporting across 90+ portfolio companies (~$3.1M annual savings) and ATS built from scratch for network-wide hiring.
+- Meroxa: Principal IC designer on developer-facing data observability platform. Led pivot from ETL tooling to observability.
+- Upwork / T-Mobile: B2C exposure at scale, though his depth is enterprise B2B.
+
+WHAT HE'S GOOD AT:
+- B2B / SaaS product design — his entire career
+- Design systems at scale
+- Complex data-heavy tools, dashboards, and reporting
+- Financial infrastructure and HR tech
 - Developer tooling and data pipeline products
-- Discovery research that reshapes product strategy, not just validates it
-- Dual-persona platform design (operators + admins, creators + consumers, engineers + stakeholders)
-- IC design leadership at scale — has been the only or lead designer on multiple 0-to-1 products
+- Discovery research that reshapes product direction
+- Dual-persona platforms (operators + admins, creators + consumers)
+- IC design leadership on 0-to-1 products
 
-WHERE HE IS A WEAKER OR UNKNOWN FIT (use these to argue MODERATE or WEAK MATCH):
-- Consumer social, entertainment, gaming — no direct experience in these domains
-- People management / design leadership roles — he is an IC and wants to stay one
-- Native mobile-first products (iOS/Android) — his portfolio is web and responsive; no deep native work
-- Healthcare, government, education, non-profit — limited or no domain exposure
-- Pure e-commerce, retail, DTC consumer — not his background
-- Brand design, marketing design, motion design — product design only
-- B2C at consumer scale — Upwork and T-Mobile are the closest, but his real depth is enterprise B2B
-- Roles that require specific unlisted skills (AR/VR, game UI, etc.)`;
+WHERE HE HAS NO TRACK RECORD:
+- Consumer entertainment, social, or gaming
+- People management — IC only, not looking to manage
+- Native mobile-first products (iOS/Android)
+- Healthcare, government, education, non-profit
+- Pure e-commerce or DTC consumer
+- Brand, marketing, or motion design`;
 
 // ── Recruiter panel ─────────────────────────────────────────────
 function setupRecruiterPanel() {
@@ -981,7 +985,7 @@ function setupRecruiterPanel() {
         raw = await window.claude.complete({
           messages: [{
             role: 'user',
-            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nAssess this role accurately against Dante's profile. Be precise — not flattering, not pessimistic. If the role is in his wheelhouse (B2B SaaS, design systems, complex data products, enterprise infrastructure), say so. If there are real gaps, name them. Don't invent gaps that aren't there.\n\nSCORING GUIDE:\n- STRONG MATCH: His experience directly maps to the core requirements. Domain, platform type, and user base align well. He could contribute immediately with little ramp time.\n- MODERATE MATCH: Transferable skills exist but meaningful gaps are present — a domain he hasn't worked in, a platform type he hasn't focused on, or significant unknowns. Worth a conversation but not a clear fit.\n- WEAK MATCH: The role requires things outside his experience — people management, mobile-native depth, consumer entertainment/gaming, or an industry with no overlap.\n\nFormat your response EXACTLY as:\n\nVERDICT: [STRONG MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct, unspun sentence about fit. No filler. No padding.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another direct match]\n- [Another direct match]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with]\n- [Another gap, or 'None identified' if genuinely none]\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
+            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nGive an accurate fit assessment. Use the three verdicts as defined:\n\nSCORING:\n- STRONG MATCH: The JD's core requirements map directly to his experience. The domain, platform type, and user base are familiar territory.\n- MODERATE MATCH: Transferable skills exist but real gaps are present — an unfamiliar domain, a platform type he hasn't focused on, or key requirements he can't directly demonstrate.\n- WEAK MATCH: The role primarily requires things outside his background — managing a team, native mobile depth, consumer gaming/social/entertainment, or an industry he has no track record in.\n\nFormat your response EXACTLY as:\n\nVERDICT: [STRONG MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct, unspun sentence about fit. No filler. No padding.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another direct match]\n- [Another direct match]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with]\n- [Another gap, or 'None identified' if genuinely none]\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
           }]
         });
       } else {
