@@ -739,6 +739,67 @@
       .cs-outcome-num { width: 100px; font-size: 1.5rem; }
     }
 
+    /* ── cd-closer / cd-video ── */
+    .cd-closer { border-top: 1.5px solid rgba(31,31,31,0.08); padding-top: 32px; margin-top: 8px; }
+    .cd-closer .cd-body { font-size: clamp(1rem,1.2vw,1.1rem); color: rgba(31,31,31,0.6); font-style: italic; }
+    .cd-video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin: 32px 0; }
+    .cd-video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    .cd-screenshot { width: 100%; display: block; height: auto; border-radius: 8px; margin: 16px 0; }
+
+    /* ── Workflow block ── */
+    .workflow-block { border: 1px solid rgba(31,31,31,0.08); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+    .workflow-row { display: flex; align-items: center; border-bottom: 1px solid rgba(31,31,31,0.07); }
+    .workflow-row:last-child { border-bottom: none; }
+    .workflow-step { font-family: var(--font-ui); font-size: 12px; font-weight: 500; color: rgba(31,31,31,0.65); width: 160px; flex-shrink: 0; padding: 0.75rem 1rem; background: rgba(31,31,31,0.03); border-right: 1px solid rgba(31,31,31,0.07); align-self: stretch; display: flex; align-items: center; justify-content: flex-end; text-align: right; }
+    .workflow-body { font-family: var(--font-body); font-size: 13px; color: rgba(31,31,31,0.65); line-height: 1.6; padding: 0.75rem 1rem; flex: 1; }
+    .workflow-tag { font-family: var(--font-ui); font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 6px; margin-left: auto; margin-right: 1rem; white-space: nowrap; flex-shrink: 0; }
+    .tag-gone { background: #fff1f2; color: #be123c; border: 1px solid rgba(190,18,60,0.2); }
+    .tag-kept { background: #f0fdf4; color: #16a34a; border: 1px solid rgba(22,163,74,0.2); }
+
+    /* ── Finding block ── */
+    .finding-block { border: 1px solid rgba(31,31,31,0.08); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+    .finding-row { display: flex; border-bottom: 1px solid rgba(31,31,31,0.07); }
+    .finding-row:last-child { border-bottom: none; }
+    .finding-tag { font-family: var(--font-ui); font-size: 12px; font-weight: 500; color: rgba(31,31,31,0.65); width: 160px; flex-shrink: 0; padding: 0.75rem 1rem; background: rgba(31,31,31,0.03); border-right: 1px solid rgba(31,31,31,0.07); display: flex; align-items: flex-start; justify-content: flex-end; text-align: right; line-height: 1.4; }
+    .finding-body { font-family: var(--font-body); font-size: 13px; color: rgba(31,31,31,0.65); line-height: 1.6; padding: 0.75rem 1rem; }
+    .finding-block--padded { border: 1px solid rgba(31,31,31,0.08); border-radius: 8px; padding: 1.25rem; margin: 1.25rem 0; }
+    .finding-block--padded .finding-row { border: none; border-bottom: 1px solid rgba(31,31,31,0.07); padding: 0.75rem 0; gap: 12px; align-items: flex-start; }
+    .finding-block--padded .finding-row:first-child { padding-top: 0; }
+    .finding-block--padded .finding-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .finding-block--padded .finding-tag { background: none; border: none; padding: 0; padding-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; width: 160px; flex-shrink: 0; justify-content: flex-end; text-align: right; }
+    .finding-block--padded .finding-body { padding: 0; }
+
+    /* ── Sprint block ── */
+    .sprint-block { border: 1px solid rgba(31,31,31,0.08); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+    .sprint-row { display: flex; border-bottom: 1px solid rgba(31,31,31,0.07); }
+    .sprint-row:last-child { border-bottom: none; }
+    .sprint-label { font-family: var(--font-ui); font-size: 12px; font-weight: 500; color: rgba(31,31,31,0.65); width: 160px; flex-shrink: 0; padding: 0.75rem 1rem; background: rgba(31,31,31,0.03); border-right: 1px solid rgba(31,31,31,0.07); display: flex; align-items: flex-start; justify-content: flex-end; text-align: right; }
+    .sprint-body { font-family: var(--font-body); font-size: 13px; color: rgba(31,31,31,0.65); line-height: 1.6; padding: 0.75rem 1rem; }
+
+    /* ── Alumni cards (Marketo mentorship) ── */
+    .alumni-row { display: flex; gap: 12px; margin: 1.5rem 0; flex-wrap: wrap; }
+    .alumni-card { border: 1px solid rgba(31,31,31,0.08); border-radius: 8px; padding: 0.875rem 1rem; background: #fff; flex: 1; min-width: 140px; }
+    .alumni-co { font-family: var(--font-ui); font-size: 14px; font-weight: 500; color: #1f1f1f; margin-bottom: 3px; }
+    .alumni-role { font-family: var(--font-body); font-size: 12px; color: rgba(31,31,31,0.65); }
+
+    /* ── cs-tradeoff aliases ── */
+    .cs-tradeoff-label { font-family: var(--font-ui); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(31,31,31,0.65); margin-bottom: 6px; }
+    .cs-tradeoff-card.chosen .cs-tradeoff-label { color: #2563eb; }
+    .cs-tradeoff-title { font-family: var(--font-ui); font-size: 14px; font-weight: 500; color: #1f1f1f; margin-bottom: 6px; }
+    .cs-tradeoff-card.chosen .cs-tradeoff-title { color: #1d4ed8; }
+    .cs-tradeoff-body { font-family: var(--font-body); font-size: 13px; color: rgba(31,31,31,0.65); line-height: 1.6; }
+
+    /* ── cs-callout problem variant ── */
+    .cs-callout--problem { background: #fff7ed; border-left-color: #ea580c; }
+
+    @media (max-width: 680px) {
+      .workflow-step { width: 100px; }
+      .workflow-tag { display: none; }
+      .finding-tag { width: 100px; }
+      .sprint-label { width: 100px; }
+      .finding-block--padded .finding-tag { width: 100px; }
+    }
+
     /* Fit button */
     .fit-btn-wrap { margin-bottom: 32px; }
     .fit-btn {
@@ -1026,6 +1087,22 @@
     .cs-tc-label { color: rgba(255,255,255,0.45); }
     .cs-tc-title { color: var(--white); }
     .cs-tc-body { color: rgba(255,255,255,0.6); }
+    .cd-closer { border-top-color: rgba(255,255,255,0.08); }
+    .cd-closer .cd-body { color: rgba(255,255,255,0.45); }
+    .workflow-block, .finding-block, .finding-block--padded, .sprint-block { border-color: rgba(255,255,255,0.08); }
+    .workflow-row, .finding-row, .sprint-row { border-bottom-color: rgba(255,255,255,0.07); }
+    .workflow-step, .finding-tag, .sprint-label { background: rgba(255,255,255,0.03); border-right-color: rgba(255,255,255,0.07); color: rgba(255,255,255,0.45); }
+    .workflow-body, .finding-body, .sprint-body { color: rgba(255,255,255,0.6); }
+    .finding-block--padded .finding-row { border-bottom-color: rgba(255,255,255,0.07); }
+    .tag-gone { background: rgba(190,18,60,0.15); color: #fca5a5; border-color: rgba(190,18,60,0.25); }
+    .tag-kept { background: rgba(22,163,74,0.15); color: #86efac; border-color: rgba(22,163,74,0.25); }
+    .alumni-card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+    .alumni-co { color: var(--white); }
+    .alumni-role { color: rgba(255,255,255,0.5); }
+    .cs-tradeoff-label { color: rgba(255,255,255,0.45); }
+    .cs-tradeoff-title { color: var(--white); }
+    .cs-tradeoff-body { color: rgba(255,255,255,0.6); }
+    .cs-callout--problem { background: rgba(234,88,12,0.1); border-left-color: #ea580c; }
     .cd-reframe-from { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.07); color: rgba(255,255,255,0.35); }
     .cd-reframe-to { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); color: var(--white); }
     .cd-reframe-label { opacity: 0.35; }
