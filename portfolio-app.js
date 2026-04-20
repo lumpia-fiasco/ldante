@@ -366,7 +366,17 @@ function setupPortfolio(role) {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.mob-tab').forEach(t => t.classList.remove('mob-tab--active'));
       tab.classList.add('mob-tab--active');
-      if (tab.dataset.tab === 'fit') openFitPanel();
+      if (tab.dataset.tab === 'fit') {
+        openFitPanel();
+      } else if (tab.dataset.tab === 'work') {
+        // Close fit/detail panels and return to the case list
+        document.getElementById('fitPanel').classList.remove('active');
+        document.getElementById('caseDetailPanel').classList.remove('active');
+        document.getElementById('recruiterPanel').classList.remove('active');
+        document.getElementById('caseListPanel').classList.remove('hidden');
+        document.getElementById('caseListPanel').scrollTop = 0;
+        returnPanel = 'caseListPanel';
+      }
     });
   });
 
