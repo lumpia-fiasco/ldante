@@ -2384,8 +2384,8 @@ function renderAssessResult(data) {
         ${logoSrc ? `<img src="${logoSrc}" alt="${escapeHTML(caseData.company)}" class="case-card-logo${isWhite ? ' logo-white' : ''}">` : ''}
         <div class="case-card-content">
           <p class="case-company">${escapeHTML(caseData.company)}</p>
-          <h3 class="case-title-h">${escapeHTML(caseData.title)}</h3>
-          <p class="case-desc-h">${escapeHTML(caseData.intro.slice(0, 110))}...</p>
+          <h3 class="case-title-h">${escapeHTML(caseData.headline || caseData.title)}</h3>
+          <p class="case-desc-h">${escapeHTML((caseData.intro || '').slice(0, 110))}...</p>
         </div>
       </div>`;
     card.addEventListener('click', () => openCase(id));
@@ -2490,7 +2490,8 @@ function setupContextMenu() {
 
 // ── Helpers ──────────────────────────────────────────────────────
 function escapeHTML(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&quot;');
+  if (str == null) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&quot;');
 }
 
 // ── Init ─────────────────────────────────────────────────────────
