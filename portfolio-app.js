@@ -350,6 +350,19 @@ function setupPortfolio(role) {
   document.getElementById('caseBackBtn').addEventListener('click', () => closeDetail());
   document.getElementById('fitBackBtn').addEventListener('click', () => closeDetail());
 
+  // Recruiter panel → back to experience selector (role picker)
+  document.getElementById('rpToSelector').addEventListener('click', () => {
+    showScreen('screenLanding');
+  });
+
+  // Hiring manager panel → switch to recruiter view
+  document.getElementById('hmToRecruiter').addEventListener('click', () => {
+    document.getElementById('caseListPanel').classList.add('hidden');
+    document.getElementById('recruiterPanel').classList.add('active');
+    document.getElementById('recruiterPanel').scrollTop = 0;
+    setupRecruiterPanel();
+  });
+
   // Fit button in case detail (delegated)
   document.getElementById('caseDetailContent').addEventListener('click', e => {
     if (e.target.closest('.fit-btn')) openFitPanel();
@@ -2148,7 +2161,8 @@ function setupRecruiterPanel() {
   const clearBtn = document.getElementById('recruiterFitClearBtn');
   const errEl    = document.getElementById('recruiterFitError');
   const result   = document.getElementById('rpResult');
-  if (!ta) return;
+  if (!ta || ta.dataset.rpReady) return;
+  ta.dataset.rpReady = '1';
 
   ta.addEventListener('input', () => {
     counter.textContent = ta.value.length;

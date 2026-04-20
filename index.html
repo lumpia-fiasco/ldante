@@ -492,6 +492,20 @@
     }
     .back-btn:hover { transform: translateX(-5px); }
 
+    /* ── View-switch links (top of recruiter / HM panels) ── */
+    .view-switch-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--font-ui); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      background: none; border: none; cursor: pointer; padding: 0;
+      margin-bottom: 36px; transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .view-switch-link:hover { opacity: 1 !important; }
+    .view-switch-link--back  { color: rgba(31,31,31,0.38); }
+    .view-switch-link--back:hover  { transform: translateX(-4px); }
+    .view-switch-link--fwd   { color: rgba(31,31,31,0.38); }
+    .view-switch-link--fwd:hover   { transform: translateX(4px); }
+
     /* ── About section ── */
     .about-section { max-width: 860px; margin-bottom: 44px; }
     .about-title {
@@ -1049,6 +1063,9 @@
       box-shadow: 0 12px 20px 8px var(--bg);
     }
     .back-btn:hover { color: var(--white); }
+    /* HM panel is dark — override view-switch-link colors */
+    #caseListPanel .view-switch-link--fwd { color: rgba(255,255,255,0.3); }
+    #caseListPanel .view-switch-link--fwd:hover { color: rgba(255,255,255,0.75); }
 
     /* Case detail */
     #caseDetailPanel { background: var(--bg); }
@@ -1272,6 +1289,11 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
       <div class="panel" id="caseListPanel">
         <div style="max-width:1400px;margin:0 auto">
 
+          <button class="view-switch-link view-switch-link--fwd" id="hmToRecruiter" aria-label="Switch to recruiter view">
+            Recruiter view
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
           <section class="about-section" aria-labelledby="aboutTitle">
             <h2 class="about-title" id="aboutTitle">Brass Tacks</h2>
             <p class="about-lede">Over 10 years designing where complex systems and real user need overlap on the Venn diagram. Marketo, Upwork, Meroxa, Teamshares, T-Mobile.</p>
@@ -1483,6 +1505,11 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
 
       <!-- Panel C: recruiter -->
       <div class="panel" id="recruiterPanel">
+
+        <button class="view-switch-link view-switch-link--back" id="rpToSelector" aria-label="Back to experience selector">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Experience selector
+        </button>
 
         <!-- Header: logo + bio -->
         <div class="rp-header">
