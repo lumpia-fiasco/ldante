@@ -10,6 +10,7 @@ const TAILORED = {
   lattice: {
     greeting: "Hello, Lattice team.",
     body: "I'm Dante. I'm a Product Designer with over a decade building the tools people use to do their best work. Lattice sits exactly at the intersection I love -- complex systems, real human needs, and the org-level trust that makes or breaks both.",
+    jd: "Staff Product Designer — Core UI\nLattice\n\nDesign and evolve Lattice's design system as a Staff Product Designer on the Core UI team. Lead cross-product design patterns, build scalable and responsive component systems, and drive cohesion across Lattice's product suite. Requires deep systems thinking, front-end fluency (CSS, HTML, React), experience governing design systems at scale, and mentorship of other designers. B2B SaaS, complex workflows, platform-level impact.",
   },
   netflix: {
     greeting: "Hello, Netflix team.",
@@ -18,24 +19,39 @@ const TAILORED = {
   rippling: {
     greeting: "Hello, Rippling team.",
     body: "I'm Dante. I've spent my career at the seam between HR, finance, and the infrastructure underneath them. Rippling is building exactly the unified layer that I've seen teams struggle to assemble from parts -- and I want to help design it.",
+    jd: "Product Design Lead, Finance\nRippling\n\nSet the vision for Rippling's Spend Management Platform and drive it from concept to shipped reality. Lead design for cards, expenses, bill pay, procurement, travel, and reporting. Create experiences that feel effortless for employees and powerful enough for global finance teams. Define patterns that scale from one-person startup to 10,000-person company.\n\n6–8+ years shipping complex, high-impact products. Portfolio showing ambiguous problems turned into simple workflows. Strong interaction and visual design craft. Relentless customer focus. Excellent communication and storytelling. Track record with Product and Engineering in fast-moving environments.",
   },
   five9: {
     greeting: "Hello, Five9 team.",
     body: "I'm Dante. I've spent years building complex, data-rich applications for power users. Design systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.",
+    jd: "Senior Product Designer\nFive9\n\nShape the user experience of Five9's cloud contact center platform, advocating for Agent, Supervisor, and Admin personas. Lead design from concept to launch for complex, data-rich applications. Contribute to and maintain the design system, ensuring consistency across all products. Drive the \"one platform\" strategy to create a seamless, integrated experience. Mentor other designers.\n\n5+ years on complex, data-rich applications. Proficiency in Figma, Sketch, Adobe. Web and mobile design principles. User research and usability testing. Strong communication and collaboration.",
   },
   twitch: {
     greeting: "Hello, Twitch team.",
     body: "I'm Dante. I've designed for dual-persona platforms -- products that only work when both sides feel served. That tension is familiar to me. Creators need tools that get out of the way; viewers need immersion. Both truths have to coexist.",
+    jd: "Senior Product Designer\nTwitch\n\nDesign for content discovery and engagement experiences on Twitch. Hands-on research, close collaboration with engineers, PMs, and designers. Think creatively about sustaining streamer communities. Give back to the design community by using and improving existing patterns. Mentor junior designers.\n\n5+ years UX design. Content discovery and engagement. Interaction design and visual craft. Prototyping mobile experiences. Impact product strategy. Empathy for users. Figma expertise. Desirable: AI workflows, content creator or UGC platform experience, design systems knowledge.",
   },
   circle: {
     greeting: "Hello, Circle team.",
     body: "I'm Dante. Trust is the hardest thing to design for. I've worked on payroll, hiring infrastructure, and data pipelines -- all places where a single confusing moment can cost someone money, a job, or credibility. That's the design problem Circle lives in.",
+    jd: "Lead Product Designer\nCircle\n\nOwn end-to-end design for currency, treasury, and payments solutions. Apply systems thinking to craft intuitive, scalable experiences serving thousands of businesses and millions of end users globally. Partner with Product and Engineering to define high-impact problem spaces. Drive cross-functional alignment on problem definition and solution strategy.\n\n7+ years UX/product design. Complex, high-impact product experiences. Strong systems thinking across interconnected product areas. Research and data-informed decisions. Experience with complex workflows, service design, enterprise-grade products.",
   },
   rivian: {
     greeting: "Hello, Rivian team.",
     body: "I'm Dante. I believe the moment a brand story becomes a transaction is one of the most fragile in product design. I've designed for B2B buyers, individual creators, and small business owners -- and the best commerce flows I've seen treat the story and the checkout as one thing.",
+    jd: "Product Designer, Digital Studio\nRivian\n\nCreate customer-facing experiences on Rivian's website with a focus on product stories and commerce flows. Design the end-to-end user experience from brand discovery through product comprehension through multi-step purchase. Work across narrative storytelling and transactional checkout experiences. Contribute to and stretch the design system.\n\n5–7+ years product design with web expertise. 2+ years e-commerce. Deep knowledge of commerce and checkout flows. Experience localizing DTC purchase experiences across domestic and global geographies. Strong visual design and experience design craft.",
   },
 };
+
+// ── JD prefill helper ─────────────────────────────────────────
+function prefillFitJD(text) {
+  ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+    const ta = document.getElementById(id);
+    if (!ta) return;
+    ta.value = text;
+    ta.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+}
 
 const GENERAL_GREETING = "So glad you made it.";
 const GENERAL_BODY = "I'm Dante. I'm a Product Designer with over a decade of experience specializing in B2B/SaaS and devops tools. If we drew a Venn diagram of complex systems, and real user needs -- I operate where the two overlap.";
@@ -364,6 +380,11 @@ function setupPortfolio(role) {
       if (t === 'fit') openFitPanel();
     });
   });
+
+  // JD prefill if entering via a tailored experience link
+  const _ref = (new URLSearchParams(window.location.search).get('ref') || '').toLowerCase();
+  const _tailored = TAILORED[_ref];
+  if (_tailored && _tailored.jd) prefillFitJD(_tailored.jd);
 
   // Toast hint
   setTimeout(() => {
@@ -923,14 +944,28 @@ WHERE HE IS A WEAKER OR UNKNOWN FIT (use these to argue MODERATE or WEAK MATCH):
 
 // ── Recruiter panel ─────────────────────────────────────────────
 function setupRecruiterPanel() {
-  const ta      = document.getElementById('recruiterFitTextarea');
-  const counter = document.getElementById('recruiterFitCharCount');
-  const btn     = document.getElementById('recruiterFitAssessBtn');
-  const errEl   = document.getElementById('recruiterFitError');
-  const result  = document.getElementById('rpResult');
+  const ta       = document.getElementById('recruiterFitTextarea');
+  const counter  = document.getElementById('recruiterFitCharCount');
+  const btn      = document.getElementById('recruiterFitAssessBtn');
+  const clearBtn = document.getElementById('recruiterFitClearBtn');
+  const errEl    = document.getElementById('recruiterFitError');
+  const result   = document.getElementById('rpResult');
   if (!ta) return;
 
-  ta.addEventListener('input', () => { counter.textContent = ta.value.length; });
+  ta.addEventListener('input', () => {
+    counter.textContent = ta.value.length;
+    if (clearBtn) clearBtn.hidden = ta.value.length === 0;
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      ta.value = '';
+      counter.textContent = '0';
+      clearBtn.hidden = true;
+      errEl.hidden = true;
+      result.hidden = true;
+    });
+  }
 
   btn.addEventListener('click', async () => {
     const jd = ta.value.trim();
@@ -1085,14 +1120,29 @@ function renderRecruiterResult(text) {
 
 function setupFitPanel() {
   // Main fit panel only (recruiter fit now handled by setupRecruiterPanel)
-  const fitTA    = document.getElementById('fitTextarea');
-  const fitCount = document.getElementById('fitCharCount');
-  const fitBtn   = document.getElementById('fitAssessBtn');
-  const fitErr   = document.getElementById('fitError');
-  const fitRes   = document.getElementById('fitResults');
+  const fitTA      = document.getElementById('fitTextarea');
+  const fitCount   = document.getElementById('fitCharCount');
+  const fitBtn     = document.getElementById('fitAssessBtn');
+  const fitClear   = document.getElementById('fitClearBtn');
+  const fitErr     = document.getElementById('fitError');
+  const fitRes     = document.getElementById('fitResults');
   if (!fitTA) return;
 
-  fitTA.addEventListener('input', () => { fitCount.textContent = fitTA.value.length; });
+  fitTA.addEventListener('input', () => {
+    fitCount.textContent = fitTA.value.length;
+    if (fitClear) fitClear.hidden = fitTA.value.length === 0;
+  });
+
+  if (fitClear) {
+    fitClear.addEventListener('click', () => {
+      fitTA.value = '';
+      fitCount.textContent = '0';
+      fitClear.hidden = true;
+      fitErr.hidden = true;
+      fitRes.hidden = true;
+    });
+  }
+
   fitBtn.addEventListener('click', () => runFitAssess(fitTA.value, fitRes, fitErr, fitBtn));
 }
 
