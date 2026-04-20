@@ -975,30 +975,32 @@ function setupRecruiterPanel() {
     const jd = ta.value.trim();
     if (!jd) return;
 
-    if (!window.claude) {
-      errEl.textContent = 'Fit assessment requires Claude. Open this page through Claude Code.';
-      errEl.hidden = false;
-      return;
-    }
-
     const origText = btn.textContent;
     btn.textContent = 'Assessing...';
     btn.disabled = true;
     errEl.hidden = true;
     result.hidden = true;
+
     try {
-      const raw = await window.claude.complete({
-        messages: [{
-          role: 'user',
-          content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nCompare Dante's experience against this job description and give an accurate fit verdict.\n\nSCORING:\n- VERY STRONG MATCH: Near-perfect. His specific past work is a direct answer to what the JD is asking for. He's done this exact type of work.\n- STRONG MATCH: His experience maps well to the core requirements. Domain, platform type, and user base are familiar territory.\n- GOOD MATCH: Solid overlap on the main requirements, but some secondary requirements are outside his primary experience.\n- MODERATE MATCH: Real gaps exist — an unfamiliar domain, a platform type he hasn't focused on, or key requirements he can't directly demonstrate.\n- WEAK MATCH: The role primarily requires things outside his background — managing a team, native mobile, consumer gaming/social/entertainment, or an industry he has no track record in.\n\nFormat your response EXACTLY as:\n\nVERDICT: [VERY STRONG MATCH / STRONG MATCH / GOOD MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct sentence about fit. No filler.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another]\n- [Another]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with, or 'None identified']\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
-        }]
+      const res = await fetch('/api/assess', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: jd }),
       });
-      const text = typeof raw === 'string' ? raw : (raw && (raw.content || raw.completion)) || '';
-      if (!text) throw new Error('Empty response');
-      renderRecruiterResult(text);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `HTTP ${res.status}`);
+      }
+      const data = await res.json();
+      if (!data.isJobDescription) {
+        errEl.textContent = "That doesn't look like a job description. Try pasting the text directly.";
+        errEl.hidden = false;
+        return;
+      }
+      renderAssessResult(data);
     } catch(e) {
       console.error('Fit assessment error:', e);
-      errEl.textContent = 'Assessment failed — ' + (e.message || 'unknown error');
+      errEl.textContent = e.message || 'Assessment failed. Try again.';
       errEl.hidden = false;
     } finally {
       btn.textContent = origText;
@@ -1126,6 +1128,73 @@ function renderRecruiterResult(text) {
 
   result.hidden = false;
   // Scroll to result smoothly
+  setTimeout(() => result.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+}
+
+function renderAssessResult(data) {
+  const result       = document.getElementById('rpResult');
+  const pill         = document.getElementById('rpResultPill');
+  const summaryEl    = document.getElementById('rpResultSummary');
+  const strengthList = document.getElementById('rpStrengthList');
+  const discussList  = document.getElementById('rpDiscussList');
+  const recCards     = document.getElementById('rpRecCards');
+
+  const LEVEL = {
+    strong:  { label: 'STRONG MATCH',   cls: '' },
+    good:    { label: 'GOOD MATCH',     cls: 'good' },
+    partial: { label: 'MODERATE MATCH', cls: 'moderate' },
+    low:     { label: 'WEAK MATCH',     cls: 'weak' },
+  };
+  const level = LEVEL[data.fitLevel] || { label: 'MATCH', cls: '' };
+  pill.textContent = level.label;
+  pill.className = 'rp-result-pill' + (level.cls ? ' ' + level.cls : '');
+
+  summaryEl.textContent = data.fitHeadline || '';
+
+  strengthList.innerHTML = '';
+  (data.strengths || []).forEach(s => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="rp-icon">&#x2705;</span><span>${escapeHTML(s)}</span>`;
+    strengthList.appendChild(li);
+  });
+
+  discussList.innerHTML = '';
+  (data.considerations || []).forEach(c => {
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="rp-icon">&#x26A0;&#xFE0F;</span><span>${escapeHTML(c)}</span>`;
+    discussList.appendChild(li);
+  });
+
+  recCards.innerHTML = '';
+  (data.suggestedCases || []).forEach(id => {
+    const caseData = CASES[id];
+    if (!caseData) return;
+    const srcEl    = document.querySelector(`#caseStack .case-item[data-case="${id}"] .case-card-logo`);
+    const logoSrc  = srcEl ? srcEl.getAttribute('src') : '';
+    const isWhite  = srcEl ? srcEl.classList.contains('logo-white') : false;
+    const itemEl   = document.querySelector(`#caseStack .case-item[data-case="${id}"]`);
+    const cardColor = itemEl ? itemEl.style.getPropertyValue('--card-color') : '#1f1f1f';
+    const card = document.createElement('div');
+    card.className = 'rp-rec-card';
+    card.style.setProperty('--card-color', cardColor);
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.innerHTML = `
+      <div class="case-card-v">
+        <span class="case-study-badge">Case Study</span>
+        ${logoSrc ? `<img src="${logoSrc}" alt="${escapeHTML(caseData.company)}" class="case-card-logo${isWhite ? ' logo-white' : ''}">` : ''}
+        <div class="case-card-content">
+          <p class="case-company">${escapeHTML(caseData.company)}</p>
+          <h3 class="case-title-h">${escapeHTML(caseData.title)}</h3>
+          <p class="case-desc-h">${escapeHTML(caseData.intro.slice(0, 110))}...</p>
+        </div>
+      </div>`;
+    card.addEventListener('click', () => openCase(id));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter') openCase(id); });
+    recCards.appendChild(card);
+  });
+
+  result.hidden = false;
   setTimeout(() => result.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
 }
 
