@@ -1086,7 +1086,7 @@ function renderRecruiterResult(text) {
   if (discussMatch) {
     discussMatch[1].split('\n').filter(l => l.trim().startsWith('-')).forEach(line => {
       const li = document.createElement('li');
-      li.innerHTML = `<span class="rp-icon">&#x26A0;&#xFE0F;</span><span>${escapeHTML(line.replace(/^-\s*/, ''))}</span>`;
+      li.innerHTML = `<span class="rp-icon">&#x25CF;</span><span>${escapeHTML(line.replace(/^-\s*/, ''))}</span>`;
       discussList.appendChild(li);
     });
   }
@@ -1161,7 +1161,7 @@ function renderAssessResult(data) {
   discussList.innerHTML = '';
   (data.considerations || []).forEach(c => {
     const li = document.createElement('li');
-    li.innerHTML = `<span class="rp-icon">&#x26A0;&#xFE0F;</span><span>${escapeHTML(c)}</span>`;
+    li.innerHTML = `<span class="rp-icon">&#x25CF;</span><span>${escapeHTML(c)}</span>`;
     discussList.appendChild(li);
   });
 
