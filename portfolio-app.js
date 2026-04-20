@@ -946,11 +946,6 @@ function setupRecruiterPanel() {
     }
   });
 
-  // Case card clicks
-  document.querySelectorAll('#rpCards .rp-card[data-case]').forEach(el => {
-    el.addEventListener('click', () => openCase(el.dataset.case));
-    el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCase(el.dataset.case); });
-  });
 }
 
 // ── Hiring manager tile filter ───────────────────────────────────
