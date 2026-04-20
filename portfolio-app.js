@@ -1970,8 +1970,11 @@ function openCase(id) {
   content.classList.add('content-entering');
   document.getElementById('caseDetailPanel').classList.add('active');
   document.getElementById('caseDetailPanel').scrollTop = 0;
-  // Lazy-load images in freshly rendered content
-  if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
+  // Resolve any lazy images injected into the new content
+  content.querySelectorAll('img[data-lazy-src]').forEach(img => {
+    img.src = img.dataset.lazySrc;
+    delete img.dataset.lazySrc;
+  });
 }
 
 function buildCaseHTML(d) {
@@ -2085,7 +2088,10 @@ function openThought(id) {
   }
 
   content.innerHTML = html;
-  if (window._setupLazyImagesIn) window._setupLazyImagesIn(content);
+  content.querySelectorAll('img[data-lazy-src]').forEach(img => {
+    img.src = img.dataset.lazySrc;
+    delete img.dataset.lazySrc;
+  });
   content.classList.remove('content-entering');
   void content.offsetWidth;
   content.classList.add('content-entering');
