@@ -276,6 +276,9 @@ function setupGateFloat(resetBtn) {
 
 // ── Landing (role picker) ───────────────────────────────────────
 function setupLanding() {
+  if (landingReady) return;
+  landingReady = true;
+
   // Determine if tailored
   const params = new URLSearchParams(window.location.search);
   const ref = params.get('ref') || params.get('company') || '';
@@ -308,6 +311,7 @@ function setupLanding() {
 }
 
 // ── Portfolio ───────────────────────────────────────────────────
+let landingReady  = false;
 let portfolioReady = false;
 let returnPanel = 'caseListPanel'; // which panel to go back to when closing detail
 
@@ -351,8 +355,14 @@ function setupPortfolio(role) {
   document.getElementById('fitBackBtn').addEventListener('click', () => closeDetail());
 
   // Both panels → back to experience selector (role picker)
-  document.getElementById('rpToSelector').addEventListener('click', () => showScreen('screenLanding'));
-  document.getElementById('hmToSelector').addEventListener('click', () => showScreen('screenLanding'));
+  document.getElementById('rpToSelector').addEventListener('click', () => {
+    showScreen('screenLanding', 'down');
+    setupLanding();
+  });
+  document.getElementById('hmToSelector').addEventListener('click', () => {
+    showScreen('screenLanding', 'down');
+    setupLanding();
+  });
 
   // Fit button in case detail (delegated)
   document.getElementById('caseDetailContent').addEventListener('click', e => {
