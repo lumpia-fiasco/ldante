@@ -896,13 +896,30 @@ function openThought(id) {
 }
 
 // ── Fit panel ────────────────────────────────────────────────────
-const DANTE_CONTEXT = `You are helping evaluate L Dante Guarin as a product design candidate.
+const DANTE_CONTEXT = `You are an objective third-party reviewer assessing whether L Dante Guarin is a fit for a given role. Be direct and honest. Do not flatter. Do not default to positivity. If there are genuine gaps, name them plainly.
 
-Background: L Dante Guarin is a Principal Product Designer with 13+ years of experience.
-Key experience: Marketo/Adobe (design system: Sky, contributed patterns to Adobe Spectrum), Upwork, Teamshares (payroll reporting, ATS for 90+ companies), Meroxa (data observability pivot), T-Mobile.
-Strengths: B2B/SaaS design systems, developer tools, complex data-heavy products, AI-integrated tools, discovery research that drives strategy.
-Differentiators: Has designed for dual-persona platforms, data pipelines, financial infrastructure, and led product design through an acquisition.
-Location: Irvine, CA.`;
+WHO HE IS:
+Principal Product Designer, 13+ years. IC contributor — not a people manager, not looking to manage a team. Based in Irvine, CA. His depth is web-based product design; not native mobile.
+
+WHERE HE GENUINELY FITS (use these to argue STRONG MATCH):
+- B2B / SaaS product design — this is his entire career
+- Design systems at scale: founded Sky at Marketo/Adobe, 50+ components, patterns contributed upstream to Adobe Spectrum
+- Complex data-heavy tools and dashboards (Teamshares payroll reporting, Meroxa observability platform)
+- Financial infrastructure and HR tech (payroll, ATS, employee ownership workflows)
+- Developer tooling and data pipeline products
+- Discovery research that reshapes product strategy, not just validates it
+- Dual-persona platform design (operators + admins, creators + consumers, engineers + stakeholders)
+- IC design leadership at scale — has been the only or lead designer on multiple 0-to-1 products
+
+WHERE HE IS A WEAKER OR UNKNOWN FIT (use these to argue MODERATE or WEAK MATCH):
+- Consumer social, entertainment, gaming — no direct experience in these domains
+- People management / design leadership roles — he is an IC and wants to stay one
+- Native mobile-first products (iOS/Android) — his portfolio is web and responsive; no deep native work
+- Healthcare, government, education, non-profit — limited or no domain exposure
+- Pure e-commerce, retail, DTC consumer — not his background
+- Brand design, marketing design, motion design — product design only
+- B2C at consumer scale — Upwork and T-Mobile are the closest, but his real depth is enterprise B2B
+- Roles that require specific unlisted skills (AR/VR, game UI, etc.)`;
 
 // ── Recruiter panel ─────────────────────────────────────────────
 function setupRecruiterPanel() {
@@ -929,11 +946,11 @@ function setupRecruiterPanel() {
         raw = await window.claude.complete({
           messages: [{
             role: 'user',
-            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nProvide a structured fit assessment. Format your response EXACTLY as:\n\nVERDICT: [STRONG MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One bold declarative sentence about overall fit]\n\nSTRENGTHS:\n- [strength 1]\n- [strength 2]\n- [strength 3]\n\nWORTH DISCUSSING:\n- [consideration 1]\n- [consideration 2]\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
+            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nAssess this role honestly against Dante's profile. Do not default to positivity. Name gaps directly.\n\nSCORING GUIDE:\n- STRONG MATCH: His specific experience maps directly to the core requirements. Domain, platform, and user type align closely. He could contribute immediately.\n- MODERATE MATCH: Transferable skills exist but meaningful gaps are present — domain mismatch, missing platform experience, or significant unknowns. Worth a conversation, not an obvious hire.\n- WEAK MATCH: The role requires things he hasn't done — wrong domain, people management, mobile-native depth, or an industry he has no track record in.\n\nWhen in doubt between two verdicts, choose the lower one. Only use STRONG MATCH when it genuinely applies.\n\nFormat your response EXACTLY as:\n\nVERDICT: [STRONG MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct, unspun sentence about fit. No filler. No padding.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another direct match]\n- [Another direct match]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with]\n- [Another gap, or 'None identified' if genuinely none]\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
           }]
         });
       } else {
-        raw = "VERDICT: STRONG MATCH\n\nSUMMARY: Dante's system-first thinking, solo lead experience, and engineering fluency make him an ideal fit for this principled, collaborative design model.\n\nSTRENGTHS:\n- System-first problem framing across Teamshares, Meroxa, and Marketo aligns with first-principles design thinking\n- Solo design leadership at scale (ATS 0-1, Meroxa principal role) matches a lean, no-management structure\n- Design system expertise (Marketo Sky, 50+ components, contributed upstream to Adobe Spectrum)\n- Cross-functional roadmap influence via user research demonstrated throughout his career\n\nWORTH DISCUSSING:\n- Confirm visual design craft matches the role's quality bar\n- Confirm remote-first arrangement works for Dante\n\nRECOMMENDED CASES: teamshares-ats, marketo-sky, meroxa";
+        raw = "VERDICT: MODERATE MATCH\n\nSUMMARY: Strong B2B and design systems background, but domain alignment depends on how much this role leans into enterprise vs. consumer.\n\nSTRENGTHS:\n- 13+ years of B2B/SaaS product design across complex, data-heavy tools\n- Design systems depth: founded Sky at Marketo/Adobe, 50+ components, contributed to Adobe Spectrum\n- Solo IC leadership at scale — has been the lead or only designer on multiple 0-to-1 products\n\nGAPS:\n- Paste the actual job description to get an accurate assessment\n- Domain fit can't be determined without knowing the role's focus area\n\nRECOMMENDED CASES: teamshares-ats, marketo-sky, meroxa";
       }
       const text = typeof raw === 'string' ? raw : (raw.content || raw.completion || '');
       renderRecruiterResult(text);
@@ -1001,11 +1018,11 @@ function renderRecruiterResult(text) {
   else if (/WEAK/i.test(verdict)) pill.classList.add('weak');
 
   // Summary
-  const summaryMatch = text.match(/SUMMARY:\s*([\s\S]+?)(?=\n\nSTRENGTHS|\n\nWORTH|\n\nRECOMMENDED|$)/i);
+  const summaryMatch = text.match(/SUMMARY:\s*([\s\S]+?)(?=\n\nSTRENGTHS|\n\nGAPS|\n\nRECOMMENDED|$)/i);
   summaryEl.textContent = summaryMatch ? summaryMatch[1].trim() : '';
 
   // Strengths
-  const strengthMatch = text.match(/STRENGTHS:\s*([\s\S]+?)(?=\n\nWORTH|\n\nRECOMMENDED|$)/i);
+  const strengthMatch = text.match(/STRENGTHS:\s*([\s\S]+?)(?=\n\nGAPS|\n\nRECOMMENDED|$)/i);
   strengthList.innerHTML = '';
   if (strengthMatch) {
     strengthMatch[1].split('\n').filter(l => l.trim().startsWith('-')).forEach(line => {
@@ -1015,13 +1032,13 @@ function renderRecruiterResult(text) {
     });
   }
 
-  // Worth discussing
-  const discussMatch = text.match(/WORTH DISCUSSING:\s*([\s\S]+?)(?=\n\nRECOMMENDED|$)/i);
+  // Gaps
+  const discussMatch = text.match(/GAPS:\s*([\s\S]+?)(?=\n\nRECOMMENDED|$)/i);
   discussList.innerHTML = '';
   if (discussMatch) {
     discussMatch[1].split('\n').filter(l => l.trim().startsWith('-')).forEach(line => {
       const li = document.createElement('li');
-      li.innerHTML = `<span class="rp-icon">&#x1F4AC;</span><span>${escapeHTML(line.replace(/^-\s*/, ''))}</span>`;
+      li.innerHTML = `<span class="rp-icon">&#x26A0;&#xFE0F;</span><span>${escapeHTML(line.replace(/^-\s*/, ''))}</span>`;
       discussList.appendChild(li);
     });
   }
