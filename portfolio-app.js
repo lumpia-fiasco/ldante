@@ -974,27 +974,31 @@ function setupRecruiterPanel() {
   btn.addEventListener('click', async () => {
     const jd = ta.value.trim();
     if (!jd) return;
+
+    if (!window.claude) {
+      errEl.textContent = 'Fit assessment requires Claude. Open this page through Claude Code.';
+      errEl.hidden = false;
+      return;
+    }
+
     const origText = btn.textContent;
     btn.textContent = 'Assessing...';
     btn.disabled = true;
     errEl.hidden = true;
     result.hidden = true;
     try {
-      let raw;
-      if (window.claude) {
-        raw = await window.claude.complete({
-          messages: [{
-            role: 'user',
-            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nCompare Dante's experience against this job description and give an accurate fit verdict.\n\nSCORING:\n- VERY STRONG MATCH: Near-perfect. His specific past work is a direct answer to what the JD is asking for. He's done this exact type of work.\n- STRONG MATCH: His experience maps well to the core requirements. Domain, platform type, and user base are familiar territory.\n- GOOD MATCH: Solid overlap on the main requirements, but some secondary requirements are outside his primary experience.\n- MODERATE MATCH: Real gaps exist — an unfamiliar domain, a platform type he hasn't focused on, or key requirements he can't directly demonstrate.\n- WEAK MATCH: The role primarily requires things outside his background — managing a team, native mobile, consumer gaming/social/entertainment, or an industry he has no track record in.\n\nFormat your response EXACTLY as:\n\nVERDICT: [VERY STRONG MATCH / STRONG MATCH / GOOD MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct sentence about fit. No filler.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another]\n- [Another]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with, or 'None identified']\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
-          }]
-        });
-      } else {
-        throw new Error('AI not available');
-      }
-      const text = typeof raw === 'string' ? raw : (raw.content || raw.completion || '');
+      const raw = await window.claude.complete({
+        messages: [{
+          role: 'user',
+          content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nCompare Dante's experience against this job description and give an accurate fit verdict.\n\nSCORING:\n- VERY STRONG MATCH: Near-perfect. His specific past work is a direct answer to what the JD is asking for. He's done this exact type of work.\n- STRONG MATCH: His experience maps well to the core requirements. Domain, platform type, and user base are familiar territory.\n- GOOD MATCH: Solid overlap on the main requirements, but some secondary requirements are outside his primary experience.\n- MODERATE MATCH: Real gaps exist — an unfamiliar domain, a platform type he hasn't focused on, or key requirements he can't directly demonstrate.\n- WEAK MATCH: The role primarily requires things outside his background — managing a team, native mobile, consumer gaming/social/entertainment, or an industry he has no track record in.\n\nFormat your response EXACTLY as:\n\nVERDICT: [VERY STRONG MATCH / STRONG MATCH / GOOD MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One direct sentence about fit. No filler.]\n\nSTRENGTHS:\n- [Specific JD requirement he directly meets]\n- [Another]\n- [Another]\n\nGAPS:\n- [Specific requirement from the JD he lacks or has limited experience with, or 'None identified']\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
+        }]
+      });
+      const text = typeof raw === 'string' ? raw : (raw && (raw.content || raw.completion)) || '';
+      if (!text) throw new Error('Empty response');
       renderRecruiterResult(text);
     } catch(e) {
-      errEl.textContent = 'Assessment failed. Please try again.';
+      console.error('Fit assessment error:', e);
+      errEl.textContent = 'Assessment failed — ' + (e.message || 'unknown error');
       errEl.hidden = false;
     } finally {
       btn.textContent = origText;
