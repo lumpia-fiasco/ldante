@@ -315,12 +315,9 @@ function setupPortfolio(role) {
   if (portfolioReady) return;
   portfolioReady = true;
 
-  // ── Recruiter: full-width, no chat rail ──
+  // ── Recruiter ──
   if (role === 'recruiter') {
-    const chatRail = document.getElementById('chatRail');
-    if (chatRail) chatRail.style.display = 'none';
     document.getElementById('recruiterPanel').classList.add('active');
-    // Wire recruiter panel events
     setupRecruiterPanel();
   }
 
@@ -358,26 +355,18 @@ function setupPortfolio(role) {
     if (e.target.closest('.fit-btn')) openFitPanel();
   });
 
-  // Chat rail
-  setupChatRail(role);
-
   // Fit panels
   setupFitPanel();
 
   // Context menu
   setupContextMenu();
 
-  // Show recruiter view if role === recruiter — now handled above via setupRecruiterPanel()
-  // (no-op kept for safety)
-
   // Mobile tabs
   document.querySelectorAll('.mob-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.mob-tab').forEach(t => t.classList.remove('mob-tab--active'));
       tab.classList.add('mob-tab--active');
-      const t = tab.dataset.tab;
-      document.getElementById('chatRail').classList.toggle('mob-active', t === 'chat');
-      if (t === 'fit') openFitPanel();
+      if (tab.dataset.tab === 'fit') openFitPanel();
     });
   });
 
@@ -1258,131 +1247,6 @@ async function runFitAssess(jd, resultsEl, errorEl, btn) {
   }
 }
 
-// ── Fit panel ────────────────────────────────────────────────────
-let userName = '';
-let chatHistory = [];
-
-function setupChatRail(role) {
-  const nameInput  = document.getElementById('nameInput');
-  const nameSend   = document.getElementById('nameSendBtn');
-  const namePrompt = document.getElementById('railNamePrompt');
-  const convo      = document.getElementById('railConvo');
-  const convoInner = document.getElementById('convoInner');
-  const chatInput  = document.getElementById('chatInput');
-  const chatSend   = document.getElementById('chatSendBtn');
-  const inputRow   = document.getElementById('chatInputRow');
-
-  function submitName() {
-    const val = nameInput.value.trim();
-    if (!val) return;
-    userName = val;
-    namePrompt.classList.add('exiting');
-    setTimeout(() => {
-      namePrompt.style.display = 'none';
-      convo.classList.add('active');
-      inputRow.classList.add('visible');
-      // Initial greeting
-      addDanteMessage(`Hey ${userName}. What do you want to know?`);
-    }, 350);
-  }
-
-  nameSend.addEventListener('click', submitName);
-  nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitName(); });
-
-  function sendChat() {
-    const val = chatInput.value.trim();
-    if (!val) return;
-    chatInput.value = '';
-    addUserMessage(val);
-    streamDanteResponse(val, convoInner);
-  }
-
-  chatSend.addEventListener('click', sendChat);
-  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
-}
-
-function addUserMessage(text) {
-  const convoInner = document.getElementById('convoInner');
-  const msg = document.createElement('div');
-  msg.className = 'msg msg--user visible';
-  msg.innerHTML = `<div class="msg-bubble"><span class="msg-text">${escapeHTML(text)}</span></div>`;
-  convoInner.appendChild(msg);
-  chatHistory.push({ role: 'user', content: text });
-  scrollConvo();
-}
-
-function addDanteMessage(text) {
-  const convoInner = document.getElementById('convoInner');
-  const msg = document.createElement('div');
-  msg.className = 'msg visible';
-  msg.innerHTML = `
-    <img class="msg-avatar" src="https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/profile.png" alt="Dante">
-    <div class="msg-bubble"><span class="msg-text">${text}</span></div>`;
-  convoInner.appendChild(msg);
-  chatHistory.push({ role: 'assistant', content: text });
-  scrollConvo();
-}
-
-function addTypingIndicator() {
-  const convoInner = document.getElementById('convoInner');
-  const msg = document.createElement('div');
-  msg.className = 'msg typing';
-  msg.id = 'typingMsg';
-  msg.innerHTML = `
-    <img class="msg-avatar" src="https://raw.githubusercontent.com/lumpia-fiasco/ldante/main/assets/profile.png" alt="Dante">
-    <div class="msg-bubble">
-      <div class="msg-dot-wrap"><span></span><span></span><span></span></div>
-      <span class="msg-text"></span>
-    </div>`;
-  convoInner.appendChild(msg);
-  scrollConvo();
-  return msg;
-}
-
-async function streamDanteResponse(question, convoInner) {
-  const typing = addTypingIndicator();
-
-  const SYSTEM = `You are L Dante Guarin -- a Principal Product Designer based in Irvine, CA.
-You have 13+ years of experience in B2B/SaaS and developer tools. You've worked at Marketo/Adobe (built the Sky design system, contributed to Adobe Spectrum), Upwork, Teamshares (payroll + ATS for 90+ companies), Meroxa (data observability), and T-Mobile.
-You're currently talking to ${userName || 'a visitor'} who is on your portfolio site.
-You speak directly, with confidence and a bit of warmth. You don't over-explain. You're honest about trade-offs.
-Keep responses conversational and under 4 sentences unless the question genuinely needs more.`;
-
-  try {
-    const messages = [
-      ...chatHistory.slice(-10),
-      { role: 'user', content: question }
-    ];
-
-    let response;
-    if (window.claude) {
-      response = await window.claude.complete({
-        messages: [{ role: 'user', content: `${SYSTEM}\n\nUser: ${question}\n\nRespond as Dante:` }]
-      });
-    } else {
-      response = "That's a great question. I'd be happy to talk through it on a call -- book a 30-minute slot at tidycal.com/ldante.";
-    }
-
-    const text = typeof response === 'string' ? response : (response.content || response.completion || '');
-    typing.classList.remove('typing');
-    typing.querySelector('.msg-text').textContent = text;
-    typing.classList.add('visible');
-    typing.removeAttribute('id');
-    chatHistory.push({ role: 'assistant', content: text });
-    scrollConvo();
-  } catch(e) {
-    typing.classList.remove('typing');
-    typing.querySelector('.msg-text').textContent = 'Something went sideways on my end. Try again?';
-    typing.classList.add('visible');
-    typing.removeAttribute('id');
-    scrollConvo();
-  }
-}
-
-function scrollConvo() {
-  const convo = document.getElementById('railConvo');
-  requestAnimationFrame(() => { convo.scrollTop = convo.scrollHeight; });
-}
 
 // ── Context menu ─────────────────────────────────────────────────
 function setupContextMenu() {
