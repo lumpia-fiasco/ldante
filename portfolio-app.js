@@ -11,9 +11,17 @@ const TAILORED = {
     greeting: "Hello, Lattice team.",
     body: "I'm Dante. I'm a Product Designer with over a decade building the tools people use to do their best work. Lattice sits exactly at the intersection I love -- complex systems, real human needs, and the org-level trust that makes or breaks both.",
   },
+  netflix: {
+    greeting: "Hello, Netflix team.",
+    body: "I'm Dante. A decade shipping complex products across ambiguous domains. I hold the product together when the rules haven't been written yet -- and I thrive where the problem space is still being defined.",
+  },
   rippling: {
     greeting: "Hello, Rippling team.",
     body: "I'm Dante. I've spent my career at the seam between HR, finance, and the infrastructure underneath them. Rippling is building exactly the unified layer that I've seen teams struggle to assemble from parts -- and I want to help design it.",
+  },
+  five9: {
+    greeting: "Hello, Five9 team.",
+    body: "I'm Dante. I've spent years building complex, data-rich applications for power users. Design systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.",
   },
   twitch: {
     greeting: "Hello, Twitch team.",
@@ -31,21 +39,6 @@ const TAILORED = {
 
 const GENERAL_GREETING = "So glad you made it.";
 const GENERAL_BODY = "I'm Dante. I'm a Product Designer with over a decade of experience specializing in B2B/SaaS and devops tools. If we drew a Venn diagram of complex systems, and real user needs -- I operate where the two overlap.";
-
-// ── Password ───────────────────────────────────────────────────
-// Default password unlocks the general experience
-const PASSWORD = 'NOPASSWORD';
-
-// Company-specific passwords each unlock a tailored landing.
-// Key = password the visitor types, Value = key in TAILORED config.
-const COMPANY_PASSWORDS = {
-  'lattice':  'lattice',
-  'rippling': 'rippling',
-  'twitch':   'twitch',
-  'circle':   'circle',
-  'rivian':   'rivian',
-  // Add more: 'secretword': 'companykey'
-};
 
 // ── Screen manager ─────────────────────────────────────────────
 let currentScreen = 'gate';
@@ -69,43 +62,71 @@ function showScreen(id, direction = 'up') {
 
 // ── Gate logic ─────────────────────────────────────────────────
 function setupGate() {
-  const input  = document.getElementById('gatePwInput');
-  const btn    = document.getElementById('gateGoBtn');
-  const row    = document.getElementById('gateInputRow');
-  const errEl  = document.getElementById('gateError');
+  const input    = document.getElementById('gatePwInput');
+  const btn      = document.getElementById('gateGoBtn');
+  const row      = document.getElementById('gateInputRow');
+  const errEl    = document.getElementById('gateError');
   const resetBtn = document.getElementById('resetBtn');
 
-  function tryUnlock() {
-    const val = input.value.trim();
-    // Check company-specific passwords first
-    const companyKey = COMPANY_PASSWORDS[val.toLowerCase()];
-    if (companyKey) {
-      input.blur();
-      // Inject ref param so setupLanding picks up the tailored config
-      const url = new URL(window.location.href);
-      url.searchParams.set('ref', companyKey);
-      window.history.replaceState({}, '', url);
-      showScreen('screenLanding');
-      setupLanding();
-      return;
-    }
-    // General password
-    if (!PASSWORD || val === PASSWORD) {
-      input.blur();
-      showScreen('screenLanding');
-      setupLanding();
+  function showShake() {
+    row.classList.remove('shake');
+    void row.offsetWidth;
+    row.classList.add('shake');
+    errEl.classList.add('visible');
+    input.value = '';
+    setTimeout(() => errEl.classList.remove('visible'), 2500);
+  }
+
+  function advanceToLanding(experience) {
+    input.blur();
+    try {
+      localStorage.setItem('ldg-auth', '1');
+      localStorage.setItem('ldg-experience', experience || 'standard');
+    } catch(e) {}
+    // Pass experience as ?ref= so setupLanding picks up the tailored config
+    const url = new URL(window.location.href);
+    if (experience && experience !== 'standard') {
+      url.searchParams.set('ref', experience);
     } else {
-      row.classList.remove('shake');
-      void row.offsetWidth;
-      row.classList.add('shake');
-      errEl.classList.add('visible');
-      input.value = '';
-      setTimeout(() => errEl.classList.remove('visible'), 2500);
+      url.searchParams.delete('ref');
+    }
+    window.history.replaceState({}, '', url);
+    showScreen('screenLanding');
+    setupLanding();
+  }
+
+  async function tryUnlock(password) {
+    const val = (password || input.value).trim();
+    if (!val) return;
+    btn.disabled = true;
+    try {
+      const res  = await fetch('/api/auth', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ password: val }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        advanceToLanding(data.experience);
+      } else {
+        showShake();
+      }
+    } catch {
+      showShake();
+    } finally {
+      btn.disabled = false;
     }
   }
 
-  btn.addEventListener('click', tryUnlock);
+  btn.addEventListener('click', () => tryUnlock());
   input.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+
+  // Auto-unlock from ?p= URL param (direct share links)
+  const urlPw = new URLSearchParams(window.location.search).get('p');
+  if (urlPw) {
+    window.history.replaceState({}, '', window.location.pathname);
+    tryUnlock(urlPw);
+  }
 
   // Float letters on gate hero
   setupGateFloat(resetBtn);
@@ -1062,24 +1083,32 @@ function escapeHTML(str) {
 document.addEventListener('DOMContentLoaded', () => {
   setupGate();
 
-  // Check if password is empty → skip gate
-  if (!PASSWORD) {
-    setTimeout(() => {
-      showScreen('screenLanding');
-      setupLanding();
-    }, 100);
-  }
-
-  // Restore previous session
+  // Restore a previous authenticated session
   try {
+    const hasAuth   = localStorage.getItem('ldg-auth') === '1';
+    const savedExp  = localStorage.getItem('ldg-experience') || '';
     const savedScreen = localStorage.getItem('ldg-screen');
     const savedRole   = localStorage.getItem('ldg-role');
-    // Only restore to portfolio if we have a role
-    if (savedScreen === 'screenPortfolio' && savedRole && !PASSWORD) {
-      setTimeout(() => {
-        showScreen('screenPortfolio');
-        setupPortfolio(savedRole);
-      }, 150);
+
+    if (hasAuth) {
+      // Re-inject the ref param so setupLanding resolves the right config
+      const url = new URL(window.location.href);
+      if (savedExp && savedExp !== 'standard') {
+        url.searchParams.set('ref', savedExp);
+      }
+      window.history.replaceState({}, '', url);
+
+      if (savedScreen === 'screenPortfolio' && savedRole) {
+        setTimeout(() => {
+          showScreen('screenPortfolio');
+          setupPortfolio(savedRole);
+        }, 150);
+      } else {
+        setTimeout(() => {
+          showScreen('screenLanding');
+          setupLanding();
+        }, 100);
+      }
     }
   } catch(e) {}
 });
