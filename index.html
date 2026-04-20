@@ -501,8 +501,10 @@
       margin-bottom: 36px; transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
     }
     .view-switch-link:hover { opacity: 1 !important; }
-    .view-switch-link--back  { color: rgba(31,31,31,0.38); }
-    .view-switch-link--back:hover  { transform: translateX(-4px); }
+    .view-switch-link--back  { color: rgba(255,255,255,0.35); }
+    .view-switch-link--back:hover  { color: rgba(255,255,255,0.7); transform: translateX(-4px); }
+    .view-switch-link--rp    { color: rgba(31,31,31,0.35); }
+    .view-switch-link--rp:hover    { color: rgba(31,31,31,0.7); transform: translateX(-4px); }
     .view-switch-link--fwd   { color: rgba(31,31,31,0.38); }
     .view-switch-link--fwd:hover   { transform: translateX(4px); }
 
@@ -1063,9 +1065,7 @@
       box-shadow: 0 12px 20px 8px var(--bg);
     }
     .back-btn:hover { color: var(--white); }
-    /* HM panel is dark — override view-switch-link colors */
-    #caseListPanel .view-switch-link--fwd { color: rgba(255,255,255,0.3); }
-    #caseListPanel .view-switch-link--fwd:hover { color: rgba(255,255,255,0.75); }
+    /* HM panel is dark — .view-switch-link--back already uses white at 0.35 opacity */
 
     /* Case detail */
     #caseDetailPanel { background: var(--bg); }
@@ -1289,9 +1289,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
       <div class="panel" id="caseListPanel">
         <div style="max-width:1400px;margin:0 auto">
 
-          <button class="view-switch-link view-switch-link--fwd" id="hmToRecruiter" aria-label="Switch to recruiter view">
-            Recruiter view
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <button class="view-switch-link view-switch-link--back" id="hmToSelector" aria-label="Select your experience">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Select your experience
           </button>
 
           <section class="about-section" aria-labelledby="aboutTitle">
@@ -1506,9 +1506,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
       <!-- Panel C: recruiter -->
       <div class="panel" id="recruiterPanel">
 
-        <button class="view-switch-link view-switch-link--back" id="rpToSelector" aria-label="Back to experience selector">
+        <button class="view-switch-link view-switch-link--rp" id="rpToSelector" aria-label="Select your experience">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Experience selector
+          Select your experience
         </button>
 
         <!-- Header: logo + bio -->

@@ -350,18 +350,9 @@ function setupPortfolio(role) {
   document.getElementById('caseBackBtn').addEventListener('click', () => closeDetail());
   document.getElementById('fitBackBtn').addEventListener('click', () => closeDetail());
 
-  // Recruiter panel → back to experience selector (role picker)
-  document.getElementById('rpToSelector').addEventListener('click', () => {
-    showScreen('screenLanding');
-  });
-
-  // Hiring manager panel → switch to recruiter view
-  document.getElementById('hmToRecruiter').addEventListener('click', () => {
-    document.getElementById('caseListPanel').classList.add('hidden');
-    document.getElementById('recruiterPanel').classList.add('active');
-    document.getElementById('recruiterPanel').scrollTop = 0;
-    setupRecruiterPanel();
-  });
+  // Both panels → back to experience selector (role picker)
+  document.getElementById('rpToSelector').addEventListener('click', () => showScreen('screenLanding'));
+  document.getElementById('hmToSelector').addEventListener('click', () => showScreen('screenLanding'));
 
   // Fit button in case detail (delegated)
   document.getElementById('caseDetailContent').addEventListener('click', e => {
