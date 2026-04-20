@@ -1033,21 +1033,28 @@ function renderRecruiterResult(text) {
     recMatch[1].split(',').map(s => s.trim()).filter(Boolean).forEach(id => {
       const data = CASES[id];
       if (!data) return;
-      const companyClass = id.startsWith('teamshares') ? 'rp-rec-card--teamshares'
-                         : id.startsWith('marketo')    ? 'rp-rec-card--marketo'
-                         : id === 'meroxa'             ? 'rp-rec-card--meroxa'
-                         : '';
+      // Pull logo src and card color from the matching case-item already in the DOM
+      const srcEl  = document.querySelector(`#caseStack .case-item[data-case="${id}"] .case-card-logo`);
+      const logoSrc = srcEl ? srcEl.getAttribute('src') : '';
+      const isWhiteLogo = srcEl ? srcEl.classList.contains('logo-white') : false;
+      const itemEl  = document.querySelector(`#caseStack .case-item[data-case="${id}"]`);
+      const cardColor = itemEl ? itemEl.style.getPropertyValue('--card-color') : '#1f1f1f';
+
       const card = document.createElement('div');
-      card.className = `rp-rec-card ${companyClass}`.trim();
+      card.className = 'rp-rec-card';
+      card.style.setProperty('--card-color', cardColor);
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
       card.innerHTML = `
-        <div class="rp-rec-card-top">
-          <span class="rp-rec-card-company">${escapeHTML(data.company.toUpperCase())}</span>
-          <span class="rp-rec-card-badge">CASE STUDY</span>
-        </div>
-        <h3 class="rp-rec-card-title">${escapeHTML(data.title)}</h3>
-        <p class="rp-rec-card-desc">${escapeHTML(data.intro.slice(0, 110))}...</p>`;
+        <div class="case-card-v">
+          <span class="case-study-badge">Case Study</span>
+          ${logoSrc ? `<img src="${logoSrc}" alt="${escapeHTML(data.company)}" class="case-card-logo${isWhiteLogo ? ' logo-white' : ''}">` : ''}
+          <div class="case-card-content">
+            <p class="case-company">${escapeHTML(data.company)}</p>
+            <h3 class="case-title-h">${escapeHTML(data.title)}</h3>
+            <p class="case-desc-h">${escapeHTML(data.intro.slice(0, 110))}...</p>
+          </div>
+        </div>`;
       card.addEventListener('click', () => openCase(id));
       card.addEventListener('keydown', e => { if (e.key === 'Enter') openCase(id); });
       recCards.appendChild(card);
