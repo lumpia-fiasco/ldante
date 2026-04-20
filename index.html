@@ -589,7 +589,7 @@
       opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
       display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
     }
-    .thought-tile--pov .thought-tile-badge { z-index: 2; position: absolute; top: 16px; left: 16px; }
+    .thought-tile--pov .thought-tile-badge { z-index: 2; right: 12px; left: auto; }
     @media (hover:hover) {
       .thought-tile--pov .thought-tile-overlay { opacity: 1; }
       .thought-tile--pov:hover .thought-tile-pov-bg { filter: brightness(1.15); }
@@ -769,9 +769,12 @@
       margin-bottom: clamp(40px,5vw,56px);
     }
     .rp-card {
-      background: rgb(50,70,86); border-radius: 8px; padding: 24px;
+      background: rgb(30,30,36); border-radius: 8px; padding: 24px;
       cursor: pointer; transition: transform 0.25s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.2s;
     }
+    .rp-card--teamshares { background: rgb(15,28,54); }
+    .rp-card--meroxa     { background: rgb(8,44,56); }
+    .rp-card--marketo    { background: rgb(90,28,28); }
     .rp-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
     .rp-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
     .rp-card-brand { display: flex; flex-direction: column; gap: 8px; }
@@ -845,9 +848,12 @@
     .rp-strength-list li .rp-icon, .rp-discuss-list li .rp-icon { flex-shrink: 0; font-size: 1.5rem; line-height: 1; }
     .rp-rec-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 16px; }
     .rp-rec-card {
-      background: rgb(97,43,43); border-radius: 8px; padding: 24px;
+      background: rgb(30,30,36); border-radius: 8px; padding: 24px;
       cursor: pointer; transition: transform 0.25s cubic-bezier(0.34,1.4,0.64,1);
     }
+    .rp-rec-card--teamshares { background: rgb(15,28,54); }
+    .rp-rec-card--meroxa     { background: rgb(8,44,56); }
+    .rp-rec-card--marketo    { background: rgb(90,28,28); }
     .rp-rec-card:hover { transform: translateY(-4px) scale(1.02); }
     .rp-rec-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
     .rp-rec-card-company { font-family: var(--font-body); font-size: 0.75rem; color: var(--white); letter-spacing: -0.02em; }
@@ -1388,7 +1394,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
 
         <!-- Case cards row -->
         <div class="rp-cards" id="rpCards">
-          <div class="rp-card" data-case="teamshares-payroll" role="button" tabindex="0">
+          <div class="rp-card rp-card--teamshares" data-case="teamshares-payroll" role="button" tabindex="0">
             <div class="rp-card-top">
               <div class="rp-card-brand">
                 <svg width="36" height="36" viewBox="0 0 32.516 32.284" fill="white" style="flex-shrink:0"><path d="M 32.516 32.25 L 20.721 32.284 L 20.721 11.712 L 0 11.712 L 0.034 0 L 32.516 0 L 32.516 32.25 Z"/></svg>
@@ -1399,7 +1405,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <h3 class="rp-card-title">Payroll reporting</h3>
             <p class="rp-card-desc">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
           </div>
-          <div class="rp-card" data-case="teamshares-ats" role="button" tabindex="0">
+          <div class="rp-card rp-card--teamshares" data-case="teamshares-ats" role="button" tabindex="0">
             <div class="rp-card-top">
               <div class="rp-card-brand">
                 <svg width="36" height="36" viewBox="0 0 32.516 32.284" fill="white" style="flex-shrink:0"><path d="M 32.516 32.25 L 20.721 32.284 L 20.721 11.712 L 0 11.712 L 0.034 0 L 32.516 0 L 32.516 32.25 Z"/></svg>
@@ -1410,7 +1416,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <h3 class="rp-card-title">A hiring engine for a company of companies</h3>
             <p class="rp-card-desc">Reframing a recruiting tool into talent pipeline infrastructure for 90+ acquired businesses.</p>
           </div>
-          <div class="rp-card" data-case="meroxa" role="button" tabindex="0">
+          <div class="rp-card rp-card--meroxa" data-case="meroxa" role="button" tabindex="0">
             <div class="rp-card-top">
               <div class="rp-card-brand">
                 <svg width="36" height="36" viewBox="60 200 180 160" fill="white" style="flex-shrink:0"><path d="M124.656 171.083C108.46 172.454 96.6712 175.615 84.012 181.936C73.9352 186.971 65.739 192.789 57.5989 200.705C48.7571 209.32 42.5538 217.711 37.0803 228.536C31.2981 240.032 27.9017 251.472 26.3579 264.759C25.8807 268.787 25.8807 282.269 26.3579 286.297C29.1367 310.436 38.9609 331.358 55.4656 348.225C67.4512 360.504 81.0647 369.119 96.8958 374.49C108.488 378.434 118.341 380 131.252 380C139.673 379.972 143.996 379.58 151.182 378.154C160.557 376.308 168.163 373.734 177.005 369.371C187.812 364.084 195.447 358.714 203.896 350.49C237.214 311.471 261.072 282.436 261.634 281.262C263.374 277.709 263.402 273.458 261.69 269.849C254.813 260.759 237.522 239.724 213.411 210.634C207.011 203.418 200.443 197.068 196.906 194.243C181.188 181.656 163.083 174.076 142.901 171.587C139.589 171.195 127.435 170.831 124.656 171.083ZM140.515 211.893C153.455 213.935 165.413 219.697 174.844 228.452C210.772 271.332 211.446 272.675 211.53 275.556C211.446 278.381 210.688 279.835 173.44 323.89C160.641 334.855 145.203 340.337 128.726 339.777C102.06 333.008 84.4892 320.114 66.3565 273.29C66.8898 259.164 80.2507 235.529 96.98 220.732C122.27 211.781 140.515 211.893Z"/></svg>

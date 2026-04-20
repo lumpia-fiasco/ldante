@@ -293,6 +293,7 @@ function setupLanding() {
 
 // ── Portfolio ───────────────────────────────────────────────────
 let portfolioReady = false;
+let returnPanel = 'caseListPanel'; // which panel to go back to when closing detail
 
 function setupPortfolio(role) {
   if (portfolioReady) return;
@@ -305,6 +306,11 @@ function setupPortfolio(role) {
     document.getElementById('recruiterPanel').classList.add('active');
     // Wire recruiter panel events
     setupRecruiterPanel();
+  }
+
+  // ── Hiring manager: filter POV tiles before masonry runs ──
+  if (role === 'hiring-manager') {
+    setupHiringManagerView();
   }
 
   // Masonry layout
@@ -428,9 +434,14 @@ function setupLazyImages() {
 function closeDetail() {
   document.getElementById('caseDetailPanel').classList.remove('active');
   document.getElementById('fitPanel').classList.remove('active');
-  document.getElementById('caseListPanel').classList.remove('hidden');
-  // Reset scroll
-  document.getElementById('caseListPanel').scrollTop = 0;
+  if (returnPanel === 'recruiterPanel') {
+    document.getElementById('recruiterPanel').classList.add('active');
+    document.getElementById('recruiterPanel').scrollTop = 0;
+  } else {
+    document.getElementById('caseListPanel').classList.remove('hidden');
+    document.getElementById('caseListPanel').scrollTop = 0;
+  }
+  returnPanel = 'caseListPanel';
 }
 
 function openFitPanel() {
@@ -784,12 +795,20 @@ const THOUGHTS = {
 function openCase(id) {
   const data = CASES[id];
   if (!data) return;
+  // Track which panel to return to
+  const rPanel = document.getElementById('recruiterPanel');
+  if (rPanel && rPanel.classList.contains('active')) {
+    returnPanel = 'recruiterPanel';
+    rPanel.classList.remove('active');
+  } else {
+    returnPanel = 'caseListPanel';
+    document.getElementById('caseListPanel').classList.add('hidden');
+  }
   const content = document.getElementById('caseDetailContent');
   content.innerHTML = buildCaseHTML(data);
   content.classList.remove('content-entering');
   void content.offsetWidth;
   content.classList.add('content-entering');
-  document.getElementById('caseListPanel').classList.add('hidden');
   document.getElementById('caseDetailPanel').classList.add('active');
   document.getElementById('caseDetailPanel').scrollTop = 0;
   // Reinit lazy images in new content
@@ -852,6 +871,15 @@ function buildCaseHTML(d) {
 function openThought(id) {
   const data = THOUGHTS[id];
   if (!data) return;
+  // Track which panel to return to
+  const rPanel = document.getElementById('recruiterPanel');
+  if (rPanel && rPanel.classList.contains('active')) {
+    returnPanel = 'recruiterPanel';
+    rPanel.classList.remove('active');
+  } else {
+    returnPanel = 'caseListPanel';
+    document.getElementById('caseListPanel').classList.add('hidden');
+  }
   const content = document.getElementById('caseDetailContent');
   let html = '';
   if (data.img) html += `<div style="width:calc(100% + 120px);margin-left:-60px;margin-bottom:40px;overflow:hidden"><img src="${data.img}" style="width:100%;display:block;height:auto" alt=""></div>`;
@@ -863,7 +891,6 @@ function openThought(id) {
   content.classList.remove('content-entering');
   void content.offsetWidth;
   content.classList.add('content-entering');
-  document.getElementById('caseListPanel').classList.add('hidden');
   document.getElementById('caseDetailPanel').classList.add('active');
   document.getElementById('caseDetailPanel').scrollTop = 0;
 }
@@ -902,11 +929,11 @@ function setupRecruiterPanel() {
         raw = await window.claude.complete({
           messages: [{
             role: 'user',
-            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nProvide a structured fit assessment. Format your response EXACTLY as:\n\nVERDICT: [STRONG MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One bold declarative sentence about overall fit]\n\nSTRENGTHS:\n- [strength 1]\n- [strength 2]\n- [strength 3]\n\nWORTH DISCUSSING:\n- [consideration 1]\n- [consideration 2]\n\nRECOMMENDED CASES: [comma-separated from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa]`
+            content: `${DANTE_CONTEXT}\n\nJob description:\n${jd}\n\nProvide a structured fit assessment. Format your response EXACTLY as:\n\nVERDICT: [STRONG MATCH / MODERATE MATCH / WEAK MATCH]\n\nSUMMARY: [One bold declarative sentence about overall fit]\n\nSTRENGTHS:\n- [strength 1]\n- [strength 2]\n- [strength 3]\n\nWORTH DISCUSSING:\n- [consideration 1]\n- [consideration 2]\n\nRECOMMENDED CASES: [exactly 3 comma-separated IDs chosen from: teamshares-payroll, teamshares-ats, marketo-sky, marketo-migration, meroxa — pick the 3 most relevant to this role]`
           }]
         });
       } else {
-        raw = "VERDICT: STRONG MATCH\n\nSUMMARY: Dante's system-first thinking, solo lead experience, and engineering fluency make him an ideal fit for this principled, collaborative design model.\n\nSTRENGTHS:\n- System-first problem framing across Teamshares, Meroxa, and Marketo aligns with first-principles design thinking\n- Solo design leadership at scale (ATS 0-1, Meroxa principal role) matches a lean, no-management structure\n- Design system expertise (Marketo Sky, 50+ components, contributed upstream to Adobe Spectrum)\n- Cross-functional roadmap influence via user research demonstrated throughout his career\n\nWORTH DISCUSSING:\n- Confirm visual design craft matches the role's quality bar\n- Confirm remote-first arrangement works for Dante\n\nRECOMMENDED CASES: teamshares-ats, meroxa";
+        raw = "VERDICT: STRONG MATCH\n\nSUMMARY: Dante's system-first thinking, solo lead experience, and engineering fluency make him an ideal fit for this principled, collaborative design model.\n\nSTRENGTHS:\n- System-first problem framing across Teamshares, Meroxa, and Marketo aligns with first-principles design thinking\n- Solo design leadership at scale (ATS 0-1, Meroxa principal role) matches a lean, no-management structure\n- Design system expertise (Marketo Sky, 50+ components, contributed upstream to Adobe Spectrum)\n- Cross-functional roadmap influence via user research demonstrated throughout his career\n\nWORTH DISCUSSING:\n- Confirm visual design craft matches the role's quality bar\n- Confirm remote-first arrangement works for Dante\n\nRECOMMENDED CASES: teamshares-ats, marketo-sky, meroxa";
       }
       const text = typeof raw === 'string' ? raw : (raw.content || raw.completion || '');
       renderRecruiterResult(text);
@@ -924,6 +951,42 @@ function setupRecruiterPanel() {
     el.addEventListener('click', () => openCase(el.dataset.case));
     el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openCase(el.dataset.case); });
   });
+}
+
+// ── Hiring manager tile filter ───────────────────────────────────
+function setupHiringManagerView() {
+  const params = new URLSearchParams(window.location.search);
+  const ref = (params.get('ref') || params.get('company') || '').toLowerCase();
+
+  // Map experience slug → which POV thought to surface
+  const POV_MAP = {
+    lattice:  'design-systems-that-last',
+    rippling: 'financial-platforms-systems-problems',
+    twitch:   'designing-platforms-where-two-sides-need-each-other',
+    circle:   'designing-infrastructure-people-trust',
+    rivian:   'where-brand-meets-the-buy-button',
+    five9:    'designing-for-people-who-live-in-the-product',
+    netflix:  'designing-for-people-who-live-in-the-product',
+  };
+
+  const matchedId = POV_MAP[ref] || null;
+  const stack = document.getElementById('caseStack');
+  let matchedEl = null;
+
+  // Hide all POV/Perspective tiles; surface only the matched one
+  document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
+    if (!el.querySelector('.thought-tile--pov')) return; // skip non-POV tiles
+    if (matchedId && el.dataset.thought === matchedId) {
+      matchedEl = el;
+    } else {
+      el.style.display = 'none';
+    }
+  });
+
+  // Move the matched tile to be first in the stack (before case studies)
+  if (matchedEl && stack) {
+    stack.insertBefore(matchedEl, stack.firstChild);
+  }
 }
 
 function renderRecruiterResult(text) {
@@ -975,8 +1038,12 @@ function renderRecruiterResult(text) {
     recMatch[1].split(',').map(s => s.trim()).filter(Boolean).forEach(id => {
       const data = CASES[id];
       if (!data) return;
+      const companyClass = id.startsWith('teamshares') ? 'rp-rec-card--teamshares'
+                         : id.startsWith('marketo')    ? 'rp-rec-card--marketo'
+                         : id === 'meroxa'             ? 'rp-rec-card--meroxa'
+                         : '';
       const card = document.createElement('div');
-      card.className = 'rp-rec-card';
+      card.className = `rp-rec-card ${companyClass}`.trim();
       card.setAttribute('role', 'button');
       card.setAttribute('tabindex', '0');
       card.innerHTML = `
