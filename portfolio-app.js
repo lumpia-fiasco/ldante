@@ -276,9 +276,6 @@ function setupGateFloat(resetBtn) {
 
 // ── Landing (role picker) ───────────────────────────────────────
 function setupLanding() {
-  if (landingReady) return;
-  landingReady = true;
-
   // Determine if tailored
   const params = new URLSearchParams(window.location.search);
   const ref = params.get('ref') || params.get('company') || '';
@@ -292,26 +289,17 @@ function setupLanding() {
   greeting.textContent = tailored ? tailored.greeting : GENERAL_GREETING;
   bodyText.textContent = tailored ? tailored.body : GENERAL_BODY;
 
-  // Stagger in
-  blocks.forEach((b, i) => {
-    b.style.transitionDelay = `${0.05 + i * 0.12}s`;
-    setTimeout(() => b.classList.add('visible'), 80 + i * 120);
-  });
-  setTimeout(() => btns.classList.add('visible'), 500);
-
-  // Role selection
-  btns.querySelectorAll('.role-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const role = btn.dataset.role;
-      try { localStorage.setItem('ldg-role', role); } catch(e) {}
-      showScreen('screenPortfolio');
-      setupPortfolio(role);
+  // Stagger in — only run the animation if btns aren't already visible
+  if (!btns.classList.contains('visible')) {
+    blocks.forEach((b, i) => {
+      b.style.transitionDelay = `${0.05 + i * 0.12}s`;
+      setTimeout(() => b.classList.add('visible'), 80 + i * 120);
     });
-  });
+    setTimeout(() => btns.classList.add('visible'), 500);
+  }
 }
 
 // ── Portfolio ───────────────────────────────────────────────────
-let landingReady  = false;
 let portfolioReady = false;
 let returnPanel = 'caseListPanel'; // which panel to go back to when closing detail
 
@@ -2507,6 +2495,17 @@ function escapeHTML(str) {
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   setupGate();
+
+  // Role buttons — wired once at startup, always available no matter which
+  // screen the user is on when they reach the landing screen.
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const role = btn.dataset.role;
+      try { localStorage.setItem('ldg-role', role); } catch(e) {}
+      showScreen('screenPortfolio');
+      setupPortfolio(role);
+    });
+  });
 
   // Restore a previous authenticated session
   try {
