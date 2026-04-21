@@ -43,7 +43,7 @@ const TAILORED = {
   },
   machinify: {
     greeting: "Hello, Machinify team.",
-    body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and clinical document workflows at the point of care. Healthcare's complexity isn't theoretical to me. And I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
+    body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and document management at the facility level. Healthcare's complexity isn't theoretical to me. And I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
     jd: "Senior Product Designer\nMachinify\n\nDesign for Machinify's AI-powered healthcare intelligence platform serving 85+ health plans across the payment continuum. Leverage design thinking to address complex challenges. Conduct and apply UX research. Create wireframes, mockups, and prototypes for new features. Develop design specifications and documentation. Collaborate with engineering on implementation. Contribute to and maintain design systems and style guides.\n\n6+ years UX/UI in fast-paced environments. Advanced Figma proficiency. Deep understanding of UX principles, design thinking, interaction design, and usability. Experience with wireframes, user flows, mockups, and prototypes. Strong communication and cross-functional collaboration. Bonus: design systems and platform design experience.",
   },
 };
