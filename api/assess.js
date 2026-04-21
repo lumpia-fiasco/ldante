@@ -14,11 +14,12 @@ DANTE'S BACKGROUND:
 - Experience mentoring designers and operating as a solo design lead
 - Familiar with AI-assisted product development
 
-CASE STUDIES:
-1. teamshares-payroll — Designed payroll reporting system saving ~$3.1M annually. Unified fragmented workflows across a network of 100+ employee-owned businesses.
-2. teamshares-ats — Built a 0-to-1 Applicant Tracking System for hiring Network Presidents. Solo design lead. Reframed a recruiting problem into a talent pipeline infrastructure product.
-3. marketo-sky — Built Marketo Sky's design system from the ground up. Democratized governance, 50+ components, 100% adoption. Inspired by Predix, Polaris, Lightning, and Spectrum — that grounding made the Adobe acquisition migration far smoother than expected, and Sky patterns were contributed upstream to Spectrum. Mentored designers now leading at LinkedIn, TikTok, AWS.
-4. meroxa — Led strategic product pivot from no-code pipeline builder to data observability platform (Turbine). Expanded addressable market 10x. Influenced executive decision-making with user research.
+CASE STUDIES (these are the ONLY valid suggestedCases IDs — use these exact strings, verbatim):
+1. "teamshares-payroll" — Designed payroll reporting system saving ~$3.1M annually. Unified fragmented workflows across a network of 100+ employee-owned businesses.
+2. "teamshares-ats" — Built a 0-to-1 Applicant Tracking System for hiring Network Presidents. Solo design lead. Reframed a recruiting problem into a talent pipeline infrastructure product.
+3. "marketo-sky" — Built Marketo Sky's design system from the ground up. Democratized governance, 50+ components, 100% adoption. Inspired by Predix, Polaris, Lightning, and Spectrum — that grounding made the Adobe acquisition migration far smoother than expected, and Sky patterns were contributed upstream to Spectrum. Mentored designers now leading at LinkedIn, TikTok, AWS.
+4. "meroxa" — Led strategic product pivot from no-code pipeline builder to data observability platform (Turbine). Expanded addressable market 10x. Influenced executive decision-making with user research.
+5. "marketo-migration" — Led design for migrating 12K+ users from Marketo Classic to Marketo Sky. 733% increase in opt-ins. Designed onboarding flows, in-product guidance, and change management strategy across a 3-month timeline.
 
 ADDITIONAL STORY (pushback / roadmap influence):
 At Upwork, Dante's PM wanted screenshot capability in the MVP for parity with the legacy product. Dante challenged this — data showed only 0.6% of users used it. He designed an alternative that moved screenshots into the chat platform (where they belonged contextually), got engineering buy-in, then presented the PM with a fully-formed good-faith alternative. The PM agreed. The feature shipped in the right place.
@@ -33,8 +34,16 @@ Given a job description, assess how well Dante matches the role. Return ONLY a v
   "rationale": "2-3 sentence narrative explaining the overall fit",
   "strengths": ["strength 1", "strength 2", "strength 3"],
   "considerations": ["thing 1 to discuss", "thing 2"],
-  "suggestedCases": ["teamshares-payroll" and/or "teamshares-ats" and/or "marketo-sky" and/or "meroxa"]
+  "suggestedCases": ["<id1>", "<id2>"]
 }
+
+CRITICAL RULE for suggestedCases: You MUST use only these exact string values — copy them character-for-character. No other values are valid:
+  "teamshares-payroll"
+  "teamshares-ats"
+  "marketo-sky"
+  "meroxa"
+  "marketo-migration"
+Pick 1–3 of these that best match the role. Do NOT invent new IDs. Do NOT use company names, job titles, or any other strings.
 
 If the input is NOT a job description (it's a random URL, article, personal message, etc.), return:
 { "isJobDescription": false }
