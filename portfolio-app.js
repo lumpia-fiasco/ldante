@@ -2492,6 +2492,33 @@ function escapeHTML(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&quot;');
 }
 
+// ── Role switch (when portfolio already initialized) ────────────
+function switchPortfolioRole(role) {
+  try { localStorage.setItem('ldg-role', role); } catch(e) {}
+
+  const recruiterPanel  = document.getElementById('recruiterPanel');
+  const caseListPanel   = document.getElementById('caseListPanel');
+  const caseDetailPanel = document.getElementById('caseDetailPanel');
+  const fitPanel        = document.getElementById('fitPanel');
+
+  // Close any open overlapping panels
+  if (caseDetailPanel) caseDetailPanel.classList.remove('active');
+  if (fitPanel)        fitPanel.classList.remove('active');
+  returnPanel = 'caseListPanel';
+
+  if (role === 'recruiter') {
+    caseListPanel.classList.remove('hidden');
+    recruiterPanel.classList.add('active');
+    setupRecruiterPanel(); // idempotent — has its own guard
+  } else {
+    // hiring-manager
+    recruiterPanel.classList.remove('active');
+    caseListPanel.classList.remove('hidden');
+    setupHiringManagerView(); // filters POV tiles; safe to call again
+    layoutMasonry();          // re-layout after any tile visibility changes
+  }
+}
+
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   setupGate();
@@ -2503,7 +2530,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const role = btn.dataset.role;
       try { localStorage.setItem('ldg-role', role); } catch(e) {}
       showScreen('screenPortfolio');
-      setupPortfolio(role);
+      if (portfolioReady) {
+        switchPortfolioRole(role);
+      } else {
+        setupPortfolio(role);
+      }
     });
   });
 
