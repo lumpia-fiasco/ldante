@@ -2467,11 +2467,34 @@ function setupContextMenu() {
   }
   function hideMenu() { menu.classList.remove('visible'); }
 
+  // Desktop right-click
   document.addEventListener('contextmenu', e => {
     if (currentScreen !== 'screenPortfolio') return;
     e.preventDefault();
-    showMenu(e.clientX, e.clientY);
+    clearTimeout(_lpTimer);
+    _lpTimer = null;
+    showMenu(e.clientX || _touchX, e.clientY || _touchY);
   });
+
+  // Mobile long-press (500 ms)
+  let _touchX = 0, _touchY = 0, _lpTimer = null;
+
+  document.addEventListener('touchstart', e => {
+    if (currentScreen !== 'screenPortfolio') return;
+    if (e.touches.length !== 1) { clearTimeout(_lpTimer); return; }
+    _touchX = e.touches[0].clientX;
+    _touchY = e.touches[0].clientY;
+    _lpTimer = setTimeout(() => {
+      _lpTimer = null;
+      showMenu(_touchX, _touchY);
+    }, 500);
+  }, { passive: true });
+
+  const cancelLP = () => { clearTimeout(_lpTimer); _lpTimer = null; };
+  document.addEventListener('touchend',    cancelLP, { passive: true });
+  document.addEventListener('touchmove',   cancelLP, { passive: true });
+  document.addEventListener('touchcancel', cancelLP, { passive: true });
+
   document.addEventListener('click', e => {
     if (!menu.contains(e.target)) hideMenu();
   });
