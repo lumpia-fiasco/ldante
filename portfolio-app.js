@@ -1966,6 +1966,48 @@ const THOUGHTS = {
       },
     ],
   },
+
+  'when-the-platform-knows-more-than-you-do': {
+    kicker: 'Point of View',
+    title:  'When the platform knows more than you do',
+    dek: 'On AI transparency, healthcare stakes, and why the hardest design problem isn\u2019t the intelligence \u2014 it\u2019s the interface between AI confidence and human judgment.',
+    sections: [
+      {
+        paragraphs: [
+          'Healthcare is the domain where the gap between system intelligence and human trust matters most. A payment integrity platform can surface patterns across hundreds of millions of lives that no analyst could see manually. The AI is genuinely smarter than any individual user at certain tasks. The design problem is what happens at the handoff \u2014 when the platform\u2019s recommendation meets a human being who has to decide whether to act on it.',
+          'I learned the healthcare stakes early, designing patient registration, supply chain, and document management systems at MEDHOST. Errors there weren\u2019t just UX failures \u2014 they had downstream consequences in care delivery, billing, and compliance. That experience shaped how I think about any system where the cost of confusion is high.',
+        ],
+      },
+      {
+        heading: 'The AI confidence problem',
+        paragraphs: [
+          'Most AI-powered enterprise tools make the same mistake: they surface a recommendation and expect the user to either accept or ignore it. The design treats the AI as an oracle. That\u2019s a trust problem. Healthcare operators \u2014 utilization managers, payment reviewers, clinical ops teams \u2014 have seen enough edge cases to be appropriately skeptical of any automated system. They\u2019re not technophobes. They\u2019ve learned what happens when a system is wrong and nobody caught it.',
+          'The right design pattern isn\u2019t \u201ctrust the AI.\u201d It\u2019s \u201chere\u2019s what the platform found, here\u2019s why it thinks so, and here\u2019s how to verify it.\u201d Transparency about the reasoning \u2014 not just the recommendation \u2014 is what moves a tool from liability to asset.',
+        ],
+      },
+      {
+        heading: 'Visibility at the right altitude',
+        paragraphs: [
+          'Healthcare payment workflows operate at enormous scale. The AI handles the volume. What operators need is visibility at the right level of abstraction \u2014 aggregate patterns that surface anomalies, drill paths that let you investigate, and status indicators that make the system\u2019s current state unambiguous.',
+          'At Teamshares, I built a payroll reporting system for Industry Leads managing 90+ portfolio companies. The design challenge was structurally identical: enormous data volume, patterns that crossed company boundaries, and operators who needed to understand what required their attention without reviewing every transaction. The Machinify context adds AI-generated pattern detection to the same underlying problem: make the invisible visible, at the right altitude, for the right person.',
+        ],
+      },
+      {
+        heading: 'Designing for audit',
+        paragraphs: [
+          'Healthcare is one of the few domains where the decision trail matters as much as the decision. Claim denials get appealed. Utilization reviews get scrutinized. Payment adjustments carry regulatory implications. Every AI-powered recommendation needs to produce a record a human can reconstruct and defend.',
+          'This is a constraint most AI products ignore. When a platform surfaces a flag or a denial recommendation, the downstream workflow isn\u2019t just the action \u2014 it\u2019s the documentation of why. Designing for audit isn\u2019t an afterthought in healthcare. It\u2019s part of the primary workflow, and it shapes every interaction pattern.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Machinify',
+        paragraphs: [
+          'I\u2019ve designed infrastructure that operators rely on daily \u2014 payroll systems, data pipelines, document management at the facility level \u2014 where the cost of a missed state or an unclear status is real. I\u2019ve built the design systems that keep complex, multi-surface platforms coherent. And I\u2019ve learned from MEDHOST that healthcare software has different tolerances for confusion than any other domain.',
+          'The opportunity at Machinify is to design AI-powered intelligence that health plan operators actually trust \u2014 not because they\u2019re asked to, but because the interface shows its work.',
+        ],
+      },
+    ],
+  },
 };
 
 
@@ -2219,13 +2261,14 @@ function setupHiringManagerView() {
 
   // Map experience slug → which POV thought to surface
   const POV_MAP = {
-    lattice:  'design-systems-that-last',
-    rippling: 'financial-platforms-systems-problems',
-    twitch:   'designing-platforms-where-two-sides-need-each-other',
-    circle:   'designing-infrastructure-people-trust',
-    rivian:   'where-brand-meets-the-buy-button',
-    five9:    'designing-for-people-who-live-in-the-product',
-    netflix:  'designing-for-people-who-live-in-the-product',
+    lattice:   'design-systems-that-last',
+    rippling:  'financial-platforms-systems-problems',
+    twitch:    'designing-platforms-where-two-sides-need-each-other',
+    circle:    'designing-infrastructure-people-trust',
+    rivian:    'where-brand-meets-the-buy-button',
+    five9:     'designing-for-people-who-live-in-the-product',
+    netflix:   'designing-for-people-who-live-in-the-product',
+    machinify: 'when-the-platform-knows-more-than-you-do',
   };
 
   const matchedId = POV_MAP[ref] || null;
