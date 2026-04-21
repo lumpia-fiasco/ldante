@@ -1023,6 +1023,16 @@
       .back-btn { width: 100%; margin-left: 0; padding: 16px 24px 10px; }
       .recruiter-cases-grid { grid-template-columns: 1fr 1fr; }
       .cd-screenshots-row, .cd-two-col, .cd-reframe { grid-template-columns: 1fr; }
+
+      /* ── Prevent horizontal overflow ── */
+      /* panels allow overflow-y scroll but that implicitly enables overflow-x too */
+      .panel { overflow-x: hidden; }
+      /* header identity text can exceed mobile width at nowrap */
+      .header-identity { display: none; }
+      /* wide content in case studies should never escape the panel */
+      .panel img, .panel video, .panel table { max-width: 100%; }
+      /* gate/landing screens: constrain any wide inner blocks */
+      #screenGate, #screenLanding { overflow-x: hidden; }
     }
 
     /* ── Fade animations ── */
