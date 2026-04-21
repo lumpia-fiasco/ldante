@@ -2522,17 +2522,20 @@ function setupDevSwitcher() {
   const switcher = document.getElementById('devSwitcher');
   if (!switcher) return;
 
-  // Detect ?admin=ldante in URL — persist to localStorage, then strip from URL
+  // Remove any old persistent admin flag from previous builds
+  try { localStorage.removeItem('ldg-admin'); } catch(e) {}
+
+  // Detect ?admin=ldante — store in sessionStorage (tab-session only, not persistent)
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('admin') === ADMIN_KEY) {
-    try { localStorage.setItem('ldg-admin', '1'); } catch(e) {}
+    try { sessionStorage.setItem('ldg-admin', '1'); } catch(e) {}
     const clean = new URL(window.location.href);
     clean.searchParams.delete('admin');
     window.history.replaceState({}, '', clean);
   }
 
-  // Only activate if admin is stored
-  const isAdmin = localStorage.getItem('ldg-admin') === '1';
+  // Only activate if admin flag exists in this session
+  const isAdmin = sessionStorage.getItem('ldg-admin') === '1';
   if (!isAdmin) return;
 
   // Reveal the switcher
