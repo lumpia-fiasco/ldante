@@ -999,6 +999,33 @@
     .ctx-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .ctx-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 4px 8px; }
 
+    /* ── Dev ref switcher ── */
+    .dev-switcher {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      margin-top: 40px;
+      opacity: 0.2;
+      transition: opacity 0.2s;
+    }
+    .dev-switcher:hover { opacity: 1; }
+    .dev-switcher-label {
+      font-family: var(--font-ui); font-size: 10px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-right: 2px;
+    }
+    .dev-ref-btn {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 3px 10px; border-radius: 5px; cursor: pointer;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.55);
+      transition: background 0.12s, color 0.12s;
+    }
+    .dev-ref-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .dev-ref-btn.active {
+      background: var(--pink); border-color: var(--pink); color: #fff;
+    }
+
     /* ── Mobile tabs ── */
     .mob-tabs {
       display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
@@ -1262,6 +1289,19 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
     <div class="landing-btns" id="landingBtns">
       <button class="role-btn" data-role="recruiter">Recruiter</button>
       <button class="role-btn" data-role="hiring-manager">Hiring Manager / Designer</button>
+    </div>
+
+    <!-- Dev-only ref switcher — hidden from visitors, for testing tailored experiences -->
+    <div class="dev-switcher" id="devSwitcher" aria-hidden="true">
+      <span class="dev-switcher-label">ref:</span>
+      <button class="dev-ref-btn" data-ref="">general</button>
+      <button class="dev-ref-btn" data-ref="lattice">lattice</button>
+      <button class="dev-ref-btn" data-ref="netflix">netflix</button>
+      <button class="dev-ref-btn" data-ref="rippling">rippling</button>
+      <button class="dev-ref-btn" data-ref="five9">five9</button>
+      <button class="dev-ref-btn" data-ref="twitch">twitch</button>
+      <button class="dev-ref-btn" data-ref="circle">circle</button>
+      <button class="dev-ref-btn" data-ref="rivian">rivian</button>
     </div>
 
   </div>

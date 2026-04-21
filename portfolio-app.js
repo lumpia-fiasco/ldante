@@ -2515,6 +2515,41 @@ function escapeHTML(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&quot;');
 }
 
+// ── Dev ref switcher ────────────────────────────────────────────
+function setupDevSwitcher() {
+  const switcher = document.getElementById('devSwitcher');
+  if (!switcher) return;
+
+  function syncActive() {
+    const current = (new URLSearchParams(window.location.search).get('ref') || '').toLowerCase();
+    switcher.querySelectorAll('.dev-ref-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.ref === current);
+    });
+  }
+
+  switcher.querySelectorAll('.dev-ref-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ref = btn.dataset.ref;
+      const url = new URL(window.location.href);
+      if (ref) { url.searchParams.set('ref', ref); }
+      else      { url.searchParams.delete('ref'); }
+      window.history.replaceState({}, '', url);
+      try { localStorage.setItem('ldg-experience', ref || 'standard'); } catch(e) {}
+
+      syncActive();
+      setupLanding(); // refresh greeting + body copy from new ref
+
+      // If already in portfolio, also update the JD prefill
+      if (portfolioReady) {
+        const jd = ref && TAILORED[ref] ? TAILORED[ref].jd || '' : '';
+        prefillFitJD(jd);
+      }
+    });
+  });
+
+  syncActive();
+}
+
 // ── Role switch (when portfolio already initialized) ────────────
 function switchPortfolioRole(role) {
   try { localStorage.setItem('ldg-role', role); } catch(e) {}
@@ -2545,6 +2580,7 @@ function switchPortfolioRole(role) {
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   setupGate();
+  setupDevSwitcher();
 
   // Role buttons — wired once at startup, always available no matter which
   // screen the user is on when they reach the landing screen.
