@@ -2515,10 +2515,28 @@ function escapeHTML(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&quot;');
 }
 
-// ── Dev ref switcher ────────────────────────────────────────────
+// ── Dev ref switcher (admin mode only) ──────────────────────────
+const ADMIN_KEY = 'ldante';
+
 function setupDevSwitcher() {
   const switcher = document.getElementById('devSwitcher');
   if (!switcher) return;
+
+  // Detect ?admin=ldante in URL — persist to localStorage, then strip from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('admin') === ADMIN_KEY) {
+    try { localStorage.setItem('ldg-admin', '1'); } catch(e) {}
+    const clean = new URL(window.location.href);
+    clean.searchParams.delete('admin');
+    window.history.replaceState({}, '', clean);
+  }
+
+  // Only activate if admin is stored
+  const isAdmin = localStorage.getItem('ldg-admin') === '1';
+  if (!isAdmin) return;
+
+  // Reveal the switcher
+  switcher.classList.add('admin-on');
 
   function syncActive() {
     const current = (new URLSearchParams(window.location.search).get('ref') || '').toLowerCase();

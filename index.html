@@ -999,13 +999,15 @@
     .ctx-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .ctx-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 4px 8px; }
 
-    /* ── Dev ref switcher ── */
+    /* ── Dev ref switcher (admin mode only) ── */
     .dev-switcher {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+      display: none; /* hidden by default — only shown in admin mode */
+      flex-wrap: wrap; align-items: center; gap: 6px;
       margin-top: 40px;
-      opacity: 0.2;
+      opacity: 0.25;
       transition: opacity 0.2s;
     }
+    .dev-switcher.admin-on { display: flex; }
     .dev-switcher:hover { opacity: 1; }
     .dev-switcher-label {
       font-family: var(--font-ui); font-size: 10px; font-weight: 500;
