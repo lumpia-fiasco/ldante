@@ -41,6 +41,11 @@ const TAILORED = {
     body: "I'm Dante. I believe the moment a brand story becomes a transaction is one of the most fragile in product design. I've designed for B2B buyers, individual creators, and small business owners -- and the best commerce flows I've seen treat the story and the checkout as one thing.",
     jd: "Product Designer, Digital Studio\nRivian\n\nCreate customer-facing experiences on Rivian's website with a focus on product stories and commerce flows. Design the end-to-end user experience from brand discovery through product comprehension through multi-step purchase. Work across narrative storytelling and transactional checkout experiences. Contribute to and stretch the design system.\n\n5–7+ years product design with web expertise. 2+ years e-commerce. Deep knowledge of commerce and checkout flows. Experience localizing DTC purchase experiences across domestic and global geographies. Strong visual design and experience design craft.",
   },
+  weedmaps: {
+    greeting: "Hello, Weedmaps.",
+    body: "I'm Dante. I've built design systems that survived acquisitions, led pivots on two-sided platforms where both sides had to trust the same underlying product, and designed in regulated industries where every friction point gets read through a lens of doubt. Cannabis is at an inflection point — the infrastructure is maturing, and design quality is becoming the actual differentiator. That's exactly the kind of moment I'm built for.",
+    jd: "Senior Product Designer\nWeedmaps\n\nSenior Product Designers at Weedmaps are principal-level individual contributors who set the vision for design excellence across the product organization. Operate as a strategic partner to Product and Engineering leadership. Drive company-wide initiatives, define design principles and standards, and lead the most complex design challenges across Weedmaps' ecosystem. Provide strategic mentorship to Staff and Senior Designers. Influence cross-functional teams through storytelling, data, and compelling design narratives.\n\n9–12+ years product design. Exceptional portfolio demonstrating strategic impact, systems thinking, and organizational influence. Deep expertise in research, experimentation, and data-driven decisions. Extensive design systems experience. Strong B2C and/or B2B SaaS background.",
+  },
   machinify: {
     greeting: "Hello, Machinify team.",
     body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and document management at the facility level. Healthcare's complexity isn't theoretical to me. And I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
@@ -2008,6 +2013,48 @@ const THOUGHTS = {
       },
     ],
   },
+
+  'the-normalization-interface': {
+    kicker: 'Point of View',
+    title:  'The normalization interface',
+    dek: 'On designing consumer and B2B products in regulated, stigmatized categories \u2014 and why every design decision is also a positioning decision.',
+    sections: [
+      {
+        paragraphs: [
+          'Cannabis has joined a familiar club: healthcare, financial services, legal tech. Industries where users arrive already carrying weight the product didn\u2019t put there. A question that runs underneath every interaction \u2014 is this okay? is this real? can I trust this? \u2014 before anyone has touched a feature.',
+          'Design inherits that ambient anxiety. Every confusing moment feels more suspicious than it would in a neutral context. Every slow confirmation reads differently when the user is already slightly on edge. Trust isn\u2019t just desirable in these categories. It\u2019s the pre-condition for everything else the product needs to do.',
+        ],
+      },
+      {
+        heading: 'What stigma does to user behavior',
+        paragraphs: [
+          'I learned this first at MEDHOST, designing clinical software for nurses and administrators who\u2019d watched healthcare IT fail them too many times. The interface wasn\u2019t just a tool. It was a statement about whether this system was on their side. I wasn\u2019t only reducing clicks \u2014 I was trying to rebuild a relationship between a workforce and software that had burned them before.',
+          'Cannabis users carry a different skepticism, but the mechanism is identical. Anything unclear reads as suspicious. Anything slow reads as unreliable. Anything inconsistent across pages reads as unfinished \u2014 and unfinished in a stigmatized category means untrustworthy. The solution isn\u2019t only friction reduction. It\u2019s making every remaining point of friction feel intentional, like it\u2019s there to protect the user.',
+        ],
+      },
+      {
+        heading: 'The two-sided complication',
+        paragraphs: [
+          'Weedmaps is a marketplace. At minimum, two users who need to trust the platform in fundamentally different ways: the consumer who wants real products, real prices, and accurate availability; the business that wants tools worth the subscription and a platform that represents them professionally.',
+          'These trust relationships amplify each other in both directions. A consumer experience that feels cheap undermines confidence in the businesses listed there. A business tool that looks like 2013 signals something to the consumer about what kind of platform this is. The ecosystem rises or falls together. At Meroxa, I led a product redesign after a strategic pivot \u2014 one surface for data engineers, another for platform operators, both groups trusting the same underlying system for different reasons. Coherence without uniformity is the design brief.',
+        ],
+      },
+      {
+        heading: 'Design systems as institutional legitimacy',
+        paragraphs: [
+          'At Marketo, I built a design system that became more than a component library. When Adobe acquired Marketo, Sky\u2019s patterns were contributed upstream to Adobe Spectrum \u2014 not because anyone planned for an acquisition, but because a well-governed system is inherently portable and enduring. Consistency signals permanence. It communicates that the people building the product are thinking past the current sprint.',
+          'This matters more in categories still earning credibility. An inconsistent product says: we\u2019re figuring it out. A consistent one says: we\u2019ve been here, we know what we\u2019re doing, and we\u2019ll be here when you come back. For a platform that serves both consumers making personal decisions and businesses making commercial bets, that signal of permanence isn\u2019t cosmetic. It\u2019s commercial.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Weedmaps',
+        paragraphs: [
+          'I\u2019ve built design systems that outlasted the products they were built for. I\u2019ve designed for regulated industries where confusion carries real stakes. I\u2019ve led pivots on two-sided platforms where coherence across personas was the only path forward. And I\u2019ve done it as both the person setting the design direction and the person building the components that made it real.',
+          'Weedmaps is solving the right problem at the right moment \u2014 a high-stakes marketplace in a category still earning cultural legitimacy, where design quality is the differentiator. That\u2019s a problem worth showing up for.',
+        ],
+      },
+    ],
+  },
 };
 
 
@@ -2268,7 +2315,8 @@ function setupHiringManagerView() {
     rivian:    'where-brand-meets-the-buy-button',
     five9:     'designing-for-people-who-live-in-the-product',
     netflix:   'designing-for-people-who-live-in-the-product',
-    machinify: 'when-the-platform-knows-more-than-you-do',
+    machinify:  'when-the-platform-knows-more-than-you-do',
+    weedmaps:   'the-normalization-interface',
   };
 
   const matchedId = POV_MAP[ref] || null;
