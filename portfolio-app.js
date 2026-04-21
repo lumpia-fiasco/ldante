@@ -2275,6 +2275,11 @@ function setupHiringManagerView() {
   const stack = document.getElementById('caseStack');
   let matchedEl = null;
 
+  // Hide photo tiles in the HM experience
+  document.querySelectorAll('#caseStack .case-item--photo').forEach(el => {
+    el.style.display = 'none';
+  });
+
   // Hide all POV/Perspective tiles; surface only the matched one
   document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
     if (!el.querySelector('.thought-tile--pov')) return; // skip non-POV tiles
