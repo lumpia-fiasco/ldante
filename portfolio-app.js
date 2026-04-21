@@ -41,6 +41,11 @@ const TAILORED = {
     body: "I'm Dante. I believe the moment a brand story becomes a transaction is one of the most fragile in product design. I've designed for B2B buyers, individual creators, and small business owners -- and the best commerce flows I've seen treat the story and the checkout as one thing.",
     jd: "Product Designer, Digital Studio\nRivian\n\nCreate customer-facing experiences on Rivian's website with a focus on product stories and commerce flows. Design the end-to-end user experience from brand discovery through product comprehension through multi-step purchase. Work across narrative storytelling and transactional checkout experiences. Contribute to and stretch the design system.\n\n5–7+ years product design with web expertise. 2+ years e-commerce. Deep knowledge of commerce and checkout flows. Experience localizing DTC purchase experiences across domestic and global geographies. Strong visual design and experience design craft.",
   },
+  machinify: {
+    greeting: "Hello, Machinify team.",
+    body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and clinical document workflows at the point of care. Healthcare's complexity isn't theoretical to me. And I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
+    jd: "Senior Product Designer\nMachinify\n\nDesign for Machinify's AI-powered healthcare intelligence platform serving 85+ health plans across the payment continuum. Leverage design thinking to address complex challenges. Conduct and apply UX research. Create wireframes, mockups, and prototypes for new features. Develop design specifications and documentation. Collaborate with engineering on implementation. Contribute to and maintain design systems and style guides.\n\n6+ years UX/UI in fast-paced environments. Advanced Figma proficiency. Deep understanding of UX principles, design thinking, interaction design, and usability. Experience with wireframes, user flows, mockups, and prototypes. Strong communication and cross-functional collaboration. Bonus: design systems and platform design experience.",
+  },
 };
 
 // ── JD prefill helper ─────────────────────────────────────────
