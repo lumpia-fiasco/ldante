@@ -12,10 +12,6 @@ const TAILORED = {
     body: "I'm Dante. I'm a Product Designer with over a decade building the tools people use to do their best work. Lattice sits exactly at the intersection I love -- complex systems, real human needs, and the org-level trust that makes or breaks both.",
     jd: "Staff Product Designer — Core UI\nLattice\n\nDesign and evolve Lattice's design system as a Staff Product Designer on the Core UI team. Lead cross-product design patterns, build scalable and responsive component systems, and drive cohesion across Lattice's product suite. Requires deep systems thinking, front-end fluency (CSS, HTML, React), experience governing design systems at scale, and mentorship of other designers. B2B SaaS, complex workflows, platform-level impact.",
   },
-  netflix: {
-    greeting: "Hello, Netflix team.",
-    body: "I'm Dante. A decade shipping complex products across ambiguous domains. I hold the product together when the rules haven't been written yet -- and I thrive where the problem space is still being defined.",
-  },
   rippling: {
     greeting: "Hello, Rippling team.",
     body: "I'm Dante. I've spent my career at the seam between HR, finance, and the infrastructure underneath them. Rippling is building exactly the unified layer that I've seen teams struggle to assemble from parts -- and I want to help design it.",
@@ -36,11 +32,6 @@ const TAILORED = {
     body: "I'm Dante. Trust is the hardest thing to design for. I've worked on payroll, hiring infrastructure, and data pipelines -- all places where a single confusing moment can cost someone money, a job, or credibility. That's the design problem Circle lives in.",
     jd: "Lead Product Designer\nCircle\n\nOwn end-to-end design for currency, treasury, and payments solutions. Apply systems thinking to craft intuitive, scalable experiences serving thousands of businesses and millions of end users globally. Partner with Product and Engineering to define high-impact problem spaces. Drive cross-functional alignment on problem definition and solution strategy.\n\n7+ years UX/product design. Complex, high-impact product experiences. Strong systems thinking across interconnected product areas. Research and data-informed decisions. Experience with complex workflows, service design, enterprise-grade products.",
   },
-  rivian: {
-    greeting: "Hello, Rivian team.",
-    body: "I'm Dante. I believe the moment a brand story becomes a transaction is one of the most fragile in product design. I've designed for B2B buyers, individual creators, and small business owners -- and the best commerce flows I've seen treat the story and the checkout as one thing.",
-    jd: "Product Designer, Digital Studio\nRivian\n\nCreate customer-facing experiences on Rivian's website with a focus on product stories and commerce flows. Design the end-to-end user experience from brand discovery through product comprehension through multi-step purchase. Work across narrative storytelling and transactional checkout experiences. Contribute to and stretch the design system.\n\n5–7+ years product design with web expertise. 2+ years e-commerce. Deep knowledge of commerce and checkout flows. Experience localizing DTC purchase experiences across domestic and global geographies. Strong visual design and experience design craft.",
-  },
   createmusic: {
     greeting: "Hello, Create Music Group.",
     body: "I'm Dante. I've built design systems that started as a set of best guesses and grew into the foundation that survived an acquisition and shaped what came after it. I've designed workflow tools for people who don't want to be operating software — they want to be talking to a network president, managing talent, or making music. The design job is to make the operational infrastructure so clear and effortless that the user stays focused on their actual work. That's the Create Music platform problem exactly.",
@@ -50,11 +41,6 @@ const TAILORED = {
     greeting: "Hello, Citrix team.",
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org. I've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
-  },
-  weedmaps: {
-    greeting: "Hello, Weedmaps.",
-    body: "I'm Dante. I've built design systems that survived acquisitions, led pivots on two-sided platforms where both sides had to trust the same underlying product, and designed in regulated industries where every friction point gets read through a lens of doubt. Cannabis is at an inflection point — the infrastructure is maturing, and design quality is becoming the actual differentiator. That's exactly the kind of moment I'm built for.",
-    jd: "Senior Product Designer\nWeedmaps\n\nSenior Product Designers at Weedmaps are principal-level individual contributors who set the vision for design excellence across the product organization. Operate as a strategic partner to Product and Engineering leadership. Drive company-wide initiatives, define design principles and standards, and lead the most complex design challenges across Weedmaps' ecosystem. Provide strategic mentorship to Staff and Senior Designers. Influence cross-functional teams through storytelling, data, and compelling design narratives.\n\n9–12+ years product design. Exceptional portfolio demonstrating strategic impact, systems thinking, and organizational influence. Deep expertise in research, experimentation, and data-driven decisions. Extensive design systems experience. Strong B2C and/or B2B SaaS background.",
   },
   machinify: {
     greeting: "Hello, Machinify team.",
@@ -1894,50 +1880,6 @@ const THOUGHTS = {
     ],
   },
 
-  'where-brand-meets-the-buy-button': {
-    kicker: 'Point of View',
-    title:  'Where brand storytelling meets the buy button',
-    dek: 'On product narratives, commerce flows, and what selling guitars taught me about the moment a story becomes a transaction.',
-    sections: [
-      {
-        paragraphs: [
-          'The best product pages do two things at once. They build emotional connection and they move you toward a purchase. Most e-commerce experiences hand the story off to the funnel somewhere in the middle, and the experience breaks at the seam.',
-          'I\u2019ve worked on both sides. Brand campaigns for Gibson Guitar and Nashville\u2019s country music labels. Complex product platforms at Marketo, Teamshares, and Meroxa. The lesson from both worlds is the same: the story and the transaction are one continuous experience. When you design them together, both get better.',
-        ],
-      },
-      {
-        heading: 'Product comprehension is emotional first',
-        paragraphs: [
-          'At Gibson, a guitar page had to make you hear the tone before you ever touched the fretboard. The specs matter, but they matter after you\u2019ve already felt something. The grain of the wood, the curve of the neck, the lineage of the model. These are emotional entry points that lead to rational justification.',
-          'You fall in love with a Les Paul before you ever check the specs. The product page has to honor that sequence.',
-          'Electric vehicles work the same way. The adventure, the terrain, the silence of the motor on a trail. These are stories that create desire. The range, the towing capacity, the charging network: those are the rational confirmations that close the deal. The product page needs to carry both, in the right order.',
-        ],
-      },
-      {
-        heading: 'Commerce flows need the brand to follow through',
-        paragraphs: [
-          'The story can\u2019t stop at the product page. Configuration, checkout, financing, delivery tracking. Each step is still the brand experience. When the visual language drops from cinematic to generic during checkout, you lose the emotional thread that got the customer there.',
-          'At Gibson, this meant carrying the craftsmanship narrative through the entire purchase journey. The product page was a chapter. The cart, the customization options, the confirmation: all of it needed to feel like Gibson.',
-          'In my platform work, I\u2019ve seen the same pattern from the systems side. At Marketo, the design system\u2019s value was that a user could move between products and feel like they were still in the same world. That discipline applied to commerce means visual consistency, interaction consistency, and tonal consistency from first impression through post-purchase.',
-        ],
-      },
-      {
-        heading: 'Global means adapting the story',
-        paragraphs: [
-          'Working with country music labels across markets taught me that localization goes deeper than translation. Cultural context shapes how people discover products, evaluate them, and decide to buy. The story that resonates in Nashville lands differently in Tokyo or Berlin.',
-          'Effective localization means knowing which product attributes lead in which market, and designing the experience to flex accordingly. The emotional sequence stays. The emphasis shifts.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to a product-story-to-purchase platform',
-        paragraphs: [
-          'I\u2019ve designed across both worlds: the emotional, brand-driven side and the structural, systems-driven side. At Gibson and in the Nashville music industry, I learned how to make products feel alive on screen. At Marketo, Teamshares, and Meroxa, I learned how to build the design infrastructure that keeps complex, multi-surface experiences coherent at scale.',
-          'Rivian\u2019s website sits at that intersection. Product pages that tell adventure stories. Commerce flows that handle configuration, financing, and global checkout. A design system that holds it all together. That\u2019s the synthesis of everything I\u2019ve spent my career building.',
-        ],
-      },
-    ],
-  },
-
   'designing-for-people-who-live-in-the-product': {
     kicker: 'Point of View',
     title:  'Designing for people who live in the product',
@@ -2103,48 +2045,6 @@ const THOUGHTS = {
         paragraphs: [
           'I\u2019ve designed for power users who need precision control and end users who need simplicity \u2014 often in the same product. I\u2019ve built design systems that created coherence across multiple surfaces and survived the organizational changes that followed. And I\u2019ve led the research that reframed a brief, the strategy that changed a roadmap, and the system that made it all hold together.',
           'The Citrix design challenge \u2014 administrator control alongside end-user experience, cloud alongside on-premises, a design system holding all of it together \u2014 is exactly the kind of problem I want to be working on.',
-        ],
-      },
-    ],
-  },
-
-  'the-normalization-interface': {
-    kicker: 'Point of View',
-    title:  'The normalization interface',
-    dek: 'On designing consumer and B2B products in regulated, stigmatized categories \u2014 and why every design decision is also a positioning decision.',
-    sections: [
-      {
-        paragraphs: [
-          'Cannabis has joined a familiar club: healthcare, financial services, legal tech. Industries where users arrive already carrying weight the product didn\u2019t put there. A question that runs underneath every interaction \u2014 is this okay? is this real? can I trust this? \u2014 before anyone has touched a feature.',
-          'Design inherits that ambient anxiety. Every confusing moment feels more suspicious than it would in a neutral context. Every slow confirmation reads differently when the user is already slightly on edge. Trust isn\u2019t just desirable in these categories. It\u2019s the pre-condition for everything else the product needs to do.',
-        ],
-      },
-      {
-        heading: 'What stigma does to user behavior',
-        paragraphs: [
-          'I learned this first at MEDHOST, designing clinical software for nurses and administrators who\u2019d watched healthcare IT fail them too many times. The interface wasn\u2019t just a tool. It was a statement about whether this system was on their side. I wasn\u2019t only reducing clicks \u2014 I was trying to rebuild a relationship between a workforce and software that had burned them before.',
-          'Cannabis users carry a different skepticism, but the mechanism is identical. Anything unclear reads as suspicious. Anything slow reads as unreliable. Anything inconsistent across pages reads as unfinished \u2014 and unfinished in a stigmatized category means untrustworthy. The solution isn\u2019t only friction reduction. It\u2019s making every remaining point of friction feel intentional, like it\u2019s there to protect the user.',
-        ],
-      },
-      {
-        heading: 'The two-sided complication',
-        paragraphs: [
-          'Weedmaps is a marketplace. At minimum, two users who need to trust the platform in fundamentally different ways: the consumer who wants real products, real prices, and accurate availability; the business that wants tools worth the subscription and a platform that represents them professionally.',
-          'These trust relationships amplify each other in both directions. A consumer experience that feels cheap undermines confidence in the businesses listed there. A business tool that looks like 2013 signals something to the consumer about what kind of platform this is. The ecosystem rises or falls together. At Meroxa, I led a product redesign after a strategic pivot \u2014 one surface for data engineers, another for platform operators, both groups trusting the same underlying system for different reasons. Coherence without uniformity is the design brief.',
-        ],
-      },
-      {
-        heading: 'Design systems as institutional legitimacy',
-        paragraphs: [
-          'At Marketo, I built a design system that became more than a component library. When Adobe acquired Marketo, Sky\u2019s patterns were contributed upstream to Adobe Spectrum \u2014 not because anyone planned for an acquisition, but because a well-governed system is inherently portable and enduring. Consistency signals permanence. It communicates that the people building the product are thinking past the current sprint.',
-          'This matters more in categories still earning credibility. An inconsistent product says: we\u2019re figuring it out. A consistent one says: we\u2019ve been here, we know what we\u2019re doing, and we\u2019ll be here when you come back. For a platform that serves both consumers making personal decisions and businesses making commercial bets, that signal of permanence isn\u2019t cosmetic. It\u2019s commercial.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to Weedmaps',
-        paragraphs: [
-          'I\u2019ve built design systems that outlasted the products they were built for. I\u2019ve designed for regulated industries where confusion carries real stakes. I\u2019ve led pivots on two-sided platforms where coherence across personas was the only path forward. And I\u2019ve done it as both the person setting the design direction and the person building the components that made it real.',
-          'Weedmaps is solving the right problem at the right moment \u2014 a high-stakes marketplace in a category still earning cultural legitimacy, where design quality is the differentiator. That\u2019s a problem worth showing up for.',
         ],
       },
     ],
@@ -2406,11 +2306,8 @@ function setupHiringManagerView() {
     rippling:  'financial-platforms-systems-problems',
     twitch:    'designing-platforms-where-two-sides-need-each-other',
     circle:    'designing-infrastructure-people-trust',
-    rivian:    'where-brand-meets-the-buy-button',
     five9:     'designing-for-people-who-live-in-the-product',
-    netflix:   'designing-for-people-who-live-in-the-product',
     machinify:  'when-the-platform-knows-more-than-you-do',
-    weedmaps:   'the-normalization-interface',
     citrix:       'the-control-plane-problem',
     createmusic:  'the-platform-underneath-the-art',
   };
