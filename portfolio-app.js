@@ -41,6 +41,11 @@ const TAILORED = {
     body: "I'm Dante. I believe the moment a brand story becomes a transaction is one of the most fragile in product design. I've designed for B2B buyers, individual creators, and small business owners -- and the best commerce flows I've seen treat the story and the checkout as one thing.",
     jd: "Product Designer, Digital Studio\nRivian\n\nCreate customer-facing experiences on Rivian's website with a focus on product stories and commerce flows. Design the end-to-end user experience from brand discovery through product comprehension through multi-step purchase. Work across narrative storytelling and transactional checkout experiences. Contribute to and stretch the design system.\n\n5–7+ years product design with web expertise. 2+ years e-commerce. Deep knowledge of commerce and checkout flows. Experience localizing DTC purchase experiences across domestic and global geographies. Strong visual design and experience design craft.",
   },
+  citrix: {
+    greeting: "Hello, Citrix team.",
+    body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org. I've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
+    jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
+  },
   weedmaps: {
     greeting: "Hello, Weedmaps.",
     body: "I'm Dante. I've built design systems that survived acquisitions, led pivots on two-sided platforms where both sides had to trust the same underlying product, and designed in regulated industries where every friction point gets read through a lens of doubt. Cannabis is at an inflection point — the infrastructure is maturing, and design quality is becoming the actual differentiator. That's exactly the kind of moment I'm built for.",
@@ -2014,6 +2019,48 @@ const THOUGHTS = {
     ],
   },
 
+  'the-control-plane-problem': {
+    kicker: 'Point of View',
+    title:  'The control plane problem',
+    dek: 'On designing for administrators and end users at once \u2014 and why the person who configures the system is the most overlooked user in enterprise software.',
+    sections: [
+      {
+        paragraphs: [
+          'Enterprise software always has at least two users. The person who configures the system. The person who uses it. Product teams tend to fall in love with one and neglect the other \u2014 and the choice reveals itself everywhere. A polished end-user experience built on a configuration system so rigid that IT can\u2019t make it fit real organizational needs. Or a powerful admin console that nobody can navigate without a support ticket and three hours of documentation.',
+          'Both failures have the same root cause: the design process treated one persona as primary and the other as an afterthought. The result is a product that works for one group at the expense of the other, and an IT team that spends its time compensating for what the design didn\u2019t solve.',
+        ],
+      },
+      {
+        heading: 'The admin is a user too',
+        paragraphs: [
+          'Administrator tooling is where enterprise software design debt accumulates fastest. It\u2019s often built last, designed by engineers for engineers, and tested almost never with actual IT staff. The result: support burden, workarounds, and misconfigured environments that end users experience as product failures \u2014 even though the problem started in a settings panel nobody spent design time on.',
+          'The administrator isn\u2019t a secondary persona. They\u2019re the ones who make the product work for everyone else. At MEDHOST, I learned that the person configuring a clinical system shapes what every nurse and administrator downstream can and can\u2019t do. That invisible dependency is a design problem. It deserves design attention.',
+        ],
+      },
+      {
+        heading: 'Complexity is real. Hiding it isn\u2019t the answer.',
+        paragraphs: [
+          'The mistake enterprise teams make is treating complexity as something to abstract away. Sometimes that\u2019s right. Often it isn\u2019t. An administrator configuring a global access policy that affects thousands of users is doing something genuinely complex \u2014 and the design should make the scope of that action legible, not hide it behind a simplified interface that makes the risk invisible.',
+          'At Teamshares, I built reporting tools for industry leads managing 90+ portfolio companies. The complexity was real: payroll data crossing company boundaries, patterns that only meant something in aggregate. The design job wasn\u2019t to simplify the problem \u2014 it was to bring the right information to the surface at the right moment so a lead could act confidently in minutes instead of hours. Enterprise complexity demands that kind of precision, not false simplicity.',
+        ],
+      },
+      {
+        heading: 'The cloud / on-premises coherence problem',
+        paragraphs: [
+          'When a product ships across both cloud and on-premises deployments, the design challenge is maintaining a coherent experience across radically different operational contexts. Cloud admins deal with one set of concerns \u2014 update cadences, SLA expectations, shared infrastructure. On-prem admins deal with another. But the end user shouldn\u2019t be able to tell the difference.',
+          'That invisible consistency is a design system problem presenting as a product problem. The system has to absorb enough variation that each environment feels purpose-built, without maintaining two entirely separate products. At Marketo, I built a design system that had to work across a legacy platform and a rebuilt one simultaneously \u2014 keeping both coherent while the migration was in progress and users were split between them. Same structural challenge, different surface.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Citrix',
+        paragraphs: [
+          'I\u2019ve designed for power users who need precision control and end users who need simplicity \u2014 often in the same product. I\u2019ve built design systems that created coherence across multiple surfaces and survived the organizational changes that followed. And I\u2019ve led the research that reframed a brief, the strategy that changed a roadmap, and the system that made it all hold together.',
+          'The Citrix design challenge \u2014 administrator control alongside end-user experience, cloud alongside on-premises, a design system holding all of it together \u2014 is exactly the kind of problem I want to be working on.',
+        ],
+      },
+    ],
+  },
+
   'the-normalization-interface': {
     kicker: 'Point of View',
     title:  'The normalization interface',
@@ -2317,6 +2364,7 @@ function setupHiringManagerView() {
     netflix:   'designing-for-people-who-live-in-the-product',
     machinify:  'when-the-platform-knows-more-than-you-do',
     weedmaps:   'the-normalization-interface',
+    citrix:     'the-control-plane-problem',
   };
 
   const matchedId = POV_MAP[ref] || null;
