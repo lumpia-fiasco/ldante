@@ -41,6 +41,11 @@ const TAILORED = {
     body: "I'm Dante. I believe the moment a brand story becomes a transaction is one of the most fragile in product design. I've designed for B2B buyers, individual creators, and small business owners -- and the best commerce flows I've seen treat the story and the checkout as one thing.",
     jd: "Product Designer, Digital Studio\nRivian\n\nCreate customer-facing experiences on Rivian's website with a focus on product stories and commerce flows. Design the end-to-end user experience from brand discovery through product comprehension through multi-step purchase. Work across narrative storytelling and transactional checkout experiences. Contribute to and stretch the design system.\n\n5–7+ years product design with web expertise. 2+ years e-commerce. Deep knowledge of commerce and checkout flows. Experience localizing DTC purchase experiences across domestic and global geographies. Strong visual design and experience design craft.",
   },
+  createmusic: {
+    greeting: "Hello, Create Music Group.",
+    body: "I'm Dante. I've built design systems that started as a set of best guesses and grew into the foundation that survived an acquisition and shaped what came after it. I've designed workflow tools for people who don't want to be operating software — they want to be talking to a network president, managing talent, or making music. The design job is to make the operational infrastructure so clear and effortless that the user stays focused on their actual work. That's the Create Music platform problem exactly.",
+    jd: "Product Design Lead, Systems & Practice\nCreate Music Group\n\nLead the creation and evolution of Create Music Group's design system — defining modular foundations, patterns, and frameworks that unify products and scale quality across teams. Work directly with creators, partners, and teams to prototype and deliver intuitive, scalable solutions. Model high-quality design and foster a culture of critique and shared principles. Partner with engineering and product to embed platform-first thinking into roadmaps. Guide designers in systems thinking, platform design, and AI tools.\n\n8+ years designing and shipping complex products, platforms, or workflow systems. Proven design systems experience at scale across multiple teams. Deep design thinking and research capability. Passion for developing design practice and culture. Curiosity about AI in design.",
+  },
   citrix: {
     greeting: "Hello, Citrix team.",
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org. I've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
@@ -2019,6 +2024,48 @@ const THOUGHTS = {
     ],
   },
 
+  'the-platform-underneath-the-art': {
+    kicker: 'Point of View',
+    title:  'The platform underneath the art',
+    dek: 'On designing workflow infrastructure for creative industries \u2014 and why the best operational tools are the ones the user never has to think about.',
+    sections: [
+      {
+        paragraphs: [
+          'The most important tools in a creative career are the ones the creator never has to think about. Royalty distribution, release scheduling, analytics, sync licensing \u2014 the infrastructure behind modern music is complex and consequential. A missed payment, a delayed release, a gap in data: these have real stakes for people whose livelihood depends on the platform working. The design problem is making all of that complexity invisible to the artist while keeping it fully navigable for the label operators and managers who live in it every day.',
+          'That dual demand \u2014 invisible to one user, powerful to another \u2014 is one of the most interesting problems in product design. It\u2019s not about simplification. It\u2019s about knowing who sees what, and making both experiences feel effortless.',
+        ],
+      },
+      {
+        heading: 'Two users, one platform',
+        paragraphs: [
+          'A distribution platform serving 75,000 artists and 5,000 label clients has at least two distinct users whose needs don\u2019t overlap much. The artist wants to know: did my music get distributed, are my royalties right, what\u2019s performing? The label client wants: portfolio management, analytics across hundreds of releases, workflow automation for a team. The patterns that work for a power user managing a catalog won\u2019t be the same as those for an independent artist checking in once a month.',
+          'At Teamshares, I built a payroll reporting tool for industry leads managing 90+ portfolio companies simultaneously. The design challenge was structurally identical: one surface, two different mental models and information needs. The solution wasn\u2019t one view with a toggle. It was understanding what each user was actually trying to accomplish and building the right entry points for both \u2014 without making either feel like a second-class experience.',
+        ],
+      },
+      {
+        heading: 'Design systems for creative industries',
+        paragraphs: [
+          'A design system built for a music platform has to earn trust differently than one built for a SaaS dashboard. It can\u2019t just be consistent and accessible \u2014 it has to feel like it was made by people who care about music. Typography, the way information breathes on a page, color decisions, motion \u2014 these communicate cultural credibility before a user reads a single label. The system has to carry both the rigor of enterprise infrastructure and the sensibility of the creative industry it serves.',
+          'Those aren\u2019t in conflict. The most respected creative tools \u2014 Ableton, Figma, Final Cut \u2014 are also technically rigorous. The craft isn\u2019t a layer on top of the engineering. It\u2019s baked into every decision about what the system owns and what it leaves open.',
+        ],
+      },
+      {
+        heading: 'Systems that survive',
+        paragraphs: [
+          'At Marketo, I built a design system that started as a collection of best guesses about what a rebuilt platform needed. By the time Adobe acquired Marketo, Sky\u2019s patterns had become the foundation that outlasted the product and fed upstream into Adobe Spectrum. The lesson wasn\u2019t about being comprehensive from day one \u2014 it was about getting the governance model right. Knowing what the system owns versus what product teams decide locally. Building a contribution process that designers actually use. Creating the conditions for the system to evolve without requiring a single person to be the bottleneck.',
+          'That model \u2014 clear ownership, real governance, room for local decisions \u2014 is what makes a design system scale. Without it, you get a component library that teams fork instead of contribute to.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Create Music Group',
+        paragraphs: [
+          'I\u2019ve built design systems that outlasted the products they were built for. I\u2019ve designed workflow tools for people who don\u2019t want to be operating software \u2014 they want to be doing their actual job \u2014 and I\u2019ve figured out how to get out of their way without sacrificing depth. I\u2019ve led the governance decisions that made systems scale and the mentorship that made design teams stronger.',
+          'The Create Music platform problem \u2014 modular infrastructure for a creative industry, serving a spectrum of users from independent artists to enterprise label clients, with a design system holding it all together \u2014 is exactly the kind of problem I want to be working on.',
+        ],
+      },
+    ],
+  },
+
   'the-control-plane-problem': {
     kicker: 'Point of View',
     title:  'The control plane problem',
@@ -2364,7 +2411,8 @@ function setupHiringManagerView() {
     netflix:   'designing-for-people-who-live-in-the-product',
     machinify:  'when-the-platform-knows-more-than-you-do',
     weedmaps:   'the-normalization-interface',
-    citrix:     'the-control-plane-problem',
+    citrix:       'the-control-plane-problem',
+    createmusic:  'the-platform-underneath-the-art',
   };
 
   const matchedId = POV_MAP[ref] || null;
