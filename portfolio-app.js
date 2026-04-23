@@ -9,42 +9,42 @@
 const TAILORED = {
   lattice: {
     greeting: "Hello, Lattice team.",
-    body: "I'm Dante. I'm a Product Designer with over a decade building the tools people use to do their best work. Lattice sits exactly at the intersection I love -- complex systems, real human needs, and the org-level trust that makes or breaks both.",
+    body: "I'm Dante. I'm a Product Designer with over a decade building the tools people use to do their best work.\n\nLattice sits exactly at the intersection I love -- complex systems, real human needs, and the org-level trust that makes or breaks both.",
     jd: "Staff Product Designer — Core UI\nLattice\n\nDesign and evolve Lattice's design system as a Staff Product Designer on the Core UI team. Lead cross-product design patterns, build scalable and responsive component systems, and drive cohesion across Lattice's product suite. Requires deep systems thinking, front-end fluency (CSS, HTML, React), experience governing design systems at scale, and mentorship of other designers. B2B SaaS, complex workflows, platform-level impact.",
   },
   rippling: {
     greeting: "Hello, Rippling team.",
-    body: "I'm Dante. I've spent my career at the seam between HR, finance, and the infrastructure underneath them. Rippling is building exactly the unified layer that I've seen teams struggle to assemble from parts -- and I want to help design it.",
+    body: "I'm Dante. I've spent my career at the seam between HR, finance, and the infrastructure underneath them.\n\nRippling is building exactly the unified layer that I've seen teams struggle to assemble from parts -- and I want to help design it.",
     jd: "Product Design Lead, Finance\nRippling\n\nSet the vision for Rippling's Spend Management Platform and drive it from concept to shipped reality. Lead design for cards, expenses, bill pay, procurement, travel, and reporting. Create experiences that feel effortless for employees and powerful enough for global finance teams. Define patterns that scale from one-person startup to 10,000-person company.\n\n6–8+ years shipping complex, high-impact products. Portfolio showing ambiguous problems turned into simple workflows. Strong interaction and visual design craft. Relentless customer focus. Excellent communication and storytelling. Track record with Product and Engineering in fast-moving environments.",
   },
   five9: {
     greeting: "Hello, Five9 team.",
-    body: "I'm Dante. I've spent years building complex, data-rich applications for power users. Design systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.",
+    body: "I'm Dante. I've spent years building complex, data-rich applications for power users.\n\nDesign systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.",
     jd: "Senior Product Designer\nFive9\n\nShape the user experience of Five9's cloud contact center platform, advocating for Agent, Supervisor, and Admin personas. Lead design from concept to launch for complex, data-rich applications. Contribute to and maintain the design system, ensuring consistency across all products. Drive the \"one platform\" strategy to create a seamless, integrated experience. Mentor other designers.\n\n5+ years on complex, data-rich applications. Proficiency in Figma, Sketch, Adobe. Web and mobile design principles. User research and usability testing. Strong communication and collaboration.",
   },
   twitch: {
     greeting: "Hello, Twitch team.",
-    body: "I'm Dante. I've designed for dual-persona platforms -- products that only work when both sides feel served. That tension is familiar to me. Creators need tools that get out of the way; viewers need immersion. Both truths have to coexist.",
+    body: "I'm Dante. I've designed for dual-persona platforms -- products that only work when both sides feel served. That tension is familiar to me.\n\nCreators need tools that get out of the way; viewers need immersion. Both truths have to coexist.",
     jd: "Senior Product Designer\nTwitch\n\nDesign for content discovery and engagement experiences on Twitch. Hands-on research, close collaboration with engineers, PMs, and designers. Think creatively about sustaining streamer communities. Give back to the design community by using and improving existing patterns. Mentor junior designers.\n\n5+ years UX design. Content discovery and engagement. Interaction design and visual craft. Prototyping mobile experiences. Impact product strategy. Empathy for users. Figma expertise. Desirable: AI workflows, content creator or UGC platform experience, design systems knowledge.",
   },
   circle: {
     greeting: "Hello, Circle team.",
-    body: "I'm Dante. Trust is the hardest thing to design for. I've worked on payroll, hiring infrastructure, and data pipelines -- all places where a single confusing moment can cost someone money, a job, or credibility. That's the design problem Circle lives in.",
+    body: "I'm Dante. Trust is the hardest thing to design for.\n\nI've worked on payroll, hiring infrastructure, and data pipelines -- all places where a single confusing moment can cost someone money, a job, or credibility. That's the design problem Circle lives in.",
     jd: "Lead Product Designer\nCircle\n\nOwn end-to-end design for currency, treasury, and payments solutions. Apply systems thinking to craft intuitive, scalable experiences serving thousands of businesses and millions of end users globally. Partner with Product and Engineering to define high-impact problem spaces. Drive cross-functional alignment on problem definition and solution strategy.\n\n7+ years UX/product design. Complex, high-impact product experiences. Strong systems thinking across interconnected product areas. Research and data-informed decisions. Experience with complex workflows, service design, enterprise-grade products.",
   },
   createmusic: {
     greeting: "Hello, Create Music Group.",
-    body: "I'm Dante. I've built design systems that started as a set of best guesses and grew into the foundation that survived an acquisition and shaped what came after it. I've designed workflow tools for people who don't want to be operating software — they want to be talking to a network president, managing talent, or making music. The design job is to make the operational infrastructure so clear and effortless that the user stays focused on their actual work. That's the Create Music platform problem exactly.",
+    body: "I'm Dante. I've built design systems that started as a set of best guesses and grew into the foundation that survived an acquisition and shaped what came after it.\n\nI've designed workflow tools for people who don't want to be operating software — they want to be talking to a network president, managing talent, or making music. The design job is to make the operational infrastructure so clear and effortless that the user stays focused on their actual work. That's the Create Music platform problem exactly.",
     jd: "Product Design Lead, Systems & Practice\nCreate Music Group\n\nLead the creation and evolution of Create Music Group's design system — defining modular foundations, patterns, and frameworks that unify products and scale quality across teams. Work directly with creators, partners, and teams to prototype and deliver intuitive, scalable solutions. Model high-quality design and foster a culture of critique and shared principles. Partner with engineering and product to embed platform-first thinking into roadmaps. Guide designers in systems thinking, platform design, and AI tools.\n\n8+ years designing and shipping complex products, platforms, or workflow systems. Proven design systems experience at scale across multiple teams. Deep design thinking and research capability. Passion for developing design practice and culture. Curiosity about AI in design.",
   },
   citrix: {
     greeting: "Hello, Citrix team.",
-    body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org. I've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
+    body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
   machinify: {
     greeting: "Hello, Machinify team.",
-    body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and document management at the facility level. Healthcare's complexity isn't theoretical to me. And I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
+    body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and document management at the facility level. Healthcare's complexity isn't theoretical to me.\n\nAnd I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
     jd: "Senior Product Designer\nMachinify\n\nDesign for Machinify's AI-powered healthcare intelligence platform serving 85+ health plans across the payment continuum. Leverage design thinking to address complex challenges. Conduct and apply UX research. Create wireframes, mockups, and prototypes for new features. Develop design specifications and documentation. Collaborate with engineering on implementation. Contribute to and maintain design systems and style guides.\n\n6+ years UX/UI in fast-paced environments. Advanced Figma proficiency. Deep understanding of UX principles, design thinking, interaction design, and usability. Experience with wireframes, user flows, mockups, and prototypes. Strong communication and cross-functional collaboration. Bonus: design systems and platform design experience.",
   },
 };
@@ -60,7 +60,7 @@ function prefillFitJD(text) {
 }
 
 const GENERAL_GREETING = "So glad you made it.";
-const GENERAL_BODY = "I'm Dante. I'm a Product Designer with over a decade of experience specializing in B2B/SaaS and devops tools. If we drew a Venn diagram of complex systems, and real user needs -- I operate where the two overlap.";
+const GENERAL_BODY = "I'm Dante. I'm a Product Designer with over a decade of experience specializing in B2B/SaaS and devops tools.\n\nIf we drew a Venn diagram of complex systems, and real user needs -- I operate where the two overlap.";
 
 // ── Screen manager ─────────────────────────────────────────────
 let currentScreen = 'gate';
@@ -293,7 +293,7 @@ function setupLanding() {
   const blocks   = document.querySelectorAll('.landing-text-block');
 
   greeting.textContent = tailored ? tailored.greeting : GENERAL_GREETING;
-  bodyText.textContent = tailored ? tailored.body : GENERAL_BODY;
+  bodyText.innerHTML = (tailored ? tailored.body : GENERAL_BODY).split('\n\n').join('<br><br>');
 
   // Stagger in — only run the animation if btns aren't already visible
   if (!btns.classList.contains('visible')) {
