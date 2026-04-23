@@ -2696,6 +2696,9 @@ function switchPortfolioRole(role) {
 
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Capture ?p= before setupGate() cleans it from the URL
+  const incomingPw = new URLSearchParams(window.location.search).get('p');
+
   setupGate();
   setupDevSwitcher();
 
@@ -2714,8 +2717,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Restore a previous authenticated session
-  try {
+  // Restore a previous authenticated session.
+  // Skip entirely when arriving via ?p= — the gate auth flow owns the session.
+  if (!incomingPw) try {
     const hasAuth   = localStorage.getItem('ldg-auth') === '1';
     const savedExp  = localStorage.getItem('ldg-experience') || '';
     const savedScreen = localStorage.getItem('ldg-screen');
@@ -2741,5 +2745,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
       }
     }
-  } catch(e) {}
+  } catch(e) {} // end session restore
 });
