@@ -105,12 +105,11 @@ function setupGate() {
       localStorage.setItem('ldg-auth', '1');
       localStorage.setItem('ldg-experience', experience || 'standard');
     } catch(e) {}
-    // Pass experience as ?ref= so setupLanding picks up the tailored config
+    // Pass experience as ?ref= so setupLanding picks up the tailored config.
+    // If experience is generic/empty, leave any visitor-provided ?ref= intact.
     const url = new URL(window.location.href);
     if (experience && experience !== 'standard') {
       url.searchParams.set('ref', experience);
-    } else {
-      url.searchParams.delete('ref');
     }
     window.history.replaceState({}, '', url);
     showScreen('screenLanding');
@@ -146,7 +145,10 @@ function setupGate() {
   // Auto-unlock from ?p= URL param (direct share links)
   const urlPw = new URLSearchParams(window.location.search).get('p');
   if (urlPw) {
-    window.history.replaceState({}, '', window.location.pathname);
+    // Strip only ?p= — preserve ?ref= and any other params
+    const cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete('p');
+    window.history.replaceState({}, '', cleanUrl);
     tryUnlock(urlPw);
   }
 
