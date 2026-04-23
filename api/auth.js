@@ -6,27 +6,35 @@ export default function handler(req, res) {
   const { password } = req.body || {};
   if (!password) return res.status(401).json({ ok: false });
 
-  // Each env var maps a password to an experience token.
-  // Set these in Vercel dashboard → Settings → Environment Variables.
+  // Custom password → experience map via env vars (Vercel dashboard).
   // Falls back to legacy SITE_PASSWORD so existing sessions keep working.
   const map = {
     [process.env.PW_STANDARD || process.env.SITE_PASSWORD]: 'standard',
-    [process.env.PW_DESIGN_SYSTEM]:  'designsystem',
-    [process.env.PW_CREATIVE]:       'creative',
-    [process.env.PW_MOBILE]:         'mobile',
-    [process.env.PW_LATTICE]:        'lattice',
-    [process.env.PW_NETFLIX]:        'netflix',
-    [process.env.PW_RIPPLING]:       'rippling',
-    [process.env.PW_FIVE9]:          'five9',
-    [process.env.PW_RIVIAN]:         'rivian',
-    [process.env.PW_CIRCLE]:         'circle',
-    [process.env.PW_TWITCH]:         'twitch',
+    [process.env.PW_LATTICE]:      'lattice',
+    [process.env.PW_RIPPLING]:     'rippling',
+    [process.env.PW_FIVE9]:        'five9',
+    [process.env.PW_TWITCH]:       'twitch',
+    [process.env.PW_CIRCLE]:       'circle',
+    [process.env.PW_MACHINIFY]:    'machinify',
+    [process.env.PW_CREATEMUSIC]:  'createmusic',
+    [process.env.PW_CITRIX]:       'citrix',
   };
 
   const experience = map[password];
-
   if (experience) {
     return res.status(200).json({ ok: true, experience });
+  }
+
+  // The experience slug itself also works as a case-insensitive password.
+  // "LATTICE", "Lattice", and "lattice" all route to the Lattice experience.
+  // "createmusic" routes to the Create Music Group experience, etc.
+  const SLUG_PASSWORDS = [
+    'lattice', 'rippling', 'five9', 'twitch', 'circle',
+    'machinify', 'createmusic', 'citrix',
+  ];
+  const slugMatch = SLUG_PASSWORDS.find(s => s === password.toLowerCase().trim());
+  if (slugMatch) {
+    return res.status(200).json({ ok: true, experience: slugMatch });
   }
 
   return res.status(401).json({ ok: false });
