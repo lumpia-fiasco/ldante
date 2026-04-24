@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  ingram: {
+    greeting: "Hello, Ingram Micro team.",
+    body: "I'm Dante. I've spent my career designing platforms where the users are experts \u2014 engineers, marketers, healthcare administrators, business operators \u2014 and where the product has to earn their respect, not their patience.\n\nAt Marketo, I built a design system that unified a complex, multi-surface enterprise platform across 12,000+ users and multiple product teams. At Teamshares, I designed tools that helped operators run entire businesses, with data crossing company lines and personas ranging from HR leads to industry executives.\n\nThe Xvantage challenge \u2014 designing for an IT ecosystem where your users are resellers, vendors, and business buyers, all with different jobs, all dependent on the platform working \u2014 is exactly the kind of scale I want to be operating at.",
+    jd: "Sr. Principal, Product Designer\nIngram Micro Xvantage\u2122\n\nOwn entire categories of experience on a platform that reaches nearly 90% of the global IT population. Partner with engineering, product, and business leadership to deliver high-quality designs across multiple personas in complex B2B scenarios. Lead end-to-end feature design, conduct executive-level user research, direct in-house designers and external consultants, and contribute to design culture and practice. Present and defend solutions in executive settings.\n\n10+ years UX/UI with B2B SaaS focus. Expert Figma. Research leadership. Agile/Lean UX fluency. Strong executive communication and presentation skills. HTML/CSS/JS experience a plus. Master\u2019s preferred.",
+  },
   pagerduty: {
     greeting: "Hello, PagerDuty team.",
     body: "I'm Dante. At Meroxa, I led the design pivot from a no-code pipeline builder to a real-time data observability platform — the kind where engineers watch systems under pressure, trying to understand what's wrong and move fast.\n\nDesigning AI that operators trust in high-stakes moments is exactly the kind of problem I want to be working on. The challenge isn't making the AI capable — it's making it legible enough that people are willing to let it act.",
@@ -2041,6 +2046,42 @@ const THOUGHTS = {
     ],
   },
 
+  'when-the-platform-is-the-job': {
+    kicker: 'Point of View',
+    title:  'When the platform is the job',
+    dek: 'On designing B2B platforms where users aren\u2019t passing through \u2014 they live there. And what that changes about how you design.',
+    sections: [
+      {
+        paragraphs: [
+          'There\u2019s an assumption that sneaks into most product design: the user has a goal outside the product, and the product is a means to reach it. You design to help them get there faster with less friction, then they close the tab and go do the thing.',
+          'B2B distribution platforms break this assumption. For an IT reseller working in a platform like Xvantage, the platform isn\u2019t a means to an end. It\u2019s the environment. They configure, quote, order, track, and reconcile inside it. They live there.',
+        ],
+      },
+      {
+        heading: 'Familiarity is a feature',
+        paragraphs: [
+          'When someone uses a product every single day as their primary work surface, the design stakes shift. You\u2019re not optimizing for delight \u2014 you\u2019re optimizing for fluency. A power user who\u2019s been in your platform for 200 days knows where everything is. A redesign that moves things for aesthetic reasons will cost them weeks of relearning with zero upside for them.',
+          'The best-designed professional tools are the ones where experienced users stop thinking about the tool and start thinking about their work. The interface recedes. Their judgment takes over. Getting there requires extreme discipline about when to introduce change and why.',
+        ],
+      },
+      {
+        heading: 'Multiple personas, one platform',
+        paragraphs: [
+          'B2B ecosystems have a compounding persona problem. The reseller has one job. The vendor rep has another. The IT buyer has a third. They interact through the same platform but approach it with different mental models, different vocabularies, and different definitions of success.',
+          'The mistake is designing for the average. There is no average user here. Designing for multiple expert personas means deeply understanding each \u2014 and building an experience architecture that serves each without building entirely separate products.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to this',
+        paragraphs: [
+          'At Marketo, I designed across personas that had fundamentally different relationships with the same platform: campaign managers, marketing operations leads, sales users, and admins. Each had a different mental model. Each had different things they needed to do quickly. Building a design system that served all of them without becoming a least-common-denominator product was the core challenge.',
+          'At Teamshares, I designed tools used by network presidents running individual businesses alongside industry leads managing those businesses in aggregate \u2014 two personas, same data, completely different questions they needed to answer.',
+          'Complex persona landscapes are a design strength for me. The work before the interface work is always the same: get close enough to each user\u2019s actual job that you can design from their context, not your assumptions.',
+        ],
+      },
+    ],
+  },
+
   'when-the-system-acts-alone': {
     kicker: 'Point of View',
     title:  'When the system acts alone',
@@ -2415,6 +2456,7 @@ function setupHiringManagerView() {
     createmusic:  'the-platform-underneath-the-art',
     apollo:       'the-signal-in-the-noise',
     pagerduty:    'when-the-system-acts-alone',
+    ingram:       'when-the-platform-is-the-job',
   };
 
   const matchedId = POV_MAP[ref] || null;
