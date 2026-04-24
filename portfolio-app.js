@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  apollo: {
+    greeting: "Hello, Apollo team.",
+    body: "I'm Dante. I've spent my career building data-dense tools for teams that need to move fast and stay oriented.\n\nMarketo was my closest analog to the Apollo problem — a platform where revenue teams live and die by whether the right signal surfaces at the right time. I've thought a lot about what makes that work, and what makes it fail.",
+    jd: "Staff Product Designer\nApollo.io\n\nHelp craft the future of Apollo\u2019s go-to-market platform, trusted by 500,000+ companies globally. Work within a Squad alongside a PM and engineers to brainstorm, build, and validate solutions for complex enterprise user problems. Map complex workflows and system interactions within the CRM product. Interview enterprise users, contribute to the design system, and integrate quantitative and qualitative data into product decisions.\n\n8+ years designing and shipping complex, enterprise-level SaaS products. Expert systems thinker. Experience in CRM, sales-tech, or B2B domains a strong plus. User research and experimentation experience. Strong Figma skills including component and design system work.",
+  },
   machinify: {
     greeting: "Hello, Machinify team.",
     body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and document management at the facility level. Healthcare's complexity isn't theoretical to me.\n\nAnd I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
@@ -2031,6 +2036,41 @@ const THOUGHTS = {
     ],
   },
 
+  'the-signal-in-the-noise': {
+    kicker: 'Point of View',
+    title:  'The signal in the noise',
+    dek: 'On designing data-dense GTM platforms \u2014 and why the hardest problem isn\u2019t organizing the data, it\u2019s knowing which signal matters when.',
+    sections: [
+      {
+        paragraphs: [
+          'Sales intelligence platforms have an abundance problem dressed as an access problem. The contacts are there. The engagement history is there. The intent signals are there. But surface all of it and you\u2019ve built a very expensive noise machine.',
+          'The rep doesn\u2019t want to browse. They want to know. They want the platform to have an opinion about what matters right now \u2014 and they want to trust it.',
+        ],
+      },
+      {
+        heading: 'A database and a tool are not the same thing',
+        paragraphs: [
+          'A database surfaces everything. A tool makes a recommendation. The design work in a platform like Apollo isn\u2019t in the data model \u2014 it\u2019s in the judgment layer. Which contacts rise to the top? When does recency matter more than fit? When does fit matter more than recency? These aren\u2019t engineering decisions. They\u2019re design decisions with engineering consequences.',
+          'I\u2019ve seen this up close at Marketo. The engagement timeline existed \u2014 every email open, web visit, and form fill was tracked. The original Sales Insight design surfaced all of it. What reps actually needed were the two or three data points that told them whether to call today or wait a week. The redesign built around that insight. The data didn\u2019t change. The judgment layer did.',
+        ],
+      },
+      {
+        heading: 'The rep\u2019s world is not a dashboard',
+        paragraphs: [
+          'Revenue tools often get designed for the reporting view \u2014 the one the VP of Sales checks on Tuesday morning. But the rep lives somewhere else. They\u2019re moving between 40 accounts, context-switching constantly, trying to remember where they left off with someone they last touched three weeks ago.',
+          'The design that serves the VP\u2019s review is often exactly wrong for the rep\u2019s Thursday morning. Designing for both means understanding both workflows at the task level \u2014 not just the feature level. What does the rep need to stay oriented? What should surface without being asked? What stays out of the way until it\u2019s needed?',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Apollo',
+        paragraphs: [
+          'I\u2019m drawn to this problem space because it\u2019s genuinely hard. The data is complex, the users are experts, and the margin for making them feel like the tool is slowing them down is zero. The best GTM platforms are the ones that make experienced reps feel like the system knows them \u2014 and that takes precise design work to get right.',
+          'The systems thinking required here \u2014 understanding how search, enrichment, sequencing, and CRM sync interact as a coherent experience rather than separate features \u2014 is the kind of work I do well.',
+        ],
+      },
+    ],
+  },
+
   'the-control-plane-problem': {
     kicker: 'Point of View',
     title:  'The control plane problem',
@@ -2333,6 +2373,7 @@ function setupHiringManagerView() {
     machinify:  'when-the-platform-knows-more-than-you-do',
     citrix:       'the-control-plane-problem',
     createmusic:  'the-platform-underneath-the-art',
+    apollo:       'the-signal-in-the-noise',
   };
 
   const matchedId = POV_MAP[ref] || null;
