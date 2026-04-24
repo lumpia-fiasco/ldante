@@ -1512,6 +1512,49 @@ const THOUGHTS = {
     ],
   },
 
+  'navigating-ambiguity': {
+    kicker: 'Thoughts',
+    title:  'Navigating Ambiguity',
+    hero: {
+      src: 'assets/karl.jpeg',
+      alt: 'The Golden Gate Bridge emerging from a thick blanket of fog over the bay',
+      w:   1366,
+      h:   768,
+    },
+    dek: "Ambiguity isn\u2019t just one thing. How you navigate it depends on what kind you\u2019re actually in \u2014 and confusing the types is how teams end up solving the wrong problem with confidence.",
+    sections: [
+      {
+        paragraphs: [
+          "Ambiguity isn\u2019t just one thing. It\u2019s shapeless. How you navigate it depends on what kind you\u2019re actually in, and confusing the types is how teams end up solving the wrong problem with confidence. Full-chest confidence.",
+          "The way I think about it: there\u2019s fog where you don\u2019t know the destination, and fog where you know the destination but can\u2019t see the path. Both require you to move carefully and stay close to what\u2019s in your proximity. But they demand different orientations from the start.",
+        ],
+      },
+      {
+        heading: 'When the destination is unknown',
+        paragraphs: [
+          "The Teamshares Leadership ATS started as a surface ask: build a system to curate a queue of qualified Network Presidents. Simple enough on its face. But Teamshares had roughly 80 acquired companies at the time, some Presidents were covering two companies at once, and executive hiring typically runs two to six months. The pressure was real before we wrote a single spec.",
+          "Every conversation revealed something the last one didn\u2019t. Recruiters were managing candidates across Lever, spreadsheets, and email chains with no centralized workflow and no consistent way to track where anyone stood. There was no stage vocabulary. No visibility. The ask was \u201cbuild an ATS\u201d but the actual problem was that nobody could see what was happening or move with confidence.",
+          "The real work was figuring out what we were actually building before building it.",
+          "In that kind of fog you only know what\u2019s in your proximity. You take your steps, learn what\u2019s there, and let that inform the next ones. The destination reveals itself through the process.",
+        ],
+      },
+      {
+        heading: 'When the destination is known but the path isn\u2019t',
+        paragraphs: [
+          "The Marketo Sales Insight redesign was a different kind of ambiguous. The ask was to rekindle good faith between Marketo and their customers around a plugin that hadn\u2019t been touched since its original launch in the mid-2000s. We knew what success looked like emotionally, restored trust, but had no idea what it looked like in the product.",
+          "In sessions with my PM and tech lead, we kept pushing on one question: what are customers actually trying to accomplish when they open this? Validation interviews gave us a clear answer. They weren\u2019t interested in a redesign for its own sake. They wanted recency and frequency of lead activity, surfaced quickly and reliably. That became the anchor for every decision that followed, and the product we shipped reflected that clarity back to customers in a way the original never had.",
+          "The fog lifted not through exploration but through focus.",
+        ],
+      },
+      {
+        heading: 'The work before the work',
+        paragraphs: [
+          "Both of these started with someone handing me something underspecified and expecting a solution. What I\u2019ve learned is that the quality of the problem definition almost always determines the quality of the outcome. No matter the type of fog you find yourself in, getting the approach right is the work before the work, and it\u2019s where the most valuable design thinking happens.",
+        ],
+      },
+    ],
+  },
+
   'growing-leaders': {
     kicker: 'Thoughts',
     title:  'Growing leaders',
