@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  yahoo: {
+    greeting: "Hello, Yahoo Sports team.",
+    body: "I'm Dante. I built Marketo Sky\u2019s design system from the ground up \u2014 50+ components, 100% adoption across the product org, governance that held through an Adobe acquisition and contributed patterns upstream to Spectrum.\n\nI\u2019ve been hands-on with AI tooling at the production level. I used Claude Code to build this portfolio directly \u2014 which has given me a real vantage on where the seams are between design intent and generated code.\n\nThe Yahoo Sports problem \u2014 an AI-native design system that can power high-density live data experiences across Web, iOS, and Android \u2014 is exactly the intersection of the two things I do best.",
+    jd: "Principal, Design Systems\nYahoo Sports\n\nDefine the strategy and roadmap for an AI-ready design system at one of the internet\u2019s most-visited sports platforms. Architect frameworks where components and logic are structured for LLM consumption and automated UI generation. Drive design-to-code pipelines with design tokens as the universal source of truth across Web, iOS, and Android. Implement AI-driven efficiencies in the design lifecycle. Lead high-density data modeling for live sports and analytics. Mentor designers on prompt engineering, structured AI interaction, and systems thinking.\n\n8+ years product design with specialized design systems focus. AI tools integration experience. Advanced Figma (variables, tokens, component architecture). Front-end principles (HTML/CSS). Multi-platform systems leadership. Preferred: live data visualization, JSON/code-based system management, Git.",
+  },
   ingram: {
     greeting: "Hello, Ingram Micro team.",
     body: "I'm Dante. I've spent my career designing platforms where the users are experts \u2014 engineers, marketers, healthcare administrators, business operators \u2014 and where the product has to earn their respect, not their patience.\n\nAt Marketo, I built a design system that unified a complex, multi-surface enterprise platform across 12,000+ users and multiple product teams. At Teamshares, I designed tools that helped operators run entire businesses, with data crossing company lines and personas ranging from HR leads to industry executives.\n\nThe Xvantage challenge \u2014 designing for an IT ecosystem where your users are resellers, vendors, and business buyers, all with different jobs, all dependent on the platform working \u2014 is exactly the kind of scale I want to be operating at.",
@@ -2046,6 +2051,42 @@ const THOUGHTS = {
     ],
   },
 
+  'from-library-to-language': {
+    kicker: 'Point of View',
+    title:  'From library to language',
+    dek: 'On what it actually takes to build a design system that AI tools can reason about \u2014 and why most systems aren\u2019t there yet.',
+    sections: [
+      {
+        paragraphs: [
+          'Design systems started as shared libraries \u2014 a place to put reusable components so teams didn\u2019t rebuild buttons for the fifth time. That problem is largely solved. The next version of that problem is harder and more interesting: how do you build a system that not only humans can use, but that AI tools can reason about, generate from, and extend without breaking things?',
+          'Most design systems aren\u2019t ready for that. They\u2019re rich in visual spec and sparse in semantic meaning. The gap between the two is where the AI-first design system lives.',
+        ],
+      },
+      {
+        heading: 'A component is documentation, not just code',
+        paragraphs: [
+          'An AI model consuming your Figma tokens to generate layout code needs to understand not just what a component looks like, but what it\u2019s for, when it applies, what it combines with, and what it doesn\u2019t do. Most systems describe appearance. Few describe intent.',
+          'The AI-ready design system inverts that priority. Tokens aren\u2019t just style values \u2014 they\u2019re vocabulary. Component relationships aren\u2019t just inheritance trees \u2014 they\u2019re grammar. When the system is structured to express intent, it can be read and reasoned about by machines, not just consumed by designers.',
+        ],
+      },
+      {
+        heading: 'Tokens as the universal source of truth',
+        paragraphs: [
+          'The design-to-code promise has always been: one definition, everywhere. Design tokens get close. But the gap between a Figma variable and a compiled CSS custom property \u2014 and the further gap between that CSS and a SwiftUI modifier \u2014 is where intent erodes.',
+          'The work is in building the connective layer: not just defining tokens, but defining their relationships, constraints, and platform-specific expressions. When you do that, you get more than consistency \u2014 you get a system that can be queried by a Copilot integration or an LLM-assisted code generator and produce something that reflects design intent, not just design proximity.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Yahoo Sports',
+        paragraphs: [
+          'At Marketo, I built a design system that had to survive an Adobe acquisition and contribute patterns upstream to Spectrum. That pressure \u2014 design decisions that had to hold at a much larger scale than the one they were built for \u2014 shaped how I think about system architecture. You build for extensibility from the start, or you rebuild from scratch later.',
+          'I\u2019ve been using Claude Code to build production interfaces directly, including this portfolio. That work has given me a concrete sense of where the seams are between design intent and generated code. The systems that work best aren\u2019t the ones that describe what things look like \u2014 they\u2019re the ones that describe what things mean.',
+          'High-density live sports data is a genuinely hard design problem: time-sensitive, multi-format, platform-specific, and load-bearing. The system that powers it needs to be as precise as the data it displays.',
+        ],
+      },
+    ],
+  },
+
   'when-the-platform-is-the-job': {
     kicker: 'Point of View',
     title:  'When the platform is the job',
@@ -2457,6 +2498,7 @@ function setupHiringManagerView() {
     apollo:       'the-signal-in-the-noise',
     pagerduty:    'when-the-system-acts-alone',
     ingram:       'when-the-platform-is-the-job',
+    yahoo:        'from-library-to-language',
   };
 
   const matchedId = POV_MAP[ref] || null;

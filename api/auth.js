@@ -21,6 +21,7 @@ export default function handler(req, res) {
     [process.env.PW_APOLLO]:       'apollo',
     [process.env.PW_PAGERDUTY]:    'pagerduty',
     [process.env.PW_INGRAM]:       'ingram',
+    [process.env.PW_YAHOO]:        'yahoo',
   };
 
   const experience = map[password];
@@ -33,7 +34,7 @@ export default function handler(req, res) {
   // "createmusic" routes to the Create Music Group experience, etc.
   const SLUG_PASSWORDS = [
     'lattice', 'rippling', 'five9', 'twitch', 'circle',
-    'machinify', 'createmusic', 'citrix', 'apollo', 'pagerduty', 'ingram',
+    'machinify', 'createmusic', 'citrix', 'apollo', 'pagerduty', 'ingram', 'yahoo',
   ];
   const slugMatch = SLUG_PASSWORDS.find(s => s === password.toLowerCase().trim());
   if (slugMatch) {
