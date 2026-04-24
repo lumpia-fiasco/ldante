@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  ucla: {
+    greeting: "Hello, UCLA Health team.",
+    body: "I'm Dante. I designed for healthcare infrastructure at MEDHOST \u2014 systems running clinical operations at the facility level. I know what it means to design where errors carry real consequence.\n\nI've also built design systems under the kind of complexity this role demands. The Marketo Sky component library governed a multi-audience enterprise platform and held through an Adobe acquisition. The work is in building something coherent enough to survive teams, surfaces, and time.\n\nAnd I've been hand-coding HTML and CSS since the start of my career \u2014 so I can close the gap between design intent and implementation myself when it matters.",
+    jd: "UX Product Designer\nUCLA Health\n\nLead UX design for UCLA Health\u2019s enterprise web ecosystem, including the flagship UCLA Health and David Geffen School of Medicine websites and secondary sites. Develop and maintain a comprehensive web component library and UX standards. Design intuitive experiences across high-visibility platforms with significant consequence of error. Mentor web strategists on user-centered practices. Lead research, design, and implementation across tactical and multi-year programs. Ensure strict adherence to brand guidelines, accessibility standards (WCAG, ADA), and user-centered principles.\n\n5+ years UX/product design in enterprise web or SaaS. Advanced accessibility knowledge. Figma proficiency. Design systems experience. User research and usability testing. Agile fluency. HTML/CSS/JS a plus.",
+  },
   yahoo: {
     greeting: "Hello, Yahoo Sports team.",
     body: "I'm Dante. I built the Marketo Sky design system from scratch \u2014 50+ components, full org adoption, governance that survived an Adobe acquisition and contributed patterns upstream to Spectrum.\n\nI also built this portfolio using Claude Code, which gives me a first-hand read on where design intent breaks down in AI-generated code. That gap is exactly what this role is about.",
@@ -2051,6 +2056,42 @@ const THOUGHTS = {
     ],
   },
 
+  'the-digital-front-door': {
+    kicker: 'Point of View',
+    title:  'The digital front door',
+    dek: 'On designing the public-facing web presence of a healthcare institution \u2014 and why the stakes are categorically different from most product work.',
+    sections: [
+      {
+        paragraphs: [
+          'When someone is trying to find a specialist after a diagnosis, or navigate to the right emergency department, or understand what a procedure means before they sign a consent form \u2014 the healthcare website isn\u2019t a marketing channel. It\u2019s infrastructure.',
+          'The design stakes for a system like UCLA Health\u2019s digital footprint are different from the stakes for most products. Bad information architecture doesn\u2019t cost a conversion. It costs someone finding the right care.',
+        ],
+      },
+      {
+        heading: 'Accessibility is the baseline, not the add-on',
+        paragraphs: [
+          'Healthcare audiences are inherently diverse in ways most product audiences aren\u2019t. Older patients. People with visual impairments. Non-native English speakers. People in acute stress with reduced cognitive capacity. People accessing from a mobile device in a waiting room.',
+          'In this context, WCAG compliance isn\u2019t a legal checkbox \u2014 it\u2019s the minimum viable design. The real accessibility work is in reducing cognitive load: clear wayfinding, plain language, predictable patterns. The component library that powers this work needs to be built with these constraints as first principles, not retrofitted in QA.',
+        ],
+      },
+      {
+        heading: 'Multiple audiences, one system',
+        paragraphs: [
+          'An academic medical center website serves patients, students, physicians, researchers, and donors \u2014 often on the same page. Each is navigating with different intent, different prior knowledge, and different urgency. Designing for this without fragmenting the experience requires a design system sophisticated enough to flex across contexts while maintaining coherence.',
+          'The component library is what makes that possible at scale \u2014 not as a collection of UI elements, but as a system of semantic decisions that encodes the right experience for each audience into the components themselves.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to this',
+        paragraphs: [
+          'At MEDHOST, I designed for healthcare IT \u2014 systems running clinical operations at the facility level. That experience gave me an early understanding of what it means to design in high-consequence environments where errors have real costs.',
+          'At Marketo, I built a design system that governed a complex, multi-audience platform and held through an acquisition. The discipline required to build something that stays coherent across a growing team, multiple surfaces, and significant organizational change is the same discipline this role requires.',
+          'I started my career hand-coding HTML and CSS, which means I can speak precisely to implementation decisions, catch issues in QA, and write specs that don\u2019t lose anything in translation.',
+        ],
+      },
+    ],
+  },
+
   'from-library-to-language': {
     kicker: 'Point of View',
     title:  'From library to language',
@@ -2499,6 +2540,7 @@ function setupHiringManagerView() {
     pagerduty:    'when-the-system-acts-alone',
     ingram:       'when-the-platform-is-the-job',
     yahoo:        'from-library-to-language',
+    ucla:         'the-digital-front-door',
   };
 
   const matchedId = POV_MAP[ref] || null;
