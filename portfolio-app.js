@@ -1516,10 +1516,10 @@ const THOUGHTS = {
     kicker: 'Thoughts',
     title:  'Growing leaders',
     hero: {
-      src: 'assets/growth.jpeg',
+      src: 'assets/growth.jpg',
       alt: 'A seedling growing toward sunlight',
-      w:   512,
-      h:   512,
+      w:   800,
+      h:   534,
     },
     dek: "On the quiet work of helping people find their direction — and why the real legacy isn't the projects or the pixels.",
     sections: [
