@@ -1512,6 +1512,54 @@ const THOUGHTS = {
     ],
   },
 
+  'growing-leaders': {
+    kicker: 'Thoughts',
+    title:  'Growing leaders',
+    hero: {
+      src: 'assets/growth.jpeg',
+      alt: 'A seedling growing toward sunlight',
+      w:   512,
+      h:   512,
+    },
+    dek: "On the quiet work of helping people find their direction — and why the real legacy isn't the projects or the pixels.",
+    sections: [
+      {
+        paragraphs: [
+          "Mentorship didn't start as a title or a goal. It started with people just hitting me up — asking for advice, a little direction, maybe a sounding board.",
+          "Those were the first seedlings — the people I helped first. I listened, offered what I knew. Sometimes I just reminded them they already were what they sought to be.",
+        ],
+      },
+      {
+        paragraphs: [
+          "One story sticks with me. An aspiring creative director, talented but hitting a ceiling, feeling like he might give up on design altogether. The story is richer and more complex, but I'll keep it simple here. We talked, and I introduced him to user-centered design — a whole new way of thinking and creating. Just like my director at Gibson Guitar did for me. Today, he's thriving as a Principal Designer at Microsoft. Watching that transformation — from doubt to purpose — is what mentorship is about.",
+          "Over time, that quiet tending grew into something bigger. Designers I mentored early on now lead design systems at TikTok, build developer tools at AWS, direct university design programs, head teams at Adobe, and serve as principals at Microsoft.",
+          "One still calls me dalao — a term from Mandarin slang meaning \"big brother.\" It's not about hierarchy. It's respect mixed with a little gratitude. A nod to someone who was there when it mattered.",
+        ],
+      },
+      {
+        heading: "Mentorship isn't management. It's gardening.",
+        paragraphs: [
+          "You don't force growth. You clear the weeds. Loosen the soil. Protect fragile sprouts. At Marketo, I built a team from scratch — hiring young designers full of promise, tripling the research team, even hiring my own director. But more than building org charts, I was tending people. Helping them find the sunlight they needed. All while the very director I had a hand in hiring gave me the space to grow and thrive.",
+        ],
+      },
+      {
+        heading: "Growth is theirs, not mine. And that's the point.",
+        paragraphs: [
+          "They do the heavy lifting. They face the struggles, the questions, the doubt. I'm just a gardener — steady and patient, offering support and space. Sometimes a gentle nudge or the right question. Other times, just quiet presence.",
+          "Most days, it's slow and unseen work. But years later, a message arrives. A thank you. A recognition.",
+          "That's the real legacy. Not the projects or pixels. The people.",
+        ],
+      },
+      {
+        heading: "I still love designing — always will.",
+        paragraphs: [
+          "But if you ask what I'm proudest of,\nit's the garden I've been lucky enough to tend.\nThe growth I helped nurture.",
+          "And I'd do it all again.",
+        ],
+      },
+    ],
+  },
+
   'spongebob-would': {
     kicker: 'Thoughts',
     title:  'Squidward would never. SpongeBob would.',
