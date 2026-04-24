@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  pagerduty: {
+    greeting: "Hello, PagerDuty team.",
+    body: "I'm Dante. At Meroxa, I led the design pivot from a no-code pipeline builder to a real-time data observability platform — the kind where engineers watch systems under pressure, trying to understand what's wrong and move fast.\n\nDesigning AI that operators trust in high-stakes moments is exactly the kind of problem I want to be working on. The challenge isn't making the AI capable — it's making it legible enough that people are willing to let it act.",
+    jd: "Principal Product Designer, AI & Automation\nPagerDuty\n\nLead design strategy for AI and Automation across the PagerDuty Operations Cloud. Define the vision for how AI agents, automation workflows, and intelligent insights are experienced by technical operations teams. Partner with AI/ML engineers, product managers, and data scientists. Establish design principles for AI transparency, explainability, and user control. Mentor designers on AI/UX best practices. Conduct strategic research on how technical teams adopt and trust AI in mission-critical contexts.\n\n10+ years product design with complex technical products. 3+ years designing AI/ML, intelligent systems, or automation platforms. Demonstrated design strategy leadership. Portfolio showcasing AI/UX, automation design, or intelligent agent experiences. Preferred: DevOps, developer tools, or technical operations experience.",
+  },
   apollo: {
     greeting: "Hello, Apollo team.",
     body: "I'm Dante. I've spent my career building data-dense tools for teams that need to move fast and stay oriented.\n\nMarketo was my closest analog to the Apollo problem — a platform where revenue teams live and die by whether the right signal surfaces at the right time. I've thought a lot about what makes that work, and what makes it fail.",
@@ -2036,6 +2041,41 @@ const THOUGHTS = {
     ],
   },
 
+  'when-the-system-acts-alone': {
+    kicker: 'Point of View',
+    title:  'When the system acts alone',
+    dek: 'On designing AI agents for high-stakes operations \u2014 and why trust is a design problem before it\u2019s an engineering one.',
+    sections: [
+      {
+        paragraphs: [
+          'Operations teams have always been on-call. The shift is that increasingly, the first responder isn\u2019t a person \u2014 it\u2019s a system.',
+          'AI agents in an operations platform don\u2019t just alert. They diagnose. They correlate. They\u2019re beginning to remediate. The design challenge that follows isn\u2019t whether the AI can do these things. It\u2019s whether the operator will trust it enough to let it.',
+        ],
+      },
+      {
+        heading: 'Autonomy without visibility is anxiety',
+        paragraphs: [
+          'When a system acts on your behalf, you need to understand what it did, why, and what it decided not to do. Without that, operators don\u2019t gain confidence \u2014 they gain unease. They override everything just to feel in control. The automation exists, but nobody uses it.',
+          'Designing for AI in operations means making autonomous action legible \u2014 not through disclaimer modals nobody reads, but through the right signal surfaced at the right moment in the right context. The cognitive load of \u201cwhat did it do?\u201d has to cost less than the cognitive load of doing it yourself.',
+        ],
+      },
+      {
+        heading: 'The trust gradient isn\u2019t binary',
+        paragraphs: [
+          'Not all AI actions require the same level of trust. Suppressing a known-flapping alert is different from escalating an incident to the CTO. Grouping correlated events is different from triggering an automated rollback.',
+          'The design work is in mapping that gradient explicitly: what can the system do silently? What needs a confirmation? What should always stay in human hands? These aren\u2019t engineering decisions \u2014 they\u2019re design decisions. And they need to be grounded in how operators actually work under pressure: fast, stressed, context-loaded, with zero patience for friction that slows down resolution.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to this',
+        paragraphs: [
+          'At Meroxa, I led the product shift from a no-code pipeline builder to a data observability platform \u2014 a product where engineers watch systems under pressure and need to understand what\u2019s wrong fast. The core design challenge was trust: how do you make complex, automated system behavior feel transparent enough that engineers can act on it confidently, not just acknowledge it and move on?',
+          'That work taught me something I\u2019d bring to PagerDuty\u2019s AI layer directly: operator trust isn\u2019t won at onboarding. It\u2019s built interaction by interaction, decision by decision. Every time the system explains itself clearly, every time it gets it right and the operator knows why \u2014 that\u2019s a deposit. Design builds the account.',
+        ],
+      },
+    ],
+  },
+
   'the-signal-in-the-noise': {
     kicker: 'Point of View',
     title:  'The signal in the noise',
@@ -2374,6 +2414,7 @@ function setupHiringManagerView() {
     citrix:       'the-control-plane-problem',
     createmusic:  'the-platform-underneath-the-art',
     apollo:       'the-signal-in-the-noise',
+    pagerduty:    'when-the-system-acts-alone',
   };
 
   const matchedId = POV_MAP[ref] || null;
