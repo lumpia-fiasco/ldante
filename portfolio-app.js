@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  roland: {
+    greeting: "Hello, Roland team.",
+    body: "I'm Dante. I've spent a decade designing complex tools for expert users \u2014 engineers, marketers, operators \u2014 people who live in software and know exactly when it's slowing them down.\n\nMusic software is where I've always wanted to apply that. The design challenge is different: your users are experts in sound, not UI. The moment the interface makes them think about the interface, you've lost the session.\n\nI'm based in OC, practically next door, and I've been adjacent to the music industry through design work with Create Music Group. Happy to show you what I've built.",
+    jd: "Product Designer (Cold Outreach)\nRoland \u2014 Music Software\n\nDesign musician-first software experiences across Roland\u2019s software portfolio, including Roland Cloud, Zenbeats, and hardware-integrated applications. Bridge the gap between Roland\u2019s hardware legacy and modern software UX. Design for expert users whose expertise is musical, not computational \u2014 and build systems that stay coherent across a growing product surface.",
+  },
   ucla: {
     greeting: "Hello, UCLA Health team.",
     body: "I'm Dante. I designed for healthcare infrastructure at MEDHOST \u2014 systems running clinical operations at the facility level. I know what it means to design where errors carry real consequence.\n\nI've also built design systems under the kind of complexity this role demands. The Marketo Sky component library governed a multi-audience enterprise platform and held through an Adobe acquisition. The work is in building something coherent enough to survive teams, surfaces, and time.\n\nAnd I've been hand-coding HTML and CSS since the start of my career \u2014 so I can close the gap between design intent and implementation myself when it matters.",
@@ -2056,6 +2061,41 @@ const THOUGHTS = {
     ],
   },
 
+  'the-instrument-is-the-interface': {
+    kicker: 'Point of View',
+    title:  'The instrument is the interface',
+    dek: 'On designing music software for people whose expertise is in sound, not UI \u2014 and what that changes about how you work.',
+    sections: [
+      {
+        paragraphs: [
+          'Music software has a design problem most enterprise software doesn\u2019t: the user isn\u2019t trying to complete a task. They\u2019re trying to create something. And the moment the UI makes them think about the UI instead of the music, you\u2019ve broken the session.',
+          'The best music tools feel like instruments, not applications. They respond in ways that feel physical. They map to how musicians already think. They get out of the way.',
+        ],
+      },
+      {
+        heading: 'Expert users with a different kind of expertise',
+        paragraphs: [
+          'Musicians who use Roland software are experts \u2014 but their expertise is in sound, rhythm, and feeling. Not in navigating interfaces. A UI pattern that works perfectly for a project management tool will feel wrong in a synthesizer editor because the mental model is completely different.',
+          'Designing for musicians means learning their vocabulary, their workflow, and their instincts. Where do they start? What do they tweak obsessively? What do they never touch? The answers determine what belongs on the surface, what\u2019s reachable one level down, and what stays hidden until it\u2019s specifically needed.',
+        ],
+      },
+      {
+        heading: 'Hardware and software as one experience',
+        paragraphs: [
+          'Roland products blur the line between hardware and software in ways that create unique design challenges. The software layer of a hardware+software experience doesn\u2019t need to replicate the hardware\u2019s controls \u2014 it needs to extend them intelligently. That requires understanding what the hardware already communicates, and designing only what it can\u2019t.',
+          'The seam between the physical and the digital is where the experience either holds together or falls apart. Getting that right is a different kind of systems problem than most product teams are used to solving.',
+        ],
+      },
+      {
+        heading: 'The tempo of creative tools',
+        paragraphs: [
+          'Productivity software can tolerate friction. A creative tool cannot. Every extra click, every mode the user has to remember, every animation that delays feedback \u2014 these interrupt the creative state. Musicians work at the tempo of music. The software has to keep up.',
+          'This doesn\u2019t mean simplification. A professional synthesizer editor needs to expose enormous complexity. It means understanding which parts of that complexity belong on the surface, which belong one level down, and which should only appear when specifically summoned. That\u2019s a judgment call that has to be made instrument by instrument, workflow by workflow.',
+        ],
+      },
+    ],
+  },
+
   'the-digital-front-door': {
     kicker: 'Point of View',
     title:  'The digital front door',
@@ -2541,6 +2581,7 @@ function setupHiringManagerView() {
     ingram:       'when-the-platform-is-the-job',
     yahoo:        'from-library-to-language',
     ucla:         'the-digital-front-door',
+    roland:       'the-instrument-is-the-interface',
   };
 
   const matchedId = POV_MAP[ref] || null;
