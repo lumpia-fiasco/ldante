@@ -44,7 +44,7 @@ const TAILORED = {
   },
   roland: {
     greeting: "Hello, Roland team.",
-    body: "I'm Dante. I've spent a decade designing complex tools for expert users \u2014 engineers, marketers, operators \u2014 people who live in software and know exactly when it's slowing them down.\n\nMusic software is where I've always wanted to apply that. The design challenge is different: your users are experts in sound, not UI. The moment the interface makes them think about the interface, you've lost the session.\n\nI got my start at Gibson Guitar \u2014 that\u2019s where I was first introduced to user-centered design, by a director who shaped how I think about this work. I\u2019m based in OC, practically next door. Happy to show you what I\u2019ve built.",
+    body: "I'm Dante. I've spent a decade designing complex tools for expert users \u2014 people who live in software and know exactly when it\u2019s slowing them down. Music software is where I\u2019ve always wanted to apply that: your users are experts in sound, not UI, and the moment the interface makes them think about the interface, you\u2019ve lost the session.\n\nI got my start at Gibson Guitar \u2014 that\u2019s where I was first introduced to user-centered design. I\u2019m also based in OC, practically next door.",
     jd: "Product Designer (Cold Outreach)\nRoland \u2014 Music Software\n\nDesign musician-first software experiences across Roland\u2019s software portfolio, including Roland Cloud, Zenbeats, and hardware-integrated applications. Bridge the gap between Roland\u2019s hardware legacy and modern software UX. Design for expert users whose expertise is musical, not computational \u2014 and build systems that stay coherent across a growing product surface.",
   },
   ucla: {
