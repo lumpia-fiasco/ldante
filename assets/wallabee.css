@@ -238,6 +238,10 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
   position: fixed; inset: 0; display: flex;
   background: var(--bg); z-index: 200;
   font-family: var(--font-ui);
+  /* Type sample tokens — used by inline styles in TYPE_ROWS so CSS can override them */
+  --ds-fg:       var(--white);
+  --ds-fg-muted: rgba(255,255,255,0.80);
+  --ds-fg-dim:   rgba(255,255,255,0.65);
 }
 .ds-sidebar {
   width: 216px; min-width: 216px; height: 100%; overflow-y: auto;
@@ -471,6 +475,10 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
   background: #f4f4f5;
   color: #1a1a1a;          /* cascade dark text to any unstyled children */
   --pink: #b5194e;
+  /* Type sample tokens — override the white defaults for light bg */
+  --ds-fg:       #1a1a1a;
+  --ds-fg-muted: #4e4e4e;
+  --ds-fg-dim:   #5e5e5e;
 }
 
 /* ── Sidebar (#e8e8ea) ── */
