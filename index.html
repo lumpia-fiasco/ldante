@@ -1435,6 +1435,86 @@
       letter-spacing: 0.03em;
       margin-top: 4px;
     }
+
+    /* ── DS mode toggle ── */
+    .ds-sidebar-foot {
+      padding: 16px 0 0;
+      margin-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .ds-mode-toggle {
+      display: flex; align-items: center; gap: 8px;
+      margin: 0 20px;
+      padding: 7px 12px;
+      width: calc(100% - 40px);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      font-family: var(--font-ui); font-size: 0.75rem; font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      text-align: left;
+    }
+    .ds-mode-toggle:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+    .ds-mode-toggle-icon { font-size: 0.9rem; line-height: 1; }
+
+    /* ══════════════════════════════════════════════════════
+       WALLABEE LIGHT MODE — .ds-shell.ds-light
+    ══════════════════════════════════════════════════════ */
+    .ds-shell.ds-light { background: #f4f4f5; }
+    .ds-shell.ds-light .ds-sidebar { background: #e8e8ea; border-right-color: rgba(0,0,0,0.09); }
+    .ds-shell.ds-light .ds-sidebar-foot { border-top-color: rgba(0,0,0,0.09); }
+    .ds-shell.ds-light .ds-nav-label { color: rgba(0,0,0,0.38); }
+    .ds-shell.ds-light .ds-nav-link { color: rgba(0,0,0,0.52); }
+    .ds-shell.ds-light .ds-nav-link:hover { color: #1f1f1f; background: rgba(0,0,0,0.05); }
+    .ds-shell.ds-light .ds-nav-link.ds-active { color: #1f1f1f; }
+    .ds-shell.ds-light .ds-mode-toggle { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: rgba(31,31,31,0.55); }
+    .ds-shell.ds-light .ds-mode-toggle:hover { background: rgba(0,0,0,0.09); color: #1f1f1f; }
+    .ds-shell.ds-light .ds-main { background: #f4f4f5; }
+    .ds-shell.ds-light .ds-section-title { color: #1f1f1f; }
+    .ds-shell.ds-light .ds-section-body { color: rgba(31,31,31,0.6); }
+    .ds-shell.ds-light .ds-divider { border-top-color: rgba(0,0,0,0.08); }
+    .ds-shell.ds-light .ds-swatch { border-color: rgba(0,0,0,0.09); }
+    .ds-shell.ds-light .ds-swatch-info { background: rgba(0,0,0,0.04); }
+    .ds-shell.ds-light .ds-swatch-name { color: #1f1f1f; }
+    .ds-shell.ds-light .ds-swatch-value { color: rgba(31,31,31,0.4); }
+    .ds-shell.ds-light .ds-type-row { border-bottom-color: rgba(0,0,0,0.07); }
+    .ds-shell.ds-light .ds-type-spec { color: rgba(31,31,31,0.4); }
+    .ds-shell.ds-light .ds-canvas { background: rgba(0,0,0,0.025); border-color: rgba(0,0,0,0.09); }
+    .ds-shell.ds-light .ds-canvas-label { color: rgba(31,31,31,0.35); }
+    .ds-shell.ds-light .ds-spec-table th { color: rgba(31,31,31,0.38); border-bottom-color: rgba(0,0,0,0.09); }
+    .ds-shell.ds-light .ds-spec-table td { color: rgba(31,31,31,0.58); border-bottom-color: rgba(0,0,0,0.05); }
+    .ds-shell.ds-light .ds-spec-table td:first-child { color: #1f1f1f; }
+    .ds-shell.ds-light .ds-sky-slug { color: rgba(31,31,31,0.35); }
+    .ds-shell.ds-light .ds-fl { color: #1f1f1f; }
+    .ds-shell.ds-light .ds-entry-title { color: #1f1f1f; }
+    .ds-shell.ds-light .ds-entry-body { color: rgba(31,31,31,0.55); }
+    .ds-shell.ds-light .ds-entry-meta { color: rgba(31,31,31,0.3); }
+    .ds-shell.ds-light .ds-replay-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: rgba(31,31,31,0.6); }
+    .ds-shell.ds-light .ds-replay-btn:hover { background: rgba(0,0,0,0.09); color: #1f1f1f; }
+    .ds-shell.ds-light .ds-content-item { border-top-color: rgba(0,0,0,0.07); }
+    .ds-shell.ds-light .ds-content-item:hover { background: rgba(0,0,0,0.03); }
+    .ds-shell.ds-light .ds-item-title { color: #1f1f1f; }
+    .ds-shell.ds-light .ds-item-company { color: rgba(31,31,31,0.45); }
+    .ds-shell.ds-light .ds-item-dek { color: rgba(31,31,31,0.55); }
+    .ds-shell.ds-light .ds-item-metrics { color: rgba(31,31,31,0.35); }
+    /* Pattern components — undo global dark cascade */
+    .ds-shell.ds-light .cd-metric { background: #fff; border-color: rgba(31,31,31,0.1); box-shadow: 0 1px 6px rgba(0,0,0,0.05); }
+    .ds-shell.ds-light .cd-metric-value { color: #1f1f1f; }
+    .ds-shell.ds-light .cd-metric-label { color: rgba(31,31,31,0.6); }
+    .ds-shell.ds-light .cs-callout { background: rgba(31,31,31,0.04); border-left-color: rgba(31,31,31,0.15); }
+    .ds-shell.ds-light .cs-callout-label { color: rgba(31,31,31,0.65); }
+    .ds-shell.ds-light .cs-callout .cd-body,
+    .ds-shell.ds-light .cd-body { color: rgba(31,31,31,0.7); }
+    .ds-shell.ds-light .cs-callout--problem { background: #fff7ed; border-left-color: #ea580c; }
+    .ds-shell.ds-light .cs-pull-quote { background: rgba(31,31,31,0.02); border-left-color: #1f1f1f; }
+    .ds-shell.ds-light .cs-pull-quote-text { color: #1f1f1f; }
+    .ds-shell.ds-light .cs-pull-quote-attr { color: rgba(31,31,31,0.5); }
+    .ds-shell.ds-light .cs-pull-quote-attr strong { color: rgba(31,31,31,0.75); }
+    .ds-shell.ds-light .cd-reframe-from { background: rgba(31,31,31,0.03); border-color: rgba(31,31,31,0.1); color: rgba(31,31,31,0.45); }
+    .ds-shell.ds-light .cd-reframe-to { background: rgba(31,31,31,0.05); border-color: rgba(31,31,31,0.14); color: #1f1f1f; }
+    .ds-shell.ds-light .cd-reframe-label { opacity: 0.42; color: #1f1f1f; }
   </style>
 </head>
 <body>

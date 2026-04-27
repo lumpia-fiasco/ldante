@@ -3067,6 +3067,12 @@ function renderDSMode() {
           <a class="ds-nav-link" data-target="ds-pat-inputs">Input Fields</a>
         </div>
       </nav>
+      <div class="ds-sidebar-foot">
+        <button class="ds-mode-toggle" id="dsModeToggle">
+          <span class="ds-mode-toggle-icon">◑</span>
+          <span id="dsModeLabel">Light mode</span>
+        </button>
+      </div>
     </aside>
     <main class="ds-main" id="dsMainScroll">
 
@@ -3342,6 +3348,14 @@ function renderDSMode() {
       const target = shell.querySelector('#' + link.dataset.target);
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+  });
+
+  // Light / dark mode toggle
+  const modeToggle = shell.querySelector('#dsModeToggle');
+  const modeLabel  = shell.querySelector('#dsModeLabel');
+  modeToggle.addEventListener('click', () => {
+    const isLight = shell.classList.toggle('ds-light');
+    modeLabel.textContent = isLight ? 'Dark mode' : 'Light mode';
   });
 
   // Active link via IntersectionObserver
