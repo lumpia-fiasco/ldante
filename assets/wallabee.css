@@ -405,6 +405,50 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
 .ds-mode-toggle-icon { font-size: 0.9rem; line-height: 1; }
 
 
+/* ── Principles ── */
+.ds-principle-lede {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+  max-width: 520px;
+}
+.ds-principle-chain {
+  padding-left: 20px;
+  border-left: 2px solid rgba(255,255,255,0.1);
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ds-principle-chain p {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+.ds-principle-chain p:nth-child(1) { color: rgba(255,255,255,0.35); }
+.ds-principle-chain p:nth-child(2) { color: rgba(255,255,255,0.52); }
+.ds-principle-chain p:nth-child(3) { color: rgba(255,255,255,0.68); }
+.ds-principle-resolution {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ds-principle-resolution p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+}
+.ds-principle-resolution p:first-child {
+  color: var(--white);
+  font-weight: 500;
+}
+
+
 /* ═══════════════════════════════════════════════════════════════
    WALLABEE LIGHT MODE — .ds-shell.ds-light
    Applied by the mode toggle button in the DS sidebar.
@@ -462,3 +506,11 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
 .ds-shell.ds-light .cd-reframe-from { background: rgba(31,31,31,0.03); border-color: rgba(31,31,31,0.1); color: rgba(31,31,31,0.45); }
 .ds-shell.ds-light .cd-reframe-to { background: rgba(31,31,31,0.05); border-color: rgba(31,31,31,0.14); color: #1f1f1f; }
 .ds-shell.ds-light .cd-reframe-label { opacity: 0.42; color: #1f1f1f; }
+/* Principles — light overrides */
+.ds-shell.ds-light .ds-principle-lede { color: rgba(31,31,31,0.55); }
+.ds-shell.ds-light .ds-principle-chain { border-left-color: rgba(31,31,31,0.12); }
+.ds-shell.ds-light .ds-principle-chain p:nth-child(1) { color: rgba(31,31,31,0.35); }
+.ds-shell.ds-light .ds-principle-chain p:nth-child(2) { color: rgba(31,31,31,0.52); }
+.ds-shell.ds-light .ds-principle-chain p:nth-child(3) { color: rgba(31,31,31,0.68); }
+.ds-shell.ds-light .ds-principle-resolution p { color: rgba(31,31,31,0.65); }
+.ds-shell.ds-light .ds-principle-resolution p:first-child { color: #1f1f1f; }

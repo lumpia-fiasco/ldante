@@ -3041,6 +3041,10 @@ function renderDSMode() {
           <a class="ds-nav-link" data-target="ds-intro">Introduction</a>
         </div>
         <div class="ds-nav-group">
+          <span class="ds-nav-label">Principles</span>
+          <a class="ds-nav-link" data-target="ds-principles">Clarity Drives Everything</a>
+        </div>
+        <div class="ds-nav-group">
           <span class="ds-nav-label">Foundations</span>
           <a class="ds-nav-link" data-target="ds-color">Color</a>
           <a class="ds-nav-link" data-target="ds-type">Typography</a>
@@ -3081,6 +3085,24 @@ function renderDSMode() {
         <h1 class="ds-section-title">Wallabee</h1>
         <p class="ds-section-body">Wallabee is the design system behind ldante.com. The same discipline that built the Marketo Sky design system \u2014 50+ components, full-org adoption, governance that held through an Adobe acquisition \u2014 structures how this portfolio is built and maintained.</p>
         <p class="ds-section-body">This view documents the tokens, typography, and components that form Wallabee\u2019s visual language. It is a work in progress.</p>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-principles">
+        <div class="ds-eyebrow">Principles</div>
+        <h2 class="ds-section-title">Clarity Drives Everything</h2>
+        <p class="ds-principle-lede">Most teams don\u2019t struggle because of a lack of ideas.<br>They struggle because of a lack of clarity.</p>
+        <div class="ds-principle-chain">
+          <p>Unclear problems lead to weak decisions.</p>
+          <p>Weak decisions lead to slow execution.</p>
+          <p>Slow execution leads to missed outcomes.</p>
+        </div>
+        <div class="ds-principle-resolution">
+          <p>My role is to remove that ambiguity.</p>
+          <p>To align teams around what matters.</p>
+          <p>To turn direction into action.</p>
+          <p>And to ship products that perform.</p>
+        </div>
       </section>
       <hr class="ds-divider">
 
