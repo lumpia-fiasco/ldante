@@ -3009,7 +3009,7 @@ function renderDSMode() {
   shell.className = 'ds-shell';
   shell.innerHTML = `
     <aside class="ds-sidebar">
-      <div class="ds-wordmark">ldante\u2009/\u2009system</div>
+      <div class="ds-wordmark">Wallabee</div>
       <nav>
         <div class="ds-nav-group">
           <span class="ds-nav-label">Overview</span>
@@ -3033,9 +3033,9 @@ function renderDSMode() {
 
       <section class="ds-section" id="ds-intro">
         <div class="ds-eyebrow">Overview</div>
-        <h1 class="ds-section-title">Introduction</h1>
-        <p class="ds-section-body">An experimental view of ldante.com as a living design system document. The same discipline that built the Marketo Sky design system \u2014 50+ components, full-org adoption, governance that held through an Adobe acquisition \u2014 structures how this portfolio is built and maintained.</p>
-        <p class="ds-section-body">This view documents the tokens, typography, and components that form the visual language of the site. It is a work in progress.</p>
+        <h1 class="ds-section-title">Wallabee</h1>
+        <p class="ds-section-body">Wallabee is the design system behind ldante.com. The same discipline that built the Marketo Sky design system \u2014 50+ components, full-org adoption, governance that held through an Adobe acquisition \u2014 structures how this portfolio is built and maintained.</p>
+        <p class="ds-section-body">This view documents the tokens, typography, and components that form Wallabee\u2019s visual language. It is a work in progress.</p>
       </section>
       <hr class="ds-divider">
 
