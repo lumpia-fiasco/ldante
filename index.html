@@ -1359,6 +1359,34 @@
     .ds-spec-table td:first-child { color: var(--white); font-weight: 500; width: 160px; }
     .ds-spec-table code { font-family: 'Courier New', monospace; font-size: 0.75rem; color: var(--pink); }
     .ds-inline-code { font-family: 'Courier New', monospace; font-size: 0.85em; color: var(--pink); }
+    /* Sky phases grid */
+    .ds-sky-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 8px;
+    }
+    .ds-sky-swatch { border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
+    .ds-sky-chip { height: 72px; }
+    .ds-sky-info { padding: 7px 9px; background: rgba(255,255,255,0.04); }
+    .ds-sky-name { font-size: 0.6875rem; font-weight: 500; color: var(--white); margin-bottom: 2px; }
+    .ds-sky-slug { font-family: 'Courier New', monospace; font-size: 0.5625rem; color: rgba(255,255,255,0.3); }
+    /* Letter motion demo */
+    .ds-fl { display: inline-block; }
+    .ds-fl-sp { display: inline-block; width: 0.45em; }
+    /* Entry demo */
+    .ds-entry-badge { display: inline-block; font-size: 0.625rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink); margin-bottom: 8px; }
+    .ds-entry-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--white); margin-bottom: 8px; line-height: 1.1; letter-spacing: -0.02em; }
+    .ds-entry-body { font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 8px; }
+    .ds-entry-meta { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+    .ds-replay-btn {
+      margin-top: 10px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 6px 14px;
+      font-family: var(--font-ui); font-size: 0.75rem; font-weight: 500;
+      color: rgba(255,255,255,0.65); cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .ds-replay-btn:hover { background: rgba(255,255,255,0.12); color: var(--white); }
   </style>
 </head>
 <body>

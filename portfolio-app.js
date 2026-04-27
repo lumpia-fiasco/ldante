@@ -3005,6 +3005,31 @@ function renderDSMode() {
       <div style="${r.style}flex:1;">${r.sample}</div>
     </div>`).join('');
 
+  const SKY_PHASES = [
+    { name: 'Teal Horizon', slug: 'lattice',     bg: 'radial-gradient(ellipse 80% 60% at 20% 80%,rgba(0,128,128,.5) 0%,transparent 70%),linear-gradient(160deg,#001f1f 0%,#003d3d 50%,#001f1f 100%)' },
+    { name: 'Ember',        slug: 'rippling',    bg: 'radial-gradient(ellipse 80% 60% at 20% 80%,rgba(255,90,0,.4) 0%,transparent 70%),linear-gradient(160deg,#0a0a0a 0%,#1a0f00 50%,#0a0a0a 100%)' },
+    { name: 'Nebula',       slug: 'twitch',      bg: 'radial-gradient(ellipse 80% 60% at 20% 80%,rgba(145,71,255,.45) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 80% 30%,rgba(191,148,255,.2) 0%,transparent 70%),linear-gradient(160deg,#0e0e10 0%,#1f1f23 50%,#0e0e10 100%)' },
+    { name: 'Midnight',     slug: 'circle',      bg: 'radial-gradient(ellipse 80% 60% at 20% 80%,rgba(0,120,210,.4) 0%,transparent 70%),linear-gradient(160deg,#050d1a 0%,#0a1a30 50%,#050d1a 100%)' },
+    { name: 'Crimson',      slug: 'five9',       bg: 'radial-gradient(ellipse 80% 60% at 30% 70%,rgba(230,30,30,.35) 0%,transparent 70%),linear-gradient(160deg,#100000 0%,#1a0505 50%,#100000 100%)' },
+    { name: 'Deep Current', slug: 'machinify',   bg: 'radial-gradient(ellipse 75% 55% at 25% 75%,rgba(0,160,140,.45) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 78% 28%,rgba(80,40,180,.2) 0%,transparent 70%),linear-gradient(155deg,#060e12 0%,#0b1e24 55%,#060e12 100%)' },
+    { name: 'Cobalt',       slug: 'citrix',      bg: 'radial-gradient(ellipse 68% 50% at 22% 78%,rgba(0,100,210,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 24%,rgba(0,180,255,.14) 0%,transparent 68%),linear-gradient(155deg,#040810 0%,#071526 55%,#040810 100%)' },
+    { name: 'Aurora',       slug: 'createmusic', bg: 'radial-gradient(ellipse 72% 55% at 22% 80%,rgba(140,50,200,.44) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(220,55,110,.22) 0%,transparent 68%),linear-gradient(155deg,#090510 0%,#14071e 55%,#090510 100%)' },
+    { name: 'Sunrise',      slug: 'apollo',      bg: 'radial-gradient(ellipse 75% 55% at 22% 80%,rgba(255,100,20,.45) 0%,transparent 68%),radial-gradient(ellipse 50% 38% at 80% 25%,rgba(255,180,60,.18) 0%,transparent 68%),linear-gradient(155deg,#0d0700 0%,#1a0e00 55%,#0d0700 100%)' },
+    { name: 'Jade',         slug: 'pagerduty',   bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(6,172,56,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(0,255,100,.12) 0%,transparent 68%),linear-gradient(155deg,#010d04 0%,#021a08 55%,#010d04 100%)' },
+    { name: 'Scarlet',      slug: 'ingram',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(200,30,40,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,80,60,.14) 0%,transparent 68%),linear-gradient(155deg,#0d0102 0%,#1a0304 55%,#0d0102 100%)' },
+    { name: 'Ultraviolet',  slug: 'yahoo',       bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(96,1,210,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(150,60,255,.18) 0%,transparent 68%),linear-gradient(155deg,#060010 0%,#0e0020 55%,#060010 100%)' },
+    { name: 'Nightfall',    slug: 'ucla',        bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(0,59,115,.58) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,180,0,.14) 0%,transparent 68%),linear-gradient(155deg,#010508 0%,#020b14 55%,#010508 100%)' },
+    { name: 'Blood Moon',   slug: 'roland',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(210,15,25,.52) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,50,30,.12) 0%,transparent 68%),linear-gradient(155deg,#0d0000 0%,#1c0101 55%,#0d0000 100%)' },
+  ];
+  const skyHTML = SKY_PHASES.map(p => `
+    <div class="ds-sky-swatch">
+      <div class="ds-sky-chip" style="background:${p.bg};"></div>
+      <div class="ds-sky-info">
+        <div class="ds-sky-name">${p.name}</div>
+        <div class="ds-sky-slug">${p.slug}</div>
+      </div>
+    </div>`).join('');
+
   const shell = document.createElement('div');
   shell.className = 'ds-shell';
   shell.innerHTML = `
@@ -3026,6 +3051,12 @@ function renderDSMode() {
           <a class="ds-nav-link" data-target="ds-buttons">Role Buttons</a>
           <a class="ds-nav-link" data-target="ds-badges">Badges</a>
           <a class="ds-nav-link" data-target="ds-cards">Cards</a>
+        </div>
+        <div class="ds-nav-group">
+          <span class="ds-nav-label">Animation</span>
+          <a class="ds-nav-link" data-target="ds-motion-sky">Sky Phases</a>
+          <a class="ds-nav-link" data-target="ds-motion-letters">Letter Motion</a>
+          <a class="ds-nav-link" data-target="ds-motion-entry">Content Entry</a>
         </div>
       </nav>
     </aside>
@@ -3125,6 +3156,53 @@ function renderDSMode() {
           </tbody>
         </table>
       </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-motion-sky">
+        <div class="ds-eyebrow">Animation</div>
+        <h2 class="ds-section-title">Sky phases</h2>
+        <p class="ds-section-body">The POV tile backgrounds are a family of gradient atmospheres \u2014 each one a unique composition of radial glows over a near-black field. They read as dark and calm but carry enough color identity to feel distinct from each other and anchored to their brand.</p>
+        <div class="ds-sky-grid">${skyHTML}</div>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-motion-letters">
+        <div class="ds-eyebrow">Animation</div>
+        <h2 class="ds-section-title">Letter motion</h2>
+        <p class="ds-section-body">On the gate screen, the hero headline is split into individual character spans. Cursor movement pushes letters away using a velocity-drag physics model \u2014 letters carry mouse momentum, not just react to proximity. On reset, they return home with an elastic spring.</p>
+        <div class="ds-canvas" style="cursor:default;" id="dsLetterCanvas">
+          <div id="dsLetterDemo" style="font-family:'Cal Sans',sans-serif;font-size:2rem;line-height:1.2;letter-spacing:-0.02em;color:#fff;user-select:none;"></div>
+        </div>
+        <div class="ds-canvas-label">Hover to interact \xB7 mouse leave springs back</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Repulsion radius</td><td><code>130px</code></td></tr>
+            <tr><td>Force model</td><td><code>velocity drag + outward nudge</code></td></tr>
+            <tr><td>Max rotation</td><td><code>\xB152\xB0</code></td></tr>
+            <tr><td>Reset duration</td><td><code>1100ms</code></td></tr>
+            <tr><td>Reset easing</td><td><code>easeOutElastic (p\u202F=\u202F0.42)</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-motion-entry">
+        <div class="ds-eyebrow">Animation</div>
+        <h2 class="ds-section-title">Content entry</h2>
+        <p class="ds-section-body">When portfolio content loads, child elements enter with a staggered fade-up. Each item translates from 12px below and fades from opacity 0, with 50ms of stagger between children. The easing is a fast ease-out that gives the motion a settled, confident feel.</p>
+        <div class="ds-canvas" id="dsEntryCanvas"></div>
+        <div class="ds-canvas-label"><button class="ds-replay-btn" id="dsReplayBtn">Replay</button></div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Enter from</td><td><code>translateY(12px) \xB7 opacity 0</code></td></tr>
+            <tr><td>Duration</td><td><code>380ms</code></td></tr>
+            <tr><td>Easing</td><td><code>cubic-bezier(0.22, 1, 0.36, 1)</code></td></tr>
+            <tr><td>Stagger</td><td><code>50ms per child</code></td></tr>
+          </tbody>
+        </table>
+      </section>
 
     </main>`;
 
@@ -3152,6 +3230,113 @@ function renderDSMode() {
     });
   }, { root: mainEl, threshold: 0.25 });
   sections.forEach(s => observer.observe(s));
+
+  // ── Letter motion demo ────────────────────────────────
+  (function initLetterDemo() {
+    const demo = shell.querySelector('#dsLetterDemo');
+    const canvas = shell.querySelector('#dsLetterCanvas');
+    if (!demo || !canvas) return;
+
+    Array.from('Product Designer').forEach(ch => {
+      const s = document.createElement('span');
+      s.className = ch === ' ' ? 'ds-fl-sp' : 'ds-fl';
+      s.textContent = ch === ' ' ? '\u00A0' : ch;
+      demo.appendChild(s);
+    });
+
+    const letters = Array.from(demo.querySelectorAll('.ds-fl'));
+    const ITEMS = [];
+    function cache() {
+      ITEMS.length = 0;
+      letters.forEach((el, i) => {
+        const prev = el.style.transform;
+        el.style.transform = 'none';
+        const r = el.getBoundingClientRect();
+        ITEMS.push({ el, cx: r.left + r.width/2, cy: r.top + r.height/2, ox: 0, oy: 0, rotSign: i%2 ? 1 : -1 });
+        el.style.transform = prev;
+      });
+    }
+    setTimeout(cache, 120);
+
+    function applyFL(item) {
+      const d = Math.sqrt(item.ox*item.ox + item.oy*item.oy);
+      const rot = Math.min(d*0.28, 52) * item.rotSign;
+      item.el.style.transform = `translate(${item.ox.toFixed(1)}px,${item.oy.toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
+    }
+
+    let prevX = null, prevY = null;
+    canvas.addEventListener('mousemove', e => {
+      if (!ITEMS.length) cache();
+      const cx = e.clientX, cy = e.clientY;
+      const dmx = prevX != null ? cx - prevX : 0;
+      const dmy = prevY != null ? cy - prevY : 0;
+      prevX = cx; prevY = cy;
+      for (const item of ITEMS) {
+        const dx = cx - (item.cx + item.ox);
+        const dy = cy - (item.cy + item.oy);
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist >= 130) continue;
+        const t = Math.pow((130 - dist) / 130, 1.3);
+        const drag = Math.min(t * 0.92, 0.78);
+        const nudge = t * 0.2;
+        const nx = dist > 1 ? dx/dist : 0, ny = dist > 1 ? dy/dist : 0;
+        item.ox += dmx * drag + nx * nudge;
+        item.oy += dmy * drag + ny * nudge;
+        item.ox = Math.max(-70, Math.min(70, item.ox));
+        item.oy = Math.max(-50, Math.min(50, item.oy));
+        applyFL(item);
+      }
+    });
+    canvas.addEventListener('mouseleave', () => {
+      prevX = null; prevY = null;
+      function eoeFL(t) {
+        if (t <= 0) return 0; if (t >= 1) return 1;
+        const p = 0.42;
+        return Math.pow(2, -10*t) * Math.sin((t - p/4) * (2*Math.PI) / p) + 1;
+      }
+      ITEMS.forEach(item => {
+        if (!item.ox && !item.oy) return;
+        const rsOx = item.ox, rsOy = item.oy;
+        const DUR = 1100, t0 = performance.now();
+        function tick(now) {
+          const t = Math.min((now - t0) / DUR, 1);
+          const e = eoeFL(t);
+          item.ox = rsOx * (1 - e); item.oy = rsOy * (1 - e);
+          applyFL(item);
+          if (t < 1) requestAnimationFrame(tick);
+          else { item.ox = 0; item.oy = 0; item.el.style.transform = ''; }
+        }
+        requestAnimationFrame(tick);
+      });
+    });
+  })();
+
+  // ── Content entry demo ────────────────────────────────
+  (function initEntryDemo() {
+    const canvas = shell.querySelector('#dsEntryCanvas');
+    const btn = shell.querySelector('#dsReplayBtn');
+    if (!canvas || !btn) return;
+
+    function play() {
+      canvas.innerHTML = '';
+      canvas.classList.remove('content-entering');
+      [
+        ['ds-entry-badge', 'Case Study'],
+        ['ds-entry-title', 'Payroll Reporting System'],
+        ['ds-entry-body',  'Unified fragmented workflows across 100+ employee-owned businesses. Saved $3.1M annually by replacing a manual reporting process with a purpose-built dashboard.'],
+        ['ds-entry-meta',  'Teamshares \xB7 2023'],
+      ].forEach(([cls, text]) => {
+        const el = document.createElement('div');
+        el.className = cls; el.textContent = text;
+        canvas.appendChild(el);
+      });
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => canvas.classList.add('content-entering'));
+      });
+    }
+    play();
+    btn.addEventListener('click', play);
+  })();
 }
 
 // ── Init ─────────────────────────────────────────────────────────
