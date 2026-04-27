@@ -3030,6 +3030,58 @@ function renderDSMode() {
       </div>
     </div>`).join('');
 
+  const CS_ORDER = [
+    { id: 'teamshares-payroll', label: 'Payroll Reporting'    },
+    { id: 'teamshares-ats',     label: 'Applicant Tracking'   },
+    { id: 'marketo-sky',        label: 'Marketo Sky'          },
+    { id: 'meroxa',             label: 'Meroxa / Turbine'     },
+    { id: 'marketo-migration',  label: 'Marketo Migration'    },
+  ];
+  const THOUGHT_ORDER = [
+    { id: 'charlie-murphys-law',                              label: "Charlie Murphy\u2019s Law"     },
+    { id: 'navigating-ambiguity',                             label: 'Navigating Ambiguity'           },
+    { id: 'growing-leaders',                                  label: 'Growing leaders'                },
+    { id: 'spongebob-would',                                  label: 'SpongeBob would'                },
+    { id: 'design-systems-that-last',                         label: 'Design systems that last'       },
+    { id: 'financial-platforms-systems-problems',             label: 'Financial platforms'            },
+    { id: 'designing-platforms-where-two-sides-need-each-other', label: 'Two-sided platforms'        },
+    { id: 'designing-infrastructure-people-trust',            label: 'Infrastructure trust'           },
+    { id: 'designing-for-people-who-live-in-the-product',     label: 'Living in the product'         },
+    { id: 'when-the-platform-knows-more-than-you-do',         label: 'When the platform knows'       },
+    { id: 'the-platform-underneath-the-art',                  label: 'Platform & the art'             },
+    { id: 'the-instrument-is-the-interface',                  label: 'Instrument is interface'        },
+    { id: 'the-digital-front-door',                           label: 'The digital front door'        },
+    { id: 'from-library-to-language',                         label: 'Library to language'            },
+    { id: 'when-the-platform-is-the-job',                     label: 'Platform is the job'            },
+    { id: 'when-the-system-acts-alone',                       label: 'System acts alone'              },
+    { id: 'the-signal-in-the-noise',                          label: 'Signal in the noise'            },
+    { id: 'the-control-plane-problem',                        label: 'Control plane problem'          },
+  ];
+
+  const csNavLinks    = CS_ORDER.map(c => `<a class="ds-nav-link" data-target="ds-cs-${c.id}">${c.label}</a>`).join('');
+  const thoughtNavLinks = THOUGHT_ORDER.map(t => `<a class="ds-nav-link" data-target="ds-thought-${t.id}">${t.label}</a>`).join('');
+
+  const csItemsHTML = CS_ORDER.map(c => {
+    const d = CASES[c.id]; if (!d) return '';
+    const metrics = (d.metrics || []).slice(0, 3).map(m => `${m.value} ${m.label}`).join(' \xB7 ');
+    return `<div class="ds-content-item" id="ds-cs-${c.id}">
+      <div class="ds-item-eyebrow">Case Study</div>
+      <div class="ds-item-title">${d.headline}</div>
+      <div class="ds-item-company">${d.company}</div>
+      ${metrics ? `<div class="ds-item-metrics">${metrics}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  const thoughtItemsHTML = THOUGHT_ORDER.map(t => {
+    const d = THOUGHTS[t.id]; if (!d) return '';
+    const dimPov = d.kicker !== 'Thoughts' ? 'opacity:0.6;' : '';
+    return `<div class="ds-content-item" id="ds-thought-${t.id}">
+      <div class="ds-item-eyebrow" style="${dimPov}">${d.kicker}</div>
+      <div class="ds-item-title">${d.title}</div>
+      ${d.dek ? `<div class="ds-item-dek">${d.dek}</div>` : ''}
+    </div>`;
+  }).join('');
+
   const shell = document.createElement('div');
   shell.className = 'ds-shell';
   shell.innerHTML = `
@@ -3057,6 +3109,14 @@ function renderDSMode() {
           <a class="ds-nav-link" data-target="ds-motion-sky">Sky Phases</a>
           <a class="ds-nav-link" data-target="ds-motion-letters">Letter Motion</a>
           <a class="ds-nav-link" data-target="ds-motion-entry">Content Entry</a>
+        </div>
+        <div class="ds-nav-group">
+          <span class="ds-nav-label">Case Studies</span>
+          ${csNavLinks}
+        </div>
+        <div class="ds-nav-group">
+          <span class="ds-nav-label">Thought Pieces</span>
+          ${thoughtNavLinks}
         </div>
       </nav>
     </aside>
@@ -3203,6 +3263,22 @@ function renderDSMode() {
           </tbody>
         </table>
       </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-case-studies">
+        <div class="ds-eyebrow">Case Studies</div>
+        <h2 class="ds-section-title">Case Studies</h2>
+        <p class="ds-section-body">Five end-to-end projects spanning design systems, data infrastructure, HR tooling, and enterprise workflow. Each begins with a real constraint and ends with something shipped.</p>
+      </section>
+      ${csItemsHTML}
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-thought-pieces">
+        <div class="ds-eyebrow">Thought Pieces</div>
+        <h2 class="ds-section-title">Thought Pieces</h2>
+        <p class="ds-section-body">Writing and perspective on design, leadership, systems thinking, and the craft of building products. Some are essays, some are POVs written for specific hiring contexts.</p>
+      </section>
+      ${thoughtItemsHTML}
 
     </main>`;
 
@@ -3218,7 +3294,7 @@ function renderDSMode() {
 
   // Active link via IntersectionObserver
   const mainEl = shell.querySelector('#dsMainScroll');
-  const sections = shell.querySelectorAll('.ds-section[id]');
+  const sections = shell.querySelectorAll('.ds-section[id], .ds-content-item[id]');
   const navLinks = shell.querySelectorAll('.ds-nav-link[data-target]');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
