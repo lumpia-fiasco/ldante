@@ -67,6 +67,11 @@ const TAILORED = {
     body: "I'm Dante. At Meroxa, I led the design pivot from a no-code pipeline builder to a real-time data observability platform — the kind where engineers watch systems under pressure, trying to understand what's wrong and move fast.\n\nDesigning AI that operators trust in high-stakes moments is exactly the kind of problem I want to be working on. The challenge isn't making the AI capable — it's making it legible enough that people are willing to let it act.",
     jd: "Principal Product Designer, AI & Automation\nPagerDuty\n\nLead design strategy for AI and Automation across the PagerDuty Operations Cloud. Define the vision for how AI agents, automation workflows, and intelligent insights are experienced by technical operations teams. Partner with AI/ML engineers, product managers, and data scientists. Establish design principles for AI transparency, explainability, and user control. Mentor designers on AI/UX best practices. Conduct strategic research on how technical teams adopt and trust AI in mission-critical contexts.\n\n10+ years product design with complex technical products. 3+ years designing AI/ML, intelligent systems, or automation platforms. Demonstrated design strategy leadership. Portfolio showcasing AI/UX, automation design, or intelligent agent experiences. Preferred: DevOps, developer tools, or technical operations experience.",
   },
+  ethyca: {
+    greeting: "Hello, Ethyca team.",
+    body: "I'm Dante. I've spent my career building tools that help organizations operate with confidence — compliance workflows, data pipelines, payroll infrastructure where accuracy isn't a feature, it's the product.\n\nWhat Ethyca is doing sits at the intersection of design's highest-stakes territory: making the invisible machinery of data governance legible, auditable, and trustworthy — for the privacy engineers, compliance teams, and legal functions who have to live in it every day. That's not a UI problem. It's a systems problem. And it's the kind I know how to solve.",
+    jd: "Senior Product Designer\nEthyca\n\nOwn end-to-end design for Fides, the operating system for Data Privacy & AI Governance. Translate ambiguous compliance and governance challenges into intuitive enterprise interfaces. Build and maintain scalable design systems. Collaborate with engineers, PMs, and stakeholders on complex, data-driven workflows. Conduct user research and testing. Deliver pixel-perfect, accessible designs.\n\n5+ years product design. Strong UX/UI portfolio. Expertise in Figma and prototyping tools. Experience with complex enterprise workflows. Deep understanding of accessibility standards. Proven ability to balance strategic thinking with hands-on execution.",
+  },
   apollo: {
     greeting: "Hello, Apollo team.",
     body: "I'm Dante. I've spent my career building data-dense tools for teams that need to move fast and stay oriented.\n\nMarketo was my closest analog to the Apollo problem — a platform where revenue teams live and die by whether the right signal surfaces at the right time. I've thought a lot about what makes that work, and what makes it fail.",
@@ -2239,6 +2244,41 @@ const THOUGHTS = {
     ],
   },
 
+  'when-trust-is-the-whole-product': {
+    kicker: 'Point of View',
+    title:  'When trust is the whole product',
+    dek: 'On designing for data governance and privacy compliance \u2014 and why the hardest part isn\u2019t building the controls, it\u2019s making them understandable to the people who have to live in them every day.',
+    sections: [
+      {
+        paragraphs: [
+          'Privacy compliance tools have a visibility problem. The controls work. The audit logs run. But nobody in the organization fully understands what the system does, who owns what, or whether the policy they set six months ago still reflects how data actually moves today.',
+          'That gap \u2014 between what a system does and what the people operating it believe it does \u2014 is a design problem. Not a legal one. Not an engineering one. A design one.',
+        ],
+      },
+      {
+        heading: 'The invisible user',
+        paragraphs: [
+          'Privacy and governance tools are built for audits. The audit is the official user. The persona in every product spec is the compliance officer preparing for a regulator\u2019s review.',
+          'But the actual daily users are different. The privacy engineer who needs to know whether a new integration is in scope before they ship it. The legal team member trying to understand what data a vendor actually touches. The security analyst mapping flows they didn\u2019t build and can\u2019t fully trace. Designing only for the audit means designing for a moment that happens twice a year. The people who keep the system current are an afterthought.',
+        ],
+      },
+      {
+        heading: 'Governance as a workflow problem',
+        paragraphs: [
+          'Most governance tools are good at storage and bad at process. You can define a policy. You can log a consent event. But the workflow that keeps the policy accurate as the product evolves? That\u2019s often email threads, spreadsheets, and somebody\u2019s memory.',
+          'The design work in a platform like Fides isn\u2019t in the policy model \u2014 it\u2019s in the annotation workflow, the review queue, the \u201cwho needs to know this changed\u201d notification. It\u2019s making data mapping feel like something a team maintains continuously, not something they reconstruct annually for a questionnaire.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to Ethyca',
+        paragraphs: [
+          'I\u2019ve spent years building tools where accuracy is the product \u2014 payroll systems, compliance workflows, data observability platforms where a wrong answer isn\u2019t just a UX failure, it\u2019s an operational one. The mental model I\u2019ve developed: the interface is a trust statement. Every label, every status, every empty state is either building confidence that the system knows what it\u2019s doing, or eroding it.',
+          'Fides operates in exactly that territory. The people using it have to stake professional credibility on what it tells them. That means the design work is about legibility at every layer \u2014 not just what the system does, but what it decided, what it\u2019s uncertain about, and what it needs the operator to verify. I\u2019d bring that precision to Ethyca\u2019s product.',
+        ],
+      },
+    ],
+  },
+
   'the-signal-in-the-noise': {
     kicker: 'Point of View',
     title:  'The signal in the noise',
@@ -2578,6 +2618,7 @@ function setupHiringManagerView() {
     createmusic:  'the-platform-underneath-the-art',
     apollo:       'the-signal-in-the-noise',
     pagerduty:    'when-the-system-acts-alone',
+    ethyca:       'when-trust-is-the-whole-product',
     ingram:       'when-the-platform-is-the-job',
     yahoo:        'from-library-to-language',
     ucla:         'the-digital-front-door',
@@ -3016,6 +3057,7 @@ function renderDSMode() {
     { name: 'Aurora',       slug: 'createmusic', bg: 'radial-gradient(ellipse 72% 55% at 22% 80%,rgba(140,50,200,.44) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(220,55,110,.22) 0%,transparent 68%),linear-gradient(155deg,#090510 0%,#14071e 55%,#090510 100%)' },
     { name: 'Sunrise',      slug: 'apollo',      bg: 'radial-gradient(ellipse 75% 55% at 22% 80%,rgba(255,100,20,.45) 0%,transparent 68%),radial-gradient(ellipse 50% 38% at 80% 25%,rgba(255,180,60,.18) 0%,transparent 68%),linear-gradient(155deg,#0d0700 0%,#1a0e00 55%,#0d0700 100%)' },
     { name: 'Jade',         slug: 'pagerduty',   bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(6,172,56,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(0,255,100,.12) 0%,transparent 68%),linear-gradient(155deg,#010d04 0%,#021a08 55%,#010d04 100%)' },
+    { name: 'Glacier',      slug: 'ethyca',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(0,140,180,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(0,210,200,.15) 0%,transparent 68%),linear-gradient(155deg,#00090f 0%,#021018 55%,#00090f 100%)' },
     { name: 'Scarlet',      slug: 'ingram',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(200,30,40,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,80,60,.14) 0%,transparent 68%),linear-gradient(155deg,#0d0102 0%,#1a0304 55%,#0d0102 100%)' },
     { name: 'Ultraviolet',  slug: 'yahoo',       bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(96,1,210,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(150,60,255,.18) 0%,transparent 68%),linear-gradient(155deg,#060010 0%,#0e0020 55%,#060010 100%)' },
     { name: 'Nightfall',    slug: 'ucla',        bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(0,59,115,.58) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,180,0,.14) 0%,transparent 68%),linear-gradient(155deg,#010508 0%,#020b14 55%,#010508 100%)' },
