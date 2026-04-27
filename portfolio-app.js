@@ -3038,24 +3038,10 @@ function renderDSMode() {
     { id: 'marketo-migration',  label: 'Marketo Migration'    },
   ];
   const THOUGHT_ORDER = [
-    { id: 'charlie-murphys-law',                              label: "Charlie Murphy\u2019s Law"     },
-    { id: 'navigating-ambiguity',                             label: 'Navigating Ambiguity'           },
-    { id: 'growing-leaders',                                  label: 'Growing leaders'                },
-    { id: 'spongebob-would',                                  label: 'SpongeBob would'                },
-    { id: 'design-systems-that-last',                         label: 'Design systems that last'       },
-    { id: 'financial-platforms-systems-problems',             label: 'Financial platforms'            },
-    { id: 'designing-platforms-where-two-sides-need-each-other', label: 'Two-sided platforms'        },
-    { id: 'designing-infrastructure-people-trust',            label: 'Infrastructure trust'           },
-    { id: 'designing-for-people-who-live-in-the-product',     label: 'Living in the product'         },
-    { id: 'when-the-platform-knows-more-than-you-do',         label: 'When the platform knows'       },
-    { id: 'the-platform-underneath-the-art',                  label: 'Platform & the art'             },
-    { id: 'the-instrument-is-the-interface',                  label: 'Instrument is interface'        },
-    { id: 'the-digital-front-door',                           label: 'The digital front door'        },
-    { id: 'from-library-to-language',                         label: 'Library to language'            },
-    { id: 'when-the-platform-is-the-job',                     label: 'Platform is the job'            },
-    { id: 'when-the-system-acts-alone',                       label: 'System acts alone'              },
-    { id: 'the-signal-in-the-noise',                          label: 'Signal in the noise'            },
-    { id: 'the-control-plane-problem',                        label: 'Control plane problem'          },
+    { id: 'charlie-murphys-law',  label: "Charlie Murphy\u2019s Law" },
+    { id: 'navigating-ambiguity', label: 'Navigating Ambiguity'       },
+    { id: 'growing-leaders',      label: 'Growing leaders'             },
+    { id: 'spongebob-would',      label: 'SpongeBob would'             },
   ];
 
   const csNavLinks    = CS_ORDER.map(c => `<a class="ds-nav-link" data-target="ds-cs-${c.id}">${c.label}</a>`).join('');
@@ -3064,7 +3050,7 @@ function renderDSMode() {
   const csItemsHTML = CS_ORDER.map(c => {
     const d = CASES[c.id]; if (!d) return '';
     const metrics = (d.metrics || []).slice(0, 3).map(m => `${m.value} ${m.label}`).join(' \xB7 ');
-    return `<div class="ds-content-item" id="ds-cs-${c.id}">
+    return `<div class="ds-content-item ds-content-item--link" id="ds-cs-${c.id}" data-cs-id="${c.id}">
       <div class="ds-item-eyebrow">Case Study</div>
       <div class="ds-item-title">${d.headline}</div>
       <div class="ds-item-company">${d.company}</div>
@@ -3074,9 +3060,8 @@ function renderDSMode() {
 
   const thoughtItemsHTML = THOUGHT_ORDER.map(t => {
     const d = THOUGHTS[t.id]; if (!d) return '';
-    const dimPov = d.kicker !== 'Thoughts' ? 'opacity:0.6;' : '';
-    return `<div class="ds-content-item" id="ds-thought-${t.id}">
-      <div class="ds-item-eyebrow" style="${dimPov}">${d.kicker}</div>
+    return `<div class="ds-content-item ds-content-item--link" id="ds-thought-${t.id}" data-thought-id="${t.id}">
+      <div class="ds-item-eyebrow">${d.kicker}</div>
       <div class="ds-item-title">${d.title}</div>
       ${d.dek ? `<div class="ds-item-dek">${d.dek}</div>` : ''}
     </div>`;
@@ -3109,6 +3094,14 @@ function renderDSMode() {
           <a class="ds-nav-link" data-target="ds-motion-sky">Sky Phases</a>
           <a class="ds-nav-link" data-target="ds-motion-letters">Letter Motion</a>
           <a class="ds-nav-link" data-target="ds-motion-entry">Content Entry</a>
+        </div>
+        <div class="ds-nav-group">
+          <span class="ds-nav-label">Patterns</span>
+          <a class="ds-nav-link" data-target="ds-pat-stat-tiles">Stat Tiles</a>
+          <a class="ds-nav-link" data-target="ds-pat-callouts">Callouts</a>
+          <a class="ds-nav-link" data-target="ds-pat-pull-quote">Pull Quote</a>
+          <a class="ds-nav-link" data-target="ds-pat-reframe">Reframe</a>
+          <a class="ds-nav-link" data-target="ds-pat-inputs">Input Fields</a>
         </div>
         <div class="ds-nav-group">
           <span class="ds-nav-label">Case Studies</span>
@@ -3265,6 +3258,126 @@ function renderDSMode() {
       </section>
       <hr class="ds-divider">
 
+      <section class="ds-section" id="ds-pat-stat-tiles">
+        <div class="ds-eyebrow">Patterns</div>
+        <h2 class="ds-section-title">Stat Tiles</h2>
+        <p class="ds-section-body">Case study headers lead with outcomes, not context. Each tile pairs a display-scale number with a short label. The value renders in Cal Sans at fluid display size; the label uses Inter at caption scale. Tiles are a flex row that wraps at mobile widths.</p>
+        <div class="ds-canvas">
+          <div class="cd-metrics" style="margin-bottom:0;">
+            <div class="cd-metric"><span class="cd-metric-value">2\xD7</span><span class="cd-metric-label">Faster to insight</span></div>
+            <div class="cd-metric"><span class="cd-metric-value">94%</span><span class="cd-metric-label">Adoption rate</span></div>
+            <div class="cd-metric"><span class="cd-metric-value">50+</span><span class="cd-metric-label">Components shipped</span></div>
+          </div>
+        </div>
+        <div class="ds-canvas-label">Three stat tiles at rest</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Value font</td><td><code>Cal Sans \xB7 clamp(1.8rem, 2.6vw, 2.8rem)</code></td></tr>
+            <tr><td>Label font</td><td><code>Inter 500 \xB7 0.7rem \xB7 letter-spacing 0.02em</code></td></tr>
+            <tr><td>Container</td><td><code>border-radius 14px \xB7 padding 18px 24px</code></td></tr>
+            <tr><td>Gap</td><td><code>10px</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-pat-callouts">
+        <div class="ds-eyebrow">Patterns</div>
+        <h2 class="ds-section-title">Callouts</h2>
+        <p class="ds-section-body">Used inside case study narrative to lift a key insight or reframe out of the body copy. The default variant is neutral \u2014 a muted background with a left border. The problem variant signals a constraint or tension using an orange accent.</p>
+        <div class="ds-canvas" style="display:flex;flex-direction:column;gap:16px;">
+          <div class="cs-callout">
+            <div class="cs-callout-label">The reframe that changed the brief</div>
+            <p class="cd-body" style="font-size:14px;margin-bottom:0;color:rgba(255,255,255,0.68);">From: \u201CHow do we display the data?\u201D To: \u201CHow do we get the user straight to the conversation?\u201D Those are fundamentally different products.</p>
+          </div>
+          <div class="cs-callout cs-callout--problem">
+            <div class="cs-callout-label">The constraint</div>
+            <p class="cd-body" style="font-size:14px;margin-bottom:0;color:rgba(255,255,255,0.68);">Without authority over what enters the system, every team becomes a de facto exception. The model that produced the components needed to change first.</p>
+          </div>
+        </div>
+        <div class="ds-canvas-label">Default callout \xB7 Problem callout</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Variant</th><th>Class</th><th>Border color</th></tr></thead>
+          <tbody>
+            <tr><td>Default</td><td><code>.cs-callout</code></td><td><code>rgba(255,255,255,0.15)</code></td></tr>
+            <tr><td>Problem</td><td><code>.cs-callout--problem</code></td><td><code>#ea580c</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-pat-pull-quote">
+        <div class="ds-eyebrow">Patterns</div>
+        <h2 class="ds-section-title">Pull Quote</h2>
+        <p class="ds-section-body">A heavier editorial moment than a callout \u2014 used when a single statement is strong enough to stand alone. Cal Sans at 1.15rem gives it display weight without competing with section headings. The left border is three pixels versus two for callouts.</p>
+        <div class="ds-canvas">
+          <div class="cs-pull-quote">
+            <p class="cs-pull-quote-text">\u201CYou can\u2019t document your way to adoption. You have to build it into the org model.\u201D</p>
+            <p class="cs-pull-quote-attr"><strong>Dante</strong> \xB7 Marketo Sky case study</p>
+          </div>
+        </div>
+        <div class="ds-canvas-label">Pull quote with attribution</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Quote font</td><td><code>Cal Sans \xB7 1.15rem \xB7 line-height 1.5</code></td></tr>
+            <tr><td>Attribution</td><td><code>Inter 500 \xB7 12px</code></td></tr>
+            <tr><td>Left border</td><td><code>3px solid rgba(255,255,255,0.25)</code></td></tr>
+            <tr><td>Padding</td><td><code>28px 32px</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-pat-reframe">
+        <div class="ds-eyebrow">Patterns</div>
+        <h2 class="ds-section-title">Reframe</h2>
+        <p class="ds-section-body">A two-column contrast component used to show how a problem was repositioned before design work began. The \u201Cbefore\u201D column is dimmed and reads as the old framing; the \u201Cafter\u201D column is brighter and reads as the new brief. The visual hierarchy communicates the argument before the user reads the words.</p>
+        <div class="ds-canvas">
+          <div class="cd-reframe">
+            <div class="cd-reframe-from"><span class="cd-reframe-label">Before</span>How do we display payroll data?</div>
+            <div class="cd-reframe-to"><span class="cd-reframe-label">After</span>How do we get leads straight to analysis \u2014 and straight to the conversation?</div>
+          </div>
+        </div>
+        <div class="ds-canvas-label">Before / After reframe</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Column</th><th>Background</th><th>Text opacity</th></tr></thead>
+          <tbody>
+            <tr><td>Before</td><td><code>rgba(255,255,255,0.03)</code></td><td><code>0.35</code></td></tr>
+            <tr><td>After</td><td><code>rgba(255,255,255,0.06)</code></td><td><code>1.0 (white)</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-pat-inputs">
+        <div class="ds-eyebrow">Patterns</div>
+        <h2 class="ds-section-title">Input Fields</h2>
+        <p class="ds-section-body">The primary input surface is the gate screen password field \u2014 a full-height flex row pairing a text input with a submit button. The input uses <span class="ds-inline-code">--bg-darker</span> at rest and lightens on focus. The button uses the brand pink with a scale hover and active state.</p>
+        <div class="ds-canvas">
+          <div style="max-width:480px;">
+            <div class="gate-input-row" style="height:56px;border-radius:8px;">
+              <input class="gate-pw-input" type="text" placeholder="Enter password" style="pointer-events:none;border-radius:8px 0 0 8px;font-size:1rem;" tabindex="-1">
+              <button class="gate-go-btn" style="pointer-events:none;font-size:1rem;border-radius:0 8px 8px 0;">Go</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-canvas-label">Password input \xB7 default state</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Height</td><td><code>clamp(64px, 8vw, 100px)</code></td></tr>
+            <tr><td>Input background</td><td><code>--bg-darker</code> \xB7 <code>rgb(45,45,45)</code> on focus</td></tr>
+            <tr><td>Placeholder</td><td><code>rgba(255,255,255,0.3)</code></td></tr>
+            <tr><td>Button background</td><td><code>var(--pink)</code> \xB7 hover lightens</td></tr>
+            <tr><td>Button hover</td><td>Scale <code>1.03</code></td></tr>
+            <tr><td>Button active</td><td>Scale <code>0.97</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
       <section class="ds-section" id="ds-case-studies">
         <div class="ds-eyebrow">Case Studies</div>
         <h2 class="ds-section-title">Case Studies</h2>
@@ -3283,6 +3396,33 @@ function renderDSMode() {
     </main>`;
 
   document.body.appendChild(shell);
+
+  // ── Content item navigation ───────────────────────────
+  function exitDSMode() {
+    shell.remove();
+    document.querySelectorAll('.screen').forEach(s => { s.style.display = ''; });
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const portfolio = document.getElementById('screenPortfolio');
+    if (portfolio) portfolio.classList.add('active');
+    const caseList = document.getElementById('caseListPanel');
+    if (caseList) caseList.classList.remove('hidden');
+  }
+
+  shell.querySelectorAll('.ds-content-item[data-cs-id]').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = el.dataset.csId;
+      exitDSMode();
+      openCase(id);
+    });
+  });
+
+  shell.querySelectorAll('.ds-content-item[data-thought-id]').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = el.dataset.thoughtId;
+      exitDSMode();
+      openThought(id);
+    });
+  });
 
   // Smooth scroll nav
   shell.querySelectorAll('.ds-nav-link[data-target]').forEach(link => {
