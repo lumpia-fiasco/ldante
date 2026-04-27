@@ -1252,6 +1252,113 @@
     .mob-tabs { background: var(--bg-darker); border-top-color: rgba(255,255,255,0.07); }
     .mob-tab { color: rgba(255,255,255,0.32); }
     .mob-tab.mob-tab--active, .mob-tab:hover { color: var(--white); }
+
+    /* ═══════════════════════════════════════════════════
+       DESIGN SYSTEM MODE (experimental — ?p=designsystems)
+    ═══════════════════════════════════════════════════ */
+    .ds-shell {
+      position: fixed; inset: 0; display: flex;
+      background: var(--bg); z-index: 200;
+      font-family: var(--font-ui);
+    }
+    .ds-sidebar {
+      width: 216px; min-width: 216px; height: 100%; overflow-y: auto;
+      background: var(--bg-darker);
+      border-right: 1px solid rgba(255,255,255,0.07);
+      padding: 28px 0 48px; flex-shrink: 0;
+    }
+    .ds-wordmark {
+      padding: 0 20px 28px;
+      font-family: var(--font-display); font-size: 0.9rem;
+      color: var(--pink); letter-spacing: 0;
+    }
+    .ds-nav-group { margin-bottom: 20px; }
+    .ds-nav-label {
+      display: block; padding: 0 20px 6px;
+      font-size: 0.625rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+    .ds-nav-link {
+      display: block; padding: 5px 20px;
+      font-size: 0.8125rem; color: rgba(255,255,255,0.5);
+      text-decoration: none; cursor: pointer;
+      transition: color 0.12s, background 0.12s;
+    }
+    .ds-nav-link:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .ds-nav-link.ds-active { color: var(--white); }
+    .ds-main {
+      flex: 1; overflow-y: auto; height: 100%;
+      padding: 52px 64px 100px; scroll-behavior: smooth;
+    }
+    .ds-section { max-width: 680px; margin-bottom: 80px; scroll-margin-top: 32px; }
+    .ds-eyebrow {
+      font-size: 0.625rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--pink); margin-bottom: 8px;
+    }
+    .ds-section-title {
+      font-family: var(--font-display); font-size: 1.75rem;
+      color: var(--white); margin-bottom: 14px; line-height: 1.1;
+    }
+    .ds-section-body {
+      font-size: 0.9375rem; line-height: 1.7;
+      color: rgba(255,255,255,0.55); margin-bottom: 24px;
+    }
+    .ds-divider {
+      border: none; border-top: 1px solid rgba(255,255,255,0.07);
+      margin: 0 0 80px; max-width: 680px;
+    }
+    .ds-swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+    .ds-swatch { border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
+    .ds-swatch-chip { height: 64px; }
+    .ds-swatch-info { padding: 8px 10px; background: rgba(255,255,255,0.04); }
+    .ds-swatch-name { font-size: 0.75rem; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+    .ds-swatch-token {
+      font-family: 'Courier New', monospace; font-size: 0.625rem;
+      color: var(--pink); display: block; margin-bottom: 1px;
+    }
+    .ds-swatch-value { font-family: 'Courier New', monospace; font-size: 0.625rem; color: rgba(255,255,255,0.3); }
+    .ds-type-row {
+      display: flex; align-items: flex-start; gap: 24px;
+      padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .ds-type-meta { width: 140px; flex-shrink: 0; padding-top: 4px; }
+    .ds-type-role {
+      font-size: 0.625rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--pink); margin-bottom: 5px;
+    }
+    .ds-type-spec {
+      font-family: 'Courier New', monospace; font-size: 0.625rem;
+      color: rgba(255,255,255,0.32); line-height: 1.6;
+    }
+    .ds-canvas {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; padding: 28px 24px; margin-bottom: 8px;
+    }
+    .ds-canvas-label {
+      font-size: 0.625rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.2); margin-top: 4px;
+    }
+    .ds-spec-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; margin-top: 16px; }
+    .ds-spec-table th {
+      font-size: 0.625rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.28);
+      padding: 6px 12px 6px 0; text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .ds-spec-table td {
+      padding: 8px 12px 8px 0; color: rgba(255,255,255,0.5);
+      border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top;
+    }
+    .ds-spec-table td:first-child { color: var(--white); font-weight: 500; width: 160px; }
+    .ds-spec-table code { font-family: 'Courier New', monospace; font-size: 0.75rem; color: var(--pink); }
+    .ds-inline-code { font-family: 'Courier New', monospace; font-size: 0.85em; color: var(--pink); }
   </style>
 </head>
 <body>

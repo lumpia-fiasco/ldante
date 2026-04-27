@@ -2964,10 +2964,206 @@ function switchPortfolioRole(role) {
   }
 }
 
+// ── Design System Mode (experimental) ────────────────────────────
+function renderDSMode() {
+  document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+
+  const COLORS = [
+    { name: 'Background',      token: '--bg',        bg: 'rgb(38,38,38)',          value: '#262626'             },
+    { name: 'Background Dark', token: '--bg-darker',  bg: 'rgb(31,31,31)',          value: '#1F1F1F'             },
+    { name: 'Pink',            token: '--pink',       bg: 'rgb(249,149,172)',       value: '#F995AC'             },
+    { name: 'Magenta',         token: '--magenta',    bg: 'rgb(191,48,120)',        value: '#BF3078'             },
+    { name: 'White',           token: '--white',      bg: 'rgb(255,255,255)',       value: '#FFFFFF'             },
+    { name: 'White / 55%',     token: '--white-dim',  bg: 'rgba(255,255,255,0.55)', value: 'rgba(255,255,255,.55)' },
+  ];
+
+  const swatchesHTML = COLORS.map(c => `
+    <div class="ds-swatch">
+      <div class="ds-swatch-chip" style="background:${c.bg};"></div>
+      <div class="ds-swatch-info">
+        <div class="ds-swatch-name">${c.name}</div>
+        <code class="ds-swatch-token">${c.token}</code>
+        <span class="ds-swatch-value">${c.value}</span>
+      </div>
+    </div>`).join('');
+
+  const TYPE_ROWS = [
+    { role: 'Display',       spec: "Cal Sans \xB7 400\nclamp(3.5rem\u20138.75rem)\nls: \u22120.02em \xB7 lh: 1.0",    style: "font-family:'Cal Sans',sans-serif;font-size:2.75rem;line-height:1;letter-spacing:-0.02em;color:#fff;",                                          sample: 'Aa' },
+    { role: 'Section Title', spec: "Cal Sans \xB7 400\n1.75\u20132rem\nls: \u22120.02em \xB7 lh: 1.1",                style: "font-family:'Cal Sans',sans-serif;font-size:1.75rem;line-height:1.1;letter-spacing:-0.02em;color:#fff;",                                         sample: 'Growing leaders' },
+    { role: 'Body Large',    spec: "Golos Text \xB7 400\nclamp(1rem\u20131.875rem)\nls: \u22120.02em \xB7 lh: 1.5",   style: "font-family:'Golos Text',sans-serif;font-size:1.2rem;line-height:1.5;letter-spacing:-0.02em;color:#fff;",                                        sample: 'I\u2019m Dante. I think in systems first, then UI.' },
+    { role: 'Body',          spec: "Golos Text \xB7 400\n1rem \xB7 lh: 1.7",                                           style: "font-family:'Golos Text',sans-serif;font-size:1rem;line-height:1.7;color:rgba(255,255,255,0.8);",                                               sample: 'The rep doesn\u2019t want to browse. They want to know.' },
+    { role: 'UI Default',    spec: "Inter \xB7 400\u2013500\n0.9375rem \xB7 lh: 1.5",                                  style: "font-family:'Inter',system-ui,sans-serif;font-size:0.9375rem;color:rgba(255,255,255,0.65);",                                                     sample: 'Senior Product Designer' },
+    { role: 'Label',         spec: "Inter \xB7 600\n0.625\u20130.6875rem\nls: 0.1em \xB7 uppercase",                  style: "font-family:'Inter',system-ui,sans-serif;font-size:0.6875rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgb(249,149,172);", sample: 'Point of View' },
+  ];
+
+  const typeHTML = TYPE_ROWS.map(r => `
+    <div class="ds-type-row">
+      <div class="ds-type-meta">
+        <div class="ds-type-role">${r.role}</div>
+        <div class="ds-type-spec">${r.spec.replace(/\n/g, '<br>')}</div>
+      </div>
+      <div style="${r.style}flex:1;">${r.sample}</div>
+    </div>`).join('');
+
+  const shell = document.createElement('div');
+  shell.className = 'ds-shell';
+  shell.innerHTML = `
+    <aside class="ds-sidebar">
+      <div class="ds-wordmark">ldante\u2009/\u2009system</div>
+      <nav>
+        <div class="ds-nav-group">
+          <span class="ds-nav-label">Overview</span>
+          <a class="ds-nav-link" data-target="ds-intro">Introduction</a>
+        </div>
+        <div class="ds-nav-group">
+          <span class="ds-nav-label">Foundations</span>
+          <a class="ds-nav-link" data-target="ds-color">Color</a>
+          <a class="ds-nav-link" data-target="ds-type">Typography</a>
+          <a class="ds-nav-link" data-target="ds-spacing">Spacing</a>
+        </div>
+        <div class="ds-nav-group">
+          <span class="ds-nav-label">Components</span>
+          <a class="ds-nav-link" data-target="ds-buttons">Role Buttons</a>
+          <a class="ds-nav-link" data-target="ds-badges">Badges</a>
+          <a class="ds-nav-link" data-target="ds-cards">Cards</a>
+        </div>
+      </nav>
+    </aside>
+    <main class="ds-main" id="dsMainScroll">
+
+      <section class="ds-section" id="ds-intro">
+        <div class="ds-eyebrow">Overview</div>
+        <h1 class="ds-section-title">Introduction</h1>
+        <p class="ds-section-body">An experimental view of ldante.com as a living design system document. The same discipline that built the Marketo Sky design system \u2014 50+ components, full-org adoption, governance that held through an Adobe acquisition \u2014 structures how this portfolio is built and maintained.</p>
+        <p class="ds-section-body">This view documents the tokens, typography, and components that form the visual language of the site. It is a work in progress.</p>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-color">
+        <div class="ds-eyebrow">Foundations</div>
+        <h2 class="ds-section-title">Color</h2>
+        <p class="ds-section-body">Six tokens cover the full palette. The system is intentionally minimal \u2014 dark backgrounds, one warm accent, and white at two opacities for text hierarchy.</p>
+        <div class="ds-swatch-grid">${swatchesHTML}</div>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-type">
+        <div class="ds-eyebrow">Foundations</div>
+        <h2 class="ds-section-title">Typography</h2>
+        <p class="ds-section-body">Three families, three roles. Cal Sans handles display and headings \u2014 it has one weight and earns every headline. Golos Text owns body copy. Inter runs the UI layer: labels, metadata, interface copy.</p>
+        ${typeHTML}
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-spacing">
+        <div class="ds-eyebrow">Foundations</div>
+        <h2 class="ds-section-title">Spacing</h2>
+        <p class="ds-section-body">The system uses <span class="ds-inline-code">clamp()</span> for responsive spacing rather than fixed breakpoints. Key values scale between a mobile minimum and a desktop maximum, maintaining proportional rhythm at any viewport width.</p>
+        <table class="ds-spec-table">
+          <thead><tr><th>Name</th><th>Value</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td>Page edge</td><td><code>clamp(32px, 8vw, 120px)</code></td><td>Outer horizontal padding on all screens</td></tr>
+            <tr><td>Page top</td><td><code>clamp(40px, 6vw, 80px)</code></td><td>Top padding on gate and landing screens</td></tr>
+            <tr><td>Grid gap</td><td><code>clamp(12px, 1.5vw, 20px)</code></td><td>Case study grid cell spacing</td></tr>
+            <tr><td>Component gap</td><td><code>16\u201324px</code></td><td>Gap between inline elements and button groups</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-buttons">
+        <div class="ds-eyebrow">Components</div>
+        <h2 class="ds-section-title">Role Buttons</h2>
+        <p class="ds-section-body">The primary interactive surface on the landing screen. Padding-based sizing scales responsively with no fixed height. Two variants \u2014 Recruiter and Hiring Manager \u2014 share identical structure.</p>
+        <div class="ds-canvas">
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <button class="role-btn" style="pointer-events:none;">Recruiter</button>
+            <button class="role-btn" style="pointer-events:none;">Hiring Manager</button>
+          </div>
+        </div>
+        <div class="ds-canvas-label">Default state</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Font family</td><td><code>Golos Text</code></td></tr>
+            <tr><td>Font weight</td><td><code>600</code></td></tr>
+            <tr><td>Font size</td><td><code>clamp(1.2rem, 3vw, 3.125rem)</code></td></tr>
+            <tr><td>Padding</td><td><code>clamp(12px,1.5vw,20px) clamp(24px,3vw,40px)</code></td></tr>
+            <tr><td>Background</td><td><code>--bg-darker</code></td></tr>
+            <tr><td>Border radius</td><td><code>8px</code></td></tr>
+            <tr><td>Hover</td><td>Scale 1.03 \xB7 background lightens</td></tr>
+            <tr><td>Active</td><td>Scale 0.97</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-badges">
+        <div class="ds-eyebrow">Components</div>
+        <h2 class="ds-section-title">Badges</h2>
+        <p class="ds-section-body">Small uppercase labels that categorize content tiles. Case study cards use <span class="ds-inline-code">.case-study-badge</span>; thought tiles use <span class="ds-inline-code">.thought-tile-badge</span>. Both share the same typographic spec \u2014 Inter 600, 10px, wide tracking \u2014 but live in different visual contexts.</p>
+        <div class="ds-canvas" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <span class="thought-tile-badge" style="position:static;opacity:1;">Thoughts</span>
+          <span class="thought-tile-badge" style="position:static;opacity:1;">Perspective</span>
+          <span class="case-study-badge" style="position:static;opacity:1;">Case Study</span>
+        </div>
+        <div class="ds-canvas-label">Badge variants</div>
+      </section>
+      <hr class="ds-divider">
+
+      <section class="ds-section" id="ds-cards">
+        <div class="ds-eyebrow">Components</div>
+        <h2 class="ds-section-title">Cards</h2>
+        <p class="ds-section-body">The portfolio grid uses four card types, all sharing a common <span class="ds-inline-code">.case-item</span> wrapper and participating in the masonry layout. Card type is determined by a modifier class.</p>
+        <table class="ds-spec-table">
+          <thead><tr><th>Variant</th><th>Class</th><th>Hero treatment</th></tr></thead>
+          <tbody>
+            <tr><td>Case Study</td><td><code>.case-item--cs</code></td><td>Photo, lazy-loaded</td></tr>
+            <tr><td>Thought</td><td><code>.case-item--thought</code></td><td>Photo with gradient overlay</td></tr>
+            <tr><td>POV</td><td><code>.thought-tile--pov</code></td><td>CSS radial gradient per brand</td></tr>
+            <tr><td>Photo</td><td><code>.case-item--photo</code></td><td>Grayscale \u2192 color on hover</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>`;
+
+  document.body.appendChild(shell);
+
+  // Smooth scroll nav
+  shell.querySelectorAll('.ds-nav-link[data-target]').forEach(link => {
+    link.addEventListener('click', () => {
+      const target = shell.querySelector('#' + link.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Active link via IntersectionObserver
+  const mainEl = shell.querySelector('#dsMainScroll');
+  const sections = shell.querySelectorAll('.ds-section[id]');
+  const navLinks = shell.querySelectorAll('.ds-nav-link[data-target]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('ds-active'));
+        const active = shell.querySelector(`.ds-nav-link[data-target="${entry.target.id}"]`);
+        if (active) active.classList.add('ds-active');
+      }
+    });
+  }, { root: mainEl, threshold: 0.25 });
+  sections.forEach(s => observer.observe(s));
+}
+
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   // Capture ?p= before setupGate() cleans it from the URL
   const incomingPw = new URLSearchParams(window.location.search).get('p');
+
+  // Experimental design system view — bypasses auth entirely
+  if (incomingPw === 'designsystems') {
+    renderDSMode();
+    return;
+  }
 
   setupGate();
   setupDevSwitcher();
