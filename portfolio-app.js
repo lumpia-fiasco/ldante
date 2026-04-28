@@ -3075,7 +3075,12 @@ function renderDSMode() {
   const shell = document.createElement('div');
   shell.className = 'ds-shell';
   shell.innerHTML = `
+    <div class="ds-topbar">
+      <span class="ds-topbar-wordmark">Wallabee</span>
+      <button class="ds-topbar-btn" id="dsMenuBtn" aria-label="Open navigation">☰</button>
+    </div>
     <aside class="ds-sidebar">
+      <button class="ds-sidebar-close" id="dsSidebarClose" aria-label="Close navigation">✕</button>
       <div class="ds-wordmark">Wallabee</div>
       <nav>
         <div class="ds-nav-group">
@@ -3402,7 +3407,8 @@ function renderDSMode() {
         </table>
       </section>
 
-    </main>`;
+    </main>
+    <div class="ds-drawer-backdrop" id="dsBackdrop"></div>`;
 
   document.body.appendChild(shell);
 
@@ -3421,6 +3427,21 @@ function renderDSMode() {
     const isLight = shell.classList.toggle('ds-light');
     modeLabel.textContent = isLight ? 'Dark mode' : 'Light mode';
   });
+
+  // Mobile drawer
+  const dsSidebar  = shell.querySelector('.ds-sidebar');
+  const dsBackdrop = shell.querySelector('#dsBackdrop');
+  const dsMenuBtn  = shell.querySelector('#dsMenuBtn');
+  const dsCloseBtn = shell.querySelector('#dsSidebarClose');
+  function dsOpenDrawer()  { dsSidebar.classList.add('ds-open');    dsBackdrop.classList.add('ds-open'); }
+  function dsCloseDrawer() { dsSidebar.classList.remove('ds-open'); dsBackdrop.classList.remove('ds-open'); }
+  if (dsMenuBtn)  dsMenuBtn.addEventListener('click', dsOpenDrawer);
+  if (dsCloseBtn) dsCloseBtn.addEventListener('click', dsCloseDrawer);
+  if (dsBackdrop) dsBackdrop.addEventListener('click', dsCloseDrawer);
+  // Close drawer when any nav link is tapped
+  shell.querySelectorAll('.ds-nav-link[data-target]').forEach(l =>
+    l.addEventListener('click', dsCloseDrawer)
+  );
 
   // Active link via IntersectionObserver
   const mainEl = shell.querySelector('#dsMainScroll');
