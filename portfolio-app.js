@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  '1password': {
+    greeting: "Hello, 1Password team.",
+    body: "I'm Dante. I've spent my career in the spaces where a design mistake carries real consequence \u2014 payroll systems, compliance workflows, healthcare infrastructure, devops platforms where engineers are watching systems fail under pressure. The pattern I keep finding: security and UX are almost always in tension, and the products that resolve it best treat security as a usability problem, not just an engineering one.\n\nI built this portfolio using Claude Code \u2014 so the part of your JD about agentic development tools isn\u2019t aspirational for me, it\u2019s current practice. I use these tools the way your users use 1Password: as something that should just work, invisibly, so I can focus on what actually matters.",
+    jd: "Senior Product Designer\n1Password\n\nOwn the design of significant product areas end to end \u2014 from discovery through delivery. Partner closely with product managers, engineers, and researchers to define problems, explore opportunities, and deliver high-quality solutions. Advocate for customer needs and inclusive, accessible design while balancing security, technical, and business constraints. Mentor junior designers. Contribute to design processes, tools, and AI-assisted workflows.\n\n5+ years product design at a product-driven company. Hands-on experience with agentic development tools (Cursor, Claude Code, MCP-based tools). Proficiency in Figma and interest in Figma AI/Make. Strong product thinking. Experience with engineering, PM, content design, and research. Ability to reduce complex problems to the right balance of flexibility, power, and ease of use. Interest or experience in cybersecurity and/or SaaS products. Bonus: experience with security, privacy, enterprise, or regulated products; accessibility expertise; design systems.",
+  },
   roland: {
     greeting: "Hello, Roland team.",
     body: "I'm Dante. I've spent a decade designing complex tools for expert users \u2014 people who live in software and know exactly when it\u2019s slowing them down. Music software is where I\u2019ve always wanted to apply that: your users are experts in sound, not UI, and the moment the interface makes them think about the interface, you\u2019ve lost the session.\n\nI got my start at Gibson Guitar \u2014 that\u2019s where I was first introduced to user-centered design. I\u2019m also based in OC, practically next door.",
@@ -2279,6 +2284,41 @@ const THOUGHTS = {
     ],
   },
 
+  'when-security-gets-the-ux-it-deserves': {
+    kicker: 'Point of View',
+    title:  'When security gets the UX it deserves',
+    dek: 'On designing products where friction isn\u2019t just annoying \u2014 it\u2019s a vulnerability. And why the strongest security posture starts at the interface layer.',
+    sections: [
+      {
+        paragraphs: [
+          'Most security products fail not at the cryptography layer, but at the interface layer. The strongest password policy in the world is bypassed by a sticky note on a monitor. The most sophisticated SSO flow gets circumvented by a shared credentials doc in Google Drive.',
+          'The security problem is often a design problem. And that changes what it means to get the design right.',
+        ],
+      },
+      {
+        heading: 'Friction is an attack surface',
+        paragraphs: [
+          'Every time a legitimate user finds a workaround \u2014 sharing credentials, staying logged in on shared devices, choosing the weak password that technically meets requirements, disabling MFA because the flow breaks on mobile \u2014 the threat model has failed. Not because the cryptography failed. Because the UX did.',
+          'Good security design isn\u2019t just about making things pleasant. It\u2019s about closing the human-error attack surface. The users who matter most are the ones who are busy, distracted, and optimizing for getting their actual work done. If the secure path isn\u2019t also the easy path, they\u2019ll find a different path.',
+        ],
+      },
+      {
+        heading: 'Security UX is consequence UX',
+        paragraphs: [
+          'Most UX mistakes are recoverable. A confusing checkout flow loses a sale. A broken onboarding step creates a support ticket. A bad security UX decision \u2014 one that causes a user to bypass, ignore, or misunderstand a security control \u2014 can result in a breach, a compliance failure, a career-ending incident for someone in the organization.',
+          'This changes the stakes for every design decision. The empty state matters more. The error message matters more. The confirmation dialog matters more. Every touchpoint where a user is making a security decision \u2014 even implicitly \u2014 needs to communicate exactly what that decision means, in language they understand, at the moment they need it.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to 1Password',
+        paragraphs: [
+          'I\u2019ve built tools in the consequence spaces: payroll systems where a configuration error costs someone a month\u2019s income, healthcare infrastructure where a settings decision affects clinical operations, devops platforms where engineers are watching systems fail in real time. That\u2019s taught me how to design with appropriate gravity \u2014 to take the stakes seriously without making the interface feel serious.',
+          '1Password\u2019s challenge is distinctive: the trust argument is already won. \u201cMost loved brand in cybersecurity\u201d means people actually want to use the product. The design work now is in keeping that trust as the product grows \u2014 from password manager to Unified Access Management, from individual users to enterprise teams, from human logins to AI agents authenticating against APIs. That expansion is a genuinely hard design problem. It\u2019s exactly the kind I want to work on.',
+        ],
+      },
+    ],
+  },
+
   'the-signal-in-the-noise': {
     kicker: 'Point of View',
     title:  'The signal in the noise',
@@ -2619,6 +2659,7 @@ function setupHiringManagerView() {
     apollo:       'the-signal-in-the-noise',
     pagerduty:    'when-the-system-acts-alone',
     ethyca:       'when-trust-is-the-whole-product',
+    '1password':  'when-security-gets-the-ux-it-deserves',
     ingram:       'when-the-platform-is-the-job',
     yahoo:        'from-library-to-language',
     ucla:         'the-digital-front-door',
@@ -3076,6 +3117,7 @@ function renderDSMode() {
     { name: 'Ultraviolet',  slug: 'yahoo',       bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(96,1,210,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(150,60,255,.18) 0%,transparent 68%),linear-gradient(155deg,#060010 0%,#0e0020 55%,#060010 100%)' },
     { name: 'Nightfall',    slug: 'ucla',        bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(0,59,115,.58) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,180,0,.14) 0%,transparent 68%),linear-gradient(155deg,#010508 0%,#020b14 55%,#010508 100%)' },
     { name: 'Blood Moon',   slug: 'roland',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(210,15,25,.52) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,50,30,.12) 0%,transparent 68%),linear-gradient(155deg,#0d0000 0%,#1c0101 55%,#0d0000 100%)' },
+    { name: 'Blueprint',    slug: '1password',   bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(6,60,200,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(100,150,255,.15) 0%,transparent 68%),linear-gradient(155deg,#020614 0%,#051840 55%,#020614 100%)' },
   ];
   const skyHTML = SKY_PHASES.map(p => `
     <div class="ds-sky-swatch">
