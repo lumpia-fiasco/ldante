@@ -2629,6 +2629,12 @@ function setupHiringManagerView() {
   const stack = document.getElementById('caseStack');
   let matchedEl = null;
 
+  // Reset: un-hide everything so this function is safe to call multiple times
+  // (dev switcher, role switch, session restore can all call it with different refs)
+  document.querySelectorAll('#caseStack .case-item--photo, #caseStack .case-item--thought').forEach(el => {
+    el.style.display = '';
+  });
+
   // Hide photo tiles in the HM experience
   document.querySelectorAll('#caseStack .case-item--photo').forEach(el => {
     el.style.display = 'none';
@@ -2638,6 +2644,7 @@ function setupHiringManagerView() {
   document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
     if (!el.querySelector('.thought-tile--pov')) return; // skip non-POV tiles
     if (matchedId && el.dataset.thought === matchedId) {
+      el.style.display = ''; // explicitly visible even if previously hidden
       matchedEl = el;
     } else {
       el.style.display = 'none';
@@ -2967,10 +2974,17 @@ function setupDevSwitcher() {
       syncActive();
       setupLanding(); // refresh greeting + body copy from new ref
 
-      // If already in portfolio, also update the JD prefill
+      // If already in portfolio, update JD prefill + re-apply tile filter
       if (portfolioReady) {
         const jd = ref && TAILORED[ref] ? TAILORED[ref].jd || '' : '';
         prefillFitJD(jd);
+        // Re-filter POV tiles for the new ref when in hiring-manager mode
+        try {
+          if (localStorage.getItem('ldg-role') === 'hiring-manager') {
+            setupHiringManagerView();
+            layoutMasonry();
+          }
+        } catch(e) {}
       }
     });
   });
