@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  tacobell: {
+    greeting: "Hello, Taco Bell team.",
+    body: "I'm Dante. I've built design systems for platforms that can’t afford inconsistency — Marketo’s Sky library governed a multi-audience enterprise product and held through an Adobe acquisition. Multi-surface, many teams, one coherent system.\n\nTaco Bell’s problem is the interesting version of that: scaling across mobile, web, kiosk, and internal tools while keeping the brand’s personality intact. Consistency without flattening. That’s the constraint I’d design around.",
+    jd: "Design Systems Lead\nTaco Bell\n\nBuild, scale, and govern Taco Bell's design system as a core product ecosystem across mobile apps, web platforms, kiosk experiences, and internal tools. Lead architecture, evolution, and governance across foundations, tokens, components, patterns, and documentation. Partner with Engineering, Product, Merchandising, Marketing, Brand, and Platform teams. Define contribution models, lifecycle management, versioning, and scalability standards.\n\n8+ years design experience with deep design systems specialization. Proven experience building and scaling enterprise design systems. Expert proficiency in Figma, design tokens, component libraries, and system architecture. Deep understanding of multi-surface platforms. Strong engineering partnership experience.",
+  },
   '1password': {
     greeting: "Hello, 1Password team.",
     body: "I'm Dante. My background is in consequence spaces \u2014 payroll, healthcare, devops \u2014 where the failure mode isn\u2019t a bad review, it\u2019s an incident. That\u2019s shaped how I think about security UX: friction isn\u2019t just annoying, it\u2019s a vulnerability. The products that get this right treat it as a design problem.\n\nI built this portfolio with Claude Code. The agentic tools callout in your JD isn\u2019t aspirational \u2014 it\u2019s current.",
@@ -2284,6 +2289,41 @@ const THOUGHTS = {
     ],
   },
 
+  'when-the-system-has-to-hold-the-brand': {
+    kicker: 'Point of View',
+    title:  'When the system has to hold the brand',
+    dek: 'On designing systems that scale across surfaces without flattening the thing that made the brand worth scaling in the first place.',
+    sections: [
+      {
+        paragraphs: [
+          'Most design systems are built to solve a consistency problem. Buttons look the same. Spacing follows rules. Colors are tokenized. That’s necessary, but it’s not the hard part — especially when the brand you’re systematizing has a genuine personality. Scale is a homogenizing force. Left unchecked, it produces interfaces that are consistent and characterless.',
+          'Taco Bell’s design problem is the interesting version of this. The brand is specific, irreverent, and recognized. The surfaces — mobile app, web, kiosk, internal tools — are wildly different in context, constraint, and audience. The system has to hold all of that without turning every surface into a generic rectangle with correct hex values.',
+        ],
+      },
+      {
+        heading: 'Tokens aren’t personality',
+        paragraphs: [
+          'A design token can encode a color. It can’t encode irreverence. The hex value for Taco Bell purple doesn’t tell a designer how to handle an empty state, how much motion is appropriate on a kiosk screen, or when to let the brand voice through and when to stay out of the way. That judgment layer is what separates a style guide from a design system.',
+          'Personality lives in the patterns — the component variants, the motion language, the copy guidelines baked into the component API, the decision frameworks that help contributors make the right call when the rules don’t cover the edge case. The token system is the foundation. The personality is the structure built on top of it.',
+        ],
+      },
+      {
+        heading: 'Multi-surface means multi-constraint',
+        paragraphs: [
+          'A kiosk is not a mobile app. Touch targets are different. The user is standing. The transaction is time-pressured and in public. The failure mode — a mis-tap on a $12 order — has a consequence that a swipe-dismiss on a phone screen doesn’t. Designing a component that works across a kiosk, a mobile app, and an internal ordering tool isn’t just responsive design. It’s a different problem at each surface.',
+          'The system architecture has to be explicit about which decisions are global — the brand tokens, the interaction principles, the accessibility baseline — and which are surface-specific. Teams building kiosk experiences need different primitives than teams building the app. Trying to force one component to do too much produces components that do nothing well.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to Taco Bell',
+        paragraphs: [
+          'At Marketo, I built Sky — a design system that governed a multi-audience enterprise product and held through an Adobe acquisition, a complete rebrand, and three years of aggressive feature expansion. The hardest part wasn’t the component library. It was the governance model: how do you let 40+ designers and engineers contribute without letting the system drift? How do you evolve foundations without breaking the teams that built on them? Those are the questions I’ve spent years learning how to answer.',
+          'Taco Bell’s version of that problem is more interesting because the stakes include brand equity, not just engineering velocity. A system that makes it easy to build fast but easy to build off-brand is a liability. The constraint I’d design around: consistency without flattening, speed without drift, and brand personality treated as a first-class system requirement.',
+        ],
+      },
+    ],
+  },
+
   'when-security-gets-the-ux-it-deserves': {
     kicker: 'Point of View',
     title:  'When security gets the UX it deserves',
@@ -2664,6 +2704,7 @@ function setupHiringManagerView() {
     yahoo:        'from-library-to-language',
     ucla:         'the-digital-front-door',
     roland:       'the-instrument-is-the-interface',
+    tacobell:     'when-the-system-has-to-hold-the-brand',
   };
 
   const matchedId = POV_MAP[ref] || null;
@@ -3118,6 +3159,7 @@ function renderDSMode() {
     { name: 'Nightfall',    slug: 'ucla',        bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(0,59,115,.58) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,180,0,.14) 0%,transparent 68%),linear-gradient(155deg,#010508 0%,#020b14 55%,#010508 100%)' },
     { name: 'Blood Moon',   slug: 'roland',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(210,15,25,.52) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,50,30,.12) 0%,transparent 68%),linear-gradient(155deg,#0d0000 0%,#1c0101 55%,#0d0000 100%)' },
     { name: 'Blueprint',    slug: '1password',   bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(6,60,200,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(100,150,255,.15) 0%,transparent 68%),linear-gradient(155deg,#020614 0%,#051840 55%,#020614 100%)' },
+    { name: 'Live Más',     slug: 'tacobell',    bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(112,32,130,.55) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(180,80,220,.18) 0%,transparent 68%),linear-gradient(155deg,#0d0018 0%,#1e0038 55%,#0d0018 100%)' },
   ];
   const skyHTML = SKY_PHASES.map(p => `
     <div class="ds-sky-swatch">
