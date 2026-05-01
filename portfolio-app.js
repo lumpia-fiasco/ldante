@@ -62,35 +62,10 @@ const TAILORED = {
     body: "I'm Dante. I designed for healthcare infrastructure at MEDHOST \u2014 systems running clinical operations at the facility level. I know what it means to design where errors carry real consequence, and where brand standards and accessibility aren\u2019t optional.\n\nI\u2019ve built component libraries that held through acquisitions and platform pivots, and I\u2019ve been hand-coding HTML and CSS since the start of my career \u2014 so I can close the gap between design intent and implementation myself.",
     jd: "UX Product Designer\nUCLA Health\n\nLead UX design for UCLA Health\u2019s enterprise web ecosystem, including the flagship UCLA Health and David Geffen School of Medicine websites and secondary sites. Develop and maintain a comprehensive web component library and UX standards. Design intuitive experiences across high-visibility platforms with significant consequence of error. Mentor web strategists on user-centered practices. Lead research, design, and implementation across tactical and multi-year programs. Ensure strict adherence to brand guidelines, accessibility standards (WCAG, ADA), and user-centered principles.\n\n5+ years UX/product design in enterprise web or SaaS. Advanced accessibility knowledge. Figma proficiency. Design systems experience. User research and usability testing. Agile fluency. HTML/CSS/JS a plus.",
   },
-  yahoo: {
-    greeting: "Hello, Yahoo Sports team.",
-    body: "I'm Dante. I built the Marketo Sky design system from scratch \u2014 50+ components, full org adoption, governance that survived an Adobe acquisition and contributed patterns upstream to Spectrum.\n\nI also built this portfolio using Claude Code, which gives me a first-hand read on where design intent breaks down in AI-generated code. That gap is exactly what this role is about.",
-    jd: "Principal, Design Systems\nYahoo Sports\n\nDefine the strategy and roadmap for an AI-ready design system at one of the internet\u2019s most-visited sports platforms. Architect frameworks where components and logic are structured for LLM consumption and automated UI generation. Drive design-to-code pipelines with design tokens as the universal source of truth across Web, iOS, and Android. Implement AI-driven efficiencies in the design lifecycle. Lead high-density data modeling for live sports and analytics. Mentor designers on prompt engineering, structured AI interaction, and systems thinking.\n\n8+ years product design with specialized design systems focus. AI tools integration experience. Advanced Figma (variables, tokens, component architecture). Front-end principles (HTML/CSS). Multi-platform systems leadership. Preferred: live data visualization, JSON/code-based system management, Git.",
-  },
-  ingram: {
-    greeting: "Hello, Ingram Micro team.",
-    body: "I'm Dante. I've built tools for expert users who won't forgive a bad interface \u2014 marketers running enterprise campaigns, operators managing multi-company financials, engineers watching systems fail in real time. The product has to earn their respect before it earns their workflow.\n\nXvantage is the interesting version of that problem: resellers, vendors, and business buyers, all with different jobs, all dependent on the same platform. Designing across personas at that scale \u2014 without losing coherence \u2014 is exactly what I want to be working on.",
-    jd: "Sr. Principal, Product Designer\nIngram Micro Xvantage\u2122\n\nOwn entire categories of experience on a platform that reaches nearly 90% of the global IT population. Partner with engineering, product, and business leadership to deliver high-quality designs across multiple personas in complex B2B scenarios. Lead end-to-end feature design, conduct executive-level user research, direct in-house designers and external consultants, and contribute to design culture and practice. Present and defend solutions in executive settings.\n\n10+ years UX/UI with B2B SaaS focus. Expert Figma. Research leadership. Agile/Lean UX fluency. Strong executive communication and presentation skills. HTML/CSS/JS experience a plus. Master\u2019s preferred.",
-  },
-  pagerduty: {
-    greeting: "Hello, PagerDuty team.",
-    body: "I'm Dante. At Meroxa, I led the design pivot from a no-code pipeline builder to a real-time data observability platform — the kind where engineers watch systems under pressure, trying to understand what's wrong and move fast.\n\nDesigning AI that operators trust in high-stakes moments is exactly the kind of problem I want to be working on. The challenge isn't making the AI capable — it's making it legible enough that people are willing to let it act.",
-    jd: "Principal Product Designer, AI & Automation\nPagerDuty\n\nLead design strategy for AI and Automation across the PagerDuty Operations Cloud. Define the vision for how AI agents, automation workflows, and intelligent insights are experienced by technical operations teams. Partner with AI/ML engineers, product managers, and data scientists. Establish design principles for AI transparency, explainability, and user control. Mentor designers on AI/UX best practices. Conduct strategic research on how technical teams adopt and trust AI in mission-critical contexts.\n\n10+ years product design with complex technical products. 3+ years designing AI/ML, intelligent systems, or automation platforms. Demonstrated design strategy leadership. Portfolio showcasing AI/UX, automation design, or intelligent agent experiences. Preferred: DevOps, developer tools, or technical operations experience.",
-  },
   ethyca: {
     greeting: "Hello, Ethyca team.",
     body: "I'm Dante. I've spent my career building tools that help organizations operate with confidence — compliance workflows, data pipelines, payroll infrastructure where accuracy isn't a feature, it's the product.\n\nWhat Ethyca is doing sits at the intersection of design's highest-stakes territory: making the invisible machinery of data governance legible, auditable, and trustworthy — for the privacy engineers, compliance teams, and legal functions who have to live in it every day. That's not a UI problem. It's a systems problem. And it's the kind I know how to solve.",
     jd: "Senior Product Designer\nEthyca\n\nOwn end-to-end design for Fides, the operating system for Data Privacy & AI Governance. Translate ambiguous compliance and governance challenges into intuitive enterprise interfaces. Build and maintain scalable design systems. Collaborate with engineers, PMs, and stakeholders on complex, data-driven workflows. Conduct user research and testing. Deliver pixel-perfect, accessible designs.\n\n5+ years product design. Strong UX/UI portfolio. Expertise in Figma and prototyping tools. Experience with complex enterprise workflows. Deep understanding of accessibility standards. Proven ability to balance strategic thinking with hands-on execution.",
-  },
-  apollo: {
-    greeting: "Hello, Apollo team.",
-    body: "I'm Dante. I've spent my career building data-dense tools for teams that need to move fast and stay oriented.\n\nMarketo was my closest analog to the Apollo problem — a platform where revenue teams live and die by whether the right signal surfaces at the right time. I've thought a lot about what makes that work, and what makes it fail.",
-    jd: "Staff Product Designer\nApollo.io\n\nHelp craft the future of Apollo\u2019s go-to-market platform, trusted by 500,000+ companies globally. Work within a Squad alongside a PM and engineers to brainstorm, build, and validate solutions for complex enterprise user problems. Map complex workflows and system interactions within the CRM product. Interview enterprise users, contribute to the design system, and integrate quantitative and qualitative data into product decisions.\n\n8+ years designing and shipping complex, enterprise-level SaaS products. Expert systems thinker. Experience in CRM, sales-tech, or B2B domains a strong plus. User research and experimentation experience. Strong Figma skills including component and design system work.",
-  },
-  machinify: {
-    greeting: "Hello, Machinify team.",
-    body: "I'm Dante. I've designed for healthcare infrastructure — the systems behind patient registration, supply chain, and document management at the facility level. Healthcare's complexity isn't theoretical to me.\n\nAnd I think AI in this space is only as valuable as the design that makes it legible, trustworthy, and actually usable by the people it's built for.",
-    jd: "Senior Product Designer\nMachinify\n\nDesign for Machinify's AI-powered healthcare intelligence platform serving 85+ health plans across the payment continuum. Leverage design thinking to address complex challenges. Conduct and apply UX research. Create wireframes, mockups, and prototypes for new features. Develop design specifications and documentation. Collaborate with engineering on implementation. Contribute to and maintain design systems and style guides.\n\n6+ years UX/UI in fast-paced environments. Advanced Figma proficiency. Deep understanding of UX principles, design thinking, interaction design, and usability. Experience with wireframes, user flows, mockups, and prototypes. Strong communication and cross-functional collaboration. Bonus: design systems and platform design experience.",
   },
 };
 
@@ -1992,268 +1967,6 @@ const THOUGHTS = {
     ],
   },
 
-  'when-the-platform-knows-more-than-you-do': {
-    kicker: 'Point of View',
-    title:  'When the platform knows more than you do',
-    dek: 'On AI transparency, healthcare stakes, and why the hardest design problem isn\u2019t the intelligence \u2014 it\u2019s the interface between AI confidence and human judgment.',
-    sections: [
-      {
-        paragraphs: [
-          'Healthcare is the domain where the gap between system intelligence and human trust matters most. A payment integrity platform can surface patterns across hundreds of millions of lives that no analyst could see manually. The AI is genuinely smarter than any individual user at certain tasks. The design problem is what happens at the handoff \u2014 when the platform\u2019s recommendation meets a human being who has to decide whether to act on it.',
-          'I learned the healthcare stakes early, designing patient registration, supply chain, and document management systems at MEDHOST. Errors there weren\u2019t just UX failures \u2014 they had downstream consequences in care delivery, billing, and compliance. That experience shaped how I think about any system where the cost of confusion is high.',
-        ],
-      },
-      {
-        heading: 'The AI confidence problem',
-        paragraphs: [
-          'Most AI-powered enterprise tools make the same mistake: they surface a recommendation and expect the user to either accept or ignore it. The design treats the AI as an oracle. That\u2019s a trust problem. Healthcare operators \u2014 utilization managers, payment reviewers, clinical ops teams \u2014 have seen enough edge cases to be appropriately skeptical of any automated system. They\u2019re not technophobes. They\u2019ve learned what happens when a system is wrong and nobody caught it.',
-          'The right design pattern isn\u2019t \u201ctrust the AI.\u201d It\u2019s \u201chere\u2019s what the platform found, here\u2019s why it thinks so, and here\u2019s how to verify it.\u201d Transparency about the reasoning \u2014 not just the recommendation \u2014 is what moves a tool from liability to asset.',
-        ],
-      },
-      {
-        heading: 'Visibility at the right altitude',
-        paragraphs: [
-          'Healthcare payment workflows operate at enormous scale. The AI handles the volume. What operators need is visibility at the right level of abstraction \u2014 aggregate patterns that surface anomalies, drill paths that let you investigate, and status indicators that make the system\u2019s current state unambiguous.',
-          'At Teamshares, I built a payroll reporting system for Industry Leads managing 90+ portfolio companies. The design challenge was structurally identical: enormous data volume, patterns that crossed company boundaries, and operators who needed to understand what required their attention without reviewing every transaction. The Machinify context adds AI-generated pattern detection to the same underlying problem: make the invisible visible, at the right altitude, for the right person.',
-        ],
-      },
-      {
-        heading: 'Designing for audit',
-        paragraphs: [
-          'Healthcare is one of the few domains where the decision trail matters as much as the decision. Claim denials get appealed. Utilization reviews get scrutinized. Payment adjustments carry regulatory implications. Every AI-powered recommendation needs to produce a record a human can reconstruct and defend.',
-          'This is a constraint most AI products ignore. When a platform surfaces a flag or a denial recommendation, the downstream workflow isn\u2019t just the action \u2014 it\u2019s the documentation of why. Designing for audit isn\u2019t an afterthought in healthcare. It\u2019s part of the primary workflow, and it shapes every interaction pattern.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to Machinify',
-        paragraphs: [
-          'I\u2019ve designed infrastructure that operators rely on daily \u2014 payroll systems, data pipelines, document management at the facility level \u2014 where the cost of a missed state or an unclear status is real. I\u2019ve built the design systems that keep complex, multi-surface platforms coherent. And I\u2019ve learned from MEDHOST that healthcare software has different tolerances for confusion than any other domain.',
-          'The opportunity at Machinify is to design AI-powered intelligence that health plan operators actually trust \u2014 not because they\u2019re asked to, but because the interface shows its work.',
-        ],
-      },
-    ],
-  },
-
-  'the-platform-underneath-the-art': {
-    kicker: 'Point of View',
-    title:  'The platform underneath the art',
-    dek: 'On designing workflow infrastructure for creative industries \u2014 and why the best operational tools are the ones the user never has to think about.',
-    sections: [
-      {
-        paragraphs: [
-          'The most important tools in a creative career are the ones the creator never has to think about. Royalty distribution, release scheduling, analytics, sync licensing \u2014 the infrastructure behind modern music is complex and consequential. A missed payment, a delayed release, a gap in data: these have real stakes for people whose livelihood depends on the platform working. The design problem is making all of that complexity invisible to the artist while keeping it fully navigable for the label operators and managers who live in it every day.',
-          'That dual demand \u2014 invisible to one user, powerful to another \u2014 is one of the most interesting problems in product design. It\u2019s not about simplification. It\u2019s about knowing who sees what, and making both experiences feel effortless.',
-        ],
-      },
-      {
-        heading: 'Two users, one platform',
-        paragraphs: [
-          'A distribution platform serving 75,000 artists and 5,000 label clients has at least two distinct users whose needs don\u2019t overlap much. The artist wants to know: did my music get distributed, are my royalties right, what\u2019s performing? The label client wants: portfolio management, analytics across hundreds of releases, workflow automation for a team. The patterns that work for a power user managing a catalog won\u2019t be the same as those for an independent artist checking in once a month.',
-          'At Teamshares, I built a payroll reporting tool for industry leads managing 90+ portfolio companies simultaneously. The design challenge was structurally identical: one surface, two different mental models and information needs. The solution wasn\u2019t one view with a toggle. It was understanding what each user was actually trying to accomplish and building the right entry points for both \u2014 without making either feel like a second-class experience.',
-        ],
-      },
-      {
-        heading: 'Design systems for creative industries',
-        paragraphs: [
-          'A design system built for a music platform has to earn trust differently than one built for a SaaS dashboard. It can\u2019t just be consistent and accessible \u2014 it has to feel like it was made by people who care about music. Typography, the way information breathes on a page, color decisions, motion \u2014 these communicate cultural credibility before a user reads a single label. The system has to carry both the rigor of enterprise infrastructure and the sensibility of the creative industry it serves.',
-          'Those aren\u2019t in conflict. The most respected creative tools \u2014 Ableton, Figma, Final Cut \u2014 are also technically rigorous. The craft isn\u2019t a layer on top of the engineering. It\u2019s baked into every decision about what the system owns and what it leaves open.',
-        ],
-      },
-      {
-        heading: 'Systems that survive',
-        paragraphs: [
-          'At Marketo, I built a design system that started as a collection of best guesses about what a rebuilt platform needed. By the time Adobe acquired Marketo, Sky\u2019s patterns had become the foundation that outlasted the product and fed upstream into Adobe Spectrum. The lesson wasn\u2019t about being comprehensive from day one \u2014 it was about getting the governance model right. Knowing what the system owns versus what product teams decide locally. Building a contribution process that designers actually use. Creating the conditions for the system to evolve without requiring a single person to be the bottleneck.',
-          'That model \u2014 clear ownership, real governance, room for local decisions \u2014 is what makes a design system scale. Without it, you get a component library that teams fork instead of contribute to.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to Create Music Group',
-        paragraphs: [
-          'I\u2019ve built design systems that outlasted the products they were built for. I\u2019ve designed workflow tools for people who don\u2019t want to be operating software \u2014 they want to be doing their actual job \u2014 and I\u2019ve figured out how to get out of their way without sacrificing depth. I\u2019ve led the governance decisions that made systems scale and the mentorship that made design teams stronger.',
-          'The Create Music platform problem \u2014 modular infrastructure for a creative industry, serving a spectrum of users from independent artists to enterprise label clients, with a design system holding it all together \u2014 is exactly the kind of problem I want to be working on.',
-        ],
-      },
-    ],
-  },
-
-  'the-instrument-is-the-interface': {
-    kicker: 'Point of View',
-    title:  'The instrument is the interface',
-    dek: 'On designing music software for people whose expertise is in sound, not UI \u2014 and what that changes about how you work.',
-    sections: [
-      {
-        paragraphs: [
-          'Music software has a design problem most enterprise software doesn\u2019t: the user isn\u2019t trying to complete a task. They\u2019re trying to create something. And the moment the UI makes them think about the UI instead of the music, you\u2019ve broken the session.',
-          'The best music tools feel like instruments, not applications. They respond in ways that feel physical. They map to how musicians already think. They get out of the way.',
-        ],
-      },
-      {
-        heading: 'Expert users with a different kind of expertise',
-        paragraphs: [
-          'Musicians who use Roland software are experts \u2014 but their expertise is in sound, rhythm, and feeling. Not in navigating interfaces. A UI pattern that works perfectly for a project management tool will feel wrong in a synthesizer editor because the mental model is completely different.',
-          'Designing for musicians means learning their vocabulary, their workflow, and their instincts. Where do they start? What do they tweak obsessively? What do they never touch? The answers determine what belongs on the surface, what\u2019s reachable one level down, and what stays hidden until it\u2019s specifically needed.',
-        ],
-      },
-      {
-        heading: 'Hardware and software as one experience',
-        paragraphs: [
-          'Roland products blur the line between hardware and software in ways that create unique design challenges. The software layer of a hardware+software experience doesn\u2019t need to replicate the hardware\u2019s controls \u2014 it needs to extend them intelligently. That requires understanding what the hardware already communicates, and designing only what it can\u2019t.',
-          'The seam between the physical and the digital is where the experience either holds together or falls apart. Getting that right is a different kind of systems problem than most product teams are used to solving.',
-        ],
-      },
-      {
-        heading: 'The tempo of creative tools',
-        paragraphs: [
-          'Productivity software can tolerate friction. A creative tool cannot. Every extra click, every mode the user has to remember, every animation that delays feedback \u2014 these interrupt the creative state. Musicians work at the tempo of music. The software has to keep up.',
-          'This doesn\u2019t mean simplification. A professional synthesizer editor needs to expose enormous complexity. It means understanding which parts of that complexity belong on the surface, which belong one level down, and which should only appear when specifically summoned. That\u2019s a judgment call that has to be made instrument by instrument, workflow by workflow.',
-        ],
-      },
-    ],
-  },
-
-  'the-digital-front-door': {
-    kicker: 'Point of View',
-    title:  'The digital front door',
-    dek: 'On designing the public-facing web presence of a healthcare institution \u2014 and why the stakes are categorically different from most product work.',
-    sections: [
-      {
-        paragraphs: [
-          'When someone is trying to find a specialist after a diagnosis, or navigate to the right emergency department, or understand what a procedure means before they sign a consent form \u2014 the healthcare website isn\u2019t a marketing channel. It\u2019s infrastructure.',
-          'The design stakes for a system like UCLA Health\u2019s digital footprint are different from the stakes for most products. Bad information architecture doesn\u2019t cost a conversion. It costs someone finding the right care.',
-        ],
-      },
-      {
-        heading: 'Accessibility is the baseline, not the add-on',
-        paragraphs: [
-          'Healthcare audiences are inherently diverse in ways most product audiences aren\u2019t. Older patients. People with visual impairments. Non-native English speakers. People in acute stress with reduced cognitive capacity. People accessing from a mobile device in a waiting room.',
-          'In this context, WCAG compliance isn\u2019t a legal checkbox \u2014 it\u2019s the minimum viable design. The real accessibility work is in reducing cognitive load: clear wayfinding, plain language, predictable patterns. The component library that powers this work needs to be built with these constraints as first principles, not retrofitted in QA.',
-        ],
-      },
-      {
-        heading: 'Multiple audiences, one system',
-        paragraphs: [
-          'An academic medical center website serves patients, students, physicians, researchers, and donors \u2014 often on the same page. Each is navigating with different intent, different prior knowledge, and different urgency. Designing for this without fragmenting the experience requires a design system sophisticated enough to flex across contexts while maintaining coherence.',
-          'The component library is what makes that possible at scale \u2014 not as a collection of UI elements, but as a system of semantic decisions that encodes the right experience for each audience into the components themselves.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to this',
-        paragraphs: [
-          'At MEDHOST, I designed for healthcare IT \u2014 systems running clinical operations at the facility level. That experience gave me an early understanding of what it means to design in high-consequence environments where errors have real costs.',
-          'At Marketo, I built a design system that governed a complex, multi-audience platform and held through an acquisition. The discipline required to build something that stays coherent across a growing team, multiple surfaces, and significant organizational change is the same discipline this role requires.',
-          'I started my career hand-coding HTML and CSS, which means I can speak precisely to implementation decisions, catch issues in QA, and write specs that don\u2019t lose anything in translation.',
-        ],
-      },
-    ],
-  },
-
-  'from-library-to-language': {
-    kicker: 'Point of View',
-    title:  'From library to language',
-    dek: 'On what it actually takes to build a design system that AI tools can reason about \u2014 and why most systems aren\u2019t there yet.',
-    sections: [
-      {
-        paragraphs: [
-          'Design systems started as shared libraries \u2014 a place to put reusable components so teams didn\u2019t rebuild buttons for the fifth time. That problem is largely solved. The next version of that problem is harder and more interesting: how do you build a system that not only humans can use, but that AI tools can reason about, generate from, and extend without breaking things?',
-          'Most design systems aren\u2019t ready for that. They\u2019re rich in visual spec and sparse in semantic meaning. The gap between the two is where the AI-first design system lives.',
-        ],
-      },
-      {
-        heading: 'A component is documentation, not just code',
-        paragraphs: [
-          'An AI model consuming your Figma tokens to generate layout code needs to understand not just what a component looks like, but what it\u2019s for, when it applies, what it combines with, and what it doesn\u2019t do. Most systems describe appearance. Few describe intent.',
-          'The AI-ready design system inverts that priority. Tokens aren\u2019t just style values \u2014 they\u2019re vocabulary. Component relationships aren\u2019t just inheritance trees \u2014 they\u2019re grammar. When the system is structured to express intent, it can be read and reasoned about by machines, not just consumed by designers.',
-        ],
-      },
-      {
-        heading: 'Tokens as the universal source of truth',
-        paragraphs: [
-          'The design-to-code promise has always been: one definition, everywhere. Design tokens get close. But the gap between a Figma variable and a compiled CSS custom property \u2014 and the further gap between that CSS and a SwiftUI modifier \u2014 is where intent erodes.',
-          'The work is in building the connective layer: not just defining tokens, but defining their relationships, constraints, and platform-specific expressions. When you do that, you get more than consistency \u2014 you get a system that can be queried by a Copilot integration or an LLM-assisted code generator and produce something that reflects design intent, not just design proximity.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to Yahoo Sports',
-        paragraphs: [
-          'At Marketo, I built a design system that had to survive an Adobe acquisition and contribute patterns upstream to Spectrum. That pressure \u2014 design decisions that had to hold at a much larger scale than the one they were built for \u2014 shaped how I think about system architecture. You build for extensibility from the start, or you rebuild from scratch later.',
-          'I\u2019ve been using Claude Code to build production interfaces directly, including this portfolio. That work has given me a concrete sense of where the seams are between design intent and generated code. The systems that work best aren\u2019t the ones that describe what things look like \u2014 they\u2019re the ones that describe what things mean.',
-          'High-density live sports data is a genuinely hard design problem: time-sensitive, multi-format, platform-specific, and load-bearing. The system that powers it needs to be as precise as the data it displays.',
-        ],
-      },
-    ],
-  },
-
-  'when-the-platform-is-the-job': {
-    kicker: 'Point of View',
-    title:  'When the platform is the job',
-    dek: 'On designing B2B platforms where users aren\u2019t passing through \u2014 they live there. And what that changes about how you design.',
-    sections: [
-      {
-        paragraphs: [
-          'There\u2019s an assumption that sneaks into most product design: the user has a goal outside the product, and the product is a means to reach it. You design to help them get there faster with less friction, then they close the tab and go do the thing.',
-          'B2B distribution platforms break this assumption. For an IT reseller working in a platform like Xvantage, the platform isn\u2019t a means to an end. It\u2019s the environment. They configure, quote, order, track, and reconcile inside it. They live there.',
-        ],
-      },
-      {
-        heading: 'Familiarity is a feature',
-        paragraphs: [
-          'When someone uses a product every single day as their primary work surface, the design stakes shift. You\u2019re not optimizing for delight \u2014 you\u2019re optimizing for fluency. A power user who\u2019s been in your platform for 200 days knows where everything is. A redesign that moves things for aesthetic reasons will cost them weeks of relearning with zero upside for them.',
-          'The best-designed professional tools are the ones where experienced users stop thinking about the tool and start thinking about their work. The interface recedes. Their judgment takes over. Getting there requires extreme discipline about when to introduce change and why.',
-        ],
-      },
-      {
-        heading: 'Multiple personas, one platform',
-        paragraphs: [
-          'B2B ecosystems have a compounding persona problem. The reseller has one job. The vendor rep has another. The IT buyer has a third. They interact through the same platform but approach it with different mental models, different vocabularies, and different definitions of success.',
-          'The mistake is designing for the average. There is no average user here. Designing for multiple expert personas means deeply understanding each \u2014 and building an experience architecture that serves each without building entirely separate products.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to this',
-        paragraphs: [
-          'At Marketo, I designed across personas that had fundamentally different relationships with the same platform: campaign managers, marketing operations leads, sales users, and admins. Each had a different mental model. Each had different things they needed to do quickly. Building a design system that served all of them without becoming a least-common-denominator product was the core challenge.',
-          'At Teamshares, I designed tools used by network presidents running individual businesses alongside industry leads managing those businesses in aggregate \u2014 two personas, same data, completely different questions they needed to answer.',
-          'Complex persona landscapes are a design strength for me. The work before the interface work is always the same: get close enough to each user\u2019s actual job that you can design from their context, not your assumptions.',
-        ],
-      },
-    ],
-  },
-
-  'when-the-system-acts-alone': {
-    kicker: 'Point of View',
-    title:  'When the system acts alone',
-    dek: 'On designing AI agents for high-stakes operations \u2014 and why trust is a design problem before it\u2019s an engineering one.',
-    sections: [
-      {
-        paragraphs: [
-          'Operations teams have always been on-call. The shift is that increasingly, the first responder isn\u2019t a person \u2014 it\u2019s a system.',
-          'AI agents in an operations platform don\u2019t just alert. They diagnose. They correlate. They\u2019re beginning to remediate. The design challenge that follows isn\u2019t whether the AI can do these things. It\u2019s whether the operator will trust it enough to let it.',
-        ],
-      },
-      {
-        heading: 'Autonomy without visibility is anxiety',
-        paragraphs: [
-          'When a system acts on your behalf, you need to understand what it did, why, and what it decided not to do. Without that, operators don\u2019t gain confidence \u2014 they gain unease. They override everything just to feel in control. The automation exists, but nobody uses it.',
-          'Designing for AI in operations means making autonomous action legible \u2014 not through disclaimer modals nobody reads, but through the right signal surfaced at the right moment in the right context. The cognitive load of \u201cwhat did it do?\u201d has to cost less than the cognitive load of doing it yourself.',
-        ],
-      },
-      {
-        heading: 'The trust gradient isn\u2019t binary',
-        paragraphs: [
-          'Not all AI actions require the same level of trust. Suppressing a known-flapping alert is different from escalating an incident to the CTO. Grouping correlated events is different from triggering an automated rollback.',
-          'The design work is in mapping that gradient explicitly: what can the system do silently? What needs a confirmation? What should always stay in human hands? These aren\u2019t engineering decisions \u2014 they\u2019re design decisions. And they need to be grounded in how operators actually work under pressure: fast, stressed, context-loaded, with zero patience for friction that slows down resolution.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to this',
-        paragraphs: [
-          'At Meroxa, I led the product shift from a no-code pipeline builder to a data observability platform \u2014 a product where engineers watch systems under pressure and need to understand what\u2019s wrong fast. The core design challenge was trust: how do you make complex, automated system behavior feel transparent enough that engineers can act on it confidently, not just acknowledge it and move on?',
-          'That work taught me something I\u2019d bring to PagerDuty\u2019s AI layer directly: operator trust isn\u2019t won at onboarding. It\u2019s built interaction by interaction, decision by decision. Every time the system explains itself clearly, every time it gets it right and the operator knows why \u2014 that\u2019s a deposit. Design builds the account.',
-        ],
-      },
-    ],
-  },
-
   'when-trust-is-the-whole-product': {
     kicker: 'Point of View',
     title:  'When trust is the whole product',
@@ -2354,41 +2067,6 @@ const THOUGHTS = {
         paragraphs: [
           'I\u2019ve built tools in the consequence spaces: payroll systems where a configuration error costs someone a month\u2019s income, healthcare infrastructure where a settings decision affects clinical operations, devops platforms where engineers are watching systems fail in real time. That\u2019s taught me how to design with appropriate gravity \u2014 to take the stakes seriously without making the interface feel serious.',
           '1Password\u2019s challenge is distinctive: the trust argument is already won. \u201cMost loved brand in cybersecurity\u201d means people actually want to use the product. The design work now is in keeping that trust as the product grows \u2014 from password manager to Unified Access Management, from individual users to enterprise teams, from human logins to AI agents authenticating against APIs. That expansion is a genuinely hard design problem. It\u2019s exactly the kind I want to work on.',
-        ],
-      },
-    ],
-  },
-
-  'the-signal-in-the-noise': {
-    kicker: 'Point of View',
-    title:  'The signal in the noise',
-    dek: 'On designing data-dense GTM platforms \u2014 and why the hardest problem isn\u2019t organizing the data, it\u2019s knowing which signal matters when.',
-    sections: [
-      {
-        paragraphs: [
-          'Sales intelligence platforms have an abundance problem dressed as an access problem. The contacts are there. The engagement history is there. The intent signals are there. But surface all of it and you\u2019ve built a very expensive noise machine.',
-          'The rep doesn\u2019t want to browse. They want to know. They want the platform to have an opinion about what matters right now \u2014 and they want to trust it.',
-        ],
-      },
-      {
-        heading: 'A database and a tool are not the same thing',
-        paragraphs: [
-          'A database surfaces everything. A tool makes a recommendation. The design work in a platform like Apollo isn\u2019t in the data model \u2014 it\u2019s in the judgment layer. Which contacts rise to the top? When does recency matter more than fit? When does fit matter more than recency? These aren\u2019t engineering decisions. They\u2019re design decisions with engineering consequences.',
-          'I\u2019ve seen this up close at Marketo. The engagement timeline existed \u2014 every email open, web visit, and form fill was tracked. The original Sales Insight design surfaced all of it. What reps actually needed were the two or three data points that told them whether to call today or wait a week. The redesign built around that insight. The data didn\u2019t change. The judgment layer did.',
-        ],
-      },
-      {
-        heading: 'The rep\u2019s world is not a dashboard',
-        paragraphs: [
-          'Revenue tools often get designed for the reporting view \u2014 the one the VP of Sales checks on Tuesday morning. But the rep lives somewhere else. They\u2019re moving between 40 accounts, context-switching constantly, trying to remember where they left off with someone they last touched three weeks ago.',
-          'The design that serves the VP\u2019s review is often exactly wrong for the rep\u2019s Thursday morning. Designing for both means understanding both workflows at the task level \u2014 not just the feature level. What does the rep need to stay oriented? What should surface without being asked? What stays out of the way until it\u2019s needed?',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to Apollo',
-        paragraphs: [
-          'I\u2019m drawn to this problem space because it\u2019s genuinely hard. The data is complex, the users are experts, and the margin for making them feel like the tool is slowing them down is zero. The best GTM platforms are the ones that make experienced reps feel like the system knows them \u2014 and that takes precise design work to get right.',
-          'The systems thinking required here \u2014 understanding how search, enrichment, sequencing, and CRM sync interact as a coherent experience rather than separate features \u2014 is the kind of work I do well.',
         ],
       },
     ],
@@ -2693,15 +2371,10 @@ function setupHiringManagerView() {
     twitch:    'designing-platforms-where-two-sides-need-each-other',
     circle:    'designing-infrastructure-people-trust',
     five9:     'designing-for-people-who-live-in-the-product',
-    machinify:  'when-the-platform-knows-more-than-you-do',
     citrix:       'the-control-plane-problem',
     createmusic:  'the-platform-underneath-the-art',
-    apollo:       'the-signal-in-the-noise',
-    pagerduty:    'when-the-system-acts-alone',
     ethyca:       'when-trust-is-the-whole-product',
     '1password':  'when-security-gets-the-ux-it-deserves',
-    ingram:       'when-the-platform-is-the-job',
-    yahoo:        'from-library-to-language',
     ucla:         'the-digital-front-door',
     roland:       'the-instrument-is-the-interface',
     tacobell:     'when-the-system-has-to-hold-the-brand',
@@ -3148,14 +2821,9 @@ function renderDSMode() {
     { name: 'Nebula',       slug: 'twitch',      bg: 'radial-gradient(ellipse 80% 60% at 20% 80%,rgba(145,71,255,.45) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 80% 30%,rgba(191,148,255,.2) 0%,transparent 70%),linear-gradient(160deg,#0e0e10 0%,#1f1f23 50%,#0e0e10 100%)' },
     { name: 'Midnight',     slug: 'circle',      bg: 'radial-gradient(ellipse 80% 60% at 20% 80%,rgba(0,120,210,.4) 0%,transparent 70%),linear-gradient(160deg,#050d1a 0%,#0a1a30 50%,#050d1a 100%)' },
     { name: 'Crimson',      slug: 'five9',       bg: 'radial-gradient(ellipse 80% 60% at 30% 70%,rgba(230,30,30,.35) 0%,transparent 70%),linear-gradient(160deg,#100000 0%,#1a0505 50%,#100000 100%)' },
-    { name: 'Deep Current', slug: 'machinify',   bg: 'radial-gradient(ellipse 75% 55% at 25% 75%,rgba(0,160,140,.45) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 78% 28%,rgba(80,40,180,.2) 0%,transparent 70%),linear-gradient(155deg,#060e12 0%,#0b1e24 55%,#060e12 100%)' },
     { name: 'Cobalt',       slug: 'citrix',      bg: 'radial-gradient(ellipse 68% 50% at 22% 78%,rgba(0,100,210,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 24%,rgba(0,180,255,.14) 0%,transparent 68%),linear-gradient(155deg,#040810 0%,#071526 55%,#040810 100%)' },
     { name: 'Aurora',       slug: 'createmusic', bg: 'radial-gradient(ellipse 72% 55% at 22% 80%,rgba(140,50,200,.44) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(220,55,110,.22) 0%,transparent 68%),linear-gradient(155deg,#090510 0%,#14071e 55%,#090510 100%)' },
-    { name: 'Sunrise',      slug: 'apollo',      bg: 'radial-gradient(ellipse 75% 55% at 22% 80%,rgba(255,100,20,.45) 0%,transparent 68%),radial-gradient(ellipse 50% 38% at 80% 25%,rgba(255,180,60,.18) 0%,transparent 68%),linear-gradient(155deg,#0d0700 0%,#1a0e00 55%,#0d0700 100%)' },
-    { name: 'Jade',         slug: 'pagerduty',   bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(6,172,56,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(0,255,100,.12) 0%,transparent 68%),linear-gradient(155deg,#010d04 0%,#021a08 55%,#010d04 100%)' },
     { name: 'Glacier',      slug: 'ethyca',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(0,140,180,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(0,210,200,.15) 0%,transparent 68%),linear-gradient(155deg,#00090f 0%,#021018 55%,#00090f 100%)' },
-    { name: 'Scarlet',      slug: 'ingram',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(200,30,40,.42) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,80,60,.14) 0%,transparent 68%),linear-gradient(155deg,#0d0102 0%,#1a0304 55%,#0d0102 100%)' },
-    { name: 'Ultraviolet',  slug: 'yahoo',       bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(96,1,210,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(150,60,255,.18) 0%,transparent 68%),linear-gradient(155deg,#060010 0%,#0e0020 55%,#060010 100%)' },
     { name: 'Nightfall',    slug: 'ucla',        bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(0,59,115,.58) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,180,0,.14) 0%,transparent 68%),linear-gradient(155deg,#010508 0%,#020b14 55%,#010508 100%)' },
     { name: 'Blood Moon',   slug: 'roland',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(210,15,25,.52) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,50,30,.12) 0%,transparent 68%),linear-gradient(155deg,#0d0000 0%,#1c0101 55%,#0d0000 100%)' },
     { name: 'Blueprint',    slug: '1password',   bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(6,60,200,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(100,150,255,.15) 0%,transparent 68%),linear-gradient(155deg,#020614 0%,#051840 55%,#020614 100%)' },
