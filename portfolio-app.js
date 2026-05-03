@@ -3165,7 +3165,48 @@ function renderDSMode() {
         <div class="ds-eyebrow">Components</div>
         <h2 class="ds-section-title">Cards</h2>
         <p class="ds-section-body">The portfolio grid uses three card types, all sharing a common <span class="ds-inline-code">.case-item</span> wrapper and participating in the masonry layout. Card type is determined by a modifier class.</p>
-        <table class="ds-spec-table">
+        <div class="ds-canvas" style="overflow-x:auto;">
+          <div style="display:flex;gap:16px;min-width:max-content;">
+
+            <div style="width:200px;flex-shrink:0;">
+              <div class="case-card-v" style="--card-color:#4c1d95;pointer-events:none;cursor:default;">
+                <span class="case-study-badge">Case Study</span>
+                <div style="position:absolute;top:22px;left:22px;width:48px;height:16px;background:rgba(255,255,255,0.22);border-radius:3px;z-index:2;"></div>
+                <div class="case-card-content">
+                  <p class="case-company">Company</p>
+                  <h3 class="case-title-h" style="font-size:1.1rem;">A headline that tells the story</h3>
+                  <p class="case-desc-h">Short description of the outcome and what was designed.</p>
+                </div>
+              </div>
+            </div>
+
+            <div style="width:200px;flex-shrink:0;">
+              <article class="thought-tile" style="pointer-events:none;cursor:default;">
+                <div style="width:100%;aspect-ratio:4/3;background:linear-gradient(145deg,#1e2e45 0%,#0d1622 100%);display:block;"></div>
+                <span class="thought-tile-badge">Thoughts</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title" style="font-size:1.1rem;">Short article title</h3>
+                  <p class="thought-tile-desc">A brief description of what this thought piece explores and why it matters.</p>
+                </div>
+              </article>
+            </div>
+
+            <div style="width:200px;flex-shrink:0;">
+              <article class="thought-tile thought-tile--pov" style="pointer-events:none;cursor:default;">
+                <div class="thought-tile-pov-bg"></div>
+                <img class="case-card-logo" src="assets/logo.svg" alt="LDG">
+                <span class="thought-tile-badge" style="background:#000;color:#fff;">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title" style="color:#000;font-size:1.05rem;">A point of view on a design challenge</h3>
+                  <p class="thought-tile-desc" style="color:rgba(0,0,0,0.72);">How this perspective shapes the approach to the work.</p>
+                </div>
+              </article>
+            </div>
+
+          </div>
+        </div>
+        <div class="ds-canvas-label">Case Study \xB7 Thought \xB7 POV</div>
+        <table class="ds-spec-table" style="margin-top:20px;">
           <thead><tr><th>Variant</th><th>Class</th><th>Hero treatment</th></tr></thead>
           <tbody>
             <tr><td>Case Study</td><td><code>.case-item--cs</code></td><td>Photo, lazy-loaded</td></tr>

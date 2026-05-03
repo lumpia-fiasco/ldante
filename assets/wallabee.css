@@ -701,3 +701,13 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
   /* Spec table first column — drop fixed width so it auto-sizes */
   .ds-spec-table td:first-child { width: auto; min-width: 90px; }
 }
+
+
+/* ── DS canvas: card preview overrides ──
+   Force overlays visible (hover media query hides them at rest).
+   Scale down the POV card's aspect ratio so the title isn't crushed
+   by the 94px padding-top designed for a full-width grid card.
+─────────────────────────────────────────────────────────────────── */
+.ds-canvas .thought-tile-overlay { opacity: 1 !important; }
+.ds-canvas .thought-tile--pov { aspect-ratio: 4 / 3 !important; }
+.ds-canvas .thought-tile--pov .thought-tile-overlay { padding-top: 52px !important; }
