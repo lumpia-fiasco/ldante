@@ -2456,14 +2456,6 @@ function setupHiringManagerView() {
   document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
     el.style.display = '';
   });
-  const thoughtsStack  = document.getElementById('thoughtsStack');
-  const thoughtsHeading = document.getElementById('thoughtsHeading');
-  if (thoughtsStack)  thoughtsStack.style.display  = '';
-  if (thoughtsHeading) thoughtsHeading.style.display = '';
-
-  // Hide thoughts & observations section entirely in HM experience
-  if (thoughtsStack)  thoughtsStack.style.display  = 'none';
-  if (thoughtsHeading) thoughtsHeading.style.display = 'none';
 
   // Hide all POV/Perspective tiles; surface only the matched one
   document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
