@@ -509,10 +509,22 @@
       .thought-tile-overlay { opacity: 0; }
       .thought-tile:hover .thought-tile-overlay { opacity: 1; }
       .thought-tile:hover .thought-tile-img { filter: grayscale(0); transform: scale(1.04); }
+      /* Title and desc slide up as overlay fades in */
+      .thought-tile:not(.thought-tile--pov) .thought-tile-title,
+      .thought-tile:not(.thought-tile--pov) .thought-tile-desc {
+        transform: translateY(10px);
+        transition: transform 0.38s cubic-bezier(0.22,1,0.36,1);
+      }
+      .thought-tile:not(.thought-tile--pov):hover .thought-tile-title {
+        transform: translateY(0); transition-delay: 0.06s;
+      }
+      .thought-tile:not(.thought-tile--pov):hover .thought-tile-desc {
+        transform: translateY(0); transition-delay: 0.12s;
+      }
     }
 
     /* POV / Perspective tiles (text-only, gradient background) */
-    .thought-tile--pov { min-height: 0; }
+    .thought-tile--pov { min-height: 0; transition: transform 0.5s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s ease; }
     .thought-tile--pov .thought-tile-img { display: none; }
     .thought-tile-pov-bg {
       position: absolute; inset: 0; z-index: 0;
@@ -529,7 +541,9 @@
     .thought-tile--pov .thought-tile-desc  { color: rgba(0,0,0,0.72); }
     @media (hover:hover) {
       .thought-tile--pov .thought-tile-overlay { opacity: 1; }
-      .thought-tile--pov:hover .thought-tile-pov-bg { filter: brightness(1.15); }
+      .thought-tile--pov:hover { transform: scale(1.04); box-shadow: 0 24px 56px rgba(0,0,0,0.22); }
+      .thought-tile--pov:hover .thought-tile-pov-bg { filter: brightness(1.08); }
+      .thought-tile--pov:hover .thought-tile-badge { opacity: 0; }
     }
     /* Per-experience gradients */
 
