@@ -5,6 +5,51 @@
 
 'use strict';
 
+// ── Wallabee token store ──────────────────────────────────────────
+// Single source of truth for all design tokens.
+// wallabeeApply() sets them as CSS custom properties on :root so
+// every element using var(--token) updates immediately. Edits in
+// the DS color picker call wallabeeSet(), which also persists to
+// localStorage so overrides survive page reloads.
+const WALLABEE_TOKENS = {
+  '--bg':        '#262626',
+  '--bg-darker': '#1f1f1f',
+  '--pink':      '#f995ac',
+  '--magenta':   '#bf3078',
+  '--white':     '#ffffff',
+  '--white-dim': 'rgba(255,255,255,0.55)',
+};
+const WALLABEE_LS_KEY = 'wallabee-token-overrides';
+
+function wallabeeGetActive() {
+  try {
+    const o = JSON.parse(localStorage.getItem(WALLABEE_LS_KEY) || '{}');
+    return { ...WALLABEE_TOKENS, ...o };
+  } catch { return { ...WALLABEE_TOKENS }; }
+}
+function wallabeeApply(tokens) {
+  Object.entries(tokens || wallabeeGetActive()).forEach(([k, v]) => {
+    document.documentElement.style.setProperty(k, v);
+  });
+}
+function wallabeeSet(name, value) {
+  try {
+    const o = JSON.parse(localStorage.getItem(WALLABEE_LS_KEY) || '{}');
+    o[name] = value;
+    localStorage.setItem(WALLABEE_LS_KEY, JSON.stringify(o));
+  } catch {}
+  document.documentElement.style.setProperty(name, value);
+}
+function wallabeeReset() {
+  localStorage.removeItem(WALLABEE_LS_KEY);
+  wallabeeApply(WALLABEE_TOKENS);
+}
+function _rgbToHex(rgb) {
+  const m = (rgb || '').match(/\d+/g);
+  if (!m || m.length < 3) return rgb;
+  return '#' + m.slice(0, 3).map(n => parseInt(n).toString(16).padStart(2, '0')).join('');
+}
+
 // ── Tailored landing config ────────────────────────────────────
 const TAILORED = {
   lattice: {
@@ -2947,23 +2992,33 @@ function renderDSMode() {
   document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
 
   const COLORS = [
-    { name: 'Background',      token: '--bg',        bg: 'rgb(38,38,38)',          value: '#262626'             },
-    { name: 'Background Dark', token: '--bg-darker',  bg: 'rgb(31,31,31)',          value: '#1F1F1F'             },
-    { name: 'Pink',            token: '--pink',       bg: 'rgb(249,149,172)',       value: '#F995AC'             },
-    { name: 'Magenta',         token: '--magenta',    bg: 'rgb(191,48,120)',        value: '#BF3078'             },
-    { name: 'White',           token: '--white',      bg: 'rgb(255,255,255)',       value: '#FFFFFF'             },
-    { name: 'White / 55%',     token: '--white-dim',  bg: 'rgba(255,255,255,0.55)', value: 'rgba(255,255,255,.55)' },
+    { name: 'Background',      token: '--bg',        editable: true  },
+    { name: 'Background Dark', token: '--bg-darker',  editable: true  },
+    { name: 'Pink',            token: '--pink',       editable: true  },
+    { name: 'Magenta',         token: '--magenta',    editable: true  },
+    { name: 'White',           token: '--white',      editable: true  },
+    { name: 'White / 55%',     token: '--white-dim',  editable: false },
   ];
 
-  const swatchesHTML = COLORS.map(c => `
+  const _at = wallabeeGetActive();
+  const swatchesHTML = COLORS.map(c => {
+    const val = _at[c.token] || '';
+    return `
     <div class="ds-swatch">
-      <div class="ds-swatch-chip" style="background:${c.bg};"></div>
+      ${c.editable
+        ? `<label class="ds-swatch-label" title="Edit ${c.token}">
+             <div class="ds-swatch-chip" style="background:var(${c.token});"></div>
+             <input type="color" class="ds-color-input" data-token="${c.token}" value="${val}">
+             <div class="ds-swatch-edit-icon">✎</div>
+           </label>`
+        : `<div class="ds-swatch-chip" style="background:var(${c.token});"></div>`}
       <div class="ds-swatch-info">
         <div class="ds-swatch-name">${c.name}</div>
         <code class="ds-swatch-token">${c.token}</code>
-        <span class="ds-swatch-value">${c.value}</span>
+        <span class="ds-swatch-value ds-token-live" data-token="${c.token}">${val}</span>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 
   const TYPE_ROWS = [
     { role: 'Display',       spec: "Cal Sans \xB7 400\nclamp(3.5rem\u20138.75rem)\nls: \u22120.02em \xB7 lh: 1.0",    style: "font-family:'Cal Sans',sans-serif;font-size:2.75rem;line-height:1;letter-spacing:-0.02em;color:var(--ds-fg);",                                          sample: 'Aa' },
@@ -3058,6 +3113,7 @@ function renderDSMode() {
           <span class="ds-mode-toggle-icon">◑</span>
           <span id="dsModeLabel">Light mode</span>
         </button>
+        <button class="ds-reset-btn" id="dsResetTokens" title="Clear all token overrides">&#8635; Reset tokens</button>
       </div>
     </aside>
     <main class="ds-main" id="dsMainScroll">
@@ -3091,7 +3147,7 @@ function renderDSMode() {
       <section class="ds-section" id="ds-color">
         <div class="ds-eyebrow">Foundations</div>
         <h2 class="ds-section-title">Color</h2>
-        <p class="ds-section-body">Six tokens cover the full palette. The system is intentionally minimal \u2014 dark backgrounds, one warm accent, and white at two opacities for text hierarchy.</p>
+        <p class="ds-section-body">Six tokens cover the full palette. The system is intentionally minimal \u2014 dark backgrounds, one warm accent, and white at two opacities for text hierarchy. Click any swatch to edit the token live \u2014 changes propagate site-wide instantly and persist in your browser until you reset them.</p>
         <div class="ds-swatch-grid">${swatchesHTML}</div>
       </section>
       <hr class="ds-divider">
@@ -3135,12 +3191,12 @@ function renderDSMode() {
           <thead><tr><th>Property</th><th>Value</th></tr></thead>
           <tbody>
             <tr><td>Font family</td><td><code>Golos Text</code></td></tr>
-            <tr><td>Font weight</td><td><code>500</code></td></tr>
-            <tr><td>Font size</td><td><code>2.25rem</code></td></tr>
+            <tr><td>Font weight</td><td><code data-spec="btn-weight">—</code></td></tr>
+            <tr><td>Font size</td><td><code data-spec="btn-size">—</code></td></tr>
             <tr><td>Padding</td><td><code>clamp(12px,1.5vw,20px) clamp(24px,3vw,40px)</code></td></tr>
-            <tr><td>Background</td><td><code>--pink</code></td></tr>
-            <tr><td>Color</td><td><code>--bg-darker</code></td></tr>
-            <tr><td>Border radius</td><td><code>8px</code></td></tr>
+            <tr><td>Background</td><td><code data-spec="btn-bg">—</code></td></tr>
+            <tr><td>Color</td><td><code data-spec="btn-color">—</code></td></tr>
+            <tr><td>Border radius</td><td><code data-spec="btn-radius">—</code></td></tr>
             <tr><td>Hover</td><td><code>translateY(-3px) scale(1.02)</code> \xB7 background lightens</td></tr>
             <tr><td>Active</td><td>Scale 0.97</td></tr>
           </tbody>
@@ -3388,6 +3444,35 @@ function renderDSMode() {
 
   document.body.appendChild(shell);
 
+  // ── Token editing ─────────────────────────────────────────────
+  function _updateComputedSpecs() {
+    const btn = shell.querySelector('#ds-buttons .role-btn');
+    if (!btn) return;
+    const cs = getComputedStyle(btn);
+    const s = (id, val) => { const el = shell.querySelector(`[data-spec="${id}"]`); if (el) el.textContent = val; };
+    s('btn-weight', cs.fontWeight);
+    s('btn-size',   cs.fontSize);
+    s('btn-bg',     _rgbToHex(cs.backgroundColor));
+    s('btn-color',  _rgbToHex(cs.color));
+    s('btn-radius', cs.borderRadius);
+  }
+  requestAnimationFrame(_updateComputedSpecs);
+
+  shell.querySelectorAll('.ds-color-input').forEach(input => {
+    input.addEventListener('input', e => {
+      const { token } = e.target.dataset;
+      const value = e.target.value;
+      wallabeeSet(token, value);
+      shell.querySelectorAll(`.ds-token-live[data-token="${token}"]`).forEach(el => { el.textContent = value; });
+      requestAnimationFrame(_updateComputedSpecs);
+    });
+  });
+
+  const _resetBtn = shell.querySelector('#dsResetTokens');
+  if (_resetBtn) {
+    _resetBtn.addEventListener('click', () => { wallabeeReset(); shell.remove(); renderDSMode(); });
+  }
+
   // Smooth scroll nav
   shell.querySelectorAll('.ds-nav-link[data-target]').forEach(link => {
     link.addEventListener('click', () => {
@@ -3544,6 +3629,8 @@ function renderDSMode() {
 
 // ── Init ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  wallabeeApply(); // apply any localStorage token overrides before first paint
+
   // Capture ?p= before setupGate() cleans it from the URL
   const incomingPw = new URLSearchParams(window.location.search).get('p');
 
