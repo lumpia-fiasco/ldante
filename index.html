@@ -35,7 +35,7 @@
        GATE SCREEN
     ═══════════════════════════════════════════════════ */
     #screenGate {
-      background: var(--bg);
+      background: var(--bg) url('assets/portrait-bg.png') no-repeat right bottom / auto 92vh;
       display: flex;
       align-items: flex-start;
       padding: clamp(40px,6vw,80px) clamp(32px,8vw,120px);
@@ -129,7 +129,7 @@
        LANDING SCREEN (role picker)
     ═══════════════════════════════════════════════════ */
     #screenLanding {
-      background: var(--bg);
+      background: var(--bg) url('assets/portrait-bg.png') no-repeat right bottom / auto 92vh;
       display: flex;
       align-items: flex-start;
       padding: clamp(40px,6vw,80px) clamp(32px,8vw,120px);
@@ -819,7 +819,7 @@
       /* wide content in case studies should never escape the panel */
       .panel img, .panel video, .panel table { max-width: 100%; }
       /* gate/landing screens: constrain any wide inner blocks */
-      #screenGate, #screenLanding { overflow-x: hidden; }
+      #screenGate, #screenLanding { overflow-x: hidden; background-image: none; }
     }
 
     /* Fade animations: see assets/wallabee.css */
