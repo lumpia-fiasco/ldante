@@ -5,6 +5,22 @@
   padding: 0;
 }
 
+/* ─── Case-detail theme tokens — dark by default, matches Wallabee DS ─── */
+/* Defined at :root so var() resolves inside DS canvas previews too.       */
+/* Lattice (light panel) overrides these on .case-detail-panel directly.   */
+:root {
+  --cd-bg:            var(--bg, #262626);
+  --cd-bg-surface:    rgba(255,255,255,0.05);
+  --cd-bg-card:       rgba(255,255,255,0.04);
+  --cd-border:        rgba(255,255,255,0.08);
+  --cd-border-strong: rgba(255,255,255,0.15);
+  --cd-text:          #ffffff;
+  --cd-text-body:     rgba(255,255,255,0.68);
+  --cd-text-muted:    rgba(255,255,255,0.45);
+  --cd-text-dim:      rgba(255,255,255,0.35);
+  --cd-accent:        var(--pink, #f995ac);
+}
+
 /* ─── Focus styles — soft glow ─── */
 :focus-visible {
   outline: none;
@@ -548,18 +564,28 @@ main {
   background: rgba(0, 0, 0, 0.28);
 }
 
-/* Light track — white-panel panels (case detail, fit) */
-.case-detail-panel::-webkit-scrollbar-track,
+/* Dark scrollbar — case-detail-panel (dark by default) */
+.case-detail-panel::-webkit-scrollbar-track {
+  background: var(--cd-bg);
+}
+.case-detail-panel::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.case-detail-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* Light track — fit panel */
 .fit-panel::-webkit-scrollbar-track {
   background: #f5f5f5;
 }
-.case-detail-panel::-webkit-scrollbar-thumb,
 .fit-panel::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.15);
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
-.case-detail-panel::-webkit-scrollbar-thumb:hover,
 .fit-panel::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.28);
 }
@@ -581,7 +607,7 @@ main {
   opacity: 0;
   transform: translateX(72px);
   pointer-events: none;
-  background: #ffffff;
+  background: var(--cd-bg);
   transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .case-detail-panel.active {
@@ -624,8 +650,8 @@ main {
   margin-left: -60px;
   padding: 22px 60px 14px;
   margin-bottom: 32px;
-  background: #ffffff;
-  box-shadow: 0 12px 20px 8px #ffffff; /* soft white fade — masks content scrolling behind */
+  background: var(--cd-bg);
+  box-shadow: 0 12px 20px 8px var(--cd-bg); /* soft fade — masks content scrolling behind */
   border: none;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
@@ -633,11 +659,11 @@ main {
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #000000;
+  color: var(--cd-text);
   transition: color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .case-back-btn:hover {
-  color: #000000;
+  color: var(--cd-text);
   transform: translateX(-5px);
 }
 
@@ -1419,7 +1445,7 @@ a.spotify-tile {
   font-family: 'Cal Sans', sans-serif;
   font-size: 4rem;
   font-weight: 400;
-  color: #1f1f1f;
+  color: var(--cd-text);
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 32px;
@@ -1431,17 +1457,18 @@ a.spotify-tile {
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 48px;
+  max-width: 60em;
 }
 
 .cd-metric {
-  background: #ffffff;
-  border: 1px solid rgba(31, 31, 31, 0.1);
+  background: var(--cd-bg-card);
+  border: 1px solid var(--cd-border);
   border-radius: 16px;
   padding: 20px 28px 18px;
   display: flex;
   flex-direction: column;
   gap: 5px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
   min-width: 130px;
 }
 
@@ -1449,7 +1476,7 @@ a.spotify-tile {
   font-family: 'Cal Sans', sans-serif;
   font-size: clamp(2rem, 3vw, 3rem);
   font-weight: 400;
-  color: #1f1f1f;
+  color: var(--cd-text);
   letter-spacing: -0.03em;
   line-height: 1;
 }
@@ -1458,7 +1485,7 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 500;
-  color: rgba(31, 31, 31, 0.65);
+  color: var(--cd-text-muted);
   letter-spacing: 0.02em;
   line-height: 1.35;
 }
@@ -1471,7 +1498,7 @@ a.spotify-tile {
   font-family: 'Cal Sans', sans-serif;
   font-size: 1.1rem;
   font-weight: 400;
-  color: #1f1f1f;
+  color: var(--cd-text);
   letter-spacing: -0.01em;
   margin-bottom: 10px;
 }
@@ -1480,7 +1507,7 @@ a.spotify-tile {
   font-family: 'Golos Text', sans-serif;
   font-size: clamp(1.05rem, 1.2vw, 1.2rem);
   font-weight: 400;
-  color: rgba(31, 31, 31, 0.75);
+  color: var(--cd-text-body);
   line-height: 1.6;
   max-width: 54em;
 }
@@ -1507,7 +1534,7 @@ a.spotify-tile {
   font-family: 'Golos Text', sans-serif;
   font-size: clamp(1.1rem, 1.3vw, 1.25rem);
   font-weight: 400;
-  color: rgba(31, 31, 31, 0.8);
+  color: rgba(255,255,255,0.8);
   line-height: 1.6;
   margin-bottom: 36px;
   max-width: 52em;
@@ -1524,7 +1551,7 @@ a.spotify-tile {
   font-family: 'Cal Sans', sans-serif;
   font-size: 2rem;
   font-weight: 400;
-  color: #1f1f1f;
+  color: var(--cd-text);
   letter-spacing: -0.01em;
   margin-bottom: 20px;
 }
@@ -1544,7 +1571,7 @@ a.spotify-tile {
   font-family: 'Golos Text', sans-serif;
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   font-weight: 400;
-  color: rgba(31, 31, 31, 0.75);
+  color: var(--cd-text-body);
   line-height: 1.65;
   max-width: 60em;
   margin-bottom: 12px;
@@ -1592,7 +1619,7 @@ a.spotify-tile {
   font-family: 'Golos Text', sans-serif;
   font-size: clamp(0.95rem, 1.1vw, 1.05rem);
   font-weight: 400;
-  color: rgba(31, 31, 31, 0.75);
+  color: var(--cd-text-body);
   line-height: 1.55;
   padding-left: 16px;
   position: relative;
@@ -1602,7 +1629,7 @@ a.spotify-tile {
   content: '→';
   position: absolute;
   left: 0;
-  color: rgba(31, 31, 31, 0.3);
+  color: var(--cd-text-dim);
   font-size: 0.75rem;
   top: 2px;
 }
@@ -1661,9 +1688,10 @@ a.spotify-tile {
 }
 
 .cd-closer {
-  border-top: 1.5px solid rgba(31, 31, 31, 0.08);
+  border-top: 1.5px solid var(--cd-border);
   padding-top: 32px;
   margin-top: 8px;
+  max-width: 60em;
 }
 
 .cd-closer .cd-body {
@@ -1703,7 +1731,7 @@ a.spotify-tile {
   gap: 0;
   overflow: hidden;
   border-radius: 12px;
-  background: #f5f5f7;
+  background: rgba(255,255,255,0.07);
   padding: 10px 10px 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
@@ -1718,7 +1746,7 @@ a.spotify-tile {
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: rgba(31, 31, 31, 0.4);
+  color: var(--cd-text-dim);
   padding: 0 14px 12px;
 }
 
@@ -1811,14 +1839,14 @@ a.spotify-tile {
   line-height: 1.5;
 }
 .cd-reframe-from {
-  background: rgba(31, 31, 31, 0.03);
-  border: 1px solid rgba(31, 31, 31, 0.1);
-  color: rgba(31, 31, 31, 0.5);
+  background: var(--cd-bg-surface);
+  border: 1px solid var(--cd-border);
+  color: var(--cd-text-muted);
 }
 .cd-reframe-to {
-  background: rgba(31, 31, 31, 0.05);
-  border: 1px solid rgba(31, 31, 31, 0.14);
-  color: #1f1f1f;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--cd-border-strong);
+  color: var(--cd-text);
 }
 .cd-reframe-label {
   display: block;
@@ -2610,7 +2638,7 @@ a.spotify-tile {
 
 /* ─── Case study document components (Meroxa v3 style) ─── */
 
-.cs-section { margin: 3rem 0; }
+.cs-section { margin: 3rem 0; max-width: 60em; }
 
 .cs-section-header {
   display: flex;
@@ -2618,7 +2646,7 @@ a.spotify-tile {
   gap: 12px;
   margin-bottom: 1.25rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(31,31,31,0.07);
+  border-bottom: 1px solid var(--cd-border);
 }
 
 .cs-section-num {
@@ -2626,7 +2654,7 @@ a.spotify-tile {
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
-  color: rgba(31,31,31,0.55);
+  color: var(--cd-text-dim);
   flex-shrink: 0;
 }
 
@@ -2634,12 +2662,12 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 500;
-  color: #1f1f1f;
+  color: var(--cd-text);
 }
 
 .cs-callout {
-  background: rgba(31,31,31,0.04);
-  border-left: 2px solid rgba(31,31,31,0.15);
+  background: var(--cd-bg-surface);
+  border-left: 2px solid var(--cd-border-strong);
   border-radius: 0 8px 8px 0;
   padding: 1rem 1.25rem;
   margin: 1.5rem 0;
@@ -2651,7 +2679,7 @@ a.spotify-tile {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-muted);
   margin-bottom: 6px;
 }
 
@@ -2661,9 +2689,10 @@ a.spotify-tile {
 .cs-pull-quote {
   margin: 2rem 0;
   padding: 28px 32px;
-  border-left: 3px solid #1f1f1f;
-  background: rgba(31,31,31,0.02);
+  border-left: 3px solid var(--cd-border-strong);
+  background: var(--cd-bg-surface);
   border-radius: 0 8px 8px 0;
+  max-width: 60em;
 }
 
 .cs-pull-quote-text {
@@ -2671,7 +2700,7 @@ a.spotify-tile {
   font-size: 1.15rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #1f1f1f;
+  color: var(--cd-text);
   letter-spacing: -0.01em;
   margin-bottom: 12px;
 }
@@ -2680,17 +2709,17 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(31,31,31,0.5);
+  color: var(--cd-text-muted);
   letter-spacing: 0.02em;
 }
 
 .cs-pull-quote-attr strong {
-  color: rgba(31,31,31,0.75);
+  color: rgba(255,255,255,0.7);
   font-weight: 600;
 }
 
 .cs-hypothesis-block {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 8px;
   padding: 1.25rem;
   margin: 1.25rem 0;
@@ -2711,14 +2740,14 @@ a.spotify-tile {
   padding-top: 2px;
   flex-shrink: 0;
 }
-.cs-hyp-tag.assumed { color: rgba(31,31,31,0.4); }
+.cs-hyp-tag.assumed { color: var(--cd-text-dim); }
 .cs-hyp-tag.actual  { color: #16a34a; }
 .cs-hyp-tag.implication { color: #d97706; }
 
 .cs-hyp-body {
   font-family: 'Golos Text', sans-serif;
   font-size: 14px;
-  color: rgba(31,31,31,0.7);
+  color: var(--cd-text-body);
   line-height: 1.65;
 }
 
@@ -2730,15 +2759,15 @@ a.spotify-tile {
 }
 
 .cs-tradeoff-card {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 8px;
   padding: 1rem 1.25rem;
-  background: #ffffff;
+  background: var(--cd-bg-surface);
 }
 
 .cs-tradeoff-card.chosen {
-  border-color: rgba(37,99,235,0.25);
-  background: #eff6ff;
+  border-color: rgba(249,149,172,0.35);
+  background: rgba(249,149,172,0.08);
 }
 
 .cs-tc-label {
@@ -2747,26 +2776,26 @@ a.spotify-tile {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-muted);
   margin-bottom: 6px;
 }
 
-.cs-tradeoff-card.chosen .cs-tc-label { color: #2563eb; }
+.cs-tradeoff-card.chosen .cs-tc-label { color: var(--cd-accent); }
 
 .cs-tc-title {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #1f1f1f;
+  color: var(--cd-text);
   margin-bottom: 6px;
 }
 
-.cs-tradeoff-card.chosen .cs-tc-title { color: #1d4ed8; }
+.cs-tradeoff-card.chosen .cs-tc-title { color: var(--cd-accent); }
 
 .cs-tc-body {
   font-family: 'Golos Text', sans-serif;
   font-size: 13px;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-body);
   line-height: 1.6;
 }
 
@@ -2800,14 +2829,14 @@ a.spotify-tile {
 
 .cs-chosen-badge {
   display: inline-block;
-  background: #dbeafe;
-  color: #2563eb;
+  background: rgba(249,149,172,0.15);
+  color: var(--cd-accent);
   font-size: 12px;
   font-weight: 500;
   padding: 2px 7px;
   border-radius: 6px;
   margin-left: 6px;
-  border: 1px solid rgba(37,99,235,0.2);
+  border: 1px solid rgba(249,149,172,0.3);
   vertical-align: middle;
 }
 
@@ -2816,7 +2845,7 @@ a.spotify-tile {
   gap: 20px;
   align-items: flex-start;
   padding: 1.25rem 0;
-  border-bottom: 1px solid rgba(31,31,31,0.07);
+  border-bottom: 1px solid var(--cd-border);
 }
 
 .cs-outcome-row:last-child { border-bottom: none; }
@@ -2825,7 +2854,7 @@ a.spotify-tile {
   font-family: 'Cal Sans', sans-serif;
   font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   font-weight: 400;
-  color: #1f1f1f;
+  color: var(--cd-accent);
   width: 160px;
   flex-shrink: 0;
   text-align: right;
@@ -2838,22 +2867,22 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #1f1f1f;
+  color: var(--cd-text);
   margin-bottom: 4px;
 }
 
 .cs-od-body {
   font-family: 'Golos Text', sans-serif;
   font-size: 13px;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-body);
   line-height: 1.65;
 }
 
 .cs-reflection {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 12px;
   padding: 1.5rem;
-  background: rgba(31,31,31,0.03);
+  background: var(--cd-bg-surface);
   margin-top: 2rem;
 }
 
@@ -2861,7 +2890,7 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-weight: 500;
-  color: #1f1f1f;
+  color: var(--cd-text);
   margin-bottom: 0.75rem;
 }
 
@@ -2871,13 +2900,14 @@ a.spotify-tile {
   flex-wrap: wrap;
   margin: 2rem 0 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(31,31,31,0.07);
+  border-top: 1px solid var(--cd-border);
+  max-width: 60em;
 }
 
 .cs-meta-label {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.07em;
   margin-bottom: 4px;
@@ -2886,7 +2916,7 @@ a.spotify-tile {
 .cs-meta-val {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: #1f1f1f;
+  color: var(--cd-text);
   font-weight: 500;
 }
 
@@ -2897,7 +2927,7 @@ a.spotify-tile {
 
 /* ─── Workflow table (payroll case) ─── */
 .workflow-block {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 8px;
   overflow: hidden;
   margin: 1.5rem 0;
@@ -2906,7 +2936,7 @@ a.spotify-tile {
 .workflow-row {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(31,31,31,0.07);
+  border-bottom: 1px solid var(--cd-border);
 }
 
 .workflow-row:last-child { border-bottom: none; }
@@ -2915,12 +2945,12 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-muted);
   width: 160px;
   flex-shrink: 0;
   padding: 0.75rem 1rem;
-  background: rgba(31,31,31,0.03);
-  border-right: 1px solid rgba(31,31,31,0.07);
+  background: var(--cd-bg-surface);
+  border-right: 1px solid var(--cd-border);
   align-self: stretch;
   display: flex;
   align-items: center;
@@ -2931,7 +2961,7 @@ a.spotify-tile {
 .workflow-body {
   font-family: 'Golos Text', sans-serif;
   font-size: 13px;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-body);
   line-height: 1.6;
   padding: 0.75rem 1rem;
   flex: 1;
@@ -2963,7 +2993,7 @@ a.spotify-tile {
 
 /* ─── Finding block (table-style) ─── */
 .finding-block {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 8px;
   overflow: hidden;
   margin: 1.5rem 0;
@@ -2971,7 +3001,7 @@ a.spotify-tile {
 
 .finding-row {
   display: flex;
-  border-bottom: 1px solid rgba(31,31,31,0.07);
+  border-bottom: 1px solid var(--cd-border);
 }
 
 .finding-row:last-child { border-bottom: none; }
@@ -2980,12 +3010,12 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-muted);
   width: 160px;
   flex-shrink: 0;
   padding: 0.75rem 1rem;
-  background: rgba(31,31,31,0.03);
-  border-right: 1px solid rgba(31,31,31,0.07);
+  background: var(--cd-bg-surface);
+  border-right: 1px solid var(--cd-border);
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -2996,14 +3026,14 @@ a.spotify-tile {
 .finding-body {
   font-family: 'Golos Text', sans-serif;
   font-size: 13px;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-body);
   line-height: 1.6;
   padding: 0.75rem 1rem;
 }
 
 /* ─── Finding block (padded flex-row style, ATS case) ─── */
 .finding-block--padded {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 8px;
   padding: 1.25rem;
   margin: 1.25rem 0;
@@ -3011,7 +3041,7 @@ a.spotify-tile {
 
 .finding-block--padded .finding-row {
   border: none;
-  border-bottom: 1px solid rgba(31,31,31,0.07);
+  border-bottom: 1px solid var(--cd-border);
   padding: 0.75rem 0;
   gap: 12px;
   align-items: flex-start;
@@ -3046,10 +3076,10 @@ a.spotify-tile {
 }
 
 .alumni-card {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 8px;
   padding: 0.875rem 1rem;
-  background: #ffffff;
+  background: var(--cd-bg-surface);
   flex: 1;
   min-width: 140px;
 }
@@ -3058,19 +3088,19 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
-  color: #1f1f1f;
+  color: var(--cd-text);
   margin-bottom: 3px;
 }
 
 .alumni-role {
   font-family: 'Golos Text', sans-serif;
   font-size: 12px;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-body);
 }
 
 /* ─── Sprint table (ATS case) ─── */
 .sprint-block {
-  border: 1px solid rgba(31,31,31,0.08);
+  border: 1px solid var(--cd-border);
   border-radius: 8px;
   overflow: hidden;
   margin: 1.5rem 0;
@@ -3078,7 +3108,7 @@ a.spotify-tile {
 
 .sprint-row {
   display: flex;
-  border-bottom: 1px solid rgba(31,31,31,0.07);
+  border-bottom: 1px solid var(--cd-border);
 }
 
 .sprint-row:last-child { border-bottom: none; }
@@ -3087,12 +3117,12 @@ a.spotify-tile {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-muted);
   width: 160px;
   flex-shrink: 0;
   padding: 0.75rem 1rem;
-  background: rgba(31,31,31,0.03);
-  border-right: 1px solid rgba(31,31,31,0.07);
+  background: var(--cd-bg-surface);
+  border-right: 1px solid var(--cd-border);
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -3102,7 +3132,7 @@ a.spotify-tile {
 .sprint-body {
   font-family: 'Golos Text', sans-serif;
   font-size: 13px;
-  color: rgba(31,31,31,0.65);
+  color: var(--cd-text-body);
   line-height: 1.6;
   padding: 0.75rem 1rem;
 }
@@ -3116,11 +3146,11 @@ a.spotify-tile {
 }
 
 /* ─── Tradeoff card aliases (marketo case uses cs-tradeoff-* naming) ─── */
-.cs-tradeoff-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(31,31,31,0.65); margin-bottom: 6px; }
-.cs-tradeoff-card.chosen .cs-tradeoff-label { color: #2563eb; }
-.cs-tradeoff-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: #1f1f1f; margin-bottom: 6px; }
-.cs-tradeoff-card.chosen .cs-tradeoff-title { color: #1d4ed8; }
-.cs-tradeoff-body { font-family: 'Golos Text', sans-serif; font-size: 13px; color: rgba(31,31,31,0.65); line-height: 1.6; }
+.cs-tradeoff-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--cd-text-muted); margin-bottom: 6px; }
+.cs-tradeoff-card.chosen .cs-tradeoff-label { color: var(--cd-accent); }
+.cs-tradeoff-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--cd-text); margin-bottom: 6px; }
+.cs-tradeoff-card.chosen .cs-tradeoff-title { color: var(--cd-accent); }
+.cs-tradeoff-body { font-family: 'Golos Text', sans-serif; font-size: 13px; color: var(--cd-text-body); line-height: 1.6; }
 
 /* ─── Portfolio is always monochromatic — neutralize sky-dark overrides ─── */
 .sky-dark .portfolio-view .cases-heading    { color: #1f1f1f; }
@@ -4158,7 +4188,19 @@ body[data-experience="netflix"].sky-dark .portfolio-view .fit-btn { color: rgba(
 /* ─── Core surfaces ─── */
 body[data-experience="lattice"] .portfolio-view { background: #f7f9f9; }
 body[data-experience="lattice"] .case-list-panel { background: #f7f9f9; }
-body[data-experience="lattice"] .case-detail-panel { background: #f7f9f9; }
+body[data-experience="lattice"] .case-detail-panel {
+  background: #f7f9f9;
+  --cd-bg:            #f7f9f9;
+  --cd-bg-surface:    rgba(31,31,31,0.03);
+  --cd-bg-card:       #ffffff;
+  --cd-border:        rgba(31,31,31,0.08);
+  --cd-border-strong: rgba(31,31,31,0.15);
+  --cd-text:          #1f1f1f;
+  --cd-text-body:     rgba(31,31,31,0.75);
+  --cd-text-muted:    rgba(31,31,31,0.65);
+  --cd-text-dim:      rgba(31,31,31,0.55);
+  --cd-accent:        #008080;
+}
 
 /* ─── Header ─── */
 body[data-experience="lattice"] .site-header { background: #001f1f; }
@@ -4174,6 +4216,7 @@ body[data-experience="lattice"] .case-card-v { border-color: rgba(0, 61, 61, 0.0
 body[data-experience="lattice"] .case-card-v:hover { border-color: rgba(0, 61, 61, 0.12); }
 
 /* ─── Case detail ─── */
+body[data-experience="lattice"] .cd-intro { color: rgba(31,31,31,0.8); }
 body[data-experience="lattice"] .cs-section-num { color: #008080; }
 
 /* ─── Callouts — problem = coral, resolution = teal ─── */

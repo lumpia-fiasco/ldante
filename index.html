@@ -461,10 +461,14 @@
     .case-card-logo {
       position: absolute; top: 20px; left: 20px; z-index: 2;
       max-width: 90px; max-height: 32px; object-fit: contain;
-      filter: brightness(0) invert(1); opacity: 0.88; transition: opacity 0.3s;
+      filter: brightness(0) invert(1); opacity: 0.88; transition: opacity 0.3s, filter 0.3s ease;
     }
     .case-card-logo.logo-white { filter: none; }
-    .case-card-v:hover .case-card-logo { opacity: 1; }
+    .case-card-v:hover .case-card-logo { opacity: 1; filter: brightness(0) saturate(100%) invert(68%) sepia(49%) saturate(454%) hue-rotate(296deg) brightness(106%); }
+    .case-card-v:hover .case-card-logo.logo-white { filter: brightness(0) saturate(100%) invert(68%) sepia(49%) saturate(454%) hue-rotate(296deg) brightness(106%); }
+    .case-card-v:hover .case-company,
+    .case-card-v:hover .case-title-h,
+    .case-card-v:hover .case-desc-h { color: var(--pink); }
     .case-study-badge {
       position: absolute; top: 12px; right: 12px; background: #000; color: #fff;
       font-family: var(--font-ui); font-size: 8px; font-weight: 700;
@@ -474,12 +478,14 @@
     .case-company {
       font-family: var(--font-ui); font-size: 10px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px;
+      transition: color 0.3s ease;
     }
     .case-title-h {
       font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;
       color: #fff; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px;
+      transition: color 0.3s ease;
     }
-    .case-desc-h { font-family: var(--font-body); font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .case-desc-h { font-family: var(--font-body); font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.5; transition: color 0.3s ease; }
 
     /* Thought/article tile */
     .case-item--thought { cursor: pointer; }
