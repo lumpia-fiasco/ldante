@@ -450,7 +450,7 @@
     .case-stack { position: relative; padding: 4px 0 40px; }
 
     /* Case card */
-    .case-item { position: absolute; box-sizing: border-box; aspect-ratio: 3 / 2; }
+    .case-item { position: absolute; box-sizing: border-box; aspect-ratio: 2 / 1; }
     .case-card-v {
       width: 100%; height: 100%; display: flex; flex-direction: column; border-radius: 18px;
       overflow: hidden; position: relative; background: var(--bg-darker);
@@ -473,7 +473,7 @@
     .case-card-content { padding: 62px 20px 22px; flex: 1; display: flex; flex-direction: column; }
     .case-company {
       font-family: var(--font-ui); font-size: 10px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px;
     }
     .case-title-h {
       font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;
@@ -489,9 +489,10 @@
     }
     .thought-tile-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(0.15); transition: filter 0.5s, transform 0.6s; }
     .thought-tile-badge {
-      position: absolute; top: 12px; right: 12px; background: #000; color: #fff;
+      display: inline-block; align-self: flex-start; margin-bottom: 20px;
+      background: #000; color: #fff;
       font-family: var(--font-ui); font-size: 8px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border-radius: 5px; z-index: 2;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border-radius: 5px;
     }
     .thought-tile-overlay {
       position: absolute; inset: 0;
@@ -522,7 +523,7 @@
       opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
       display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
     }
-    .thought-tile--pov .thought-tile-badge { z-index: 2; right: 12px; left: auto; }
+    .thought-tile--pov .thought-tile-badge { }
     @media (hover:hover) {
       .thought-tile--pov .thought-tile-overlay { opacity: 1; }
       .thought-tile--pov:hover .thought-tile-pov-bg { filter: brightness(1.15); }
@@ -1120,8 +1121,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0">
               <article class="thought-tile">
                 <img data-lazy-src="assets/charlie.jpeg" alt="Charlie Murphy's Law" class="thought-tile-img" width="1500" height="900">
-                <span class="thought-tile-badge">Thoughts</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
                   <h3 class="thought-tile-title">Charlie Murphy's Law</h3>
                   <p class="thought-tile-desc">Surprises in product design come in a few flavors. There are the ones you bring on yourself…</p>
                 </div>
@@ -1131,8 +1133,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="navigating-ambiguity" role="button" tabindex="0" aria-label="Read Navigating Ambiguity">
               <article class="thought-tile">
                 <img data-lazy-src="assets/karl.jpeg" alt="Navigating Ambiguity" class="thought-tile-img" width="1366" height="768">
-                <span class="thought-tile-badge">Thoughts</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
                   <h3 class="thought-tile-title">Navigating Ambiguity</h3>
                   <p class="thought-tile-desc">There are two kinds of fog. Confusing them is how teams end up solving the wrong problem with confidence.</p>
                 </div>
@@ -1142,8 +1145,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="growing-leaders" role="button" tabindex="0" aria-label="Read Growing leaders">
               <article class="thought-tile">
                 <img data-lazy-src="assets/growth.jpg" alt="Growing leaders" class="thought-tile-img" width="800" height="534">
-                <span class="thought-tile-badge">Thoughts</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
                   <h3 class="thought-tile-title">Growing leaders</h3>
                   <p class="thought-tile-desc">On the quiet work of helping people find their direction — and why the real legacy isn't the projects or the pixels.</p>
                 </div>
@@ -1153,8 +1157,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="spongebob-would" role="button" tabindex="0">
               <article class="thought-tile">
                 <img data-lazy-src="assets/spongebob.jpeg" alt="SpongeBob would" class="thought-tile-img" width="1920" height="1080">
-                <span class="thought-tile-badge">Thoughts</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
                   <h3 class="thought-tile-title">Squidward would never. SpongeBob would.</h3>
                   <p class="thought-tile-desc">Squidward is the designer who's seen it all. Too experienced to be surprised…</p>
                 </div>
@@ -1164,8 +1169,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="design-systems-that-last" role="button" tabindex="0" aria-label="Read What I've learned building design systems that last">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--lattice"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">What I've learned building design systems that last</h3>
                   <p class="thought-tile-desc">On governance, breaking patterns intentionally, and why the org chart matters more than the component library.</p>
                 </div>
@@ -1175,8 +1181,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="financial-platforms-systems-problems" role="button" tabindex="0" aria-label="Read Why financial platforms are systems problems">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--rippling"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">Why financial platforms are systems problems</h3>
                   <p class="thought-tile-desc">On fragmentation, dual personas, and what payroll across 90+ companies taught me about designing for money that moves.</p>
                 </div>
@@ -1186,8 +1193,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="designing-platforms-where-two-sides-need-each-other" role="button" tabindex="0" aria-label="Read Designing platforms where two sides need each other">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--twitch"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">Designing platforms where two sides need each other</h3>
                   <p class="thought-tile-desc">On dual-persona design, the craft of making both sides feel served, and what payroll networks share with creator platforms.</p>
                 </div>
@@ -1197,8 +1205,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="designing-infrastructure-people-trust" role="button" tabindex="0" aria-label="Read Designing infrastructure people trust with their money">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--circle"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">Designing infrastructure people trust with their money</h3>
                   <p class="thought-tile-desc">On visibility, complex workflows, and why the design patterns in traditional payments carry into digital currency.</p>
                 </div>
@@ -1208,8 +1217,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="designing-for-people-who-live-in-the-product" role="button" tabindex="0" aria-label="Read Designing for people who live in the product">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--five9"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">Designing for people who live in the product</h3>
                   <p class="thought-tile-desc">On cognitive load, multi-persona platforms, and what full-day software demands from a design system.</p>
                 </div>
@@ -1219,8 +1229,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="the-control-plane-problem" role="button" tabindex="0" aria-label="Read The control plane problem">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--citrix"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">The control plane problem</h3>
                   <p class="thought-tile-desc">On designing for administrators and end users at once — and why the person who configures the system is the most overlooked user in enterprise software.</p>
                 </div>
@@ -1230,8 +1241,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="the-platform-underneath-the-art" role="button" tabindex="0" aria-label="Read The platform underneath the art">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--createmusic"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">The platform underneath the art</h3>
                   <p class="thought-tile-desc">On designing workflow infrastructure for creative industries — and why the best operational tools are the ones the user never has to think about.</p>
                 </div>
@@ -1241,8 +1253,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="the-instrument-is-the-interface" role="button" tabindex="0" aria-label="Read The instrument is the interface">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--roland"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">The instrument is the interface</h3>
                   <p class="thought-tile-desc">On designing music software for people whose expertise is in sound, not UI — and what that changes about how you work.</p>
                 </div>
@@ -1252,8 +1265,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="the-digital-front-door" role="button" tabindex="0" aria-label="Read The digital front door">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--ucla"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">The digital front door</h3>
                   <p class="thought-tile-desc">On designing the public web presence of a healthcare institution — and why the stakes are categorically different from most product work.</p>
                 </div>
@@ -1263,8 +1277,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="when-trust-is-the-whole-product" role="button" tabindex="0" aria-label="Read When trust is the whole product">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--ethyca"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">When trust is the whole product</h3>
                   <p class="thought-tile-desc">On designing for data governance and privacy compliance — and why the hardest part isn't building the controls, it's making them understandable to the people who live in them.</p>
                 </div>
@@ -1275,8 +1290,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="when-both-sides-have-to-win" role="button" tabindex="0" aria-label="Read When both sides have to win">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--planhub"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">When both sides have to win</h3>
                   <p class="thought-tile-desc">On designing two-sided marketplaces where GCs and subs share a platform but have different jobs, different stakes, and sometimes directly opposing incentives.</p>
                 </div>
@@ -1286,8 +1302,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="when-the-system-has-to-hold-the-brand" role="button" tabindex="0" aria-label="Read When the system has to hold the brand">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--tacobell"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">When the system has to hold the brand</h3>
                   <p class="thought-tile-desc">On designing systems that scale across surfaces without flattening the thing that made the brand worth scaling in the first place.</p>
                 </div>
@@ -1297,8 +1314,9 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
             <div class="case-item case-item--thought" data-thought="when-security-gets-the-ux-it-deserves" role="button" tabindex="0" aria-label="Read When security gets the UX it deserves">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--1password"></div>
-                <span class="thought-tile-badge">Perspective</span>
+                
                 <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Perspective</span>
                   <h3 class="thought-tile-title">When security gets the UX it deserves</h3>
                   <p class="thought-tile-desc">On designing products where friction isn't just annoying — it's a vulnerability. And why the strongest security posture starts at the interface layer.</p>
                 </div>
