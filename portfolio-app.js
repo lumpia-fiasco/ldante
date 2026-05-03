@@ -2179,6 +2179,112 @@ const THOUGHTS = {
       },
     ],
   },
+
+  'the-platform-underneath-the-art': {
+    kicker: 'Point of View',
+    title:  'The platform underneath the art',
+    dek: 'On designing workflow infrastructure for creative industries — and why the best operational tools are the ones the user never has to think about.',
+    sections: [
+      {
+        paragraphs: [
+          'Creative professionals are expert users of their domain, not of software. A music distributor, a label manager, a royalty accountant — each brings deep expertise to their work. The software exists to serve that expertise, not to become a second skill they have to develop. When the platform demands too much cognitive overhead, it pulls focus from the thing that actually matters.',
+          'The operational layer of the music industry is genuinely complex. Rights management, distribution pipelines, royalty splits, catalog metadata, release logistics — these are not simple workflows. The design challenge is not to hide that complexity, but to absorb it so that the people doing the work can move through it without feeling it.',
+        ],
+      },
+      {
+        heading: 'Infrastructure that disappears',
+        paragraphs: [
+          'The best operational tools don’t feel like tools. They feel like the work itself. A distribution workflow that surfaces the right inputs at the right moment, flags the things that need attention without surfacing the things that don’t, and confirms completion without fanfare — that’s not a simple UX. It’s a sophisticated one that took significant design effort to look effortless.',
+          'This is the opposite of enterprise software that displays its own complexity as a proxy for power. A dashboard full of data is not a useful dashboard. A workflow with fifteen steps is not thorough — it’s unfinished design. The constraint is to make every step earn its presence.',
+        ],
+      },
+      {
+        heading: 'Two users, one platform',
+        paragraphs: [
+          'Platforms serving creative industries often have a split: the artist or creator on one side, the business operator on the other. Each has a different relationship to the same catalog, the same release, the same revenue. The artist wants to focus on the music. The operator wants to run the business. The platform has to serve both without making either feel like a secondary use case.',
+          'This dual-persona tension is structural. It shows up in navigation, in what’s surfaced by default, in how notifications work, in what a dashboard means in each context. Getting it right requires building a clear mental model of both users and making deliberate decisions about where their experiences diverge and where they can share infrastructure.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to Create Music Group',
+        paragraphs: [
+          'I’ve designed operational infrastructure for industries where the users were experts in their domain first and software users second — clinical operations, financial tools, devops platforms. The common thread is a user who judges the tool by whether it respects their expertise, not by whether it teaches them software.',
+          'The Create Music challenge — scaling distribution and royalty infrastructure without making it feel like infrastructure — is exactly the kind of problem I want to work on. Operations at that scale require design that is precise, not just polished.',
+        ],
+      },
+    ],
+  },
+
+  'the-instrument-is-the-interface': {
+    kicker: 'Point of View',
+    title:  'The instrument is the interface',
+    dek: 'On designing music software for people whose expertise is in sound, not UI — and what that changes about how you work.',
+    sections: [
+      {
+        paragraphs: [
+          'A musician’s relationship with their instrument is built over years. The physical memory of a keyboard, the tactile feedback of a hardware synth, the spatial layout of a mixing board — these are not UI conventions. They are deeply embodied knowledge. Software that ignores that relationship produces tools that are technically capable and ergonomically wrong.',
+          'Designing music software means designing for experts. Not power users in the enterprise sense, but professionals whose judgment about sound quality is more sophisticated than any automated benchmark. The interface has to support that judgment without getting in front of it.',
+        ],
+      },
+      {
+        heading: 'The physical-digital seam',
+        paragraphs: [
+          'Hardware and software in the music space are not separate. A Roland synthesizer comes with companion software. The user moves between them as a single instrument. The seam between physical and digital is a design problem: if the software feels disconnected from the hardware, the whole system feels wrong — not just the UI.',
+          'This requires understanding the physical first. What does a knob feel like at 75%? What is the user’s mental model when they’re adjusting envelope settings on a panel versus in a GUI? The software translation of a physical control is a design decision with real stakes. Get it wrong and you break the instrument. Get it right and it disappears.',
+        ],
+      },
+      {
+        heading: 'Expert users don’t need explaining to',
+        paragraphs: [
+          'Mainstream consumer UX defaults toward progressive disclosure and guided experiences. Those patterns exist because most consumer products serve users with low domain expertise who need to be led. Music professionals are the opposite: they have high domain expertise and low tolerance for being led.',
+          'Designing for expert users means trusting them. Information density is a feature, not a problem. Contextual shortcuts and non-obvious affordances are appropriate because the user will learn them — they want to. The goal is not to make the tool easy to understand on first use. It’s to make it rewarding to master.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to Roland',
+        paragraphs: [
+          'I’ve designed for professional users who were experts in their field before they were software users — clinicians, financial operators, devops engineers. The shared lesson: design that treats expertise as a given produces tools that experts love. Design that protects against it produces tools they tolerate.',
+          'Roland’s design surface — hardware, companion software, mobile apps, web — is an ecosystem that has to hold together across radically different interaction modalities. That’s a systems problem before it’s a UI problem. It’s exactly the kind of work I want to do.',
+        ],
+      },
+    ],
+  },
+
+  'the-digital-front-door': {
+    kicker: 'Point of View',
+    title:  'The digital front door',
+    dek: 'On designing the public web presence of a healthcare institution — and why the stakes are categorically different from most product work.',
+    sections: [
+      {
+        paragraphs: [
+          'A healthcare institution’s website is not a marketing asset. It is the first point of contact for people who are sick, frightened, and trying to make decisions that matter. The person searching for a specialist, trying to understand a diagnosis, navigating appointment booking at 11pm because that’s the only quiet moment they have — that’s the user. The stakes are not engagement metrics.',
+          'This changes the design brief entirely. The goal is not to communicate institutional prestige. It is to get a person from the question they arrived with to the answer they need, as directly as possible, with as little friction as they can afford in the state they’re in.',
+        ],
+      },
+      {
+        heading: 'Accessibility as a baseline, not a feature',
+        paragraphs: [
+          'Healthcare users are not a uniform population. Patients with visual impairments, cognitive load from illness, reduced fine motor control, limited English proficiency — these are not edge cases. They are the use case. A healthcare institution website that scores well on standard accessibility audits but fails for a stressed user navigating on an older phone has not solved the problem.',
+          'Accessibility in this context means pressure-testing every interaction against the hardest conditions you’re likely to encounter, not the average conditions you’d prefer to design for. That requires research that goes beyond typical user studies — it requires deliberate inclusion of the people most likely to be failed by standard design assumptions.',
+        ],
+      },
+      {
+        heading: 'Multiple audiences, one front door',
+        paragraphs: [
+          'A major academic medical center has at least four distinct audiences arriving at the same front door: patients and families, referring physicians, researchers and academics, and prospective employees. Each has a fundamentally different job to do and a different level of institutional knowledge. The navigation architecture has to work for all of them without forcing any of them through a flow that doesn’t fit.',
+          'This is an information architecture problem before it is a visual design problem. The hierarchy of content, the naming of sections, the logic of how pathways separate — those structural decisions determine whether a frightened patient finds the oncology department or gets lost in a research-focused content tree designed for a different audience.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to UCLA Health',
+        paragraphs: [
+          'I’ve designed for high-stakes users in complex institutional contexts — clinical operations, enterprise compliance tools, financial platforms where errors have direct human consequences. The common thread is understanding that design decisions have downstream effects on people’s lives, not just their experience of an app.',
+          'The UCLA Health challenge — serving patients, physicians, and researchers through a single coherent digital presence that reflects institutional credibility without creating institutional friction — is the kind of problem where design strategy and design craft have to be in the same hands. It’s exactly the kind of work I want to be doing.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
