@@ -516,7 +516,7 @@
     .thought-tile--pov .thought-tile-img { display: none; }
     .thought-tile-pov-bg {
       position: absolute; inset: 0; z-index: 0;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      background: var(--pink);
     }
     .thought-tile--pov .thought-tile-overlay {
       position: absolute; inset: 0; z-index: 1;
@@ -529,19 +529,6 @@
       .thought-tile--pov:hover .thought-tile-pov-bg { filter: brightness(1.15); }
     }
     /* Per-experience gradients */
-    .thought-tile-pov-bg--lattice,
-    .thought-tile-pov-bg--rippling,
-    .thought-tile-pov-bg--twitch,
-    .thought-tile-pov-bg--circle,
-    .thought-tile-pov-bg--five9,
-    .thought-tile-pov-bg--citrix,
-    .thought-tile-pov-bg--createmusic,
-    .thought-tile-pov-bg--ethyca,
-    .thought-tile-pov-bg--ucla,
-    .thought-tile-pov-bg--roland,
-    .thought-tile-pov-bg--1password,
-    .thought-tile-pov-bg--tacobell,
-    .thought-tile-pov-bg--planhub     { background: linear-gradient(135deg, #16050b 0%, #8c1f42 100%); }
 
     /* Photo tile */
     .photo-tile {
