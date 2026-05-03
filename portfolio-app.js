@@ -322,6 +322,27 @@ function setupLanding() {
   greeting.textContent = tailored ? tailored.greeting : GENERAL_GREETING;
   bodyText.innerHTML = (tailored ? tailored.body : GENERAL_BODY).split('\n\n').join('<br><br>');
 
+  // Param experience: hide recruiter, rename HM button; restore on standard
+  const recruiterBtn = btns.querySelector('[data-role="recruiter"]');
+  const hmBtn        = btns.querySelector('[data-role="hiring-manager"]');
+  if (tailored) {
+    if (recruiterBtn) recruiterBtn.style.display = 'none';
+    if (hmBtn) hmBtn.textContent = 'Come on in';
+  } else {
+    if (recruiterBtn) recruiterBtn.style.display = '';
+    if (hmBtn) hmBtn.textContent = 'Hiring Manager / Designer';
+  }
+
+  // Update HM panel back button label
+  const hmBack = document.getElementById('hmToSelector');
+  if (hmBack) {
+    const svg = hmBack.querySelector('svg').outerHTML;
+    hmBack.innerHTML = tailored
+      ? svg + ' back to intro'
+      : svg + ' Select your experience';
+    hmBack.setAttribute('aria-label', tailored ? 'Back to intro' : 'Select your experience');
+  }
+
   // Stagger in — only run the animation if btns aren't already visible
   if (!btns.classList.contains('visible')) {
     blocks.forEach((b, i) => {
