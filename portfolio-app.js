@@ -3135,12 +3135,13 @@ function renderDSMode() {
           <thead><tr><th>Property</th><th>Value</th></tr></thead>
           <tbody>
             <tr><td>Font family</td><td><code>Golos Text</code></td></tr>
-            <tr><td>Font weight</td><td><code>600</code></td></tr>
-            <tr><td>Font size</td><td><code>clamp(1.2rem, 3vw, 3.125rem)</code></td></tr>
+            <tr><td>Font weight</td><td><code>500</code></td></tr>
+            <tr><td>Font size</td><td><code>2.25rem</code></td></tr>
             <tr><td>Padding</td><td><code>clamp(12px,1.5vw,20px) clamp(24px,3vw,40px)</code></td></tr>
-            <tr><td>Background</td><td><code>--bg-darker</code></td></tr>
+            <tr><td>Background</td><td><code>--pink</code></td></tr>
+            <tr><td>Color</td><td><code>--bg-darker</code></td></tr>
             <tr><td>Border radius</td><td><code>8px</code></td></tr>
-            <tr><td>Hover</td><td>Scale 1.03 \xB7 background lightens</td></tr>
+            <tr><td>Hover</td><td><code>translateY(-3px) scale(1.02)</code> \xB7 background lightens</td></tr>
             <tr><td>Active</td><td>Scale 0.97</td></tr>
           </tbody>
         </table>
@@ -3163,14 +3164,13 @@ function renderDSMode() {
       <section class="ds-section" id="ds-cards">
         <div class="ds-eyebrow">Components</div>
         <h2 class="ds-section-title">Cards</h2>
-        <p class="ds-section-body">The portfolio grid uses four card types, all sharing a common <span class="ds-inline-code">.case-item</span> wrapper and participating in the masonry layout. Card type is determined by a modifier class.</p>
+        <p class="ds-section-body">The portfolio grid uses three card types, all sharing a common <span class="ds-inline-code">.case-item</span> wrapper and participating in the masonry layout. Card type is determined by a modifier class.</p>
         <table class="ds-spec-table">
           <thead><tr><th>Variant</th><th>Class</th><th>Hero treatment</th></tr></thead>
           <tbody>
             <tr><td>Case Study</td><td><code>.case-item--cs</code></td><td>Photo, lazy-loaded</td></tr>
             <tr><td>Thought</td><td><code>.case-item--thought</code></td><td>Photo with gradient overlay</td></tr>
-            <tr><td>POV</td><td><code>.thought-tile--pov</code></td><td>CSS radial gradient per brand</td></tr>
-            <tr><td>Photo</td><td><code>.case-item--photo</code></td><td>Grayscale \u2192 color on hover</td></tr>
+            <tr><td>POV</td><td><code>.thought-tile--pov</code></td><td>Flat <code>var(--pink)</code> \xB7 black text &amp; logo</td></tr>
           </tbody>
         </table>
       </section>
@@ -3179,7 +3179,7 @@ function renderDSMode() {
       <section class="ds-section" id="ds-motion-sky">
         <div class="ds-eyebrow">Animation</div>
         <h2 class="ds-section-title">Sky phases</h2>
-        <p class="ds-section-body">The POV tile backgrounds are a family of gradient atmospheres \u2014 each one a unique composition of radial glows over a near-black field. They read as dark and calm but carry enough color identity to feel distinct from each other and anchored to their brand.</p>
+        <p class="ds-section-body">An earlier design direction for POV tiles \u2014 each phase a composition of radial glows over a near-black field, brand-anchored by color. The current implementation uses a flat <span class="ds-inline-code">var(--pink)</span> background with black text and logo for maximum consistency. These phases are retained here as a design reference.</p>
         <div class="ds-sky-grid">${skyHTML}</div>
       </section>
       <hr class="ds-divider">
