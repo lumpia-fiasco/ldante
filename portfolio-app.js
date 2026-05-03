@@ -42,6 +42,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  planhub: {
+    greeting: "Hello, PlanHub team.",
+    body: "I'm Dante. I've designed for platforms where the users are professionals under pressure \u2014 healthcare administrators, ops leads, enterprise buyers. People who judge a tool by whether it gets out of their way and lets them do their job. That's the standard I design to.\n\nPlanHub's challenge is the two-sided version: GCs and subs share a platform but have different jobs, different stakes, and sometimes directly opposing interests. Designing across that tension without optimizing for one side at the expense of the other \u2014 that's the problem I'd want to solve.",
+    jd: "Principal UX Designer\nPlanHub\n\nLead the product design team, driving strategic design initiatives that directly impact user experience, business growth, and product innovation. Evolve and implement a comprehensive UX strategy for the PlanHub ecosystem. Build and lead a high-performing UX team. Own the UX process from blue-sky research to implementation. Measure the impact of UX decisions on user behavior and business outcomes. Partner with Product, Engineering, Marketing, and Sales.\n\n10+ years experience, 5+ years in a strategic leadership role. Deep HCD expertise. Outcome-led product development. Data-driven experimentation. Design team leadership. Accessibility commitment. Systems thinking. Experience with two-sided marketplaces, construction industry, or CRM design a plus. Figma-based design systems experience preferred.",
+  },
   tacobell: {
     greeting: "Hello, Taco Bell team.",
     body: "I'm Dante. I've built design systems for platforms that can’t afford inconsistency — Marketo’s Sky library governed a multi-audience enterprise product and held through an Adobe acquisition. Multi-surface, many teams, one coherent system.\n\nTaco Bell’s problem is the interesting version of that: scaling across mobile, web, kiosk, and internal tools while keeping the brand’s personality intact. Consistency without flattening. That’s the constraint I’d design around.",
@@ -2002,6 +2007,41 @@ const THOUGHTS = {
     ],
   },
 
+  'when-both-sides-have-to-win': {
+    kicker: 'Point of View',
+    title:  'When both sides have to win',
+    dek: 'On designing two-sided marketplaces where GCs and subs share a platform but have different jobs, different stakes, and sometimes directly opposing incentives.',
+    sections: [
+      {
+        paragraphs: [
+          'Most products serve one user. Two-sided marketplaces are harder: you have two distinct users, each with a legitimate relationship to the platform, and if either side stops finding value, the marketplace collapses. The network effects that make a marketplace powerful are the same mechanism that makes it fragile.',
+          'In construction, this tension is even sharper. The general contractor posting a project and the subcontractor submitting a bid aren\u2019t just two user types \u2014 they\u2019re counterparties in a negotiation. The GC wants competitive bids. The sub wants to win work. Their interests converge on the platform and diverge on the price. Designing for that relationship requires understanding both sides of it, not just their feature lists.',
+        ],
+      },
+      {
+        heading: 'The platform is the relationship',
+        paragraphs: [
+          'Pre-construction is a relationship business. A sub who has worked with a GC before gets called first. A GC who runs a clean bidding process gets better subs showing up. The platform either facilitates that relationship layer or works against it. If the interface turns a professional relationship into a cold transaction, the platform loses to email and phone \u2014 tools that feel more personal even when they\u2019re less efficient.',
+          'The design work isn\u2019t just in the bidding workflow. It\u2019s in every touchpoint that communicates: this platform knows who you are and respects how you work. Personalization, context, history \u2014 the signals that tell a sub \u201cyou\u2019ve worked with this GC before\u201d or tell a GC \u201cthis sub has a strong track record on similar projects.\u201d Those signals don\u2019t happen by accident. They\u2019re design decisions.',
+        ],
+      },
+      {
+        heading: 'Two workflows, one platform',
+        paragraphs: [
+          'A GC posting a project and a sub browsing bids are doing fundamentally different jobs. The GC needs to reach the right subs quickly \u2014 the ones who will actually bid, who have the right scope, who will show up. The sub needs to qualify opportunities fast \u2014 is this worth my time to price? Do I know this GC? Is the timeline realistic? Every second spent on a project that turns out to be a bad fit is time not spent on one they could win.',
+          'Designing for both means resisting the temptation to build one experience and call it universal. The information that matters to a GC at project creation is not the information that matters to a sub at bid review. Navigation patterns, defaults, notifications, the mobile experience \u2014 all of it needs to be tuned to the actual job being done, not a generic user model.',
+        ],
+      },
+      {
+        heading: 'What I\u2019d bring to PlanHub',
+        paragraphs: [
+          'I\u2019ve led design for platforms where the users were professionals who couldn\u2019t afford to slow down \u2014 clinical systems, enterprise ops tools, revenue platforms. The common thread: users who judge the tool by whether it gets out of their way and lets them do their job. That\u2019s the bar I design to.',
+          'The Principal role at PlanHub is the scope I want: strategy, team leadership, and hands-on execution \u2014 not just picking a design direction but building the practice that sustains it. The two-sided marketplace challenge, the tradespeople-first mandate, the systems thinking required to hold it together across a growing product \u2014 that\u2019s a meaty problem. It\u2019s the kind I want to be working on.',
+        ],
+      },
+    ],
+  },
+
   'when-the-system-has-to-hold-the-brand': {
     kicker: 'Point of View',
     title:  'When the system has to hold the brand',
@@ -2378,6 +2418,7 @@ function setupHiringManagerView() {
     ucla:         'the-digital-front-door',
     roland:       'the-instrument-is-the-interface',
     tacobell:     'when-the-system-has-to-hold-the-brand',
+    planhub:      'when-both-sides-have-to-win',
   };
 
   const matchedId = POV_MAP[ref] || null;
@@ -2828,6 +2869,7 @@ function renderDSMode() {
     { name: 'Blood Moon',   slug: 'roland',      bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(210,15,25,.52) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(255,50,30,.12) 0%,transparent 68%),linear-gradient(155deg,#0d0000 0%,#1c0101 55%,#0d0000 100%)' },
     { name: 'Blueprint',    slug: '1password',   bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(6,60,200,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(100,150,255,.15) 0%,transparent 68%),linear-gradient(155deg,#020614 0%,#051840 55%,#020614 100%)' },
     { name: 'Live Más',     slug: 'tacobell',    bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(112,32,130,.55) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(180,80,220,.18) 0%,transparent 68%),linear-gradient(155deg,#0d0018 0%,#1e0038 55%,#0d0018 100%)' },
+    { name: 'Foundation',   slug: 'planhub',     bg: 'radial-gradient(ellipse 72% 55% at 20% 80%,rgba(160,80,0,.50) 0%,transparent 68%),radial-gradient(ellipse 45% 35% at 80% 22%,rgba(220,130,30,.16) 0%,transparent 68%),linear-gradient(155deg,#0d0500 0%,#1e0a00 55%,#0d0500 100%)' },
   ];
   const skyHTML = SKY_PHASES.map(p => `
     <div class="ds-sky-swatch">
