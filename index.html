@@ -521,7 +521,7 @@
     .thought-tile--pov .thought-tile-overlay {
       position: absolute; inset: 0; z-index: 1;
       opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
-      display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+      display: flex; flex-direction: column; justify-content: flex-start; padding: 62px 20px 22px;
     }
     .thought-tile--pov .thought-tile-badge { position: absolute; top: 12px; right: 12px; margin-bottom: 0; z-index: 2; }
     @media (hover:hover) {
@@ -1118,54 +1118,6 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
               </div>
             </div>
 
-            <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0">
-              <article class="thought-tile">
-                <img data-lazy-src="assets/charlie.jpeg" alt="Charlie Murphy's Law" class="thought-tile-img" width="1500" height="900">
-                
-                <div class="thought-tile-overlay">
-                  <span class="thought-tile-badge">Thoughts</span>
-                  <h3 class="thought-tile-title">Charlie Murphy's Law</h3>
-                  <p class="thought-tile-desc">Surprises in product design come in a few flavors. There are the ones you bring on yourself…</p>
-                </div>
-              </article>
-            </div>
-
-            <div class="case-item case-item--thought" data-thought="navigating-ambiguity" role="button" tabindex="0" aria-label="Read Navigating Ambiguity">
-              <article class="thought-tile">
-                <img data-lazy-src="assets/karl.jpeg" alt="Navigating Ambiguity" class="thought-tile-img" width="1366" height="768">
-                
-                <div class="thought-tile-overlay">
-                  <span class="thought-tile-badge">Thoughts</span>
-                  <h3 class="thought-tile-title">Navigating Ambiguity</h3>
-                  <p class="thought-tile-desc">There are two kinds of fog. Confusing them is how teams end up solving the wrong problem with confidence.</p>
-                </div>
-              </article>
-            </div>
-
-            <div class="case-item case-item--thought" data-thought="growing-leaders" role="button" tabindex="0" aria-label="Read Growing leaders">
-              <article class="thought-tile">
-                <img data-lazy-src="assets/growth.jpg" alt="Growing leaders" class="thought-tile-img" width="800" height="534">
-                
-                <div class="thought-tile-overlay">
-                  <span class="thought-tile-badge">Thoughts</span>
-                  <h3 class="thought-tile-title">Growing leaders</h3>
-                  <p class="thought-tile-desc">On the quiet work of helping people find their direction — and why the real legacy isn't the projects or the pixels.</p>
-                </div>
-              </article>
-            </div>
-
-            <div class="case-item case-item--thought" data-thought="spongebob-would" role="button" tabindex="0">
-              <article class="thought-tile">
-                <img data-lazy-src="assets/spongebob.jpeg" alt="SpongeBob would" class="thought-tile-img" width="1920" height="1080">
-                
-                <div class="thought-tile-overlay">
-                  <span class="thought-tile-badge">Thoughts</span>
-                  <h3 class="thought-tile-title">Squidward would never. SpongeBob would.</h3>
-                  <p class="thought-tile-desc">Squidward is the designer who's seen it all. Too experienced to be surprised…</p>
-                </div>
-              </article>
-            </div>
-
             <div class="case-item case-item--thought" data-thought="design-systems-that-last" role="button" tabindex="0" aria-label="Read What I've learned building design systems that last">
               <article class="thought-tile thought-tile--pov">
                 <div class="thought-tile-pov-bg thought-tile-pov-bg--lattice"></div>
@@ -1323,6 +1275,59 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
               </article>
             </div>
 
+          </div><!-- /.case-stack -->
+
+          <p class="cases-heading" id="thoughtsHeading" style="margin-top:60px">Thoughts &amp; Observations</p>
+          <div class="case-stack" id="thoughtsStack">
+
+            <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/charlie.jpeg" alt="Charlie Murphy's Law" class="thought-tile-img" width="1500" height="900">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Charlie Murphy's Law</h3>
+                  <p class="thought-tile-desc">Surprises in product design come in a few flavors. There are the ones you bring on yourself…</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="navigating-ambiguity" role="button" tabindex="0" aria-label="Read Navigating Ambiguity">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/karl.jpeg" alt="Navigating Ambiguity" class="thought-tile-img" width="1366" height="768">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Navigating Ambiguity</h3>
+                  <p class="thought-tile-desc">There are two kinds of fog. Confusing them is how teams end up solving the wrong problem with confidence.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="growing-leaders" role="button" tabindex="0" aria-label="Read Growing leaders">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/growth.jpg" alt="Growing leaders" class="thought-tile-img" width="800" height="534">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Growing leaders</h3>
+                  <p class="thought-tile-desc">On the quiet work of helping people find their direction — and why the real legacy isn't the projects or the pixels.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="spongebob-would" role="button" tabindex="0">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/spongebob.jpeg" alt="SpongeBob would" class="thought-tile-img" width="1920" height="1080">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Squidward would never. SpongeBob would.</h3>
+                  <p class="thought-tile-desc">Squidward is the designer who's seen it all. Too experienced to be surprised…</p>
+                </div>
+              </article>
+            </div>
+
             <div class="case-item case-item--photo">
               <div class="photo-tile lazy-host">
                 <div class="lazy-progress"><div class="lazy-progress-fill"></div></div>
@@ -1351,7 +1356,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
               </div>
             </div>
 
-          </div><!-- /.case-stack -->
+          </div><!-- /.thoughts-stack -->
         </div>
       </div><!-- /#caseListPanel -->
 

@@ -451,9 +451,14 @@ function setupPortfolio(role) {
 
 // ── Masonry layout ──────────────────────────────────────────────
 function layoutMasonry() {
-  const stack = document.getElementById('caseStack');
+  _layoutStack(document.getElementById('caseStack'));
+  _layoutStack(document.getElementById('thoughtsStack'));
+}
+
+function _layoutStack(stack) {
   if (!stack) return;
   const items = Array.from(stack.querySelectorAll('.case-item:not([style*="display: none"])'));
+  if (!items.length) { stack.style.height = '0'; return; }
   const GAP = 16;
   const containerW = stack.offsetWidth;
   const isMobile = window.innerWidth < 640;
@@ -2448,14 +2453,17 @@ function setupHiringManagerView() {
 
   // Reset: un-hide everything so this function is safe to call multiple times
   // (dev switcher, role switch, session restore can all call it with different refs)
-  document.querySelectorAll('#caseStack .case-item--photo, #caseStack .case-item--thought').forEach(el => {
+  document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
     el.style.display = '';
   });
+  const thoughtsStack  = document.getElementById('thoughtsStack');
+  const thoughtsHeading = document.getElementById('thoughtsHeading');
+  if (thoughtsStack)  thoughtsStack.style.display  = '';
+  if (thoughtsHeading) thoughtsHeading.style.display = '';
 
-  // Hide photo tiles in the HM experience
-  document.querySelectorAll('#caseStack .case-item--photo').forEach(el => {
-    el.style.display = 'none';
-  });
+  // Hide thoughts & observations section entirely in HM experience
+  if (thoughtsStack)  thoughtsStack.style.display  = 'none';
+  if (thoughtsHeading) thoughtsHeading.style.display = 'none';
 
   // Hide all POV/Perspective tiles; surface only the matched one
   document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
