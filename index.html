@@ -834,6 +834,11 @@
       #screenGate, #screenLanding { overflow-x: hidden; background-image: none; }
     }
 
+    /* ── Tablet + mobile: square tiles ── */
+    @media (max-width: 1024px) {
+      .case-item { aspect-ratio: 1 / 1; }
+    }
+
     /* Fade animations: see assets/wallabee.css */
 
     /* Lazy load progress */
