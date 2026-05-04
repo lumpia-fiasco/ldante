@@ -2636,6 +2636,7 @@ function setupHiringManagerView() {
     roland:       'the-instrument-is-the-interface',
     tacobell:     'when-the-system-has-to-hold-the-brand',
     planhub:      'when-both-sides-have-to-win',
+    housecallpro: 'when-the-user-is-the-business',
   };
 
   const matchedId = POV_MAP[ref] || null;
