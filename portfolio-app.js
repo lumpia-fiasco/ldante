@@ -2326,45 +2326,45 @@ const THOUGHTS = {
         ],
       },
       {
-        heading: ‘What I’d bring to UCLA Health’,
+        heading: 'What I’d bring to UCLA Health',
         paragraphs: [
-          ‘I’ve designed for high-stakes users in complex institutional contexts — clinical operations, enterprise compliance tools, financial platforms where errors have direct human consequences. The common thread is understanding that design decisions have downstream effects on people’s lives, not just their experience of an app.’,
-          ‘The UCLA Health challenge — serving patients, physicians, and researchers through a single coherent digital presence that reflects institutional credibility without creating institutional friction — is the kind of problem where design strategy and design craft have to be in the same hands. It’s exactly the kind of work I want to be doing.’,
+          'I’ve designed for high-stakes users in complex institutional contexts — clinical operations, enterprise compliance tools, financial platforms where errors have direct human consequences. The common thread is understanding that design decisions have downstream effects on people’s lives, not just their experience of an app.',
+          'The UCLA Health challenge — serving patients, physicians, and researchers through a single coherent digital presence that reflects institutional credibility without creating institutional friction — is the kind of problem where design strategy and design craft have to be in the same hands. It’s exactly the kind of work I want to be doing.',
         ],
       },
     ],
   },
 
-  ‘when-the-user-is-the-business’: {
-    kicker: ‘Point of View’,
-    title:  ‘When the user is the business’,
-    dek:    ‘On designing AI for home service pros — and why making automation reliable is a harder design problem than making it impressive.’,
+    'when-the-user-is-the-business': {
+    kicker: 'Point of View',
+    title:  'When the user is the business',
+    dek:    'On designing AI for home service pros — and why making automation reliable is a harder design problem than making it impressive.',
     sections: [
       {
         paragraphs: [
-          ‘Home service businesses don’t run like software companies. The owner of a plumbing operation with four trucks running is doing four jobs simultaneously: quoting new work, managing active schedules, handling technicians who need parts, following up on unpaid invoices. Software is not the job. It’s a tax on the job.’,
-          ‘That’s the context Housecall Pro operates in. The design problem isn’t how to add AI features. It’s how to make AI so reliable and so fast that a Pro juggling four trucks stops noticing the software is there at all.’,
+          'Home service businesses don’t run like software companies. The owner of a plumbing operation with four trucks running is doing four jobs simultaneously: quoting new work, managing active schedules, handling technicians who need parts, following up on unpaid invoices. Software is not the job. It’s a tax on the job.',
+          'That’s the context Housecall Pro operates in. The design problem isn’t how to add AI features. It’s how to make AI so reliable and so fast that a Pro juggling four trucks stops noticing the software is there at all.',
         ],
       },
       {
-        heading: ‘The cost of being wrong’,
+        heading: 'The cost of being wrong',
         paragraphs: [
-          ‘Enterprise software has error tolerance built in. There’s a process for when the AI recommendation was bad — a support escalation, a review cycle, another team member who catches it before it ships. A plumbing business with eight employees has none of that. If the automated follow-up sent the wrong price, the owner is fixing it personally, tonight, from their truck.’,
-          ‘This changes the design language around AI entirely. Smart suggestions that are right 70% of the time are annoying in an enterprise product and damaging in a small business context. The threshold for running automation without asking is different when the failure mode is someone’s reputation or their invoice.’,
+          'Enterprise software has error tolerance built in. There’s a process for when the AI recommendation was bad — a support escalation, a review cycle, another team member who catches it before it ships. A plumbing business with eight employees has none of that. If the automated follow-up sent the wrong price, the owner is fixing it personally, tonight, from their truck.',
+          'This changes the design language around AI entirely. Smart suggestions that are right 70% of the time are annoying in an enterprise product and damaging in a small business context. The threshold for running automation without asking is different when the failure mode is someone’s reputation or their invoice.',
         ],
       },
       {
-        heading: ‘What trust actually means here’,
+        heading: 'What trust actually means here',
         paragraphs: [
-          ‘For enterprise users, AI trust often comes down to transparency — show me the reasoning, let me audit it, give me an override. For a home service pro, trust is simpler: was it right? Every time the automation catches the scheduling gap, surfaces the right upsell, sends the follow-up that converts — that’s a trust deposit. Every time it gets it wrong and the Pro has to clean it up manually, you’ve withdrawn more than you put in.’,
-          ‘The real design work isn’t in the visible AI interface. It’s in the invisible decisions: which automations run without asking, which ones surface for review, how the system calibrates the line between “I’ve got this” and “you should check this.” Those decisions determine whether a Pro trusts the product or manages around it.’,
+          'For enterprise users, AI trust often comes down to transparency — show me the reasoning, let me audit it, give me an override. For a home service pro, trust is simpler: was it right? Every time the automation catches the scheduling gap, surfaces the right upsell, sends the follow-up that converts — that’s a trust deposit. Every time it gets it wrong and the Pro has to clean it up manually, you’ve withdrawn more than you put in.',
+          'The real design work isn’t in the visible AI interface. It’s in the invisible decisions: which automations run without asking, which ones surface for review, how the system calibrates the line between “I’ve got this” and “you should check this.” Those decisions determine whether a Pro trusts the product or manages around it.',
         ],
       },
       {
-        heading: ‘What I’d bring to Housecall Pro’,
+        heading: 'What I’d bring to Housecall Pro',
         paragraphs: [
-          ‘I’ve built workflow tools for people who don’t want to be running software — payroll systems where the goal is that nobody thinks about payroll, hiring infrastructure where the job is finding great operators, not operating an ATS. The pattern is the same: the person using the tool has somewhere better to be. The design job is making the tool worth stopping for.’,
-          ‘The AI/human seam is where I’ve been spending my attention. I built this portfolio with Claude Code — not as a proof of concept, but as a working part of my design process. The architectural-level decisions your JD describes, the kind that determine how AI capabilities translate into trustworthy, usable moments for a tradesperson between jobs — that’s the problem I want to be working on.’,
+          'I’ve built workflow tools for people who don’t want to be running software — payroll systems where the goal is that nobody thinks about payroll, hiring infrastructure where the job is finding great operators, not operating an ATS. The pattern is the same: the person using the tool has somewhere better to be. The design job is making the tool worth stopping for.',
+          'The AI/human seam is where I’ve been spending my attention. I built this portfolio with Claude Code — not as a proof of concept, but as a working part of my design process. The architectural-level decisions your JD describes, the kind that determine how AI capabilities translate into trustworthy, usable moments for a tradesperson between jobs — that’s the problem I want to be working on.',
         ],
       },
     ],
