@@ -22,7 +22,8 @@ export default function handler(req, res) {
     [process.env.PW_ROLAND]:       'roland',
     [process.env.PW_1PASSWORD]:    '1password',
     [process.env.PW_TACOBELL]:     'tacobell',
-    [process.env.PW_PLANHUB]:      'planhub',
+    [process.env.PW_PLANHUB]:        'planhub',
+    [process.env.PW_HOUSECALLPRO]:   'housecallpro',
   };
 
   const experience = map[password];
@@ -36,6 +37,7 @@ export default function handler(req, res) {
   const SLUG_PASSWORDS = [
     'lattice', 'rippling', 'five9', 'twitch', 'circle',
     'createmusic', 'citrix', 'ethyca', 'ucla', 'roland', '1password', 'tacobell', 'planhub',
+    'housecallpro',
   ];
   const slugMatch = SLUG_PASSWORDS.find(s => s === password.toLowerCase().trim());
   if (slugMatch) {
