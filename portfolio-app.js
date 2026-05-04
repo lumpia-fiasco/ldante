@@ -2389,7 +2389,7 @@ const THOUGHTS = {
       {
         heading: 'What stigma does to user behavior',
         paragraphs: [
-          'I learned this first at MEDHOST, designing clinical software for nurses and administrators who’d watched healthcare IT fail them too many times. The interface wasn’t just a tool. It was a statement about whether this system was on their side. I wasn’t only reducing clicks — I was trying to rebuild a relationship between a workforce and software that had burned them before.',
+          'I learned this first at MEDHOST, building patient registration software for registrars and front desk staff who’d seen enough healthcare IT disasters to be suspicious of anything new. They weren’t resistant to the product — they were protecting themselves from being burned again. The interface wasn’t just a tool. It was a statement about whether this system was actually on their side.',
           'Cannabis users carry a different skepticism, but the mechanism is identical. Anything unclear reads as suspicious. Anything slow reads as unreliable. Anything inconsistent across pages reads as unfinished — and unfinished in a stigmatized category means untrustworthy. The solution isn’t only friction reduction. It’s making every remaining point of friction feel intentional, like it’s there to protect the user.',
         ],
       },
