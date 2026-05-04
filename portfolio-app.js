@@ -87,6 +87,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  weedmaps: {
+    greeting: "Hello, Weedmaps.",
+    body: "I'm Dante. I've built design systems that survived acquisitions, led pivots on two-sided platforms where both sides had to trust the same underlying product, and designed in regulated industries where every friction point gets read through a lens of doubt. Cannabis is at an inflection point — the infrastructure is maturing, and design quality is becoming the actual differentiator. That's exactly the kind of moment I'm built for.",
+    jd: "Senior Product Designer\nWeedmaps\n\nSenior Product Designers at Weedmaps are principal-level individual contributors who set the vision for design excellence across the product organization. Operate as a strategic partner to Product and Engineering leadership. Drive company-wide initiatives, define design principles and standards, and lead the most complex design challenges across Weedmaps' ecosystem. Provide strategic mentorship to Staff and Senior Designers. Influence cross-functional teams through storytelling, data, and compelling design narratives.\n\n9–12+ years product design. Exceptional portfolio demonstrating strategic impact, systems thinking, and organizational influence. Deep expertise in research, experimentation, and data-driven decisions. Extensive design systems experience. Strong B2C and/or B2B SaaS background.",
+  },
   planhub: {
     greeting: "Hello, PlanHub team.",
     body: "I'm Dante. I've designed for platforms where the users are professionals under pressure \u2014 healthcare administrators, ops leads, enterprise buyers. People who judge a tool by whether it gets out of their way and lets them do their job. That's the standard I design to.\n\nPlanHub's challenge is the two-sided version: GCs and subs share a platform but have different jobs, different stakes, and sometimes directly opposing interests. Designing across that tension without optimizing for one side at the expense of the other \u2014 that's the problem I'd want to solve.",
@@ -2370,6 +2375,48 @@ const THOUGHTS = {
     ],
   },
 
+  'the-normalization-interface': {
+    kicker: 'Point of View',
+    title:  'The normalization interface',
+    dek: 'On designing consumer and B2B products in regulated, stigmatized categories — and why every design decision is also a positioning decision.',
+    sections: [
+      {
+        paragraphs: [
+          'Cannabis has joined a familiar club: healthcare, financial services, legal tech. Industries where users arrive already carrying weight the product didn’t put there. A question that runs underneath every interaction — is this okay? is this real? can I trust this? — before anyone has touched a feature.',
+          'Design inherits that ambient anxiety. Every confusing moment feels more suspicious than it would in a neutral context. Every slow confirmation reads differently when the user is already slightly on edge. Trust isn’t just desirable in these categories. It’s the pre-condition for everything else the product needs to do.',
+        ],
+      },
+      {
+        heading: 'What stigma does to user behavior',
+        paragraphs: [
+          'I learned this first at MEDHOST, designing clinical software for nurses and administrators who’d watched healthcare IT fail them too many times. The interface wasn’t just a tool. It was a statement about whether this system was on their side. I wasn’t only reducing clicks — I was trying to rebuild a relationship between a workforce and software that had burned them before.',
+          'Cannabis users carry a different skepticism, but the mechanism is identical. Anything unclear reads as suspicious. Anything slow reads as unreliable. Anything inconsistent across pages reads as unfinished — and unfinished in a stigmatized category means untrustworthy. The solution isn’t only friction reduction. It’s making every remaining point of friction feel intentional, like it’s there to protect the user.',
+        ],
+      },
+      {
+        heading: 'The two-sided complication',
+        paragraphs: [
+          'Weedmaps is a marketplace. At minimum, two users who need to trust the platform in fundamentally different ways: the consumer who wants real products, real prices, and accurate availability; the business that wants tools worth the subscription and a platform that represents them professionally.',
+          'These trust relationships amplify each other in both directions. A consumer experience that feels cheap undermines confidence in the businesses listed there. A business tool that looks like 2013 signals something to the consumer about what kind of platform this is. The ecosystem rises or falls together. At Meroxa, I led a product redesign after a strategic pivot — one surface for data engineers, another for platform operators, both groups trusting the same underlying system for different reasons. Coherence without uniformity is the design brief.',
+        ],
+      },
+      {
+        heading: 'Design systems as institutional legitimacy',
+        paragraphs: [
+          'At Marketo, I built a design system that became more than a component library. When Adobe acquired Marketo, Sky’s patterns were contributed upstream to Adobe Spectrum — not because anyone planned for an acquisition, but because a well-governed system is inherently portable and enduring. Consistency signals permanence. It communicates that the people building the product are thinking past the current sprint.',
+          'This matters more in categories still earning credibility. An inconsistent product says: we’re figuring it out. A consistent one says: we’ve been here, we know what we’re doing, and we’ll be here when you come back. For a platform that serves both consumers making personal decisions and businesses making commercial bets, that signal of permanence isn’t cosmetic. It’s commercial.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to Weedmaps',
+        paragraphs: [
+          'I’ve built design systems that outlasted the products they were built for. I’ve designed for regulated industries where confusion carries real stakes. I’ve led pivots on two-sided platforms where coherence across personas was the only path forward. And I’ve done it as both the person setting the design direction and the person building the components that made it real.',
+          'Weedmaps is solving the right problem at the right moment — a high-stakes marketplace in a category still earning cultural legitimacy, where design quality is the differentiator. That’s a problem worth showing up for.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
@@ -2637,6 +2684,7 @@ function setupHiringManagerView() {
     tacobell:     'when-the-system-has-to-hold-the-brand',
     planhub:      'when-both-sides-have-to-win',
     housecallpro: 'when-the-user-is-the-business',
+    weedmaps:     'the-normalization-interface',
   };
 
   const matchedId = POV_MAP[ref] || null;
