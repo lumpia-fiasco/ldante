@@ -2417,6 +2417,48 @@ const THOUGHTS = {
     ],
   },
 
+  'when-the-system-is-the-product': {
+    kicker: 'Point of View',
+    title:  'When the system is the product',
+    dek: 'On building design systems as production infrastructure — and why the gap between Figma and shipping is a design problem.',
+    sections: [
+      {
+        paragraphs: [
+          'Most design systems start as a style guide that got ambitious. They document the decisions already made, organize them into components, and ship a Figma library. That’s useful. It’s also not what a production-grade system needs to be.',
+          'A system becomes infrastructure when other teams can’t ship without it. When Engineering reaches for it first and asks questions later. When a brand update propagates across surfaces automatically instead of triggering a manual audit. That transition — from documentation to infrastructure — is a design problem disguised as an engineering one.',
+        ],
+      },
+      {
+        heading: 'The gap between Figma and production',
+        paragraphs: [
+          'Every design system lives in two places: the design tool and the codebase. The gap between them is where drift happens. A component gets updated in Figma; the engineer implements it slightly differently; six months later the system has forked and nobody noticed.',
+          'At Marketo, I built Sky with front-end delivery in mind from the start — not as an afterthought once the design was done. When Adobe acquired Marketo, the patterns were portable enough to contribute upstream to Spectrum. That portability wasn’t an accident. It was an architectural decision made early about how the system should relate to the code that used it.',
+        ],
+      },
+      {
+        heading: 'Component APIs are a design surface',
+        paragraphs: [
+          'The most underrated design decision in a system is the component API. How a developer uses a component — what props it accepts, what variants are available, how it handles edge cases — shapes the product just as much as the visual design does. A poorly designed API creates workarounds. Workarounds create drift. Drift undermines the system.',
+          'Developer experience is user experience, one level up. The person consuming the component is a developer. The interaction they need to have with it should be as intentional and as carefully designed as any end-user flow.',
+        ],
+      },
+      {
+        heading: 'AI as leverage, not shortcut',
+        paragraphs: [
+          'The workflow I use now — Claude Code, Figma, token pipelines — closes the gap in ways that weren’t practical before. AI-assisted generation works best when the system is structured to support it: clear component boundaries, consistent naming, documented variants. A well-architected system is also an AI-legible system.',
+          'I built this portfolio with Claude Code. That’s not a talking point — it shaped how I think about the relationship between design intent and shipped code. When the tools can move fluidly between them, the person who understands both becomes disproportionately effective.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to Weedmaps',
+        paragraphs: [
+          'I’ve built systems that outlasted the organizations that commissioned them. I’ve shipped the components, not just designed them. I’ve governed adoption across teams that had every reason to stay outside the system, and found the organizational levers that made it easier to be in than out.',
+          'Weedmaps’ design system serves a marketplace across web and mobile. Getting it right is a product problem with engineering execution requirements. That’s exactly the intersection I work in.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
@@ -2684,7 +2726,7 @@ function setupHiringManagerView() {
     tacobell:     'when-the-system-has-to-hold-the-brand',
     planhub:      'when-both-sides-have-to-win',
     housecallpro: 'when-the-user-is-the-business',
-    weedmaps:     'the-normalization-interface',
+    weedmaps:     'when-the-system-is-the-product',
   };
 
   const matchedId = POV_MAP[ref] || null;
