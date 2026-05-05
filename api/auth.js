@@ -25,6 +25,7 @@ export default function handler(req, res) {
     [process.env.PW_PLANHUB]:        'planhub',
     [process.env.PW_HOUSECALLPRO]:   'housecallpro',
     [process.env.PW_WEEDMAPS]:       'weedmaps',
+    [process.env.PW_ATT]:            'att',
   };
 
   const experience = map[password];
@@ -38,7 +39,7 @@ export default function handler(req, res) {
   const SLUG_PASSWORDS = [
     'lattice', 'rippling', 'five9', 'twitch', 'circle',
     'createmusic', 'citrix', 'ethyca', 'ucla', 'roland', '1password', 'tacobell', 'planhub',
-    'housecallpro', 'weedmaps',
+    'housecallpro', 'weedmaps', 'att',
   ];
   const slugMatch = SLUG_PASSWORDS.find(s => s === password.toLowerCase().trim());
   if (slugMatch) {

@@ -87,6 +87,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  att: {
+    greeting: "Hey, AT&T.",
+    body: "I'm Dante. I build design systems that fragmented organizations actually converge on — and I've done it at enterprise scale. At Marketo, I led Sky from scratch through an Adobe acquisition, where the governance was solid enough that the patterns contributed upstream into Spectrum.\n\nI've unified fragmented systems across teams, set contribution models, run audits, and closed the gap between design tooling and shipped code. This is the work I know best.",
+    jd: "Design Systems Lead\nAT&T (via Optomi)\n\nBuild a universal, enterprise-wide design system serving internal applications across web and iOS. Unify existing fragmented systems. Define governance, contribution models, intake and review workflows, and long-term scalability. Conduct audits of current applications. Document component usage guidelines. Partner with design, research, product, and engineering teams. Ensure WCAG 2.1 compliance. Set vision for future-readiness including AI tooling.\n\nProven experience leading and governing enterprise-scale design systems. Deep expertise in contribution and review models for scalable component libraries. Expert Figma knowledge, familiarity with ZeroHeight, Storybook, Showcase. Strong documentation and auditing capabilities. Collaborative cross-functional experience across design, product, and engineering.",
+  },
   weedmaps: {
     greeting: "Hey, Weedmaps.",
     body: "I'm Dante. I'm the person who sits between Design and Engineering and doesn't feel uncomfortable in either room. I've built design systems from scratch, governed them across multiple teams, and shipped the components myself — not as a handoff, as a build.\n\nAt Marketo, the system I built ended up in Adobe Spectrum after the acquisition. That kind of durability only happens when the architecture is right from the start. I've also been using Claude Code as a core part of my workflow — I built this portfolio with it. The AI-native tooling callout in this JD isn't aspirational for me. It's current.",
@@ -2459,6 +2464,48 @@ const THOUGHTS = {
     ],
   },
 
+  'the-governance-layer': {
+    kicker: 'Point of View',
+    title:  'The governance layer',
+    dek: 'On why enterprise design systems fail — and why contribution models, intake workflows, and audit discipline matter more than the components themselves.',
+    sections: [
+      {
+        paragraphs: [
+          'Most enterprise design system failures aren’t component failures. The components are usually fine. The failure is governance.',
+          'At the scale of a global enterprise, every team has their own patterns, their own “temporary” component that’s been in production for three years, their own interpretation of the brand. A design system doesn’t solve that problem by existing. It solves it by giving teams a reason to converge and a clear path for doing so.',
+        ],
+      },
+      {
+        heading: 'The audit is the foundation',
+        paragraphs: [
+          'You can’t build a universal system without first understanding what already exists. The audit is the unglamorous starting point: cataloguing what’s actually in use across products, identifying where patterns have diverged, and distinguishing between divergence that reflects genuine product need and divergence that reflects accumulated accident.',
+          'At Marketo, before Sky was a system it was an audit. I catalogued every component across the product surface, mapped the inconsistencies, and used that inventory to prioritize what to standardize first. The patterns that already had broad adoption became the foundation. The rest got sequenced into the roadmap.',
+        ],
+      },
+      {
+        heading: 'Contribution models: the organizational layer',
+        paragraphs: [
+          'The hardest part of enterprise systems work isn’t the design. It’s the org chart. A contribution model that doesn’t account for how teams actually work — their release cycles, their design maturity, their relationship to the central team — will produce components that never leave draft state, or patterns that teams quietly route around.',
+          'An effective contribution model has an intake workflow with clear criteria, a review process that’s predictable and timely, and a versioning strategy that lets teams adopt updates without breaking their release schedule. It also has to answer the most important question teams have: what happens to my contribution after I submit it? If the answer is unclear, teams stop contributing.',
+        ],
+      },
+      {
+        heading: 'Durability as the metric',
+        paragraphs: [
+          'The right measure of a design system isn’t how many components it has. It’s whether it survives organizational change: new leadership, a product pivot, an acquisition. At Marketo, Sky’s patterns contributed upstream to Adobe Spectrum after the acquisition — not because anyone planned for it, but because the governance had made the system legible and portable.',
+          'Good governance creates systems that outlast the people who built them. That’s the standard I build to.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to AT&T',
+        paragraphs: [
+          'Enterprise systems at AT&T’s scale require working at the component level and the organizational level simultaneously. I’ve done both — built the components, set the governance, managed the contribution model, and driven adoption across teams that had every reason to keep doing what they were doing.',
+          'The work isn’t just defining the system. It’s creating the conditions where other teams want to use it.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
@@ -2726,6 +2773,7 @@ function setupHiringManagerView() {
     tacobell:     'when-the-system-has-to-hold-the-brand',
     planhub:      'when-both-sides-have-to-win',
     housecallpro: 'when-the-user-is-the-business',
+    att:          'the-governance-layer',
     weedmaps:     'when-the-system-is-the-product',
   };
 
