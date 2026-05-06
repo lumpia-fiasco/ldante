@@ -87,6 +87,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  patientpoint: {
+    greeting: "Hey, PatientPoint.",
+    body: "I'm Dante. I started in healthcare on the operational side — building patient registration software at MEDHOST for registrars and front desk staff in clinical settings. That work taught me what it means to design where errors carry real consequence and where the interface competes with the urgency of the actual work.\n\nPatientPoint is the patient-facing version of that problem: designing for people whose minds are already somewhere else, at the exact moment when the right information could change what they do next. That's a hard design brief. It's also exactly the kind of work I want to be doing.",
+    jd: "Lead Product Designer\nPatientPoint\n\nSenior IC and player-coach role owning design outcomes across product areas. Partner in the product triad to define problems, shape strategy, and influence roadmap — not just execute. Embed continuous discovery practices. Drive Figma workflow standards, Design QA, and developer handoff. Mentor designers. Scale design systems across teams. Integrate AI tools into design workflows. Connect design decisions to user and business outcomes.\n\n6+ years product design with shipped work. Continuous discovery experience (problem framing, hypothesis generation, validation). Advanced Figma proficiency including systems, prototyping, handoff. Design QA and engineering partnership. Front-end fluency (HTML, CSS, JS). Healthcare or health-tech experience a plus. Design systems scaling experience preferred.",
+  },
   att: {
     greeting: "Hey, AT&T.",
     body: "I'm Dante. I build design systems that fragmented organizations actually converge on — and I've done it at enterprise scale. At Marketo, I led Sky from scratch through an Adobe acquisition, where the governance was solid enough that the patterns contributed upstream into Spectrum.\n\nI've unified fragmented systems across teams, set contribution models, run audits, and closed the gap between design tooling and shipped code. This is the work I know best.",
@@ -2506,6 +2511,48 @@ const THOUGHTS = {
     ],
   },
 
+  'designing-at-the-moment-of-care': {
+    kicker: 'Point of View',
+    title:  'Designing at the moment of care',
+    dek: 'On building products for users whose minds are elsewhere — and what healthcare taught me about designing for the moments that matter most.',
+    sections: [
+      {
+        paragraphs: [
+          'Healthcare UX is a constraint, not just a category. Users arrive stressed, time-pressured, or frightened. The interface competes with everything they’re actually thinking about — which means every confusing moment costs more than it would anywhere else, and every piece of information that lands well has an outsized chance of changing what someone does next.',
+          'I’ve designed on both sides of the healthcare experience. At MEDHOST, I built patient registration software for registrars and front desk staff — clinical operations people whose job is moving patients through the system accurately and fast. The stakes were real: an input error has downstream consequences for care. At PatientPoint, the challenge flips: now the user is the patient, and the moment is the waiting room.',
+        ],
+      },
+      {
+        heading: 'The waiting room is not a neutral context',
+        paragraphs: [
+          'A patient sitting in a physician’s office is not browsing. They’re waiting — and waiting while anxious is a specific cognitive state. Attention is split. The mind runs ahead to the appointment. Content that requires effort to parse doesn’t get parsed.',
+          'Designing for that moment means designing for divided attention. Short over long. Visual over textual. Progressive disclosure over front-loading. The information hierarchy isn’t about what’s most important to the product — it’s about what’s most likely to land given where the user’s head actually is.',
+        ],
+      },
+      {
+        heading: 'Behavior change requires trust first',
+        paragraphs: [
+          'Health behavior change is one of the hardest design problems. People know they should exercise more, take their medication, schedule the follow-up. The knowing isn’t the problem. The interface’s job isn’t to inform — it’s to reduce the distance between knowing and doing.',
+          'That reduction only happens if the user trusts what they’re seeing. In a clinical setting, that trust is partly borrowed from the physician relationship. The product sits inside that trust, or it undermines it. Every design decision — the tone, the density, the source attribution, the visual credibility — is either reinforcing that borrowed trust or eroding it.',
+        ],
+      },
+      {
+        heading: 'Continuous discovery in clinical environments',
+        paragraphs: [
+          'Research in healthcare is harder than most domains. Access is constrained. Workflows are fragmented. Participants are busy and their context shifts constantly. But it’s also where the cost of assumption is highest. A product that’s been built on the wrong understanding of patient behavior isn’t just underperforming — it’s potentially failing the people it was built to help.',
+          'The discipline I’ve developed is building discovery into the workflow rather than treating it as a project phase. Small, fast, embedded. Prototype in the context where the product will live. Validate the assumption, not the artifact. That practice is harder to build in clinical environments, and more necessary.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to PatientPoint',
+        paragraphs: [
+          'I’ve designed for healthcare from the inside — the registration desk, the clinical workflow, the operational infrastructure. I understand what it means to design where the stakes are real and the user doesn’t have margin for confusion.',
+          'PatientPoint’s brief — behavior change at the moment of care, at scale across 30,000 physician offices — is one of the most meaningful design problems in health tech. I’d bring the craft, the systems thinking, and the healthcare-specific intuition to make that brief land.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
@@ -2773,6 +2820,7 @@ function setupHiringManagerView() {
     tacobell:     'when-the-system-has-to-hold-the-brand',
     planhub:      'when-both-sides-have-to-win',
     housecallpro: 'when-the-user-is-the-business',
+    patientpoint: 'designing-at-the-moment-of-care',
     att:          'the-governance-layer',
     weedmaps:     'when-the-system-is-the-product',
   };
