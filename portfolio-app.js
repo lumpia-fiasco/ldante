@@ -87,6 +87,11 @@ const TAILORED = {
     body: "I'm Dante. I've designed for the seam where administrator control meets end-user experience — healthcare systems where an IT configuration shapes what every clinician can and can't do, data platforms where a single settings decision affects a whole engineering org.\n\nI've built design systems that held complex, multi-surface products together through acquisitions and pivots. And I've been using AI tooling — including Claude Code, which I used to build this portfolio — to close the gap between design intent and working prototype.",
     jd: "Principal Product Designer\nCitrix\n\nShape the future of administrator and end-user experiences for cloud and on-premises enterprise products. Lead major design initiatives collaborating with designers, PMs, and engineers across the globe. Drive key design initiatives, advocate for design excellence with product and engineering stakeholders. Leverage UX design, research, and strategy to influence product strategy. Contribute to the design system, mentor other designers, explore vision-level future thinking.\n\n12+ years product design with enterprise software focus. Deep design systems expertise. AI prototyping proficiency (Figma Make, Claude Code). Expert Figma skills. Exceptional communication with product and engineering leadership. Proven cross-functional project leadership.",
   },
+  anduril: {
+    greeting: "Hey, Anduril.",
+    body: "I'm Dante. I've designed enterprise software for people whose actual job has nothing to do with software — registrars doing patient intake at MEDHOST, where the tool is in service of moving patients through a clinical system accurately and fast. The user isn't at a desk browsing; they're in motion, under pressure, doing something physical and using software to support it. That context changes every design decision.\n\nForge is that problem with higher stakes and a more demanding environment. Manufacturing floor workers, technicians, logistics staff — people whose attention is on the hardware, not the screen. I want to design software that earns its place in that environment.",
+    jd: "Product Designer — Forge\nAnduril Industries\n\nDesign end-to-end user experiences for Forge, Anduril's manufacturing and hardware operations platform. Shape roadmap and product/design strategy. Own design execution from discovery through implementation. Design scalable components for mobile, tablet, and desktop in manufacturing and high-rate production environments. Develop and mature the design system. Conduct on-site Gemba research on shop floors and worktations. Evangelize design decisions and create design tenets.\n\n6+ years software design experience. Strong visual and interaction design craft. Portfolio demonstrating multimodal experiences. Design systems and scalable components. Experience designing for physical or operational environments a plus. Up to 25% travel required. No prior defense experience necessary.",
+  },
   experian: {
     greeting: "Hey, Experian.",
     body: "I'm Dante. I've spent a significant chunk of my career designing for financial consequence — payroll systems at Teamshares where an error costs someone their rent, data pipelines at Meroxa where a failure means a production team is flying blind at 2am, treasury flows at Circle where the product holds real money. Consequence changes how you design.\n\nExperian is that same territory from the consumer side. The person checking their credit score or watching a lending decision isn't just a user — they're the subject. That's a different kind of stake to design for. I want to be working on it.",
@@ -2600,6 +2605,48 @@ const THOUGHTS = {
     ],
   },
 
+  'software-for-people-who-are-standing-up': {
+    kicker: 'Point of View',
+    title:  'Software for people who are standing up',
+    dek: 'On designing operational tools for physical environments — and why the interface that works at a desk often fails completely on a shop floor.',
+    sections: [
+      {
+        paragraphs: [
+          'Operational software has a context problem: the primary activity isn’t using it. A technician on a manufacturing floor is there to build, assemble, test, or move hardware. The software is in service of that work. When the interface demands too much attention, it doesn’t just slow people down — it competes with the job they’re actually there to do.',
+          'I’ve designed for this problem in clinical settings — registrars doing patient intake who are simultaneously managing a waiting room, answering questions, and moving people through a system that can’t have errors. The physical environment, the cognitive load, and the operational pressure are all part of the design brief. You can’t evaluate the interface at a desk. You have to be in the environment.',
+        ],
+      },
+      {
+        heading: 'The environment changes everything',
+        paragraphs: [
+          'A UI designed for a clean, well-lit office fails in a manufacturing setting. Touch targets that work with a mouse are often too small for gloved hands. Text that’s readable at a desk becomes unreadable in direct light or at arm’s length. Notifications designed for a focused user get missed by someone whose attention is split between the screen and the work in front of them.',
+          'Designing for physical environments means treating the environment as a first-class constraint. That’s what the Gemba philosophy is actually about: not just observing the workflow, but understanding how the space, the tools, the noise, and the physical demands of the work shape what the interface needs to do. The context is the specification.',
+        ],
+      },
+      {
+        heading: 'Precision where errors have consequences',
+        paragraphs: [
+          'Manufacturing and defense share a quality with healthcare: the cost of error is high and highly visible. A wrong input in a production workflow doesn’t stay contained in software — it propagates into the physical world. Hardware gets built incorrectly. Shipments go wrong. Downstream teams lose time.',
+          'Designing for that consequence means building in verification, clear state communication, and recovery paths that don’t require the user to already know what went wrong. The interface has to be honest about what it knows, clear about what it needs, and forgiving about how it gets there. That’s a different design discipline than building for error-tolerant consumer products.',
+        ],
+      },
+      {
+        heading: 'Multi-device as a systems problem',
+        paragraphs: [
+          'Mobile, tablet, and desktop in a manufacturing context aren’t interchangeable surfaces — they represent different roles, different locations, and different stages of the workflow. The tablet on the shop floor and the desktop in the back office need to feel like the same system while doing completely different jobs.',
+          'I’ve built design systems across multiple surfaces where coherence across contexts was the central challenge. The component library has to be flexible enough to serve different environments without fragmenting into separate systems that drift apart. That’s a governance problem as much as a design problem.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to Forge',
+        paragraphs: [
+          'I’ve designed for high-stakes operational environments, multi-device systems, and software used by people whose primary job isn’t software. The combination of physical environment research, consequence-aware interaction design, and scalable component systems is exactly what Forge is asking for.',
+          'The defense context is new to me. The design discipline isn’t. I’d show up ready to learn the domain and bring a specific kind of operational design thinking that transfers directly.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
@@ -2867,6 +2914,7 @@ function setupHiringManagerView() {
     tacobell:     'when-the-system-has-to-hold-the-brand',
     planhub:      'when-both-sides-have-to-win',
     housecallpro: 'when-the-user-is-the-business',
+    anduril:      'software-for-people-who-are-standing-up',
     experian:     'when-the-data-is-about-you',
     patientpoint: 'designing-at-the-moment-of-care',
     att:          'the-governance-layer',

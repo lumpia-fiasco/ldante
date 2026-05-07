@@ -28,6 +28,7 @@ export default function handler(req, res) {
     [process.env.PW_ATT]:            'att',
     [process.env.PW_PATIENTPOINT]:   'patientpoint',
     [process.env.PW_EXPERIAN]:       'experian',
+    [process.env.PW_ANDURIL]:        'anduril',
   };
 
   const experience = map[password];
@@ -41,7 +42,7 @@ export default function handler(req, res) {
   const SLUG_PASSWORDS = [
     'lattice', 'rippling', 'five9', 'twitch', 'circle',
     'createmusic', 'citrix', 'ethyca', 'ucla', 'roland', '1password', 'tacobell', 'planhub',
-    'housecallpro', 'weedmaps', 'att', 'patientpoint', 'experian',
+    'housecallpro', 'weedmaps', 'att', 'patientpoint', 'experian', 'anduril',
   ];
   const slugMatch = SLUG_PASSWORDS.find(s => s === password.toLowerCase().trim());
   if (slugMatch) {
