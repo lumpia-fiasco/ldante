@@ -564,6 +564,15 @@ function _layoutStack(stack) {
   stack.style.height = Math.max(...colHeights) + 'px';
 }
 
+// ── Analytics logging ─────────────────────────────────────────────
+function logEvent(event, data = {}) {
+  fetch('/api/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event, data }),
+  }).catch(() => {}); // fire-and-forget, never block UI
+}
+
 // ── Lazy images ──────────────────────────────────────────────────
 function setupLazyImages() {
   const obs = new IntersectionObserver((entries) => {
@@ -2653,6 +2662,7 @@ const THOUGHTS = {
 function openCase(id) {
   const data = CASES[id];
   if (!data) return;
+  logEvent('case_view', { case: id });
   const rPanel = document.getElementById('recruiterPanel');
   if (rPanel && rPanel.classList.contains('active')) {
     returnPanel = 'recruiterPanel';
@@ -2881,6 +2891,7 @@ function setupRecruiterPanel() {
         return;
       }
       renderAssessResult(data);
+      logEvent('fit_submit', { jd: jd.slice(0, 500), score: data.fitLevel, headline: data.fitHeadline || '' });
     } catch(e) {
       console.error('Fit assessment error:', e);
       errEl.textContent = e.message || 'Assessment failed. Try again.';
