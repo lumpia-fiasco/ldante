@@ -97,6 +97,11 @@ const TAILORED = {
     body: "I'm Dante. I've spent a significant chunk of my career designing for financial consequence — payroll systems at Teamshares where an error costs someone their rent, data pipelines at Meroxa where a failure means a production team is flying blind at 2am, treasury flows at Circle where the product holds real money. Consequence changes how you design.\n\nExperian is that same territory from the consumer side. The person checking their credit score or watching a lending decision isn't just a user — they're the subject. That's a different kind of stake to design for. I want to be working on it.",
     jd: "Senior Product Designer\nExperian\n\nDrive UX strategy and vision for complex projects, integrating user needs, business goals, and technical constraints. Lead innovation and design quality — evolving primary components with design systems teams, overseeing design QA. Mentor designers across skill levels. Establish efficient workflows and documentation for scale. Balance hands-on design with strategic direction across multi-product initiatives.\n\n5+ years UX/interaction design with senior or principal experience. Track record in UX strategy and complex product projects. Portfolio demonstrating storytelling, problem framing, and UI craft. Design systems, scalability principles, and large-scale UX across multiple products. Visual and interaction design expertise.",
   },
+  vyehealth: {
+    greeting: "Hey, Vye Health.",
+    body: "I'm Dante. My healthcare software experience is on the clinical operations side — MEDHOST, building patient registration systems for front desk staff in real clinical settings. That work gave me a ground-level understanding of what healthcare software actually has to do: get out of the way fast, communicate clearly under pressure, and never be the reason something goes wrong.\n\nThe AI-native angle is the part I want to be working on. I've spent time designing systems where the hard problem isn't the capability — it's the trust. When does a clinician lean on what the AI produced? When do they override it? How does the interface communicate enough about what's happening that they can act with confidence? That handoff is a design problem. I'd like to help Vye solve it.",
+    jd: "Product Designer — VyeOS\nVye Health\n\n0-to-1 design role building VyeOS: an AI-native operating system for private practices combining EHR, scheduling, billing, patient engagement, clinical intelligence, and AI copilot in a single platform. Work directly with founders, engineers, and clinicians. Design how AI agents function inside real medical workflows: chart prep, clinical documentation, patient communication, follow-ups, operational tasks, decision support. Core challenges: designing trust, orchestration, and human+AI collaboration in complex, data-dense clinical interfaces.",
+  },
   patientpoint: {
     greeting: "Hey, PatientPoint.",
     body: "I'm Dante. I started in healthcare on the operational side — building patient registration software at MEDHOST for registrars and front desk staff in clinical settings. That work taught me what it means to design where errors carry real consequence and where the interface competes with the urgency of the actual work.\n\nPatientPoint is the patient-facing version of that problem: designing for people whose minds are already somewhere else, at the exact moment when the right information could change what they do next. That's a hard design brief. It's also exactly the kind of work I want to be doing.",
@@ -2655,6 +2660,47 @@ const THOUGHTS = {
       },
     ],
   },
+  'when-ai-does-the-work-and-humans-stay-accountable': {
+    kicker: 'Point of View',
+    title:  'When AI does the work and humans stay accountable',
+    dek: 'On designing clinical AI — where automation and professional responsibility share the same interface.',
+    sections: [
+      {
+        paragraphs: [
+          'Clinical AI has a trust problem that isn’t really about trust. It’s about accountability. When a system drafts a clinical note, flags a billing code, or surfaces a risk, someone still has to own the decision. That ownership doesn’t transfer to the model — it stays with the clinician. The interface is where that accountability lives.',
+          'Designing for that dynamic is different from designing for most software categories. The challenge isn’t just making the AI capable. It’s making the human who uses it able to act with appropriate confidence — which means the interface has to communicate what the AI knows, how confident it is, and where a human needs to actually think.',
+        ],
+      },
+      {
+        heading: 'The handoff is the interface',
+        paragraphs: [
+          'Every AI output in a clinical workflow becomes a human decision. A drafted note gets reviewed and signed. A flagged risk gets acted on or dismissed. A suggested code gets submitted or corrected. The moment between the AI’s output and the clinician’s action is the most important moment in the workflow — and it’s almost always underdesigned.',
+          'The interface at that moment has to do a specific job: give the clinician enough information to calibrate their response. Not so much that they re-read everything from scratch, not so little that they’re approving blindly. That calibration requires visible provenance, clear confidence signals, and an interaction model that makes the cost of review proportional to the risk of the decision.',
+        ],
+      },
+      {
+        heading: 'Legibility as a clinical requirement',
+        paragraphs: [
+          'Consumer AI gets a different trust budget than clinical AI. A consumer app that makes an error costs you time. A clinical tool that makes an error can cost a patient. That asymmetry has to be built into the interface — not as a disclaimer at the bottom of the screen, but as a functional design element woven into how outputs are presented.',
+          'That means the interface has to be honest about what the AI doesn’t know. Uncertainty isn’t a weakness to hide — it’s information the clinician needs. A system that presents AI outputs with uniform confidence, regardless of actual certainty, trains clinicians to either trust everything or trust nothing. Neither is useful. Legibility about limitations is a clinical safety requirement.',
+        ],
+      },
+      {
+        heading: 'Orchestration without losing the thread',
+        paragraphs: [
+          'An AI copilot that handles chart prep, documentation, scheduling, patient communication, and follow-ups is doing a lot of work. The design challenge isn’t just making each task work — it’s maintaining the clinician’s understanding of what’s been delegated, what’s been done, and what still needs their attention. Delegation at scale is an oversight problem.',
+          'Without good orchestration design, the cognitive load doesn’t go away — it just shifts from doing the work to tracking what the AI did. That’s a poor trade. The interface has to give clinicians a coherent model of the system’s state without turning oversight into a second full-time job.',
+        ],
+      },
+      {
+        heading: 'What I’d bring to Vye Health',
+        paragraphs: [
+          'My healthcare software background is on the clinical operations side — MEDHOST, building patient registration systems used by registrars and front desk staff in real clinical environments. That work taught me what high-stakes software actually has to do: surface the right information fast, communicate clearly under pressure, and never be the reason something goes wrong.',
+          'The AI-native challenge at Vye Health is the part I want to be working on. Designing the trust architecture — the handoff moments, the legibility layer, the orchestration model — is exactly the kind of systems-level design problem I’m drawn to. I’d bring both the healthcare context and the interaction design discipline to help make VyeOS something clinicians actually want to use.',
+        ],
+      },
+    ],
+  },
 
 };
 
@@ -2927,6 +2973,7 @@ function setupHiringManagerView() {
     housecallpro: 'when-the-user-is-the-business',
     anduril:      'software-for-people-who-are-standing-up',
     experian:     'when-the-data-is-about-you',
+    vyehealth:    'when-ai-does-the-work-and-humans-stay-accountable',
     patientpoint: 'designing-at-the-moment-of-care',
     att:          'the-governance-layer',
     weedmaps:     'when-the-system-is-the-product',
