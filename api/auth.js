@@ -11,25 +11,9 @@ export default function handler(req, res) {
   const map = {
     [process.env.PW_STANDARD || process.env.SITE_PASSWORD]: 'standard',
     [process.env.PW_LATTICE]:      'lattice',
-    [process.env.PW_RIPPLING]:     'rippling',
     [process.env.PW_FIVE9]:        'five9',
-    [process.env.PW_TWITCH]:       'twitch',
-    [process.env.PW_CIRCLE]:       'circle',
-    [process.env.PW_CREATEMUSIC]:  'createmusic',
-    [process.env.PW_CITRIX]:       'citrix',
-    [process.env.PW_ETHYCA]:       'ethyca',
-    [process.env.PW_UCLA]:         'ucla',
-    [process.env.PW_ROLAND]:       'roland',
-    [process.env.PW_1PASSWORD]:    '1password',
-    [process.env.PW_TACOBELL]:     'tacobell',
-    [process.env.PW_PLANHUB]:        'planhub',
-    [process.env.PW_HOUSECALLPRO]:   'housecallpro',
-    [process.env.PW_WEEDMAPS]:       'weedmaps',
-    [process.env.PW_ATT]:            'att',
-    [process.env.PW_PATIENTPOINT]:   'patientpoint',
-    [process.env.PW_EXPERIAN]:       'experian',
-    [process.env.PW_ANDURIL]:        'anduril',
-    [process.env.PW_VYEHEALTH]:      'vyehealth',
+    [process.env.PW_PATIENTPOINT]: 'patientpoint',
+    [process.env.PW_VYEHEALTH]:    'vyehealth',
   };
 
   const experience = map[password];
@@ -38,13 +22,7 @@ export default function handler(req, res) {
   }
 
   // The experience slug itself also works as a case-insensitive password.
-  // "LATTICE", "Lattice", and "lattice" all route to the Lattice experience.
-  // "createmusic" routes to the Create Music Group experience, etc.
-  const SLUG_PASSWORDS = [
-    'lattice', 'rippling', 'five9', 'twitch', 'circle',
-    'createmusic', 'citrix', 'ethyca', 'ucla', 'roland', '1password', 'tacobell', 'planhub',
-    'housecallpro', 'weedmaps', 'att', 'patientpoint', 'experian', 'anduril', 'vyehealth',
-  ];
+  const SLUG_PASSWORDS = ['lattice', 'five9', 'patientpoint', 'vyehealth'];
   const slugMatch = SLUG_PASSWORDS.find(s => s === password.toLowerCase().trim());
   if (slugMatch) {
     return res.status(200).json({ ok: true, experience: slugMatch });
