@@ -3242,6 +3242,9 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const role = btn.dataset.role;
       try { localStorage.setItem('ldg-role', role); } catch(e) {}
+      // Fade out whichever in-screen logo is currently visible
+      const logo = document.querySelector('.landing-header .ldg-logo');
+      if (logo) logo.style.opacity = '0';
       showScreen('screenPortfolio');
       if (portfolioReady) {
         switchPortfolioRole(role);
