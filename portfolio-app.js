@@ -76,7 +76,7 @@ const TAILORED = {
 
 // ── JD prefill helper ─────────────────────────────────────────
 function prefillFitJD(text) {
-  ['fitTextarea', 'recruiterFitTextarea'].forEach(id => {
+  ['fitTextarea'].forEach(id => {
     const ta = document.getElementById(id);
     if (!ta) return;
     ta.value = text;
@@ -517,14 +517,11 @@ function setupLanding() {
   greeting.textContent = tailored ? tailored.greeting : GENERAL_GREETING;
   bodyText.innerHTML = (tailored ? tailored.body : GENERAL_BODY).split('\n\n').join('<br><br>');
 
-  // Param experience: hide recruiter, rename HM button; restore on standard
-  const recruiterBtn = btns.querySelector('[data-role="recruiter"]');
-  const hmBtn        = btns.querySelector('[data-role="hiring-manager"]');
+  // Param experience: rename HM button; restore on standard
+  const hmBtn = btns.querySelector('[data-role="hiring-manager"]');
   if (tailored) {
-    if (recruiterBtn) recruiterBtn.style.display = 'none';
     if (hmBtn) hmBtn.textContent = 'Come on in';
   } else {
-    if (recruiterBtn) recruiterBtn.style.display = '';
     if (hmBtn) hmBtn.textContent = 'Hiring Manager / Designer';
   }
 
@@ -556,12 +553,6 @@ function setupPortfolio(role) {
   if (portfolioReady) return;
   portfolioReady = true;
 
-  // ── Recruiter ──
-  if (role === 'recruiter') {
-    document.getElementById('recruiterPanel').classList.add('active');
-    setupRecruiterPanel();
-  }
-
   // ── Hiring manager: filter POV tiles before masonry runs ──
   if (role === 'hiring-manager') {
     setupHiringManagerView();
@@ -591,11 +582,7 @@ function setupPortfolio(role) {
   document.getElementById('caseBackBtn').addEventListener('click', () => closeDetail());
   document.getElementById('fitBackBtn').addEventListener('click', () => closeDetail());
 
-  // Both panels → back to experience selector (role picker)
-  document.getElementById('rpToSelector').addEventListener('click', () => {
-    showScreen('screenLanding', 'down');
-    setupLanding();
-  });
+  // HM panel → back to experience selector (role picker)
   document.getElementById('hmToSelector').addEventListener('click', () => {
     showScreen('screenLanding', 'down');
     setupLanding();
@@ -623,7 +610,6 @@ function setupPortfolio(role) {
         // Close fit/detail panels and return to the case list
         document.getElementById('fitPanel').classList.remove('active');
         document.getElementById('caseDetailPanel').classList.remove('active');
-        document.getElementById('recruiterPanel').classList.remove('active');
         document.getElementById('caseListPanel').classList.remove('hidden');
         document.getElementById('caseListPanel').scrollTop = 0;
         returnPanel = 'caseListPanel';
@@ -719,13 +705,8 @@ function setupLazyImages() {
 function closeDetail() {
   document.getElementById('caseDetailPanel').classList.remove('active');
   document.getElementById('fitPanel').classList.remove('active');
-  if (returnPanel === 'recruiterPanel') {
-    document.getElementById('recruiterPanel').classList.add('active');
-    document.getElementById('recruiterPanel').scrollTop = 0;
-  } else {
-    document.getElementById('caseListPanel').classList.remove('hidden');
-    document.getElementById('caseListPanel').scrollTop = 0;
-  }
+  document.getElementById('caseListPanel').classList.remove('hidden');
+  document.getElementById('caseListPanel').scrollTop = 0;
   returnPanel = 'caseListPanel';
 }
 
@@ -2206,14 +2187,8 @@ function openCase(id) {
   const data = CASES[id];
   if (!data) return;
   logEvent('case_view', { case: id });
-  const rPanel = document.getElementById('recruiterPanel');
-  if (rPanel && rPanel.classList.contains('active')) {
-    returnPanel = 'recruiterPanel';
-    rPanel.classList.remove('active');
-  } else {
-    returnPanel = 'caseListPanel';
-    document.getElementById('caseListPanel').classList.add('hidden');
-  }
+  returnPanel = 'caseListPanel';
+  document.getElementById('caseListPanel').classList.add('hidden');
   const content = document.getElementById('caseDetailContent');
   content.innerHTML = buildCaseHTML(data);
   content.classList.remove('content-entering');
@@ -2288,14 +2263,8 @@ function buildCaseHTML(d) {
 function openThought(id) {
   const data = THOUGHTS[id];
   if (!data) return;
-  const rPanel = document.getElementById('recruiterPanel');
-  if (rPanel && rPanel.classList.contains('active')) {
-    returnPanel = 'recruiterPanel';
-    rPanel.classList.remove('active');
-  } else {
-    returnPanel = 'caseListPanel';
-    document.getElementById('caseListPanel').classList.add('hidden');
-  }
+  returnPanel = 'caseListPanel';
+  document.getElementById('caseListPanel').classList.add('hidden');
   const content = document.getElementById('caseDetailContent');
 
   // Build HTML
@@ -2381,72 +2350,6 @@ WHERE HE HAS NO TRACK RECORD:
 - Pure e-commerce or DTC consumer
 - Brand, marketing, or motion design`;
 
-// ── Recruiter panel ─────────────────────────────────────────────
-function setupRecruiterPanel() {
-  const ta       = document.getElementById('recruiterFitTextarea');
-  const counter  = document.getElementById('recruiterFitCharCount');
-  const btn      = document.getElementById('recruiterFitAssessBtn');
-  const clearBtn = document.getElementById('recruiterFitClearBtn');
-  const errEl    = document.getElementById('recruiterFitError');
-  const result   = document.getElementById('rpResult');
-  if (!ta || ta.dataset.rpReady) return;
-  ta.dataset.rpReady = '1';
-
-  ta.addEventListener('input', () => {
-    counter.textContent = ta.value.length;
-    if (clearBtn) clearBtn.hidden = ta.value.length === 0;
-  });
-
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      ta.value = '';
-      counter.textContent = '0';
-      clearBtn.hidden = true;
-      errEl.hidden = true;
-      result.hidden = true;
-    });
-  }
-
-  btn.addEventListener('click', async () => {
-    const jd = ta.value.trim();
-    if (!jd) return;
-
-    const origText = btn.textContent;
-    btn.textContent = 'Assessing...';
-    btn.disabled = true;
-    errEl.hidden = true;
-    result.hidden = true;
-
-    try {
-      const res = await fetch('/api/assess', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: jd }),
-      });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || `HTTP ${res.status}`);
-      }
-      const data = await res.json();
-      if (!data.isJobDescription) {
-        errEl.textContent = "That doesn't look like a job description. Try pasting the text directly.";
-        errEl.hidden = false;
-        return;
-      }
-      renderAssessResult(data);
-      logEvent('fit_submit', { jd: jd.slice(0, 500), score: data.fitLevel, headline: data.fitHeadline || '' });
-    } catch(e) {
-      console.error('Fit assessment error:', e);
-      errEl.textContent = e.message || 'Assessment failed. Try again.';
-      errEl.hidden = false;
-    } finally {
-      btn.textContent = origText;
-      btn.disabled = false;
-    }
-  });
-
-}
-
 // ── Hiring manager tile filter ───────────────────────────────────
 function setupHiringManagerView() {
   const params = new URLSearchParams(window.location.search);
@@ -2487,160 +2390,8 @@ function setupHiringManagerView() {
   }
 }
 
-function renderRecruiterResult(text) {
-  const result       = document.getElementById('rpResult');
-  const pill         = document.getElementById('rpResultPill');
-  const summaryEl    = document.getElementById('rpResultSummary');
-  const strengthList = document.getElementById('rpStrengthList');
-  const discussList  = document.getElementById('rpDiscussList');
-  const recCards     = document.getElementById('rpRecCards');
-
-  // Verdict
-  const verdictMatch = text.match(/VERDICT:\s*(.+)/i);
-  const verdict = verdictMatch ? verdictMatch[1].trim() : 'MATCH';
-  pill.textContent = verdict;
-  pill.className = 'rp-result-pill';
-  if (/VERY STRONG/i.test(verdict))      pill.classList.add('very-strong');
-  else if (/GOOD/i.test(verdict))        pill.classList.add('good');
-  else if (/MODERATE/i.test(verdict))   pill.classList.add('moderate');
-  else if (/WEAK/i.test(verdict))        pill.classList.add('weak');
-  // plain STRONG MATCH stays default green
-
-  // Summary
-  const summaryMatch = text.match(/SUMMARY:\s*([\s\S]+?)(?=\n\nSTRENGTHS|\n\nGAPS|\n\nRECOMMENDED|$)/i);
-  summaryEl.textContent = summaryMatch ? summaryMatch[1].trim() : '';
-
-  // Strengths
-  const strengthMatch = text.match(/STRENGTHS:\s*([\s\S]+?)(?=\n\nGAPS|\n\nRECOMMENDED|$)/i);
-  strengthList.innerHTML = '';
-  if (strengthMatch) {
-    strengthMatch[1].split('\n').filter(l => l.trim().startsWith('-')).forEach(line => {
-      const li = document.createElement('li');
-      li.innerHTML = `<span class="rp-icon">&#x2705;</span><span>${escapeHTML(line.replace(/^-\s*/, ''))}</span>`;
-      strengthList.appendChild(li);
-    });
-  }
-
-  // Gaps
-  const discussMatch = text.match(/GAPS:\s*([\s\S]+?)(?=\n\nRECOMMENDED|$)/i);
-  discussList.innerHTML = '';
-  if (discussMatch) {
-    discussMatch[1].split('\n').filter(l => l.trim().startsWith('-')).forEach(line => {
-      const li = document.createElement('li');
-      li.innerHTML = `<span class="rp-icon">&#x25CF;</span><span>${escapeHTML(line.replace(/^-\s*/, ''))}</span>`;
-      discussList.appendChild(li);
-    });
-  }
-
-  // Recommended cases
-  const recMatch = text.match(/RECOMMENDED CASES:\s*(.+)/i);
-  recCards.innerHTML = '';
-  if (recMatch) {
-    recMatch[1].split(',').map(s => s.trim()).filter(Boolean).forEach(id => {
-      const data = CASES[id];
-      if (!data) return;
-      // Pull logo src and card color from the matching case-item already in the DOM
-      const srcEl  = document.querySelector(`#caseStack .case-item[data-case="${id}"] .case-card-logo`);
-      const logoSrc = srcEl ? srcEl.getAttribute('src') : '';
-      const isWhiteLogo = srcEl ? srcEl.classList.contains('logo-white') : false;
-      const itemEl  = document.querySelector(`#caseStack .case-item[data-case="${id}"]`);
-      const cardColor = itemEl ? itemEl.style.getPropertyValue('--card-color') : '#1f1f1f';
-
-      const card = document.createElement('div');
-      card.className = 'rp-rec-card';
-      card.style.setProperty('--card-color', cardColor);
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', '0');
-      card.innerHTML = `
-        <div class="case-card-v">
-          <span class="case-study-badge">Case Study</span>
-          ${logoSrc ? `<img src="${logoSrc}" alt="${escapeHTML(data.company)}" class="case-card-logo${isWhiteLogo ? ' logo-white' : ''}">` : ''}
-          <div class="case-card-content">
-            <p class="case-company">${escapeHTML(data.company)}</p>
-            <h3 class="case-title-h">${escapeHTML(data.title)}</h3>
-            <p class="case-desc-h">${escapeHTML(data.intro.slice(0, 110))}...</p>
-          </div>
-        </div>`;
-      card.addEventListener('click', () => openCase(id));
-      card.addEventListener('keydown', e => { if (e.key === 'Enter') openCase(id); });
-      recCards.appendChild(card);
-    });
-  }
-
-  result.hidden = false;
-  // Scroll to result smoothly
-  setTimeout(() => result.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-}
-
-function renderAssessResult(data) {
-  const result       = document.getElementById('rpResult');
-  const pill         = document.getElementById('rpResultPill');
-  const summaryEl    = document.getElementById('rpResultSummary');
-  const strengthList = document.getElementById('rpStrengthList');
-  const discussList  = document.getElementById('rpDiscussList');
-  const recCards     = document.getElementById('rpRecCards');
-
-  const LEVEL = {
-    strong:  { label: 'STRONG MATCH',   cls: '' },
-    good:    { label: 'GOOD MATCH',     cls: 'good' },
-    partial: { label: 'MODERATE MATCH', cls: 'moderate' },
-    low:     { label: 'WEAK MATCH',     cls: 'weak' },
-  };
-  const level = LEVEL[data.fitLevel] || { label: 'MATCH', cls: '' };
-  pill.textContent = level.label;
-  pill.className = 'rp-result-pill' + (level.cls ? ' ' + level.cls : '');
-
-  summaryEl.textContent = data.fitHeadline || '';
-
-  strengthList.innerHTML = '';
-  (data.strengths || []).forEach(s => {
-    const li = document.createElement('li');
-    li.innerHTML = `<span class="rp-icon">&#x2705;</span><span>${escapeHTML(s)}</span>`;
-    strengthList.appendChild(li);
-  });
-
-  discussList.innerHTML = '';
-  (data.considerations || []).forEach(c => {
-    const li = document.createElement('li');
-    li.innerHTML = `<span class="rp-icon">&#x25CF;</span><span>${escapeHTML(c)}</span>`;
-    discussList.appendChild(li);
-  });
-
-  recCards.innerHTML = '';
-  (data.suggestedCases || []).forEach(id => {
-    const caseData = CASES[id];
-    if (!caseData) return;
-    const srcEl    = document.querySelector(`#caseStack .case-item[data-case="${id}"] .case-card-logo`);
-    const logoSrc  = srcEl ? srcEl.getAttribute('src') : '';
-    const isWhite  = srcEl ? srcEl.classList.contains('logo-white') : false;
-    const itemEl   = document.querySelector(`#caseStack .case-item[data-case="${id}"]`);
-    const cardColor = itemEl ? itemEl.style.getPropertyValue('--card-color') : '#1f1f1f';
-    const card = document.createElement('div');
-    card.className = 'rp-rec-card';
-    card.style.setProperty('--card-color', cardColor);
-    card.setAttribute('role', 'button');
-    card.setAttribute('tabindex', '0');
-    card.innerHTML = `
-      <div class="case-card-v">
-        <span class="case-study-badge">Case Study</span>
-        ${logoSrc ? `<img src="${logoSrc}" alt="${escapeHTML(caseData.company)}" class="case-card-logo${isWhite ? ' logo-white' : ''}">` : ''}
-        <div class="case-card-content">
-          <p class="case-company">${escapeHTML(caseData.company)}</p>
-          <h3 class="case-title-h">${escapeHTML(caseData.headline || caseData.title)}</h3>
-          <p class="case-desc-h">${escapeHTML((caseData.intro || '').slice(0, 110))}...</p>
-        </div>
-      </div>`;
-    card.addEventListener('click', () => openCase(id));
-    card.addEventListener('keydown', e => { if (e.key === 'Enter') openCase(id); });
-    recCards.appendChild(card);
-  });
-
-  result.hidden = false;
-  setTimeout(() => result.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-}
-
 function setupFitPanel() {
-  // Main fit panel only (recruiter fit now handled by setupRecruiterPanel)
+  // Main fit panel
   const fitTA      = document.getElementById('fitTextarea');
   const fitCount   = document.getElementById('fitCharCount');
   const fitBtn     = document.getElementById('fitAssessBtn');
@@ -2826,7 +2577,6 @@ function setupDevSwitcher() {
 function switchPortfolioRole(role) {
   try { localStorage.setItem('ldg-role', role); } catch(e) {}
 
-  const recruiterPanel  = document.getElementById('recruiterPanel');
   const caseListPanel   = document.getElementById('caseListPanel');
   const caseDetailPanel = document.getElementById('caseDetailPanel');
   const fitPanel        = document.getElementById('fitPanel');
@@ -2836,17 +2586,10 @@ function switchPortfolioRole(role) {
   if (fitPanel)        fitPanel.classList.remove('active');
   returnPanel = 'caseListPanel';
 
-  if (role === 'recruiter') {
-    caseListPanel.classList.remove('hidden');
-    recruiterPanel.classList.add('active');
-    setupRecruiterPanel(); // idempotent — has its own guard
-  } else {
-    // hiring-manager
-    recruiterPanel.classList.remove('active');
-    caseListPanel.classList.remove('hidden');
-    setupHiringManagerView(); // filters POV tiles; safe to call again
-    layoutMasonry();          // re-layout after any tile visibility changes
-  }
+  // hiring-manager (only role remaining)
+  caseListPanel.classList.remove('hidden');
+  setupHiringManagerView(); // filters POV tiles; safe to call again
+  layoutMasonry();          // re-layout after any tile visibility changes
 }
 
 // ── Design System Mode (experimental) ────────────────────────────
@@ -3030,10 +2773,9 @@ function renderDSMode() {
       <section class="ds-section" id="ds-buttons">
         <div class="ds-eyebrow">Components</div>
         <h2 class="ds-section-title">Role Buttons</h2>
-        <p class="ds-section-body">The primary interactive surface on the landing screen. Padding-based sizing scales responsively with no fixed height. Two variants \u2014 Recruiter and Hiring Manager \u2014 share identical structure.</p>
+        <p class="ds-section-body">The primary interactive surface on the landing screen. Padding-based sizing scales responsively with no fixed height.</p>
         <div class="ds-canvas">
           <div style="display:flex;gap:16px;flex-wrap:wrap;">
-            <button class="role-btn" style="pointer-events:none;">Recruiter</button>
             <button class="role-btn" style="pointer-events:none;">Hiring Manager</button>
           </div>
         </div>
