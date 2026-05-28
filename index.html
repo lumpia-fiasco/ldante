@@ -933,6 +933,57 @@
 
     /* DS shell + Wallabee light mode: see assets/wallabee.css */
 
+    /* ── Param countdown ring ── */
+    #paramCountdown {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      margin-top: 8px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    #paramCountdown.fading { opacity: 0; }
+    #paramCountdown svg {
+      width: 64px; height: 64px;
+      transform: rotate(-90deg);
+      display: block;
+    }
+    #paramCountdown .cd-track {
+      fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 2.5;
+    }
+    #paramCountdown .cd-prog {
+      fill: none; stroke: var(--pink); stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 175.93; /* 2π × 28 */
+      stroke-dashoffset: 175.93; /* empty to start */
+      transition: stroke-dashoffset 1s linear;
+    }
+    #paramCountdown .cd-num {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--white);
+      line-height: 1;
+      transition: opacity 0.2s ease;
+    }
+
+    /* ── Param intro overlay — slides in from below over gate ── */
+    #gateParamContent {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: clamp(40px,6vw,80px) clamp(32px,8vw,120px);
+      box-sizing: border-box;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      transform: translateY(100vh);
+      z-index: 2;
+    }
+
     /* ── Fixed logo — stays put through all screen transitions ── */
     #logoFixed {
       position: fixed;
@@ -980,6 +1031,15 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
 
     <h1 class="gate-hero" id="gateHero">I design systems</h1>
 
+    <!-- Param flow: 3-second countdown ring (hidden until ?ref= mode activates) -->
+    <div id="paramCountdown" hidden>
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle class="cd-track" cx="32" cy="32" r="28"/>
+        <circle class="cd-prog"  cx="32" cy="32" r="28" id="cdProgress"/>
+      </svg>
+      <span class="cd-num" id="cdNumber">3</span>
+    </div>
+
     <div>
       <div class="gate-input-row" id="gateInputRow">
         <input
@@ -997,15 +1057,15 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
       <p class="gate-error" id="gateError">Incorrect password. Try again.</p>
     </div>
 
-    <!-- Param flow: tailored intro shown instead of password field when ?ref= is present -->
-    <div id="gateParamContent" hidden>
-      <p class="landing-text-block" id="gateParamGreeting"></p>
-      <p class="landing-text-block body-text" id="gateParamBody"></p>
-      <div class="landing-btns" id="gateParamBtns">
-        <button class="role-btn" data-role="hiring-manager">Come on in</button>
-      </div>
-    </div>
+  </div>
 
+  <!-- Param intro overlay — positioned absolute over gate, slides in from below -->
+  <div id="gateParamContent" hidden>
+    <p class="landing-text-block" id="gateParamGreeting"></p>
+    <p class="landing-text-block body-text" id="gateParamBody"></p>
+    <div class="landing-btns" id="gateParamBtns">
+      <button class="role-btn" data-role="hiring-manager">Come on in</button>
+    </div>
   </div>
 
   <button class="reset-btn" id="resetBtn" type="button" aria-label="Reset">

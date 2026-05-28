@@ -142,7 +142,131 @@ function pushToLanding() {
   try { localStorage.setItem('ldg-screen', 'screenLanding'); } catch(e) {}
 }
 
-// ── Param gate: show tailored intro in the gate screen (no password) ──
+// ── Param gate helpers ─────────────────────────────────────────
+let _paramIntroVisible = false;
+let _paramScrollBound  = false;
+
+// Circular countdown (3 s) — calls onComplete when done
+function runParamCountdown(onComplete) {
+  const wrap   = document.getElementById('paramCountdown');
+  const prog   = document.getElementById('cdProgress');
+  const numEl  = document.getElementById('cdNumber');
+  const C      = 175.93; // 2π × 28
+
+  wrap.removeAttribute('hidden');
+  prog.style.strokeDashoffset = C;
+  numEl.textContent = '3';
+
+  let tick = 0;
+  const iv = setInterval(() => {
+    tick++;
+    const rem = 3 - tick;
+    prog.style.strokeDashoffset = C * (rem / 3);
+    numEl.textContent = rem > 0 ? rem : '';
+
+    if (tick >= 3) {
+      clearInterval(iv);
+      setTimeout(() => {
+        wrap.classList.add('fading');
+        setTimeout(() => {
+          wrap.hidden = true;
+          wrap.classList.remove('fading');
+          onComplete();
+        }, 320);
+      }, 250);
+    }
+  }, 1000);
+}
+
+// Push gate-inner up, slide param intro in from below
+function revealParamIntro() {
+  const gateInner = document.querySelector('#screenGate .gate-inner');
+  const paramEl   = document.getElementById('gateParamContent');
+
+  // Un-hide the overlay — CSS starts it at translateY(100vh)
+  paramEl.removeAttribute('hidden');
+  void paramEl.offsetHeight; // flush reflow
+
+  // Slide intro up
+  paramEl.style.transition = 'transform 0.65s cubic-bezier(0.22,1,0.36,1)';
+  paramEl.style.transform  = 'translateY(0)';
+
+  // Gate-inner drifts up and fades (pushed feeling)
+  gateInner.style.transition = 'transform 0.55s cubic-bezier(0.55,0,1,0.45), opacity 0.4s ease';
+  gateInner.style.transform  = 'translateY(-40px)';
+  gateInner.style.opacity    = '0';
+
+  setTimeout(() => {
+    gateInner.style.pointerEvents = 'none';
+    paramEl.style.transition = '';
+    paramEl.style.transform  = '';
+
+    // Stagger in the copy blocks and button
+    const blocks = paramEl.querySelectorAll('.landing-text-block');
+    blocks.forEach((b, i) => setTimeout(() => b.classList.add('visible'), 80 + i * 150));
+    setTimeout(() => paramEl.querySelector('.landing-btns').classList.add('visible'), 480);
+
+    _paramIntroVisible = true;
+  }, 700);
+}
+
+// Reverse: slide intro back down, return gate-inner to view
+function hideParamIntro() {
+  if (!_paramIntroVisible) return;
+  _paramIntroVisible = false;
+
+  const gateInner = document.querySelector('#screenGate .gate-inner');
+  const paramEl   = document.getElementById('gateParamContent');
+
+  // Intro slides back down
+  paramEl.style.transition = 'transform 0.55s cubic-bezier(0.55,0,1,0.45)';
+  paramEl.style.transform  = 'translateY(100vh)';
+
+  // Gate-inner returns
+  gateInner.style.pointerEvents = '';
+  gateInner.style.transition = 'transform 0.65s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease';
+  gateInner.style.transform  = 'translateY(0)';
+  gateInner.style.opacity    = '1';
+
+  setTimeout(() => {
+    paramEl.hidden = true;
+    paramEl.style.transition = '';
+    paramEl.style.transform  = '';
+    gateInner.style.transition = '';
+
+    // Reset visible classes so stagger re-runs on next reveal
+    paramEl.querySelectorAll('.landing-text-block').forEach(b => b.classList.remove('visible'));
+    paramEl.querySelector('.landing-btns').classList.remove('visible');
+  }, 700);
+}
+
+// Wire scroll-up gesture on the gate to return to the beginning
+function setupParamScrollBack() {
+  if (_paramScrollBound) return;
+  _paramScrollBound = true;
+
+  const gate    = document.getElementById('screenGate');
+  const paramEl = document.getElementById('gateParamContent');
+
+  // Wheel: scroll up at the top of param content → go back
+  gate.addEventListener('wheel', (e) => {
+    if (_paramIntroVisible && e.deltaY < 0 && paramEl.scrollTop === 0) {
+      hideParamIntro();
+    }
+  }, { passive: true });
+
+  // Touch: swipe down at top → go back
+  let _ty = 0;
+  gate.addEventListener('touchstart', (e) => { _ty = e.touches[0].clientY; }, { passive: true });
+  gate.addEventListener('touchmove', (e) => {
+    if (_paramIntroVisible && paramEl.scrollTop === 0 && (e.touches[0].clientY - _ty) > 56) {
+      hideParamIntro();
+      _ty = e.touches[0].clientY; // reset to prevent repeat fire
+    }
+  }, { passive: true });
+}
+
+// ── Param gate: show countdown then reveal tailored intro in gate ──
 // Called when a visitor arrives with a valid ?ref= param and no prior auth.
 function setupParamGate(ref) {
   const tailored = TAILORED[ref];
@@ -153,22 +277,20 @@ function setupParamGate(ref) {
     localStorage.setItem('ldg-experience', ref);
   } catch(e) {}
 
-  // Hide password block, reveal param content
+  // Hide password block
   const pwBlock = document.getElementById('gateInputRow').closest('div');
   if (pwBlock) pwBlock.hidden = true;
 
-  const paramEl = document.getElementById('gateParamContent');
-  paramEl.removeAttribute('hidden');
-
-  // Populate copy
+  // Pre-populate intro copy (element stays hidden until countdown ends)
   document.getElementById('gateParamGreeting').textContent = tailored.greeting;
   document.getElementById('gateParamBody').innerHTML =
     tailored.body.split('\n\n').map(p => p.replace(/\n/g, ' ')).join('<br><br>');
 
-  // Stagger in text blocks then buttons
-  const blocks = paramEl.querySelectorAll('.landing-text-block');
-  blocks.forEach((b, i) => setTimeout(() => b.classList.add('visible'), 200 + i * 150));
-  setTimeout(() => paramEl.querySelector('.landing-btns').classList.add('visible'), 600);
+  // Wire scroll-back gesture
+  setupParamScrollBack();
+
+  // Run countdown, then reveal
+  runParamCountdown(() => revealParamIntro());
 }
 
 // ── Gate logic ─────────────────────────────────────────────────
