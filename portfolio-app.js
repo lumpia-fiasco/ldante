@@ -146,6 +146,7 @@ function pushToLanding() {
 let _paramIntroVisible = false;
 let _paramScrollBound  = false;
 let _paramGateReady    = false; // true after countdown completes first reveal
+let _paramAnimating    = false; // true while a transition is in flight — blocks re-entry
 
 // Circular countdown (3 s) — calls onComplete when done
 function runParamCountdown(onComplete) {
@@ -181,19 +182,22 @@ function runParamCountdown(onComplete) {
 
 // Push gate-inner up, slide param intro in from below
 function revealParamIntro() {
-  _paramGateReady = true; // countdown has completed at least once; toggling is now available
+  if (_paramAnimating) return;
+  _paramAnimating = true;
+  _paramGateReady = true;
+
   const gateInner = document.querySelector('#screenGate .gate-inner');
   const paramEl   = document.getElementById('gateParamContent');
 
-  // Un-hide the overlay — CSS starts it at translateY(100vh)
+  // Un-hide the overlay; CSS default starts it at translateY(100vh)
   paramEl.removeAttribute('hidden');
-  void paramEl.offsetHeight; // flush reflow
+  void paramEl.offsetHeight; // flush so browser captures the CSS starting position
 
-  // Slide intro up
+  // Slide intro up — keep inline transform set so CSS 100vh default doesn't snap back
   paramEl.style.transition = 'transform 0.65s cubic-bezier(0.22,1,0.36,1)';
   paramEl.style.transform  = 'translateY(0)';
 
-  // Gate-inner drifts up and fades (pushed feeling)
+  // Gate-inner drifts up and fades
   gateInner.style.transition = 'transform 0.55s cubic-bezier(0.55,0,1,0.45), opacity 0.4s ease';
   gateInner.style.transform  = 'translateY(-40px)';
   gateInner.style.opacity    = '0';
@@ -201,7 +205,9 @@ function revealParamIntro() {
   setTimeout(() => {
     gateInner.style.pointerEvents = 'none';
     paramEl.style.transition = '';
-    paramEl.style.transform  = '';
+    // NOTE: intentionally do NOT clear paramEl.style.transform here.
+    // Clearing it reverts to the CSS default translateY(100vh) and snaps content off-screen.
+    // hideParamIntro() will override it when the user navigates back.
 
     // Stagger in the copy blocks and button
     const blocks = paramEl.querySelectorAll('.landing-text-block');
@@ -209,12 +215,14 @@ function revealParamIntro() {
     setTimeout(() => paramEl.querySelector('.landing-btns').classList.add('visible'), 480);
 
     _paramIntroVisible = true;
+    _paramAnimating    = false;
   }, 700);
 }
 
 // Reverse: slide intro back down, return gate-inner to view
 function hideParamIntro() {
-  if (!_paramIntroVisible) return;
+  if (!_paramIntroVisible || _paramAnimating) return;
+  _paramAnimating    = true;
   _paramIntroVisible = false;
 
   const gateInner = document.querySelector('#screenGate .gate-inner');
@@ -233,12 +241,14 @@ function hideParamIntro() {
   setTimeout(() => {
     paramEl.hidden = true;
     paramEl.style.transition = '';
-    paramEl.style.transform  = '';
+    paramEl.style.transform  = ''; // safe to clear now — element is hidden, so CSS 100vh default is irrelevant
     gateInner.style.transition = '';
 
     // Reset visible classes so stagger re-runs on next reveal
     paramEl.querySelectorAll('.landing-text-block').forEach(b => b.classList.remove('visible'));
     paramEl.querySelector('.landing-btns').classList.remove('visible');
+
+    _paramAnimating = false;
   }, 700);
 }
 
