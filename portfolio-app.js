@@ -145,6 +145,7 @@ function pushToLanding() {
 // ── Param gate helpers ─────────────────────────────────────────
 let _paramIntroVisible = false;
 let _paramScrollBound  = false;
+let _paramGateReady    = false; // true after countdown completes first reveal
 
 // Circular countdown (3 s) — calls onComplete when done
 function runParamCountdown(onComplete) {
@@ -180,6 +181,7 @@ function runParamCountdown(onComplete) {
 
 // Push gate-inner up, slide param intro in from below
 function revealParamIntro() {
+  _paramGateReady = true; // countdown has completed at least once; toggling is now available
   const gateInner = document.querySelector('#screenGate .gate-inner');
   const paramEl   = document.getElementById('gateParamContent');
 
@@ -240,7 +242,8 @@ function hideParamIntro() {
   }, 700);
 }
 
-// Wire scroll-up gesture on the gate to return to the beginning
+// Wire scroll gestures on the gate — scroll up returns to "I design systems",
+// scroll down returns to the param intro (once it has been revealed once).
 function setupParamScrollBack() {
   if (_paramScrollBound) return;
   _paramScrollBound = true;
@@ -248,20 +251,26 @@ function setupParamScrollBack() {
   const gate    = document.getElementById('screenGate');
   const paramEl = document.getElementById('gateParamContent');
 
-  // Wheel: scroll up at the top of param content → go back
+  // Wheel: up at top of param → hide; down on gate-inner → reveal
   gate.addEventListener('wheel', (e) => {
     if (_paramIntroVisible && e.deltaY < 0 && paramEl.scrollTop === 0) {
       hideParamIntro();
+    } else if (!_paramIntroVisible && _paramGateReady && e.deltaY > 0) {
+      revealParamIntro();
     }
   }, { passive: true });
 
-  // Touch: swipe down at top → go back
+  // Touch: swipe down at top of param → hide; swipe up on gate-inner → reveal
   let _ty = 0;
   gate.addEventListener('touchstart', (e) => { _ty = e.touches[0].clientY; }, { passive: true });
   gate.addEventListener('touchmove', (e) => {
-    if (_paramIntroVisible && paramEl.scrollTop === 0 && (e.touches[0].clientY - _ty) > 56) {
+    const dy = e.touches[0].clientY - _ty;
+    if (_paramIntroVisible && paramEl.scrollTop === 0 && dy > 56) {
       hideParamIntro();
-      _ty = e.touches[0].clientY; // reset to prevent repeat fire
+      _ty = e.touches[0].clientY;
+    } else if (!_paramIntroVisible && _paramGateReady && dy < -56) {
+      revealParamIntro();
+      _ty = e.touches[0].clientY;
     }
   }, { passive: true });
 }
