@@ -932,9 +932,34 @@
     .mob-tab.mob-tab--active, .mob-tab:hover { color: var(--white); }
 
     /* DS shell + Wallabee light mode: see assets/wallabee.css */
+
+    /* ── Fixed logo — stays put through all screen transitions ── */
+    #logoFixed {
+      position: fixed;
+      top: clamp(40px, 6vw, 80px);
+      left: clamp(32px, 8vw, 120px);
+      width: 145px;
+      z-index: 100;
+      color: var(--pink);
+      pointer-events: none;
+    }
+    #logoFixed svg { width: 145px; height: auto; display: block; }
+    /* In-screen logos hidden — the fixed one covers them */
+    .gate-header .ldg-logo,
+    .landing-header .ldg-logo { visibility: hidden; }
+
   </style>
 </head>
 <body>
+
+<!-- ── Fixed logo — persists through all transitions ── -->
+<div id="logoFixed" aria-hidden="true">
+  <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+    <polygon points="36 432 221.36 432 36 27.57 36 432"/>
+    <path d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
+    <path d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21c0,13.96,1.41,27.59,4.11,40.75c1.01,4.94,2.2,9.81,3.56,14.61c1.82,6.4,3.94,12.67,6.36,18.79c8.45,21.43,20.45,41.07,35.28,58.19c2.12,2.45,4.3,4.84,6.53,7.18c2.23,2.34,4.52,4.63,6.86,6.86c2.34,2.23,4.74,4.41,7.18,6.53c4.89,4.24,9.99,8.24,15.27,12c11.89,8.46,24.74,15.66,38.35,21.42c3.02,1.28,6.09,2.49,9.18,3.62c21.68,7.94,45.1,12.27,69.53,12.27c111.68,0,202.21-90.53,202.21-202.21H625.79Z"/>
+  </svg>
+</div>
 
 <!-- ═══════════════ SCREEN 1: GATE ═══════════════ -->
 <div class="screen active" id="screenGate">
@@ -972,6 +997,15 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
       <p class="gate-error" id="gateError">Incorrect password. Try again.</p>
     </div>
 
+    <!-- Param flow: tailored intro shown instead of password field when ?ref= is present -->
+    <div id="gateParamContent" hidden>
+      <p class="landing-text-block" id="gateParamGreeting"></p>
+      <p class="landing-text-block body-text" id="gateParamBody"></p>
+      <div class="landing-btns" id="gateParamBtns">
+        <button class="role-btn" data-role="hiring-manager">Come on in</button>
+      </div>
+    </div>
+
   </div>
 
   <button class="reset-btn" id="resetBtn" type="button" aria-label="Reset">
@@ -985,7 +1019,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
 
 
 <!-- ═══════════════ SCREEN 2: LANDING ═══════════════ -->
-<div class="screen enter-up" id="screenLanding">
+<div class="screen" id="screenLanding">
   <div class="landing-inner">
 
     <div class="landing-header">

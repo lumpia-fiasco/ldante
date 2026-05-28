@@ -107,13 +107,86 @@ function showScreen(id, direction = 'up') {
   try { localStorage.setItem('ldg-screen', id); } catch(e) {}
 }
 
+// ── Push-from-below: gate → landing transition ─────────────────
+// Landing rises from 100vh (below fold); gate drifts up and fades.
+// Logo stays fixed above both screens throughout.
+function pushToLanding() {
+  const gate    = document.getElementById('screenGate');
+  const landing = document.getElementById('screenLanding');
+
+  // Snap landing below viewport — don't add .active yet (its transform:none!important would fight us)
+  landing.classList.remove('enter-up', 'exit-up', 'exit-down');
+  landing.style.transition   = 'none';
+  landing.style.transform    = 'translateY(100vh)';
+  landing.style.opacity      = '1';
+  landing.style.pointerEvents = 'none';
+  void landing.offsetHeight; // flush reflow before animating
+
+  // Spring landing up into view
+  landing.style.transition = 'transform 0.65s cubic-bezier(0.22,1,0.36,1)';
+  landing.style.transform  = 'translateY(0)';
+
+  // Gate drifts up and fades — the "pushed" feeling
+  gate.style.transition = 'transform 0.55s cubic-bezier(0.55,0,1,0.45), opacity 0.4s ease';
+  gate.style.transform  = 'translateY(-40px)';
+  gate.style.opacity    = '0';
+
+  setTimeout(() => {
+    gate.classList.remove('active');
+    gate.style.cssText = '';         // restore to class-driven state
+    landing.classList.add('active'); // opacity:1, pointer-events:auto, transform:none!important
+    landing.style.cssText = '';      // let .active take over cleanly
+  }, 700);
+
+  currentScreen = 'screenLanding';
+  try { localStorage.setItem('ldg-screen', 'screenLanding'); } catch(e) {}
+}
+
+// ── Param gate: show tailored intro in the gate screen (no password) ──
+// Called when a visitor arrives with a valid ?ref= param and no prior auth.
+function setupParamGate(ref) {
+  const tailored = TAILORED[ref];
+
+  // Save auth & experience so session restore works on return visits
+  try {
+    localStorage.setItem('ldg-auth', '1');
+    localStorage.setItem('ldg-experience', ref);
+  } catch(e) {}
+
+  // Hide password block, reveal param content
+  const pwBlock = document.getElementById('gateInputRow').closest('div');
+  if (pwBlock) pwBlock.hidden = true;
+
+  const paramEl = document.getElementById('gateParamContent');
+  paramEl.removeAttribute('hidden');
+
+  // Populate copy
+  document.getElementById('gateParamGreeting').textContent = tailored.greeting;
+  document.getElementById('gateParamBody').innerHTML =
+    tailored.body.split('\n\n').map(p => p.replace(/\n/g, ' ')).join('<br><br>');
+
+  // Stagger in text blocks then buttons
+  const blocks = paramEl.querySelectorAll('.landing-text-block');
+  blocks.forEach((b, i) => setTimeout(() => b.classList.add('visible'), 200 + i * 150));
+  setTimeout(() => paramEl.querySelector('.landing-btns').classList.add('visible'), 600);
+}
+
 // ── Gate logic ─────────────────────────────────────────────────
 function setupGate() {
+  const resetBtn = document.getElementById('resetBtn');
+
+  // Param mode: ?ref= links bypass the password field and show tailored intro directly
+  const paramRef = new URLSearchParams(window.location.search).get('ref');
+  if (paramRef && TAILORED[paramRef.toLowerCase()] && localStorage.getItem('ldg-auth') !== '1') {
+    setupParamGate(paramRef.toLowerCase());
+    setupGateFloat(resetBtn);
+    return;
+  }
+
   const input    = document.getElementById('gatePwInput');
   const btn      = document.getElementById('gateGoBtn');
   const row      = document.getElementById('gateInputRow');
   const errEl    = document.getElementById('gateError');
-  const resetBtn = document.getElementById('resetBtn');
 
   function showShake() {
     row.classList.remove('shake');
@@ -137,7 +210,7 @@ function setupGate() {
       url.searchParams.set('ref', experience);
     }
     window.history.replaceState({}, '', url);
-    showScreen('screenLanding');
+    pushToLanding();
     setupLanding();
   }
 
