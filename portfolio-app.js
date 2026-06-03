@@ -51,13 +51,7 @@ function _rgbToHex(rgb) {
 }
 
 // ── Tailored landing config ────────────────────────────────────
-const TAILORED = {
-  lattice: {
-    greeting: "Hello, Lattice team.",
-    body: "I'm Dante. I'm a Product Designer with over a decade building the tools people use to do their best work.\n\nLattice sits exactly at the intersection I love -- complex systems, real human needs, and the org-level trust that makes or breaks both.",
-    jd: "Staff Product Designer — Core UI\nLattice\n\nDesign and evolve Lattice's design system as a Staff Product Designer on the Core UI team. Lead cross-product design patterns, build scalable and responsive component systems, and drive cohesion across Lattice's product suite. Requires deep systems thinking, front-end fluency (CSS, HTML, React), experience governing design systems at scale, and mentorship of other designers. B2B SaaS, complex workflows, platform-level impact.",
-  },
-  five9: {
+const TAILORED = {  five9: {
     greeting: "Hello, Five9 team.",
     body: "I'm Dante. I've spent years building complex, data-rich applications for power users.\n\nDesign systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.",
     jd: "Senior Product Designer\nFive9\n\nShape the user experience of Five9's cloud contact center platform, advocating for Agent, Supervisor, and Admin personas. Lead design from concept to launch for complex, data-rich applications. Contribute to and maintain the design system, ensuring consistency across all products. Drive the \"one platform\" strategy to create a seamless, integrated experience. Mentor other designers.\n\n5+ years on complex, data-rich applications. Proficiency in Figma, Sketch, Adobe. Web and mobile design principles. User research and usability testing. Strong communication and collaboration.",
@@ -66,13 +60,7 @@ const TAILORED = {
     greeting: "Hey, Vye Health.",
     body: "I'm Dante. My healthcare software experience is on the clinical operations side — MEDHOST, building patient registration systems for front desk staff in real clinical settings. That work gave me a ground-level understanding of what healthcare software actually has to do: get out of the way fast, communicate clearly under pressure, and never be the reason something goes wrong.\n\nThe AI-native angle is the part I want to be working on. I've spent time designing systems where the hard problem isn't the capability — it's the trust. When does a clinician lean on what the AI produced? When do they override it? How does the interface communicate enough about what's happening that they can act with confidence? That handoff is a design problem. I'd like to help Vye solve it.",
     jd: "Product Designer — VyeOS\nVye Health\n\n0-to-1 design role building VyeOS: an AI-native operating system for private practices combining EHR, scheduling, billing, patient engagement, clinical intelligence, and AI copilot in a single platform. Work directly with founders, engineers, and clinicians. Design how AI agents function inside real medical workflows: chart prep, clinical documentation, patient communication, follow-ups, operational tasks, decision support. Core challenges: designing trust, orchestration, and human+AI collaboration in complex, data-dense clinical interfaces.",
-  },
-  patientpoint: {
-    greeting: "Hey, PatientPoint.",
-    body: "I'm Dante. I started in healthcare on the operational side — building patient registration software at MEDHOST for registrars and front desk staff in clinical settings. That work taught me what it means to design where errors carry real consequence and where the interface competes with the urgency of the actual work.\n\nPatientPoint is the patient-facing version of that problem: designing for people whose minds are already somewhere else, at the exact moment when the right information could change what they do next. That's a hard design brief. It's also exactly the kind of work I want to be doing.",
-    jd: "Lead Product Designer\nPatientPoint\n\nSenior IC and player-coach role owning design outcomes across product areas. Partner in the product triad to define problems, shape strategy, and influence roadmap — not just execute. Embed continuous discovery practices. Drive Figma workflow standards, Design QA, and developer handoff. Mentor designers. Scale design systems across teams. Integrate AI tools into design workflows. Connect design decisions to user and business outcomes.\n\n6+ years product design with shipped work. Continuous discovery experience (problem framing, hypothesis generation, validation). Advanced Figma proficiency including systems, prototyping, handoff. Design QA and engineering partnership. Front-end fluency (HTML, CSS, JS). Healthcare or health-tech experience a plus. Design systems scaling experience preferred.",
-  },
-};
+  },};
 
 // ── JD prefill helper ─────────────────────────────────────────
 function prefillFitJD(text) {
@@ -1948,72 +1936,6 @@ const THOUGHTS = {
       },
     ],
   },
-  'design-systems-that-last': {
-    kicker: 'Point of View',
-    title:  'What I\u2019ve learned building design systems that last',
-    dek: 'On governance, breaking patterns intentionally, and why the org chart matters more than the component library.',
-    sections: [
-      {
-        paragraphs: [
-          'Design systems are easy to start. The hard part is keeping them alive two years later, when the original team has turned over, the product has outgrown half the components, and three teams are quietly forking the button because \u201Cour use case is different.\u201D',
-          'I\u2019ve built systems from scratch, inherited systems mid-drift, and watched good systems die slow deaths from neglect. The lessons that stuck have almost nothing to do with tokens or components. They\u2019re about people, governance, and knowing when the system should bend.',
-        ],
-      },
-      {
-        heading: 'The org chart is the real architecture',
-        paragraphs: [
-          'Every design system inherits the shape of the organization that builds it. If the org is siloed, the system will be fragmented. If the org has unclear ownership, the system will have inconsistent adoption. You can have the cleanest component library in the world and still fail if the team structure doesn\u2019t support it.',
-          'At Marketo, when I founded Sky, one of the first things I did was audit how teams were organized \u2014 not how components were organized. Who owned what surfaces? Who made decisions about shared patterns? Where did authority actually live versus where the org chart said it lived?',
-          'That mapping told me more about what the system needed than any component audit ever could. The components came later. The governance model came first.',
-        ],
-      },
-      {
-        heading: 'Governance is a habit',
-        paragraphs: [
-          'The worst design systems I\u2019ve seen have beautiful governance documents that no one follows. The best ones have almost no documentation about governance, but everyone knows how decisions get made because the process is embedded in how the team already works.',
-          'With Sky, I democratized governance deliberately. Designers across product teams could propose patterns, challenge existing ones, and contribute directly. A federated model where ownership was distributed but standards were shared — replacing the bottleneck of a centralized request queue.',
-          'That\u2019s harder than it sounds. Federated governance means you need clear principles people can apply independently. You need to trust that a designer on the campaign tools team can make a sound call about a pattern without escalating it. And you need to be comfortable with the fact that sometimes they\u2019ll make a different call than you would \u2014 and that\u2019s fine, as long as the reasoning holds.',
-          'The 50+ component audit was about establishing a shared vocabulary. Once everyone could name the same pattern the same way, contribution became natural instead of forced.',
-        ],
-      },
-      {
-        heading: 'Break patterns on purpose',
-        paragraphs: [
-          'Consistency is the point of a design system, right up until it isn\u2019t.',
-          'The biggest mistake I see in mature systems is treating consistency as an absolute. It\u2019s a default. And defaults should be broken when there\u2019s a good enough reason \u2014 but only when the break is intentional, documented, and reversible.',
-          'At Marketo, there were moments where the right design for a specific product surface didn\u2019t fit the system. The temptation is always to force it \u2014 reshape the design to match the components. But sometimes the design is right and the system needs to stretch. The question is \u201Cshould it?\u201D',
-          'The distinction matters. Drift is when teams break patterns because they don\u2019t know the pattern exists, or because it\u2019s easier to build custom. Intentional deviation is when a team breaks a pattern because the user\u2019s context demands it, and they document why. One erodes the system. The other strengthens it, because now you have a signal about where the system needs to grow.',
-        ],
-      },
-      {
-        heading: 'Cross-product cohesion is a design problem',
-        paragraphs: [
-          'Components alone don\u2019t create cohesion. You can ship the same button, the same card, the same modal to every product surface and still end up with experiences that feel nothing alike.',
-          'Cohesion comes from shared interaction patterns, consistent information hierarchy, predictable navigation models, and aligned mental models across products. Those are design decisions.',
-          'This is where systems thinking pays off. Before touching any surface, I study how the pieces connect \u2014 not just within a product, but across them. How does a user\u2019s mental model shift when they move from one tool to another? Where do workflows cross product boundaries? Those seams are where cohesion either lives or dies.',
-          'At Marketo, the system\u2019s real value was that a user could move between products and feel like they were still in the same world. That\u2019s harder than matching hex values.',
-        ],
-      },
-      {
-        heading: 'Adoption is a design problem too',
-        paragraphs: [
-          'Getting to 100% adoption on Sky took a campaign. I treated internal adoption the same way I\u2019d treat a product launch. Who are the users (in this case, designers and engineers)? What are their objections? Where\u2019s the friction in adoption? What does the onboarding experience look like?',
-          'Most systems fail at adoption because they optimize for the system and forget about the people using it. Engineers don\u2019t care that your tokens are semantically named if the DX is painful. Designers won\u2019t use the Figma library if the component naming doesn\u2019t match how they think about the UI.',
-          'Adoption is the design problem hiding inside every design system.',
-        ],
-      },
-      {
-        heading: 'What I\u2019d bring to a platform team',
-        paragraphs: [
-          'If you\u2019re building a design system at a company with multiple product surfaces, complex workflows, and teams that need to move fast without breaking each other\u2019s work \u2014 that\u2019s the exact problem I\u2019ve spent the last decade learning how to solve.',
-          'I think in systems before I think in screens. I care about governance as much as I care about components. I\u2019ve shipped systems that achieved full adoption not because they were mandated, but because they were genuinely better than the alternative.',
-          'And I believe the best design systems are culture \u2014 a shared language that lets teams build coherently without coordinating on every detail.',
-          'That\u2019s the kind of work I\u2019m built for.',
-        ],
-      },
-    ],
-  },
-
 
 
 
@@ -2113,48 +2035,6 @@ const THOUGHTS = {
   },
 
 
-
-  'designing-at-the-moment-of-care': {
-    kicker: 'Point of View',
-    title:  'Designing at the moment of care',
-    dek: 'On building products for users whose minds are elsewhere — and what healthcare taught me about designing for the moments that matter most.',
-    sections: [
-      {
-        paragraphs: [
-          'Healthcare UX is a constraint, not just a category. Users arrive stressed, time-pressured, or frightened. The interface competes with everything they’re actually thinking about — which means every confusing moment costs more than it would anywhere else, and every piece of information that lands well has an outsized chance of changing what someone does next.',
-          'I’ve designed on both sides of the healthcare experience. At MEDHOST, I built patient registration software for registrars and front desk staff — clinical operations people whose job is moving patients through the system accurately and fast. The stakes were real: an input error has downstream consequences for care. At PatientPoint, the challenge flips: now the user is the patient, and the moment is the waiting room.',
-        ],
-      },
-      {
-        heading: 'The waiting room is not a neutral context',
-        paragraphs: [
-          'A patient sitting in a physician’s office is not browsing. They’re waiting — and waiting while anxious is a specific cognitive state. Attention is split. The mind runs ahead to the appointment. Content that requires effort to parse doesn’t get parsed.',
-          'Designing for that moment means designing for divided attention. Short over long. Visual over textual. Progressive disclosure over front-loading. The information hierarchy isn’t about what’s most important to the product — it’s about what’s most likely to land given where the user’s head actually is.',
-        ],
-      },
-      {
-        heading: 'Behavior change requires trust first',
-        paragraphs: [
-          'Health behavior change is one of the hardest design problems. People know they should exercise more, take their medication, schedule the follow-up. The knowing isn’t the problem. The interface’s job isn’t to inform — it’s to reduce the distance between knowing and doing.',
-          'That reduction only happens if the user trusts what they’re seeing. In a clinical setting, that trust is partly borrowed from the physician relationship. The product sits inside that trust, or it undermines it. Every design decision — the tone, the density, the source attribution, the visual credibility — is either reinforcing that borrowed trust or eroding it.',
-        ],
-      },
-      {
-        heading: 'Continuous discovery in clinical environments',
-        paragraphs: [
-          'Research in healthcare is harder than most domains. Access is constrained. Workflows are fragmented. Participants are busy and their context shifts constantly. But it’s also where the cost of assumption is highest. A product that’s been built on the wrong understanding of patient behavior isn’t just underperforming — it’s potentially failing the people it was built to help.',
-          'The discipline I’ve developed is building discovery into the workflow rather than treating it as a project phase. Small, fast, embedded. Prototype in the context where the product will live. Validate the assumption, not the artifact. That practice is harder to build in clinical environments, and more necessary.',
-        ],
-      },
-      {
-        heading: 'What I’d bring to PatientPoint',
-        paragraphs: [
-          'I’ve designed for healthcare from the inside — the registration desk, the clinical workflow, the operational infrastructure. I understand what it means to design where the stakes are real and the user doesn’t have margin for confusion.',
-          'PatientPoint’s brief — behavior change at the moment of care, at scale across 30,000 physician offices — is one of the most meaningful design problems in health tech. I’d bring the craft, the systems thinking, and the healthcare-specific intuition to make that brief land.',
-        ],
-      },
-    ],
-  },
 
 
   'when-ai-does-the-work-and-humans-stay-accountable': {
@@ -2376,10 +2256,8 @@ function setupHiringManagerView() {
 
   // Map experience slug → which POV thought to surface
   const POV_MAP = {
-    lattice:   'design-systems-that-last',
     five9:     'designing-for-people-who-live-in-the-product',
     vyehealth:    'when-ai-does-the-work-and-humans-stay-accountable',
-    patientpoint: 'designing-at-the-moment-of-care',
   };
 
   const matchedId = POV_MAP[ref] || null;
@@ -2663,7 +2541,6 @@ function renderDSMode() {
     </div>`).join('');
 
   const SKY_PHASES = [
-    { name: 'Teal Horizon', slug: 'lattice',     bg: 'radial-gradient(ellipse 80% 60% at 20% 80%,rgba(0,128,128,.5) 0%,transparent 70%),linear-gradient(160deg,#001f1f 0%,#003d3d 50%,#001f1f 100%)' },
     { name: 'Crimson',      slug: 'five9',       bg: 'radial-gradient(ellipse 80% 60% at 30% 70%,rgba(230,30,30,.35) 0%,transparent 70%),linear-gradient(160deg,#100000 0%,#1a0505 50%,#100000 100%)' },
   ];
   const skyHTML = SKY_PHASES.map(p => `
