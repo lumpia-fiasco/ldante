@@ -283,6 +283,7 @@ function setupParamGate(ref) {
     localStorage.setItem('ldg-auth', '1');
     localStorage.setItem('ldg-experience', ref);
   } catch(e) {}
+  showExitBtn();
 
   // Hide password block
   const pwBlock = document.getElementById('gateInputRow').closest('div');
@@ -339,6 +340,7 @@ function setupGate() {
       url.searchParams.set('ref', experience);
     }
     window.history.replaceState({}, '', url);
+    showExitBtn();
     pushToLanding();
     setupLanding();
   }
@@ -381,6 +383,11 @@ function setupGate() {
 
   // Float letters on gate hero
   setupGateFloat(resetBtn);
+}
+
+// ── Exit button (clears session, returns to gate) ────────────────
+function showExitBtn() {
+  document.getElementById('exitBtn').classList.add('visible');
 }
 
 // ── Floating letter sandbox ─────────────────────────────────────
@@ -3159,6 +3166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedRole   = localStorage.getItem('ldg-role');
 
     if (hasAuth) {
+      showExitBtn();
       // Re-inject the ref param so setupLanding resolves the right config
       const url = new URL(window.location.href);
       if (savedExp && savedExp !== 'standard') {
@@ -3179,4 +3187,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   } catch(e) {} // end session restore
+
+  // Exit button — clears session and returns to the gate
+  document.getElementById('exitBtn').addEventListener('click', () => {
+    try {
+      localStorage.removeItem('ldg-auth');
+      localStorage.removeItem('ldg-experience');
+      localStorage.removeItem('ldg-screen');
+      localStorage.removeItem('ldg-role');
+    } catch(e) {}
+    window.location.replace('/');
+  });
 });
