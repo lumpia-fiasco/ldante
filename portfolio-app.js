@@ -544,9 +544,9 @@ function setupLanding() {
   if (hmBack) {
     const svg = hmBack.querySelector('svg').outerHTML;
     hmBack.innerHTML = tailored
-      ? svg + ' back to intro'
-      : svg + ' Select your experience';
-    hmBack.setAttribute('aria-label', tailored ? 'Back to intro' : 'Select your experience');
+      ? svg + ' Back to intro'
+      : svg + ' Back to intro';
+    hmBack.setAttribute('aria-label', 'Back to intro');
   }
 
   // Stagger in — only run the animation if btns aren't already visible
