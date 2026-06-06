@@ -390,130 +390,112 @@ function showExitBtn() {
   document.getElementById('exitBtn').classList.add('visible');
 }
 
-// ── Floating letter sandbox ─────────────────────────────────────
+// ── Draggable gate elements ──────────────────────────────────────
 function setupGateFloat(resetBtn) {
-  const hero = document.getElementById('gateHero');
-  if (!hero) return;
+  const SNAP_DUR = 1000;
 
-  // Split into float-letter spans
-  function splitText(el) {
-    const words = el.textContent.split(' ');
-    el.textContent = '';
-    words.forEach((word, wi) => {
-      const wrap = document.createElement('span');
-      wrap.className = 'float-word';
-      for (const ch of word) {
-        const s = document.createElement('span');
-        s.className = 'float-letter';
-        s.textContent = ch;
-        wrap.appendChild(s);
-      }
-      el.appendChild(wrap);
-      if (wi < words.length - 1) el.appendChild(document.createTextNode(' '));
-    });
-  }
-  splitText(hero);
-
-  const FLOAT = [];
-  document.querySelectorAll('#gateHero .float-letter').forEach((el, i) => {
-    FLOAT.push({ el, radius: 130, boost: 1.0, rotSign: (i % 2) ? 1 : -1, ox: 0, oy: 0, cx: 0, cy: 0 });
-  });
-
-  let cached = false;
-  function cachePositions() {
-    FLOAT.forEach(item => {
-      const prev = item.el.style.transform;
-      item.el.style.transform = 'none';
-      const r = item.el.getBoundingClientRect();
-      item.cx = r.left + r.width / 2;
-      item.cy = r.top  + r.height / 2;
-      item.el.style.transform = prev;
-    });
-    cached = true;
-  }
-  setTimeout(cachePositions, 100);
-  window.addEventListener('resize', () => { cached = false; setTimeout(cachePositions, 80); });
-
-  function rotFor(item) {
-    if (!item.rotSign) return 0;
-    const d = Math.sqrt(item.ox * item.ox + item.oy * item.oy);
-    return Math.min(d * 0.28, 52) * item.rotSign;
-  }
-  function applyTransform(item) {
-    item.el.style.transform = `translate(${item.ox.toFixed(1)}px,${item.oy.toFixed(1)}px) rotate(${rotFor(item).toFixed(1)}deg)`;
-  }
-
-  let mouseX = -9999, mouseY = -9999, prevX = -9999, prevY = -9999;
-  let resetActive = false;
-  let hasScattered = false;
-
-  function pushFromPoint(px, py, cx, cy) {
-    if (px < -9000) return;
-    const dmx = cx - px, dmy = cy - py;
-    if (!cached) cachePositions();
-    for (const item of FLOAT) {
-      const dx = cx - (item.cx + item.ox);
-      const dy = cy - (item.cy + item.oy);
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist >= item.radius) continue;
-      const t = Math.pow((item.radius - dist) / item.radius, 1.3);
-      const drag  = Math.min(t * 0.92, 0.78);
-      const nudge = t * 0.2;
-      const nx = dist > 1 ? dx/dist : 0;
-      const ny = dist > 1 ? dy/dist : 0;
-      item.ox += dmx * drag + nx * nudge;
-      item.oy += dmy * drag + ny * nudge;
-      applyTransform(item);
-    }
-  }
-
-  document.getElementById('screenGate').addEventListener('mousemove', e => {
-    if (resetActive) return;
-    pushFromPoint(prevX, prevY, e.clientX, e.clientY);
-    prevX = e.clientX; prevY = e.clientY;
-    const scattered = FLOAT.some(i => i.ox !== 0 || i.oy !== 0);
-    if (scattered !== hasScattered) {
-      hasScattered = scattered;
-      resetBtn.classList.toggle('visible', scattered);
-    }
-  });
-
-  // Touch support
-  let lastTouch = null;
-  document.getElementById('screenGate').addEventListener('touchmove', e => {
-    if (resetActive) return;
-    const t = e.touches[0];
-    const px = lastTouch ? lastTouch.clientX : -9999;
-    const py = lastTouch ? lastTouch.clientY : -9999;
-    pushFromPoint(px, py, t.clientX, t.clientY);
-    lastTouch = { clientX: t.clientX, clientY: t.clientY };
-  }, { passive: true });
-  document.getElementById('screenGate').addEventListener('touchend', () => { lastTouch = null; });
-
-  // Elastic reset
   function easeOutElastic(t) {
     if (t <= 0) return 0; if (t >= 1) return 1;
     const p = 0.42;
     return Math.pow(2, -10*t) * Math.sin((t - p/4) * (2*Math.PI) / p) + 1;
   }
-  resetBtn.addEventListener('click', () => {
-    const targets = FLOAT.filter(i => i.ox !== 0 || i.oy !== 0);
-    if (!targets.length || resetActive) return;
-    targets.forEach(i => { i._rsOx = i.ox; i._rsOy = i.oy; });
-    resetActive = true;
-    const DUR = 1100, t0 = performance.now();
-    function tick(now) {
-      const t = Math.min((now - t0) / DUR, 1);
-      const e = easeOutElastic(t);
-      for (const it of targets) { it.ox = it._rsOx*(1-e); it.oy = it._rsOy*(1-e); applyTransform(it); }
-      if (t < 1) { requestAnimationFrame(tick); }
-      else {
-        for (const it of targets) { it.ox = 0; it.oy = 0; delete it._rsOx; delete it._rsOy; applyTransform(it); }
-        resetActive = false; hasScattered = false; resetBtn.classList.remove('visible');
-      }
+
+  const items = [];
+
+  function makeDraggable(el) {
+    let active = false;
+    let sx = 0, sy = 0, sdx = 0, sdy = 0;
+    let dx = 0, dy = 0;
+    let rafId = null;
+
+    el.style.cursor = 'grab';
+    el.style.userSelect = 'none';
+    el.style.webkitUserSelect = 'none';
+    el.style.touchAction = 'none';
+
+    function applyTransform() {
+      el.style.transform = (dx || dy) ? `translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px)` : '';
     }
-    requestAnimationFrame(tick);
-  });
+
+    function startDrag(px, py) {
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      active = true;
+      sx = px; sy = py; sdx = dx; sdy = dy;
+      el.style.transition = 'none';
+      el.style.zIndex = '60';
+      el.style.cursor = 'grabbing';
+    }
+
+    function moveDrag(px, py) {
+      if (!active) return;
+      dx = sdx + (px - sx);
+      dy = sdy + (py - sy);
+      applyTransform();
+    }
+
+    function endDrag() {
+      if (!active) return;
+      active = false;
+      el.style.cursor = 'grab';
+      el.style.zIndex = '';
+      syncReset();
+    }
+
+    function snapToOrigin() {
+      const fromDX = dx, fromDY = dy;
+      if (!fromDX && !fromDY) return;
+      const t0 = performance.now();
+      function tick(now) {
+        const t = Math.min((now - t0) / SNAP_DUR, 1);
+        const e = easeOutElastic(t);
+        dx = fromDX * (1 - e);
+        dy = fromDY * (1 - e);
+        applyTransform();
+        if (t < 1) { rafId = requestAnimationFrame(tick); }
+        else { dx = 0; dy = 0; applyTransform(); rafId = null; syncReset(); }
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    el.addEventListener('mousedown', e => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
+    el.addEventListener('touchstart', e => { e.preventDefault(); startDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+
+    items.push({ moveDrag, endDrag, snapToOrigin, isActive: () => active, isDirty: () => !!(dx || dy) });
+  }
+
+  // Window-level pointer tracking (drag works past element edge)
+  window.addEventListener('mousemove', e => items.forEach(it => it.moveDrag(e.clientX, e.clientY)));
+  window.addEventListener('mouseup',   () => items.forEach(it => it.endDrag()));
+  window.addEventListener('touchmove', e => {
+    if (!items.some(it => it.isActive())) return;
+    const t = e.touches[0];
+    items.forEach(it => it.moveDrag(t.clientX, t.clientY));
+  }, { passive: true });
+  window.addEventListener('touchend', () => items.forEach(it => it.endDrag()));
+
+  function syncReset() {
+    resetBtn.classList.toggle('visible', items.some(it => it.isDirty()));
+  }
+
+  resetBtn.addEventListener('click', () => items.forEach(it => it.snapToOrigin()));
+
+  // ── Wire the draggable elements ─────────────────────────────────
+
+  // Logo
+  const logo = document.querySelector('#screenGate .ldg-logo');
+  if (logo) makeDraggable(logo);
+
+  // Each word in "I design systems"
+  const hero = document.getElementById('gateHero');
+  if (hero) {
+    const words = hero.textContent.trim().split(/\s+/);
+    hero.innerHTML = words.map(w => `<span class="drag-word">${w}</span>`).join(' ');
+    hero.querySelectorAll('.drag-word').forEach(w => makeDraggable(w));
+  }
+
+  // Password input + button as a unit
+  const inputRow = document.getElementById('gateInputRow');
+  if (inputRow) makeDraggable(inputRow);
 }
 
 // ── Landing (role picker) ───────────────────────────────────────
