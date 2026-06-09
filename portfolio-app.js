@@ -531,7 +531,7 @@ function setupLanding() {
   if (tailored) {
     if (hmBtn) hmBtn.textContent = 'Come on in';
   } else {
-    if (hmBtn) hmBtn.textContent = 'Hiring Manager / Designer';
+    if (hmBtn) hmBtn.textContent = 'View Case Studies';
   }
 
   // Update HM panel back button label
@@ -2674,7 +2674,7 @@ function renderDSMode() {
         <p class="ds-section-body">The primary interactive surface on the landing screen. Padding-based sizing scales responsively with no fixed height.</p>
         <div class="ds-canvas">
           <div style="display:flex;gap:16px;flex-wrap:wrap;">
-            <button class="role-btn" style="pointer-events:none;">Hiring Manager</button>
+            <button class="role-btn" style="pointer-events:none;">View Case Studies</button>
           </div>
         </div>
         <div class="ds-canvas-label">Default state</div>
