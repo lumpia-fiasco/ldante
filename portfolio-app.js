@@ -411,7 +411,12 @@ function setupGateFloat(resetBtn) {
     el.style.cursor = 'grab';
     el.style.userSelect = 'none';
     el.style.webkitUserSelect = 'none';
-    el.style.touchAction = 'none';
+    // Only block native touch scrolling on non-interactive containers.
+    // Leave touch-action alone if the element contains inputs/buttons
+    // so taps still register on those children.
+    if (!el.querySelector('input, button')) {
+      el.style.touchAction = 'none';
+    }
 
     function applyTransform() {
       el.style.transform = (dx || dy) ? `translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px)` : '';
@@ -457,8 +462,16 @@ function setupGateFloat(resetBtn) {
       rafId = requestAnimationFrame(tick);
     }
 
-    el.addEventListener('mousedown', e => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
-    el.addEventListener('touchstart', e => { e.preventDefault(); startDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+    el.addEventListener('mousedown', e => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+      e.preventDefault();
+      startDrag(e.clientX, e.clientY);
+    });
+    el.addEventListener('touchstart', e => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+      e.preventDefault();
+      startDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: false });
 
     items.push({ moveDrag, endDrag, snapToOrigin, isActive: () => active, isDirty: () => !!(dx || dy) });
   }
