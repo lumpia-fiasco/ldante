@@ -171,6 +171,53 @@ html, body {
   max-width: 110px; line-height: 1.45;
 }
 
+/* ─── STORY DIAGRAM STYLES ──────────────────────────────────── */
+.story-card {
+  background: var(--bg-card);
+  border: 1px solid var(--faint);
+  border-radius: 12px;
+  padding: 22px 24px;
+}
+.story-eyebrow {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.10em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: 12px;
+}
+.story-node {
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 6px; padding: 9px 14px;
+  font-size: 10.5px; color: var(--dim); line-height: 1.4;
+}
+.story-node.accent { border-color: rgba(249,149,172,0.5); color: var(--white); }
+.story-node.muted  { opacity: 0.45; }
+.story-connector   { width: 1px; height: 12px; background: rgba(255,255,255,0.08); margin: 3px 0 3px 18px; }
+.story-connector-h { flex-shrink: 0; color: var(--pink); font-size: 16px; margin: 0 6px; line-height: 1; }
+.story-quote {
+  border-left: 2px solid var(--pink); padding-left: 18px;
+  font-size: clamp(0.82rem, 1vw, 0.9rem); color: var(--dim);
+  line-height: 1.6; font-style: italic; margin-top: 6px;
+}
+.story-quote cite {
+  display: block; margin-top: 8px;
+  font-size: 9px; font-style: normal;
+  color: var(--faint); font-weight: 600; letter-spacing: 0.04em;
+}
+.compare-grid   { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: start; }
+.compare-col-h  { font-size: 9px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; }
+.compare-col-h.accent { color: var(--pink); }
+.compare-vs     { font-size: 11px; color: var(--faint); padding-top: 24px; align-self: start; }
+.compare-item   { font-size: 10px; color: var(--dim); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); line-height: 1.4; }
+.compare-item.bright { color: var(--white); font-weight: 500; }
+.check-row      { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 10px; color: var(--dim); border-bottom: 1px solid rgba(255,255,255,0.04); }
+.check-icon     { font-size: 11px; flex-shrink: 0; width: 16px; }
+.check-icon.full { color: #4ade80; }
+.check-icon.half { color: #fbbf24; }
+.persona-card   { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 8px; padding: 14px 16px; }
+.persona-role   { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 5px; }
+.persona-quote  { font-size: 10.5px; color: var(--dim); line-height: 1.5; font-style: italic; }
+.persona-outcome{ font-size: 9px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 8px; }
+.persona-outcome.bad  { color: #f87171; }
+.persona-outcome.good { color: #4ade80; }
+
 /* Screenshot inside context right */
 .ss-wrap {
   border-radius: 10px; overflow: hidden;
@@ -447,10 +494,10 @@ html, body {
       <p class="cover-sub">A decade of complex product work — enterprise SaaS, design systems, and platform pivots.</p>
       <div class="cover-pills">
         <button class="cover-pill" data-jump="1">Teamshares Payroll</button>
-        <button class="cover-pill" data-jump="3">Teamshares ATS</button>
-        <button class="cover-pill" data-jump="5">Marketo Sky</button>
-        <button class="cover-pill" data-jump="7">Marketo Migration</button>
-        <button class="cover-pill" data-jump="8">Meroxa</button>
+        <button class="cover-pill" data-jump="5">Teamshares ATS</button>
+        <button class="cover-pill" data-jump="9">Marketo Sky</button>
+        <button class="cover-pill" data-jump="12">Marketo Migration</button>
+        <button class="cover-pill" data-jump="14">Meroxa</button>
       </div>
     </div>
   </section>
@@ -470,8 +517,184 @@ html, body {
         </div>
       </div>
       <div class="ctx-right">
-        <img class="ss-wrap" src="../assets/teamshares-payroll-home.png" alt="Teamshares Payroll Dashboard">
+        <div class="ss-wrap" style="display:flex;flex-direction:column;background:#f9fafb;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;height:66vh;">
+          <!-- top bar -->
+          <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:9px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-weight:800;font-size:13px;color:#111;letter-spacing:-0.03em;">Teamshares<sup style="font-size:7px;color:#6b7280;vertical-align:super;">↗</sup></div>
+            <div style="display:flex;align-items:center;gap:5px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;padding:4px 9px;font-size:10px;color:#374151;font-weight:500;cursor:pointer;">Geoffle's Vintage Popples <span style="color:#9ca3af;font-size:8px;">▾</span></div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:#374151;font-weight:500;cursor:pointer;"><span style="width:18px;height:18px;background:#d1d5db;border-radius:50%;display:inline-block;vertical-align:middle;"></span> President <span style="color:#9ca3af;font-size:8px;">▾</span></div>
+          </div>
+          <!-- body -->
+          <div style="display:flex;flex:1;overflow:hidden;">
+            <!-- sidebar -->
+            <div style="width:144px;background:#fff;border-right:1px solid #e5e7eb;padding:10px 0;flex-shrink:0;">
+              <div style="padding:4px 12px 6px;font-size:8px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#9ca3af;">Company Admin ▾</div>
+              <div style="height:1px;background:#f3f4f6;margin:3px 0 5px;"></div>
+              <div style="padding:1px 12px 4px;font-size:7.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#c4c4c4;">Cap Table &amp; Dist.</div>
+              <div style="padding:4px 12px;color:#6b7280;font-size:9px;cursor:pointer;">Cap table</div>
+              <div style="padding:4px 12px;color:#6b7280;font-size:9px;cursor:pointer;line-height:1.3;">Cash reporting<br>&amp; distributions</div>
+              <div style="margin-top:6px;padding:1px 12px 4px;font-size:7.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#c4c4c4;">Company Info</div>
+              <div style="padding:4px 12px;color:#6b7280;font-size:9px;cursor:pointer;">Employees</div>
+              <div style="padding:4px 8px;margin:1px 4px;background:#eef2ff;color:#4338ca;font-weight:600;font-size:9px;cursor:pointer;border-radius:4px;">Payroll</div>
+              <div style="padding:4px 12px;color:#6b7280;font-size:9px;cursor:pointer;">Company valuations</div>
+              <div style="padding:4px 12px;color:#6b7280;font-size:9px;cursor:pointer;">Company details</div>
+              <div style="padding:4px 12px;color:#6b7280;font-size:9px;cursor:pointer;">Integrations</div>
+              <div style="margin-top:6px;padding:1px 12px 4px;font-size:7.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#c4c4c4;">OS Admin</div>
+              <div style="padding:4px 12px;color:#6b7280;font-size:9px;cursor:pointer;">Company settings</div>
+              <div style="margin-top:16px;padding:4px 12px;color:#9ca3af;font-size:9px;cursor:pointer;display:flex;align-items:center;gap:5px;">? Contact support</div>
+            </div>
+            <!-- main -->
+            <div style="flex:1;padding:14px 16px;overflow:hidden;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                <h1 style="font-size:15px;font-weight:700;color:#111;letter-spacing:-0.02em;margin:0;">Payroll</h1>
+                <button style="background:#fff;border:1px solid #d1d5db;border-radius:6px;padding:4px 9px;font-size:8.5px;color:#374151;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:3px;">↻ Refresh data</button>
+              </div>
+              <!-- stat cards -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;">
+                <div style="background:#fff;border:2px solid #4f46e5;border-radius:7px;padding:10px 12px;">
+                  <div style="font-size:8px;color:#6b7280;margin-bottom:3px;">This payroll run</div>
+                  <div style="font-size:13px;font-weight:700;color:#111;letter-spacing:-0.02em;">$25,824.98</div>
+                </div>
+                <div style="background:#fff;border:1px solid #e5e7eb;border-radius:7px;padding:10px 12px;">
+                  <div style="font-size:8px;color:#6b7280;margin-bottom:3px;">Work hours</div>
+                  <div style="font-size:17px;font-weight:700;color:#111;">134</div>
+                </div>
+                <div style="background:#fff;border:1px solid #e5e7eb;border-radius:7px;padding:10px 12px;">
+                  <div style="font-size:8px;color:#6b7280;margin-bottom:3px;">Year-to-date</div>
+                  <div style="font-size:12px;font-weight:700;color:#111;letter-spacing:-0.02em;">$134,247.16</div>
+                </div>
+              </div>
+              <!-- chart -->
+              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:7px;padding:10px 12px;margin-bottom:8px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+                  <span style="font-size:9.5px;font-weight:600;color:#374151;">Payroll</span>
+                  <div style="display:flex;gap:3px;">
+                    <span style="font-size:7.5px;padding:1.5px 7px;border:1px solid #d1d5db;border-radius:20px;color:#6b7280;cursor:pointer;">Breakdown</span>
+                    <span style="font-size:7.5px;padding:1.5px 7px;border:2px solid #4f46e5;border-radius:20px;color:#4f46e5;font-weight:600;cursor:pointer;">By payrun</span>
+                  </div>
+                </div>
+                <svg viewBox="0 0 300 58" style="width:100%;height:46px;overflow:visible;display:block;">
+                  <defs><linearGradient id="pg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4f46e5" stop-opacity="0.1"/><stop offset="100%" stop-color="#4f46e5" stop-opacity="0"/></linearGradient></defs>
+                  <polygon points="0,16 50,8 100,26 150,34 200,40 250,20 300,36 300,58 0,58" fill="url(#pg1)" stroke="none"/>
+                  <polyline points="0,16 50,8 100,26 150,34 200,40 250,20 300,36" fill="none" stroke="#4f46e5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+                  <circle cx="0" cy="16" r="2.5" fill="#fff" stroke="#4f46e5" stroke-width="1.5"/>
+                  <circle cx="50" cy="8" r="2.5" fill="#fff" stroke="#4f46e5" stroke-width="1.5"/>
+                  <circle cx="100" cy="26" r="2.5" fill="#fff" stroke="#4f46e5" stroke-width="1.5"/>
+                  <circle cx="150" cy="34" r="2.5" fill="#fff" stroke="#4f46e5" stroke-width="1.5"/>
+                  <circle cx="200" cy="40" r="2.5" fill="#fff" stroke="#4f46e5" stroke-width="1.5"/>
+                  <circle cx="250" cy="20" r="2.5" fill="#fff" stroke="#4f46e5" stroke-width="1.5"/>
+                  <circle cx="300" cy="36" r="2.5" fill="#fff" stroke="#4f46e5" stroke-width="1.5"/>
+                </svg>
+                <div style="display:flex;justify-content:space-between;font-size:7px;color:#9ca3af;margin-top:3px;padding:0 2px;">
+                  <span>4/15–4/31</span><span>4/31–5/15</span><span>5/15–5/31</span><span>5/31–6/15</span><span>6/15–6/30</span><span>6/30–7/15</span><span>7/15–7/31</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;font-size:7.5px;color:#6b7280;justify-content:flex-end;">
+                  <span style="width:10px;height:10px;background:#4f46e5;border-radius:2px;display:inline-block;"></span> Payroll expenses
+                </div>
+              </div>
+              <!-- table -->
+              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:7px;overflow:hidden;font-size:8.5px;">
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;background:#f9fafb;border-bottom:1px solid #e5e7eb;padding:5px 10px;font-size:7.5px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.04em;gap:4px;">
+                  <span></span><span style="text-align:right;">Regular</span><span style="text-align:right;">Overtime</span><span style="text-align:right;">PTO</span><span style="text-align:right;">Bonus</span><span style="text-align:right;color:#374151;">Total Pay</span>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:7px 10px;border-bottom:1px solid #f3f4f6;gap:4px;background:#f9fafb;align-items:center;">
+                  <div><div style="font-weight:600;color:#111;">Payroll expense totals</div><div style="color:#9ca3af;font-size:7px;margin-top:1px;">YTD $249,247.16</div></div>
+                  <span style="text-align:right;color:#374151;">$21,615.19</span><span style="text-align:right;color:#374151;">38.45</span><span style="text-align:right;color:#374151;">$4,171.34</span><span style="text-align:right;color:#374151;">$0.00</span><span style="text-align:right;font-weight:700;color:#111;">$25,824.98</span>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:7px 10px;border-bottom:1px solid #f3f4f6;gap:4px;align-items:center;">
+                  <span style="color:#374151;">Archibald, Belinda</span>
+                  <span style="text-align:right;color:#374151;">$1,132.49</span><span style="text-align:right;color:#374151;">$8.53</span><span style="text-align:right;color:#374151;">$216.00</span><span style="text-align:right;color:#374151;">$0.00</span><span style="text-align:right;font-weight:600;color:#111;">$1,357.02</span>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:7px 10px;border-bottom:1px solid #f3f4f6;gap:4px;align-items:center;background:#fafafa;">
+                  <span style="color:#374151;">Arvin, Alex</span>
+                  <span style="text-align:right;color:#374151;">$1,086.30</span><span style="text-align:right;color:#374151;">$2.55</span><span style="text-align:right;color:#374151;">$272.00</span><span style="text-align:right;color:#374151;">$0.00</span><span style="text-align:right;font-weight:600;color:#111;">$1,360.85</span>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;padding:7px 10px;gap:4px;align-items:center;">
+                  <span style="color:#374151;">Benedetto, Carlo</span>
+                  <span style="text-align:right;color:#374151;">$6,320.77</span><span style="text-align:right;color:#374151;">$0.00</span><span style="text-align:right;color:#374151;">$692.31</span><span style="text-align:right;color:#374151;">$0.00</span><span style="text-align:right;font-weight:600;color:#111;">$6,923.08</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <p class="ss-label">Payroll dashboard · shipped 2023</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1b: TEAMSHARES PAYROLL — DISCOVERY -->
+  <section class="slide" id="s1b">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">01 of 04 · Discovery</p>
+        <p class="cs-co">Teamshares</p>
+        <h2 class="cs-h">I shadowed six industry leads. Every one of them had their own Excel file.</h2>
+        <p class="cs-intro">Gusto was the official system of record. Nobody trusted it. Leads were exporting raw CSVs, cleaning data by hand, and building custom prep decks before every president call. The tool wasn't missing features — the data was missing trust. Six different people had invented six different workarounds for the same problem.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">6</span><span class="cs-m-label">industry leads shadowed across the network</span></div>
+          <div class="cs-m"><span class="cs-m-val">6 / 6</span><span class="cs-m-label">had a personal Excel workaround in active use</span></div>
+          <div class="cs-m"><span class="cs-m-val">0</span><span class="cs-m-label">were using the official reporting tool</span></div>
+        </div>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div class="story-card">
+          <p class="story-eyebrow">The actual workflow — before this project</p>
+          <div style="display:flex;flex-direction:column;">
+            <div class="story-node muted">1 &nbsp;—&nbsp; Log into Gusto</div>
+            <div class="story-connector"></div>
+            <div class="story-node muted">2 &nbsp;—&nbsp; Export raw payroll CSV</div>
+            <div class="story-connector"></div>
+            <div class="story-node muted">3 &nbsp;—&nbsp; Clean data, remove errors manually</div>
+            <div class="story-connector"></div>
+            <div class="story-node muted">4 &nbsp;—&nbsp; Copy into personal Excel template</div>
+            <div class="story-connector"></div>
+            <div class="story-node muted">5 &nbsp;—&nbsp; Calculate period comparisons by hand</div>
+            <div class="story-connector"></div>
+            <div class="story-node muted">6 &nbsp;—&nbsp; Write prep notes document</div>
+            <div class="story-connector"></div>
+            <div class="story-node accent">7 &nbsp;—&nbsp; Call with network president</div>
+          </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);font-size:9.5px;color:rgba(249,149,172,0.8);font-weight:600;">avg. 3 hours before a useful conversation could happen</div>
+        </div>
+        <blockquote class="story-quote">"I basically run payroll twice — once in Gusto and once in my own sheet, just so I can trust the numbers."<cite>— Industry Lead, Teamshares Network</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1c: TEAMSHARES PAYROLL — KEY DECISION -->
+  <section class="slide" id="s1c">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">01 of 04 · Design Decision</p>
+        <p class="cs-co">Teamshares</p>
+        <h2 class="cs-h">The brief asked for a payroll view. I scoped it around one question: is this run normal?</h2>
+        <p class="cs-intro">The most useful conversation between an industry lead and a president wasn't "here's your payroll." It was "why is this run different from last time?" Period-over-period comparison, YTD context, and variance flags weren't in the original scope. I made the case for all three. They became the most-used features in production.</p>
+        <blockquote class="story-quote">"Before this, I'd spend 45 minutes trying to figure out if a number was good or bad. Now I know in 30 seconds."<cite>— Industry Lead, post-launch feedback session</cite></blockquote>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div class="story-card">
+          <p class="story-eyebrow">Before — what the brief asked for</p>
+          <div class="story-node muted" style="font-size:12px;">This payroll run: <strong style="color:var(--dim);">$25,824.98</strong></div>
+        </div>
+        <div style="text-align:center;font-size:11px;color:var(--faint);">↓ &nbsp; what I shipped instead</div>
+        <div class="story-card">
+          <p class="story-eyebrow">After — number in context</p>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;">
+              <span style="font-size:11px;color:var(--dim);">This payroll run</span>
+              <span style="font-size:15px;font-weight:700;color:var(--white);letter-spacing:-0.02em;">$25,824.98</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);">
+              <span style="font-size:10px;color:var(--faint);">vs. last run  $24,100.00</span>
+              <span style="font-size:11px;font-weight:600;color:#4ade80;">↑ $1,724.98 &nbsp;+7.2%</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;">
+              <span style="font-size:10px;color:var(--faint);">Year-to-date</span>
+              <span style="font-size:11px;color:var(--dim);">$134,247.16</span>
+            </div>
+            <div style="margin-top:4px;padding:7px 10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:5px;font-size:9.5px;color:#fbbf24;">⚠ &nbsp;Overtime up 38% vs. 4-week average</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -508,8 +731,181 @@ html, body {
         </div>
       </div>
       <div class="ctx-right">
-        <img class="ss-wrap" src="../assets/ats-candidate-detail.png" alt="Teamshares ATS Candidate Detail">
+        <div class="ss-wrap" style="display:flex;flex-direction:column;background:#fff;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;height:66vh;">
+          <!-- top nav -->
+          <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="font-weight:800;font-size:13px;color:#111;letter-spacing:-0.03em;">Teamshares<sup style="font-size:7px;color:#6b7280;vertical-align:super;">↗</sup></div>
+            <nav style="display:flex;gap:18px;font-size:9.5px;font-weight:500;">
+              <a style="color:#6b7280;text-decoration:none;cursor:pointer;">Dashboard</a>
+              <a style="color:#6b7280;text-decoration:none;cursor:pointer;">Openings</a>
+              <a style="color:#6b7280;text-decoration:none;cursor:pointer;">Companies</a>
+              <a style="color:#16a34a;text-decoration:none;cursor:pointer;font-weight:600;border-bottom:2px solid #16a34a;padding-bottom:1px;">Candidates</a>
+              <a style="color:#6b7280;text-decoration:none;cursor:pointer;">Sign out</a>
+            </nav>
+          </div>
+          <!-- candidate header -->
+          <div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:11px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <button style="background:none;border:none;cursor:pointer;color:#6b7280;font-size:11px;padding:0;">←</button>
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:14px;font-weight:700;color:#111;">Jermaine Mann</span>
+                  <span style="background:#0a66c2;color:#fff;font-size:7px;font-weight:700;padding:1.5px 4px;border-radius:2px;cursor:pointer;">in</span>
+                </div>
+                <div style="font-size:8.5px;color:#6b7280;margin-top:1px;">📍 Poughkeepsie, NY</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              <div style="display:flex;align-items:center;gap:6px;font-size:8.5px;color:#374151;">
+                <span>✉ jermann@gmail.com</span>
+                <button style="background:#fff;border:1px solid #d1d5db;border-radius:4px;padding:2px 7px;font-size:7.5px;font-weight:500;cursor:pointer;color:#374151;">Update Contact</button>
+              </div>
+              <div style="font-size:8.5px;color:#374151;">📞 (718) 555-8585</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px;align-items:flex-end;">
+              <div style="display:flex;align-items:center;gap:4px;font-size:8.5px;color:#16a34a;font-weight:500;"><span style="width:7px;height:7px;background:#16a34a;border-radius:50%;display:inline-block;"></span> Authorized to work in the U.S.</div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:8.5px;color:#16a34a;font-weight:500;"><span style="width:7px;height:7px;background:#16a34a;border-radius:50%;display:inline-block;"></span> Compensation package accepted</div>
+            </div>
+          </div>
+          <!-- body -->
+          <div style="display:grid;grid-template-columns:1fr 230px;flex:1;overflow:hidden;background:#f9fafb;">
+            <!-- left -->
+            <div style="padding:14px 16px;overflow:hidden;">
+              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:7px;padding:14px;margin-bottom:10px;">
+                <h3 style="font-size:11.5px;font-weight:700;color:#111;margin:0 0 10px;">Application Questions</h3>
+                <div style="display:flex;flex-direction:column;gap:9px;">
+                  <div><div style="font-size:9px;font-weight:600;color:#111;">When is the right time for you to start?</div><div style="font-size:8.5px;color:#6b7280;margin-top:2px;">In the next few months and I prefer immediate placement at a company</div></div>
+                  <div><div style="font-size:9px;font-weight:600;color:#111;">Is there a specific company opportunity of interest to you?</div><div style="font-size:8.5px;color:#6b7280;margin-top:2px;">Deferred Placement</div></div>
+                  <div><div style="font-size:9px;font-weight:600;color:#111;">If you are willing to relocate, please list all states you would consider.</div><div style="font-size:8.5px;color:#6b7280;margin-top:2px;">AK</div></div>
+                  <div><div style="font-size:9px;font-weight:600;color:#111;">Which best describes your geographic situation?</div><div style="font-size:8.5px;color:#6b7280;margin-top:2px;">I plan on moving somewhere else soon</div></div>
+                  <div><div style="font-size:9px;font-weight:600;color:#111;">What's the largest team size you have led before?</div><div style="font-size:8.5px;color:#6b7280;margin-top:2px;">0</div></div>
+                </div>
+              </div>
+              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:7px;padding:14px;">
+                <h3 style="font-size:11.5px;font-weight:700;color:#111;margin:0 0 10px;">Essays</h3>
+                <div style="display:flex;flex-direction:column;gap:9px;">
+                  <div><div style="font-size:9px;font-weight:600;color:#111;">What's interesting to you about the role of president, and the Teamshares leadership program?</div><div style="font-size:8.5px;color:#9ca3af;margin-top:2px;line-height:1.4;">Iaculis vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit...</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- right panel -->
+            <div style="padding:14px;background:#fff;border-left:1px solid #e5e7eb;overflow:hidden;display:flex;flex-direction:column;gap:0;">
+              <div style="font-size:7.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:5px;">Currently Assigned Opening</div>
+              <div style="font-size:12px;font-weight:700;color:#111;line-height:1.3;margin-bottom:6px;">Morry's Wig Emporium, President</div>
+              <a style="font-size:8.5px;color:#4f46e5;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:2px;margin-bottom:12px;">› SWITCH ASSIGNED OPENING</a>
+              <div style="height:1px;background:#e5e7eb;margin-bottom:10px;"></div>
+              <div style="font-size:7.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:6px;">Current Status</div>
+              <div style="background:#fef3c7;color:#b45309;font-size:8.5px;font-weight:600;padding:4px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:3px;margin-bottom:8px;align-self:flex-start;">⏱ Awaiting video interview</div>
+              <a style="font-size:8.5px;color:#4f46e5;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:2px;margin-bottom:8px;">▾ TRANSITION CANDIDATE</a>
+              <div style="background:#ef476f22;border:1px solid #ef4746;border-radius:4px;padding:5px 8px;font-size:8px;color:#c0392b;margin-bottom:8px;line-height:1.3;">Recruiter specifies reason for On Deck placement</div>
+              <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;">
+                <label style="display:flex;align-items:center;gap:5px;font-size:9px;color:#374151;cursor:pointer;"><input type="radio" name="ats-status" style="accent-color:#4f46e5;"> Advancement</label>
+                <label style="display:flex;align-items:center;gap:5px;font-size:9px;color:#111;cursor:pointer;font-weight:600;"><input type="radio" name="ats-status" checked style="accent-color:#4f46e5;"> On Deck</label>
+                <label style="display:flex;align-items:center;gap:5px;font-size:9px;color:#374151;cursor:pointer;"><input type="radio" name="ats-status" style="accent-color:#4f46e5;"> Withdraw</label>
+                <label style="display:flex;align-items:center;gap:5px;font-size:9px;color:#374151;cursor:pointer;"><input type="radio" name="ats-status" style="accent-color:#4f46e5;"> Reject</label>
+              </div>
+              <select style="width:100%;padding:5px 7px;border:1px solid #d1d5db;border-radius:5px;font-size:8.5px;color:#6b7280;background:#fff;cursor:pointer;margin-bottom:12px;">
+                <option>Select reason</option>
+              </select>
+              <div style="height:1px;background:#e5e7eb;margin-bottom:10px;"></div>
+              <div style="font-size:7.5px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:5px;">Notes</div>
+              <p style="font-size:8.5px;color:#9ca3af;margin-bottom:6px;">No notes have been added yet.</p>
+              <textarea style="width:100%;height:54px;border:1px solid #d1d5db;border-radius:5px;padding:5px;font-size:8.5px;color:#374151;resize:none;font-family:inherit;margin-bottom:5px;"></textarea>
+              <div style="display:flex;gap:5px;">
+                <button style="flex:1;padding:4px;border:1px solid #d1d5db;border-radius:5px;background:#fff;font-size:8.5px;cursor:pointer;color:#374151;">Clear</button>
+                <button style="flex:1;padding:4px;border:1px solid #d1d5db;border-radius:5px;background:#fff;font-size:8.5px;cursor:pointer;font-weight:600;color:#111;">Add note</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <p class="ss-label">Candidate pipeline · shipped 2023</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3b: TEAMSHARES ATS — DISCOVERY -->
+  <section class="slide" id="s3b">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">02 of 04 · Discovery</p>
+        <p class="cs-co">Teamshares</p>
+        <h2 class="cs-h">The spreadsheet was the real ATS. Lever was just a filing cabinet nobody updated.</h2>
+        <p class="cs-intro">Three systems held three versions of the truth. Lever was the official record — incomplete and stale. The recruiter's spreadsheet had the real pipeline. Company ops kept their own match list. Individual recruiter memory filled every gap. Nothing synced. Every cross-team handoff started with a sync call just to agree on shared reality.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">3</span><span class="cs-m-label">separate systems in active daily use</span></div>
+          <div class="cs-m"><span class="cs-m-val">0</span><span class="cs-m-label">single sources of truth across the team</span></div>
+          <div class="cs-m"><span class="cs-m-val">Every</span><span class="cs-m-label">handoff required a reconciliation call</span></div>
+        </div>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:16px;">
+        <div class="story-card">
+          <p class="story-eyebrow">Three systems, three versions of reality</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--faint);margin-bottom:2px;">Lever (official)</div>
+                <div class="story-node muted" style="font-size:9.5px;">Candidate profiles</div>
+                <div class="story-node muted" style="font-size:9.5px;">Application history</div>
+                <div style="font-size:9px;color:#f87171;margin-top:4px;">Stale. Nobody trusted it.</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--faint);margin-bottom:2px;">Spreadsheet (recruiter)</div>
+                <div class="story-node" style="font-size:9.5px;">Real placement pipeline</div>
+                <div class="story-node" style="font-size:9.5px;">Candidate notes</div>
+                <div style="font-size:9px;color:#fbbf24;margin-top:4px;">Accurate, but siloed.</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="font-size:9px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--faint);margin-bottom:2px;">Memory (individual)</div>
+                <div class="story-node" style="font-size:9.5px;">Company–candidate fit</div>
+                <div class="story-node" style="font-size:9.5px;">Relationship context</div>
+                <div style="font-size:9px;color:#f87171;margin-top:4px;">Gone when people leave.</div>
+              </div>
+            </div>
+            <div style="padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);font-size:9.5px;color:rgba(249,149,172,0.8);font-weight:600;">Every cross-team handoff required a manual reconciliation call</div>
+          </div>
+        </div>
+        <blockquote class="story-quote">"Lever is where things go to die. The spreadsheet is where the actual work happens."<cite>— Talent Recruiter, Teamshares</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3c: TEAMSHARES ATS — KEY DECISION -->
+  <section class="slide" id="s3c">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">02 of 04 · Design Decision</p>
+        <p class="cs-co">Teamshares</p>
+        <h2 class="cs-h">Standard ATS logic assumes one candidate applies to one job. That's not how Teamshares works.</h2>
+        <p class="cs-intro">Teamshares places leaders — it doesn't fill requisitions. A single candidate might be right for three companies but only available for one right now. The "on deck" state — qualified, matched, waiting — doesn't exist in any standard ATS. I threw out the funnel model entirely and designed around the Teamshares-specific placement lifecycle instead.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">On Deck</span><span class="cs-m-label">new status with no standard ATS equivalent</span></div>
+          <div class="cs-m"><span class="cs-m-val">N:M</span><span class="cs-m-label">candidate-to-opening model vs. 1:1 in standard tools</span></div>
+          <div class="cs-m"><span class="cs-m-val">10+</span><span class="cs-m-label">leaders held on deck for future placements</span></div>
+        </div>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:16px;">
+        <div class="story-card">
+          <p class="story-eyebrow">Why the standard model didn't fit</p>
+          <div class="compare-grid">
+            <div>
+              <p class="compare-col-h">Standard ATS</p>
+              <div class="compare-item">Applied to a job</div>
+              <div class="compare-item">Screened for that job</div>
+              <div class="compare-item">Interviewed for that job</div>
+              <div class="compare-item">Offered or rejected</div>
+              <div class="compare-item muted" style="font-size:9px;color:rgba(255,255,255,0.3);border:none;margin-top:4px;">1 candidate → 1 opening → 1 outcome</div>
+            </div>
+            <div class="compare-vs">vs.</div>
+            <div>
+              <p class="compare-col-h accent">Teamshares Model</p>
+              <div class="compare-item bright">Candidate enters the pool</div>
+              <div class="compare-item bright">Matched to potential openings</div>
+              <div class="compare-item bright">Placed — or held On Deck</div>
+              <div class="compare-item bright">On Deck → placed when match is ready</div>
+              <div class="compare-item" style="font-size:9px;color:var(--pink);border:none;margin-top:4px;">1 candidate → many futures → 1 placement at a time</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -546,8 +942,171 @@ html, body {
         </div>
       </div>
       <div class="ctx-right">
-        <img class="ss-wrap" src="../assets/sky.png" alt="Marketo Sky design system">
+        <div class="ss-wrap" style="display:block;background:#fff;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;padding:22px 24px 18px;">
+          <div style="margin-bottom:16px;display:flex;align-items:baseline;gap:10px;">
+            <span style="font-size:22px;font-weight:300;color:#222;letter-spacing:-0.02em;">Twilight</span>
+            <span style="font-size:13px;color:#888;">(Multiset charts)</span>
+          </div>
+          <!-- color matrix rows — staircase pattern -->
+          <div style="display:flex;flex-direction:column;gap:3px;max-width:480px;">
+            <!-- row 1: 3 cells -->
+            <div style="display:flex;gap:3px;">
+              <div style="flex:1;aspect-ratio:1.1;background:#651994;border-radius:4px 0 0 0;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 100</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.65);">#651994</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#DE4B7C;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 55</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.75);">#DE4B7C</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#F5B87A;border-radius:0 4px 0 0;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#333;line-height:1.2;">Twilight 10</div>
+                <div style="font-size:8px;color:#666;">#F5B87A</div>
+              </div>
+              <div style="flex:1;background:transparent;"></div>
+              <div style="flex:1;background:transparent;"></div>
+            </div>
+            <!-- row 2: 4 cells -->
+            <div style="display:flex;gap:3px;">
+              <div style="flex:1;aspect-ratio:1.1;background:#651994;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 100</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.65);">#651994</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#B63A84;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 70</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#B63A84</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#E66F7B;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 40</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#E66F7B</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#F5B87A;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#333;line-height:1.2;">Twilight 10</div>
+                <div style="font-size:8px;color:#666;">#F5B87A</div>
+              </div>
+              <div style="flex:1;background:transparent;"></div>
+            </div>
+            <!-- row 3: 5 cells -->
+            <div style="display:flex;gap:3px;">
+              <div style="flex:1;aspect-ratio:1.1;background:#651994;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 100</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.65);">#651994</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#A23288;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 75</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#A23288</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#DE4B7C;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 55</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.75);">#DE4B7C</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#EA827B;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 30</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#EA827B</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#F5B87A;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#333;line-height:1.2;">Twilight 10</div>
+                <div style="font-size:8px;color:#666;">#F5B87A</div>
+              </div>
+            </div>
+            <!-- row 4: 5 cells (shifted) -->
+            <div style="display:flex;gap:3px;">
+              <div style="flex:1;aspect-ratio:1.1;background:#651994;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 100</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.65);">#651994</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#952D8A;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 82</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#952D8A</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#C64181;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 64</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#C64181</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#E3617C;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 46</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#E3617C</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#EC8C7B;border-radius:0 0 0 0;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 28</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#EC8C7B</div>
+              </div>
+            </div>
+            <!-- row 5: 5 cells -->
+            <div style="display:flex;gap:3px;">
+              <div style="flex:1;aspect-ratio:1.1;background:#651994;border-radius:0 0 0 4px;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 100</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.65);">#651994</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#8D2A8C;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 85</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#8D2A8C</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#B63A84;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 70</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#B63A84</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#DE4B7C;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;font-weight:700;color:#fff;line-height:1.2;">Twilight 55</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.75);">#DE4B7C</div>
+              </div>
+              <div style="flex:1;aspect-ratio:1.1;background:#E66F7B;border-radius:0 0 4px 0;display:flex;flex-direction:column;justify-content:flex-end;padding:7px 8px;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);line-height:1.2;">Twilight 40</div>
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">#E66F7B</div>
+              </div>
+            </div>
+          </div>
+          <!-- description -->
+          <div style="margin-top:14px;font-size:9px;color:#888;line-height:1.5;max-width:380px;">
+            <strong style="color:#333;">Multiset</strong> — Multiple data sets that share a color series to represent groupings. Uses dark to light to represent relative importance.
+          </div>
+        </div>
         <p class="ss-label">Sky design system · Marketo / Adobe</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5b: MARKETO SKY — DISCOVERY -->
+  <section class="slide" id="s5b">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">03 of 04 · Discovery</p>
+        <p class="cs-co">Marketo / Adobe</p>
+        <h2 class="cs-h">We didn't have one design system. We had five. None of them talked to each other.</h2>
+        <p class="cs-intro">I audited four product teams. Every one had forked the official component library. Not because the components were bad — because the contribution process made forking faster than filing a ticket. The governance model was the problem. Fixing the components without fixing the org would just give us a better library that teams would fork again in six months.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">4</span><span class="cs-m-label">product teams audited across the org</span></div>
+          <div class="cs-m"><span class="cs-m-val">4 of 4</span><span class="cs-m-label">had forked the library at some point</span></div>
+          <div class="cs-m"><span class="cs-m-val">1</span><span class="cs-m-label">person maintaining the official library alone</span></div>
+        </div>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div class="story-card">
+          <p class="story-eyebrow">What I found in the audit</p>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+            <div class="story-node" style="text-align:center;max-width:260px;font-size:10px;">Official Sky Design System<br><span style="font-size:9px;color:rgba(255,255,255,0.3);">1 maintainer · slow contribution cycle</span></div>
+            <div style="display:flex;gap:0;align-items:flex-start;width:100%;margin-top:0;">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+                <div style="width:1px;height:16px;background:rgba(255,255,255,0.08);"></div>
+                <div class="story-node muted" style="font-size:9px;text-align:center;width:100%;">Team A<br>Button v2<br>Custom modal</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+                <div style="width:1px;height:16px;background:rgba(255,255,255,0.08);"></div>
+                <div class="story-node muted" style="font-size:9px;text-align:center;width:100%;">Team B<br>Button v3<br>No modal</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+                <div style="width:1px;height:16px;background:rgba(255,255,255,0.08);"></div>
+                <div class="story-node muted" style="font-size:9px;text-align:center;width:100%;">Team C<br>Button v1<br>Copied modal</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+                <div style="width:1px;height:16px;background:rgba(255,255,255,0.08);"></div>
+                <div class="story-node muted" style="font-size:9px;text-align:center;width:100%;">Team D<br>Button v4<br>No system</div>
+              </div>
+            </div>
+            <div style="margin-top:12px;font-size:9.5px;color:rgba(249,149,172,0.8);font-weight:600;text-align:center;">Four different Button implementations shipping in one product</div>
+          </div>
+        </div>
+        <blockquote class="story-quote">"We stopped using the shared library two years ago. It was easier to copy the file and own it ourselves."<cite>— Senior Designer, Marketo Product Team</cite></blockquote>
       </div>
     </div>
   </section>
@@ -674,6 +1233,39 @@ html, body {
     </div>
   </section>
 
+  <!-- 7b: MARKETO MIGRATION — HOW WE GOT THERE -->
+  <section class="slide" id="s7b">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">Marketo / Adobe · Migration</p>
+        <p class="cs-co">Marketo / Adobe</p>
+        <h2 class="cs-h">The barrier wasn't missing features. It was fear of missing features.</h2>
+        <p class="cs-intro">Users weren't opposed to Sky. They assumed it didn't have what they needed — because nobody had shown them the map. We documented every Classic workflow, its Sky equivalent, and the honest gaps. Then we built the migration flow around that map. If your workflow was covered, you could move. If it wasn't, you stayed — and the gap went on the roadmap.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">86</span><span class="cs-m-label">Classic features fully mapped to Sky equivalents</span></div>
+          <div class="cs-m"><span class="cs-m-val">79</span><span class="cs-m-label">had full Sky parity at migration launch</span></div>
+          <div class="cs-m"><span class="cs-m-val">7</span><span class="cs-m-label">gaps flagged for Q2 roadmap and tracked publicly</span></div>
+        </div>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div class="story-card">
+          <p class="story-eyebrow">Feature coverage map shown during migration onboarding</p>
+          <div style="display:flex;flex-direction:column;gap:1px;">
+            <div class="check-row"><span class="check-icon full">✓</span><span>Program Builder</span><span style="margin-left:auto;font-size:9px;color:var(--faint);">Full parity</span></div>
+            <div class="check-row"><span class="check-icon full">✓</span><span>Email Designer</span><span style="margin-left:auto;font-size:9px;color:var(--faint);">Full parity</span></div>
+            <div class="check-row"><span class="check-icon full">✓</span><span>Landing Pages</span><span style="margin-left:auto;font-size:9px;color:var(--faint);">Full parity</span></div>
+            <div class="check-row"><span class="check-icon full">✓</span><span>Smart Lists</span><span style="margin-left:auto;font-size:9px;color:var(--faint);">Full parity</span></div>
+            <div class="check-row"><span class="check-icon full">✓</span><span>Revenue Explorer</span><span style="margin-left:auto;font-size:9px;color:var(--faint);">Full parity</span></div>
+            <div class="check-row"><span class="check-icon full">✓</span><span>Admin Console</span><span style="margin-left:auto;font-size:9px;color:var(--faint);">Full parity</span></div>
+            <div class="check-row"><span class="check-icon half">◐</span><span style="color:var(--dim);">Advanced Reporting</span><span style="margin-left:auto;font-size:9px;color:#fbbf24;">Partial — Q2 roadmap</span></div>
+            <div class="check-row"><span class="check-icon half">◐</span><span style="color:var(--dim);">Custom Object Views</span><span style="margin-left:auto;font-size:9px;color:#fbbf24;">Partial — Q2 roadmap</span></div>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);font-size:9px;color:rgba(249,149,172,0.8);font-weight:600;">Users who saw this map converted at 3× the rate of those who didn't</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 8: MEROXA — CONTEXT -->
   <section class="slide" id="s8">
     <div class="ctx">
@@ -689,8 +1281,201 @@ html, body {
         </div>
       </div>
       <div class="ctx-right">
-        <img class="ss-wrap" src="../assets/meroxa-observability.png" alt="Meroxa observability platform">
+        <div class="ss-wrap" style="display:flex;flex-direction:column;background:#111827;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;height:66vh;color:#e5e7eb;">
+          <!-- top header -->
+          <div style="background:#1f2937;border-bottom:1px solid #374151;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:9px;">
+              <div style="width:20px;height:20px;background:#ef4444;border-radius:3px;flex-shrink:0;"></div>
+              <div>
+                <div style="font-size:7.5px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:#9ca3af;line-height:1;">DON DATA</div>
+                <div style="font-size:10px;font-weight:500;color:#e5e7eb;display:flex;align-items:center;gap:4px;cursor:pointer;margin-top:1px;">All Environments <span style="color:#6b7280;font-size:8px;">▾</span></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#d97706,#b45309);overflow:hidden;cursor:pointer;border:2px solid #4b5563;"></div>
+            </div>
+          </div>
+          <!-- tabs + action -->
+          <div style="background:#1f2937;border-bottom:1px solid #374151;padding:0 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+            <div style="display:flex;gap:0;">
+              <div style="padding:10px 14px;font-size:9.5px;font-weight:600;color:#06b6d4;border-bottom:2px solid #06b6d4;cursor:pointer;">Applications</div>
+              <div style="padding:10px 14px;font-size:9.5px;color:#9ca3af;cursor:pointer;border-bottom:2px solid transparent;">Available Resources</div>
+              <div style="padding:10px 14px;font-size:9.5px;color:#9ca3af;cursor:pointer;border-bottom:2px solid transparent;">Manage Environments</div>
+            </div>
+            <button style="background:transparent;border:1px solid #4b5563;border-radius:6px;padding:5px 12px;font-size:9px;font-weight:600;color:#e5e7eb;cursor:pointer;">Create Application</button>
+          </div>
+          <!-- search -->
+          <div style="padding:12px 20px 8px;background:#111827;flex-shrink:0;">
+            <div style="background:#1f2937;border:1px solid #374151;border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:6px;max-width:220px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span style="font-size:9.5px;color:#6b7280;">Search</span>
+            </div>
+          </div>
+          <!-- app list -->
+          <div style="padding:0 20px 12px;overflow:hidden;flex:1;display:flex;flex-direction:column;gap:6px;">
+            <!-- common-app9 collapsed -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#1f2937;border:1px solid #374151;border-radius:7px;cursor:pointer;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="color:#6b7280;font-size:9px;">›</span>
+                <div style="width:18px;height:18px;background:#0ea5e9;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#fff;font-weight:700;">⬡</span></div>
+                <span style="font-size:10px;font-weight:600;color:#06b6d4;">common-app9</span>
+                <span style="background:#374151;color:#9ca3af;font-size:7.5px;font-weight:600;padding:1.5px 5px;border-radius:3px;letter-spacing:0.04em;">COMMON</span>
+                <span style="background:#dc2626;color:#fff;font-size:7.5px;font-weight:600;padding:1.5px 7px;border-radius:3px;">Error</span>
+              </div>
+              <span style="color:#4b5563;cursor:pointer;font-size:13px;line-height:1;">☆</span>
+            </div>
+            <!-- US-NE-app2 expanded -->
+            <div style="border:1px solid #374151;border-radius:7px;overflow:hidden;flex:1;display:flex;flex-direction:column;min-height:0;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#1f2937;cursor:pointer;flex-shrink:0;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="color:#06b6d4;font-size:9px;">▾</span>
+                  <div style="width:18px;height:18px;background:#0ea5e9;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#fff;font-weight:700;">⬡</span></div>
+                  <span style="font-size:10px;font-weight:600;color:#06b6d4;">US-NE-app2</span>
+                  <span style="background:#dc2626;color:#fff;font-size:7.5px;font-weight:600;padding:1.5px 7px;border-radius:3px;">Error</span>
+                </div>
+                <span style="color:#4b5563;font-size:13px;line-height:1;">☆</span>
+              </div>
+              <div style="padding:10px 12px;background:#111827;border-top:1px solid #374151;flex:1;overflow:hidden;">
+                <div style="display:flex;gap:18px;font-size:8px;color:#9ca3af;margin-bottom:10px;flex-wrap:wrap;">
+                  <div><span style="color:#6b7280;">Last Deployed</span> <span style="color:#d1d5db;font-weight:500;margin-left:3px;">Mon Feb 7, 2022 @ 4:15AM PST</span></div>
+                  <div><span style="color:#6b7280;">Total Events Processed</span> <span style="color:#d1d5db;margin-left:3px;">0</span></div>
+                  <div><span style="color:#6b7280;">% of Event Allotment</span> <span style="color:#d1d5db;margin-left:3px;">0%</span></div>
+                </div>
+                <!-- resource table -->
+                <div style="background:#1f2937;border:1px solid #374151;border-radius:6px;overflow:hidden;">
+                  <div style="display:grid;grid-template-columns:2fr 1.4fr 0.9fr 1.1fr 0.9fr;padding:6px 12px;border-bottom:1px solid #374151;font-size:7.5px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.05em;gap:6px;">
+                    <span>Resource</span><span>Collection</span><span>Status</span><span style="text-align:right;">Events Proc.</span><span style="text-align:right;">△ This Week</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:2fr 1.4fr 0.9fr 1.1fr 0.9fr;padding:6px 12px;border-bottom:1px solid #1a2234;font-size:8.5px;align-items:center;gap:6px;">
+                    <span style="color:#06b6d4;cursor:pointer;display:flex;align-items:center;gap:4px;"><span style="font-size:9px;">🔌</span>US-NE-db5</span>
+                    <span style="color:#9ca3af;">US-NECollection</span>
+                    <span><span style="background:#065f46;color:#6ee7b7;font-size:7px;font-weight:600;padding:2px 6px;border-radius:3px;">Healthy</span></span>
+                    <span style="text-align:right;color:#d1d5db;">4,239</span>
+                    <span style="text-align:right;color:#4ade80;font-weight:600;font-size:8px;">+20%</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:2fr 1.4fr 0.9fr 1.1fr 0.9fr;padding:6px 12px;border-bottom:1px solid #1a2234;font-size:8.5px;align-items:center;gap:6px;background:#16202e;">
+                    <span style="color:#06b6d4;cursor:pointer;display:flex;align-items:center;gap:4px;"><span style="font-size:9px;">☁</span>US-NE-db7</span>
+                    <span style="color:#9ca3af;">US-NECollection2</span>
+                    <span><span style="background:#065f46;color:#6ee7b7;font-size:7px;font-weight:600;padding:2px 6px;border-radius:3px;">Healthy</span></span>
+                    <span style="text-align:right;color:#d1d5db;">1,034</span>
+                    <span style="text-align:right;color:#4ade80;font-weight:600;font-size:8px;">+5%</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:2fr 1.4fr 0.9fr 1.1fr 0.9fr;padding:6px 12px;border-bottom:1px solid #1a2234;font-size:8.5px;align-items:center;gap:6px;">
+                    <span style="color:#06b6d4;cursor:pointer;display:flex;align-items:center;gap:4px;"><span style="font-size:9px;">⚙</span>US-NE-db9</span>
+                    <span style="color:#9ca3af;">US-NECollection3</span>
+                    <span><span style="background:#7f1d1d;color:#fca5a5;font-size:7px;font-weight:600;padding:2px 6px;border-radius:3px;">Error</span></span>
+                    <span style="text-align:right;color:#d1d5db;">64</span>
+                    <span style="text-align:right;color:#6b7280;font-size:8px;">--</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:2fr 1.4fr 0.9fr 1.1fr 0.9fr;padding:6px 12px;border-bottom:1px solid #1a2234;font-size:8.5px;align-items:center;gap:6px;background:#16202e;">
+                    <span style="color:#06b6d4;cursor:pointer;display:flex;align-items:center;gap:4px;"><span style="font-size:9px;">♦</span>US-NE-db10</span>
+                    <span style="color:#9ca3af;">US-NECollection4</span>
+                    <span><span style="background:#065f46;color:#6ee7b7;font-size:7px;font-weight:600;padding:2px 6px;border-radius:3px;">Healthy</span></span>
+                    <span style="text-align:right;color:#d1d5db;">459</span>
+                    <span style="text-align:right;color:#4ade80;font-weight:600;font-size:8px;">+4%</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:2fr 1.4fr 0.9fr 1.1fr 0.9fr;padding:6px 12px;font-size:8.5px;align-items:center;gap:6px;">
+                    <span style="color:#06b6d4;cursor:pointer;display:flex;align-items:center;gap:4px;"><span style="font-size:9px;">🔌</span>US-NE-db16</span>
+                    <span style="color:#9ca3af;">US-NECollection5</span>
+                    <span><span style="background:#065f46;color:#6ee7b7;font-size:7px;font-weight:600;padding:2px 6px;border-radius:3px;">Healthy</span></span>
+                    <span style="text-align:right;color:#d1d5db;">60,429</span>
+                    <span style="text-align:right;color:#4ade80;font-weight:600;font-size:8px;">+45%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- common-app4 collapsed -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#1f2937;border:1px solid #374151;border-radius:7px;cursor:pointer;flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="color:#6b7280;font-size:9px;">›</span>
+                <div style="width:18px;height:18px;background:#0ea5e9;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="font-size:8px;color:#fff;font-weight:700;">⬡</span></div>
+                <span style="font-size:10px;font-weight:600;color:#06b6d4;">common-app4</span>
+                <span style="background:#374151;color:#9ca3af;font-size:7.5px;font-weight:600;padding:1.5px 5px;border-radius:3px;letter-spacing:0.04em;">COMMON</span>
+                <span style="background:#92400e;color:#fcd34d;font-size:7.5px;font-weight:600;padding:1.5px 7px;border-radius:3px;">Degraded</span>
+              </div>
+              <span style="color:#4b5563;font-size:13px;line-height:1;">☆</span>
+            </div>
+          </div>
+        </div>
         <p class="ss-label">Meroxa data observability platform · post-pivot</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8b: MEROXA — DISCOVERY -->
+  <section class="slide" id="s8b">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">04 of 04 · Discovery</p>
+        <p class="cs-co">Meroxa</p>
+        <h2 class="cs-h">The users loved the product. The buyers didn't understand it.</h2>
+        <p class="cs-intro">Growth had stalled for two quarters. The team assumed the problem was onboarding — users weren't activating fast enough. I ran 12 churned-user interviews. One question broke everything open: "Who made the final call to stop using Meroxa?" The answer was never the data engineer. It was their manager. We were winning every technical evaluation and losing every budget conversation.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">12</span><span class="cs-m-label">churned users interviewed over 3 weeks</span></div>
+          <div class="cs-m"><span class="cs-m-val">11/12</span><span class="cs-m-label">cancellation decisions made by a manager, not the user</span></div>
+          <div class="cs-m"><span class="cs-m-val">0</span><span class="cs-m-label">of the budget decision-makers had seen a live demo</span></div>
+        </div>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:14px;">
+        <div class="story-card">
+          <p class="story-eyebrow">The broken decision chain</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="persona-card">
+              <p class="persona-role">Data Engineer &nbsp;·&nbsp; User</p>
+              <p class="persona-quote">"This is the best pipeline tool I've ever used. I can build in hours what used to take days."</p>
+              <p class="persona-outcome good">Loved it.</p>
+            </div>
+            <div style="text-align:center;font-size:11px;color:var(--faint);">↓ &nbsp; asks manager to renew</div>
+            <div class="persona-card">
+              <p class="persona-role">Engineering Manager &nbsp;·&nbsp; Buyer</p>
+              <p class="persona-quote">"What is this? Why does it need its own resource allocation? Can't we just use Kafka for this?"</p>
+              <p class="persona-outcome bad">Cancelled.</p>
+            </div>
+          </div>
+        </div>
+        <blockquote class="story-quote">"My manager saw a CLI tool with a $2,000/month price tag and no dashboard. That was the end of the conversation."<cite>— Data Engineer, churned user interview</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8c: MEROXA — PIVOT -->
+  <section class="slide" id="s8c">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">04 of 04 · Pivot</p>
+        <p class="cs-co">Meroxa</p>
+        <h2 class="cs-h">We stopped designing for the person using the product and started designing for the person buying it.</h2>
+        <p class="cs-intro">The data engineer still uses Meroxa — but the interface they see now surfaces the things a manager cares about: Is this pipeline healthy? What's the throughput? Who owns it? What would it cost to lose it? The UI became the proof of value, not the command line. The product didn't change. The audience for the product did.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">10x</span><span class="cs-m-label">addressable market after the audience shift</span></div>
+          <div class="cs-m"><span class="cs-m-val">4x</span><span class="cs-m-label">improvement in user engagement post-pivot</span></div>
+          <div class="cs-m"><span class="cs-m-val">33%</span><span class="cs-m-label">reduction in time to first working resource</span></div>
+        </div>
+      </div>
+      <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:16px;">
+        <div class="story-card">
+          <p class="story-eyebrow">What changed — and what didn't</p>
+          <div class="compare-grid">
+            <div>
+              <p class="compare-col-h">Before</p>
+              <div class="compare-item"><span style="color:var(--faint);font-size:9px;">Primary user</span><br>Data engineer</div>
+              <div class="compare-item"><span style="color:var(--faint);font-size:9px;">Core value prop</span><br>Build pipelines fast</div>
+              <div class="compare-item"><span style="color:var(--faint);font-size:9px;">Entry point</span><br>CLI — always</div>
+              <div class="compare-item"><span style="color:var(--faint);font-size:9px;">Success metric</span><br>Pipelines created</div>
+              <div class="compare-item"><span style="color:var(--faint);font-size:9px;">Buyer moment</span><br>None — not designed for</div>
+            </div>
+            <div class="compare-vs">→</div>
+            <div>
+              <p class="compare-col-h accent">After</p>
+              <div class="compare-item bright"><span style="color:var(--faint);font-size:9px;">Primary user</span><br>Ops lead / engineering manager</div>
+              <div class="compare-item bright"><span style="color:var(--faint);font-size:9px;">Core value prop</span><br>Observe and control operations</div>
+              <div class="compare-item bright"><span style="color:var(--faint);font-size:9px;">Entry point</span><br>Health dashboard — no CLI required</div>
+              <div class="compare-item bright"><span style="color:var(--faint);font-size:9px;">Success metric</span><br>Uptime, throughput, cost visibility</div>
+              <div class="compare-item bright"><span style="color:var(--faint);font-size:9px;">Buyer moment</span><br>Dashboard is the sales artifact</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -724,7 +1509,7 @@ html, body {
 
 <script>
 (function() {
-  const SLIDES = ['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s-end'];
+  const SLIDES = ['s0','s1','s1b','s1c','s2','s3','s3b','s3c','s4','s5','s5b','s6','s7','s7b','s8','s8b','s8c','s9','s-end'];
   let cur = 0;
   let animating = false;
 
