@@ -2357,37 +2357,36 @@ function setupHiringManagerView() {
   const params = new URLSearchParams(window.location.search);
   const ref = (params.get('ref') || params.get('company') || '').toLowerCase();
 
-  // Map experience slug → which POV thought to surface
+  // Map experience slug → POV thought(s) to surface (string or array)
   const POV_MAP = {
     five9:         'designing-for-people-who-live-in-the-product',
     vyehealth:     'when-ai-does-the-work-and-humans-stay-accountable',
-    designsystems: 'design-systems-built-to-travel',
+    designsystems: ['design-systems-built-to-travel', 'the-skill-layer'],
   };
 
-  const matchedId = POV_MAP[ref] || null;
+  const matchedIds = [].concat(POV_MAP[ref] || []);
   const stack = document.getElementById('caseStack');
-  let matchedEl = null;
+  const matchedEls = [];
 
   // Reset: un-hide everything so this function is safe to call multiple times
-  // (dev switcher, role switch, session restore can all call it with different refs)
   document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
     el.style.display = '';
   });
 
-  // Hide all POV/Perspective tiles; surface only the matched one
+  // Hide unmatched POV tiles; collect matched ones
   document.querySelectorAll('#caseStack .case-item--thought').forEach(el => {
-    if (!el.querySelector('.thought-tile--pov')) return; // skip non-POV tiles
-    if (matchedId && el.dataset.thought === matchedId) {
-      el.style.display = ''; // explicitly visible even if previously hidden
-      matchedEl = el;
+    if (!el.querySelector('.thought-tile--pov')) return;
+    if (matchedIds.length && matchedIds.includes(el.dataset.thought)) {
+      el.style.display = '';
+      matchedEls.push(el);
     } else {
       el.style.display = 'none';
     }
   });
 
-  // Move the matched tile to be first in the stack (before case studies)
-  if (matchedEl && stack) {
-    stack.insertBefore(matchedEl, stack.firstChild);
+  // Move matched tiles to the front in their declared order
+  if (stack) {
+    [...matchedEls].reverse().forEach(el => stack.insertBefore(el, stack.firstChild));
   }
 }
 
