@@ -60,7 +60,13 @@ const TAILORED = {  five9: {
     greeting: "Hey, Vye Health.",
     body: "I'm Dante. My healthcare software experience is on the clinical operations side — MEDHOST, building patient registration systems for front desk staff in real clinical settings. That work gave me a ground-level understanding of what healthcare software actually has to do: get out of the way fast, communicate clearly under pressure, and never be the reason something goes wrong.\n\nThe AI-native angle is the part I want to be working on. I've spent time designing systems where the hard problem isn't the capability — it's the trust. When does a clinician lean on what the AI produced? When do they override it? How does the interface communicate enough about what's happening that they can act with confidence? That handoff is a design problem. I'd like to help Vye solve it.",
     jd: "Product Designer — VyeOS\nVye Health\n\n0-to-1 design role building VyeOS: an AI-native operating system for private practices combining EHR, scheduling, billing, patient engagement, clinical intelligence, and AI copilot in a single platform. Work directly with founders, engineers, and clinicians. Design how AI agents function inside real medical workflows: chart prep, clinical documentation, patient communication, follow-ups, operational tasks, decision support. Core challenges: designing trust, orchestration, and human+AI collaboration in complex, data-dense clinical interfaces.",
-  },};
+  },
+  designsystems: {
+    greeting: "Here for the systems.",
+    body: "I'm Dante. I build design systems that travel well — from Figma variables to code tokens, from component specs to Code Connect mappings.\n\nThe interesting part isn't the component library. It's the structure beneath it: the token decisions that make the library coherent, the file organization that makes it legible to teammates and AI agents alike, and the Code Connect mappings that close the gap between design intent and implementation.",
+    jd: '',
+  },
+};
 
 // ── JD prefill helper ─────────────────────────────────────────
 function prefillFitJD(text) {
@@ -2081,6 +2087,56 @@ const THOUGHTS = {
     ],
   },
 
+  'design-systems-built-to-travel': {
+    kicker: 'Point of View',
+    title:  'Design Systems Built to Travel',
+    dek: 'On building token-first systems that propagate intent from Figma to code — and why closing the gap between design and implementation is still a design problem.',
+    sections: [
+      {
+        paragraphs: [
+          'Most teams build the component layer first. It\'s the most tangible output: here\'s a button, here\'s a card, here\'s a form. You can show it in a presentation, demonstrate it in Figma, hand it off to engineers. The library becomes the artifact.',
+          'The system is something else. It\'s the structure that gives the components their meaning — the token layer that defines what "primary" and "destructive" and "subtle" actually communicate across every surface and context. Without that layer, the library is just a folder of shapes. Consistent-looking, but not coherent.',
+          'Token-first means starting with semantic intent before visual specifics. Not "what color is this button?" but "what is this button communicating, and how should that translate across color modes, density settings, and platform constraints?" The visual answer follows from the semantic one. When you sequence it correctly, a change at the semantic layer — redefining what "action-primary" means — propagates everywhere automatically. That\'s the system working.',
+        ],
+      },
+      {
+        heading: 'Token hierarchy as a decision layer',
+        paragraphs: [
+          'I think about tokens in three layers. Global tokens are the raw material: blue-500, space-4, font-weight-600. Values without intent. Semantic tokens map intent to that material: action-primary, spacing-inset-sm, label-weight. Intent without context. Component tokens point to semantic tokens for specific use cases: button-background, button-label-weight. Intent applied.',
+          'The hierarchy matters because it controls where decisions live. When you need to change every primary action surface, you change one semantic token and the component tokens follow. When you retheme a product for a new context, you remap the semantic layer and everything downstream updates.',
+          'Most teams collapse these layers and pay for it later — at a rebrand, a platform expansion, or an accessibility audit that forces systematic change. When "color values" are scattered across three hundred component files instead of one semantic layer, systematic change becomes manual work.',
+        ],
+      },
+      {
+        heading: 'What Figma MCP changes about design system work',
+        paragraphs: [
+          'The Figma MCP gives AI agents programmatic access to Figma files. An agent with this access can traverse your component library, read variable collections, understand the structure of your design system, and generate design-consistent work without a designer manually placing every element.',
+          'That capability is only as valuable as the file it\'s working with.',
+          'If your Figma variable structure is clean and semantic — if the naming reflects intent rather than visual description, if the component descriptions are legible to something other than a human with institutional context — then an agent can reason about your system. It can make choices that align with your decisions, not just your aesthetics.',
+          'If the file is a mess — inconsistent naming, flattened hierarchy, components that grew organically rather than systematically — the agent makes a mess more efficiently.',
+          'I architect Figma files with this in mind: semantic variable naming that reads as a vocabulary, not a color chart; component descriptions that capture intent and constraints; a library structure organized around roles and contexts rather than visual categories. This isn\'t extra work. It\'s the same discipline that makes a system readable to any new team member — the MCP just raises the stakes for getting it right.',
+        ],
+      },
+      {
+        heading: 'Code Connect and the last-mile problem',
+        paragraphs: [
+          'There\'s a perennial problem in design-to-development handoff: the gap between what\'s in the design file and what exists in the codebase. A Figma component named "Button / Primary / Large" may or may not correspond to a code component called Button with variant="primary" and size="lg". Figma variants and code props don\'t naturally mirror each other. Engineers reconcile this by convention, experience, or expensive back-and-forth.',
+          'Code Connect makes the mapping explicit. You define the relationship between a Figma component and its code counterpart — which component, which props, how Figma variant values map to code prop values. That definition surfaces directly in Figma\'s Dev Mode, so engineers see real component usage alongside design specs.',
+          'When Code Connect is maintained accurately — which requires the same discipline as the rest of the system — it reduces the gap between what was designed and what gets implemented to nearly zero. I set up Code Connect mappings as part of the system build, not as an afterthought. Component API decisions in Figma are designed with the code implementation in mind, and the mappings stay current as both the library and the codebase evolve.',
+        ],
+      },
+      {
+        heading: 'The system beneath the system',
+        paragraphs: [
+          'Tools amplify what\'s there. Figma MCP gives agents access to your design system. Code Connect surfaces your component library inside Dev Mode. These tools work when the underlying system is coherent and intentional. They surface the dysfunction when it isn\'t.',
+          'The design system work that matters most isn\'t the component library launch. It\'s the sustained discipline of maintaining the token layer, keeping Code Connect mappings current, and naming things in ways that serve both human teammates and automated tooling. It\'s treating the file as a first-class product artifact, not a staging area for designs.',
+          'When you do that work — when the design system is genuinely well-governed — the tooling becomes multiplicative. Changes propagate automatically. Agents generate design-consistent work. Engineers have accurate implementation references. The gap between design intent and implementation closes.',
+          'That\'s the version of a design system worth building.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
@@ -2258,8 +2314,9 @@ function setupHiringManagerView() {
 
   // Map experience slug → which POV thought to surface
   const POV_MAP = {
-    five9:     'designing-for-people-who-live-in-the-product',
-    vyehealth:    'when-ai-does-the-work-and-humans-stay-accountable',
+    five9:         'designing-for-people-who-live-in-the-product',
+    vyehealth:     'when-ai-does-the-work-and-humans-stay-accountable',
+    designsystems: 'design-systems-built-to-travel',
   };
 
   const matchedId = POV_MAP[ref] || null;

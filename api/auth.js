@@ -10,8 +10,9 @@ export default function handler(req, res) {
   // Falls back to legacy SITE_PASSWORD so existing sessions keep working.
   const map = {
     [process.env.PW_STANDARD || process.env.SITE_PASSWORD]: 'standard',
-    [process.env.PW_FIVE9]:     'five9',
-    [process.env.PW_VYEHEALTH]: 'vyehealth',
+    [process.env.PW_FIVE9]:         'five9',
+    [process.env.PW_VYEHEALTH]:     'vyehealth',
+    [process.env.PW_DESIGNSYSTEMS]: 'designsystems',
   };
 
   const experience = map[password];
@@ -20,7 +21,7 @@ export default function handler(req, res) {
   }
 
   // The experience slug itself also works as a case-insensitive password.
-  const SLUG_PASSWORDS = ['five9', 'vyehealth'];
+  const SLUG_PASSWORDS = ['five9', 'vyehealth', 'designsystems'];
   const slugMatch = SLUG_PASSWORDS.find(s => s === password.toLowerCase().trim());
   if (slugMatch) {
     return res.status(200).json({ ok: true, experience: slugMatch });
