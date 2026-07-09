@@ -158,6 +158,19 @@ html, body {
   font-size: clamp(0.84rem, 1vw, 0.96rem);
   color: var(--dim); line-height: 1.7; margin-bottom: 36px;
 }
+.cs-star {
+  list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px;
+}
+.cs-star li {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+  color: var(--dim); line-height: 1.6;
+  display: grid; grid-template-columns: 18px 1fr; gap: 8px;
+}
+.cs-star li b {
+  font-size: 8px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--pink); padding-top: 3px;
+}
 .cs-metrics { display: flex; gap: 24px; flex-wrap: wrap; }
 .cs-m { display: flex; flex-direction: column; gap: 5px; }
 .cs-m-val {
@@ -509,8 +522,13 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">01 of 04</p>
         <p class="cs-co">Teamshares</p>
-        <h2 class="cs-h">The ask was a data display. The problem was three hours of work nobody should have been doing.</h2>
-        <p class="cs-intro">Industry leads were spending half their day on manual prep before they could have a single useful conversation with a network president. The brief said "one place to view payroll data." The real job was getting that prep time down to zero.</p>
+        <h2 class="cs-h">Payroll dashboard for Teamshares industry leads</h2>
+        <ul class="cs-star">
+          <li><b>S</b> Industry leads were preparing for payroll review calls manually, each pulling their own spreadsheet exports to check for discrepancies before meeting with network presidents.</li>
+          <li><b>T</b> Build a payroll view inside the Teamshares platform for company admins and industry leads to review current and historical pay data.</li>
+          <li><b>A</b> Shadowed 6 industry leads through their prep process. Designed the dashboard around a single question — is this run normal? — with period comparison and an overtime variance flag.</li>
+          <li><b>R</b> Review prep dropped from ~3 hrs to 1.5 hrs per cycle across 6 leads; projected $3.1M annual efficiency gain.</li>
+        </ul>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">1.5 hrs</span><span class="cs-m-label">end-to-end, down from 3</span></div>
           <div class="cs-m"><span class="cs-m-val">135 hrs</span><span class="cs-m-label">saved per cycle across six leads</span></div>
@@ -629,8 +647,8 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">01 of 04 · Discovery</p>
         <p class="cs-co">Teamshares</p>
-        <h2 class="cs-h">I shadowed six industry leads. Every one of them had their own Excel file.</h2>
-        <p class="cs-intro">Gusto was the official system of record. Nobody trusted it. Leads were exporting raw CSVs, cleaning data by hand, and building custom prep decks before every president call. The tool wasn't missing features — the data was missing trust. Six different people had invented six different workarounds for the same problem.</p>
+        <h2 class="cs-h">Discovery: how industry leads prepared for payroll calls</h2>
+        <p class="cs-intro">I shadowed 6 industry leads through their payroll prep. Every one had their own spreadsheet. Leads were exporting CSVs from Gusto, cleaning the data manually, and building their own comparison notes before each president call. The platform had low trust — they didn't rely on it for anything they'd present.</p>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">6</span><span class="cs-m-label">industry leads shadowed across the network</span></div>
           <div class="cs-m"><span class="cs-m-val">6 / 6</span><span class="cs-m-label">had a personal Excel workaround in active use</span></div>
@@ -668,9 +686,9 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">01 of 04 · Design Decision</p>
         <p class="cs-co">Teamshares</p>
-        <h2 class="cs-h">The brief asked for a payroll view. I scoped it around one question: is this run normal?</h2>
-        <p class="cs-intro">The most useful conversation between an industry lead and a president wasn't "here's your payroll." It was "why is this run different from last time?" Period-over-period comparison, YTD context, and variance flags weren't in the original scope. I made the case for all three. They became the most-used features in production.</p>
-        <blockquote class="story-quote">"Before this, I'd spend 45 minutes trying to figure out if a number was good or bad. Now I know in 30 seconds."<cite>— Industry Lead, post-launch feedback session</cite></blockquote>
+        <h2 class="cs-h">Design decision: frame payroll data around run normality</h2>
+        <p class="cs-intro">The brief asked for a payroll view. I scoped it around a specific question: is this run normal? Period-over-period comparison, YTD context, and an overtime variance flag weren't in the original scope — but they're what let a lead walk into a president call without any prep work.</p>
+        <blockquote class="story-quote">"Before this, I'd spend 45 minutes trying to figure out if a number was good or bad."<cite>— Industry Lead, post-launch feedback</cite></blockquote>
       </div>
       <div class="ctx-right" style="display:flex;flex-direction:column;justify-content:center;gap:20px;">
         <div class="story-card">
@@ -723,8 +741,13 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">02 of 04</p>
         <p class="cs-co">Teamshares</p>
-        <h2 class="cs-h">The ask was "build an ATS." The real problem was a broken hiring model.</h2>
-        <p class="cs-intro">Teamshares was acquiring small businesses faster than it could place leaders to run them. The tool holding the whole operation together was a spreadsheet. Fixing that wasn't a tooling problem — it was a system design problem.</p>
+        <h2 class="cs-h">Applicant tracking system for leadership placement</h2>
+        <ul class="cs-star">
+          <li><b>S</b> The recruiting team ran on three parallel systems — Lever (official record), a private spreadsheet (real pipeline), and recruiter memory — with no single source of truth. Every cross-team handoff started with a reconciliation call.</li>
+          <li><b>T</b> Design an internal ATS to replace Lever and consolidate the recruiting workflow.</li>
+          <li><b>A</b> Mapped the existing workflow across all three systems. Identified that a standard 1:1 ATS funnel didn't fit Teamshares' model — a candidate might be right for multiple companies but only placeable at one right now. Designed an "On Deck" status as a first-class pipeline state.</li>
+          <li><b>R</b> 20+ leaders placed; 10+ qualified candidates held on deck; one source of truth replacing Lever and the spreadsheet.</li>
+        </ul>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">20+</span><span class="cs-m-label">leaders placed through the platform</span></div>
           <div class="cs-m"><span class="cs-m-val">10+</span><span class="cs-m-label">qualified leaders benched for future placement</span></div>
@@ -830,8 +853,8 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">02 of 04 · Discovery</p>
         <p class="cs-co">Teamshares</p>
-        <h2 class="cs-h">The spreadsheet was the real ATS. Lever was just a filing cabinet nobody updated.</h2>
-        <p class="cs-intro">Three systems held three versions of the truth. Lever was the official record — incomplete and stale. The recruiter's spreadsheet had the real pipeline. Company ops kept their own match list. Individual recruiter memory filled every gap. Nothing synced. Every cross-team handoff started with a sync call just to agree on shared reality.</p>
+        <h2 class="cs-h">Discovery: three systems, three versions of the pipeline</h2>
+        <p class="cs-intro">Lever was the official record — incomplete and rarely updated. The recruiter's spreadsheet had the real pipeline. Company ops kept their own match list. Individual recruiter memory filled the rest. Nothing synced. Every cross-team handoff started with a reconciliation call just to agree on current state.</p>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">3</span><span class="cs-m-label">separate systems in active daily use</span></div>
           <div class="cs-m"><span class="cs-m-val">0</span><span class="cs-m-label">single sources of truth across the team</span></div>
@@ -876,8 +899,8 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">02 of 04 · Design Decision</p>
         <p class="cs-co">Teamshares</p>
-        <h2 class="cs-h">Standard ATS logic assumes one candidate applies to one job. That's not how Teamshares works.</h2>
-        <p class="cs-intro">Teamshares places leaders — it doesn't fill requisitions. A single candidate might be right for three companies but only available for one right now. The "on deck" state — qualified, matched, waiting — doesn't exist in any standard ATS. I threw out the funnel model entirely and designed around the Teamshares-specific placement lifecycle instead.</p>
+        <h2 class="cs-h">Design decision: the standard ATS funnel didn't fit</h2>
+        <p class="cs-intro">Standard ATS tools assume one candidate applies to one job and moves through a funnel to an outcome. Teamshares places leaders — a candidate might be right for 3 companies but only placeable at one right now. I designed around that: a candidate pool model with "On Deck" as a first-class status for qualified candidates awaiting future placement.</p>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">On Deck</span><span class="cs-m-label">new status with no standard ATS equivalent</span></div>
           <div class="cs-m"><span class="cs-m-val">N:M</span><span class="cs-m-label">candidate-to-opening model vs. 1:1 in standard tools</span></div>
@@ -934,8 +957,13 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">03 of 04</p>
         <p class="cs-co">Marketo / Adobe</p>
-        <h2 class="cs-h">I didn't pitch a design solution. I pitched a structural one.</h2>
-        <p class="cs-intro">Marketo was mid-platform-redesign with a component library maintained by one person and no governance. The instinct was to clean up the components. I went after the org model instead — and got 100% adoption before shipping a single screen.</p>
+        <h2 class="cs-h">Sky Design System: Twilight multiset color scale</h2>
+        <ul class="cs-star">
+          <li><b>S</b> Marketo's Sky design system had one maintainer and a slow contribution cycle. All 4 product teams I audited had forked the component library at some point — not because the components were bad, but because forking was faster than filing a ticket.</li>
+          <li><b>T</b> Standardize the color system for multiset data visualizations within Sky.</li>
+          <li><b>A</b> Audited charting patterns across product teams; defined the Twilight scale — a dark-to-light gradient from #651994 to #F5B87A — to represent relative importance in grouped data sets. Addressed governance alongside component design.</li>
+          <li><b>R</b> 50+ components audited and standardized; 100% adoption across product teams over a 2.5-year runway pre- and post-acquisition.</li>
+        </ul>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">50+</span><span class="cs-m-label">components audited and standardized</span></div>
           <div class="cs-m"><span class="cs-m-val">100%</span><span class="cs-m-label">adoption across product teams</span></div>
@@ -1073,8 +1101,8 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">03 of 04 · Discovery</p>
         <p class="cs-co">Marketo / Adobe</p>
-        <h2 class="cs-h">We didn't have one design system. We had five. None of them talked to each other.</h2>
-        <p class="cs-intro">I audited four product teams. Every one had forked the official component library. Not because the components were bad — because the contribution process made forking faster than filing a ticket. The governance model was the problem. Fixing the components without fixing the org would just give us a better library that teams would fork again in six months.</p>
+        <h2 class="cs-h">Discovery: 4 of 4 teams had forked the component library</h2>
+        <p class="cs-intro">I audited component usage across 4 product teams. All 4 had forked the official Sky library at some point. The contribution process — slow review, a single maintainer — made forking faster than filing a ticket. The component quality wasn't the problem; the governance model was.</p>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">4</span><span class="cs-m-label">product teams audited across the org</span></div>
           <div class="cs-m"><span class="cs-m-val">4 of 4</span><span class="cs-m-label">had forked the library at some point</span></div>
@@ -1214,7 +1242,7 @@ html, body {
     <div class="stat-slide">
       <p class="stat-co">Marketo / Adobe · Sky Migration</p>
       <div class="stat-n">733%</div>
-      <p class="stat-lbl">Increase in platform adoption. Sky had been in development for years — fewer than 600 users had opted in. The VP and CPO assembled a task force. The product was ready. Nobody had designed the transition.</p>
+      <p class="stat-lbl">Increase in platform adoption. Sky had been available for years with fewer than 600 opt-ins. A task force was assembled to drive migration. I designed the transition flow.</p>
       <div class="stat-ctx">
         <div class="stat-c">
           <span class="stat-cv">600</span>
@@ -1240,8 +1268,8 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">Marketo / Adobe · Migration</p>
         <p class="cs-co">Marketo / Adobe</p>
-        <h2 class="cs-h">The barrier wasn't missing features. It was fear of missing features.</h2>
-        <p class="cs-intro">Users weren't opposed to Sky. They assumed it didn't have what they needed — because nobody had shown them the map. We documented every Classic workflow, its Sky equivalent, and the honest gaps. Then we built the migration flow around that map. If your workflow was covered, you could move. If it wasn't, you stayed — and the gap went on the roadmap.</p>
+        <h2 class="cs-h">Design decision: show users the feature coverage map</h2>
+        <p class="cs-intro">Users weren't opposed to Sky — they assumed it didn't have what they needed. We mapped 86 Classic features to their Sky equivalents, identified 7 gaps, and put that map in the migration flow. If your workflow was covered, you could move. If it wasn't, you stayed and the gap went on the Q2 roadmap.</p>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">86</span><span class="cs-m-label">Classic features fully mapped to Sky equivalents</span></div>
           <div class="cs-m"><span class="cs-m-val">79</span><span class="cs-m-label">had full Sky parity at migration launch</span></div>
@@ -1273,8 +1301,13 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">04 of 04</p>
         <p class="cs-co">Meroxa</p>
-        <h2 class="cs-h">We built the right product for the wrong person. Here's how we figured that out.</h2>
-        <p class="cs-intro">Growth stalled. The team's first instinct was better onboarding. My instinct was that the market assumption underneath the whole product was off. This is what happened when we followed that thread all the way down.</p>
+        <h2 class="cs-h">Operations observability dashboard for Meroxa</h2>
+        <ul class="cs-star">
+          <li><b>S</b> Growth had stalled for two quarters. The assumption internally was that onboarding was too slow.</li>
+          <li><b>T</b> Improve engagement and reduce churn for Meroxa's data pipeline product.</li>
+          <li><b>A</b> Ran 12 churned-user interviews. Found that 11 of 12 cancellation decisions were made by engineering managers — not the data engineers who used the product daily. Managers saw a CLI tool with no dashboard; data engineers loved it but couldn't justify the cost to their teams. Redesigned the primary surface around operational visibility (uptime, throughput, cost) for the manager audience.</li>
+          <li><b>R</b> 10x addressable market expansion; 4x improvement in user engagement; 33% reduction in time to first resource creation.</li>
+        </ul>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">10x</span><span class="cs-m-label">addressable market expansion</span></div>
           <div class="cs-m"><span class="cs-m-val">4x</span><span class="cs-m-label">improvement in user engagement</span></div>
@@ -1410,8 +1443,8 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">04 of 04 · Discovery</p>
         <p class="cs-co">Meroxa</p>
-        <h2 class="cs-h">The users loved the product. The buyers didn't understand it.</h2>
-        <p class="cs-intro">Growth had stalled for two quarters. The team assumed the problem was onboarding — users weren't activating fast enough. I ran 12 churned-user interviews. One question broke everything open: "Who made the final call to stop using Meroxa?" The answer was never the data engineer. It was their manager. We were winning every technical evaluation and losing every budget conversation.</p>
+        <h2 class="cs-h">Discovery: cancellations were coming from managers, not users</h2>
+        <p class="cs-intro">I ran 12 churned-user interviews. 11 of 12 cancellation decisions were made by an engineering manager, not the data engineer who used the product. Managers had never seen a demo. They saw a CLI tool with a $2,000/month invoice and cancelled. The data engineers wanted to keep using it.</p>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">12</span><span class="cs-m-label">churned users interviewed over 3 weeks</span></div>
           <div class="cs-m"><span class="cs-m-val">11/12</span><span class="cs-m-label">cancellation decisions made by a manager, not the user</span></div>
@@ -1446,8 +1479,8 @@ html, body {
       <div class="ctx-left">
         <p class="cs-num">04 of 04 · Pivot</p>
         <p class="cs-co">Meroxa</p>
-        <h2 class="cs-h">We stopped designing for the person using the product and started designing for the person buying it.</h2>
-        <p class="cs-intro">The data engineer still uses Meroxa — but the interface they see now surfaces the things a manager cares about: Is this pipeline healthy? What's the throughput? Who owns it? What would it cost to lose it? The UI became the proof of value, not the command line. The product didn't change. The audience for the product did.</p>
+        <h2 class="cs-h">Design decision: build the surface the buyer sees</h2>
+        <p class="cs-intro">The data engineer still uses Meroxa, but they aren't the one renewing the contract. We redesigned the primary surface around what a manager needs to evaluate: uptime, throughput, cost visibility, and ownership. The pipeline functionality didn't change — the audience the UI was designed for did.</p>
         <div class="cs-metrics">
           <div class="cs-m"><span class="cs-m-val">10x</span><span class="cs-m-label">addressable market after the audience shift</span></div>
           <div class="cs-m"><span class="cs-m-val">4x</span><span class="cs-m-label">improvement in user engagement post-pivot</span></div>
