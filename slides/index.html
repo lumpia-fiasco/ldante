@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Studies — L Dante Guarin</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Cal Sans';
+  src: url('../assets/CalSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+:root {
+  --bg:         rgb(31,31,31);
+  --bg-dark:    rgb(22,22,22);
+  --bg-card:    rgb(38,38,38);
+  --pink:       rgb(249,149,172);
+  --magenta:    rgb(191,48,120);
+  --white:      rgb(255,255,255);
+  --dim:        rgba(255,255,255,0.55);
+  --faint:      rgba(255,255,255,0.18);
+  --subtler:    rgba(255,255,255,0.08);
+  --dur:        580ms;
+  --ease:       cubic-bezier(0.22,1,0.36,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100vw; height: 100vh;
+  overflow: hidden;
+  background: var(--bg-dark);
+  color: var(--white);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── DECK ─────────────────────────────────────────────────── */
+.deck { position: fixed; inset: 0; }
+.slide {
+  position: absolute; inset: 0;
+  will-change: transform, opacity;
+  transition: transform var(--dur) var(--ease), opacity calc(var(--dur) * 0.7) ease;
+}
+.slide[data-s="above"] { transform: translateY(-100vh); opacity: 0; pointer-events: none; }
+.slide[data-s="active"] { transform: translateY(0);     opacity: 1; }
+.slide[data-s="below"]  { transform: translateY(100vh); opacity: 0; pointer-events: none; }
+
+/* ─── CHROME UI ─────────────────────────────────────────────── */
+#home-link {
+  position: fixed; top: 22px; left: 28px; z-index: 300;
+  display: flex; align-items: center; gap: 8px; text-decoration: none;
+  opacity: 0.5; transition: opacity 0.15s;
+}
+#home-link:hover { opacity: 1; }
+#home-link img { width: 24px; height: 24px; }
+#home-link span {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--white);
+}
+
+#progress {
+  position: fixed; right: 22px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 9px; z-index: 300;
+}
+.pdot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--faint); cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.pdot.on { background: var(--pink); transform: scale(1.5); }
+
+#hint {
+  position: fixed; bottom: 24px; right: 32px; z-index: 300;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint);
+  display: flex; align-items: center; gap: 5px;
+  transition: opacity 0.3s;
+  user-select: none; pointer-events: none;
+}
+#hint.gone { opacity: 0; }
+
+/* ─── COVER ─────────────────────────────────────────────────── */
+#s0 {
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 60px;
+}
+.cover-eye {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--pink); margin-bottom: 28px;
+}
+.cover-h {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 600; letter-spacing: -0.035em;
+  color: var(--white); line-height: 0.95; margin-bottom: 28px;
+}
+.cover-sub {
+  font-family: 'Golos Text', sans-serif;
+  font-size: 1.05rem; color: var(--dim); line-height: 1.6;
+  max-width: 460px;
+}
+.cover-pills {
+  display: flex; gap: 10px; margin-top: 52px;
+  flex-wrap: wrap; justify-content: center;
+}
+.cover-pill {
+  padding: 9px 20px;
+  border: 1px solid var(--subtler); border-radius: 100px;
+  font-size: 11.5px; font-weight: 500; letter-spacing: 0.03em;
+  color: var(--dim); cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  background: transparent;
+}
+.cover-pill:hover {
+  border-color: var(--pink); color: var(--pink);
+  background: rgba(249,149,172,0.06);
+}
+
+/* ─── CONTEXT SLIDES ────────────────────────────────────────── */
+.ctx {
+  background: var(--bg);
+  display: grid; grid-template-columns: 44% 56%; height: 100%;
+}
+.ctx-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(40px,4.5vw,80px) clamp(32px,3.5vw,60px);
+  border-right: 1px solid var(--subtler);
+}
+.ctx-right {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(32px,3.5vw,56px);
+  background: var(--bg-dark);
+  overflow: hidden;
+}
+.cs-num {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: 10px;
+}
+.cs-co {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--pink); margin-bottom: 18px;
+}
+.cs-h {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  font-weight: 600; letter-spacing: -0.022em;
+  color: var(--white); line-height: 1.22; margin-bottom: 18px;
+}
+.cs-intro {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(0.84rem, 1vw, 0.96rem);
+  color: var(--dim); line-height: 1.7; margin-bottom: 36px;
+}
+.cs-metrics { display: flex; gap: 24px; flex-wrap: wrap; }
+.cs-m { display: flex; flex-direction: column; gap: 5px; }
+.cs-m-val {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+  font-weight: 600; color: var(--pink); letter-spacing: -0.02em; line-height: 1;
+}
+.cs-m-label {
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--faint);
+  max-width: 110px; line-height: 1.45;
+}
+
+/* Screenshot inside context right */
+.ss-wrap {
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.06);
+  width: 100%;
+  max-height: 70vh;
+  object-fit: cover; object-position: top;
+  display: block;
+}
+.ss-label {
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: rgba(255,255,255,0.18);
+  text-align: center; margin-top: 12px;
+}
+
+/* ─── MOCKUP SLIDES ──────────────────────────────────────────── */
+.mock {
+  background: var(--bg-dark);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.mock-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px 0; flex-shrink: 0;
+}
+.mock-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint);
+}
+.mock-co {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--pink);
+}
+.bframe {
+  margin: 14px 32px 20px; flex: 1; min-height: 0;
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.65);
+  display: flex; flex-direction: column;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.bchrome {
+  background: rgb(48,48,48);
+  padding: 9px 14px;
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.bdots { display: flex; gap: 5.5px; }
+.bdot { width: 10px; height: 10px; border-radius: 50%; }
+.bdot.r { background: #ff5f57; }
+.bdot.a { background: #febc2e; }
+.bdot.g { background: #28c840; }
+.bbar {
+  flex: 1; background: rgb(36,36,36); border-radius: 5px;
+  padding: 5px 12px; font-size: 10.5px;
+  color: rgba(255,255,255,0.3); letter-spacing: 0.01em;
+}
+.bframe iframe {
+  flex: 1; width: 100%; border: none;
+}
+
+/* ─── STAT SLIDE ─────────────────────────────────────────────── */
+.stat-slide {
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 60px;
+}
+.stat-co {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--pink); margin-bottom: 20px;
+}
+.stat-n {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(5rem, 13vw, 10.5rem);
+  font-weight: 600; letter-spacing: -0.045em;
+  color: var(--white); line-height: 0.88; margin-bottom: 24px;
+}
+.stat-lbl {
+  font-family: 'Golos Text', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  color: var(--dim); line-height: 1.55;
+  max-width: 520px; margin-bottom: 52px;
+}
+.stat-ctx {
+  display: flex; gap: 56px; align-items: flex-start;
+}
+.stat-c { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.stat-cv {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: 2.1rem; color: var(--pink); letter-spacing: -0.02em; line-height: 1;
+}
+.stat-cl {
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--faint); max-width: 100px;
+  text-align: center; line-height: 1.45;
+}
+.stat-divider {
+  width: 1px; height: 40px;
+  background: var(--subtler); align-self: center;
+}
+
+/* ─── SKY DESIGN SYSTEM SLIDE ────────────────────────────────── */
+#s6 {
+  background: var(--bg-dark);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.sky-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px 0; flex-shrink: 0;
+}
+.sky-bar-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint);
+}
+.sky-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  padding: 14px 32px 20px;
+  flex: 1; min-height: 0; overflow: hidden;
+}
+.sky-panel {
+  background: rgb(42,42,42);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.sky-ph {
+  padding: 11px 14px 9px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+}
+.sky-pb { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 9px; overflow-y: auto; }
+.sky-row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+.sky-sublabel {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: rgba(255,255,255,0.2);
+  margin-top: 3px;
+}
+
+/* Sky buttons */
+.skb {
+  padding: 7px 14px; border-radius: 5px;
+  font-size: 12.5px; font-weight: 500; cursor: pointer;
+  border: none; transition: all 0.12s; white-space: nowrap;
+}
+.skb-primary   { background: #0066cc; color: #fff; }
+.skb-primary:hover { background: #0052a3; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,102,204,.35); }
+.skb-primary:active { transform: translateY(0); }
+.skb-secondary { background: transparent; color: #0066cc; border: 1px solid #0066cc; }
+.skb-secondary:hover { background: rgba(0,102,204,.06); }
+.skb-quiet     { background: transparent; color: #6b7280; border: none; }
+.skb-quiet:hover { background: rgba(255,255,255,.06); color: var(--white); }
+.skb-danger    { background: #dc2626; color: #fff; }
+.skb-danger:hover { background: #b91c1c; }
+.skb-disabled  { background: rgb(55,55,55); color: rgba(255,255,255,0.22); cursor: not-allowed; }
+
+/* Sky tokens */
+.tok-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 8px; border-radius: 6px;
+  transition: background 0.12s; cursor: default;
+}
+.tok-row:hover { background: rgba(255,255,255,0.04); }
+.tok-sw {
+  width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0;
+  cursor: pointer; transition: transform 0.15s;
+}
+.tok-sw:hover { transform: scale(1.35); }
+.tok-name { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.45); flex: 1; }
+.tok-val  { font-family: 'Courier New', monospace; font-size: 9px; color: rgba(255,255,255,0.2); }
+.tok-section {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: rgba(255,255,255,0.18);
+  margin-top: 4px; padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Sky form */
+.sky-field { display: flex; flex-direction: column; gap: 5px; }
+.sky-lbl {
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.45);
+}
+.sky-inp {
+  padding: 7px 11px;
+  background: rgb(52,52,52); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 5px; font-size: 12.5px; color: var(--white); outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+.sky-inp:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0,102,204,0.18);
+}
+.sky-inp.sky-err {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.14);
+}
+.sky-hint { font-size: 10px; color: #ef4444; letter-spacing: 0.01em; }
+.sky-hint-ok { font-size: 10px; color: #10b981; letter-spacing: 0.01em; }
+.sky-sel {
+  padding: 7px 11px;
+  background: rgb(52,52,52); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 5px; font-size: 12.5px; color: var(--white); outline: none;
+  cursor: pointer; width: 100%;
+}
+.sky-sel:focus { border-color: #0066cc; box-shadow: 0 0 0 3px rgba(0,102,204,0.18); }
+.sky-cb-row {
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.sky-cb { width: 14px; height: 14px; accent-color: #0066cc; cursor: pointer; }
+.sky-cb-lbl { font-size: 12px; color: var(--dim); }
+
+/* ─── END SLIDE ──────────────────────────────────────────────── */
+#s-end {
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 60px;
+}
+.end-h {
+  font-family: 'Cal Sans', sans-serif;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 600; letter-spacing: -0.03em;
+  color: var(--white); margin-bottom: 18px;
+}
+.end-sub {
+  font-family: 'Golos Text', sans-serif;
+  font-size: 1.05rem; color: var(--dim); margin-bottom: 48px;
+}
+.end-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 15px 32px;
+  background: var(--pink); border: none; border-radius: 8px;
+  font-family: 'Golos Text', sans-serif;
+  font-size: 1.05rem; font-weight: 500; color: rgb(31,31,31);
+  text-decoration: none; cursor: pointer;
+  transition: background 0.15s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+}
+.end-btn:hover { background: rgb(248,124,155); transform: translateY(-2px) scale(1.03); }
+.end-back {
+  margin-top: 24px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); cursor: pointer;
+  transition: color 0.15s;
+}
+.end-back:hover { color: var(--dim); }
+</style>
+</head>
+<body>
+
+<!-- ─── HOME LINK ─── -->
+<a id="home-link" href="/">
+  <img src="../assets/logo.svg" alt="LDG">
+  <span>ldante.com</span>
+</a>
+
+<!-- ─── PROGRESS ─── -->
+<nav id="progress" aria-label="Slides"></nav>
+
+<!-- ─── NAV HINT ─── -->
+<div id="hint">↓ advance &nbsp;↑ back</div>
+
+<!-- ─── DECK ─── -->
+<div class="deck" id="deck">
+
+  <!-- 0: COVER -->
+  <section class="slide" id="s0">
+    <div style="background:var(--bg);height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px;">
+      <p class="cover-eye">L Dante Guarin &nbsp;·&nbsp; Product Designer</p>
+      <h1 class="cover-h">Case Studies</h1>
+      <p class="cover-sub">A decade of complex product work — enterprise SaaS, design systems, and platform pivots.</p>
+      <div class="cover-pills">
+        <button class="cover-pill" data-jump="1">Teamshares Payroll</button>
+        <button class="cover-pill" data-jump="3">Teamshares ATS</button>
+        <button class="cover-pill" data-jump="5">Marketo Sky</button>
+        <button class="cover-pill" data-jump="7">Marketo Migration</button>
+        <button class="cover-pill" data-jump="8">Meroxa</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1: TEAMSHARES PAYROLL — CONTEXT -->
+  <section class="slide" id="s1">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">01 of 04</p>
+        <p class="cs-co">Teamshares</p>
+        <h2 class="cs-h">The ask was a data display. The problem was three hours of work nobody should have been doing.</h2>
+        <p class="cs-intro">Industry leads were spending half their day on manual prep before they could have a single useful conversation with a network president. The brief said "one place to view payroll data." The real job was getting that prep time down to zero.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">1.5 hrs</span><span class="cs-m-label">end-to-end, down from 3</span></div>
+          <div class="cs-m"><span class="cs-m-val">135 hrs</span><span class="cs-m-label">saved per cycle across six leads</span></div>
+          <div class="cs-m"><span class="cs-m-val">$3.1M</span><span class="cs-m-label">annual efficiency gains</span></div>
+        </div>
+      </div>
+      <div class="ctx-right">
+        <img class="ss-wrap" src="../assets/teamshares-payroll-home.png" alt="Teamshares Payroll Dashboard">
+        <p class="ss-label">Payroll dashboard · shipped 2023</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: TEAMSHARES PAYROLL — MOCKUP -->
+  <section class="slide" id="s2">
+    <div class="mock">
+      <div class="mock-bar">
+        <span class="mock-label">Teamshares Payroll · Interactive Prototype</span>
+        <span class="mock-co">Teamshares</span>
+      </div>
+      <div class="bframe">
+        <div class="bchrome">
+          <div class="bdots"><div class="bdot r"></div><div class="bdot a"></div><div class="bdot g"></div></div>
+          <div class="bbar">teamshares.com/payroll</div>
+        </div>
+        <iframe src="../payroll-prototype.html" title="Teamshares Payroll prototype" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: TEAMSHARES ATS — CONTEXT -->
+  <section class="slide" id="s3">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">02 of 04</p>
+        <p class="cs-co">Teamshares</p>
+        <h2 class="cs-h">The ask was "build an ATS." The real problem was a broken hiring model.</h2>
+        <p class="cs-intro">Teamshares was acquiring small businesses faster than it could place leaders to run them. The tool holding the whole operation together was a spreadsheet. Fixing that wasn't a tooling problem — it was a system design problem.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">20+</span><span class="cs-m-label">leaders placed through the platform</span></div>
+          <div class="cs-m"><span class="cs-m-val">10+</span><span class="cs-m-label">qualified leaders benched for future placement</span></div>
+          <div class="cs-m"><span class="cs-m-val">1</span><span class="cs-m-label">source of truth, replacing Lever and spreadsheets</span></div>
+        </div>
+      </div>
+      <div class="ctx-right">
+        <img class="ss-wrap" src="../assets/ats-candidate-detail.png" alt="Teamshares ATS Candidate Detail">
+        <p class="ss-label">Candidate pipeline · shipped 2023</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: TEAMSHARES ATS — MOCKUP -->
+  <section class="slide" id="s4">
+    <div class="mock">
+      <div class="mock-bar">
+        <span class="mock-label">Teamshares ATS · Interactive Prototype</span>
+        <span class="mock-co">Teamshares</span>
+      </div>
+      <div class="bframe">
+        <div class="bchrome">
+          <div class="bdots"><div class="bdot r"></div><div class="bdot a"></div><div class="bdot g"></div></div>
+          <div class="bbar">teamshares.com/ats</div>
+        </div>
+        <iframe src="../ats-prototype.html" title="Teamshares ATS prototype" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5: MARKETO SKY — CONTEXT -->
+  <section class="slide" id="s5">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">03 of 04</p>
+        <p class="cs-co">Marketo / Adobe</p>
+        <h2 class="cs-h">I didn't pitch a design solution. I pitched a structural one.</h2>
+        <p class="cs-intro">Marketo was mid-platform-redesign with a component library maintained by one person and no governance. The instinct was to clean up the components. I went after the org model instead — and got 100% adoption before shipping a single screen.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">50+</span><span class="cs-m-label">components audited and standardized</span></div>
+          <div class="cs-m"><span class="cs-m-val">100%</span><span class="cs-m-label">adoption across product teams</span></div>
+          <div class="cs-m"><span class="cs-m-val">2.5 yrs</span><span class="cs-m-label">pre and post-acquisition runway</span></div>
+        </div>
+      </div>
+      <div class="ctx-right">
+        <img class="ss-wrap" src="../assets/sky.png" alt="Marketo Sky design system">
+        <p class="ss-label">Sky design system · Marketo / Adobe</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6: MARKETO SKY — LIVE COMPONENT GALLERY -->
+  <section class="slide" id="s6">
+    <div class="sky-bar">
+      <span class="sky-bar-label">Sky Design System · Interactive Components</span>
+      <span style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);">Marketo / Adobe</span>
+    </div>
+    <div class="sky-grid">
+
+      <!-- Panel 1: Buttons -->
+      <div class="sky-panel">
+        <div class="sky-ph">Button System</div>
+        <div class="sky-pb">
+          <p class="sky-sublabel">Primary actions</p>
+          <div class="sky-row">
+            <button class="skb skb-primary">Save Campaign</button>
+            <button class="skb skb-primary">Publish</button>
+          </div>
+          <p class="sky-sublabel">Secondary</p>
+          <div class="sky-row">
+            <button class="skb skb-secondary">Edit</button>
+            <button class="skb skb-secondary">Export</button>
+          </div>
+          <p class="sky-sublabel">Quiet / Tertiary</p>
+          <div class="sky-row">
+            <button class="skb skb-quiet">Cancel</button>
+            <button class="skb skb-quiet">Learn more</button>
+          </div>
+          <p class="sky-sublabel">Destructive</p>
+          <div class="sky-row">
+            <button class="skb skb-danger">Delete Program</button>
+          </div>
+          <p class="sky-sublabel">Disabled state</p>
+          <div class="sky-row">
+            <button class="skb skb-disabled" disabled>Processing…</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Token system -->
+      <div class="sky-panel">
+        <div class="sky-ph">Color Token Hierarchy</div>
+        <div class="sky-pb">
+          <p class="sky-sublabel">Global tokens (raw values)</p>
+          <div class="tok-row"><div class="tok-sw" style="background:#0066cc"></div><span class="tok-name">blue-600</span><span class="tok-val">#0066cc</span></div>
+          <div class="tok-row"><div class="tok-sw" style="background:#dc2626"></div><span class="tok-name">red-600</span><span class="tok-val">#dc2626</span></div>
+          <div class="tok-row"><div class="tok-sw" style="background:#10b981"></div><span class="tok-name">green-500</span><span class="tok-val">#10b981</span></div>
+          <div class="tok-row"><div class="tok-sw" style="background:#6b7280"></div><span class="tok-name">gray-500</span><span class="tok-val">#6b7280</span></div>
+          <p class="tok-section">Semantic tokens (intent)</p>
+          <div class="tok-row"><div class="tok-sw" style="background:#0066cc"></div><span class="tok-name">action-primary</span><span class="tok-val">blue-600</span></div>
+          <div class="tok-row"><div class="tok-sw" style="background:#dc2626"></div><span class="tok-name">action-destructive</span><span class="tok-val">red-600</span></div>
+          <div class="tok-row"><div class="tok-sw" style="background:#10b981"></div><span class="tok-name">status-success</span><span class="tok-val">green-500</span></div>
+          <p class="tok-section">Component tokens (applied)</p>
+          <div class="tok-row"><div class="tok-sw" style="background:#0066cc"></div><span class="tok-name">button-bg-primary</span><span class="tok-val">action-primary</span></div>
+          <div class="tok-row"><div class="tok-sw" style="background:#dc2626"></div><span class="tok-name">button-bg-danger</span><span class="tok-val">action-destructive</span></div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Form elements -->
+      <div class="sky-panel">
+        <div class="sky-ph">Form Components</div>
+        <div class="sky-pb">
+          <div class="sky-field">
+            <label class="sky-lbl">Campaign name</label>
+            <input class="sky-inp" type="text" placeholder="Q4 Lead Gen Campaign" value="Q4 Lead Gen Campaign">
+            <span class="sky-hint-ok">✓ Name looks good</span>
+          </div>
+          <div class="sky-field">
+            <label class="sky-lbl">From email <span style="color:#ef4444">*</span></label>
+            <input class="sky-inp sky-err" type="email" placeholder="noreply@company.com" value="noreply@">
+            <span class="sky-hint">Valid email address required</span>
+          </div>
+          <div class="sky-field">
+            <label class="sky-lbl">Send time</label>
+            <select class="sky-sel">
+              <option>Immediately</option>
+              <option>Schedule for later</option>
+              <option>Wait for trigger</option>
+            </select>
+          </div>
+          <div class="sky-field">
+            <label class="sky-lbl">Smart list</label>
+            <input class="sky-inp" type="text" placeholder="Search lists…">
+          </div>
+          <label class="sky-cb-row">
+            <input class="sky-cb" type="checkbox" checked>
+            <span class="sky-cb-lbl">Send confirmation email to registrants</span>
+          </label>
+          <label class="sky-cb-row">
+            <input class="sky-cb" type="checkbox">
+            <span class="sky-cb-lbl">Enable A/B subject line test</span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 7: MARKETO MIGRATION — BIG STAT -->
+  <section class="slide" id="s7">
+    <div class="stat-slide">
+      <p class="stat-co">Marketo / Adobe · Sky Migration</p>
+      <div class="stat-n">733%</div>
+      <p class="stat-lbl">Increase in platform adoption. Sky had been in development for years — fewer than 600 users had opted in. The VP and CPO assembled a task force. The product was ready. Nobody had designed the transition.</p>
+      <div class="stat-ctx">
+        <div class="stat-c">
+          <span class="stat-cv">600</span>
+          <span class="stat-cl">Opt-ins before the migration project</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-c">
+          <span class="stat-cv">5,000+</span>
+          <span class="stat-cl">Opt-ins after a 3-month sprint</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-c">
+          <span class="stat-cv">Q1 2020</span>
+          <span class="stat-cl">Shipped on schedule</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8: MEROXA — CONTEXT -->
+  <section class="slide" id="s8">
+    <div class="ctx">
+      <div class="ctx-left">
+        <p class="cs-num">04 of 04</p>
+        <p class="cs-co">Meroxa</p>
+        <h2 class="cs-h">We built the right product for the wrong person. Here's how we figured that out.</h2>
+        <p class="cs-intro">Growth stalled. The team's first instinct was better onboarding. My instinct was that the market assumption underneath the whole product was off. This is what happened when we followed that thread all the way down.</p>
+        <div class="cs-metrics">
+          <div class="cs-m"><span class="cs-m-val">10x</span><span class="cs-m-label">addressable market expansion</span></div>
+          <div class="cs-m"><span class="cs-m-val">4x</span><span class="cs-m-label">improvement in user engagement</span></div>
+          <div class="cs-m"><span class="cs-m-val">33%</span><span class="cs-m-label">reduction in time to resource creation</span></div>
+        </div>
+      </div>
+      <div class="ctx-right">
+        <img class="ss-wrap" src="../assets/meroxa-observability.png" alt="Meroxa observability platform">
+        <p class="ss-label">Meroxa data observability platform · post-pivot</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9: MEROXA — MOCKUP -->
+  <section class="slide" id="s9">
+    <div class="mock">
+      <div class="mock-bar">
+        <span class="mock-label">Meroxa · Interactive Prototype</span>
+        <span class="mock-co">Meroxa</span>
+      </div>
+      <div class="bframe">
+        <div class="bchrome">
+          <div class="bdots"><div class="bdot r"></div><div class="bdot a"></div><div class="bdot g"></div></div>
+          <div class="bbar">app.meroxa.io</div>
+        </div>
+        <iframe src="../meroxa-prototype.html" title="Meroxa prototype" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- END -->
+  <section class="slide" id="s-end">
+    <h2 class="end-h">That's the work.</h2>
+    <p class="end-sub">Let's talk about what comes next.</p>
+    <a class="end-btn" href="/">Back to ldante.com</a>
+    <p class="end-back" id="end-back-btn">↑ Back to beginning</p>
+  </section>
+
+</div><!-- /.deck -->
+
+<script>
+(function() {
+  const SLIDES = ['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s-end'];
+  let cur = 0;
+  let animating = false;
+
+  const deck    = document.getElementById('deck');
+  const prog    = document.getElementById('progress');
+  const hintEl  = document.getElementById('hint');
+  const els     = SLIDES.map(id => document.getElementById(id));
+
+  // Build progress dots
+  SLIDES.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'pdot';
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
+    prog.appendChild(d);
+  });
+
+  function setState() {
+    els.forEach((el, i) => {
+      el.dataset.s = i < cur ? 'above' : i === cur ? 'active' : 'below';
+    });
+    prog.querySelectorAll('.pdot').forEach((d, i) => {
+      d.classList.toggle('on', i === cur);
+    });
+    hintEl.classList.toggle('gone', cur === SLIDES.length - 1);
+  }
+
+  function goTo(idx, fast) {
+    if (idx === cur || animating) return;
+    idx = Math.max(0, Math.min(SLIDES.length - 1, idx));
+    animating = true;
+    cur = idx;
+    setState();
+    setTimeout(() => { animating = false; }, fast ? 50 : 650);
+  }
+
+  function next() { goTo(cur + 1); }
+  function prev() { goTo(cur - 1); }
+
+  setState();
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  { e.preventDefault(); prev(); }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End')  goTo(SLIDES.length - 1);
+  });
+
+  // Cover pill jumps
+  document.querySelectorAll('[data-jump]').forEach(btn => {
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.jump), true));
+  });
+
+  // End back-to-top
+  document.getElementById('end-back-btn').addEventListener('click', () => goTo(0));
+
+  // Touch / swipe
+  let ty0 = 0;
+  document.addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dy = e.changedTouches[0].clientY - ty0;
+    if (Math.abs(dy) > 48) { dy < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  // Scroll wheel
+  let wt = 0;
+  document.addEventListener('wheel', e => {
+    // Only fire on non-iframe content
+    const now = Date.now();
+    if (now - wt < 600) return;
+    wt = now;
+    e.deltaY > 40 ? next() : e.deltaY < -40 ? prev() : null;
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
