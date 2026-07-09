@@ -2137,6 +2137,51 @@ const THOUGHTS = {
     ],
   },
 
+  'the-skill-layer': {
+    kicker: 'Point of View',
+    title:  'The Skill Layer',
+    dek: 'On writing AI skills that implement design systems — and what a design system has to become before a skill can carry it faithfully.',
+    sections: [
+      {
+        paragraphs: [
+          'Design system adoption has always been a distribution problem. You build the tokens, define the components, write the documentation — and then rely on every team building on top of the system to internalize the intent behind it, not just copy the output.',
+          'Most of the time, they copy the output. They reach for the closest component rather than the right one. They make local decisions that quietly conflict with the system\'s reasoning — not because they\'re being careless, but because intent doesn\'t travel well in static documentation.',
+          'AI skills are a new answer to that problem.',
+        ],
+      },
+      {
+        heading: 'What a skill is, in this context',
+        paragraphs: [
+          'A skill, in the AI agent tooling sense, is a structured set of instructions that gives an agent a specialized capability. When you write a skill for implementing a design system, you\'re encoding the system\'s decisions as agent instructions: which components to reach for in which contexts, how the token vocabulary maps to implementation choices, when to use a pattern and when to explicitly deviate from it.',
+          'The skill becomes executable documentation. Not an artifact a designer reads and then applies — an artifact an agent reads and acts on directly. That\'s a meaningful upgrade to the distribution model.',
+        ],
+      },
+      {
+        heading: 'What the design system has to be first',
+        paragraphs: [
+          'A skill that implements a design system is only as good as the system underneath it. And the design system has to meet a higher bar to be skill-ready than it does to be designer-ready.',
+          'Designers bring judgment. They infer from ambiguous documentation, ask when something is unclear, reason from precedent when a component doesn\'t quite fit. An agent can\'t do any of that without explicit guidance — the ambiguities experienced designers navigate invisibly become failure modes in generated output.',
+          'Skill-readiness means semantic token naming that encodes intent rather than visual description. It means component descriptions that capture when to use something, when not to, and what alternatives exist. It means surfacing the decision logic that designers apply by feel — "use a modal for destructive confirmation; use a toast for non-blocking feedback" — rather than leaving it implicit in the file.',
+          'The Figma MCP closes one gap here: a skill with access to Figma can read live token values rather than working from static documentation that drifts. Code Connect closes the other: a skill that knows how Figma components map to code can generate implementation-ready output rather than design intent. When both are in place, the skill produces work that travels from prompt to PR with minimal translation.',
+        ],
+      },
+      {
+        heading: 'Writing the skill',
+        paragraphs: [
+          'The practical work is in the sequencing. Start from the token layer — encode the semantic vocabulary before the component library. The skill should understand what "primary," "destructive," "subtle," and "disabled" mean in this system before it knows which component to reach for.',
+          'Define the decision logic, not just the components. Not a lookup table but conditional reasoning: when is the right answer a modal versus a drawer? When does an error appear inline versus in a toast? When does a form submit with a primary button versus a floating action? This is where the skill earns its value — by carrying the reasoning, not just the reference.',
+          'Include the anti-patterns explicitly. The things the system doesn\'t do are where generated output drifts most. A skill that knows what to avoid is more reliable than one that only knows what to reach for.',
+        ],
+      },
+      {
+        paragraphs: [
+          'Design systems have always been about scaling decisions. A token system scales color decisions. A component library scales interaction patterns. Documentation scales the reasoning behind them.',
+          'Skills scale the execution of those decisions. When you write a skill that genuinely implements a design system, you\'ve turned the system into something that actively participates in every piece of work built on top of it. It doesn\'t just live in a file. It travels with the work.',
+        ],
+      },
+    ],
+  },
+
 };
 
 
