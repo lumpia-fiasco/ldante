@@ -730,6 +730,73 @@ function openFitPanel() {
 
 // ── Case studies ────────────────────────────────────────────────
 const CASES = {
+  'vyehealth': {
+    company: 'Vye Health',
+    headline: 'The product already existed. The experience didn\'t.',
+    intro: 'Vye Health\'s patient flows had been vibecoded into existence — fast, individually functional, and collectively incoherent. Navigation patterns shifted screen to screen, components disagreed with each other, and there was no information hierarchy tying it together. My job was to build the real experience: coherent, end-to-end, and designed to compound on itself.',
+    metrics: [
+      { value: '5',         label: 'experience areas designed end to end' },
+      { value: '1',         label: 'founding designer across patient + provider' },
+      { value: 'July 2026', label: 'seed presentations begin' },
+    ],
+    content: `
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Founding Designer (Contract)</div></div>
+        <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Product design, information architecture, AI-assisted prototyping</div></div>
+        <div><div class="cs-meta-label">Deliverables</div><div class="cs-meta-val">Patient experience (5 areas), provider experience, design system, Claude Code skill</div></div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
+        <p class="cd-body">By the time I turned my attention to the patient experience, Vye Health already had a working product. But it hadn&#39;t been designed so much as vibecoded into existence: individual flows had been generated quickly to prove out ideas, and while each one worked in isolation, none of them agreed with each other. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. There was no real information hierarchy tying the experience together.</p>
+        <p class="cd-body">Rebuilding the whole experience from scratch the traditional way &#8212; wireframes, static comps, long review cycles &#8212; wasn&#39;t viable on a short-term contract at a startup moving toward a seed raise. But treating the existing flows as disposable and starting over blind would have thrown away real product learning already embedded in them.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">Approach: prototype &#x2192; refine &#x2192; feedback &#x2192; codify</span></div>
+        <p class="cd-body">Using the design system skill as the foundation, I worked at high velocity in Claude Code to prototype entire patient workflows end to end, then brought those prototypes into Figma for refinement against the system&#39;s tokens and components. That refinement surfaced feedback &#8212; from stakeholders, from engineering, from just seeing the flow in a more considered form &#8212; which I then codified back into the design system skill itself.</p>
+        <p class="cd-body">That loop repeated across every workflow in the patient experience. Each cycle made the next one faster: as more of the system got codified, new prototypes inherited more correctness for free, and the gap between a first pass and something 60%+ production-ready kept shrinking. The result wasn&#39;t just a set of screens &#8212; it was an information architecture stress-tested against real flows repeatedly, not designed once and hoped into consistency.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">The patient experience</span></div>
+        <p class="cd-body">The rebuilt experience organized around five areas, each with a clear job to do &#8212; several working in direct tandem with the provider experience I also designed:</p>
+        <div class="workflow-block">
+          <div class="workflow-row">
+            <div class="workflow-step">Home</div>
+            <div class="workflow-body">An AI chatbot that persisted context across the relationship. As appointments approached, it surfaced join links and gave patients space to raise concerns ahead of time &#8212; concerns that appeared in provider encounter notes so the provider walked in already informed.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Care Journal</div>
+            <div class="workflow-body">The system of record for appointments, medications, care notes, and care team messages. What a provider documented or ordered surfaced automatically in the patient&#39;s journal. What a patient raised surfaced in the provider&#39;s notes. Supplement and medication recommendations carried purchase links directly to Vye&#39;s shop.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Shop</div>
+            <div class="workflow-body">Connected directly to recommendations and orders from the Care Journal &#8212; a closed loop from recommendation to purchase, not a disconnected storefront.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Profile</div>
+            <div class="workflow-body">Personal details, contacts, and health history &#8212; the baseline information the rest of the experience and the care team relied on.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Integrations</div>
+            <div class="workflow-body">Wearables, health platforms, and EHRs. Data the patient had already provided elsewhere followed them in so they were never asked to repeat it. Relevant device data surfaced on Home with guidance on what to ask the provider.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">Outcome</span></div>
+        <p class="cd-body">A single, coherent patient experience replaced a set of disconnected vibecoded flows, with a purposeful information hierarchy across all five areas. The prototype &#x2192; refine &#x2192; feedback &#x2192; codify cycle turned every workflow built into a system improvement, compounding speed and consistency rather than trading one for the other.</p>
+        <p class="cd-body">The matched provider experience &#8212; designed in tandem &#8212; ensured patient and provider actions resolved correctly on both sides. Encounter notes, orders, messages, and recommendations flowed the right direction without manual reconciliation.</p>
+        <div class="cs-reflection">
+          <div class="cs-reflection-title">Reflection</div>
+          <p class="cd-body">This project was a test of whether a design system built for AI-assisted speed could also produce something coherent enough to stand in front of investors. The inherited vibecoded flows were a warning about what happens without that system: fast, disconnected, and ultimately more expensive to untangle than to have built right. The cycle of prototyping in Claude Code, refining in Figma, and codifying feedback back into the skill is what let velocity and coherence reinforce each other instead of trading off. Seed investment presentations are slated for late July 2026.</p>
+        </div>
+      </div>
+    `,
+  },
+
   'teamshares-payroll': {
     company: 'Teamshares',
     headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.',
