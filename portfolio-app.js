@@ -747,7 +747,7 @@ const CASES = {
       </div>
 
       <div class="cd-hero-img-wrap">
-        <img src="assets/vyehealth-home.png" class="cd-hero-img" alt="Vye Health Home — AI chatbot V with upcoming appointment sidebar" />
+        <img src="assets/vyehealth-mob-home.png" class="cd-hero-img" alt="Vye Health mobile — Home and navigation menu" />
       </div>
 
       <div class="cs-section">
@@ -763,7 +763,7 @@ const CASES = {
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-booking.png" class="cd-screenshot" alt="Appointment booking — provider availability calendar" />
+        <img src="assets/vyehealth-mob-booking.png" class="cd-screenshot" alt="Appointment booking — select time slot and enter details" />
       </div>
 
       <div class="cs-section">
@@ -794,18 +794,15 @@ const CASES = {
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-telehealth.png" class="cd-screenshot" alt="Telehealth appointment — video call with patient concerns surfaced in sidebar" />
+        <img src="assets/vyehealth-mob-join.png" class="cd-screenshot" alt="Join the visit — appointment reminder and mobile video call" />
       </div>
 
-      <div class="cd-screenshots-row">
-        <div class="cd-screenshot-frame">
-          <img src="assets/vyehealth-post-appt.png" alt="Home post-appointment — care plan from V with prescription and lab CTAs">
-          <span>Home: care plan surfaced by V after appointment</span>
-        </div>
-        <div class="cd-screenshot-frame">
-          <img src="assets/vyehealth-care-journal.png" alt="Care Journal — medication changes, labs ordered, appointment notes">
-          <span>Care Journal: full record of medications, labs, and provider notes</span>
-        </div>
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-mob-after.png" class="cd-screenshot" alt="After the visit — care plan from V, medication changes, labs ordered" />
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-mob-journal.png" class="cd-screenshot" alt="Care Journal — appointments, care plans, and provider notes" />
       </div>
 
       <div class="cs-section">
