@@ -78,8 +78,8 @@ function prefillFitJD(text) {
   });
 }
 
-const GENERAL_GREETING = "So glad you made it.";
-const GENERAL_BODY = "I'm Dante. I'm a Product Designer with over a decade of experience specializing in B2B/SaaS and devops tools.\n\nIf we drew a Venn diagram of complex systems, and real user needs -- I operate where the two overlap.";
+const GENERAL_GREETING = "I'm Dante.";
+const GENERAL_BODY = "Product Designer with over a decade of experience in B2B SaaS, devops tooling, and enterprise platforms.\n\nI design at the intersection of complex systems and real user needs — work that increasingly means integrating AI into product workflows, and designing applications that leverage agentic systems.";
 
 // ── Screen manager ─────────────────────────────────────────────
 let currentScreen = 'gate';
