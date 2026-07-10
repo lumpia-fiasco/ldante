@@ -56,11 +56,6 @@ const TAILORED = {  five9: {
     body: "I'm Dante. I've spent years building complex, data-rich applications for power users.\n\nDesign systems, multi-persona platforms, and the craft details that compound over an eight-hour shift.",
     jd: "Senior Product Designer\nFive9\n\nShape the user experience of Five9's cloud contact center platform, advocating for Agent, Supervisor, and Admin personas. Lead design from concept to launch for complex, data-rich applications. Contribute to and maintain the design system, ensuring consistency across all products. Drive the \"one platform\" strategy to create a seamless, integrated experience. Mentor other designers.\n\n5+ years on complex, data-rich applications. Proficiency in Figma, Sketch, Adobe. Web and mobile design principles. User research and usability testing. Strong communication and collaboration.",
   },
-  vyehealth: {
-    greeting: "Hey, Vye Health.",
-    body: "I'm Dante. My healthcare software experience is on the clinical operations side — MEDHOST, building patient registration systems for front desk staff in real clinical settings. That work gave me a ground-level understanding of what healthcare software actually has to do: get out of the way fast, communicate clearly under pressure, and never be the reason something goes wrong.\n\nThe AI-native angle is the part I want to be working on. I've spent time designing systems where the hard problem isn't the capability — it's the trust. When does a clinician lean on what the AI produced? When do they override it? How does the interface communicate enough about what's happening that they can act with confidence? That handoff is a design problem. I'd like to help Vye solve it.",
-    jd: "Product Designer — VyeOS\nVye Health\n\n0-to-1 design role building VyeOS: an AI-native operating system for private practices combining EHR, scheduling, billing, patient engagement, clinical intelligence, and AI copilot in a single platform. Work directly with founders, engineers, and clinicians. Design how AI agents function inside real medical workflows: chart prep, clinical documentation, patient communication, follow-ups, operational tasks, decision support. Core challenges: designing trust, orchestration, and human+AI collaboration in complex, data-dense clinical interfaces.",
-  },
   designsystems: {
     greeting: "Here for the systems.",
     body: "I'm Dante. I build design systems that travel well — from Figma variables to code tokens, from component specs to Code Connect mappings.\n\nThe interesting part isn't the component library. It's the structure beneath it: the token decisions that make the library coherent, the file organization that makes it legible to teammates and AI agents alike, and the Code Connect mappings that close the gap between design intent and implementation.",
@@ -2360,7 +2355,6 @@ function setupHiringManagerView() {
   // Map experience slug → POV thought(s) to surface (string or array)
   const POV_MAP = {
     five9:         'designing-for-people-who-live-in-the-product',
-    vyehealth:     'when-ai-does-the-work-and-humans-stay-accountable',
     designsystems: ['design-systems-built-to-travel', 'the-skill-layer'],
   };
 
