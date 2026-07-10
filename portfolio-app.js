@@ -746,6 +746,10 @@ const CASES = {
         <div><div class="cs-meta-label">Deliverables</div><div class="cs-meta-val">Patient experience (5 areas), provider experience, design system, Claude Code skill</div></div>
       </div>
 
+      <div class="cd-hero-img-wrap">
+        <img src="assets/vyehealth-home.png" class="cd-hero-img" alt="Vye Health Home — AI chatbot V with upcoming appointment sidebar" />
+      </div>
+
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
         <p class="cd-body">By the time I turned my attention to the patient experience, Vye Health already had a working product. But it hadn&#39;t been designed so much as vibecoded into existence: individual flows had been generated quickly to prove out ideas, and while each one worked in isolation, none of them agreed with each other. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. There was no real information hierarchy tying the experience together.</p>
@@ -756,6 +760,10 @@ const CASES = {
         <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">Approach: prototype &#x2192; refine &#x2192; feedback &#x2192; codify</span></div>
         <p class="cd-body">Using the design system skill as the foundation, I worked at high velocity in Claude Code to prototype entire patient workflows end to end, then brought those prototypes into Figma for refinement against the system&#39;s tokens and components. That refinement surfaced feedback &#8212; from stakeholders, from engineering, from just seeing the flow in a more considered form &#8212; which I then codified back into the design system skill itself.</p>
         <p class="cd-body">That loop repeated across every workflow in the patient experience. Each cycle made the next one faster: as more of the system got codified, new prototypes inherited more correctness for free, and the gap between a first pass and something 60%+ production-ready kept shrinking. The result wasn&#39;t just a set of screens &#8212; it was an information architecture stress-tested against real flows repeatedly, not designed once and hoped into consistency.</p>
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-booking.png" class="cd-screenshot" alt="Appointment booking — provider availability calendar" />
       </div>
 
       <div class="cs-section">
@@ -782,6 +790,21 @@ const CASES = {
             <div class="workflow-step">Integrations</div>
             <div class="workflow-body">Wearables, health platforms, and EHRs. Data the patient had already provided elsewhere followed them in so they were never asked to repeat it. Relevant device data surfaced on Home with guidance on what to ask the provider.</div>
           </div>
+        </div>
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-telehealth.png" class="cd-screenshot" alt="Telehealth appointment — video call with patient concerns surfaced in sidebar" />
+      </div>
+
+      <div class="cd-screenshots-row">
+        <div class="cd-screenshot-frame">
+          <img src="assets/vyehealth-post-appt.png" alt="Home post-appointment — care plan from V with prescription and lab CTAs">
+          <span>Home: care plan surfaced by V after appointment</span>
+        </div>
+        <div class="cd-screenshot-frame">
+          <img src="assets/vyehealth-care-journal.png" alt="Care Journal — medication changes, labs ordered, appointment notes">
+          <span>Care Journal: full record of medications, labs, and provider notes</span>
         </div>
       </div>
 
