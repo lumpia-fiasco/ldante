@@ -797,6 +797,84 @@ const CASES = {
     `,
   },
 
+  'vyehealth-ds': {
+    company: 'Vye Health',
+    headline: 'A design system built to be read by a machine as well as a human.',
+    intro: 'Vye Health\'s team wanted speed — the ability to put any idea in front of the room fast. Vibecoded prototyping made that possible in theory, but vibecoded output is only as good as the system underneath it. Without a rigorous, machine-readable design system, AI-generated interfaces would drift from the product\'s visual language immediately and couldn\'t be trusted for real decisions. My job was to build a system that made the vibecoding actually work.',
+    metrics: [
+      { value: '~60%',     label: 'prototype fidelity reached reliably out of the gate' },
+      { value: '2',        label: 'component tracks — one for machines, one for designers' },
+      { value: '1',        label: 'token foundation powering both' },
+    ],
+    content: `
+      <div class="cs-meta-row">
+        <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Founding Designer (Contract)</div></div>
+        <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Design systems, AI-assisted prototyping, design engineering, mobile</div></div>
+        <div><div class="cs-meta-label">Tools</div><div class="cs-meta-val">Figma (MCP + Code Connect), Claude Code, mobile-native token architecture</div></div>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
+        <p class="cd-body">I joined Vye Health as founding designer at a moment when the company had a product vision but no real design system to support it. Components existed in scattered Figma files. Naming was inconsistent. There was no shared language between design and engineering, which meant every new feature started from a blank page instead of a foundation.</p>
+        <p class="cd-body">The team wanted to lean into AI-assisted prototyping &#8212; letting anyone describe an idea and generate a working interface. But vibecoded output is only as good as the system underneath it. Without a rigorous, semantically consistent design system, AI-generated interfaces drift from the product&#39;s visual language immediately and can&#39;t be trusted for real decision-making.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">The approach</span></div>
+        <p class="cd-body">I worked across Figma and Claude Code simultaneously, using the Figma MCP to keep design and code in constant sync. Rather than building the design system and the AI workflow as separate efforts, I treated them as one problem: every token and every component had to be built with machine-readability in mind from day one.</p>
+        <div class="workflow-block">
+          <div class="workflow-row">
+            <div class="workflow-step">Token architecture</div>
+            <div class="workflow-body">Audited and restructured color, spacing, and typography tokens so that decisions in Figma mapped one-to-one with the codebase &#8212; by name and by semantic meaning. A &#8220;primary-action&#8221; token in Figma needed to resolve to the exact same concept in code, not just a visually similar one.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Unified naming</div>
+            <div class="workflow-body">Closed the translation gap between what a designer calls something and what an engineer calls it &#8212; the consistency that makes it possible for an AI system to reason about the design system at all.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Two component tracks</div>
+            <div class="workflow-body">One track built for machine consumption: components exposed through Code Connect via the Figma MCP, structured so the vibecoding skill could map Figma components to production code without guesswork. A second track built for human consumption: components tailored to Vye Health&#39;s growing design team, optimized for design velocity as the team scaled. Both drawing from the same token foundation.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Claude Code skill</div>
+            <div class="workflow-body">A custom skill that could take a rough idea from anyone in the organization and generate a prototype at least 60% polished out of the gate &#8212; close enough to production quality to be genuinely useful for early decision-making, not just a proof of concept.</div>
+          </div>
+          <div class="workflow-row">
+            <div class="workflow-step">Mobile-native foundation</div>
+            <div class="workflow-body">Extended the design system&#39;s mobile approach so the same token and component logic powering the vibecoding skill also scaled correctly to mobile layouts and interactions &#8212; built mobile-native rather than web-first with mobile bolted on.</div>
+          </div>
+        </div>
+        <p class="cd-body">Throughout, I partnered directly with engineering &#8212; validating the system in real code, not just Figma, through a continuous feedback loop, adjusting tokens and component structure based on what broke or drifted when engineers implemented against them.</p>
+      </div>
+
+      <div class="cs-section">
+        <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">Outcome</span></div>
+        <div class="finding-block">
+          <div class="finding-row">
+            <div class="finding-tag">~60% fidelity</div>
+            <div class="finding-body">Reliably reached by the vibecoding skill out of the gate &#8212; polished enough that engineers, PMs, and non-designers could generate credible prototypes without waiting on a designer.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Shifted bottleneck</div>
+            <div class="finding-body">Design&#39;s time moved toward refining and directing high-quality concepts instead of producing every single one from scratch.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Trustworthy tokens</div>
+            <div class="finding-body">A shared naming convention that eliminated design-to-dev translation errors and gave the AI tooling something it could actually reason about.</div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-tag">Two tracks, one foundation</div>
+            <div class="finding-body">A Code Connect-ready component layer for machine consumption and a separate, faster-moving set for the design team &#8212; velocity gains on one side never came at the expense of consistency on the other.</div>
+          </div>
+        </div>
+        <div class="cs-reflection">
+          <div class="cs-reflection-title">Reflection</div>
+          <p class="cd-body">The most valuable part of this work wasn&#39;t the skill itself; it was the discipline of building a design system that was legible to a machine as well as a human. Getting components and tokens to match by name and by meaning is tedious, unglamorous work, but it&#39;s the actual precondition for AI-assisted design tools to be trustworthy rather than just fast. At Vye Health, that discipline turned vibecoding from a novelty into a real part of the product development workflow.</p>
+        </div>
+      </div>
+    `,
+  },
+
   'teamshares-payroll': {
     company: 'Teamshares',
     headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.',
