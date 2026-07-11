@@ -13,9 +13,6 @@
   --shadow-card:0 1px 4px rgba(4,10,21,.08), 0 0 0 1px rgba(4,10,21,.04);
   --shadow-pop:0 8px 24px rgba(4,10,21,.12), 0 2px 6px rgba(4,10,21,.06);
 }
-@media(prefers-color-scheme:dark){
-  :root{--bg:#090F1A;--card:#0F1929;--tx:#EFF2F7;--tx2:#8C96A8;--tx3:#4E5F72;--bd:rgba(255,255,255,.08);}
-}
 :root[data-theme="dark"]{--bg:#090F1A;--card:#0F1929;--tx:#EFF2F7;--tx2:#8C96A8;--tx3:#4E5F72;--bd:rgba(255,255,255,.08);}
 :root[data-theme="light"]{--bg:#F7F8FA;--card:#FFFFFF;--tx:#040A15;--tx2:#454756;--tx3:#898B97;--bd:#E2E3E9;}
 
