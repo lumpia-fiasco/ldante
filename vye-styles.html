@@ -43,6 +43,10 @@
       <a class="nav-a" href="#alert">Alert</a>
       <a class="nav-a" href="#card">Card</a>
     </div>
+    <div class="nav-group">
+      <div class="nav-gl">In Practice</div>
+      <a class="nav-a" href="#screen">Patient Home</a>
+    </div>
   </nav>
 
   <div class="side-foot">
@@ -530,6 +534,94 @@
       </div>
     </div>
     <div class="token-note">border-radius: card (16px) · shadow: shadow-card · footer: border-top line token</div>
+  </section>
+
+
+  <!-- ── PATIENT HOME SCREEN ── -->
+  <div class="divider"></div>
+  <section class="sec" id="screen">
+    <div class="sec-head">
+      <div class="sec-eyebrow">In Practice</div>
+      <div class="sec-title">Patient Home</div>
+      <div class="sec-desc">Recreation of the patient home screen — every color, radius, and shadow references a Vye token. No detached values.</div>
+    </div>
+
+    <div class="screen-frame">
+      <!-- Icon sidebar -->
+      <aside class="screen-side">
+        <div class="screen-logo-mark">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="white"><path d="M10 1L3 5v5c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V5l-7-4z"/></svg>
+        </div>
+        <nav class="screen-icon-nav">
+          <button class="screen-icon-btn" title="Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="screen-icon-btn" title="Calendar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </button>
+          <button class="screen-icon-btn" title="Care Journal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </button>
+          <button class="screen-icon-btn" title="Connect">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>
+          </button>
+        </nav>
+        <div class="screen-side-foot">
+          <div class="screen-user-avatar">MV</div>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <div class="screen-main">
+        <h2 class="screen-greeting">Good afternoon, Matt!</h2>
+
+        <div class="screen-chat-area">
+          <div class="screen-msg-card">
+            <div class="screen-msg-label">📅 Hi, I'm V.</div>
+            <p class="screen-msg-p">You're all set for your appointment with Dr. Bundy</p>
+            <p class="screen-msg-p muted">Do you have any questions and concerns you want addressed during your appointment? List them here and I can relay them to Dr. Bundy to ensure you get the advice you need.</p>
+            <div class="screen-bot-bubble">
+              <svg width="12" height="12" viewBox="0 0 20 20" fill="white"><path d="M10 1L3 5v5c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V5l-7-4z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen-input-wrap">
+          <div class="screen-input-box">
+            <span class="screen-input-placeholder">Ask me anything…</span>
+            <div class="screen-input-actions">
+              <button class="screen-attach">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.47"/></svg>
+              </button>
+              <button class="screen-send">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="screen-prompts">
+            <button class="screen-prompt-chip">📊 My Data</button>
+            <button class="screen-prompt-chip">💊 Medications</button>
+            <button class="screen-prompt-chip">🏥 Care</button>
+            <button class="screen-prompt-chip">🗓 Stay Healthy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <aside class="screen-panel">
+        <div class="screen-seg-tabs">
+          <button class="screen-seg on">Upcoming</button>
+          <button class="screen-seg">Care Team</button>
+        </div>
+        <div class="screen-appt-card">
+          <div class="screen-appt-avatar">NB</div>
+          <div class="screen-appt-info">
+            <div class="screen-appt-time">Thursday, June 25, 11:00 AM PDT</div>
+            <div class="screen-appt-name">Dr. Nikki Bundy</div>
+          </div>
+        </div>
+      </aside>
+    </div>
   </section>
 
 </main>

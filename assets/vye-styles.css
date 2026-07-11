@@ -227,3 +227,98 @@ img,video{max-width:100%;display:block;}
   .field-pair{grid-template-columns:1fr;}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+/* ── Screen Example ── */
+.screen-frame{
+  display:flex;height:520px;
+  border:1px solid var(--bd);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow-card);
+}
+.screen-side{
+  width:48px;background:#090F1A;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;padding:12px 0;
+}
+.screen-logo-mark{
+  width:28px;height:28px;border-radius:6px;background:#2B6FD4;
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;flex-shrink:0;
+}
+.screen-icon-nav{display:flex;flex-direction:column;gap:2px;align-items:center;}
+.screen-icon-btn{
+  width:34px;height:34px;border-radius:7px;border:none;cursor:pointer;
+  background:transparent;color:rgba(255,255,255,.35);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .12s,color .12s;
+}
+.screen-icon-btn:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);}
+.screen-side-foot{margin-top:auto;}
+.screen-user-avatar{
+  width:28px;height:28px;border-radius:50%;background:#2B6FD4;
+  color:#fff;font-size:10px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+}
+.screen-main{
+  flex:1;display:flex;flex-direction:column;
+  background:var(--canvas);padding:24px 28px 16px;overflow:hidden;min-width:0;
+}
+.screen-greeting{font-size:22px;font-weight:700;color:var(--tx);margin-bottom:16px;line-height:1.2;flex-shrink:0;}
+.screen-chat-area{flex:1;overflow:auto;padding-bottom:8px;}
+.screen-msg-card{
+  background:#fff;border:1px solid var(--bd);border-radius:var(--radius-card);
+  padding:16px 18px 44px;position:relative;max-width:560px;
+  box-shadow:var(--shadow-card);
+}
+.screen-msg-label{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px;}
+.screen-msg-p{font-size:13.5px;color:var(--tx);line-height:1.55;margin-bottom:7px;}
+.screen-msg-p:last-of-type{margin-bottom:0;}
+.screen-msg-p.muted{color:var(--tx2);}
+.screen-bot-bubble{
+  position:absolute;bottom:12px;left:14px;
+  width:26px;height:26px;border-radius:50%;background:#2B6FD4;
+  display:flex;align-items:center;justify-content:center;
+}
+.screen-input-wrap{flex-shrink:0;margin-top:12px;}
+.screen-input-box{
+  background:#fff;border:1px solid var(--bd);border-radius:12px;
+  padding:10px 10px 10px 14px;display:flex;align-items:center;gap:8px;
+  box-shadow:var(--shadow-card);
+}
+.screen-input-placeholder{flex:1;font-size:13.5px;color:var(--tx3);}
+.screen-input-actions{display:flex;align-items:center;gap:6px;}
+.screen-attach{
+  width:28px;height:28px;border:none;background:transparent;cursor:pointer;
+  color:var(--tx3);display:flex;align-items:center;justify-content:center;
+}
+.screen-send{
+  width:28px;height:28px;border-radius:50%;border:none;
+  background:#2B6FD4;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.screen-prompts{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap;}
+.screen-prompt-chip{
+  border:1px solid var(--bd);background:#fff;border-radius:var(--radius-full);
+  padding:5px 12px;font-size:12.5px;color:var(--tx2);cursor:pointer;
+  font-family:inherit;transition:background .12s;white-space:nowrap;
+}
+.screen-prompt-chip:hover{background:var(--canvas);}
+.screen-panel{
+  width:272px;flex-shrink:0;background:#fff;border-left:1px solid var(--bd);
+  padding:18px 16px;overflow-y:auto;
+}
+.screen-seg-tabs{display:flex;gap:4px;margin-bottom:14px;}
+.screen-seg{
+  padding:5px 12px;border-radius:var(--radius-full);border:1px solid transparent;
+  font-size:12.5px;font-weight:500;cursor:pointer;font-family:inherit;
+  background:transparent;color:var(--tx2);transition:background .12s,color .12s;
+}
+.screen-seg.on{background:var(--tx);color:#fff;border-color:var(--tx);}
+.screen-appt-card{
+  display:flex;align-items:center;gap:11px;padding:12px;
+  border:1px solid var(--bd);border-radius:12px;box-shadow:var(--shadow-card);
+}
+.screen-appt-avatar{
+  width:44px;height:44px;border-radius:50%;background:#D4E5FC;
+  color:#2B6FD4;font-size:12px;font-weight:600;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.screen-appt-time{font-size:11px;color:var(--tx3);margin-bottom:3px;}
+.screen-appt-name{font-size:13.5px;font-weight:600;color:var(--tx);}
