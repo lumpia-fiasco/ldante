@@ -794,15 +794,35 @@ const CASES = {
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-mob-join.png" class="cd-screenshot" alt="Join the visit — appointment reminder and mobile video call" />
+        <img src="assets/vyehealth-dt-home-postonboarding.png" class="cd-screenshot" alt="Home — pre-appointment: V asks the patient to share questions and concerns before the visit" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-mob-after.png" class="cd-screenshot" alt="After the visit — care plan from V, medication changes, labs ordered" />
+        <img src="assets/vyehealth-dt-home-apptday.png" class="cd-screenshot" alt="Home — appointment day: submitted concerns surface as talking points with 16 minutes to go, and a Join button" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-mob-journal.png" class="cd-screenshot" alt="Care Journal — appointments, care plans, and provider notes" />
+        <img src="assets/vyehealth-dt-telehealth.png" class="cd-screenshot" alt="Telehealth call — the patient's Questions &amp; Concerns panel stays visible during the video appointment" />
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-dt-home-postappt.png" class="cd-screenshot" alt="Home — post-appointment: V surfaces the care plan with purchase CTAs for recommended medications" />
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-dt-carejournal.png" class="cd-screenshot" alt="Care Journal — full record of medication changes, labs ordered, next steps, and appointment notes" />
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-mob-join.png" class="cd-screenshot" alt="Join the visit — mobile appointment reminder and video call" />
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-mob-after.png" class="cd-screenshot" alt="After the visit — mobile care plan from V, medication changes, labs ordered" />
+      </div>
+
+      <div class="cd-screenshot-wrap">
+        <img src="assets/vyehealth-mob-journal.png" class="cd-screenshot" alt="Care Journal — mobile view of appointments, care plans, and provider notes" />
       </div>
 
       <div class="cs-section">
