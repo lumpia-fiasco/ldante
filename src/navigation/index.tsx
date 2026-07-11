@@ -30,9 +30,7 @@ import { DiscoverScreen } from '../screens/customer/DiscoverScreen';
 import { BookingsScreen } from '../screens/customer/BookingsScreen';
 import { NotificationsScreen } from '../screens/shared/NotificationsScreen';
 import { JonathanAIScreen } from '../screens/shared/JonathanAIScreen';
-import { SearchScreen } from '../screens/customer/SearchScreen';
 import { ProfileScreen } from '../screens/shared/ProfileScreen';
-import { RolodexScreen } from '../screens/customer/RolodexScreen';
 
 // Detail Screens
 import { ProviderProfileScreen } from '../screens/shared/ProviderProfileScreen';
@@ -307,6 +305,8 @@ export function AppNavigator() {
         <Stack.Screen name="ProfileEdit"      component={ProfileEditScreen} />
         <Stack.Screen name="Settings"         component={SettingsScreen} />
         <Stack.Screen name="HelpSupport"      component={HelpSupportScreen} />
+        {/* Removed routes — redirect to Login so dead links never no-op */}
+        <Stack.Screen name="Search"           component={LoginScreen} />
         <Stack.Screen name="CreatePost"       component={CreatePostScreen} options={{ gestureEnabled: false }} />
         {/* Jonathan AI — full-screen stack: no tab bar, swipe-right supported, back button in screen */}
         <Stack.Screen name="JonathanAI"       component={JonathanAIScreen} options={{ gestureEnabled: true, gestureDirection: 'horizontal' }} />
