@@ -568,13 +568,6 @@ function setupPortfolio(role) {
     setupHiringManagerView();
   }
 
-  // ── vyehealth ref: hide all case studies before masonry runs ──
-  const _refParam = (new URLSearchParams(window.location.search).get('ref') || '').toLowerCase();
-  if (_refParam === 'vyehealth') {
-    document.querySelectorAll('#caseStack .case-item[data-case]').forEach(el => { el.style.display = 'none'; });
-    document.querySelectorAll('.ctx-item[data-case]').forEach(el => { el.style.display = 'none'; });
-  }
-
   // Masonry layout
   layoutMasonry();
   window.addEventListener('resize', () => {
@@ -3401,6 +3394,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Experimental design system view — bypasses auth entirely
   if (incomingPw === 'designsystems') {
     renderDSMode();
+    return;
+  }
+
+  // NDA refs: client-specific links show nothing
+  const _ref = (new URLSearchParams(window.location.search).get('ref') || '').toLowerCase();
+  if (_ref === 'vyehealth' || _ref === 'five9') {
+    document.body.innerHTML = '';
+    document.documentElement.style.background = '#000';
     return;
   }
 
