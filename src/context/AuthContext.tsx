@@ -116,8 +116,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Subscribe to auth state changes on mount
   useEffect(() => {
     // Get the current session immediately (handles app resume / restart)
-    authService.getSession().then(({ data }) => {
+    authService.getSession().then(async ({ data }) => {
       const s = data.session;
+
+      // Invalidate sessions issued before removed routes were deployed.
+      // Users with stale cached sessions are signed out and land on Welcome.
+      const ROUTES_CUTOFF = new Date('2026-07-11T00:00:00Z');
+      const lastSignIn = s?.user?.last_sign_in_at
+        ? new Date(s.user.last_sign_in_at)
+        : null;
+
+      if (s && lastSignIn && lastSignIn < ROUTES_CUTOFF) {
+        await authService.signOut();
+        setLoading(false);
+        return;
+      }
+
       setSession(s);
       if (s?.user) {
         fetchUser(s.user.id, s.user.email ?? '').finally(() => setLoading(false));
