@@ -133,38 +133,31 @@ img,video{max-width:100%;display:block;}
 
 /* ── Button ── */
 .vye-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  font-family:inherit;font-weight:600;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;
   border:1.5px solid transparent;border-radius:10px;
-  transition:opacity .12s,background .12s;white-space:nowrap;line-height:1;
+  transition:opacity .12s,background .12s,box-shadow .12s;white-space:nowrap;line-height:1;
+  letter-spacing:.01em;
 }
-.vye-btn:hover{opacity:.84;}
-.btn-sm{font-size:12px;padding:5px 11px;}
-.btn-md{font-size:14px;padding:8px 16px;}
-.btn-lg{font-size:15px;padding:11px 22px;}
-.btn-default    {background:#2B6FD4;color:#fff;}
-.btn-secondary  {background:#F0F2F5;color:#040A15;border-color:#E2E3E9;}
+.vye-btn:hover{opacity:.88;}
+.vye-btn:active{opacity:.72;}
+.btn-sm{font-size:12px;padding:6px 12px;}
+.btn-md{font-size:14px;padding:9px 16px;}
+.btn-lg{font-size:14px;padding:12px 22px;}
+.btn-default    {background:#2B6FD4;color:#fff;border-color:#2B6FD4;}
+.btn-secondary  {background:#365076;color:#fff;border-color:#365076;}
 .btn-outline    {background:transparent;color:#040A15;border-color:#C8CAD4;}
 .btn-link       {background:none;color:#2B6FD4;border-color:transparent;padding-left:0;padding-right:0;}
-.btn-ghost      {background:transparent;color:#040A15;border-color:transparent;}
+.btn-ghost      {background:transparent;color:#454756;border-color:transparent;}
 .btn-ghost:hover{background:rgba(4,10,21,.05);opacity:1;}
-.btn-destructive{background:#C0544A;color:#fff;}
+.btn-destructive{background:#FD7959;color:#fff;border-color:#FD7959;}
 
-@media(prefers-color-scheme:dark){
-  .btn-secondary{background:rgba(255,255,255,.09);color:#EFF2F7;border-color:rgba(255,255,255,.1);}
-  .btn-outline{color:#EFF2F7;border-color:rgba(255,255,255,.16);}
-  .btn-ghost{color:#EFF2F7;}
-  .btn-ghost:hover{background:rgba(255,255,255,.06);}
-  .btn-link{color:#70A6F6;}
-}
-:root[data-theme="dark"] .btn-secondary{background:rgba(255,255,255,.09);color:#EFF2F7;border-color:rgba(255,255,255,.1);}
-:root[data-theme="dark"] .btn-outline{color:#EFF2F7;border-color:rgba(255,255,255,.16);}
-:root[data-theme="dark"] .btn-ghost{color:#EFF2F7;}
+:root[data-theme="dark"] .btn-outline{color:#EFF2F7;border-color:rgba(255,255,255,.2);}
+:root[data-theme="dark"] .btn-ghost{color:#8C96A8;}
 :root[data-theme="dark"] .btn-ghost:hover{background:rgba(255,255,255,.06);}
 :root[data-theme="dark"] .btn-link{color:#70A6F6;}
-:root[data-theme="light"] .btn-secondary{background:#F0F2F5;color:#040A15;border-color:#E2E3E9;}
 :root[data-theme="light"] .btn-outline{color:#040A15;border-color:#C8CAD4;}
-:root[data-theme="light"] .btn-ghost{color:#040A15;}
+:root[data-theme="light"] .btn-ghost{color:#454756;}
 :root[data-theme="light"] .btn-link{color:#2B6FD4;}
 
 /* ── Badge ── */
