@@ -46,6 +46,7 @@
     <div class="nav-group">
       <div class="nav-gl">In Practice</div>
       <a class="nav-a" href="#screen">Patient Home</a>
+      <a class="nav-a" href="#care-journal">Care Journal</a>
     </div>
   </nav>
 
@@ -626,6 +627,197 @@
         </div>
       </aside>
     </div>
+  </section>
+
+  <!-- ── CARE JOURNAL (MOBILE) ── -->
+  <div class="divider"></div>
+  <section class="sec" id="care-journal">
+    <div class="sec-head">
+      <div class="sec-eyebrow">In Practice</div>
+      <div class="sec-title">Care Journal</div>
+      <div class="sec-desc">Mobile view of the consolidated care record — visit notes, lab results, and purchase links in a single scrollable feed. Every value is a Vye token.</div>
+    </div>
+
+    <div class="mobile-frame-wrap">
+      <div class="mobile-frame">
+
+        <!-- Status bar -->
+        <div class="mf-status">
+          <span>12:16</span>
+          <div class="mf-status-icons">
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+              <rect x="0" y="8" width="3" height="4" rx="1" opacity=".35"/>
+              <rect x="4.5" y="5.5" width="3" height="6.5" rx="1" opacity=".6"/>
+              <rect x="9" y="3" width="3" height="9" rx="1" opacity=".8"/>
+              <rect x="13.5" y="0" width="2.5" height="12" rx="1"/>
+            </svg>
+            <svg width="15" height="11" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M1 4.5C5 .5 15 .5 19 4.5" opacity=".35"/>
+              <path d="M3.5 7.5C6 5 14 5 16.5 7.5" opacity=".65"/>
+              <path d="M6.5 10.5C8 9 12 9 13.5 10.5"/>
+              <circle cx="10" cy="13" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="currentColor">
+              <rect x="0" y="1" width="20" height="10" rx="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <rect x="2" y="3" width="15" height="6" rx="1.5"/>
+              <path d="M21 4.5v3a1.5 1.5 0 0 0 0-3z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Page title -->
+        <div class="mf-nav" style="border-bottom:none;padding-bottom:4px;">
+          <div class="mf-nav-title">Care Journal</div>
+        </div>
+
+        <!-- Underline tabs -->
+        <div class="mf-tabs">
+          <button class="mf-tab">Appointments</button>
+          <button class="mf-tab on">Care Plans</button>
+        </div>
+
+        <!-- Scrollable content -->
+        <div class="mf-scroll">
+
+          <!-- Selected appointment row -->
+          <div class="cj-appt-sel">
+            <div class="cj-appt-ava">RN</div>
+            <div class="cj-appt-info">
+              <div class="cj-appt-date">Thursday, June 25, 11:00 AM PDT</div>
+              <div class="cj-appt-doc">with Dr. Ramona Nelson</div>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tx3);flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+
+          <!-- Medication changes -->
+          <div class="cj-section">
+            <div class="cj-section-head">Medication changes</div>
+
+            <!-- Increase Metformin ER -->
+            <div class="cj-med-block">
+              <div class="cj-med-name">Increase Metformin ER</div>
+              <div class="cj-dose-row">
+                <span class="cj-dose-old">500mg</span>
+                <span class="cj-dose-arr">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+                <span class="cj-dose-new">1000mg</span>
+                <span class="cj-dose-freq">2x daily</span>
+              </div>
+              <div class="cj-pharmacy">Updated prescription sent to Walgreens on Irvine Blvd</div>
+            </div>
+
+            <!-- Start Magnesium -->
+            <div class="cj-med-block">
+              <div class="cj-med-row">
+                <div class="cj-med-content">
+                  <div class="cj-med-name">Start Magnesium</div>
+                  <div class="cj-dose-row">
+                    <span class="cj-dose-old">500mg</span>
+                    <span class="cj-dose-arr">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                    <span class="cj-dose-new">1000mg</span>
+                    <span class="cj-dose-freq">@ bedtime</span>
+                  </div>
+                  <div class="cj-pharmacy">Updated prescription sent to Walgreens on Irvine Blvd</div>
+                </div>
+                <button class="cj-price-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                  $14.99
+                </button>
+              </div>
+            </div>
+
+            <!-- Stop Acarbose -->
+            <div class="cj-med-block">
+              <div class="cj-med-name">Stop Acarbose</div>
+              <div class="cj-stop-row">
+                <span class="cj-stop-x">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </span>
+                <span class="cj-stop-dose">18mg</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Labs ordered -->
+          <div class="cj-section">
+            <div class="cj-section-head">Labs ordered</div>
+            <div class="cj-labs-hd">
+              <span class="cj-labs-deadline">Complete this by Tuesday, July 21, 2026 at LabCorp</span>
+              <button class="cj-set-btn">Set appointment</button>
+            </div>
+            <div class="cj-lab-item">C Peptide, Blood</div>
+            <div class="cj-lab-item">Complete Blood Count</div>
+            <div class="cj-lab-item">Comprehensive Metabolic Panel</div>
+            <div class="cj-lab-item">Free Thyroxine, Blood</div>
+            <div class="cj-lab-item">Hemoglobin A1C Level, Whole Blood</div>
+            <div class="cj-lab-item">Lipid Panel with Direct LDL</div>
+            <div class="cj-lab-item">Microalbumin / Creatinine Urine Ratio</div>
+            <div class="cj-lab-item">Thyroid Stimulating Hormone (TSH) Level, Blood</div>
+          </div>
+
+          <!-- Next steps -->
+          <div class="cj-section">
+            <div class="cj-section-head">Next steps</div>
+            <div class="cj-next-row">
+              <div class="cj-next-date">Thursday, July 23, 2026 @ 2:00 PM PDT</div>
+              <div class="cj-next-label">Follow up appointment with Dr. Ramona Nelson</div>
+            </div>
+          </div>
+
+          <!-- Appointment notes -->
+          <div class="cj-section" style="padding-bottom:18px;">
+            <div class="cj-section-head">Appointment notes</div>
+            <p class="cj-appt-note">Hi! Here's a summary of what we covered today. Your recent A1C is still a bit higher than where we'd like it, so I'm bumping up your Metformin from 500mg to 1000mg twice a day. This should help bring your blood sugar into a better range. I've sent the updated prescription to your Walgreens on Irvine Blvd.</p>
+            <p class="cj-appt-note">You mentioned some muscle cramps and trouble sleeping, so I'm adding a Magnesium supplement (1000mg, twice daily), which should help with both. We're also going to stop the Acarbose since it was bothering your stomach. You don't need to taper it — just discontinue it.</p>
+            <p class="cj-appt-note">Before our next visit, please get the lab work done. I've ordered a full panel to check your blood sugar, thyroid, kidneys, and cholesterol so we get a complete picture. You can complete these anytime before Tuesday, July 21 at LabCorp.</p>
+            <p class="cj-appt-note">Let's plan to meet again on Thursday, July 23 at 2:00 PM to go over your results and see how the new doses are working. If anything comes up in the meantime or you have questions, don't hesitate to reach out.</p>
+          </div>
+        </div><!-- /mf-scroll -->
+
+        <!-- Bottom nav: [V circle] · [Journal|Messages|Cart pill] · [Menu circle] -->
+        <div class="mf-bottom-bar">
+          <!-- V mark in white circle -->
+          <button class="mf-bnav-circle vmark" title="Home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5l8 14L20 5"/>
+            </svg>
+          </button>
+          <!-- White pill: Journal (active) · Messages · Cart -->
+          <div class="mf-bnav-pill">
+            <button class="mf-bnav-icon on" title="Care Journal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                <line x1="8" y1="7" x2="15" y2="7"/><line x1="8" y1="11" x2="15" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/>
+              </svg>
+            </button>
+            <button class="mf-bnav-icon" title="Messages">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </button>
+            <button class="mf-bnav-icon" title="Store">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Hamburger in white circle -->
+          <button class="mf-bnav-circle menu" title="Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="3" y1="7" x2="21" y2="7"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="17" x2="21" y2="17"/>
+            </svg>
+          </button>
+        </div>
+
+      </div><!-- /mobile-frame -->
+    </div><!-- /mobile-frame-wrap -->
   </section>
 
 </main>
