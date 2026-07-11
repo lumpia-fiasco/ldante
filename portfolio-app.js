@@ -833,6 +833,8 @@ const CASES = {
         <div><div class="cs-meta-label">Tools</div><div class="cs-meta-val">Figma (MCP + Code Connect), Claude Code, mobile-native token architecture</div></div>
       </div>
 
+      <img src="assets/vyehealth-ds-foundations.png" class="cd-hero-img" alt="Vye Design System — color token scales, Geist type ramp, radius and shadow tokens" />
+
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
         <p class="cd-body">I joined Vye Health as founding designer at a moment when the company had a product vision but no real design system to support it. Components existed in scattered Figma files. Naming was inconsistent. There was no shared language between design and engineering, which meant every new feature started from a blank page instead of a foundation.</p>
@@ -864,7 +866,9 @@ const CASES = {
             <div class="workflow-body">Extended the design system&#39;s mobile approach so the same token and component logic powering the vibecoding skill also scaled correctly to mobile layouts and interactions &#8212; built mobile-native rather than web-first with mobile bolted on.</div>
           </div>
         </div>
+        <img src="assets/vyehealth-ds-codeconnect.png" class="cd-screenshot" alt="Code Connect pilot — button, badge, input, dialog, and card components with decision notes" />
         <p class="cd-body">Throughout, I partnered directly with engineering &#8212; validating the system in real code, not just Figma, through a continuous feedback loop, adjusting tokens and component structure based on what broke or drifted when engineers implemented against them.</p>
+        <img src="assets/vyehealth-ds-mobile.png" class="cd-screenshot" alt="Mobile-native patterns — booking flow, consent, confirmation, profile, care plan, and product screens" />
       </div>
 
       <div class="cs-section">
@@ -887,9 +891,11 @@ const CASES = {
             <div class="finding-body">A Code Connect-ready component layer for machine consumption and a separate, faster-moving set for the design team &#8212; velocity gains on one side never came at the expense of consistency on the other.</div>
           </div>
         </div>
+        <img src="assets/vyehealth-ds-patterns.png" class="cd-screenshot" alt="Shared patterns — alert variants, KPI metric cards, chart, and navigation components" />
         <div class="cs-reflection">
           <div class="cs-reflection-title">Reflection</div>
           <p class="cd-body">The most valuable part of this work wasn&#39;t the skill itself; it was the discipline of building a design system that was legible to a machine as well as a human. Getting components and tokens to match by name and by meaning is tedious, unglamorous work, but it&#39;s the actual precondition for AI-assisted design tools to be trustworthy rather than just fast. At Vye Health, that discipline turned vibecoding from a novelty into a real part of the product development workflow.</p>
+          <a href="https://claude.ai/code/artifact/0357907a-2894-449b-92bc-7d8e1966a17b" target="_blank" rel="noopener" class="cd-artifact-link">View component reference &rarr;</a>
         </div>
       </div>
     `,

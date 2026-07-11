@@ -2894,6 +2894,20 @@ a.spotify-tile {
   margin-bottom: 0.75rem;
 }
 
+.cd-artifact-link {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cd-accent, #2B6FD4);
+  text-decoration: none;
+  padding: 7px 14px;
+  border: 1.5px solid currentColor;
+  border-radius: 8px;
+  transition: opacity .14s;
+}
+.cd-artifact-link:hover { opacity: .7; }
+
 .cs-meta-row {
   display: flex;
   gap: 2rem;
