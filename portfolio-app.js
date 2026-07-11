@@ -3445,12 +3445,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Exit button — clears session and returns to the gate
   document.getElementById('exitBtn').addEventListener('click', () => {
-    try {
-      localStorage.removeItem('ldg-auth');
-      localStorage.removeItem('ldg-experience');
-      localStorage.removeItem('ldg-screen');
-      localStorage.removeItem('ldg-role');
-    } catch(e) {}
-    window.location.replace('/');
+    const caseDetailActive = document.getElementById('caseDetailPanel').classList.contains('active');
+    const fitPanelActive   = document.getElementById('fitPanel').classList.contains('active');
+    if (caseDetailActive || fitPanelActive) {
+      closeDetail();
+      return;
+    }
+    showScreen('screenLanding', 'down');
+    setupLanding();
   });
 });
