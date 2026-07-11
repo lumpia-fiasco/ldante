@@ -752,7 +752,7 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
-        <p class="cd-body">When I came on, the provider experience was already in pilot with real users. The patient side was not in the same place. Flows had been vibecoded into existence to prove out ideas &#8212; individually rough, collectively incoherent &#8212; and the gap was visible enough that testers needed caveats just to get through them. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. There was no information hierarchy tying it together.</p>
+        <p class="cd-body">When I came on, the provider experience was already in pilot with real users. The patient side was not in the same place. Flows had been vibecoded into existence to prove out ideas &#8212; individually rough, collectively incoherent &#8212; and the gap was visible enough that testers needed caveats just to get through them. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. Related features had been built as separate screens with no structural relationship to each other &#8212; the navigation reflected the order things were built, not the order patients needed them. There was no information hierarchy tying any of it together.</p>
         <p class="cd-body">The traditional path &#8212; wireframes, static comps, long review cycles &#8212; wasn&#39;t viable on a short-term contract at a startup moving toward a seed raise. But treating the existing flows as disposable would have thrown away real product learning already embedded in them. The answer was to work with what was there, move fast, and build a system that got more correct with every cycle.</p>
       </div>
 
@@ -768,11 +768,11 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">The patient experience</span></div>
-        <p class="cd-body">The rebuilt experience organized around five areas, each with a clear job to do &#8212; several connecting directly into the provider experience, where I also owned the messaging flows, tasks panel, and how the shop surfaced on the provider side:</p>
+        <p class="cd-body">The first step was consolidation: related flows that had been built as separate screens belonged together, and collapsing them was what made a legible five-area structure possible in the first place. Each area had a clear job to do &#8212; several connecting directly into the provider experience, where I also owned the messaging flows, tasks panel, and how the shop surfaced on the provider side:</p>
         <div class="workflow-block">
           <div class="workflow-row">
             <div class="workflow-step">Home</div>
-            <div class="workflow-body">An AI chatbot that persisted context across the relationship. As appointments approached, it surfaced join links and gave patients space to raise concerns ahead of time &#8212; concerns that appeared in provider encounter notes so the provider walked in already informed.</div>
+            <div class="workflow-body">Designed around one principle: surface what matters most right now. The chatbot wasn&#39;t a blank prompt &#8212; its content changed based on where the patient was in their care journey. Pre-appointment, it prompted patients to share questions and concerns before the visit, which fed into the provider&#39;s encounter notes and resurfaced during the appointment as talking-point reminders. After a visit, it led with a summary of the care notes and linked to the full record in Care Journal &#8212; with purchase links for any medications, supplements, or devices the provider recommended. It also surfaced documentation requests when the situation called for them, and flagged new lab results as they came in. The screen changed with the moment, not with what the patient happened to ask.</div>
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Care Journal</div>
