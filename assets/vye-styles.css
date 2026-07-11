@@ -8,7 +8,7 @@
   --info:#2B6FD4; --info-soft:#EEF4FE;
   --bg:#F7F8FA; --card:#FFFFFF; --tx:#040A15; --tx2:#454756; --tx3:#898B97; --bd:#E2E3E9;
   --side:220px;
-  --radius-button:10px; --radius-card:16px; --radius-full:9999px;
+  --radius-button:4px; --radius-card:16px; --radius-full:9999px;
   --shadow-recessed:inset 0 2px 6px rgba(4,10,21,.08);
   --shadow-card:0 1px 4px rgba(4,10,21,.08), 0 0 0 1px rgba(4,10,21,.04);
   --shadow-pop:0 8px 24px rgba(4,10,21,.12), 0 2px 6px rgba(4,10,21,.06);
@@ -133,17 +133,16 @@ img,video{max-width:100%;display:block;}
 
 /* ── Button ── */
 .vye-btn{
-  display:inline-flex;align-items:center;gap:6px;
+  display:inline-flex;align-items:center;gap:8px;
   font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;
-  border:1.5px solid transparent;border-radius:10px;
-  transition:opacity .12s,background .12s,box-shadow .12s;white-space:nowrap;line-height:1;
-  letter-spacing:.01em;
+  border:1.5px solid transparent;border-radius:4px;
+  transition:opacity .12s,background .12s,box-shadow .12s;white-space:nowrap;line-height:normal;
 }
 .vye-btn:hover{opacity:.88;}
 .vye-btn:active{opacity:.72;}
-.btn-sm{font-size:12px;padding:6px 12px;}
-.btn-md{font-size:14px;padding:9px 16px;}
-.btn-lg{font-size:14px;padding:12px 22px;}
+.btn-sm{font-size:13px;padding:8px 12px;}
+.btn-md{font-size:14px;padding:10px 16px;}
+.btn-lg{font-size:14px;padding:13px 22px;}
 .btn-default    {background:#2B6FD4;color:#fff;border-color:#2B6FD4;}
 .btn-secondary  {background:#365076;color:#fff;border-color:#365076;}
 .btn-outline    {background:transparent;color:#040A15;border-color:#C8CAD4;}
