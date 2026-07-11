@@ -180,14 +180,34 @@ img,video{max-width:100%;display:block;}
 /* ── Input ── */
 .field-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 .vye-field{display:flex;flex-direction:column;gap:5px;}
-.vye-label{font-size:12px;font-weight:600;color:var(--tx);}
+/* Float-label wrapper */
+.vye-float-wrap{position:relative;}
+.vye-label{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  font-size:14px;font-weight:400;color:var(--muted);
+  pointer-events:none;background:transparent;padding:0 3px;
+  line-height:1;white-space:nowrap;
+  transition:top .15s,transform .15s,font-size .15s,font-weight .15s,color .15s,background .1s;
+}
 .vye-input{
+  width:100%;box-sizing:border-box;
   padding:9px 13px;font-size:14px;font-family:inherit;
   border:1.5px solid var(--bd);border-radius:10px;
   background:var(--card);color:var(--tx);outline:none;
   transition:border-color .14s,box-shadow .14s;
 }
-.vye-input::placeholder{color:var(--tx3);}
+/* Hide native placeholder — label acts as one */
+.vye-float-wrap .vye-input::placeholder{color:transparent;}
+/* Floated: label rides the top border */
+.vye-float-wrap .vye-input:focus~.vye-label,
+.vye-float-wrap .vye-input:not(:placeholder-shown)~.vye-label{
+  top:0;transform:translateY(-50%);
+  font-size:11px;font-weight:600;background:var(--card);
+}
+/* Color: focused → brand, filled → ink, invalid → danger */
+.vye-float-wrap .vye-input:focus~.vye-label{color:#2B6FD4;}
+.vye-float-wrap .vye-input:not(:focus):not(:placeholder-shown)~.vye-label{color:var(--tx);}
+.vye-float-wrap .vye-input.invalid~.vye-label{color:#C0544A;}
 .vye-input:focus{border-color:#2B6FD4;box-shadow:0 0 0 3px rgba(43,111,212,.13);}
 .vye-input.invalid{border-color:#C0544A;}
 .vye-input.invalid:focus{box-shadow:0 0 0 3px rgba(192,84,74,.13);}

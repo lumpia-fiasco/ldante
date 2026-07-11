@@ -449,13 +449,17 @@
     <div class="demo">
       <div class="field-pair">
         <div class="vye-field">
-          <label class="vye-label">Field name</label>
-          <input class="vye-input" placeholder="Placeholder" />
+          <div class="vye-float-wrap">
+            <input class="vye-input" id="demo-f1" placeholder=" " />
+            <label class="vye-label" for="demo-f1">Field name</label>
+          </div>
           <span class="vye-hint">Contextual messaging</span>
         </div>
         <div class="vye-field">
-          <label class="vye-label">Field name</label>
-          <input class="vye-input invalid" value="User input" />
+          <div class="vye-float-wrap">
+            <input class="vye-input invalid" id="demo-f2" placeholder=" " value="User input" />
+            <label class="vye-label" for="demo-f2">Field name</label>
+          </div>
           <span class="vye-hint error">Contextual messaging</span>
         </div>
       </div>
