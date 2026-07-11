@@ -8,7 +8,7 @@
   --info:#2B6FD4; --info-soft:#EEF4FE;
   --bg:#F7F8FA; --card:#FFFFFF; --tx:#040A15; --tx2:#454756; --tx3:#898B97; --bd:#E2E3E9;
   --side:220px;
-  --radius-button:4px; --radius-card:16px; --radius-full:9999px;
+  --radius-button:4px; --radius-card:4px; --radius-full:9999px;
   --shadow-recessed:inset 0 2px 6px rgba(4,10,21,.08);
   --shadow-card:0 1px 4px rgba(4,10,21,.08), 0 0 0 1px rgba(4,10,21,.04);
   --shadow-pop:0 8px 24px rgba(4,10,21,.12), 0 2px 6px rgba(4,10,21,.06);
@@ -192,7 +192,7 @@ img,video{max-width:100%;display:block;}
 .vye-input{
   width:100%;box-sizing:border-box;
   padding:9px 13px;font-size:14px;font-family:inherit;
-  border:1.5px solid var(--bd);border-radius:10px;
+  border:1.5px solid var(--bd);border-radius:4px;
   background:var(--card);color:var(--tx);outline:none;
   transition:border-color .14s,box-shadow .14s;
 }
@@ -225,14 +225,14 @@ img,video{max-width:100%;display:block;}
 .a-danger {background:#F5C8C8;border-color:#C0544A;color:#6B1F1A;}
 
 /* ── Card ── */
-.vye-card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(4,10,21,.05);}
+.vye-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;overflow:hidden;box-shadow:0 1px 3px rgba(4,10,21,.05);}
 .vye-card-body{padding:20px;}
 .card-title{font-size:15px;font-weight:600;margin-bottom:4px;}
 .card-dek{font-size:13px;color:var(--tx2);line-height:1.55;}
 .vye-card-foot{padding:11px 20px;border-top:1px solid var(--bd);display:flex;gap:8px;align-items:center;}
 
 .kpi-row{display:flex;gap:14px;flex-wrap:wrap;}
-.kpi-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;min-width:140px;}
+.kpi-card{background:var(--card);border:1px solid var(--bd);border-radius:4px;padding:16px 20px;min-width:140px;}
 .kpi-val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
 .kpi-lbl{font-size:12px;color:var(--tx2);margin-top:4px;}
 .kpi-delta{font-size:12px;font-weight:600;margin-top:6px;}
