@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -95,6 +95,12 @@ export type ProviderTabParamList = {
   Jonathan: undefined;  // placeholder tab — tapping navigates to JonathanAI stack screen
   MyProfile: undefined;
 };
+
+// Replaces the current stack entry with Login — user cannot navigate back to a dead route.
+function ForceLogin({ navigation }: any) {
+  useEffect(() => { navigation.replace('Login'); }, [navigation]);
+  return null;
+}
 
 const Stack = createStackNavigator<RootStackParamList>();
 const CustomerTab = createBottomTabNavigator<CustomerTabParamList>();
@@ -305,8 +311,8 @@ export function AppNavigator() {
         <Stack.Screen name="ProfileEdit"      component={ProfileEditScreen} />
         <Stack.Screen name="Settings"         component={SettingsScreen} />
         <Stack.Screen name="HelpSupport"      component={HelpSupportScreen} />
-        {/* Removed routes — redirect to Login so dead links never no-op */}
-        <Stack.Screen name="Search"           component={LoginScreen} />
+        {/* Removed routes — force replace to Login; user cannot back out */}
+        <Stack.Screen name="Search"           component={ForceLogin} />
         <Stack.Screen name="CreatePost"       component={CreatePostScreen} options={{ gestureEnabled: false }} />
         {/* Jonathan AI — full-screen stack: no tab bar, swipe-right supported, back button in screen */}
         <Stack.Screen name="JonathanAI"       component={JonathanAIScreen} options={{ gestureEnabled: true, gestureDirection: 'horizontal' }} />
