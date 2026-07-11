@@ -568,6 +568,13 @@ function setupPortfolio(role) {
     setupHiringManagerView();
   }
 
+  // ── vyehealth ref: hide all case studies before masonry runs ──
+  const _refParam = (new URLSearchParams(window.location.search).get('ref') || '').toLowerCase();
+  if (_refParam === 'vyehealth') {
+    document.querySelectorAll('#caseStack .case-item[data-case]').forEach(el => { el.style.display = 'none'; });
+    document.querySelectorAll('.ctx-item[data-case]').forEach(el => { el.style.display = 'none'; });
+  }
+
   // Masonry layout
   layoutMasonry();
   window.addEventListener('resize', () => {
