@@ -895,7 +895,7 @@ const CASES = {
         <div class="cs-reflection">
           <div class="cs-reflection-title">Reflection</div>
           <p class="cd-body">The most valuable part of this work wasn&#39;t the skill itself; it was the discipline of building a design system that was legible to a machine as well as a human. Getting components and tokens to match by name and by meaning is tedious, unglamorous work, but it&#39;s the actual precondition for AI-assisted design tools to be trustworthy rather than just fast. At Vye Health, that discipline turned vibecoding from a novelty into a real part of the product development workflow.</p>
-          <a href="https://claude.ai/code/artifact/0357907a-2894-449b-92bc-7d8e1966a17b" target="_blank" rel="noopener" class="cd-artifact-link">View component reference &rarr;</a>
+          <a href="https://www.ldante.com/vye-styles" target="_blank" rel="noopener" class="cd-artifact-link">View component reference &rarr;</a>
         </div>
       </div>
     `,

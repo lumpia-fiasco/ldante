@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vye Design System — Component Reference</title>
+  <meta name="description" content="Token foundation, type scale, and component library for the Vye Health design system." />
+  <style>
+:root {
+  --brand:#70A6F6; --brand-strong:#2B6FD4; --secondary:#365076; --accent:#FD7959;
+  --ink:#040A15; --ink-soft:#454756; --muted:#898B97;
+  --canvas:#F7F8FA; --surface:#FFFFFF; --line:#E2E3E9; --tint:#D4E5FC;
+  --success:#2A9D77; --success-soft:#D2F5E1;
+  --warning:#D4841A; --warning-soft:#FFE5BB;
+  --danger:#C0544A; --danger-soft:#F5C8C8;
+  --info:#2B6FD4; --info-soft:#EEF4FE;
+  --bg:#F7F8FA; --card:#FFFFFF; --tx:#040A15; --tx2:#454756; --tx3:#898B97; --bd:#E2E3E9;
+  --side:220px;
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#090F1A;--card:#0F1929;--tx:#EFF2F7;--tx2:#8C96A8;--tx3:#4E5F72;--bd:rgba(255,255,255,.08);}
+}
+:root[data-theme="dark"]{--bg:#090F1A;--card:#0F1929;--tx:#EFF2F7;--tx2:#8C96A8;--tx3:#4E5F72;--bd:rgba(255,255,255,.08);}
+:root[data-theme="light"]{--bg:#F7F8FA;--card:#FFFFFF;--tx:#040A15;--tx2:#454756;--tx3:#898B97;--bd:#E2E3E9;}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;font-size:15px;}
+a{text-decoration:none;color:inherit;}
+img,video{max-width:100%;display:block;}
+
+.wrap{min-height:100vh;}
+
+/* ── Sidebar (always dark) ── */
+.side{
+  background:#0D1523;position:fixed;top:0;left:0;bottom:0;width:var(--side);
+  overflow-y:auto;display:flex;flex-direction:column;z-index:10;
+}
+.side-logo{
+  padding:18px 16px 16px;border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;gap:10px;
+}
+.logo-mark{
+  width:28px;height:28px;flex-shrink:0;background:#2B6FD4;border-radius:7px;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-text .name{font-size:12px;font-weight:600;color:#fff;letter-spacing:.01em;}
+.logo-text .ver{font-size:10px;color:rgba(255,255,255,.3);margin-top:1px;}
+.side-nav{padding:8px 0;flex:1;}
+.nav-group{margin-bottom:12px;}
+.nav-gl{
+  font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.28);padding:8px 16px 4px;
+}
+.nav-a{
+  display:block;padding:6px 16px;font-size:13px;color:rgba(255,255,255,.6);
+  cursor:pointer;border-left:2px solid transparent;transition:color .12s,background .12s;
+}
+.nav-a:hover{color:#fff;background:rgba(255,255,255,.05);}
+.nav-a.on{color:#70A6F6;background:rgba(112,166,246,.1);border-left-color:#70A6F6;}
+.side-foot{padding:12px 16px;border-top:1px solid rgba(255,255,255,.07);}
+.toggle-btn{
+  width:100%;background:rgba(255,255,255,.06);border:none;color:rgba(255,255,255,.5);
+  font-size:12px;font-family:inherit;padding:7px 10px;border-radius:6px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;transition:background .12s,color .12s;
+}
+.toggle-btn:hover{background:rgba(255,255,255,.11);color:#fff;}
+
+/* ── Main ── */
+.main{margin-left:var(--side);padding:0 56px 100px;max-width:960px;}
+.page-head{padding:40px 0 28px;border-bottom:1px solid var(--bd);margin-bottom:0;}
+.page-crumb{font-size:11px;color:var(--tx3);margin-bottom:8px;letter-spacing:.04em;}
+.page-title{font-size:26px;font-weight:700;color:var(--tx);margin-bottom:4px;}
+.page-desc{font-size:14px;color:var(--tx2);max-width:480px;line-height:1.6;}
+
+.sec{padding-top:52px;scroll-margin-top:52px;}
+.sec-head{margin-bottom:24px;}
+.sec-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-strong);margin-bottom:5px;}
+.sec-title{font-size:20px;font-weight:700;color:var(--tx);margin-bottom:4px;}
+.sec-desc{font-size:13.5px;color:var(--tx2);line-height:1.6;max-width:540px;}
+.divider{height:1px;background:var(--bd);margin:52px 0 0;}
+.group-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);padding:20px 0 0;margin-bottom:20px;}
+
+.sub-label{font-size:11px;font-weight:600;color:var(--tx2);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bd);}
+.demo{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:22px;margin-bottom:8px;}
+.demo-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:14px;}
+.demo-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;}
+.demo-row:last-child{margin-bottom:0;}
+.token-note{font-size:11px;color:var(--tx3);font-family:'SF Mono','Fira Code',monospace;margin-bottom:24px;}
+
+/* ── Colors ── */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(116px,1fr));gap:9px;margin-bottom:8px;}
+.sw{border-radius:8px;overflow:hidden;border:1px solid var(--bd);}
+.sw-chip{height:52px;}
+.sw-meta{padding:7px 9px;background:var(--card);}
+.sw-name{font-size:11px;font-weight:600;color:var(--tx);}
+.sw-hex{font-size:10px;color:var(--tx3);font-family:monospace;margin-top:1px;}
+
+.scale-wrap{margin-bottom:20px;}
+.scale-name{font-size:11px;font-weight:600;color:var(--tx2);margin-bottom:6px;}
+.scale-chips{display:flex;gap:4px;}
+.sc{height:28px;flex:1;border-radius:4px;min-width:24px;}
+.sc-nums{display:flex;gap:4px;margin-top:3px;}
+.sc-n{flex:1;font-size:9px;color:var(--tx3);text-align:center;font-variant-numeric:tabular-nums;min-width:24px;}
+
+/* ── Typography ── */
+.type-table{border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
+.type-row{display:grid;grid-template-columns:164px 1fr;border-bottom:1px solid var(--bd);}
+.type-row:last-child{border-bottom:none;}
+.type-meta{padding:14px 16px;border-right:1px solid var(--bd);}
+.type-spec{font-size:10.5px;color:var(--tx3);font-family:monospace;line-height:1.7;}
+.type-sample{padding:14px 20px;display:flex;align-items:center;}
+
+/* ── Radius & Shadow ── */
+.radius-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:8px;}
+.radius-item{text-align:center;}
+.radius-box{width:70px;height:70px;background:var(--tint);border:2px solid var(--brand);display:flex;align-items:center;justify-content:center;margin-bottom:6px;}
+.radius-nm{font-size:11px;font-weight:600;color:var(--tx);}
+.radius-vl{font-size:10px;color:var(--tx3);font-family:monospace;}
+
+.shadow-row{display:flex;gap:24px;flex-wrap:wrap;}
+.shadow-item{text-align:center;}
+.shadow-box{width:96px;height:60px;background:var(--card);border-radius:8px;margin-bottom:6px;}
+.shadow-nm{font-size:11px;font-weight:600;color:var(--tx);}
+.shadow-vl{font-size:10px;color:var(--tx3);font-family:monospace;max-width:96px;word-break:break-all;}
+
+/* ── Button ── */
+.vye-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:inherit;font-weight:600;cursor:pointer;
+  border:1.5px solid transparent;border-radius:10px;
+  transition:opacity .12s,background .12s;white-space:nowrap;line-height:1;
+}
+.vye-btn:hover{opacity:.84;}
+.btn-sm{font-size:12px;padding:5px 11px;}
+.btn-md{font-size:14px;padding:8px 16px;}
+.btn-lg{font-size:15px;padding:11px 22px;}
+.btn-default    {background:#2B6FD4;color:#fff;}
+.btn-secondary  {background:#F0F2F5;color:#040A15;border-color:#E2E3E9;}
+.btn-outline    {background:transparent;color:#040A15;border-color:#C8CAD4;}
+.btn-link       {background:none;color:#2B6FD4;border-color:transparent;padding-left:0;padding-right:0;}
+.btn-ghost      {background:transparent;color:#040A15;border-color:transparent;}
+.btn-ghost:hover{background:rgba(4,10,21,.05);opacity:1;}
+.btn-destructive{background:#C0544A;color:#fff;}
+
+@media(prefers-color-scheme:dark){
+  .btn-secondary{background:rgba(255,255,255,.09);color:#EFF2F7;border-color:rgba(255,255,255,.1);}
+  .btn-outline{color:#EFF2F7;border-color:rgba(255,255,255,.16);}
+  .btn-ghost{color:#EFF2F7;}
+  .btn-ghost:hover{background:rgba(255,255,255,.06);}
+  .btn-link{color:#70A6F6;}
+}
+:root[data-theme="dark"] .btn-secondary{background:rgba(255,255,255,.09);color:#EFF2F7;border-color:rgba(255,255,255,.1);}
+:root[data-theme="dark"] .btn-outline{color:#EFF2F7;border-color:rgba(255,255,255,.16);}
+:root[data-theme="dark"] .btn-ghost{color:#EFF2F7;}
+:root[data-theme="dark"] .btn-ghost:hover{background:rgba(255,255,255,.06);}
+:root[data-theme="dark"] .btn-link{color:#70A6F6;}
+:root[data-theme="light"] .btn-secondary{background:#F0F2F5;color:#040A15;border-color:#E2E3E9;}
+:root[data-theme="light"] .btn-outline{color:#040A15;border-color:#C8CAD4;}
+:root[data-theme="light"] .btn-ghost{color:#040A15;}
+:root[data-theme="light"] .btn-link{color:#2B6FD4;}
+
+/* ── Badge ── */
+.vye-badge{display:inline-flex;align-items:center;font-size:12px;font-weight:500;padding:2px 9px;border-radius:9999px;border:1px solid transparent;line-height:1.5;}
+.bdg-default    {background:#2B6FD4;color:#fff;}
+.bdg-secondary  {background:#F0F2F5;color:#040A15;border-color:#E2E3E9;}
+.bdg-destructive{background:#C0544A;color:#fff;}
+.bdg-outline    {background:transparent;color:#040A15;border-color:#C8CAD4;}
+.bdg-success    {background:#D2F5E1;color:#1A6347;}
+.bdg-warning    {background:#FFE5BB;color:#7A4A00;}
+
+@media(prefers-color-scheme:dark){
+  .bdg-secondary{background:rgba(255,255,255,.1);color:#EFF2F7;border-color:rgba(255,255,255,.12);}
+  .bdg-outline{color:#EFF2F7;border-color:rgba(255,255,255,.2);}
+}
+:root[data-theme="dark"] .bdg-secondary{background:rgba(255,255,255,.1);color:#EFF2F7;border-color:rgba(255,255,255,.12);}
+:root[data-theme="dark"] .bdg-outline{color:#EFF2F7;border-color:rgba(255,255,255,.2);}
+:root[data-theme="light"] .bdg-secondary{background:#F0F2F5;color:#040A15;border-color:#E2E3E9;}
+:root[data-theme="light"] .bdg-outline{color:#040A15;border-color:#C8CAD4;}
+
+/* ── Input ── */
+.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.vye-field{display:flex;flex-direction:column;gap:5px;}
+.vye-label{font-size:12px;font-weight:600;color:var(--tx);}
+.vye-input{
+  padding:9px 13px;font-size:14px;font-family:inherit;
+  border:1.5px solid var(--bd);border-radius:10px;
+  background:var(--card);color:var(--tx);outline:none;
+  transition:border-color .14s,box-shadow .14s;
+}
+.vye-input::placeholder{color:var(--tx3);}
+.vye-input:focus{border-color:#2B6FD4;box-shadow:0 0 0 3px rgba(43,111,212,.13);}
+.vye-input.invalid{border-color:#C0544A;}
+.vye-input.invalid:focus{box-shadow:0 0 0 3px rgba(192,84,74,.13);}
+.vye-hint{font-size:11px;color:var(--tx3);}
+.vye-hint.error{color:#C0544A;}
+
+/* ── Alert ── */
+.vye-alert{border-radius:8px;padding:11px 14px;border-left:3px solid;margin-bottom:8px;}
+.vye-alert:last-child{margin-bottom:0;}
+.alert-title{font-size:13px;font-weight:600;margin-bottom:2px;}
+.alert-body{font-size:13px;opacity:.82;}
+.a-info   {background:#EEF4FE;border-color:#2B6FD4;color:#1A3D6E;}
+.a-success{background:#D2F5E1;border-color:#2A9D77;color:#1A5C44;}
+.a-warning{background:#FFE5BB;border-color:#D4841A;color:#7A4A00;}
+.a-danger {background:#F5C8C8;border-color:#C0544A;color:#6B1F1A;}
+
+/* ── Card ── */
+.vye-card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(4,10,21,.05);}
+.vye-card-body{padding:20px;}
+.card-title{font-size:15px;font-weight:600;margin-bottom:4px;}
+.card-dek{font-size:13px;color:var(--tx2);line-height:1.55;}
+.vye-card-foot{padding:11px 20px;border-top:1px solid var(--bd);display:flex;gap:8px;align-items:center;}
+
+.kpi-row{display:flex;gap:14px;flex-wrap:wrap;}
+.kpi-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;min-width:140px;}
+.kpi-val{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;}
+.kpi-lbl{font-size:12px;color:var(--tx2);margin-top:4px;}
+.kpi-delta{font-size:12px;font-weight:600;margin-top:6px;}
+.up{color:#2A9D77;}.down{color:#C0544A;}
+
+/* Mobile */
+@media(max-width:680px){
+  .side{display:none;}
+  .main{margin-left:0;padding:24px 20px 60px;}
+  .wrap{grid-template-columns:1fr;}
+  .type-row{grid-template-columns:1fr;}
+  .type-meta{border-right:none;border-bottom:1px solid var(--bd);}
+  .field-pair{grid-template-columns:1fr;}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ── Sidebar ── -->
+<aside class="side" id="side">
+  <div class="side-logo">
+    <div class="logo-mark">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <path d="M1 1L8 11L15 1" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <div class="name">Vye Design System</div>
+      <div class="ver">v1.0 · Pilot</div>
+    </div>
+  </div>
+
+  <nav class="side-nav">
+    <div class="nav-group">
+      <div class="nav-gl">Foundations</div>
+      <a class="nav-a" href="#colors">Colors</a>
+      <a class="nav-a" href="#typography">Typography</a>
+      <a class="nav-a" href="#radius">Radius &amp; Shadow</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-gl">Components</div>
+      <a class="nav-a" href="#button">Button</a>
+      <a class="nav-a" href="#badge">Badge</a>
+      <a class="nav-a" href="#input">Input</a>
+      <a class="nav-a" href="#alert">Alert</a>
+      <a class="nav-a" href="#card">Card</a>
+    </div>
+  </nav>
+
+  <div class="side-foot">
+    <button class="toggle-btn" id="themeBtn">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 14.5A6.5 6.5 0 0110 3.5v13z"/>
+      </svg>
+      Toggle theme
+    </button>
+  </div>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main">
+  <div class="page-head">
+    <div class="page-crumb">VYE HEALTH &nbsp;/&nbsp; DESIGN SYSTEM</div>
+    <div class="page-title">Component Reference</div>
+    <div class="page-desc">Tokens, type, and components — all fills, strokes, and radii are bound to <code style="font-size:12px;background:var(--bd);padding:1px 5px;border-radius:4px;">color/*</code> tokens. No detached hex values.</div>
+  </div>
+
+  <!-- ── COLORS ── -->
+  <section class="sec" id="colors">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Foundations</div>
+      <div class="sec-title">Colors</div>
+      <div class="sec-desc">Semantic roles map intent to visual decisions. Primitive scales are the raw material underneath — never used directly in components.</div>
+    </div>
+
+    <div class="sub-label">Semantic roles</div>
+    <div class="swatch-grid">
+      <div class="sw"><div class="sw-chip" style="background:#70A6F6"></div><div class="sw-meta"><div class="sw-name">brand</div><div class="sw-hex">#70A6F6</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#2B6FD4"></div><div class="sw-meta"><div class="sw-name">brand-strong</div><div class="sw-hex">#2B6FD4</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#365076"></div><div class="sw-meta"><div class="sw-name">secondary</div><div class="sw-hex">#365076</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#FD7959"></div><div class="sw-meta"><div class="sw-name">accent</div><div class="sw-hex">#FD7959</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#040A15"></div><div class="sw-meta"><div class="sw-name">ink</div><div class="sw-hex">#040A15</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#454756"></div><div class="sw-meta"><div class="sw-name">ink-soft</div><div class="sw-hex">#454756</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#898B97"></div><div class="sw-meta"><div class="sw-name">muted</div><div class="sw-hex">#898B97</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#D4E5FC"></div><div class="sw-meta"><div class="sw-name">tint</div><div class="sw-hex">#D4E5FC</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#F7F8FA;border-bottom:1px solid #E2E3E9"></div><div class="sw-meta"><div class="sw-name">canvas</div><div class="sw-hex">#F7F8FA</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#FFFFFF;border-bottom:1px solid #E2E3E9"></div><div class="sw-meta"><div class="sw-name">surface</div><div class="sw-hex">#FFFFFF</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#E2E3E9"></div><div class="sw-meta"><div class="sw-name">line</div><div class="sw-hex">#E2E3E9</div></div></div>
+    </div>
+
+    <div class="sub-label" style="margin-top:28px">Status</div>
+    <div class="swatch-grid">
+      <div class="sw"><div class="sw-chip" style="background:#2A9D77"></div><div class="sw-meta"><div class="sw-name">success</div><div class="sw-hex">#2A9D77</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#D2F5E1"></div><div class="sw-meta"><div class="sw-name">success-soft</div><div class="sw-hex">#D2F5E1</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#D4841A"></div><div class="sw-meta"><div class="sw-name">warning</div><div class="sw-hex">#D4841A</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#FFE5BB"></div><div class="sw-meta"><div class="sw-name">warning-soft</div><div class="sw-hex">#FFE5BB</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#C0544A"></div><div class="sw-meta"><div class="sw-name">danger</div><div class="sw-hex">#C0544A</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#F5C8C8"></div><div class="sw-meta"><div class="sw-name">danger-soft</div><div class="sw-hex">#F5C8C8</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#2B6FD4"></div><div class="sw-meta"><div class="sw-name">info</div><div class="sw-hex">#2B6FD4</div></div></div>
+      <div class="sw"><div class="sw-chip" style="background:#EEF4FE"></div><div class="sw-meta"><div class="sw-name">info-soft</div><div class="sw-hex">#EEF4FE</div></div></div>
+    </div>
+
+    <div class="sub-label" style="margin-top:28px">Primitive scales</div>
+    <div class="scale-wrap">
+      <div class="scale-name">blue</div>
+      <div class="scale-chips">
+        <div class="sc" style="background:#EEF4FE"></div>
+        <div class="sc" style="background:#D4E5FC"></div>
+        <div class="sc" style="background:#A8C7F9"></div>
+        <div class="sc" style="background:#7DB0F7"></div>
+        <div class="sc" style="background:#70A6F6"></div>
+        <div class="sc" style="background:#2B6FD4"></div>
+        <div class="sc" style="background:#1B4E9B"></div>
+        <div class="sc" style="background:#0E2D62"></div>
+      </div>
+      <div class="sc-nums"><div class="sc-n">50</div><div class="sc-n">100</div><div class="sc-n">200</div><div class="sc-n">300</div><div class="sc-n">500</div><div class="sc-n">700</div><div class="sc-n">800</div><div class="sc-n">900</div></div>
+    </div>
+    <div class="scale-wrap">
+      <div class="scale-name">grey</div>
+      <div class="scale-chips">
+        <div class="sc" style="background:#F7F8FA;border:1px solid #E2E3E9"></div>
+        <div class="sc" style="background:#F0F1F3"></div>
+        <div class="sc" style="background:#E2E3E9"></div>
+        <div class="sc" style="background:#C8CAD4"></div>
+        <div class="sc" style="background:#898B97"></div>
+        <div class="sc" style="background:#454756"></div>
+        <div class="sc" style="background:#040A15"></div>
+      </div>
+      <div class="sc-nums"><div class="sc-n">50</div><div class="sc-n">100</div><div class="sc-n">200</div><div class="sc-n">300</div><div class="sc-n">500</div><div class="sc-n">700</div><div class="sc-n">900</div></div>
+    </div>
+    <div class="scale-wrap">
+      <div class="scale-name">green</div>
+      <div class="scale-chips">
+        <div class="sc" style="background:#D2F5E1"></div>
+        <div class="sc" style="background:#6FD1A9"></div>
+        <div class="sc" style="background:#2A9D77"></div>
+        <div class="sc" style="background:#1A6347"></div>
+      </div>
+      <div class="sc-nums"><div class="sc-n">100</div><div class="sc-n">300</div><div class="sc-n">500</div><div class="sc-n">700</div></div>
+    </div>
+    <div class="scale-wrap">
+      <div class="scale-name">orange</div>
+      <div class="scale-chips">
+        <div class="sc" style="background:#FFE5BB"></div>
+        <div class="sc" style="background:#F5B85A"></div>
+        <div class="sc" style="background:#D4841A"></div>
+        <div class="sc" style="background:#9A5A00"></div>
+      </div>
+      <div class="sc-nums"><div class="sc-n">100</div><div class="sc-n">300</div><div class="sc-n">500</div><div class="sc-n">700</div></div>
+    </div>
+    <div class="scale-wrap">
+      <div class="scale-name">red</div>
+      <div class="scale-chips">
+        <div class="sc" style="background:#F5C8C8"></div>
+        <div class="sc" style="background:#E0897E"></div>
+        <div class="sc" style="background:#C0544A"></div>
+        <div class="sc" style="background:#7A2A24"></div>
+      </div>
+      <div class="sc-nums"><div class="sc-n">100</div><div class="sc-n">300</div><div class="sc-n">500</div><div class="sc-n">700</div></div>
+    </div>
+    <div class="scale-wrap">
+      <div class="scale-name">melon</div>
+      <div class="scale-chips" style="max-width:80px">
+        <div class="sc" style="background:#FD7959"></div>
+      </div>
+      <div class="sc-nums" style="max-width:80px"><div class="sc-n">500</div></div>
+    </div>
+  </section>
+
+  <!-- ── TYPOGRAPHY ── -->
+  <div class="divider"></div>
+  <section class="sec" id="typography">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Foundations</div>
+      <div class="sec-title">Typography</div>
+      <div class="sec-desc">Geist · Production uses Geist (Vercel). All weights drawn from a single variable axis.</div>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">48 / SemiBold<br>Heading</div></div>
+        <div class="type-sample"><span style="font-size:40px;font-weight:700;line-height:1.1;text-wrap:balance">Patient experience</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">24 / SemiBold<br>Heading</div></div>
+        <div class="type-sample"><span style="font-size:22px;font-weight:600;line-height:1.2">Today's appointments</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">17 / Medium<br>Subhead</div></div>
+        <div class="type-sample"><span style="font-size:17px;font-weight:500">Your appointment is confirmed</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">16 / Medium<br>Body</div></div>
+        <div class="type-sample"><span style="font-size:15px;font-weight:400;color:var(--tx2);line-height:1.6;max-width:380px;display:block">Your care plan from today's appointment with Dr. Nelson is ready to view. Tap to review medication changes and labs ordered.</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">15 / SemiBold<br>Button label</div></div>
+        <div class="type-sample"><span style="font-size:14px;font-weight:600">Book appointment</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">12 / Regular<br>Small</div></div>
+        <div class="type-sample"><span style="font-size:12px;color:var(--tx2)">Prescription · 2 refills remaining · Walgreens on Irvine Blvd</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">12 / Medium<br>Badge</div></div>
+        <div class="type-sample"><span style="font-size:12px;font-weight:500">Active patient</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">10 / Medium<br>Caption</div></div>
+        <div class="type-sample"><span style="font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)">Last updated 2 hours ago</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RADIUS & SHADOW ── -->
+  <div class="divider"></div>
+  <section class="sec" id="radius">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Foundations</div>
+      <div class="sec-title">Radius &amp; Shadow</div>
+      <div class="sec-desc">All component corner radii reference named tokens — no raw pixel values in component fills.</div>
+    </div>
+
+    <div class="sub-label">Radius</div>
+    <div class="demo">
+      <div class="radius-row">
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius:10px"></div>
+          <div class="radius-nm">button</div>
+          <div class="radius-vl">10px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius:10px"></div>
+          <div class="radius-nm">input</div>
+          <div class="radius-vl">10px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius:16px"></div>
+          <div class="radius-nm">card</div>
+          <div class="radius-vl">16px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius:9999px;width:70px;height:36px"></div>
+          <div class="radius-nm">full</div>
+          <div class="radius-vl">9999px</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-label" style="margin-top:24px">Shadow</div>
+    <div class="demo">
+      <div class="shadow-row">
+        <div class="shadow-item">
+          <div class="shadow-box" style="box-shadow:inset 0 2px 6px rgba(4,10,21,.08)"></div>
+          <div class="shadow-nm">recessed-card</div>
+          <div class="shadow-vl">inset 0 2px 6px</div>
+        </div>
+        <div class="shadow-item">
+          <div class="shadow-box" style="box-shadow:0 1px 4px rgba(4,10,21,.08),0 0 0 1px rgba(4,10,21,.04)"></div>
+          <div class="shadow-nm">shadow-card</div>
+          <div class="shadow-vl">0 1px 4px + ring</div>
+        </div>
+        <div class="shadow-item">
+          <div class="shadow-box" style="box-shadow:0 8px 24px rgba(4,10,21,.12),0 2px 6px rgba(4,10,21,.06)"></div>
+          <div class="shadow-nm">shadow-pop</div>
+          <div class="shadow-vl">0 8px 24px + 0 2px 6px</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPONENTS ── -->
+  <div class="divider"></div>
+  <div class="group-label">Components</div>
+
+  <!-- ── BUTTON ── -->
+  <section class="sec" id="button">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Components</div>
+      <div class="sec-title">Button</div>
+      <div class="sec-desc">6 variants × 3 sizes. Variant props mirror code CVA enums. Border-radius: <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">button (10px)</code>.</div>
+    </div>
+    <div class="demo">
+      <div class="demo-lbl">Default</div>
+      <div class="demo-row">
+        <button class="vye-btn btn-default btn-sm">Button</button>
+        <button class="vye-btn btn-default btn-md">Button</button>
+        <button class="vye-btn btn-default btn-lg">Button</button>
+      </div>
+      <div class="demo-lbl">Secondary</div>
+      <div class="demo-row">
+        <button class="vye-btn btn-secondary btn-sm">Button</button>
+        <button class="vye-btn btn-secondary btn-md">Button</button>
+        <button class="vye-btn btn-secondary btn-lg">Button</button>
+      </div>
+      <div class="demo-lbl">Outline</div>
+      <div class="demo-row">
+        <button class="vye-btn btn-outline btn-sm">Button</button>
+        <button class="vye-btn btn-outline btn-md">Button</button>
+        <button class="vye-btn btn-outline btn-lg">Button</button>
+      </div>
+      <div class="demo-lbl">Ghost</div>
+      <div class="demo-row">
+        <button class="vye-btn btn-ghost btn-sm">Button</button>
+        <button class="vye-btn btn-ghost btn-md">Button</button>
+        <button class="vye-btn btn-ghost btn-lg">Button</button>
+      </div>
+      <div class="demo-lbl">Link</div>
+      <div class="demo-row">
+        <button class="vye-btn btn-link btn-sm">Button</button>
+        <button class="vye-btn btn-link btn-md">Button</button>
+        <button class="vye-btn btn-link btn-lg">Button</button>
+      </div>
+      <div class="demo-lbl">Destructive</div>
+      <div class="demo-row">
+        <button class="vye-btn btn-destructive btn-sm">Button</button>
+        <button class="vye-btn btn-destructive btn-md">Button</button>
+        <button class="vye-btn btn-destructive btn-lg">Button</button>
+      </div>
+    </div>
+    <div class="token-note">variant=default|secondary|outline|ghost|link|destructive · size=sm|default|lg</div>
+  </section>
+
+  <!-- ── BADGE ── -->
+  <section class="sec" id="badge">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Components</div>
+      <div class="sec-title">Badge</div>
+      <div class="sec-desc">Status and categorization labels. Border-radius: <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">full (9999px)</code>.</div>
+    </div>
+    <div class="demo">
+      <div class="demo-row">
+        <span class="vye-badge bdg-default">Default</span>
+        <span class="vye-badge bdg-secondary">Secondary</span>
+        <span class="vye-badge bdg-destructive">Destructive</span>
+        <span class="vye-badge bdg-outline">Outline</span>
+        <span class="vye-badge bdg-success">Active</span>
+        <span class="vye-badge bdg-warning">Pending</span>
+      </div>
+    </div>
+    <div class="token-note">variant=default|secondary|destructive|outline</div>
+  </section>
+
+  <!-- ── INPUT ── -->
+  <section class="sec" id="input">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Components</div>
+      <div class="sec-title">Input</div>
+      <div class="sec-desc">Border-radius: <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">input (10px)</code>. Focus ring uses <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">brand-strong</code> at 13% opacity.</div>
+    </div>
+    <div class="demo">
+      <div class="field-pair">
+        <div class="vye-field">
+          <label class="vye-label">Field name</label>
+          <input class="vye-input" placeholder="Placeholder" />
+          <span class="vye-hint">Contextual messaging</span>
+        </div>
+        <div class="vye-field">
+          <label class="vye-label">Field name</label>
+          <input class="vye-input invalid" value="User input" />
+          <span class="vye-hint error">Contextual messaging</span>
+        </div>
+      </div>
+    </div>
+    <div class="token-note">state=default|invalid</div>
+  </section>
+
+  <!-- ── ALERT ── -->
+  <section class="sec" id="alert">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Components</div>
+      <div class="sec-title">Alert</div>
+      <div class="sec-desc">Inline status feedback. Each variant draws from a <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">*-soft</code> background and full status color for the border-left.</div>
+    </div>
+    <div class="demo">
+      <div class="vye-alert a-info">
+        <div class="alert-title">Information</div>
+        <div class="alert-body">Short status message for the alert. Can span up to two lines.</div>
+      </div>
+      <div class="vye-alert a-success">
+        <div class="alert-title">Success</div>
+        <div class="alert-body">Short status message for the alert.</div>
+      </div>
+      <div class="vye-alert a-warning">
+        <div class="alert-title">Warning</div>
+        <div class="alert-body">Short status message for the alert.</div>
+      </div>
+      <div class="vye-alert a-danger">
+        <div class="alert-title">Danger</div>
+        <div class="alert-body">Short status message for the alert.</div>
+      </div>
+    </div>
+    <div class="token-note">variant=info|success|warning|danger</div>
+  </section>
+
+  <!-- ── CARD ── -->
+  <section class="sec" id="card">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Components</div>
+      <div class="sec-title">Card</div>
+      <div class="sec-desc">Base surface container. Border-radius: <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">card (16px)</code>. Shadow: <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">shadow-card</code>.</div>
+    </div>
+    <div class="demo">
+      <div class="demo-lbl">Base card</div>
+      <div style="max-width:340px">
+        <div class="vye-card">
+          <div class="vye-card-body">
+            <div class="card-title">Appointment with Dr. Ramona Nelson</div>
+            <div class="card-dek">Thursday, June 25 · 11:00 AM PDT · Telehealth</div>
+          </div>
+          <div class="vye-card-foot">
+            <button class="vye-btn btn-default btn-sm">Join visit</button>
+            <button class="vye-btn btn-ghost btn-sm">Reschedule</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo" style="margin-top:12px">
+      <div class="demo-lbl">KPI metric card</div>
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-val">247</div>
+          <div class="kpi-lbl">Active patients</div>
+          <div class="kpi-delta up">&#8593; 12.5%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val">$14.99</div>
+          <div class="kpi-lbl">Avg. supplement order</div>
+          <div class="kpi-delta down">&#8595; 3.2%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val">4.8</div>
+          <div class="kpi-lbl">Provider rating</div>
+          <div class="kpi-delta up">&#8593; 0.3</div>
+        </div>
+      </div>
+    </div>
+    <div class="token-note">border-radius: card (16px) · shadow: shadow-card · footer: border-top line token</div>
+  </section>
+
+</main>
+</div>
+
+<script>
+const sections = document.querySelectorAll('.sec');
+const links = document.querySelectorAll('.nav-a');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, {rootMargin: '-20% 0px -70% 0px', threshold: 0});
+
+sections.forEach(s => obs.observe(s));
+
+const btn = document.getElementById('themeBtn');
+let theme = document.documentElement.dataset.theme || '';
+btn.addEventListener('click', () => {
+  theme = theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = theme;
+});
+</script>
+</body>
+</html>
