@@ -732,11 +732,11 @@ function openFitPanel() {
 const CASES = {
   'vyehealth': {
     company: 'Vye Health',
-    headline: 'The product already existed. The experience didn\'t.',
-    intro: 'Vye Health\'s patient flows had been vibecoded into existence — fast, individually functional, and collectively incoherent. Navigation patterns shifted screen to screen, components disagreed with each other, and there was no information hierarchy tying it together. My job was to build the real experience: coherent, end-to-end, and designed to compound on itself.',
+    headline: 'The provider side was in pilot. The patient experience wasn\'t close.',
+    intro: 'By the time I came on, Vye Health\'s provider experience was already in pilot testing with real users. The patient side was a different story — flows vibecoded into existence to prove out ideas, individually rough, collectively incoherent, and nowhere near the level the pilot required. Testers needed caveats just to get through the flows. My job was to fix that.',
     metrics: [
-      { value: '5',         label: 'experience areas designed end to end' },
-      { value: '1',         label: 'founding designer across patient + provider' },
+      { value: '5',         label: 'patient experience areas designed end to end' },
+      { value: '1',         label: 'designer brought in while provider pilot was live' },
       { value: 'July 2026', label: 'seed presentations begin' },
     ],
     content: `
@@ -752,8 +752,8 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
-        <p class="cd-body">By the time I turned my attention to the patient experience, Vye Health already had a working product. But it hadn&#39;t been designed so much as vibecoded into existence: individual flows had been generated quickly to prove out ideas, and while each one worked in isolation, none of them agreed with each other. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. There was no real information hierarchy tying the experience together.</p>
-        <p class="cd-body">Rebuilding the whole experience from scratch the traditional way &#8212; wireframes, static comps, long review cycles &#8212; wasn&#39;t viable on a short-term contract at a startup moving toward a seed raise. But treating the existing flows as disposable and starting over blind would have thrown away real product learning already embedded in them.</p>
+        <p class="cd-body">When I came on, the provider experience was already in pilot with real users. The patient side was not in the same place. Flows had been vibecoded into existence to prove out ideas &#8212; individually rough, collectively incoherent &#8212; and the gap was visible enough that testers needed caveats just to get through them. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. There was no information hierarchy tying it together.</p>
+        <p class="cd-body">The traditional path &#8212; wireframes, static comps, long review cycles &#8212; wasn&#39;t viable on a short-term contract at a startup moving toward a seed raise. But treating the existing flows as disposable would have thrown away real product learning already embedded in them. The answer was to work with what was there, move fast, and build a system that got more correct with every cycle.</p>
       </div>
 
       <div class="cs-section">
