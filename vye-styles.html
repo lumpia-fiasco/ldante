@@ -26,6 +26,10 @@
 
   <nav class="side-nav">
     <div class="nav-group">
+      <div class="nav-gl">Reference</div>
+      <a class="nav-a" href="#tokens">Tokens &amp; Variables</a>
+    </div>
+    <div class="nav-group">
       <div class="nav-gl">Foundations</div>
       <a class="nav-a" href="#colors">Colors</a>
       <a class="nav-a" href="#typography">Typography</a>
@@ -58,6 +62,79 @@
     <div class="page-title">Component Reference</div>
     <div class="page-desc">Tokens, type, and components — all fills, strokes, and radii are bound to <code style="font-size:12px;background:var(--bd);padding:1px 5px;border-radius:4px;">color/*</code> tokens. No detached hex values.</div>
   </div>
+
+  <!-- ── TOKENS & VARIABLES ── -->
+  <section class="sec" id="tokens">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Reference</div>
+      <div class="sec-title">Tokens &amp; Variables</div>
+      <div class="sec-desc">All values come from the <strong>Vye Tokens</strong> variable collection in Figma. CSS custom properties map 1:1 to variable names — no detached hex values in components.</div>
+    </div>
+
+    <div class="sub-label">Color — Semantic</div>
+    <div class="tok-table">
+      <div class="tok-head"><div>CSS variable</div><div>Figma variable</div><div>Value</div><div>Role</div></div>
+      <div class="tok-row"><div class="tok-var">--brand</div><div class="tok-fig">Vye Tokens / brand</div><div class="tok-val"><span class="tok-chip" style="background:#70A6F6"></span>#70A6F6</div><div class="tok-role">Primary brand color</div></div>
+      <div class="tok-row"><div class="tok-var">--brand-strong</div><div class="tok-fig">Vye Tokens / brand-strong</div><div class="tok-val"><span class="tok-chip" style="background:#2B6FD4"></span>#2B6FD4</div><div class="tok-role">Strong brand / CTAs</div></div>
+      <div class="tok-row"><div class="tok-var">--secondary</div><div class="tok-fig">Vye Tokens / secondary</div><div class="tok-val"><span class="tok-chip" style="background:#365076"></span>#365076</div><div class="tok-role">Secondary brand</div></div>
+      <div class="tok-row"><div class="tok-var">--accent</div><div class="tok-fig">Vye Tokens / accent</div><div class="tok-val"><span class="tok-chip" style="background:#FD7959"></span>#FD7959</div><div class="tok-role">Melon accent / highlights</div></div>
+      <div class="tok-row"><div class="tok-var">--ink</div><div class="tok-fig">Vye Tokens / ink</div><div class="tok-val"><span class="tok-chip" style="background:#040A15;border:1px solid rgba(255,255,255,.12)"></span>#040A15</div><div class="tok-role">Primary text</div></div>
+      <div class="tok-row"><div class="tok-var">--ink-soft</div><div class="tok-fig">Vye Tokens / ink-soft</div><div class="tok-val"><span class="tok-chip" style="background:#454756"></span>#454756</div><div class="tok-role">Secondary text</div></div>
+      <div class="tok-row"><div class="tok-var">--muted</div><div class="tok-fig">Vye Tokens / muted</div><div class="tok-val"><span class="tok-chip" style="background:#898B97"></span>#898B97</div><div class="tok-role">Disabled / placeholder</div></div>
+      <div class="tok-row"><div class="tok-var">--tint</div><div class="tok-fig">Vye Tokens / tint</div><div class="tok-val"><span class="tok-chip" style="background:#D4E5FC"></span>#D4E5FC</div><div class="tok-role">Brand tint / selection bg</div></div>
+      <div class="tok-row"><div class="tok-var">--canvas</div><div class="tok-fig">Vye Tokens / canvas</div><div class="tok-val"><span class="tok-chip" style="background:#F7F8FA;border:1px solid #E2E3E9"></span>#F7F8FA</div><div class="tok-role">Page background</div></div>
+      <div class="tok-row"><div class="tok-var">--surface</div><div class="tok-fig">Vye Tokens / surface</div><div class="tok-val"><span class="tok-chip" style="background:#FFFFFF;border:1px solid #E2E3E9"></span>#FFFFFF</div><div class="tok-role">Card / elevated surface</div></div>
+      <div class="tok-row"><div class="tok-var">--line</div><div class="tok-fig">Vye Tokens / line</div><div class="tok-val"><span class="tok-chip" style="background:#E2E3E9"></span>#E2E3E9</div><div class="tok-role">Dividers / borders</div></div>
+    </div>
+
+    <div class="sub-label" style="margin-top:28px">Color — Status</div>
+    <div class="tok-table">
+      <div class="tok-head"><div>CSS variable</div><div>Figma variable</div><div>Value</div><div>Role</div></div>
+      <div class="tok-row"><div class="tok-var">--success</div><div class="tok-fig">Vye Tokens / success</div><div class="tok-val"><span class="tok-chip" style="background:#2A9D77"></span>#2A9D77</div><div class="tok-role">Success foreground</div></div>
+      <div class="tok-row"><div class="tok-var">--success-soft</div><div class="tok-fig">Vye Tokens / success-soft</div><div class="tok-val"><span class="tok-chip" style="background:#D2F5E1"></span>#D2F5E1</div><div class="tok-role">Success background</div></div>
+      <div class="tok-row"><div class="tok-var">--warning</div><div class="tok-fig">Vye Tokens / warning</div><div class="tok-val"><span class="tok-chip" style="background:#D4841A"></span>#D4841A</div><div class="tok-role">Warning foreground</div></div>
+      <div class="tok-row"><div class="tok-var">--warning-soft</div><div class="tok-fig">Vye Tokens / warning-soft</div><div class="tok-val"><span class="tok-chip" style="background:#FFE5BB"></span>#FFE5BB</div><div class="tok-role">Warning background</div></div>
+      <div class="tok-row"><div class="tok-var">--danger</div><div class="tok-fig">Vye Tokens / danger</div><div class="tok-val"><span class="tok-chip" style="background:#C0544A"></span>#C0544A</div><div class="tok-role">Danger foreground</div></div>
+      <div class="tok-row"><div class="tok-var">--danger-soft</div><div class="tok-fig">Vye Tokens / danger-soft</div><div class="tok-val"><span class="tok-chip" style="background:#F5C8C8"></span>#F5C8C8</div><div class="tok-role">Danger background</div></div>
+      <div class="tok-row"><div class="tok-var">--info</div><div class="tok-fig">Vye Tokens / info</div><div class="tok-val"><span class="tok-chip" style="background:#2B6FD4"></span>#2B6FD4</div><div class="tok-role">Info foreground</div></div>
+      <div class="tok-row"><div class="tok-var">--info-soft</div><div class="tok-fig">Vye Tokens / info-soft</div><div class="tok-val"><span class="tok-chip" style="background:#EEF4FE"></span>#EEF4FE</div><div class="tok-role">Info background</div></div>
+    </div>
+
+    <div class="sub-label" style="margin-top:28px">Typography</div>
+    <div class="tok-table">
+      <div class="tok-head"><div>Figma role</div><div>Token name</div><div>Size</div><div>Weight</div></div>
+      <div class="tok-row"><div class="tok-var">Display/H1</div><div class="tok-fig">type/display</div><div class="tok-val">48px</div><div class="tok-role">SemiBold (700)</div></div>
+      <div class="tok-row"><div class="tok-var">Heading/H2</div><div class="tok-fig">type/heading-h2</div><div class="tok-val">24px</div><div class="tok-role">SemiBold (600)</div></div>
+      <div class="tok-row"><div class="tok-var">Heading/Section</div><div class="tok-fig">type/heading-section</div><div class="tok-val">16px</div><div class="tok-role">SemiBold (600)</div></div>
+      <div class="tok-row"><div class="tok-var">Heading/H3</div><div class="tok-fig">type/heading-h3</div><div class="tok-val">16px</div><div class="tok-role">Medium (500)</div></div>
+      <div class="tok-row"><div class="tok-var">Body/Base</div><div class="tok-fig">type/body-base</div><div class="tok-val">16px</div><div class="tok-role">Medium (500)</div></div>
+      <div class="tok-row"><div class="tok-var">Body/Large</div><div class="tok-fig">type/body-large</div><div class="tok-val">16px</div><div class="tok-role">Regular (400)</div></div>
+      <div class="tok-row"><div class="tok-var">Body/Default</div><div class="tok-fig">type/body-default</div><div class="tok-val">14px</div><div class="tok-role">Regular (400)</div></div>
+      <div class="tok-row"><div class="tok-var">Body/Small</div><div class="tok-fig">type/body-small</div><div class="tok-val">12px</div><div class="tok-role">Regular (400)</div></div>
+      <div class="tok-row"><div class="tok-var">Label/Button</div><div class="tok-fig">type/label-button</div><div class="tok-val">14px</div><div class="tok-role">Medium (500)</div></div>
+      <div class="tok-row"><div class="tok-var">Label/Emphasis</div><div class="tok-fig">type/label-emphasis</div><div class="tok-val">12px</div><div class="tok-role">Medium (500)</div></div>
+      <div class="tok-row"><div class="tok-var">Label/Strong</div><div class="tok-fig">type/label-strong</div><div class="tok-val">12px</div><div class="tok-role">SemiBold (600)</div></div>
+      <div class="tok-row"><div class="tok-var">Label/Badge</div><div class="tok-fig">type/label-badge</div><div class="tok-val">12px</div><div class="tok-role">Medium (500)</div></div>
+      <div class="tok-row"><div class="tok-var">Caption/Regular</div><div class="tok-fig">type/caption</div><div class="tok-val">10px</div><div class="tok-role">Regular (400)</div></div>
+      <div class="tok-row"><div class="tok-var">Label/Caption</div><div class="tok-fig">type/label-caption</div><div class="tok-val">10px</div><div class="tok-role">Medium (500) · uppercase</div></div>
+    </div>
+
+    <div class="sub-label" style="margin-top:28px">Radius</div>
+    <div class="tok-table">
+      <div class="tok-head"><div>CSS variable</div><div>Figma variable</div><div>Value</div><div>Used on</div></div>
+      <div class="tok-row"><div class="tok-var">--radius-button</div><div class="tok-fig">Vye Tokens / button</div><div class="tok-val">10px</div><div class="tok-role">Button, Input</div></div>
+      <div class="tok-row"><div class="tok-var">--radius-card</div><div class="tok-fig">Vye Tokens / card</div><div class="tok-val">16px</div><div class="tok-role">Card, Modal, Sheet</div></div>
+      <div class="tok-row"><div class="tok-var">--radius-full</div><div class="tok-fig">Vye Tokens / full</div><div class="tok-val">9999px</div><div class="tok-role">Badge, Pill, Avatar</div></div>
+    </div>
+
+    <div class="sub-label" style="margin-top:28px">Shadow</div>
+    <div class="tok-table">
+      <div class="tok-head"><div>CSS variable</div><div>Figma variable</div><div>Value</div><div>Used on</div></div>
+      <div class="tok-row"><div class="tok-var">--shadow-recessed</div><div class="tok-fig">Vye Tokens / recessed-card</div><div class="tok-val tok-val-mono">inset 0 2px 6px rgba(4,10,21,.08)</div><div class="tok-role">Inset fields</div></div>
+      <div class="tok-row"><div class="tok-var">--shadow-card</div><div class="tok-fig">Vye Tokens / shadow-card</div><div class="tok-val tok-val-mono">0 1px 4px rgba(4,10,21,.08), 0 0 0 1px rgba(4,10,21,.04)</div><div class="tok-role">Cards, Dropdowns</div></div>
+      <div class="tok-row"><div class="tok-var">--shadow-pop</div><div class="tok-fig">Vye Tokens / shadow-pop</div><div class="tok-val tok-val-mono">0 8px 24px rgba(4,10,21,.12), 0 2px 6px rgba(4,10,21,.06)</div><div class="tok-role">Modals, Sheets</div></div>
+    </div>
+  </section>
 
   <!-- ── COLORS ── -->
   <section class="sec" id="colors">
@@ -171,36 +248,60 @@
     </div>
     <div class="type-table">
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">48 / SemiBold<br>Heading</div></div>
+        <div class="type-meta"><div class="type-spec">Display/H1<br>48 · Bold</div></div>
         <div class="type-sample"><span style="font-size:40px;font-weight:700;line-height:1.1;text-wrap:balance">Patient experience</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">24 / SemiBold<br>Heading</div></div>
-        <div class="type-sample"><span style="font-size:22px;font-weight:600;line-height:1.2">Today's appointments</span></div>
+        <div class="type-meta"><div class="type-spec">Heading/H2<br>24 · SemiBold</div></div>
+        <div class="type-sample"><span style="font-size:24px;font-weight:600;line-height:1.2">Today's appointments</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">17 / Medium<br>Subhead</div></div>
-        <div class="type-sample"><span style="font-size:17px;font-weight:500">Your appointment is confirmed</span></div>
+        <div class="type-meta"><div class="type-spec">Heading/Section<br>16 · SemiBold</div></div>
+        <div class="type-sample"><span style="font-size:16px;font-weight:600">Current medications</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">16 / Medium<br>Body</div></div>
-        <div class="type-sample"><span style="font-size:15px;font-weight:400;color:var(--tx2);line-height:1.6;max-width:380px;display:block">Your care plan from today's appointment with Dr. Nelson is ready to view. Tap to review medication changes and labs ordered.</span></div>
+        <div class="type-meta"><div class="type-spec">Heading/H3<br>16 · Medium</div></div>
+        <div class="type-sample"><span style="font-size:16px;font-weight:500">Your appointment is confirmed</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">15 / SemiBold<br>Button label</div></div>
-        <div class="type-sample"><span style="font-size:14px;font-weight:600">Book appointment</span></div>
+        <div class="type-meta"><div class="type-spec">Body/Base<br>16 · Medium</div></div>
+        <div class="type-sample"><span style="font-size:16px;font-weight:500;color:var(--tx2)">Review notes from your last visit with Dr. Nelson</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">12 / Regular<br>Small</div></div>
-        <div class="type-sample"><span style="font-size:12px;color:var(--tx2)">Prescription · 2 refills remaining · Walgreens on Irvine Blvd</span></div>
+        <div class="type-meta"><div class="type-spec">Body/Large<br>16 · Regular</div></div>
+        <div class="type-sample"><span style="font-size:16px;font-weight:400;color:var(--tx2);line-height:1.6;max-width:380px;display:block">Your care plan is ready to view. Tap to review medication changes and labs ordered.</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">12 / Medium<br>Badge</div></div>
-        <div class="type-sample"><span style="font-size:12px;font-weight:500">Active patient</span></div>
+        <div class="type-meta"><div class="type-spec">Body/Default<br>14 · Regular</div></div>
+        <div class="type-sample"><span style="font-size:14px;font-weight:400;color:var(--tx2);line-height:1.5;max-width:380px;display:block">Prescription · 2 refills remaining · Walgreens on Irvine Blvd</span></div>
       </div>
       <div class="type-row">
-        <div class="type-meta"><div class="type-spec">10 / Medium<br>Caption</div></div>
-        <div class="type-sample"><span style="font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)">Last updated 2 hours ago</span></div>
+        <div class="type-meta"><div class="type-spec">Body/Small<br>12 · Regular</div></div>
+        <div class="type-sample"><span style="font-size:12px;font-weight:400;color:var(--tx2)">Administered by Dr. Nelson · 3 days ago</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">Label/Button<br>14 · Medium</div></div>
+        <div class="type-sample"><span style="font-size:14px;font-weight:500">Book appointment</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">Label/Emphasis<br>12 · Medium</div></div>
+        <div class="type-sample"><span style="font-size:12px;font-weight:500;color:var(--tx2)">Primary care · Updated today</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">Label/Strong<br>12 · SemiBold</div></div>
+        <div class="type-sample"><span style="font-size:12px;font-weight:600">Active patient</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">Label/Badge<br>12 · Medium</div></div>
+        <div class="type-sample"><span style="font-size:12px;font-weight:500;color:var(--brand-strong)">Confirmed</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">Caption/Regular<br>10 · Regular</div></div>
+        <div class="type-sample"><span style="font-size:10px;font-weight:400;color:var(--tx3)">Last updated 2 hours ago · EHR synced</span></div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><div class="type-spec">Label/Caption<br>10 · Medium · UC</div></div>
+        <div class="type-sample"><span style="font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)">Section overview</span></div>
       </div>
     </div>
   </section>

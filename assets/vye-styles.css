@@ -8,6 +8,10 @@
   --info:#2B6FD4; --info-soft:#EEF4FE;
   --bg:#F7F8FA; --card:#FFFFFF; --tx:#040A15; --tx2:#454756; --tx3:#898B97; --bd:#E2E3E9;
   --side:220px;
+  --radius-button:10px; --radius-card:16px; --radius-full:9999px;
+  --shadow-recessed:inset 0 2px 6px rgba(4,10,21,.08);
+  --shadow-card:0 1px 4px rgba(4,10,21,.08), 0 0 0 1px rgba(4,10,21,.04);
+  --shadow-pop:0 8px 24px rgba(4,10,21,.12), 0 2px 6px rgba(4,10,21,.06);
 }
 @media(prefers-color-scheme:dark){
   :root{--bg:#090F1A;--card:#0F1929;--tx:#EFF2F7;--tx2:#8C96A8;--tx3:#4E5F72;--bd:rgba(255,255,255,.08);}
@@ -94,6 +98,20 @@ img,video{max-width:100%;display:block;}
 .sc{height:28px;flex:1;border-radius:4px;min-width:24px;}
 .sc-nums{display:flex;gap:4px;margin-top:3px;}
 .sc-n{flex:1;font-size:9px;color:var(--tx3);text-align:center;font-variant-numeric:tabular-nums;min-width:24px;}
+
+/* ── Tokens & Variables ── */
+.tok-table{border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:4px;}
+.tok-head{display:grid;grid-template-columns:160px 200px 200px 1fr;background:var(--canvas);border-bottom:1px solid var(--bd);padding:7px 14px;gap:12px;}
+.tok-head>div{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tx3);}
+.tok-row{display:grid;grid-template-columns:160px 200px 200px 1fr;padding:9px 14px;border-bottom:1px solid var(--bd);gap:12px;align-items:center;}
+.tok-row:last-child{border-bottom:none;}
+.tok-row:hover{background:var(--canvas);}
+.tok-var{font-size:11.5px;font-family:'SF Mono','Fira Code',monospace;color:var(--brand-strong);}
+.tok-fig{font-size:11px;font-family:'SF Mono','Fira Code',monospace;color:var(--tx3);}
+.tok-val{font-size:11.5px;font-family:'SF Mono','Fira Code',monospace;color:var(--tx2);display:flex;align-items:center;gap:7px;}
+.tok-val-mono{font-size:10px;}
+.tok-role{font-size:11.5px;color:var(--tx2);}
+.tok-chip{display:inline-block;width:14px;height:14px;border-radius:3px;flex-shrink:0;}
 
 /* ── Typography ── */
 .type-table{border:1px solid var(--bd);border-radius:12px;overflow:hidden;}
