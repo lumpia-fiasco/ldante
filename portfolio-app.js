@@ -743,7 +743,7 @@ const CASES = {
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Founding Designer (Contract)</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Product design, information architecture, AI-assisted prototyping</div></div>
-        <div><div class="cs-meta-label">Deliverables</div><div class="cs-meta-val">Patient experience (5 areas), provider experience, design system, Claude Code skill</div></div>
+        <div><div class="cs-meta-label">Deliverables</div><div class="cs-meta-val">Patient experience (5 areas), provider-side messages, tasks panel &amp; store surface, design system, Claude Code skill</div></div>
       </div>
 
       <div class="cd-hero-img-wrap">
@@ -768,7 +768,7 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">The patient experience</span></div>
-        <p class="cd-body">The rebuilt experience organized around five areas, each with a clear job to do &#8212; several working in direct tandem with the provider experience I also designed:</p>
+        <p class="cd-body">The rebuilt experience organized around five areas, each with a clear job to do &#8212; several connecting directly into the provider experience, where I also owned the messaging flows, tasks panel, and how the shop surfaced on the provider side:</p>
         <div class="workflow-block">
           <div class="workflow-row">
             <div class="workflow-step">Home</div>
@@ -808,7 +808,7 @@ const CASES = {
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">04</span><span class="cs-section-title">Outcome</span></div>
         <p class="cd-body">A single, coherent patient experience replaced a set of disconnected vibecoded flows, with a purposeful information hierarchy across all five areas. The prototype &#x2192; refine &#x2192; feedback &#x2192; codify cycle turned every workflow built into a system improvement, compounding speed and consistency rather than trading one for the other.</p>
-        <p class="cd-body">The matched provider experience &#8212; designed in tandem &#8212; ensured patient and provider actions resolved correctly on both sides. Encounter notes, orders, messages, and recommendations flowed the right direction without manual reconciliation.</p>
+        <p class="cd-body">The provider experience was a separate contractor&#39;s work, but the surfaces where patient and provider actions converged &#8212; messages, tasks, and the store &#8212; I designed directly. That overlap is what made the information flow correctly: encounter notes, orders, and recommendations moved the right direction without manual reconciliation on either side.</p>
         <div class="cs-reflection">
           <div class="cs-reflection-title">Reflection</div>
           <p class="cd-body">This project was a test of whether a design system built for AI-assisted speed could also produce something coherent enough to stand in front of investors. The inherited vibecoded flows were a warning about what happens without that system: fast, disconnected, and ultimately more expensive to untangle than to have built right. The cycle of prototyping in Claude Code, refining in Figma, and codifying feedback back into the skill is what let velocity and coherence reinforce each other instead of trading off. Seed investment presentations are slated for late July 2026.</p>
