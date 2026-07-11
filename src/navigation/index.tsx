@@ -20,6 +20,7 @@ import { WelcomeScreen } from '../screens/auth/WelcomeScreen';
 import { SignUpScreen } from '../screens/auth/SignUpScreen';
 import { LoginScreen } from '../screens/auth/LoginScreen';
 import { RoleSelectScreen } from '../screens/auth/RoleSelectScreen';
+import { DeprecatedScreen } from '../screens/auth/DeprecatedScreen';
 
 // Onboarding Screens
 import { CustomerOnboardingScreen } from '../screens/customer/CustomerOnboardingScreen';
@@ -69,6 +70,7 @@ export type RootStackParamList = {
   FriendProfile: { friendId: string };
   FriendRolodex: { friendId: string; friendName: string };
   Search: { initialQuery?: string; category?: string };
+  Deprecated: undefined;
   Notifications: undefined;
   Profile: undefined;
   ProfileEdit: undefined;
@@ -96,9 +98,9 @@ export type ProviderTabParamList = {
   MyProfile: undefined;
 };
 
-// Replaces the current stack entry with Login — user cannot navigate back to a dead route.
+// Replaces the current stack entry with Deprecated — user cannot navigate back to a dead route.
 function ForceLogin({ navigation }: any) {
-  useEffect(() => { navigation.replace('Login'); }, [navigation]);
+  useEffect(() => { navigation.replace('Deprecated'); }, [navigation]);
   return null;
 }
 
@@ -311,7 +313,8 @@ export function AppNavigator() {
         <Stack.Screen name="ProfileEdit"      component={ProfileEditScreen} />
         <Stack.Screen name="Settings"         component={SettingsScreen} />
         <Stack.Screen name="HelpSupport"      component={HelpSupportScreen} />
-        {/* Removed routes — force replace to Login; user cannot back out */}
+        {/* Removed routes — redirect to Deprecated screen; user cannot back out */}
+        <Stack.Screen name="Deprecated"       component={DeprecatedScreen} options={{ gestureEnabled: false }} />
         <Stack.Screen name="Search"           component={ForceLogin} />
         <Stack.Screen name="CreatePost"       component={CreatePostScreen} options={{ gestureEnabled: false }} />
         {/* Jonathan AI — full-screen stack: no tab bar, swipe-right supported, back button in screen */}
