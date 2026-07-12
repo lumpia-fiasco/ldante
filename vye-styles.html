@@ -445,7 +445,7 @@
     <div class="sec-head">
       <div class="sec-eyebrow">Components</div>
       <div class="sec-title">Input</div>
-      <div class="sec-desc">Border-radius: <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">input (4px)</code>. Focus ring uses <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">brand-strong</code> at 13% opacity.</div>
+      <div class="sec-desc">Notched floating-label field. The label acts as the placeholder — when empty and unfocused it sits centered in the field; on focus or when a value is present it animates up and overlaps the top border with a surface-colored background (the "notch"). Border-radius: <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">input (4px)</code>. Focus ring uses <code style="font-size:11px;background:var(--bd);padding:1px 4px;border-radius:3px;">brand-strong</code> at 13% opacity.</div>
     </div>
     <div class="demo">
       <div class="field-pair">
@@ -458,6 +458,13 @@
         </div>
         <div class="vye-field">
           <div class="vye-float-wrap">
+            <input class="vye-input success" id="demo-f3" placeholder=" " value="Valid input" />
+            <label class="vye-label" for="demo-f3">Field name</label>
+          </div>
+          <span class="vye-hint success">Looks good</span>
+        </div>
+        <div class="vye-field">
+          <div class="vye-float-wrap">
             <input class="vye-input invalid" id="demo-f2" placeholder=" " value="User input" />
             <label class="vye-label" for="demo-f2">Field name</label>
           </div>
@@ -465,7 +472,7 @@
         </div>
       </div>
     </div>
-    <div class="token-note">state=default|invalid</div>
+    <div class="token-note">state=default|success|invalid</div>
   </section>
 
   <!-- ── ALERT ── -->
