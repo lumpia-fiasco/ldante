@@ -733,7 +733,7 @@ const CASES = {
   'vyehealth': {
     company: 'stealth healthtech company',
     headline: 'The provider side was in pilot. The patient experience wasn\'t close.',
-    intro: 'By the time I came on, the company\'s provider experience was already in pilot testing with real users. The patient side was a different story — flows vibecoded into existence to prove out ideas, individually rough, collectively incoherent, and nowhere near the level the pilot required. Testers needed caveats just to get through the flows. My job was to fix that.',
+    intro: 'By the time I came on, the company\'s provider experience was already in pilot testing with real users. The patient side was a different story. The existing patient experience had been rapidly generated through AI-assisted prototyping to validate concepts. It successfully accelerated exploration, but the resulting flows lacked the information architecture, consistency, and interaction patterns needed for pilot readiness. My job was to fix that.',
     metrics: [
       { value: '5',         label: 'patient experience areas designed end to end' },
       { value: '1',         label: 'designer brought in while provider pilot was live' },
@@ -752,7 +752,7 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
-        <p class="cd-body">When I came on, the provider experience was already in pilot with real users. The patient side was not in the same place. Flows had been vibecoded into existence to prove out ideas &#8212; individually rough, collectively incoherent &#8212; and the gap was visible enough that testers needed caveats just to get through them. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. Related features had been built as separate screens with no structural relationship to each other &#8212; the navigation reflected the order things were built, not the order patients needed them. There was no information hierarchy tying any of it together.</p>
+        <p class="cd-body">When I came on, the provider experience was already in pilot with real users. The patient side was not in the same place. The existing patient experience had been rapidly generated through AI-assisted prototyping to validate concepts. It successfully accelerated exploration, but the resulting flows lacked the information architecture, consistency, and interaction patterns needed for pilot readiness. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. Related features had been built as separate screens with no structural relationship to each other &#8212; the navigation reflected the order things were built, not the order patients needed them. There was no information hierarchy tying any of it together.</p>
         <p class="cd-body">The traditional path &#8212; wireframes, static comps, long review cycles &#8212; wasn&#39;t viable on a short-term contract at a startup moving toward a seed raise. But treating the existing flows as disposable would have thrown away real product learning already embedded in them. The answer was to work with what was there, move fast, and build a system that got more correct with every cycle.</p>
       </div>
 
