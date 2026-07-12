@@ -747,7 +747,7 @@ const CASES = {
       </div>
 
       <div class="cd-hero-img-wrap">
-        <img src="assets/vyehealth-mob-home.png" class="cd-hero-img" alt="Patient experience mobile — Home and navigation menu" />
+        <img src="assets/healthtech-mob-home.png" class="cd-hero-img" alt="Patient experience mobile — Home and navigation menu" />
       </div>
 
       <div class="cs-section">
@@ -763,7 +763,7 @@ const CASES = {
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-mob-booking.png" class="cd-screenshot" alt="Appointment booking — select time slot and enter details" />
+        <img src="assets/healthtech-mob-booking.png" class="cd-screenshot" alt="Appointment booking — select time slot and enter details" />
       </div>
 
       <div class="cs-section">
@@ -794,35 +794,35 @@ const CASES = {
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-dt-home-postonboarding.png" class="cd-screenshot" alt="Home — pre-appointment: V asks the patient to share questions and concerns before the visit" />
+        <img src="assets/healthtech-dt-home-postonboarding.png" class="cd-screenshot" alt="Home — pre-appointment: V asks the patient to share questions and concerns before the visit" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-dt-home-apptday.png" class="cd-screenshot" alt="Home — appointment day: submitted concerns surface as talking points with 16 minutes to go, and a Join button" />
+        <img src="assets/healthtech-dt-home-apptday.png" class="cd-screenshot" alt="Home — appointment day: submitted concerns surface as talking points with 16 minutes to go, and a Join button" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-dt-telehealth.png" class="cd-screenshot" alt="Telehealth call — the patient's Questions &amp; Concerns panel stays visible during the video appointment" />
+        <img src="assets/healthtech-dt-telehealth.png" class="cd-screenshot" alt="Telehealth call — the patient's Questions &amp; Concerns panel stays visible during the video appointment" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-dt-home-postappt.png" class="cd-screenshot" alt="Home — post-appointment: V surfaces the care plan with purchase CTAs for recommended medications" />
+        <img src="assets/healthtech-dt-home-postappt.png" class="cd-screenshot" alt="Home — post-appointment: V surfaces the care plan with purchase CTAs for recommended medications" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-dt-carejournal.png" class="cd-screenshot" alt="Care Journal — full record of medication changes, labs ordered, next steps, and appointment notes" />
+        <img src="assets/healthtech-dt-carejournal.png" class="cd-screenshot" alt="Care Journal — full record of medication changes, labs ordered, next steps, and appointment notes" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-mob-join.png" class="cd-screenshot" alt="Join the visit — mobile appointment reminder and video call" />
+        <img src="assets/healthtech-mob-join.png" class="cd-screenshot" alt="Join the visit — mobile appointment reminder and video call" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-mob-after.png" class="cd-screenshot" alt="After the visit — mobile care plan from V, medication changes, labs ordered" />
+        <img src="assets/healthtech-mob-after.png" class="cd-screenshot" alt="After the visit — mobile care plan from V, medication changes, labs ordered" />
       </div>
 
       <div class="cd-screenshot-wrap">
-        <img src="assets/vyehealth-mob-journal.png" class="cd-screenshot" alt="Care Journal — mobile view of appointments, care plans, and provider notes" />
+        <img src="assets/healthtech-mob-journal.png" class="cd-screenshot" alt="Care Journal — mobile view of appointments, care plans, and provider notes" />
       </div>
 
       <div class="cs-section">
@@ -853,7 +853,7 @@ const CASES = {
         <div><div class="cs-meta-label">Tools</div><div class="cs-meta-val">Figma (MCP + Code Connect), Claude Code, mobile-native token architecture</div></div>
       </div>
 
-      <img src="assets/vyehealth-ds-foundations.png" class="cd-hero-img" alt="Design system — color token scales, Geist type ramp, radius and shadow tokens" />
+      <img src="assets/healthtech-ds-foundations.png" class="cd-hero-img" alt="Design system — color token scales, Geist type ramp, radius and shadow tokens" />
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
@@ -886,9 +886,9 @@ const CASES = {
             <div class="workflow-body">Extended the design system&#39;s mobile approach so the same token and component logic powering the vibecoding skill also scaled correctly to mobile layouts and interactions &#8212; built mobile-native rather than web-first with mobile bolted on.</div>
           </div>
         </div>
-        <img src="assets/vyehealth-ds-codeconnect.png" class="cd-screenshot" alt="Code Connect pilot — button, badge, input, dialog, and card components with decision notes" />
+        <img src="assets/healthtech-ds-codeconnect.png" class="cd-screenshot" alt="Code Connect pilot — button, badge, input, dialog, and card components with decision notes" />
         <p class="cd-body">Throughout, I partnered directly with engineering &#8212; validating the system in real code, not just Figma, through a continuous feedback loop, adjusting tokens and component structure based on what broke or drifted when engineers implemented against them.</p>
-        <img src="assets/vyehealth-ds-mobile.png" class="cd-screenshot" alt="Mobile-native patterns — booking flow, consent, confirmation, profile, care plan, and product screens" />
+        <img src="assets/healthtech-ds-mobile.png" class="cd-screenshot" alt="Mobile-native patterns — booking flow, consent, confirmation, profile, care plan, and product screens" />
       </div>
 
       <div class="cs-section">
@@ -911,11 +911,11 @@ const CASES = {
             <div class="finding-body">A Code Connect-ready component layer for machine consumption and a separate, faster-moving set for the design team &#8212; velocity gains on one side never came at the expense of consistency on the other.</div>
           </div>
         </div>
-        <img src="assets/vyehealth-ds-patterns.png" class="cd-screenshot" alt="Shared patterns — alert variants, KPI metric cards, chart, and navigation components" />
+        <img src="assets/healthtech-ds-patterns.png" class="cd-screenshot" alt="Shared patterns — alert variants, KPI metric cards, chart, and navigation components" />
         <div class="cs-reflection">
           <div class="cs-reflection-title">Reflection</div>
           <p class="cd-body">The most valuable part of this work wasn&#39;t the skill itself; it was the discipline of building a design system that was legible to a machine as well as a human. Getting components and tokens to match by name and by meaning is tedious, unglamorous work, but it&#39;s the actual precondition for AI-assisted design tools to be trustworthy rather than just fast. At this company, that discipline turned vibecoding from a novelty into a real part of the product development workflow.</p>
-          <a href="https://www.ldante.com/vye-styles" target="_blank" rel="noopener" class="cd-artifact-link">View component reference &rarr;</a>
+          <a href="https://www.ldante.com/design-system" target="_blank" rel="noopener" class="cd-artifact-link">View component reference &rarr;</a>
         </div>
       </div>
     `,
