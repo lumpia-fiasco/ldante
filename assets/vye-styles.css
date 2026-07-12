@@ -448,11 +448,9 @@ img,video{max-width:100%;display:block;}
 .cj-next-label{font-size:13px;color:var(--tx3);}
 .cj-appt-note{font-size:13.5px;color:var(--tx2);line-height:1.65;padding:0 8px;margin-bottom:12px;}
 .mf-bottom-bar{
-  background:rgba(255,255,255,0.75);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  border-top:1px solid rgba(0,0,0,.06);
+  background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0.88) 35%,#fff 68%);
   display:flex;align-items:center;justify-content:space-between;
-  padding:10px 16px 26px;
+  padding:40px 16px 26px;
   position:absolute;bottom:0;left:0;right:0;
 }
 /* V mark and hamburger each sit in a white circle */
