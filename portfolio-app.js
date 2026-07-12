@@ -731,9 +731,9 @@ function openFitPanel() {
 // ── Case studies ────────────────────────────────────────────────
 const CASES = {
   'vyehealth': {
-    company: 'Vye Health',
+    company: 'stealth healthtech company',
     headline: 'The provider side was in pilot. The patient experience wasn\'t close.',
-    intro: 'By the time I came on, Vye Health\'s provider experience was already in pilot testing with real users. The patient side was a different story — flows vibecoded into existence to prove out ideas, individually rough, collectively incoherent, and nowhere near the level the pilot required. Testers needed caveats just to get through the flows. My job was to fix that.',
+    intro: 'By the time I came on, the company\'s provider experience was already in pilot testing with real users. The patient side was a different story — flows vibecoded into existence to prove out ideas, individually rough, collectively incoherent, and nowhere near the level the pilot required. Testers needed caveats just to get through the flows. My job was to fix that.',
     metrics: [
       { value: '5',         label: 'patient experience areas designed end to end' },
       { value: '1',         label: 'designer brought in while provider pilot was live' },
@@ -747,7 +747,7 @@ const CASES = {
       </div>
 
       <div class="cd-hero-img-wrap">
-        <img src="assets/vyehealth-mob-home.png" class="cd-hero-img" alt="Vye Health mobile — Home and navigation menu" />
+        <img src="assets/vyehealth-mob-home.png" class="cd-hero-img" alt="Patient experience mobile — Home and navigation menu" />
       </div>
 
       <div class="cs-section">
@@ -776,7 +776,7 @@ const CASES = {
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Care Journal</div>
-            <div class="workflow-body">The system of record for appointments, medications, care notes, and care team messages. What a provider documented or ordered surfaced automatically in the patient&#39;s journal. What a patient raised surfaced in the provider&#39;s notes. Supplement and medication recommendations carried purchase links directly to Vye&#39;s shop.</div>
+            <div class="workflow-body">The system of record for appointments, medications, care notes, and care team messages. What a provider documented or ordered surfaced automatically in the patient&#39;s journal. What a patient raised surfaced in the provider&#39;s notes. Supplement and medication recommendations carried purchase links directly to the company&#39;s shop.</div>
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Shop</div>
@@ -838,9 +838,9 @@ const CASES = {
   },
 
   'vyehealth-ds': {
-    company: 'Vye Health',
+    company: 'stealth healthtech company',
     headline: 'A design system built to be read by a machine as well as a human.',
-    intro: 'Vye Health\'s team wanted speed — the ability to put any idea in front of the room fast. Vibecoded prototyping made that possible in theory, but vibecoded output is only as good as the system underneath it. Without a rigorous, machine-readable design system, AI-generated interfaces would drift from the product\'s visual language immediately and couldn\'t be trusted for real decisions. My job was to build a system that made the vibecoding actually work.',
+    intro: 'The company\'s team wanted speed — the ability to put any idea in front of the room fast. Vibecoded prototyping made that possible in theory, but vibecoded output is only as good as the system underneath it. Without a rigorous, machine-readable design system, AI-generated interfaces would drift from the product\'s visual language immediately and couldn\'t be trusted for real decisions. My job was to build a system that made the vibecoding actually work.',
     metrics: [
       { value: '~60%',     label: 'prototype fidelity reached reliably out of the gate' },
       { value: '2',        label: 'component tracks — one for machines, one for designers' },
@@ -853,11 +853,11 @@ const CASES = {
         <div><div class="cs-meta-label">Tools</div><div class="cs-meta-val">Figma (MCP + Code Connect), Claude Code, mobile-native token architecture</div></div>
       </div>
 
-      <img src="assets/vyehealth-ds-foundations.png" class="cd-hero-img" alt="Vye Design System — color token scales, Geist type ramp, radius and shadow tokens" />
+      <img src="assets/vyehealth-ds-foundations.png" class="cd-hero-img" alt="Design system — color token scales, Geist type ramp, radius and shadow tokens" />
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
-        <p class="cd-body">I joined Vye Health as founding designer at a moment when the company had a product vision but no real design system to support it. Components existed in scattered Figma files. Naming was inconsistent. There was no shared language between design and engineering, which meant every new feature started from a blank page instead of a foundation.</p>
+        <p class="cd-body">I joined as founding designer at a moment when the company had a product vision but no real design system to support it. Components existed in scattered Figma files. Naming was inconsistent. There was no shared language between design and engineering, which meant every new feature started from a blank page instead of a foundation.</p>
         <p class="cd-body">The team wanted to lean into AI-assisted prototyping &#8212; letting anyone describe an idea and generate a working interface. But vibecoded output is only as good as the system underneath it. Without a rigorous, semantically consistent design system, AI-generated interfaces drift from the product&#39;s visual language immediately and can&#39;t be trusted for real decision-making.</p>
       </div>
 
@@ -875,7 +875,7 @@ const CASES = {
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Two component tracks</div>
-            <div class="workflow-body">One track built for machine consumption: components exposed through Code Connect via the Figma MCP, structured so the vibecoding skill could map Figma components to production code without guesswork. A second track built for human consumption: components tailored to Vye Health&#39;s growing design team, optimized for design velocity as the team scaled. Both drawing from the same token foundation.</div>
+            <div class="workflow-body">One track built for machine consumption: components exposed through Code Connect via the Figma MCP, structured so the vibecoding skill could map Figma components to production code without guesswork. A second track built for human consumption: components tailored to the company&#39;s growing design team, optimized for design velocity as the team scaled. Both drawing from the same token foundation.</div>
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Claude Code skill</div>
@@ -914,7 +914,7 @@ const CASES = {
         <img src="assets/vyehealth-ds-patterns.png" class="cd-screenshot" alt="Shared patterns — alert variants, KPI metric cards, chart, and navigation components" />
         <div class="cs-reflection">
           <div class="cs-reflection-title">Reflection</div>
-          <p class="cd-body">The most valuable part of this work wasn&#39;t the skill itself; it was the discipline of building a design system that was legible to a machine as well as a human. Getting components and tokens to match by name and by meaning is tedious, unglamorous work, but it&#39;s the actual precondition for AI-assisted design tools to be trustworthy rather than just fast. At Vye Health, that discipline turned vibecoding from a novelty into a real part of the product development workflow.</p>
+          <p class="cd-body">The most valuable part of this work wasn&#39;t the skill itself; it was the discipline of building a design system that was legible to a machine as well as a human. Getting components and tokens to match by name and by meaning is tedious, unglamorous work, but it&#39;s the actual precondition for AI-assisted design tools to be trustworthy rather than just fast. At this company, that discipline turned vibecoding from a novelty into a real part of the product development workflow.</p>
           <a href="https://www.ldante.com/vye-styles" target="_blank" rel="noopener" class="cd-artifact-link">View component reference &rarr;</a>
         </div>
       </div>
