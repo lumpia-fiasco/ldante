@@ -1136,7 +1136,7 @@ const CASES = {
 
   'teamshares-ats': {
     company: 'Teamshares',
-    headline: 'The ask was "build an ATS." The real problem was a broken hiring model.',
+    headline: 'Twenty-plus companies were hiring off the same broken spreadsheet. Nobody had asked why.',
     intro: 'Teamshares was acquiring small businesses faster than it could place leaders to run them. The tool holding the whole operation together was a spreadsheet. Fixing that wasn\'t a tooling problem. It was a system design problem.',
     metrics: [
       { value: '20+', label: 'leaders placed through the platform' },
@@ -1748,7 +1748,7 @@ const CASES = {
   },
   'marketo-migration': {
     company: 'Marketo / Adobe',
-    headline: '733% adoption increase. The product was ready. Users weren\'t — and that was a design problem.',
+    headline: 'Sky had been rebuilt for years. Almost nobody had opted in. The reason wasn\'t the product.',
     intro: 'Sky had been in development for years. The platform was better. The investment was massive. And fewer than 600 users had opted in. The VP of Product and CPO assembled a task force. The product was ready. Nobody had designed the transition.',
     metrics: [
       { value: '733%', label: 'Increase in user adoption' },
