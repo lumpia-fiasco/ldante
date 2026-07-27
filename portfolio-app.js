@@ -598,8 +598,24 @@ function setupPortfolio(role) {
     setupLanding();
   });
 
-  // Fit button in case detail (delegated)
+  // Thoughts & Observations toggle
+  const thoughtsToggle = document.getElementById('thoughtsToggle');
+  const thoughtsStack  = document.getElementById('thoughtsStack');
+  if (thoughtsToggle && thoughtsStack) {
+    thoughtsToggle.addEventListener('click', () => {
+      const expanded = thoughtsToggle.getAttribute('aria-expanded') === 'true';
+      thoughtsToggle.setAttribute('aria-expanded', String(!expanded));
+      thoughtsToggle.textContent = expanded ? 'Show' : 'Hide';
+      thoughtsStack.style.display = expanded ? 'none' : '';
+      if (!expanded) layoutMasonry();
+    });
+  }
+
+  // Fit button — delegated on both the case detail and the case list
   document.getElementById('caseDetailContent').addEventListener('click', e => {
+    if (e.target.closest('.fit-btn')) openFitPanel();
+  });
+  document.getElementById('caseListPanel').addEventListener('click', e => {
     if (e.target.closest('.fit-btn')) openFitPanel();
   });
 
@@ -2438,12 +2454,6 @@ function buildCaseHTML(d) {
     html += `<div class="cd-haiku">${d.haiku.map(l => `<p>${l}</p>`).join('')}</div>`;
   }
 
-  html += `<div class="fit-btn-wrap" style="margin-top:48px">
-    <button class="fit-btn">
-      How do we match up?
-      <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-  </div>`;
 
   return html;
 }

@@ -456,7 +456,16 @@
     .cases-heading {
       font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 2.2rem);
       font-weight: 400; letter-spacing: -0.02em; color: #1f1f1f; margin-bottom: 18px;
+      display: flex; align-items: baseline; gap: 14px;
     }
+    .thoughts-toggle {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: none; border: 1px solid currentColor; border-radius: 4px;
+      padding: 3px 8px; cursor: pointer; color: rgba(31,31,31,0.45);
+      transition: color 0.2s, border-color 0.2s; flex-shrink: 0;
+    }
+    .thoughts-toggle:hover { color: rgba(31,31,31,0.85); }
     .case-stack { position: relative; padding: 4px 0 40px; }
 
     /* Case card */
@@ -1164,8 +1173,11 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
 
           </div><!-- /.case-stack -->
 
-          <p class="cases-heading" id="thoughtsHeading" style="margin-top:60px">Thoughts &amp; Observations</p>
-          <div class="case-stack" id="thoughtsStack">
+          <p class="cases-heading" id="thoughtsHeading" style="margin-top:60px">
+            Thoughts &amp; Observations
+            <button class="thoughts-toggle" id="thoughtsToggle" aria-expanded="false">Show</button>
+          </p>
+          <div class="case-stack" id="thoughtsStack" style="display:none">
 
             <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0">
               <article class="thought-tile">
@@ -1215,6 +1227,13 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
               </article>
             </div>
           </div><!-- /.thoughts-stack -->
+        </div>
+
+        <div class="fit-btn-wrap" style="margin-top:56px;margin-bottom:40px;padding:0 20px">
+          <button class="fit-btn">
+            How do we match up?
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div><!-- /#caseListPanel -->
 
