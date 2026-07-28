@@ -782,5 +782,5 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
 .about-blurb { display: flex; gap: clamp(24px, 4vw, 56px); align-items: flex-start; padding: 0 20px; margin-top: 60px; }
 .about-blurb .about-text { flex: 1; min-width: 0; }
 .about-blurb .about-text .cd-body:first-of-type { margin-top: 16px; }
-.about-photo { width: 200px; height: auto; display: block; flex-shrink: 0; }
+.about-photo { width: 240px; min-height: 300px; align-self: stretch; flex-shrink: 0; background: url('portrait-bg.png') no-repeat right bottom / auto 100%; }
 @media (max-width: 680px) { .about-photo { display: none; } }
