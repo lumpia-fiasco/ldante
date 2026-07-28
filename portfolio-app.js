@@ -747,7 +747,7 @@ function openFitPanel() {
 // ── Case studies ────────────────────────────────────────────────
 const CASES = {
   'vyehealth': {
-    company: 'stealth healthtech company',
+    company: 'Vye Health',
     headline: 'The provider side was in pilot. The patient experience wasn\'t close.',
     intro: 'By the time I came on, the company\'s provider experience was already in pilot testing with real users. The patient side was a different story. The existing patient experience had been rapidly generated through AI-assisted prototyping to validate concepts. It successfully accelerated exploration, but the resulting flows lacked the information architecture, consistency, and interaction patterns needed for pilot readiness. My job was to fix that.',
     metrics: [
@@ -854,7 +854,7 @@ const CASES = {
   },
 
   'vyehealth-ds': {
-    company: 'stealth healthtech company',
+    company: 'Vye Health',
     headline: 'A design system built to be read by a machine as well as a human.',
     intro: 'The company\'s team wanted speed — the ability to put any idea in front of the room fast. Vibecoded prototyping made that possible in theory, but vibecoded output is only as good as the system underneath it. Without a rigorous, machine-readable design system, AI-generated interfaces would drift from the product\'s visual language immediately and couldn\'t be trusted for real decisions. My job was to build a system that made the vibecoding actually work.',
     metrics: [
