@@ -960,15 +960,13 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">What industry leads actually do</span></div>
-        <p class="cd-body">Teamshares acquires small businesses from retiring owners and hands them to new presidents &#8212; MBAs and aspiring operators who want to run something without starting from scratch. The employees get equity. The president gets a company. And Teamshares sends in industry leads to make sure the whole thing doesn&#39;t fall apart.</p>
-        <p class="cd-body">Industry leads are the operational version of Gordon Ramsay. They walk into a network company, look at the books, find the leaks, and help the president fix them. Payroll is always on the list: it&#39;s one of the clearest windows into how a company is actually running. Headcount changes, overtime patterns, bonus timing &#8212; it all tells a story if you can read it fast enough.</p>
-        <p class="cd-body">The ask made sense on the surface: one place to view payroll data per network company and generate reports. But that framing assumed the problem was display. It wasn&#39;t.</p>
+        <p class="cd-body">Teamshares acquires small businesses, then hands the reins to new presidents &#8212; often first-time operators without an MBA or an ops background. Each president gets a company, and Teamshares expects industry leads to make sure the wiring underneath doesn&#39;t fail.</p>
+        <p class="cd-body">The ask made sense on paper: give industry leads a place to view payroll data and generate reports. But the framing assumed the problem was display. It wasn&#39;t.</p>
       </div>
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">What discovery actually found</span></div>
-        <p class="cd-body">Before opening Figma I spent time with the leads &#8212; shadowing their workflow, studying the payroll tools they were already using, learning the vocabulary. The goal wasn&#39;t to understand what they wanted in a dashboard. It was to understand what they were doing before the dashboard existed.</p>
-        <p class="cd-body">What I found: three hours of manual prep standing between a lead and every conversation that mattered.</p>
+        <p class="cd-body">Before opening Figma, I spent time with the leads &#8212; shadowing their workflow, watching how they built payroll lists they already used, learning the vocabulary. What I found: three hours of manual prep before every conversation that mattered.</p>
         <div class="workflow-block">
           <div class="workflow-row">
             <div class="workflow-step">Export</div>
@@ -996,22 +994,21 @@ const CASES = {
             <span class="workflow-tag tag-kept">the actual job</span>
           </div>
         </div>
-        <p class="cd-body">Multiply that by six leads across 90+ network companies and you&#39;re looking at a significant operational drag on the whole model. The leads were highly paid operators doing spreadsheet work. That&#39;s a business problem &#8212; and it needed to be framed that way before any design work could start.</p>
         <div class="cs-callout">
           <div class="cs-callout-label">The reframe that changed the brief</div>
-          <p class="cd-body">From: &#34;How do we display payroll data?&#34; To: &#34;How do we get leads straight to analysis &#8212; and straight to the conversation?&#34; Those are fundamentally different products. The second one is a workflow tool that happens to display data. Every design decision downstream came from that distinction.</p>
+          <p class="cd-body">&#34;How do we display payroll data&#34; became &#34;How do we get leads straight to analysis &#8212; and straight to the conversation?&#34; That&#39;s a fundamentally different product. The second one is a workflow that happens to display data. Every decision came from that distinction.</p>
         </div>
       </div>
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">03</span><span class="cs-section-title">What the leads actually needed to see</span></div>
-        <p class="cd-body">I got a full walkthrough of how leads did analysis in their spreadsheets before the dashboard existed. Waterfall charts. Period-over-period comparisons. Changes in overtime, PTO, headcount, bonuses &#8212; laid out so you could spot the story at a glance without doing math first.</p>
-        <p class="cd-body">The key insight: leads needed comparative data. Prior period vs. current. The delta matters more than the number. A payroll run showing $180K in overtime means nothing in isolation. A payroll run showing overtime up 40% from the prior period is a conversation starter.</p>
+        <p class="cd-body">I did a full walkthrough of how leads did analysis in their spreadsheets before the dashboard existed. Period-over-period comparisons. Changes in overtime, PTO, headcount &#8212; laid out so they could spot the story at a glance, without doing math first.</p>
+        <p class="cd-body">The key insight: leads needed comparative data. Prior period vs. current. The delta mattered more than the number. A payroll run showing $180K in overtime means nothing in isolation. A payroll run showing overtime up 40% from the prior period is a conversation starter.</p>
         <div class="cs-callout">
-          <div class="cs-callout-label">Why this shaped every component decision</div>
-          <p class="cd-body">Once I understood that the job was spotting change, the information hierarchy became clear. Deltas go at the top, in large type, with directional indicators. Absolute values are secondary &#8212; they provide context, while the deltas carry the signal. That distinction flows all the way down to arrow indicators at the component level.</p>
+          <div class="cs-callout-label">Why this shaped every downstream decision</div>
+          <p class="cd-body">Once I understood that the job was spotting change, the information hierarchy became clear. Deltas go at the top. Raw figures support them, not the other way around. That distinction flows all the way down to Metabase and the component design.</p>
         </div>
-        <p class="cd-body">I found a charting library that could replicate the waterfall and period-over-period views leads were already building by hand. Meeting them in their existing mental model meant less re-learning and faster adoption from a pilot group that didn&#39;t have time for a learning curve.</p>
+        <p class="cd-body">I found a charting library that could replicate the waterfall and period-over-period views leads were already building by hand. Meeting them in their existing mental model meant zero re-learning and faster adoption from a pilot group that didn&#39;t have time for a learning curve.</p>
       </div>
 
       <div class="cd-screenshot-wrap">
