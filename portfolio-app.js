@@ -1762,40 +1762,39 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">Why a better product wasn&#39;t enough</span></div>
-        <p class="cd-body">Marketo&#39;s Classic platform had been the operating environment for thousands of marketing teams since 2008. Sky was years in the making &#8212; a full redesign of the technology stack and user experience. By the time I was pulled onto this effort, Sky was substantially built. The design team had grown from six to twelve people under my tenure. The investment was enormous.</p>
-        <p class="cd-body">And fewer than 600 users had opted in.</p>
-        <p class="cd-body">The instinct from leadership was to push harder on awareness, maybe force the migration. My read after the first round of research was different: the product being better wasn&#39;t the problem. The transition being undesigned was the problem. Users weren&#39;t resistant to Sky specifically &#8212; they were resistant to disruption of workflows they&#39;d been running on for five-plus years with business-critical data. That&#39;s a rational response, not an irrational one. And it required a different solution than better marketing.</p>
+        <p class="cd-body">Sky had been in development for years &#8212; a full rewrite of Marketo&#39;s tech stack and user experience, built while the team grew from six to twelve people. The investment was enormous. And fewer than 600 users had opted in.</p>
+        <p class="cd-body">Leadership&#39;s instinct was to push harder on awareness, maybe force the migration. My read after the first round of research was different: users weren&#39;t resistant to Sky. They were resistant to disruption of workflows running on five-plus years of business-critical data. That&#39;s rational, not stubborn &#8212; and it needed a different solution than better marketing.</p>
         <div class="cs-callout cs-callout--problem">
           <div class="cs-callout-label">The real risk on the table</div>
-          <p class="cd-body">Low adoption wasn&#39;t just a UX metric. It was a business risk: the ROI case for the entire Sky redesign investment depended on users actually moving to it. If adoption stayed under 600, years of engineering and design work would depreciate against a user base that never showed up. The CPO was involved for a reason. This was a company-level problem dressed up as a product problem.</p>
+          <p class="cd-body">Low adoption wasn&#39;t just a UX metric. The ROI case for the entire Sky investment depended on users actually moving over. If adoption stayed under 600, years of engineering and design would depreciate against a user base that never showed up. That&#39;s why the CPO was in the room &#8212; this was a company-level problem wearing a product-design costume.</p>
         </div>
       </div>
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">02</span><span class="cs-section-title">What research actually surfaced</span></div>
-        <p class="cd-body">We interviewed 13 users &#8212; a mix of power users (Champions) and typical users. I also ran competitive analysis on how other enterprise platforms had handled similar transitions, specifically looking for what Salesforce, Asana, Pendo, and Amplitude did differently.</p>
-        <p class="cd-body">What the research surfaced wasn&#39;t primarily a feature parity problem, though that was real. It was a trust problem.</p>
+        <p class="cd-body">We interviewed 13 users &#8212; a mix of power users (&#8220;Champions&#8221;) and typical users &#8212; and ran competitive analysis on how Salesforce, Asana, Pendo, and Amplitude had handled similar transitions.</p>
+        <p class="cd-body">The finding wasn&#39;t a feature-parity gap, though that existed too. It was a trust problem.</p>
         <div class="finding-block">
           <div class="finding-row">
             <div class="finding-tag">Trust damage</div>
-            <div class="finding-body">Previous negative experiences with Sky had left lasting resistance. Users who&#39;d tried Sky early, hit incomplete features, and retreated to Classic weren&#39;t neutral anymore &#8212; they were actively skeptical. Rebuilding that trust required transparency and user control.</div>
+            <div class="finding-body">Early Sky testers who&#39;d hit bugs had gone back to Classic and stayed skeptical. They weren&#39;t neutral anymore &#8212; they were actively resistant. Rebuilding that trust required transparency and user control.</div>
           </div>
           <div class="finding-row">
             <div class="finding-tag">Workflow anxiety</div>
-            <div class="finding-body">The anxiety wasn&#39;t about learning a new UI. It was about making mistakes with business-critical data during the learning curve. Marketing workflows at this level &#8212; campaign automation, lead management, reporting &#8212; don&#39;t have room for errors.</div>
+            <div class="finding-body">Campaign automation and lead management don&#39;t have room for mistakes during a learning curve. The anxiety wasn&#39;t about learning a new UI &#8212; it was about making errors with business-critical data.</div>
           </div>
           <div class="finding-row">
             <div class="finding-tag">Parity gaps</div>
-            <div class="finding-body">Feature parity between Classic and Sky was incomplete in enough areas that users couldn&#39;t commit fully to Sky without maintaining Classic access as a fallback. Any migration strategy had to account for an incomplete product, not assume completion first.</div>
+            <div class="finding-body">Users couldn&#39;t commit fully to Sky without Classic as a fallback. Any migration strategy had to account for an incomplete product, not assume completion first.</div>
           </div>
           <div class="finding-row">
-            <div class="finding-tag">Familiarity over aesthetics</div>
-            <div class="finding-body">Across every session, users expressed clear preference for Classic navigation even while acknowledging Sky&#39;s visual improvements. Familiarity wasn&#39;t nostalgia &#8212; it was efficiency. Users had years of muscle memory invested in Classic.</div>
+            <div class="finding-tag">Familiarity</div>
+            <div class="finding-body">Preference for Classic navigation wasn&#39;t nostalgia &#8212; it was five years of muscle memory. Users acknowledged Sky&#39;s improvements and still reached for what they knew.</div>
           </div>
         </div>
         <div class="cs-callout">
-          <div class="cs-callout-label">The competitive analysis finding that shaped the strategy</div>
-          <p class="cd-body">Salesforce&#39;s Classic to Lightning migration is the canonical enterprise platform transition. The lesson: forced migration with an incomplete feature set produces backlash that takes years to recover from. Pendo and Amplitude&#39;s phased, modular approaches produced steadier adoption curves with less resistance. The pattern was clear &#8212; user control over timing, combined with progressive enhancement, outperformed any version of forced migration.</p>
+          <div class="cs-callout-label">The competitive pattern that shaped the strategy</div>
+          <p class="cd-body">Salesforce&#39;s forced Classic-to-Lightning migration is the canonical example of backlash that takes years to recover from. Pendo and Amplitude&#39;s phased, modular approaches produced steadier adoption with less resistance. User control over timing, paired with progressive enhancement, beat forced migration every time.</p>
         </div>
       </div>
 
