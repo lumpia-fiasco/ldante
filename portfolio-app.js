@@ -839,7 +839,7 @@ const CASES = {
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Shop</div>
-            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">From recommendation to purchase, closed.</span>Connected directly to recommendations and orders from the Care Journal. Provider orders generated purchase opportunities in the patient&#39;s context automatically &#8212; clinical recommendation to action, with no separate storefront to navigate.</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">From recommendation to purchase, closed.</span>Purchase flows started from provider recommendations &#8212; a medication order or supplement suggestion became a direct path to purchase in the patient&#39;s context. A full browse-and-discover shopping experience is the future state; anchoring v1 to the care workflow meant shipping something purposeful and complete rather than an open storefront with no clinical grounding.</div>
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Profile</div>
