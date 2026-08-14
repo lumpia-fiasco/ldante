@@ -830,24 +830,24 @@ const CASES = {
         <p class="cd-body">The first design decision was consolidation. Related flows built as separate screens belonged together &#8212; and collapsing them is what made a legible five-area structure possible in the first place. Each area had a clear job. Several connected directly into the provider experience.</p>
         <div class="workflow-block">
           <div class="workflow-row">
-            <div class="workflow-step">Home<br><small style="font-weight:400;opacity:0.6">Surface what matters most right now.</small></div>
-            <div class="workflow-body">The AI chatbot (V) wasn&#39;t a blank prompt &#8212; its content changed based on where the patient was in their care journey. Pre-appointment: patients were prompted to share questions and concerns, which fed into the provider&#39;s encounter notes and resurfaced during the appointment as talking-point reminders. Post-appointment: it led with a care plan summary and purchase links for recommended medications. The screen changed with the moment, not with what the patient happened to ask.</div>
+            <div class="workflow-step">Home</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">Surface what matters most right now.</span>The AI chatbot (V) wasn&#39;t a blank prompt &#8212; its content changed based on where the patient was in their care journey. Pre-appointment: patients were prompted to share questions and concerns, which fed into the provider&#39;s encounter notes and resurfaced during the appointment as talking-point reminders. Post-appointment: it led with a care plan summary and purchase links for recommended medications. The screen changed with the moment, not with what the patient happened to ask.</div>
           </div>
           <div class="workflow-row">
-            <div class="workflow-step">Care Journal<br><small style="font-weight:400;opacity:0.6">The system of record.</small></div>
-            <div class="workflow-body">Appointments, medications, care notes, and care team messages. What a provider documented or ordered surfaced automatically in the patient&#39;s journal; what a patient raised surfaced in the provider&#39;s notes. Supplement and medication recommendations carried purchase links directly to the shop. Information moved in both directions without manual reconciliation.</div>
+            <div class="workflow-step">Care Journal</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">The system of record.</span>Appointments, medications, care notes, and care team messages. What a provider documented or ordered surfaced automatically in the patient&#39;s journal; what a patient raised surfaced in the provider&#39;s notes. Supplement and medication recommendations carried purchase links directly to the shop. Information moved in both directions without manual reconciliation.</div>
           </div>
           <div class="workflow-row">
-            <div class="workflow-step">Shop<br><small style="font-weight:400;opacity:0.6">A closed loop, not a storefront.</small></div>
-            <div class="workflow-body">Connected directly to recommendations and orders from the Care Journal &#8212; a closed loop from recommendation to purchase. Provider orders generated purchase opportunities in the patient&#39;s context automatically.</div>
+            <div class="workflow-step">Shop</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">A closed loop, not a storefront.</span>Connected directly to recommendations and orders from the Care Journal &#8212; a closed loop from recommendation to purchase. Provider orders generated purchase opportunities in the patient&#39;s context automatically.</div>
           </div>
           <div class="workflow-row">
-            <div class="workflow-step">Profile<br><small style="font-weight:400;opacity:0.6">Progressive, never a gate.</small></div>
-            <div class="workflow-body">Personal details, contacts, and health history &#8212; the baseline information the rest of the experience and the care team relied on. Designed to be completed progressively rather than as a gate to using the product.</div>
+            <div class="workflow-step">Profile</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">Progressive, never a gate.</span>Personal details, contacts, and health history &#8212; the baseline information the rest of the experience and the care team relied on. Designed to be completed progressively rather than as a gate to using the product.</div>
           </div>
           <div class="workflow-row">
-            <div class="workflow-step">Integrations<br><small style="font-weight:400;opacity:0.6">Never ask twice.</small></div>
-            <div class="workflow-body">Wearables, health platforms, and EHRs. Data the patient had already provided elsewhere followed them in, so they were never asked to repeat it. Relevant device data surfaced on Home with guidance on what to ask the provider.</div>
+            <div class="workflow-step">Integrations</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">Never ask twice.</span>Wearables, health platforms, and EHRs. Data the patient had already provided elsewhere followed them in, so they were never asked to repeat it. Relevant device data surfaced on Home with guidance on what to ask the provider.</div>
           </div>
         </div>
       </div>
@@ -886,27 +886,38 @@ const CASES = {
 
       <div class="cs-section">
         <div class="cs-section-header"><span class="cs-section-num">05</span><span class="cs-section-title">Key decisions &amp; tradeoffs</span></div>
-        <div class="finding-block">
-          <div class="finding-row">
-            <div class="finding-tag">Consolidation over addition</div>
-            <div class="finding-body">The vibecoded flows had ~12 screens covering what should have been 5 areas. My first instinct was to redesign each screen. The right decision was to consolidate first &#8212; understand what belonged together before designing anything. That consolidation is what made the information architecture legible. <em>Tradeoff: required convincing stakeholders to step back from specific screens they were attached to.</em></div>
+        <div style="display:flex;flex-direction:column;gap:1.5rem">
+
+          <div>
+            <p class="cd-body" style="margin-bottom:0.5rem"><strong>Consolidation over addition</strong></p>
+            <p class="cd-body">The vibecoded flows had ~12 screens covering what should have been 5 areas. My first instinct was to redesign each screen. The right decision was to consolidate first &#8212; understand what belonged together before designing anything. That consolidation is what made the information architecture legible.</p>
+            <div class="cs-callout" style="margin-top:0.75rem;margin-bottom:0"><div class="cs-callout-label">Tradeoff</div><p class="cd-body">Required convincing stakeholders to step back from specific screens they were attached to.</p></div>
           </div>
-          <div class="finding-row">
-            <div class="finding-tag">Home as a dynamic surface, not a dashboard</div>
-            <div class="finding-body">The original home screen was a static dashboard &#8212; upcoming appointments and metrics. The insight was that a patient&#39;s relationship to the product changes dramatically depending on where they are in their care journey; a pre-appointment experience is fundamentally different from a post-appointment one. I designed Home to change state rather than display everything at once. <em>Tradeoff: more complexity in the content logic, for a significantly clearer experience at any given moment.</em></div>
+
+          <div>
+            <p class="cd-body" style="margin-bottom:0.5rem"><strong>Home as a dynamic surface, not a dashboard</strong></p>
+            <p class="cd-body">The original home screen was a static dashboard &#8212; upcoming appointments and metrics. The insight was that a patient&#39;s relationship to the product changes dramatically depending on where they are in their care journey; a pre-appointment experience is fundamentally different from a post-appointment one. I designed Home to change state rather than display everything at once.</p>
+            <div class="cs-callout" style="margin-top:0.75rem;margin-bottom:0"><div class="cs-callout-label">Tradeoff</div><p class="cd-body">More complexity in the content logic, for a significantly clearer experience at any given moment.</p></div>
           </div>
-          <div class="finding-row">
-            <div class="finding-tag">Connecting patient and provider surfaces directly</div>
-            <div class="finding-body">The patient&#39;s questions and concerns panel didn&#39;t just need to exist &#8212; it needed to feed into the provider&#39;s encounter notes and resurface during the appointment. That required designing across both surfaces, not just the patient side. <em>Tradeoff: more coordination with the provider-side contractor &#8212; but information moved the right direction with no manual reconciliation.</em></div>
+
+          <div>
+            <p class="cd-body" style="margin-bottom:0.5rem"><strong>Connecting patient and provider surfaces directly</strong></p>
+            <p class="cd-body">The patient&#39;s questions and concerns panel didn&#39;t just need to exist &#8212; it needed to feed into the provider&#39;s encounter notes and resurface during the appointment. That required designing across both surfaces, not just the patient side.</p>
+            <div class="cs-callout" style="margin-top:0.75rem;margin-bottom:0"><div class="cs-callout-label">Tradeoff</div><p class="cd-body">More coordination with the provider-side contractor &#8212; but information moved the right direction with no manual reconciliation.</p></div>
           </div>
-          <div class="finding-row">
-            <div class="finding-tag">Mobile-native over mobile-responsive</div>
-            <div class="finding-body">The product would primarily be used on mobile by patients. I decided to build mobile-native from day one rather than designing for desktop and adapting downward. <em>Tradeoff: more initial constraint, but components that felt right in the context patients actually use them.</em></div>
+
+          <div>
+            <p class="cd-body" style="margin-bottom:0.5rem"><strong>Mobile-native over mobile-responsive</strong></p>
+            <p class="cd-body">The product would primarily be used on mobile by patients. I decided to build mobile-native from day one rather than designing for desktop and adapting downward.</p>
+            <div class="cs-callout" style="margin-top:0.75rem;margin-bottom:0"><div class="cs-callout-label">Tradeoff</div><p class="cd-body">More initial constraint, but components that felt right in the context patients actually use them.</p></div>
           </div>
-          <div class="finding-row">
-            <div class="finding-tag">Codifying into the system vs. one-off fixes</div>
-            <div class="finding-body">Every time I resolved an inconsistency, I had a choice: fix it in that screen, or codify it into the design system skill. The codify path was slower in the moment but made every subsequent prototype start from a more correct baseline. <em>Tradeoff: counterintuitive on a short contract &#8212; but it multiplied my output instead of just adding to it.</em></div>
+
+          <div>
+            <p class="cd-body" style="margin-bottom:0.5rem"><strong>Codifying into the system vs. one-off fixes</strong></p>
+            <p class="cd-body">Every time I resolved an inconsistency, I had a choice: fix it in that screen, or codify it into the design system skill. The codify path was slower in the moment but made every subsequent prototype start from a more correct baseline.</p>
+            <div class="cs-callout" style="margin-top:0.75rem;margin-bottom:0"><div class="cs-callout-label">Tradeoff</div><p class="cd-body">Counterintuitive on a short contract &#8212; but it multiplied my output instead of just adding to it.</p></div>
           </div>
+
         </div>
       </div>
 
