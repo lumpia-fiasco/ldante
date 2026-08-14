@@ -896,7 +896,7 @@ const CASES = {
 
           <div>
             <p class="cd-body" style="margin-bottom:0.5rem"><strong>Home as a state-driven surface</strong></p>
-            <p class="cd-body">The original home screen showed everything at once &#8212; upcoming appointments, metrics, a static list. The insight was that preparing for an appointment and recovering from one are completely different jobs. I redesigned Home to track the care moment: the screen&#39;s content and emphasis shift based on where the patient is in their journey.</p>
+            <p class="cd-body">The original home screen was a blank LLM interface &#8212; a text input with a row of suggested prompt buttons underneath. It put the burden on the patient to know what to ask. The insight was that the AI already had the context: the upcoming appointment, the care history, where the patient was in their journey. I redesigned Home around that &#8212; V&#39;s content and framing shift based on the care moment, so the patient gets what they need without having to ask for it.</p>
             <div class="cs-callout" style="margin-top:0.75rem;margin-bottom:0"><div class="cs-callout-label">Tradeoff</div><p class="cd-body">More complexity in the content logic, for a significantly clearer experience at any given moment.</p></div>
           </div>
 
