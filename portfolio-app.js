@@ -771,7 +771,7 @@ const CASES = {
         <div class="cs-section-header"><span class="cs-section-num">01</span><span class="cs-section-title">The situation</span></div>
         <p class="cd-body">Vye Health is building VyeOS &#8212; an AI-native operating system for private practices. The vision: a platform that ingests messy, multimodal health data and turns it into structured, queryable, longitudinal representations, with AI reasoning layered on top. When I came on, the provider experience was already in pilot with real users. The patient side was a different story.</p>
         <p class="cd-body">The existing patient experience had been rapidly generated through AI-assisted prototyping to validate concepts. It accelerated early exploration &#8212; but the resulting flows lacked the information architecture, consistency, and interaction patterns needed for pilot readiness. Navigation patterns shifted screen to screen. Components that should have been identical looked and behaved differently. Related features had been built as separate screens with no structural relationship to each other &#8212; the navigation reflected the order things were built, not the order patients needed them. There was no information hierarchy tying any of it together.</p>
-        <p class="cd-body">Vye was heading into seed fundraising in July 2026. The provider experience was in pilot. The patient experience needed to reach the same standard &#8212; not to match the provider side aesthetically, but to demonstrate that the full system held together as a coherent product. Investors and design partners needed to see a patient journey that was legible, trustworthy, and clearly connected to the clinical intelligence underneath it. The vibecoded flows couldn&#39;t do that.</p>
+        <p class="cd-body">Vye was heading into seed fundraising in July 2026. The provider experience was in pilot. The patient experience needed to reach the same standard &#8212; demonstrating that the full system held together as a coherent product. Investors and design partners needed to see a patient journey that was legible, trustworthy, and clearly connected to the clinical intelligence underneath it. The vibecoded flows couldn&#39;t show that.</p>
       </div>
 
       <div class="cs-section">
@@ -831,7 +831,7 @@ const CASES = {
         <div class="workflow-block">
           <div class="workflow-row">
             <div class="workflow-step">Home</div>
-            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">Surface what matters most right now.</span>The AI chatbot (V) wasn&#39;t a blank prompt &#8212; its content changed based on where the patient was in their care journey. Pre-appointment: patients were prompted to share questions and concerns, which fed into the provider&#39;s encounter notes and resurfaced during the appointment as talking-point reminders. Post-appointment: it led with a care plan summary and purchase links for recommended medications. The screen changed with the moment, not with what the patient happened to ask.</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">Shifts with the care moment.</span>The AI chatbot (V) responded to where the patient was in their care journey. Pre-appointment: patients were prompted to share questions and concerns, which fed into the provider&#39;s encounter notes and resurfaced during the appointment as talking-point reminders. Post-appointment: it led with a care plan summary and purchase links for recommended medications. The content tracked the moment.</div>
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Care Journal</div>
@@ -839,11 +839,11 @@ const CASES = {
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Shop</div>
-            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">A closed loop, not a storefront.</span>Connected directly to recommendations and orders from the Care Journal &#8212; a closed loop from recommendation to purchase. Provider orders generated purchase opportunities in the patient&#39;s context automatically.</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">From recommendation to purchase, closed.</span>Connected directly to recommendations and orders from the Care Journal. Provider orders generated purchase opportunities in the patient&#39;s context automatically &#8212; clinical recommendation to action, with no separate storefront to navigate.</div>
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Profile</div>
-            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">Progressive, never a gate.</span>Personal details, contacts, and health history &#8212; the baseline information the rest of the experience and the care team relied on. Designed to be completed progressively rather than as a gate to using the product.</div>
+            <div class="workflow-body"><span style="font-family:var(--font-ui);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.4);display:block;margin-bottom:8px">Complete at your own pace.</span>Personal details, contacts, and health history &#8212; the baseline information the rest of the experience and the care team relied on. Designed to fill in progressively as patients use the product, so it never blocks access to care.</div>
           </div>
           <div class="workflow-row">
             <div class="workflow-step">Integrations</div>
@@ -895,8 +895,8 @@ const CASES = {
           </div>
 
           <div>
-            <p class="cd-body" style="margin-bottom:0.5rem"><strong>Home as a dynamic surface, not a dashboard</strong></p>
-            <p class="cd-body">The original home screen was a static dashboard &#8212; upcoming appointments and metrics. The insight was that a patient&#39;s relationship to the product changes dramatically depending on where they are in their care journey; a pre-appointment experience is fundamentally different from a post-appointment one. I designed Home to change state rather than display everything at once.</p>
+            <p class="cd-body" style="margin-bottom:0.5rem"><strong>Home as a state-driven surface</strong></p>
+            <p class="cd-body">The original home screen showed everything at once &#8212; upcoming appointments, metrics, a static list. The insight was that preparing for an appointment and recovering from one are completely different jobs. I redesigned Home to track the care moment: the screen&#39;s content and emphasis shift based on where the patient is in their journey.</p>
             <div class="cs-callout" style="margin-top:0.75rem;margin-bottom:0"><div class="cs-callout-label">Tradeoff</div><p class="cd-body">More complexity in the content logic, for a significantly clearer experience at any given moment.</p></div>
           </div>
 
@@ -946,10 +946,10 @@ const CASES = {
         <p class="cd-body">This is pre-revenue work heading into seed &#8212; the outcome is pilot-readiness and investor confidence, not usage metrics yet. The design work is what made the July 2026 seed timeline possible. Post-seed metrics will follow as the platform launches to paying customers.</p>
         <div class="cs-reflection">
           <div class="cs-reflection-title">Reflection</div>
-          <p class="cd-body"><strong>Vibecoded flows are a warning, not a failure.</strong> The inherited flows were proof of what happens without a system underneath the speed: fast, disconnected, and ultimately more expensive to untangle than to have built right. That&#39;s not a failure of AI-assisted prototyping &#8212; it&#39;s a failure of the infrastructure underneath it. The tool isn&#39;t the problem. The missing system is.</p>
-          <p class="cd-body"><strong>Machine-readable design systems are the precondition for trustworthy AI tooling.</strong> Getting components and tokens to match by name and by meaning is tedious work. But it&#39;s the difference between an AI tool that produces fast drift and one that produces fast, coherent output. Building for machine readability is what turned the Claude Code skill from a demo into something the team relied on.</p>
-          <p class="cd-body"><strong>The right question isn&#39;t &#8220;how do we go faster.&#8221;</strong> It&#39;s how do we make speed and coherence reinforce each other. That&#39;s the question this project kept coming back to, and the answer was: build the system first, then move fast inside it. Every shortcut that bypassed the system created debt that cost more than the time it saved.</p>
-          <p class="cd-body"><strong>Designing across the patient&#8211;provider boundary is where the real product work is.</strong> Individual screens are straightforward. The hard design work is in the handoffs &#8212; what information moves, in which direction, triggered by what action. Getting those handoffs right is what makes a care platform feel coherent rather than like two separate products stitched together.</p>
+          <p class="cd-body"><strong>Vibecoded flows reveal what the system is missing.</strong> The inherited flows were proof of what happens when speed outruns structure: fast, disconnected, and ultimately more expensive to untangle than to have built right. AI-assisted prototyping moves fast by design. Coherence requires a foundation underneath it &#8212; and when that foundation is absent, speed compounds the problem.</p>
+          <p class="cd-body"><strong>Machine-readable design systems are the precondition for trustworthy AI tooling.</strong> Getting components and tokens to match by name and by meaning is tedious work. But it&#39;s what determines whether an AI tool produces fast drift or fast, coherent output. Building for machine readability is what turned the Claude Code skill from a demo into something the team relied on.</p>
+          <p class="cd-body"><strong>Speed and coherence can reinforce each other &#8212; but only if the system comes first.</strong> That&#39;s the question this project kept coming back to, and the answer held every time: build the foundation, then move fast inside it. Every shortcut that bypassed the system created debt that cost more than the time it saved.</p>
+          <p class="cd-body"><strong>The real product work is in the handoffs.</strong> Individual screens are tractable. What information moves, in which direction, triggered by what action &#8212; that&#39;s where a care platform either holds together or fractures. Getting those handoffs right is what makes the experience feel like one product.</p>
         </div>
       </div>
     `,
