@@ -265,12 +265,31 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
 
 /* ── Content entry animation ── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
-.content-entering > * { animation: fadeUp 0.38s cubic-bezier(0.22,1,0.36,1) both; }
-.content-entering > *:nth-child(1) { animation-delay: 0.05s; }
-.content-entering > *:nth-child(2) { animation-delay: 0.1s; }
-.content-entering > *:nth-child(3) { animation-delay: 0.15s; }
-.content-entering > *:nth-child(4) { animation-delay: 0.2s; }
-.content-entering > *:nth-child(n+5) { animation-delay: 0.25s; }
+
+/* Generic catch-all: body sections below the fold */
+.content-entering > * { animation: fadeUp 280ms cubic-bezier(0.22,1,0.36,1) 200ms both; }
+
+/* Thought hero image fades in before text */
+.content-entering > .cd-hero-img-wrap { animation: fadeUp 340ms cubic-bezier(0.22,1,0.36,1) 0ms both; }
+
+/* Header cluster — weighted stagger matching visual importance */
+.content-entering > .cd-company  { animation: fadeUp 200ms cubic-bezier(0.22,1,0.36,1)   0ms both; }
+.content-entering > .cd-headline { animation: fadeUp 380ms cubic-bezier(0.22,1,0.36,1)  50ms both; }
+.content-entering > .cd-intro    { animation: fadeUp 280ms cubic-bezier(0.22,1,0.36,1) 160ms both; }
+.content-entering > .cd-metrics  { animation: fadeUp 240ms cubic-bezier(0.22,1,0.36,1) 260ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .content-entering > *,
+  .content-entering > .cd-hero-img-wrap,
+  .content-entering > .cd-company,
+  .content-entering > .cd-headline,
+  .content-entering > .cd-intro,
+  .content-entering > .cd-metrics {
+    animation-duration: 250ms;
+    animation-delay: 0ms;
+  }
+  @keyframes fadeUp { from { opacity: 0; } to { opacity: 1; } }
+}
 
 
 /* ═══════════════════════════════════════════════════════════════
