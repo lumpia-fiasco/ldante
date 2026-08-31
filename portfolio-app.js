@@ -58,7 +58,7 @@ const TAILORED = {  five9: {
   },
   designsystems: {
     greeting: "Here for the systems.",
-    body: "I'm Dante. I build design systems that travel well — from Figma variables to code tokens, from component specs to Code Connect mappings.\n\nThe interesting part isn't the component library. It's the structure beneath it: the token decisions that make the library coherent, the file organization that makes it legible to teammates and AI agents alike, and the Code Connect mappings that close the gap between design intent and implementation.",
+    body: "I'm Dante. I build design systems that travel well — from Figma variables to code tokens, from component specs to Code Connect mappings.\n\nThe structure beneath the components is where a library either holds or doesn't: the token decisions that make it coherent, the file organization that makes it legible to teammates and AI agents, and the Code Connect mappings that close the gap between design intent and implementation.",
     jd: '',
   },
 };
@@ -74,7 +74,7 @@ function prefillFitJD(text) {
 }
 
 const GENERAL_GREETING = "I'm Dante.";
-const GENERAL_BODY = "Product Designer with over a decade of experience in B2B SaaS, devops tooling, and enterprise platforms.\n\nI design at the intersection of complex systems and real user needs — work that increasingly means integrating AI into product workflows, and designing applications that leverage agentic systems.";
+const GENERAL_BODY = "Product Designer with over a decade of experience in B2B SaaS, devops tooling, and enterprise platforms.\n\nI've built payroll dashboards used by 90+ companies, design systems that outlasted an acquisition, and patient experiences heading into a seed raise. Lately the work involves AI more directly — building the design systems, handoffs, and interaction models that make AI tools trustworthy rather than just fast.";
 
 // ── Screen manager ─────────────────────────────────────────────
 let currentScreen = 'gate';
@@ -1200,7 +1200,7 @@ const CASES = {
           <div class="cs-outcome-num">135 hrs</div>
           <div class="outcome-detail">
             <div class="cs-od-title">Saved per cycle across six leads</div>
-            <div class="cs-od-body">Six leads, 1.5 hours saved per company per cycle, across 90+ companies. The math compounds fast when you&#39;re operating at network scale. Worth noting: this is capacity freed — nobody was cut. The leads used that time for more companies, deeper analysis, and higher-value conversations &#8212; which was the point.</div>
+            <div class="cs-od-body">Six leads, 1.5 hours saved per company per cycle, across 90+ companies. The math compounds fast when you&#39;re operating at network scale. This is capacity freed — nobody was cut. The leads used that time for more companies, deeper analysis, and higher-value conversations &#8212; which was the point.</div>
           </div>
         </div>
         <div class="cs-outcome-row">
@@ -1234,8 +1234,8 @@ const CASES = {
 
   'teamshares-ats': {
     company: 'Teamshares',
-    headline: 'Twenty-plus companies were hiring off the same broken spreadsheet. Nobody had asked why.',
-    intro: 'Teamshares was acquiring small businesses faster than it could place leaders to run them. The tool holding the whole operation together was a spreadsheet. Fixing that wasn\'t a tooling problem. It was a system design problem.',
+    headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.',
+    intro: 'Teamshares was acquiring small businesses faster than it could place leaders to run them. The tool holding the whole operation together was a spreadsheet. The real problem was system design — nobody had designed a pipeline, only a tracker.',
     metrics: [
       { value: '20+', label: 'leaders placed through the platform' },
       { value: '10+', label: 'qualified leaders benched for future placement' },
@@ -1441,7 +1441,7 @@ const CASES = {
 
   'marketo-sky': {
     company: 'Marketo / Adobe',
-    headline: 'I didn\'t pitch a design solution. I pitched a structural one.',
+    headline: 'I pitched a structural fix before touching a single component.',
     intro: 'Marketo was mid-platform-redesign with a component library maintained by one person and no governance holding it together. The patterns were diverging. The instinct would have been to clean up the components. I went after the org model instead.',
     metrics: [
       { value: '50+',   label: 'components audited and standardized' },
@@ -1463,7 +1463,7 @@ const CASES = {
         <p class="cd-body">The standard response to this situation is a design audit. Clean up the components, establish a style guide, ship an updated library. I didn't think that would work because it treated the symptom without touching the cause.</p>
         <div class="cs-callout cs-callout--problem">
           <div class="cs-callout-label">The actual diagnosis</div>
-          <p class="cd-body">A design system maintained by one person with no governance will diverge. That's structural — physics, really. One person can't be everywhere. Without authority over what enters the system, every team becomes a de facto exception. The model that produced the components needed to change first. Fixing the model first was the only way to make sure the work didn't need to be redone in two years.</p>
+          <p class="cd-body">A design system maintained by one person with no governance will diverge. One person can't be everywhere. Without authority over what enters the system, every team becomes a de facto exception. The model that produced the components needed to change first. Fixing the model first was the only way to make sure the work didn't need to be redone in two years.</p>
         </div>
       </div>
 
@@ -1593,7 +1593,7 @@ const CASES = {
           <div class="cs-outcome-num">100%</div>
           <div class="cs-outcome-detail">
             <div class="cs-od-title">Adoption</div>
-            <div class="cs-od-body">Every product team using Sky. Worth being clear about what produced this: it was an architectural decision made before the system launched. When every team has a contributor with skin in the game, adoption is a natural outcome. The 100% is the federated model working as intended.</div>
+            <div class="cs-od-body">Every product team using Sky. The 100% adoption came from an architectural decision made before the system launched. When every team has a contributor with skin in the game, adoption is a natural outcome. It's the federated model working as intended.</div>
           </div>
         </div>
         <div class="cs-outcome-row">
@@ -1635,8 +1635,8 @@ const CASES = {
 
   'meroxa': {
     company: 'Meroxa',
-    headline: 'We built the right product for the wrong person. Here\'s how we figured that out.',
-    intro: 'Growth stalled. The team\'s first instinct was better onboarding. My instinct was that the market assumption underneath the whole product was off. This is what happened when we followed that thread all the way down.',
+    headline: 'We built the right product for the wrong person.',
+    intro: 'Growth stalled. The team\'s first instinct was better onboarding. My instinct was that the market assumption underneath the whole product was off.',
     metrics: [
       { value: '10x', label: 'addressable market expansion' },
       { value: '4x',  label: 'improvement in user engagement' },
@@ -1805,7 +1805,7 @@ const CASES = {
           <div class="cs-outcome-num">10x</div>
           <div class="outcome-detail">
             <div class="cs-od-title">Addressable market</div>
-            <div class="cs-od-body">Worth being precise: this was a pre-pivot projection, not a post-pivot measurement. We sized the production engineering segment against our original Data Engineer TAM using analyst data and our own customer data. The 10x figure shaped the business case. I include it because I helped generate it, and because there&#39;s a real difference between &#34;design produced good outcomes&#34; and &#34;design helped identify a strategic opportunity.&#34; This was the second thing.</div>
+            <div class="cs-od-body">This was a pre-pivot projection, not a post-pivot measurement. We sized the production engineering segment against our original Data Engineer TAM using analyst data and our own customer data. The 10x figure shaped the business case. I include it because I helped generate it, and because there&#39;s a real difference between &#34;design produced good outcomes&#34; and &#34;design helped identify a strategic opportunity.&#34; This was the second thing.</div>
           </div>
         </div>
         <div class="cs-outcome-row">
@@ -1846,7 +1846,7 @@ const CASES = {
   },
   'marketo-migration': {
     company: 'Marketo / Adobe',
-    headline: 'Sky had been rebuilt for years. Almost nobody had opted in. The reason wasn\'t the product.',
+    headline: 'Sky had been rebuilt for years. Almost nobody had opted in. Nobody had designed the transition.',
     intro: 'Sky had been in development for years. The platform was better. The investment was massive. And fewer than 600 users had opted in. The VP of Product and CPO assembled a task force. The product was ready. Nobody had designed the transition.',
     metrics: [
       { value: '733%', label: 'Increase in user adoption' },
@@ -2093,13 +2093,12 @@ const THOUGHTS = {
         paragraphs: [
           "The Marketo Sales Insight redesign was a different kind of ambiguous. The ask was to rekindle good faith between Marketo and their customers around a plugin that hadn\u2019t been touched since its original launch in the mid-2000s. We knew what success looked like emotionally, restored trust, but had no idea what it looked like in the product.",
           "In sessions with my PM and tech lead, we kept pushing on one question: what are customers actually trying to accomplish when they open this? Validation interviews gave us a clear answer. They weren\u2019t interested in a redesign for its own sake. They wanted recency and frequency of lead activity, surfaced quickly and reliably. That became the anchor for every decision that followed, and the product we shipped reflected that clarity back to customers in a way the original never had.",
-          "The fog lifted not through exploration but through focus.",
         ],
       },
       {
         heading: 'The work before the work',
         paragraphs: [
-          "Both of these started with someone handing me something underspecified and expecting a solution. What I\u2019ve learned is that the quality of the problem definition almost always determines the quality of the outcome. No matter the type of fog you find yourself in, getting the approach right is the work before the work, and it\u2019s where the most valuable design thinking happens.",
+          "Both of these started with someone handing me something underspecified and expecting a solution. What I\u2019ve learned is that the quality of the problem definition almost always determines the quality of the outcome. No matter the type of fog you find yourself in, getting the approach right is the work before the work.",
         ],
       },
     ],
@@ -2140,14 +2139,12 @@ const THOUGHTS = {
         paragraphs: [
           "They do the heavy lifting. They face the struggles, the questions, the doubt. I'm just a gardener — steady and patient, offering support and space. Sometimes a gentle nudge or the right question. Other times, just quiet presence.",
           "Most days, it's slow and unseen work. But years later, a message arrives. A thank you. A recognition.",
-          "That's the real legacy. Not the projects or pixels. The people.",
         ],
       },
       {
         heading: "I still love designing — always will.",
         paragraphs: [
           "But if you ask what I'm proudest of,\nit's the garden I've been lucky enough to tend.\nThe growth I helped nurture.",
-          "And I'd do it all again.",
         ],
       },
     ],
@@ -2191,7 +2188,7 @@ const THOUGHTS = {
           "But that didn't sit right.",
           "So I sketched something dumb: a TV Guide.",
           "Not literally, but close. Blocks of scheduled behavior, horizontal rhythm, a visual metaphor pulled from old cable interfaces. A completely unserious reference applied to a very serious tool.",
-          "And it worked.",
+          "It worked.",
           "The TV Guide reframed the conversation. It helped the team—designers, salespeople, even execs—understand the pacing of buyer intent like a schedule you could tune into. It made behavior feel broadcastable. It turned noise into programming.",
           "It was weird. It was fun.\nSpongeBob would.",
         ],
@@ -2237,8 +2234,7 @@ const THOUGHTS = {
           "I'm not saying every design project needs to feel like Saturday morning cartoons.",
           "But when work becomes too serious too fast, it collapses under its own weight. When we forget how to play, we forget how to see.",
           "So yeah—Squidward might roll his eyes. But I'll keep choosing SpongeBob.",
-          "Because SpongeBob prototypes the weird thing.\nSpongeBob uses metaphors no one asked for.\nSpongeBob asks the dumb question that unlocks the actual insight.",
-          "And SpongeBob gets to the better work.",
+          "SpongeBob prototypes the weird thing, uses metaphors no one asked for, asks the dumb question that unlocks the actual insight — and gets to the better work.",
         ],
       },
     ],
@@ -2284,7 +2280,7 @@ const THOUGHTS = {
         heading: 'What I\u2019d bring to a platform people live in',
         paragraphs: [
           'I\u2019ve spent my career on the kind of products where users set up camp. Designing for that context means caring about information density, cognitive load over long sessions, multi-persona flexibility, and the design system infrastructure that holds it all together.',
-          'The "one platform" challenge is one I\u2019ve solved before, at different companies and at different scales. The underlying problem is always the same: how do you give three very different users a coherent experience without building three separate products? That\u2019s systems thinking applied to product design, and it\u2019s the work I do best.',
+          'The "one platform" challenge is one I\u2019ve solved before, at different companies and at different scales. The underlying problem is always the same: how do you give three very different users a coherent experience without building three separate products?',
         ],
       },
     ],
@@ -2321,7 +2317,7 @@ const THOUGHTS = {
         heading: 'The two-sided complication',
         paragraphs: [
           'Weedmaps is a marketplace. At minimum, two users who need to trust the platform in fundamentally different ways: the consumer who wants real products, real prices, and accurate availability; the business that wants tools worth the subscription and a platform that represents them professionally.',
-          'These trust relationships amplify each other in both directions. A consumer experience that feels cheap undermines confidence in the businesses listed there. A business tool that looks like 2013 signals something to the consumer about what kind of platform this is. The ecosystem rises or falls together. At Meroxa, I led a product redesign after a strategic pivot — one surface for data engineers, another for platform operators, both groups trusting the same underlying system for different reasons. Coherence without uniformity is the design brief.',
+          'These trust relationships amplify each other in both directions. A consumer experience that feels cheap undermines confidence in the businesses listed there. A business tool that looks like 2013 signals something to the consumer about what kind of platform this is. At Meroxa, I led a product redesign after a strategic pivot — one surface for data engineers, another for platform operators, both groups trusting the same underlying system for different reasons. Coherence without uniformity is the design brief.',
         ],
       },
       {
@@ -2335,7 +2331,7 @@ const THOUGHTS = {
         heading: 'What I’d bring to Weedmaps',
         paragraphs: [
           'I’ve built design systems that outlasted the products they were built for. I’ve designed for regulated industries where confusion carries real stakes. I’ve led pivots on two-sided platforms where coherence across personas was the only path forward. And I’ve done it as both the person setting the design direction and the person building the components that made it real.',
-          'Weedmaps is solving the right problem at the right moment — a high-stakes marketplace in a category still earning cultural legitimacy, where design quality is the differentiator. That’s a problem worth showing up for.',
+          ‘Weedmaps is a high-stakes marketplace in a category still earning cultural legitimacy, where design quality is the differentiator.’,
         ],
       },
     ],
@@ -2427,10 +2423,9 @@ const THOUGHTS = {
       {
         heading: 'The system beneath the system',
         paragraphs: [
-          'Tools amplify what\'s there. Figma MCP gives agents access to your design system. Code Connect surfaces your component library inside Dev Mode. These tools work when the underlying system is coherent and intentional. They surface the dysfunction when it isn\'t.',
+          'Figma MCP gives agents access to your design system. Code Connect surfaces your component library inside Dev Mode. These tools work when the underlying system is coherent and intentional — they surface the dysfunction when it isn\'t.',
           'The design system work that matters most isn\'t the component library launch. It\'s the sustained discipline of maintaining the token layer, keeping Code Connect mappings current, and naming things in ways that serve both human teammates and automated tooling. It\'s treating the file as a first-class product artifact, not a staging area for designs.',
           'When you do that work — when the design system is genuinely well-governed — the tooling becomes multiplicative. Changes propagate automatically. Agents generate design-consistent work. Engineers have accurate implementation references. The gap between design intent and implementation closes.',
-          'That\'s the version of a design system worth building.',
         ],
       },
     ],
