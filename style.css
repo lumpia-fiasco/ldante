@@ -21,10 +21,10 @@
   --cd-accent:        var(--pink, #f995ac);
 }
 
-/* ─── Focus styles — soft glow ─── */
+/* ─── Focus styles — visible ring using site accent ─── */
 :focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(31,31,31,0.1), 0 0 12px rgba(31,31,31,0.06);
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
   border-radius: 4px;
 }
 

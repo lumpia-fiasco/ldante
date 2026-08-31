@@ -13,6 +13,23 @@
     /* Tokens, Reset, and base: see assets/wallabee.css */
     /* --ph: panel horizontal padding, shared across all panels + back-btn bleed */
     :root { --ph: clamp(32px,8vw,120px); }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -9999px;
+      left: 0;
+      z-index: 9999;
+      padding: 10px 20px;
+      background: var(--pink);
+      color: var(--bg-darker);
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0 0 8px 0;
+    }
+    .skip-link:focus { top: 0; }
     html, body { height: 100%; overflow: hidden; background: var(--bg); }
 
     /* ── Screen layer system ── */
@@ -86,6 +103,7 @@
       letter-spacing: -0.02em;
       color: var(--white);
       user-select: none;
+      text-wrap: balance;
     }
 
     /* Gate input pattern: see assets/wallabee.css */
@@ -246,6 +264,7 @@
     .header-avatar {
       width: 44px; height: 44px; border-radius: 50%;
       object-fit: cover; object-position: center top;
+      outline: 1px solid oklch(1 0 0 / 0.1);
     }
     .header-identity {
       font-size: 13px; font-weight: 500;
@@ -891,6 +910,8 @@
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <!-- ═══════════════ SCREEN 1: GATE ═══════════════ -->
 <div class="screen active" id="screenGate" data-entry>
   <div class="gate-inner">
@@ -1010,7 +1031,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
     </button>
   </header>
 
-  <div class="portfolio-main">
+  <main class="portfolio-main" id="main-content">
 
     <!-- Left: case panels -->
     <div class="portfolio-left" id="portfolioLeft">
@@ -1176,7 +1197,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
 
           <div class="case-stack" id="thoughtsStack" style="display:none">
 
-            <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0">
+            <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0" aria-label="Read Charlie Murphy's Law">
               <article class="thought-tile">
                 <img data-lazy-src="assets/charlie.jpeg" alt="Charlie Murphy's Law" class="thought-tile-img" width="1500" height="900">
                 
@@ -1212,7 +1233,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
               </article>
             </div>
 
-            <div class="case-item case-item--thought" data-thought="spongebob-would" role="button" tabindex="0">
+            <div class="case-item case-item--thought" data-thought="spongebob-would" role="button" tabindex="0" aria-label="Read Squidward would never. SpongeBob would.">
               <article class="thought-tile">
                 <img data-lazy-src="assets/spongebob.jpeg" alt="SpongeBob would" class="thought-tile-img" width="1920" height="1080">
                 
@@ -1259,7 +1280,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Cases
         </button>
-        <h1 class="fit-title">Am I a fit?</h1>
+        <h2 class="fit-title">Am I a fit?</h2>
         <p class="fit-desc">Paste a job description and let's see how we match up.</p>
         <div class="fit-input-wrap">
           <textarea class="fit-textarea" id="fitTextarea" maxlength="10000" placeholder="Paste a job description or URL…" aria-label="Job description"></textarea>
@@ -1287,7 +1308,7 @@ Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
       </button>
     </nav>
 
-  </div><!-- /.portfolio-main -->
+  </main><!-- /.portfolio-main -->
 </div><!-- /#screenPortfolio -->
 
 
