@@ -2331,7 +2331,7 @@ const THOUGHTS = {
         heading: 'What I’d bring to Weedmaps',
         paragraphs: [
           'I’ve built design systems that outlasted the products they were built for. I’ve designed for regulated industries where confusion carries real stakes. I’ve led pivots on two-sided platforms where coherence across personas was the only path forward. And I’ve done it as both the person setting the design direction and the person building the components that made it real.',
-          ‘Weedmaps is a high-stakes marketplace in a category still earning cultural legitimacy, where design quality is the differentiator.’,
+          'Weedmaps is a high-stakes marketplace in a category still earning cultural legitimacy, where design quality is the differentiator.',
         ],
       },
     ],
