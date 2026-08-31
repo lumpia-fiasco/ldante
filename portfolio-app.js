@@ -382,6 +382,13 @@ function setupGate() {
     tryUnlock(urlPw);
   }
 
+  // Strip entry-reveal attribute after animations finish (one-shot; prevents
+  // re-animation when the user returns to the gate from the landing screen).
+  setTimeout(() => {
+    const gate = document.getElementById('screenGate');
+    if (gate) gate.removeAttribute('data-entry');
+  }, 600);
+
   // Float letters on gate hero
   setupGateFloat(resetBtn);
 }

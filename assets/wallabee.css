@@ -98,6 +98,37 @@ body { -webkit-font-smoothing: antialiased; font-family: var(--font-ui); }
 }
 .gate-input-row.shake { animation: shake 0.45s ease; }
 
+/* ── Gate entry reveal ───────────────────────────────────────── */
+@keyframes gate-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#screenGate[data-entry] .ldg-logo {
+  animation: gate-reveal 260ms cubic-bezier(0.22,1,0.36,1) both;
+}
+#screenGate[data-entry] .gate-bio {
+  animation: gate-reveal 260ms cubic-bezier(0.22,1,0.36,1) 70ms both;
+}
+#screenGate[data-entry] .gate-hero {
+  animation: gate-reveal 400ms cubic-bezier(0.22,1,0.36,1) 180ms both;
+}
+#screenGate[data-entry] #gateInputRow {
+  animation: gate-reveal 200ms cubic-bezier(0.22,1,0.36,1) 320ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  #screenGate[data-entry] .ldg-logo,
+  #screenGate[data-entry] .gate-bio,
+  #screenGate[data-entry] .gate-hero,
+  #screenGate[data-entry] #gateInputRow {
+    animation-duration: 300ms;
+    animation-delay: 0ms;
+  }
+  @keyframes gate-reveal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    CASE STUDY CONTENT COMPONENTS
