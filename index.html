@@ -106,7 +106,12 @@
     overflow-y: auto;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    /* no opacity transition — this needs to appear/disappear in the
+       same instant makers-fixed does (see onScroll — both key off
+       philStart). A faded-in entrance here means a window where this
+       panel is semi-transparent with the opaque white makers layer
+       sitting directly behind it in z-order, which shows through as
+       a visible white blip until the fade finishes. */
     /* own opaque pink — redundant with the zoomed logo behind it
        during the dwell (same color, nothing changes visually there),
        but it's what lets this act as one self-contained panel for
