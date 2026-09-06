@@ -445,7 +445,9 @@
     min-width: 320px;
     max-width: min(620px, 88vw);
     z-index: 22;
-    background: #050505;
+    background-color: #050505;
+    background-image: url('assets/stardust.png');
+    background-size: 798px 798px; /* native size — crisp, no upscaling */
     border-top: 1px solid var(--charcoal-line);
     display: flex;
     flex-direction: column;
@@ -467,7 +469,9 @@
     bottom: -10%;
     width: auto;
     z-index: 21;
-    background: #e7dfd0;
+    background-color: #e7dfd0;
+    background-image: url('assets/ep_naturalwhite.png');
+    background-size: 400px 400px; /* native size — crisp, no upscaling */
     pointer-events: none;
     transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
   }
