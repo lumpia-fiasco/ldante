@@ -83,7 +83,7 @@
      height and only lets go right as the zoom completes. */
   .hero-zoom-wrapper {
     position: relative;
-    height: 400vh;
+    height: 200vh;
     background: var(--charcoal);
   }
 
@@ -107,6 +107,12 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease;
+    /* own opaque pink — redundant with the zoomed logo behind it
+       during the dwell (same color, nothing changes visually there),
+       but it's what lets this act as one self-contained panel for
+       the exit below, independent of the logo's own zoom transform */
+    background: var(--pink);
+    will-change: transform, box-shadow;
   }
   .philosophy-fixed.visible {
     opacity: 1;
@@ -153,6 +159,94 @@
     .pillars { grid-template-columns: 1fr; }
   }
 
+  /* ═══════ EXIT: pink panel eases up off-screen ═══════
+     .philosophy-fixed itself gets scaled/rotated/lifted by JS during
+     this range (see onScroll) — what it uncovers isn't a separate
+     reveal layer, it's .makers-fixed below, already sitting there,
+     underneath, the whole time (see MAKERS below). */
+  .phil-exit-spacer { position: relative; }
+
+  /* ═══════ MAKERS: side-project stream ═══════
+     Turns on at the exact same scroll point the pink panel does (see
+     onScroll) and sits directly beneath it in z-order — genuinely
+     underneath, not a layer that fades in once the panel clears, so
+     by the time it's revealed it was already there. Its own content
+     still animates on its own schedule once its own section is
+     reached: the title fills in the same way the pillars title does,
+     and further scroll pushes the current card off to the left as
+     the next slides in from the right (see MAKER_PROJECTS/onScroll —
+     with one project there's nothing to push yet, so the track just
+     holds still). */
+  .makers-spacer { position: relative; }
+  .makers-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: 12; /* below .philosophy-fixed (15), above heroLogo (8) */
+    background: #fff;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .makers-fixed.visible { opacity: 1; pointer-events: auto; }
+  .makers-inner {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(28px,6vw,90px);
+  }
+  .makers-title { margin-bottom: clamp(36px,5vw,64px); }
+  .makers-track {
+    display: flex;
+    width: 100%;
+    will-change: transform;
+  }
+  .maker-card {
+    flex: 0 0 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .maker-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .maker-subhead {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem,3vw,2.4rem);
+    line-height: 1.1;
+    color: var(--charcoal);
+    margin: 0;
+  }
+  .maker-caption {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem,1.3vw,1.1rem);
+    line-height: 1.55;
+    color: #3c3c3c; /* WCAG AA on white — 10:1 */
+    margin: 0;
+    max-width: 52ch;
+  }
+  .maker-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    color: var(--magenta);
+    text-decoration: none;
+    width: fit-content;
+  }
+  .maker-link:hover, .maker-link:focus-visible { text-decoration: underline; }
+  .maker-link svg { width: 17px; height: 17px; flex-shrink: 0; }
+
   /* only the title fills word by word — starts as a charcoal
      outline (hollow) and switches to solid fill as scroll reaches
      it. The pillar labels/copy are plain solid charcoal throughout. */
@@ -181,11 +275,20 @@
      static top offset can't track that. top/left here are just a
      pre-JS fallback so nothing flashes unpositioned. It scales up
      in place once you scroll past the hero. */
+  /* Fixed at a LARGE intrinsic width on purpose — not the responsive
+     clamp() the logo actually appears at. Browsers rasterize a
+     transformed element once at its own layout size and then just
+     stretch that texture for the transform; scaling a ~70px source
+     up to 260x (its old width) is why it pixelated. Sourcing from
+     1600px instead means even the biggest on-screen size is only
+     ~11x that texture, not ~260x — visually crisp. The resting
+     small appearance and position are corrected for in JS
+     (positionHeroLogo/baseScale) rather than by literally sizing the
+     box small, since a transform-origin off the corner (below) means
+     a naive small width would just recreate the same problem. */
   .ldg-logo {
     position: fixed;
-    top: clamp(28px,6vw,90px);
-    left: clamp(28px,6vw,90px);
-    width: clamp(52px,6vw,84px);
+    width: 1600px;
     color: var(--pink);
     z-index: 8;
     /* purely decorative once scaled up — must never intercept
@@ -237,11 +340,11 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: clamp(28px,5vw,54px);
+    gap: clamp(16px,2.5vw,28px);
     margin-top: clamp(6px,1vw,12px);
   }
   .logo-row img {
-    height: clamp(50px,6vw,65px);
+    height: clamp(75px,9vw,98px);
     width: auto;
     /* native color, not flattened to a silhouette — several of
        these are detailed wordmarks, and forcing them to one flat
@@ -271,12 +374,42 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: rgba(255,255,255,0.32);
+    /* --nav-idle/--nav-active default to the on-charcoal colors;
+       the scroll handler fades them toward charcoal/magenta as the
+       background turns pink (zoomed logo, philosophy section) and
+       back as it returns to charcoal — see updateNavHintColors() */
+    color: var(--nav-idle, rgba(255,255,255,0.32));
     transition: color 0.25s ease, opacity 0.25s ease;
   }
-  .nav-hint span.active { color: var(--pink); }
+  .nav-hint span.active { color: var(--nav-active, var(--pink)); }
   .nav-hint svg { width: 13px; height: 13px; flex-shrink: 0; }
   .hint-left svg { transform: scaleX(-1); }
+
+  /* centered between the two hints, jumps to the philosophy block */
+  .nav-hint-down {
+    position: fixed;
+    left: 50%;
+    bottom: clamp(24px,4vw,48px);
+    transform: translateX(-50%);
+    z-index: 20;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--nav-idle, rgba(255,255,255,0.32));
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .nav-hint-down:hover, .nav-hint-down:focus-visible { color: var(--nav-active, var(--pink)); transform: translateX(-50%) translateY(3px); }
+  .nav-hint-down svg { width: 18px; height: 18px; transition: transform 0.2s ease; }
+  /* at the last section this becomes an up chevron back to the top —
+     rotating the glyph itself keeps the button's own hover/position
+     transform (above) independent of this */
+  .nav-hint-down.at-end svg { transform: rotate(180deg); }
 
   /* ── PANELS ──
      Sized to their copy, not the viewport — a panel only needs to
@@ -374,6 +507,31 @@
     filter: drop-shadow(10px 6px 16px rgba(0,0,0,0.45));
   }
   #panelGate.open { transform: translateX(0) rotate(3deg); }
+
+  /* on a narrow phone the panel is nearly the full viewport width —
+     the -48px outer bleed and the resting tilt (tuned for desktop,
+     where there's tons of spare width to absorb both) together eat
+     into the ~28px of inner padding, leaving content starting at a
+     negative x and crowded against/clipped by the screen edge.
+     Flush the outer edge and drop the tilt once actually resting
+     open; the torn edge / backing peek still work fine untilted. */
+  @media (max-width: 640px) {
+    #panelAbout, #panelAboutBacking { right: 0; }
+    #panelGate,  #panelGateBacking  { left: 0; }
+    #panelAbout.open, #panelAboutBacking.open,
+    #panelGate.open,  #panelGateBacking.open {
+      transform: translateX(0) rotate(0deg);
+    }
+  }
+
+  .panel-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
 
   .panel-eyebrow {
     font-family: var(--font-ui);
@@ -730,23 +888,31 @@
 <div class="nav-hint" aria-hidden="true">
   <span class="hint-left" id="hintLeft">
     <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span id="hintLeftText">Move left — password</span>
+    <span id="hintLeftText">Case studies</span>
   </span>
   <span class="hint-right" id="hintRight">
-    <span id="hintRightText">Move right — about</span>
+    <span id="hintRightText">About</span>
     <svg viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </span>
 </div>
+
+<!-- jumps straight to the philosophy block — sits centered between
+     the two hints, outside their aria-hidden/pointer-events:none
+     container since this one's a real, focusable control -->
+<button class="nav-hint-down" id="navHintDown" type="button" aria-label="Scroll to next section">
+  <svg viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
 
 <!-- cream paper backing, peeking out past the front sheet's tear -->
 <div class="panel-backing" id="panelAboutBacking"></div>
 
 <!-- ABOUT panel — flies in from the right -->
 <div class="panel" id="panelAbout">
+  <img class="panel-avatar" src="assets/profile.png" alt="L Dante Guarin">
   <div class="panel-eyebrow">About</div>
   <h2 class="panel-title">Hey, I'm Dante.</h2>
   <p class="panel-lede">Over 10 years designing where complex systems and real user need overlap on the Venn diagram. Adobe (Marketo), Upwork, Meroxa, Teamshares, T-Mobile.</p>
-  <p class="panel-desc">AI products need designers who can hold the product together when the rules don't exist yet. That's been my whole career.</p>
+  <p class="panel-desc">I spend a lot less time inside Figma and Illustrator now — and I'm optimistic about that. Faster idea validation means more of my time goes toward strategy: the systems and workflow behind the work, not just the pixels.</p>
 </div>
 
 <!-- cream paper backing, peeking out past the front sheet's tear -->
@@ -816,13 +982,29 @@
         </div>
         <div class="pillar">
           <h3 class="pillar-label">Scale</h3>
-          <p class="pillar-body">Good design scales. I build for the 90th company, not just the first one.</p>
+          <p class="pillar-body">Good design scales. I build with growth in mind. Today's customers are different from yesterday's customers.</p>
         </div>
         <div class="pillar">
           <h3 class="pillar-label">Connection</h3>
           <p class="pillar-body">The systems I build are interconnected, meant to connect people — not just move pixels around. The customer and the business both come out ahead.</p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- extra scroll yardage: the pink panel eases up and off screen,
+     revealing .makers-fixed below — it was already there -->
+<div class="phil-exit-spacer" id="philExitSpacer"></div>
+
+<!-- MAKERS: side-project stream. Card markup is generated by JS from
+     the MAKER_PROJECTS array (see the scroll script below) — that's
+     the easy way to add another one, not hand-editing this HTML. -->
+<div class="makers-spacer" id="makersSpacer">
+  <div class="makers-fixed" id="makersFixed">
+    <div class="makers-inner">
+      <h2 class="philosophy-title makers-title" id="makersTitle">Makers gotta make</h2>
+      <div class="makers-track" id="makersTrack"></div>
     </div>
   </div>
 </div>
@@ -836,8 +1018,23 @@
   var hintL   = document.getElementById('hintLeft');
   var hintR   = document.getElementById('hintRight');
 
-  var RIGHT_ON = 0.62, RIGHT_OFF = 0.55;
-  var LEFT_ON  = 0.38, LEFT_OFF  = 0.45;
+  // trigger zone: how close to an edge the cursor needs to be —
+  // 20% of viewport width on desktop, tightened to 10% on mobile
+  // (a 20%-wide dead zone eats too much of a small screen). A fixed
+  // 5%-of-width hysteresis gap keeps the open/close edges from
+  // chattering right at the boundary.
+  var RIGHT_ON, RIGHT_OFF, LEFT_ON, LEFT_OFF;
+  function updateZoneThresholds(){
+    var edge = window.innerWidth <= 640 ? 0.10 : 0.20;
+    var gap = 0.05;
+    RIGHT_ON  = 1 - edge;
+    RIGHT_OFF = RIGHT_ON - gap;
+    LEFT_ON   = edge;
+    LEFT_OFF  = LEFT_ON + gap;
+  }
+  updateZoneThresholds();
+  window.addEventListener('resize', updateZoneThresholds);
+
   var aboutOpen = false, gateOpen = false;
 
   function render(){
@@ -882,8 +1079,8 @@
   // right (about); swipe right reveals what's to the left (gate).
   var isTouch = window.matchMedia('(pointer: coarse)').matches;
   if (isTouch) {
-    document.getElementById('hintLeftText').textContent  = 'Swipe right — password';
-    document.getElementById('hintRightText').textContent = 'Swipe left — about';
+    document.getElementById('hintLeftText').textContent  = 'Case studies';
+    document.getElementById('hintRightText').textContent = 'About';
 
     var touchStartX = 0, touchStartY = 0;
     var SWIPE_MIN = 40;
@@ -1075,21 +1272,87 @@
   var philSpacer = document.getElementById('philosophySpacer');
   var philFixed  = document.getElementById('philosophyFixed');
 
+  var philExitSpacer   = document.getElementById('philExitSpacer');
+  var makersSpacer = document.getElementById('makersSpacer');
+  var makersFixed  = document.getElementById('makersFixed');
+  var makersTitle  = document.getElementById('makersTitle');
+  var makersTrack  = document.getElementById('makersTrack');
+
+  // down chevron: always advances to the next section (hero →
+  // philosophy → makers); once you're actually in the last section
+  // it flips to an up chevron (see onScroll) and wraps back to the
+  // very top instead. offsets are read fresh on each click/scroll
+  // tick rather than cached, so a resize can't stale them out.
+  var navHintDown = document.getElementById('navHintDown');
+  function nextSectionTarget(){
+    var scrollY = window.scrollY || window.pageYOffset;
+    var philStart = philSpacer.offsetTop;
+    var makersStart = makersSpacer.offsetTop;
+    if (scrollY < philStart - 2) return philStart;
+    if (scrollY < makersStart - 2) return makersStart;
+    return 0;
+  }
+  if (navHintDown) {
+    navHintDown.addEventListener('click', function(){
+      window.scrollTo({ top: nextSectionTarget(), behavior: 'smooth' });
+    });
+  }
+
   function clamp01(v){ return Math.max(0, Math.min(1, v)); }
+
+  // nav-hint (down chevron, "‹ Case studies" / "About ›") fades from
+  // its on-charcoal colors to on-pink ones — charcoal for the idle
+  // label, magenta for the active/hover accent (plain pink would be
+  // invisible on the pink background it's now sitting on) — driven
+  // by the same zoomProgress the logo zoom already computes, so it
+  // tracks the actual background color rather than a fixed scroll
+  // point, and reverses cleanly on the way back up.
+  function mixColor(c1, c2, t){
+    var r = Math.round(c1[0] + (c2[0] - c1[0]) * t);
+    var g = Math.round(c1[1] + (c2[1] - c1[1]) * t);
+    var b = Math.round(c1[2] + (c2[2] - c1[2]) * t);
+    var a = c1[3] + (c2[3] - c1[3]) * t;
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + a.toFixed(3) + ')';
+  }
+  var NAV_IDLE_LIGHT   = [255,255,255,0.32];
+  var NAV_IDLE_DARK    = [28,28,28,0.55];
+  var NAV_ACTIVE_LIGHT = [249,149,172,1];  // --pink
+  var NAV_ACTIVE_DARK  = [191,48,120,1];   // --magenta
+  var rootStyle = document.documentElement.style;
+  function updateNavHintColors(zoomProgress){
+    var pinkness = clamp01((zoomProgress - 0.85) / 0.15);
+    rootStyle.setProperty('--nav-idle', mixColor(NAV_IDLE_LIGHT, NAV_IDLE_DARK, pinkness));
+    rootStyle.setProperty('--nav-active', mixColor(NAV_ACTIVE_LIGHT, NAV_ACTIVE_DARK, pinkness));
+  }
 
   // .hero centers its content vertically (justify-content: center),
   // so the headline's actual on-screen position shifts with content
   // height/viewport size — a hardcoded top offset for the now-fixed
   // logo can't track that. Position it from the headline's real
-  // rendered rect instead, 20px above, matched left. offsetWidth
-  // (not the live bounding rect) for the logo's own height keeps
-  // this correct even while a scroll-driven scale() is applied.
-  var headlineEl = document.querySelector('.headline');
+  // rendered rect instead, 20px above, matched left.
+  //
+  // The logo's source is a fixed 1600px box (see .ldg-logo — that's
+  // the pixelation fix), always shrunk down toward its resting size
+  // via baseScale, never shown at an identity transform. Because the
+  // scale pivots on transform-origin 32%/35% (not the box's corner),
+  // that permanent shrink also shifts where the box's top-left
+  // corner visually lands — left/top below solve for the offset so
+  // the resting appearance still ends up exactly 20px above the
+  // headline regardless.
+  var headlineEl   = document.querySelector('.headline');
+  var logoSpacerEl = document.querySelector('.ldg-logo-spacer');
+  var LOGO_SRC_W = 1600, LOGO_SRC_H = LOGO_SRC_W * (459 / 864);
+  var LOGO_OX = 0.32, LOGO_OY = 0.35;
+  var baseScale = 1;
   function positionHeroLogo(){
     var headlineRect = headlineEl.getBoundingClientRect();
-    var logoHeight = heroLogo.offsetWidth * (459 / 864);
-    heroLogo.style.left = headlineRect.left + 'px';
-    heroLogo.style.top = (headlineRect.top - logoHeight - 20) + 'px';
+    var restWidth  = logoSpacerEl.offsetWidth;
+    var restHeight = restWidth * (459 / 864);
+    baseScale = restWidth / LOGO_SRC_W;
+    var targetLeft = headlineRect.left;
+    var targetTop  = headlineRect.top - restHeight - 20;
+    heroLogo.style.left = (targetLeft - LOGO_OX * LOGO_SRC_W * (1 - baseScale)) + 'px';
+    heroLogo.style.top  = (targetTop  - LOGO_OY * LOGO_SRC_H * (1 - baseScale)) + 'px';
   }
   positionHeroLogo();
   window.addEventListener('resize', positionHeroLogo);
@@ -1126,12 +1389,97 @@
   }
   sizePhilosophySpacer();
 
+  // scroll room for the pink panel's exit (scale/rotate/lift off
+  // screen) — see onScroll for the actual motion
+  var exitRangePx = 0;
+  function sizePhilExitSpacer(){
+    exitRangePx = window.innerHeight;
+    philExitSpacer.style.height = (window.innerHeight + exitRangePx) + 'px';
+  }
+  sizePhilExitSpacer();
+
+  // ── MAKER_PROJECTS ──────────────────────────────────────────────
+  // The easy way to add a side project: add one object here. A new
+  // card appears in the carousel automatically — no HTML/CSS to
+  // touch, no sizing to update. `image` is optional (path under
+  // assets/; omit the key, or leave it '', to skip it for that card).
+  //
+  //   {
+  //     image: 'assets/projects/your-file.png',
+  //     imageAlt: 'One line describing the image',
+  //     subhead: 'Project name or one-line pitch',
+  //     caption: 'A sentence or two of context.',
+  //     url: 'https://example.com',
+  //     urlLabel: 'https://example.com' // what the link displays
+  //   },
+  var MAKER_PROJECTS = [
+    {
+      image: 'assets/crowndapp.png',
+      imageAlt: 'CROWND app screens — onboarding, feed, provider profile, and AI assistant',
+      subhead: 'Empowering independent providers',
+      caption: 'Strengthening and growing the 1:1 connection between client and service provider',
+      url: 'https://www.crownd.app',
+      urlLabel: 'https://www.crownd.app'
+    }
+    // add the next project here
+  ];
+  var GLOBE_ICON_SVG =
+    '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true">' +
+      '<circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/>' +
+      '<ellipse cx="10" cy="10" rx="3.2" ry="7.5" stroke="currentColor" stroke-width="1.5"/>' +
+      '<path d="M2.5 10h15" stroke="currentColor" stroke-width="1.5"/>' +
+    '</svg>';
+  function buildMakerCardHTML(p){
+    var img = p.image
+      ? '<img class="maker-image" src="' + p.image + '" alt="' + (p.imageAlt || '') + '">'
+      : '';
+    return (
+      '<article class="maker-card">' +
+        img +
+        '<h3 class="maker-subhead">' + p.subhead + '</h3>' +
+        '<p class="maker-caption">' + p.caption + '</p>' +
+        '<a class="maker-link" href="' + p.url + '" target="_blank" rel="noopener noreferrer">' +
+          GLOBE_ICON_SVG + p.urlLabel +
+        '</a>' +
+      '</article>'
+    );
+  }
+  makersTrack.innerHTML = MAKER_PROJECTS.map(buildMakerCardHTML).join('');
+
+  // MAKERS: title fills the same way the pillars title does (see
+  // wrapWords above), then further scroll pushes card N off to the
+  // left as card N+1 slides in from the right. Just one card today,
+  // so cardsPx is 0 and the range is only title-fill + a short dwell
+  // — adding a second card grows the range and the push kicks in.
+  wrapWords(makersTitle);
+  var makersWords = Array.prototype.slice.call(makersTitle.querySelectorAll('.word'));
+  var makerCards = Array.prototype.slice.call(document.querySelectorAll('.maker-card'));
+  var makersTitleFillPx = 0;
+  var makersDwellPx = 0;
+  var cardTransitionPx = 0;
+  function sizeMakersSpacer(){
+    makersTitleFillPx = makersWords.length * PX_PER_WORD;
+    makersDwellPx = Math.round(window.innerHeight * 0.5);
+    cardTransitionPx = window.innerHeight;
+    var cardsPx = Math.max(0, makerCards.length - 1) * cardTransitionPx;
+    makersSpacer.style.height =
+      (window.innerHeight + makersTitleFillPx + makersDwellPx + cardsPx) + 'px';
+  }
+  sizeMakersSpacer();
+
   if (reduceMotion) {
-    // skip the scroll-driven zoom/fill entirely — jump straight to
-    // both end states so the content is still reachable and legible
-    heroLogo.style.transform = 'scale(260) rotate(30deg)';
-    philFixed.classList.add('visible');
-    words.forEach(function(w){ w.classList.add('filled'); });
+    // skip the scroll-driven zoom/fill/exit entirely — jump straight
+    // to the final state (makers, fully reachable) so the content —
+    // including the project link — is still reachable and legible
+    // without depending on any of the scroll-scrubbed motion above
+    heroLogo.style.opacity = 0;
+    makersFixed.classList.add('visible');
+    makersWords.forEach(function(w){ w.classList.add('filled'); });
+    updateNavHintColors(1); // background is permanently pink/white in this mode
+    if (navHintDown) {
+      navHintDown.classList.add('at-end');
+      navHintDown.setAttribute('aria-label', 'Scroll to top');
+    }
     return;
   }
 
@@ -1149,8 +1497,13 @@
     // fixed logo by then, the exact release point doesn't need to
     // line up with anything here.
     var zoomProgress = clamp01((scrollY - heroZoomWrapper.offsetTop) / heroZoomWrapper.offsetHeight);
+    updateNavHintColors(zoomProgress);
     var MAX_SCALE = 260;
-    var scale = Math.pow(MAX_SCALE, zoomProgress);
+    // baseScale (from positionHeroLogo) is the permanent shrink from
+    // the 1600px source down to the actual resting size — folded in
+    // here so progress=0 still renders at that resting size, not
+    // full-size-1600px
+    var scale = baseScale * Math.pow(MAX_SCALE, zoomProgress);
     // a slow, gentle turn alongside the zoom — not a spin, just
     // enough to feel alive
     var MAX_ROTATE = 30;
@@ -1174,11 +1527,64 @@
     for (var i = 0; i < words.length; i++) {
       words[i].classList.toggle('filled', i < filledCount);
     }
+
+    // exit: the pink panel (now its own opaque layer — see the CSS)
+    // zooms out to 75%, picks up a drop shadow as it lifts off the
+    // white beneath it, turns a slight 5deg, and eases up past the
+    // top of the viewport. translateY is listed first in vh so the
+    // lift is a fixed viewport-relative distance regardless of the
+    // scale shrinking alongside it — see the CSS comment for order.
+    var exitStart = philExitSpacer.offsetTop;
+    var exitProgress = clamp01((scrollY - exitStart) / exitRangePx);
+    var exitT = 1 - Math.pow(1 - exitProgress, 2); // ease out
+    var exitScale  = 1 - exitT * 0.25;   // down to 75%
+    var exitRotate = exitT * 5;          // slight 5deg turn
+    var exitLift   = exitT * 140;        // vh — comfortably clears the viewport
+    philFixed.style.transform =
+      'translateY(-' + exitLift.toFixed(1) + 'vh) ' +
+      'scale(' + exitScale.toFixed(3) + ') ' +
+      'rotate(' + exitRotate.toFixed(2) + 'deg)';
+    philFixed.style.boxShadow =
+      '0 ' + (40 * exitT).toFixed(0) + 'px ' + (90 * exitT).toFixed(0) +
+      'px rgba(0,0,0,' + (0.35 * exitT).toFixed(2) + ')';
+    // the giant zoomed logo is still sitting there, solid pink, behind
+    // the panel — fade it out early in the exit so it's gone well
+    // before the panel has moved/shrunk enough to expose it
+    heroLogo.style.opacity = 1 - clamp01(exitProgress / 0.3);
+
+    // MAKERS: turns on at the exact same point the pink panel does
+    // (philStart, not its own section's start) and sits right below
+    // it in z-order — already there underneath, not a layer that
+    // reveals itself once the panel clears. Its own content still
+    // waits for its own section: the title fill and card push below
+    // are keyed off makersStart, same as before.
+    makersFixed.classList.toggle('visible', scrollY >= philStart);
+    var makersStart = makersSpacer.offsetTop;
+    var makersLocalY = scrollY - makersStart;
+    var makersTitleProgress = clamp01(makersLocalY / makersTitleFillPx);
+    var makersFilledCount = Math.round(makersTitleProgress * makersWords.length);
+    for (var j = 0; j < makersWords.length; j++) {
+      makersWords[j].classList.toggle('filled', j < makersFilledCount);
+    }
+    var cardsY = makersLocalY - makersTitleFillPx - makersDwellPx;
+    var cardProgress = Math.max(0, Math.min(makerCards.length - 1, cardsY / cardTransitionPx));
+    makersTrack.style.transform = 'translateX(-' + (cardProgress * 100).toFixed(2) + '%)';
+
+    // down chevron flips to an up chevron once you're actually in
+    // the last section — matches the wrap-to-0 branch of
+    // nextSectionTarget() above
+    if (navHintDown) {
+      var atEnd = scrollY >= makersStart - 2;
+      navHintDown.classList.toggle('at-end', atEnd);
+      navHintDown.setAttribute('aria-label', atEnd ? 'Scroll to top' : 'Scroll to next section');
+    }
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function(){
     sizePhilosophySpacer();
+    sizePhilExitSpacer();
+    sizeMakersSpacer();
     onScroll();
   });
   onScroll();
