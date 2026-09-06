@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>L Dante Guarin — Landing Redesign Prototype</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Golos+Text:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/wallabee.css">
+<script src="case-studies-data.js"></script>
+<style>
+  /*
+    PROTOTYPE — first test of a mouse-driven landing.
+    Not wired into the real gate/auth logic. Ships alongside
+    index.html for comparison; doesn't touch the live site.
+  */
+
+  :root {
+    /* richer charcoal than the Wallabee --bg, shared with the
+       ldanteguarin.com poster-brutalist system for cross-brand
+       consistency */
+    --charcoal:      #1c1c1c;
+    --charcoal-soft: #242424;
+    --charcoal-line: #333333;
+    /* --pink / --magenta come from assets/wallabee.css */
+  }
+
+  /* NOTE: deliberately no overflow-x here. Setting overflow on
+     either axis of the root forces the other axis to compute as
+     'auto' (CSS Overflow spec) — on html/body specifically that
+     knocks the document out of being the viewport-relative sticky
+     reference, silently breaking every position:sticky descendant.
+     No element on this page should overflow horizontally anyway
+     (verified per-viewport below); rely on that instead. */
+  html, body {
+    margin: 0;
+    background: var(--charcoal);
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--pink); color: var(--charcoal); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.01ms !important; }
+  }
+
+  /* the hero freezes in place (sticky) for the full length of the
+     zoom wrapper below, instead of scrolling away the moment you
+     scroll — so what you see is just the logo zooming in over a
+     static hero, not the hero receding while the logo separately
+     grows on top of it. It releases and scrolls off naturally right
+     as the zoom finishes (see .hero-zoom-wrapper). */
+  .stage {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* faint paper grain */
+  .grain {
+    position: absolute;
+    inset: -10%;
+    pointer-events: none;
+    z-index: 7;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ── SCROLL TRANSITION: the HERO's own logo zooms to pink ──
+     No second logo, no cross-fade: the real hero mark (below)
+     switches to fixed positioning and scales up in place as you
+     scroll, zooming into a point deep inside the solid body of the
+     "D" glyph. At full scale the viewport is entirely inside that
+     solid fill — the screen reads as pink because you're looking at
+     solid pink, not because anything faded in on top of it.
+     .stage sits inside this wrapper as a sticky element sized to
+     it, so the hero stays frozen on screen for the wrapper's full
+     height and only lets go right as the zoom completes. */
+  .hero-zoom-wrapper {
+    position: relative;
+    height: 400vh;
+    background: var(--charcoal);
+  }
+
+  /* ── PHILOSOPHY: fixed overlay, fades in over the zoomed logo ──
+     Deliberately NOT a sliding sticky panel — this has no
+     background of its own. The persistent pink comes from the
+     hero logo (still fixed, still maxed-out behind it), so the
+     philosophy text simply fades into existence over that already-
+     pink screen, reading as "loaded into" the zoom rather than a
+     new panel sliding up from below. The spacer below only exists
+     to give scroll yardage for the word-fill pacing; the content
+     itself never physically moves. */
+  .philosophy-spacer { position: relative; }
+  .philosophy-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .philosophy-fixed.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .philosophy-inner {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(28px,6vw,90px);
+  }
+  /* same gigantic scale as the hero headline — this title carries
+     the same weight as "I design systems." */
+  .philosophy-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 7.5vw, 7rem);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    margin: 0 0 clamp(28px,4vw,48px);
+    max-width: 13ch;
+  }
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px,3vw,40px) clamp(28px,5vw,72px);
+  }
+  .pillar-label {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.2rem,2vw,1.6rem);
+    color: var(--charcoal);
+    margin: 0 0 6px;
+  }
+  .pillar-body {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem,1.2vw,1.05rem);
+    line-height: 1.45;
+    color: var(--charcoal);
+    margin: 0;
+    max-width: 34ch;
+  }
+  @media (max-width: 720px) {
+    .pillars { grid-template-columns: 1fr; }
+  }
+
+  /* only the title fills word by word — starts as a charcoal
+     outline (hollow) and switches to solid fill as scroll reaches
+     it. The pillar labels/copy are plain solid charcoal throughout. */
+  .word {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--charcoal);
+    transition: color 0.15s ease;
+  }
+  .word.filled {
+    color: var(--charcoal);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px,6vw,90px);
+    z-index: 1;
+  }
+
+  /* the ONE logo — fixed, positioned by JS 20px above the headline
+     (see positionHeroLogo()) since .hero centers its content and a
+     static top offset can't track that. top/left here are just a
+     pre-JS fallback so nothing flashes unpositioned. It scales up
+     in place once you scroll past the hero. */
+  .ldg-logo {
+    position: fixed;
+    top: clamp(28px,6vw,90px);
+    left: clamp(28px,6vw,90px);
+    width: clamp(52px,6vw,84px);
+    color: var(--pink);
+    z-index: 8;
+    /* purely decorative once scaled up — must never intercept
+       clicks/hover meant for the panels or anything else layered
+       above it */
+    pointer-events: none;
+    /* pivots on a point deep inside the solid "D" bowl (not the
+       box's corner) — scaling around it is what makes the zoom
+       actually dive into solid pink instead of just growing the
+       whole mark, edges and all, off-screen. Verified empirically
+       against the actual rendered curve, not hand-derived from the
+       path data — that estimate landed close enough to an edge to
+       still show a sliver of charcoal at high scale. */
+    transform-origin: 32% 35%;
+    will-change: transform;
+  }
+  .ldg-logo svg { display: block; width: 100%; height: auto; }
+  /* invisible placeholder in the hero's normal flow, reserving the
+     exact box the logo used to occupy there — a fixed 20px gap
+     (not a responsive clamp) so the logo sits exactly 20px above
+     "I design systems." regardless of viewport size */
+  .ldg-logo-spacer {
+    width: clamp(52px,6vw,84px);
+    aspect-ratio: 864 / 459;
+    margin-bottom: 20px;
+  }
+
+  .headline {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3.4rem, 11vw, 10.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 clamp(18px,2.4vw,28px);
+    max-width: 16ch;
+  }
+
+  .subline {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+    color: rgba(255,255,255,0.72);
+    margin: 0 0 10px;
+  }
+
+  /* client/employer logo row — same quiet weight the credential
+     text had (dim, uniform), just as marks instead of a word list */
+  .logo-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(28px,5vw,54px);
+    margin-top: clamp(6px,1vw,12px);
+  }
+  .logo-row img {
+    height: clamp(50px,6vw,65px);
+    width: auto;
+    /* native color, not flattened to a silhouette — several of
+       these are detailed wordmarks, and forcing them to one flat
+       white shape collapsed them into unreadable blobs */
+    opacity: 0.88;
+  }
+
+  /* ── nav hint (replaces the button) ──
+     Fixed, not scoped to the hero — the about/password panels stay
+     reachable for the whole scroll experience (zoom + philosophy
+     included), so the hint that tells you how to reach them needs
+     to follow. */
+  .nav-hint {
+    position: fixed;
+    left: 0; right: 0; bottom: clamp(24px,4vw,48px);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 clamp(28px,6vw,90px);
+    z-index: 20;
+    pointer-events: none;
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .nav-hint span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.32);
+    transition: color 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-hint span.active { color: var(--pink); }
+  .nav-hint svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .hint-left svg { transform: scaleX(-1); }
+
+  /* ── PANELS ──
+     Sized to their copy, not the viewport — a panel only needs to
+     cover as much width as its text requires, leaving the hero
+     visible on the other side. Fixed (not scoped to .stage) and
+     the highest z-index on the page — these overlay everything
+     (the zoomed logo, the philosophy overlay) and stay reachable
+     the whole way down, never overlaid by anything else themselves. */
+  .panel {
+    position: fixed;
+    /* oversized well past the viewport on every side so a tilted,
+       rotated panel never shows a gap at a corner — bleeds off the
+       edge rather than lining up flush with it */
+    top: -10%;
+    bottom: -10%;
+    width: auto;
+    min-width: 320px;
+    max-width: min(620px, 88vw);
+    z-index: 22;
+    background: #050505;
+    border-top: 1px solid var(--charcoal-line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(28px,6vw,90px);
+    padding-top: calc(10% + clamp(28px,6vw,90px));
+    padding-bottom: calc(10% + clamp(28px,6vw,90px));
+    overflow-y: auto;
+    transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* the torn edge has depth: a lifted paper shadow off the front
+     sheet, and a second, cream "backing" sheet a little wider than
+     the front one so it peeks out past the tear — the classic
+     layered-poster look, not a single flat clipped rectangle */
+  .panel-backing {
+    position: fixed;
+    top: -10%;
+    bottom: -10%;
+    width: auto;
+    z-index: 21;
+    background: #e7dfd0;
+    pointer-events: none;
+    transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
+  }
+  #panelAboutBacking {
+    right: -48px;
+    min-width: 336px;
+    max-width: calc(min(620px, 88vw) + 22px);
+    transform-origin: center center;
+    transform: translateX(165%) rotate(8deg);
+  }
+  #panelAboutBacking.open { transform: translateX(0) rotate(-3deg); }
+  #panelGateBacking {
+    left: -48px;
+    min-width: 336px;
+    max-width: calc(min(620px, 88vw) + 22px);
+    transform-origin: center center;
+    transform: translateX(-165%) rotate(-8deg);
+  }
+  #panelGateBacking.open { transform: translateX(0) rotate(3deg); }
+  /* the gate panel can hold a password form OR a 7-row case-title
+     list that runs taller than the viewport — anchor to the top
+     and let the panel scroll instead of clipping/centering-off-screen */
+  #panelGate {
+    justify-content: flex-start;
+    padding-top: calc(10% + clamp(48px,8vw,110px));
+    padding-bottom: calc(10% + clamp(48px,8vw,110px));
+  }
+  /* the case-title list is dense (7 rows) — it doesn't need the
+     password form's generous centering room, and on a typical
+     ~720px-tall laptop viewport that room was exactly what pushed
+     the last row below the fold */
+  #panelGate.case-mode {
+    padding-top: calc(10% + clamp(12px,2vw,28px));
+    padding-bottom: calc(10% + clamp(12px,2vw,28px));
+  }
+
+  /* a slight tilt on the way in, settling to a small resting angle —
+     like a torn sheet pinned up a little off true */
+  #panelAbout {
+    right: -48px;
+    transform-origin: center center;
+    transform: translateX(165%) rotate(8deg);
+    align-items: flex-start;
+    filter: drop-shadow(-10px 6px 16px rgba(0,0,0,0.45));
+  }
+  #panelAbout.open { transform: translateX(0) rotate(-3deg); }
+
+  #panelGate {
+    left: -48px;
+    transform-origin: center center;
+    transform: translateX(-165%) rotate(-8deg);
+    align-items: flex-start;
+    filter: drop-shadow(10px 6px 16px rgba(0,0,0,0.45));
+  }
+  #panelGate.open { transform: translateX(0) rotate(3deg); }
+
+  .panel-eyebrow {
+    font-family: var(--font-ui);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 18px;
+  }
+
+  /* sits above the case list — an explicit way out for anyone who
+     landed here directly (e.g. via ?p=SHOWME) without going through
+     the hover flow */
+  .back-home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 16px;
+    font-family: var(--font-ui);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .back-home-link:hover, .back-home-link:focus-visible { color: var(--pink); }
+  .back-home-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  .panel-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 7vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 24px;
+  }
+  /* the 7-row case list needs the room more than the title does */
+  .case-mode .panel-eyebrow { margin-bottom: 8px; }
+  .case-mode .panel-title { font-size: clamp(2rem, 5vw, 3.25rem); margin-bottom: 10px; }
+
+  .panel-lede {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.78);
+    max-width: 46ch;
+    margin: 0 0 16px;
+  }
+
+  .panel-desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.5);
+    max-width: 46ch;
+  }
+
+  /* gate: password form */
+  .gate-form { display: flex; flex-direction: column; gap: 12px; max-width: 380px; margin-top: 8px; }
+  .gate-row { display: flex; gap: 10px; }
+  .gate-input {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--charcoal-line);
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: #fff;
+  }
+  .gate-input:focus { outline: none; border-color: var(--pink); }
+  .gate-go {
+    background: var(--pink);
+    color: var(--charcoal);
+    border: none;
+    border-radius: 4px;
+    padding: 0 24px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .gate-note {
+    font-family: var(--font-ui);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.32);
+    font-style: italic;
+  }
+  .gate-error {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    color: var(--pink);
+    display: none;
+  }
+  .gate-error.show { display: block; }
+
+  /* gate: case-title list (param mode) — clickable rows */
+  .case-list { display: flex; flex-direction: column; width: 100%; margin-top: 4px; }
+  .case-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px 8px;
+    margin: 0 -8px;
+    border-bottom: 1px solid var(--charcoal-line);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .case-row:first-child { border-top: 1px solid var(--charcoal-line); }
+  .case-row:hover, .case-row:focus-visible {
+    background: rgba(255,255,255,0.05);
+    outline: none;
+  }
+  .case-row:focus-visible { box-shadow: inset 0 0 0 1px var(--pink); }
+  .case-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; display: inline-block; margin-right: 8px; }
+  .case-company {
+    font-family: var(--font-ui);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .case-headline {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.85);
+  }
+
+  @media (max-width: 640px) {
+    .case-row { flex-wrap: wrap; }
+    .case-company { width: 100%; }
+    .gate-row { flex-direction: column; }
+    .gate-go { padding: 14px; }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CASE DETAIL VIEW — real case-study content (case-studies-data.js),
+     white background. Every color below is a light-mode port of the
+     dark-theme case-study classes in assets/wallabee.css, using the
+     SAME accessible palette the site's own DS light-mode toggle
+     already ships and documents (assets/wallabee.css ~L495-507):
+       #1a1a1a 18.5:1 · #3c3c3c 10.0:1 · #4e4e4e 7.5:1 · #5e5e5e 4.7:1
+       #b5194e 6.0:1 (deep-rose replacement for the pastel --pink,
+       which is only ~1.9:1 on a light ground and fails outright).
+     z-index sits above the philosophy overlay (15) but below the
+     nav-hint/panels (20-22) — the about/password slide-ins stay
+     reachable from in here, same as everywhere else on the page.
+     ═══════════════════════════════════════════════════════════════ */
+  .case-detail-view {
+    position: fixed;
+    inset: 0;
+    z-index: 18;
+    background: #fff;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .case-detail-view.open {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .case-detail-back {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: clamp(20px,3vw,32px) clamp(24px,6vw,80px);
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+    width: 100%;
+  }
+  .case-detail-back svg { width: 15px; height: 15px; }
+  .case-detail-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(40px,6vw,72px) clamp(24px,6vw,80px) 140px;
+    color: #1a1a1a;
+  }
+
+  .case-detail-light .cd-company { font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #5e5e5e; margin-bottom: 10px; }
+  .case-detail-light .cd-headline { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 400; color: #1a1a1a; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 28px; text-wrap: balance; }
+  .case-detail-light .cd-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 32px; }
+  .case-detail-light .cd-chips span { font-family: var(--font-ui); font-size: 0.75rem; font-weight: 500; color: #5e5e5e; background: rgba(0,0,0,0.05); border-radius: 100px; padding: 4px 10px; }
+  .case-detail-light .cd-metrics { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 44px; }
+  .case-detail-light .cd-metric { background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; padding: 18px 24px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 120px; }
+  .case-detail-light .cd-metric-value { font-family: var(--font-display); font-size: clamp(1.8rem, 2.6vw, 2.8rem); font-weight: 400; color: #1a1a1a; letter-spacing: -0.03em; line-height: 1; }
+  .case-detail-light .cd-metric-label { font-family: var(--font-ui); font-size: 0.7rem; font-weight: 500; color: #5e5e5e; letter-spacing: 0.02em; line-height: 1.35; }
+  .case-detail-light .cd-intro { font-family: var(--font-body); font-size: clamp(1rem, 1.2vw, 1.15rem); color: #4e4e4e; line-height: 1.6; margin-bottom: 32px; max-width: 54em; }
+  .case-detail-light .cd-block { margin-top: 56px; padding-top: 48px; border-top: 1px solid rgba(0,0,0,0.08); }
+  .case-detail-light .cd-h2 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; color: #1a1a1a; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .case-detail-light .cd-h3 { font-family: var(--font-ui); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #5e5e5e; margin: 24px 0 8px; }
+  .case-detail-light .cd-body { font-family: var(--font-body); font-size: clamp(0.92rem,1vw,1rem); color: #4e4e4e; line-height: 1.65; max-width: 60em; margin-bottom: 10px; }
+  .case-detail-light .cd-screenshot-wrap { margin: 14px 0 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.06); }
+  .case-detail-light .cd-screenshot-wrap img { width: 100%; display: block; height: auto; }
+  .case-detail-light .cd-screenshots-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .case-detail-light .cd-screenshot-frame { border-radius: 10px; background: rgba(0,0,0,0.03); padding: 8px 8px 0; overflow: hidden; }
+  .case-detail-light .cd-screenshot-frame img { width: 100%; height: auto; border-radius: 4px 4px 0 0; display: block; }
+  .case-detail-light .cd-screenshot-frame span { font-family: var(--font-ui); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.04em; color: #5e5e5e; padding: 0 12px 10px; display: block; }
+  .case-detail-light .cd-hero-img-wrap { width: calc(100% + 120px); margin-left: -60px; margin-top: 48px; margin-bottom: 48px; }
+  .case-detail-light .cd-hero-img { width: 100%; display: block; height: auto; border-radius: 8px; }
+  .case-detail-light .cd-list { list-style: none; padding: 0; margin: 8px 0 10px; display: flex; flex-direction: column; gap: 7px; }
+  .case-detail-light .cd-list li { font-family: var(--font-body); font-size: clamp(0.9rem,1vw,1rem); color: #4e4e4e; line-height: 1.55; padding-left: 16px; position: relative; }
+  .case-detail-light .cd-list li::before { content: '→'; position: absolute; left: 0; color: #b5194e; font-size: 0.7rem; top: 1px; }
+  .case-detail-light .cd-reframe { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 20px; }
+  .case-detail-light .cd-reframe-from, .case-detail-light .cd-reframe-to { padding: 18px 20px; border-radius: 10px; font-family: var(--font-body); font-size: clamp(0.88rem,1vw,0.96rem); line-height: 1.5; }
+  .case-detail-light .cd-reframe-from { background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.08); color: #5e5e5e; }
+  .case-detail-light .cd-reframe-to   { background: rgba(181,25,78,0.06); border: 1px solid rgba(181,25,78,0.18); color: #1a1a1a; }
+  .case-detail-light .cd-reframe-label { display: block; font-family: var(--font-ui); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 7px; opacity: 0.55; }
+  .case-detail-light .cd-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+  .case-detail-light .cd-haiku { margin-top: 40px; padding-top: 28px; border-top: 1px solid rgba(0,0,0,0.08); display: flex; flex-direction: column; gap: 2px; }
+  .case-detail-light .cd-haiku p { font-family: var(--font-body); font-size: clamp(0.9rem,1vw,1rem); color: #5e5e5e; line-height: 1.8; margin: 0; }
+  .case-detail-light .cd-closer { border-top: 1.5px solid rgba(0,0,0,0.1); padding-top: 32px; margin-top: 8px; }
+  .case-detail-light .cd-closer .cd-body { font-size: clamp(1rem,1.2vw,1.1rem); color: #5e5e5e; font-style: italic; }
+  .case-detail-light .cd-video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin: 32px 0; }
+  .case-detail-light .cd-video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .case-detail-light .cd-screenshot { width: 100%; display: block; height: auto; border-radius: 8px; margin: 16px 0; }
+  .case-detail-light .cd-artifact-link { display: inline-block; margin-top: 1.25rem; font-size: 13px; font-weight: 600; color: #2563eb; text-decoration: none; padding: 7px 14px; border: 1.5px solid #2563eb; border-radius: 8px; transition: opacity .14s; }
+  .case-detail-light .cd-artifact-link:hover { opacity: .7; }
+
+  .case-detail-light .cs-section { margin: 3rem 0; }
+  .case-detail-light .cs-section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .case-detail-light .cs-section-num { font-family: var(--font-ui); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: #5e5e5e; flex-shrink: 0; }
+  .case-detail-light .cs-section-title { font-family: var(--font-ui); font-size: 20px; font-weight: 500; color: #1a1a1a; }
+  .case-detail-light .cs-section--plain { margin-top: 2rem; }
+  .case-detail-light .cs-section--plain:first-child { margin-top: 1rem; }
+  .case-detail-light .cs-callout { background: rgba(0,0,0,0.03); border-left: 2px solid rgba(0,0,0,0.15); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+  .case-detail-light .cs-callout-label { font-family: var(--font-ui); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: #5e5e5e; margin-bottom: 6px; }
+  .case-detail-light .cs-callout .cd-body { font-size: 14px; margin-bottom: 0; }
+  .case-detail-light .cs-callout--problem { background: rgba(234,88,12,0.08); border-left-color: #ea580c; }
+  .case-detail-light .cs-hypothesis-block { border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1.25rem; margin: 1.25rem 0; display: flex; flex-direction: column; gap: 14px; }
+  .case-detail-light .cs-hyp-row { display: flex; gap: 12px; align-items: flex-start; }
+  .case-detail-light .cs-hyp-tag { font-family: var(--font-ui); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; min-width: 90px; padding-top: 2px; flex-shrink: 0; }
+  .case-detail-light .cs-hyp-tag.assumed    { color: #5e5e5e; }
+  .case-detail-light .cs-hyp-tag.actual     { color: #15803d; }
+  .case-detail-light .cs-hyp-tag.implication { color: #b45309; }
+  .case-detail-light .cs-hyp-body { font-family: var(--font-body); font-size: 14px; color: #4e4e4e; line-height: 1.6; }
+  .case-detail-light .cs-pull-quote { margin: 2rem 0; padding: 28px 32px; border-left: 3px solid rgba(181,25,78,0.35); background: rgba(0,0,0,0.02); border-radius: 0 8px 8px 0; }
+  .case-detail-light .cs-pull-quote-text { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; line-height: 1.5; color: #1a1a1a; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .case-detail-light .cs-pull-quote-attr { font-family: var(--font-ui); font-size: 12px; font-weight: 500; color: #5e5e5e; letter-spacing: 0.02em; }
+  .case-detail-light .cs-pull-quote-attr strong { color: #3c3c3c; font-weight: 600; }
+  .case-detail-light .cs-outcome-row { display: flex; gap: 20px; align-items: flex-start; padding: 1.25rem 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .case-detail-light .cs-outcome-row:last-child { border-bottom: none; }
+  .case-detail-light .cs-outcome-num { font-family: var(--font-display); font-size: clamp(1.6rem,2.5vw,2.2rem); font-weight: 400; color: #b5194e; width: 160px; flex-shrink: 0; text-align: right; letter-spacing: -0.02em; line-height: 1; padding-top: 2px; }
+  .case-detail-light .cs-od-title { font-family: var(--font-ui); font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 4px; }
+  .case-detail-light .cs-od-body { font-family: var(--font-body); font-size: 13px; color: #4e4e4e; line-height: 1.65; }
+  .case-detail-light .cs-reflection { border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1.5rem; background: rgba(0,0,0,0.025); margin-top: 2rem; }
+  .case-detail-light .cs-reflection-title { font-family: var(--font-ui); font-size: 15px; font-weight: 500; color: #1a1a1a; margin-bottom: 0.75rem; }
+  .case-detail-light .cs-meta-row { display: flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.08); }
+  .case-detail-light .cs-meta-label { font-family: var(--font-ui); font-size: 12px; color: #5e5e5e; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+  .case-detail-light .cs-meta-val { font-family: var(--font-ui); font-size: 14px; color: #1a1a1a; font-weight: 500; }
+  .case-detail-light .cs-tradeoff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1.5rem 0; }
+  .case-detail-light .cs-tradeoff-card { border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1rem 1.25rem; background: rgba(0,0,0,0.025); }
+  .case-detail-light .cs-tradeoff-card.chosen { border-color: rgba(181,25,78,0.35); background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .case-detail-light .cs-tc-label, .case-detail-light .cs-tradeoff-label { font-family: var(--font-ui); font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: #5e5e5e; margin-bottom: 6px; }
+  .case-detail-light .cs-tc-title, .case-detail-light .cs-tradeoff-title { font-family: var(--font-ui); font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 6px; }
+  .case-detail-light .cs-tc-body, .case-detail-light .cs-tradeoff-body { font-family: var(--font-body); font-size: 13px; color: #4e4e4e; line-height: 1.6; }
+  .case-detail-light .cs-chosen-badge { display: inline-block; background: rgba(31,31,31,0.06); color: #1a1a1a; font-size: 12px; font-weight: 500; padding: 2px 7px; border-radius: 6px; margin-left: 6px; border: 1px solid rgba(31,31,31,0.15); vertical-align: middle; }
+  .case-detail-light .cs-reject-badge, .case-detail-light .cs-partial-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 6px; margin-left: 6px; vertical-align: middle; }
+  .case-detail-light .cs-reject-badge { color: #b91c1c; background: rgba(185,28,28,0.08); border: 1px solid rgba(185,28,28,0.2); }
+  .case-detail-light .cs-partial-badge { color: #b45309; background: rgba(180,83,9,0.08); border: 1px solid rgba(180,83,9,0.2); }
+  @media (max-width: 680px) {
+    .case-detail-light .cs-tradeoff-grid { grid-template-columns: 1fr; }
+    .case-detail-light .cs-outcome-num { width: 100px; font-size: 1.5rem; }
+    .case-detail-light .cd-screenshots-row, .case-detail-light .cd-two-col, .case-detail-light .cd-reframe { grid-template-columns: 1fr; }
+  }
+
+  .case-detail-light .workflow-block, .case-detail-light .finding-block, .case-detail-light .sprint-block { border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+  .case-detail-light .workflow-row, .case-detail-light .finding-row, .case-detail-light .sprint-row { display: flex; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  .case-detail-light .workflow-row:last-child, .case-detail-light .finding-row:last-child, .case-detail-light .sprint-row:last-child { border-bottom: none; }
+  .case-detail-light .workflow-row { align-items: center; }
+  .case-detail-light .workflow-step, .case-detail-light .finding-tag, .case-detail-light .sprint-label { font-family: var(--font-ui); font-size: 12px; font-weight: 500; color: #5e5e5e; width: 160px; flex-shrink: 0; padding: 0.75rem 1rem; background: rgba(0,0,0,0.025); border-right: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: flex-end; text-align: right; }
+  .case-detail-light .finding-tag, .case-detail-light .sprint-label { align-items: flex-start; }
+  .case-detail-light .workflow-body, .case-detail-light .finding-body, .case-detail-light .sprint-body { font-family: var(--font-body); font-size: 13px; color: #4e4e4e; line-height: 1.6; padding: 0.75rem 1rem; }
+  .case-detail-light .workflow-body { flex: 1; }
+  .case-detail-light .workflow-tag { font-family: var(--font-ui); font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 6px; margin-left: auto; margin-right: 1rem; white-space: nowrap; flex-shrink: 0; }
+  .case-detail-light .tag-gone { background: rgba(185,28,28,0.08); color: #b91c1c; border: 1px solid rgba(185,28,28,0.22); }
+  .case-detail-light .tag-kept { background: rgba(21,128,61,0.08); color: #15803d; border: 1px solid rgba(21,128,61,0.22); }
+  .case-detail-light .finding-block--padded { border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 1.25rem; margin: 1.25rem 0; }
+  .case-detail-light .finding-block--padded .finding-row { border: none; border-bottom: 1px solid rgba(0,0,0,0.08); padding: 0.75rem 0; gap: 12px; align-items: flex-start; }
+  .case-detail-light .finding-block--padded .finding-row:first-child { padding-top: 0; }
+  .case-detail-light .finding-block--padded .finding-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .case-detail-light .finding-block--padded .finding-tag { background: none; border: none; padding: 0; padding-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; width: 160px; flex-shrink: 0; justify-content: flex-end; text-align: right; }
+  .case-detail-light .finding-block--padded .finding-body { padding: 0; }
+  .case-detail-light .alumni-row { display: flex; gap: 12px; margin: 1.5rem 0; flex-wrap: wrap; }
+  .case-detail-light .alumni-card { border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 0.875rem 1rem; background: rgba(0,0,0,0.03); flex: 1; min-width: 140px; }
+  .case-detail-light .alumni-co { font-family: var(--font-ui); font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 3px; }
+  .case-detail-light .alumni-role { font-family: var(--font-body); font-size: 12px; color: #5e5e5e; }
+  @media (max-width: 680px) {
+    .case-detail-light .workflow-step, .case-detail-light .finding-tag, .case-detail-light .sprint-label,
+    .case-detail-light .finding-block--padded .finding-tag { width: 100px; }
+    .case-detail-light .workflow-tag { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-zoom-wrapper" id="heroZoomWrapper">
+<div class="stage" id="stage">
+
+  <div class="hero">
+    <!-- the real logo now lives outside .stage (see #heroLogo below,
+         fixed-positioned) — this reserves the identical layout space
+         it used to occupy so removing it doesn't shift anything -->
+    <div class="ldg-logo-spacer" aria-hidden="true"></div>
+    <h1 class="headline">I design systems.</h1>
+    <p class="subline">L Dante Guarin — Product Designer, Los Angeles.</p>
+    <div class="logo-row">
+      <img src="assets/logos/adobe.png" alt="Adobe">
+      <img src="assets/logos/marketo.png" alt="Marketo">
+      <img src="assets/logos/upwork.png" alt="Upwork">
+      <img src="assets/logos/tmobile.png" alt="T-Mobile">
+      <img src="assets/logos/medhost.png" alt="MedHost">
+      <img src="assets/logos/gibson.png" alt="Gibson">
+    </div>
+  </div>
+
+  <div class="grain"></div>
+
+</div>
+</div>
+
+<!-- nav hint + panels live OUTSIDE .stage on purpose: .stage is now
+     position:sticky, and sticky ALWAYS creates a new stacking
+     context (unlike relative/absolute, which only do that when a
+     z-index is set) — anything left inside it is trapped in that
+     sub-context and capped at wherever .stage itself ranks among
+     its own siblings, no matter how high its own z-index is set.
+     Being direct children of body is what lets these actually
+     out-rank the (also sibling, not descendant) hero logo. -->
+<div class="nav-hint" aria-hidden="true">
+  <span class="hint-left" id="hintLeft">
+    <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="hintLeftText">Move left — password</span>
+  </span>
+  <span class="hint-right" id="hintRight">
+    <span id="hintRightText">Move right — about</span>
+    <svg viewBox="0 0 20 20" fill="none"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </span>
+</div>
+
+<!-- cream paper backing, peeking out past the front sheet's tear -->
+<div class="panel-backing" id="panelAboutBacking"></div>
+
+<!-- ABOUT panel — flies in from the right -->
+<div class="panel" id="panelAbout">
+  <div class="panel-eyebrow">About</div>
+  <h2 class="panel-title">Hey, I'm Dante.</h2>
+  <p class="panel-lede">Over 10 years designing where complex systems and real user need overlap on the Venn diagram. Adobe (Marketo), Upwork, Meroxa, Teamshares, T-Mobile.</p>
+  <p class="panel-desc">AI products need designers who can hold the product together when the rules don't exist yet. That's been my whole career.</p>
+</div>
+
+<!-- cream paper backing, peeking out past the front sheet's tear -->
+<div class="panel-backing" id="panelGateBacking"></div>
+
+<!-- GATE panel — flies in from the left. Password by default,
+     case titles when ?p=SHOWME is present. -->
+<div class="panel" id="panelGate">
+  <div id="gateDefault">
+    <div class="panel-eyebrow">Enter</div>
+    <h2 class="panel-title">Password</h2>
+    <div class="gate-form">
+      <div class="gate-row">
+        <input class="gate-input" id="gatePwInput" type="password" placeholder="enter password" autocomplete="new-password" spellcheck="false">
+        <button class="gate-go" id="gateGoBtn" type="button">Go</button>
+      </div>
+      <p class="gate-error" id="gateError">Incorrect password. Try again.</p>
+      <p class="gate-note">Prototype — password check not wired up yet.</p>
+    </div>
+  </div>
+  <div id="gateParam" hidden style="width:100%;">
+    <button class="back-home-link" id="backHomeLink" type="button">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </button>
+    <div class="panel-eyebrow">Selected work</div>
+    <h2 class="panel-title">Case studies</h2>
+    <div class="case-list" id="caseList"></div>
+  </div>
+</div>
+
+<!-- CASE DETAIL — real content from case-studies-data.js, white bg.
+     Sits below the about/password panels in z-index on purpose, so
+     those stay reachable (and overlay this) the same as everywhere
+     else on the page. -->
+<div class="case-detail-view" id="caseDetailView">
+  <button class="case-detail-back" id="caseDetailBack" type="button">
+    <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to case studies
+  </button>
+  <div class="case-detail-inner case-detail-light" id="caseDetailContent"></div>
+</div>
+
+<!-- the real, single LDG mark — fixed in place at the hero's own
+     logo position, scales up as you scroll past the hero -->
+<div class="ldg-logo" id="heroLogo" role="img" aria-label="LDG Logo">
+  <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
+    <polygon points="36 432 221.36 432 36 27.57 36 432"/>
+    <path d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
+    <path d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21c0,13.96,1.41,27.59,4.11,40.75c1.01,4.94,2.2,9.81,3.56,14.61c1.82,6.4,3.94,12.67,6.36,18.79c8.45,21.43,20.45,41.07,35.28,58.19c2.12,2.45,4.3,4.84,6.53,7.18c2.23,2.34,4.52,4.63,6.86,6.86c2.34,2.23,4.74,4.41,7.18,6.53c4.89,4.24,9.99,8.24,15.27,12c11.89,8.46,24.74,15.66,38.35,21.42c3.02,1.28,6.09,2.49,9.18,3.62c21.68,7.94,45.1,12.27,69.53,12.27c111.68,0,202.21-90.53,202.21-202.21H625.79Z"/>
+  </svg>
+</div>
+
+<!-- ═══════════════ PHILOSOPHY: pinned, fills word by word ═══════════════ -->
+<div class="philosophy-spacer" id="philosophySpacer">
+  <div class="philosophy-fixed" id="philosophyFixed">
+    <div class="philosophy-inner">
+      <h2 class="philosophy-title" id="philTitle">The pillars of my design philosophy</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <h3 class="pillar-label">Intention</h3>
+          <p class="pillar-body">I chase the business problem behind the design ask, not just the ask itself — it shows up in both of the case studies ahead.</p>
+        </div>
+        <div class="pillar">
+          <h3 class="pillar-label">Insight</h3>
+          <p class="pillar-body">Usage and behavior tell me more than what people say they want. I trust what the data shows over what a stakeholder assumes.</p>
+        </div>
+        <div class="pillar">
+          <h3 class="pillar-label">Scale</h3>
+          <p class="pillar-body">Good design scales. I build for the 90th company, not just the first one.</p>
+        </div>
+        <div class="pillar">
+          <h3 class="pillar-label">Connection</h3>
+          <p class="pillar-body">The systems I build are interconnected, meant to connect people — not just move pixels around. The customer and the business both come out ahead.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var aboutEl = document.getElementById('panelAbout');
+  var gateEl  = document.getElementById('panelGate');
+  var aboutBackingEl = document.getElementById('panelAboutBacking');
+  var gateBackingEl  = document.getElementById('panelGateBacking');
+  var hintL   = document.getElementById('hintLeft');
+  var hintR   = document.getElementById('hintRight');
+
+  var RIGHT_ON = 0.62, RIGHT_OFF = 0.55;
+  var LEFT_ON  = 0.38, LEFT_OFF  = 0.45;
+  var aboutOpen = false, gateOpen = false;
+
+  function render(){
+    aboutEl.classList.toggle('open', aboutOpen);
+    gateEl.classList.toggle('open', gateOpen);
+    aboutBackingEl.classList.toggle('open', aboutOpen);
+    gateBackingEl.classList.toggle('open', gateOpen);
+    hintR.classList.toggle('active', aboutOpen);
+    hintL.classList.toggle('active', gateOpen);
+  }
+
+  var backHomeLink = document.getElementById('backHomeLink');
+  if (backHomeLink) {
+    backHomeLink.addEventListener('click', function(){
+      gateOpen = false;
+      suppressGateOpen = true;
+      render();
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    });
+  }
+
+  // set true right after "Back to home" closes the gate — the cursor
+  // is typically still sitting in the left zone at that moment, and
+  // without this the very next mousemove tick would just reopen it.
+  // Clears itself once the mouse actually leaves that zone.
+  var suppressGateOpen = false;
+
+  function handleX(x){
+    var r = x / window.innerWidth;
+    if (!aboutOpen && r > RIGHT_ON) { aboutOpen = true; gateOpen = false; }
+    else if (aboutOpen && r < RIGHT_OFF) { aboutOpen = false; }
+    if (!gateOpen && !suppressGateOpen && r < LEFT_ON) { gateOpen = true; aboutOpen = false; }
+    else if (gateOpen && r > LEFT_OFF) { gateOpen = false; }
+    if (suppressGateOpen && r > LEFT_OFF) { suppressGateOpen = false; }
+    render();
+  }
+
+  window.addEventListener('mousemove', function(e){ handleX(e.clientX); });
+
+  // Touch: a swipe (not a drag) steps through gate <- hero -> about,
+  // like a horizontal carousel. Swipe left reveals what's to the
+  // right (about); swipe right reveals what's to the left (gate).
+  var isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (isTouch) {
+    document.getElementById('hintLeftText').textContent  = 'Swipe right — password';
+    document.getElementById('hintRightText').textContent = 'Swipe left — about';
+
+    var touchStartX = 0, touchStartY = 0;
+    var SWIPE_MIN = 40;
+    window.addEventListener('touchstart', function(e){
+      if (!e.touches || !e.touches[0]) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener('touchend', function(e){
+      var t = e.changedTouches && e.changedTouches[0];
+      if (!t) return;
+      var dx = t.clientX - touchStartX;
+      var dy = t.clientY - touchStartY;
+      // ignore vertical gestures (scrolling inside an open panel)
+      if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      var panelState = aboutOpen ? 1 : (gateOpen ? -1 : 0);
+      panelState = dx < 0
+        ? Math.min(1, panelState + 1)
+        : Math.max(-1, panelState - 1);
+      aboutOpen = panelState === 1;
+      gateOpen  = panelState === -1;
+      render();
+    }, { passive: true });
+  }
+
+  // Organic torn-paper edge. Real tears aren't a uniform zigzag —
+  // they're a few big irregular bites (coarse anchors, linearly
+  // interpolated) with fine fibrous roughness layered on top, plus
+  // the occasional sharper deep notch. Deterministic per seed so
+  // it's stable across reloads rather than reshuffling underfoot.
+  function tornEdge(edge, seed, steps, maxDepth, fineAmp, anchorCount){
+    var s = seed;
+    function rand(){ s = (s * 9301 + 49297) % 233280; return s / 233280; }
+
+    var anchors = [{ y: 0, d: rand() * maxDepth }];
+    var pos = 0;
+    for (var i = 1; i < anchorCount - 1; i++){
+      pos += (100 / anchorCount) * (0.5 + rand());
+      var depth = rand() * maxDepth;
+      if (rand() < 0.22) depth = Math.min(maxDepth * 1.7, depth + maxDepth * 0.9);
+      anchors.push({ y: Math.min(98, pos), d: depth });
+    }
+    anchors.push({ y: 100, d: rand() * maxDepth });
+    anchors.sort(function(a, b){ return a.y - b.y; });
+
+    function coarseAt(y){
+      for (var i = 0; i < anchors.length - 1; i++){
+        var a = anchors[i], b = anchors[i + 1];
+        if (y >= a.y && y <= b.y){
+          var t = b.y === a.y ? 0 : (y - a.y) / (b.y - a.y);
+          return a.d + (b.d - a.d) * t;
+        }
+      }
+      return anchors[anchors.length - 1].d;
+    }
+
+    var pts = [];
+    for (var i = 0; i <= steps; i++){
+      var y = (i / steps) * 100;
+      var depth = Math.max(0, coarseAt(y) + (rand() - 0.5) * fineAmp);
+      var x = edge === 'left' ? depth : 100 - depth;
+      pts.push(x.toFixed(2) + '% ' + y.toFixed(2) + '%');
+    }
+    pts.push(edge === 'left' ? '100% 100%' : '0% 100%');
+    pts.push(edge === 'left' ? '100% 0%'   : '0% 0%');
+    return 'polygon(' + pts.join(',') + ')';
+  }
+  // backing sheet gets a rougher, deeper tear than the front sheet
+  // so the two never nest perfectly — that mismatch is what sells
+  // it as two separate torn layers, not one shape offset twice.
+  aboutEl.style.clipPath        = tornEdge('left',  42,  70, 3.4, 0.9, 8);
+  aboutBackingEl.style.clipPath = tornEdge('left',  91,  70, 4.6, 1.4, 7);
+  gateEl.style.clipPath         = tornEdge('right', 137, 70, 3.4, 0.9, 8);
+  gateBackingEl.style.clipPath  = tornEdge('right', 205, 70, 4.6, 1.4, 7);
+
+  // the backing divs are empty, so they have no content to drive
+  // shrink-to-fit sizing — without this they collapse to min-width
+  // instead of tracking the front panel's actual (content-driven)
+  // width, and never peek out past its tear.
+  function syncBackingWidths(){
+    aboutBackingEl.style.width = (aboutEl.offsetWidth + 22) + 'px';
+    gateBackingEl.style.width  = (gateEl.offsetWidth + 22) + 'px';
+  }
+  syncBackingWidths();
+  window.addEventListener('resize', syncBackingWidths);
+  // re-measure once the real webfonts land — Cal Sans/Golos Text
+  // load async, and the shrink-to-fit content width shifts slightly
+  // once they swap in, which would otherwise leave the backing's
+  // fixed px width stale (and no longer peeking out correctly)
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncBackingWidths);
+  }
+
+
+  // ── CASE DETAIL — real content, white bg ──
+  // buildCaseHTML mirrors the real portfolio's own function of the
+  // same name (portfolio-app.js) so the same case-studies-data.js
+  // records render the same way. Only the "old format" (d.content,
+  // raw HTML) branch is needed here — every case in the data file
+  // uses it.
+  function buildCaseHTML(d){
+    var metricsHtml = (d.metrics || []).map(function(m){
+      return '<div class="cd-metric"><span class="cd-metric-value">' + (m.value || m.val) +
+             '</span><span class="cd-metric-label">' + m.label + '</span></div>';
+    }).join('');
+    var html = '<p class="cd-company">' + d.company + '</p>';
+    html += '<h1 class="cd-headline">' + (d.headline || d.title) + '</h1>';
+    if (d.intro) html += '<p class="cd-intro">' + d.intro + '</p>';
+    if (metricsHtml) html += '<div class="cd-metrics">' + metricsHtml + '</div>';
+    if (d.content) html += d.content;
+    return html;
+  }
+
+  var caseDetailView = document.getElementById('caseDetailView');
+  var caseDetailContent = document.getElementById('caseDetailContent');
+  function openCaseDetail(id){
+    // CASES comes from case-studies-data.js — a top-level `const` in
+    // a classic script, so it's a bare global identifier, never a
+    // window.CASES property
+    var data = (typeof CASES !== 'undefined') && CASES[id];
+    if (!data) return;
+    caseDetailContent.innerHTML = buildCaseHTML(data);
+    caseDetailView.classList.add('open');
+    caseDetailView.scrollTop = 0;
+  }
+  function closeCaseDetail(){
+    caseDetailView.classList.remove('open');
+  }
+  document.getElementById('caseDetailBack').addEventListener('click', closeCaseDetail);
+
+  // gate mode: password vs. case-title list, driven by ?p=SHOWME
+  var params = new URLSearchParams(window.location.search);
+  var bypass = params.get('p') === 'SHOWME';
+  if (bypass) {
+    document.getElementById('gateDefault').hidden = true;
+    document.getElementById('gateParam').hidden = false;
+    // dense spacing — see #panelGate.case-mode
+    document.getElementById('panelGate').classList.add('case-mode');
+
+    // ids match the keys in case-studies-data.js (extracted verbatim
+    // from the real portfolio's own CASES object) — clicking loads
+    // the real case content into #caseDetailView, in place.
+    var CASE_ROWS = [
+      { id: 'vyehealth',           company: 'Vye Health',        color: '#2D7A64', headline: "The provider side was in pilot. The patient experience wasn't close." },
+      { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', headline: 'A design system built to be read by a machine as well as a human.' },
+      { id: 'teamshares-payroll',  company: 'Teamshares',        color: '#DB8319', headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.' },
+      { id: 'teamshares-ats',      company: 'Teamshares — ATS',  color: '#1e3a5f', headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.' },
+      { id: 'marketo-sky',         company: 'Marketo / Adobe',   color: '#4c1d95', headline: 'Sky had been rebuilt for years. Almost nobody had opted in.' },
+      { id: 'marketo-migration',   company: 'Marketo / Adobe',   color: '#7c2d4e', headline: 'I pitched a structural fix before touching a single component.' },
+      { id: 'meroxa',              company: 'Meroxa',            color: '#0E8FA5', headline: 'We built the right product for the wrong person.' }
+    ];
+    var list = document.getElementById('caseList');
+    CASE_ROWS.forEach(function(c){
+      var row = document.createElement('div');
+      row.className = 'case-row';
+      row.setAttribute('role', 'button');
+      row.setAttribute('tabindex', '0');
+      row.setAttribute('aria-label', c.company + ' — ' + c.headline);
+      row.innerHTML =
+        '<div><span class="case-dot" style="background:' + c.color + '"></span>' +
+        '<span class="case-company">' + c.company + '</span></div>' +
+        '<span class="case-headline">' + c.headline + '</span>';
+      function open(){ openCaseDetail(c.id); }
+      row.addEventListener('click', open);
+      row.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+      list.appendChild(row);
+    });
+    syncBackingWidths();
+  } else {
+    // demo-only affordance: no real auth wired up
+    document.getElementById('gateGoBtn').addEventListener('click', function(){
+      document.getElementById('gateError').classList.add('show');
+    });
+    document.getElementById('gatePwInput').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') document.getElementById('gateError').classList.add('show');
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var heroZoomWrapper = document.getElementById('heroZoomWrapper');
+  var heroLogo   = document.getElementById('heroLogo');
+  var philSpacer = document.getElementById('philosophySpacer');
+  var philFixed  = document.getElementById('philosophyFixed');
+
+  function clamp01(v){ return Math.max(0, Math.min(1, v)); }
+
+  // .hero centers its content vertically (justify-content: center),
+  // so the headline's actual on-screen position shifts with content
+  // height/viewport size — a hardcoded top offset for the now-fixed
+  // logo can't track that. Position it from the headline's real
+  // rendered rect instead, 20px above, matched left. offsetWidth
+  // (not the live bounding rect) for the logo's own height keeps
+  // this correct even while a scroll-driven scale() is applied.
+  var headlineEl = document.querySelector('.headline');
+  function positionHeroLogo(){
+    var headlineRect = headlineEl.getBoundingClientRect();
+    var logoHeight = heroLogo.offsetWidth * (459 / 864);
+    heroLogo.style.left = headlineRect.left + 'px';
+    heroLogo.style.top = (headlineRect.top - logoHeight - 20) + 'px';
+  }
+  positionHeroLogo();
+  window.addEventListener('resize', positionHeroLogo);
+
+  // wrap every word of the philosophy copy in its own span so it
+  // can be filled independently as scroll progresses
+  function wrapWords(el){
+    var words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map(function(w){
+      return '<span class="word">' + w + '</span>';
+    }).join(' ');
+  }
+  // only the title fills word by word — the pillar labels/copy are
+  // plain solid charcoal from the start
+  wrapWords(document.getElementById('philTitle'));
+  var words = Array.prototype.slice.call(
+    document.querySelectorAll('.philosophy-inner .word')
+  );
+
+  // scroll distance is derived from word count so the fill pace
+  // stays consistent if the copy is ever edited. Only the title
+  // (now just a handful of words) drives the fill, so add a flat
+  // dwell afterward — otherwise the section would release and
+  // scroll away the instant the last word fills, before there's
+  // any time to actually read the four pillars.
+  var PX_PER_WORD = 140;
+  var fillRangePx = 0;
+  var dwellPx = 0;
+  function sizePhilosophySpacer(){
+    fillRangePx = words.length * PX_PER_WORD;
+    dwellPx = Math.round(window.innerHeight * 1.3);
+    philSpacer.style.height =
+      (window.innerHeight + fillRangePx + dwellPx) + 'px';
+  }
+  sizePhilosophySpacer();
+
+  if (reduceMotion) {
+    // skip the scroll-driven zoom/fill entirely — jump straight to
+    // both end states so the content is still reachable and legible
+    heroLogo.style.transform = 'scale(260) rotate(30deg)';
+    philFixed.classList.add('visible');
+    words.forEach(function(w){ w.classList.add('filled'); });
+    return;
+  }
+
+  function onScroll(){
+    var scrollY = window.scrollY || window.pageYOffset;
+
+    // hero logo zoom — pivots on a point deep inside the solid "D"
+    // (see transform-origin), so at high scale the viewport is
+    // simply looking at solid pink. No opacity fade — the zoom
+    // itself is what produces the pink screen. Exponential curve so
+    // it reads as a constant-rate camera zoom rather than slow-
+    // then-sudden linear growth. Range is the wrapper's FULL height
+    // — .stage (sticky) releases itself a bit earlier than that
+    // natively, but since it's fully hidden behind the already-pink
+    // fixed logo by then, the exact release point doesn't need to
+    // line up with anything here.
+    var zoomProgress = clamp01((scrollY - heroZoomWrapper.offsetTop) / heroZoomWrapper.offsetHeight);
+    var MAX_SCALE = 260;
+    var scale = Math.pow(MAX_SCALE, zoomProgress);
+    // a slow, gentle turn alongside the zoom — not a spin, just
+    // enough to feel alive
+    var MAX_ROTATE = 30;
+    var rotate = zoomProgress * MAX_ROTATE;
+    heroLogo.style.transform =
+      'scale(' + scale.toFixed(3) + ') rotate(' + rotate.toFixed(2) + 'deg)';
+    // heroLogo is NEVER hidden — it stays pink and maxed-out behind
+    // everything that follows (z-index 8, below the philosophy
+    // overlay and the panels). That persistent pink is what the
+    // philosophy text fades in over, and it's what removes any
+    // flash back to charcoal between the two sections.
+
+    // philosophy: fades in (not slides up) once its section begins,
+    // and fades back out if you scroll back above it — text fill
+    // itself is driven by fillRangePx only, so the title finishes
+    // well before the dwell time meant for reading the pillars
+    var philStart = philSpacer.offsetTop;
+    philFixed.classList.toggle('visible', scrollY >= philStart);
+    var philProgress = clamp01((scrollY - philStart) / fillRangePx);
+    var filledCount = Math.round(philProgress * words.length);
+    for (var i = 0; i < words.length; i++) {
+      words[i].classList.toggle('filled', i < filledCount);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function(){
+    sizePhilosophySpacer();
+    onScroll();
+  });
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
