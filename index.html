@@ -396,7 +396,10 @@
   }
   .nav-hint span.active { color: var(--nav-active, var(--pink)); }
   .nav-hint svg { width: 13px; height: 13px; flex-shrink: 0; }
-  .hint-left svg { transform: scaleX(-1); }
+  /* hint-left's icon markup already uses the left-pointing chevron
+     path (same one "back to case studies" etc. use elsewhere) — no
+     flip needed; flipping it here was turning it into a right-
+     pointing chevron in front of "Case studies", backwards */
 
   /* centered between the two hints, jumps to the philosophy block */
   .nav-hint-down {
@@ -555,28 +558,6 @@
     margin-bottom: 18px;
   }
 
-  /* sits above the case list — an explicit way out for anyone who
-     landed here directly (e.g. via ?p=SHOWME) without going through
-     the hover flow */
-  .back-home-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: none;
-    border: none;
-    padding: 0;
-    margin-bottom: 16px;
-    font-family: var(--font-ui);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: rgba(255,255,255,0.45);
-    cursor: pointer;
-    transition: color 0.15s ease;
-  }
-  .back-home-link:hover, .back-home-link:focus-visible { color: var(--pink); }
-  .back-home-link svg { width: 12px; height: 12px; flex-shrink: 0; }
-
   .panel-title {
     font-family: var(--font-display);
     font-weight: 400;
@@ -711,25 +692,48 @@
     transform: none;
     pointer-events: auto;
   }
-  .case-detail-back {
+  .case-detail-nav {
     position: sticky;
     top: 0;
     z-index: 1;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 20px;
     padding: clamp(20px,3vw,32px) clamp(24px,6vw,80px);
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(6px);
     border-bottom: 1px solid rgba(0,0,0,0.08);
+    width: 100%;
+  }
+  .case-detail-back, .case-detail-home {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    padding: 0;
     font-family: var(--font-ui);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .case-detail-back {
     font-size: 0.8rem;
     font-weight: 600;
     color: #1a1a1a;
-    cursor: pointer;
-    width: 100%;
   }
-  .case-detail-back svg { width: 15px; height: 15px; }
+  /* secondary to "back to case studies" — lighter weight, only
+     shown here inside an actual case study (not on the titles list,
+     which is dismissed the same way every other panel is) */
+  .case-detail-home {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #5e5e5e; /* WCAG AA on white — 4.7:1 */
+    transition: color 0.15s ease;
+  }
+  .case-detail-home:hover, .case-detail-home:focus-visible { color: var(--magenta); }
+  .case-detail-back svg, .case-detail-home svg { width: 14px; height: 14px; flex-shrink: 0; }
   .case-detail-inner {
     max-width: 860px;
     margin: 0 auto;
@@ -940,10 +944,6 @@
     </div>
   </div>
   <div id="gateParam" hidden style="width:100%;">
-    <button class="back-home-link" id="backHomeLink" type="button">
-      <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Back to home
-    </button>
     <div class="panel-eyebrow">Selected work</div>
     <h2 class="panel-title">Case studies</h2>
     <div class="case-list" id="caseList"></div>
@@ -953,12 +953,21 @@
 <!-- CASE DETAIL — real content from case-studies-data.js, white bg.
      Sits below the about/password panels in z-index on purpose, so
      those stay reachable (and overlay this) the same as everywhere
-     else on the page. -->
+     else on the page. "Back to home" only lives here — inside an
+     actual case study — not on the case-titles list; the list is
+     still dismissible the same way every other panel is (hover off /
+     swipe away). -->
 <div class="case-detail-view" id="caseDetailView">
-  <button class="case-detail-back" id="caseDetailBack" type="button">
-    <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back to case studies
-  </button>
+  <div class="case-detail-nav">
+    <button class="case-detail-back" id="caseDetailBack" type="button">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to case studies
+    </button>
+    <button class="case-detail-home" id="caseDetailHome" type="button">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </button>
+  </div>
   <div class="case-detail-inner case-detail-light" id="caseDetailContent"></div>
 </div>
 
@@ -1058,16 +1067,6 @@
     gateBackingEl.classList.toggle('open', gateOpen);
     hintR.classList.toggle('active', aboutOpen);
     hintL.classList.toggle('active', gateOpen);
-  }
-
-  var backHomeLink = document.getElementById('backHomeLink');
-  if (backHomeLink) {
-    backHomeLink.addEventListener('click', function(){
-      gateOpen = false;
-      suppressGateOpen = true;
-      render();
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    });
   }
 
   // set true right after "Back to home" closes the gate — the cursor
@@ -1224,6 +1223,17 @@
     caseDetailView.classList.remove('open');
   }
   document.getElementById('caseDetailBack').addEventListener('click', closeCaseDetail);
+
+  // "back to home" only lives inside an actual case study — closes
+  // the case detail AND the case-titles panel underneath it, same
+  // as the old gate-level back-home-link used to
+  document.getElementById('caseDetailHome').addEventListener('click', function(){
+    closeCaseDetail();
+    gateOpen = false;
+    suppressGateOpen = true;
+    render();
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  });
 
   // gate mode: password vs. case-title list — reachable either by
   // the real password (posts to /api/auth, same endpoint and
