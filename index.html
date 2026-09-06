@@ -1283,7 +1283,15 @@
           '<div><span class="case-dot" style="background:' + c.color + '"></span>' +
           '<span class="case-company">' + c.company + '</span></div>' +
           '<span class="case-headline">' + c.headline + '</span>';
-        function open(){ openCaseDetail(c.id); }
+        function open(){
+          openCaseDetail(c.id);
+          // close the slide-in itself — cursor is still in its
+          // trigger zone right after clicking a row inside it, so
+          // suppress the very next mousemove tick from reopening it
+          gateOpen = false;
+          suppressGateOpen = true;
+          render();
+        }
         row.addEventListener('click', open);
         row.addEventListener('keydown', function(e){
           if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
