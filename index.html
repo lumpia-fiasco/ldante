@@ -308,7 +308,15 @@
        path data — that estimate landed close enough to an edge to
        still show a sliver of charcoal at high scale. */
     transform-origin: 32% 35%;
-    will-change: transform;
+    /* deliberately NOT will-change:transform — that hint pushes this
+       onto a GPU-cached raster layer, and under the continuous,
+       rapid transform updates a real scroll produces, the browser
+       throttles re-rastering that cache for performance, so frames
+       render from a stale, wrong-resolution texture (visible as a
+       broken/jagged mark mid-scroll, gone once it settles and
+       re-rasters). Letting the SVG repaint fresh each tick instead
+       is more correctness than a single simple 3-shape SVG needs
+       GPU caching for anyway. */
   }
   .ldg-logo svg { display: block; width: 100%; height: auto; }
   /* invisible placeholder in the hero's normal flow, reserving the
@@ -624,13 +632,7 @@
     font-size: 0.85rem;
     cursor: pointer;
   }
-  .gate-note {
-    font-family: var(--font-ui);
-    font-size: 0.68rem;
-    letter-spacing: 0.04em;
-    color: rgba(255,255,255,0.32);
-    font-style: italic;
-  }
+  .gate-go:disabled { opacity: 0.5; cursor: default; }
   .gate-error {
     font-family: var(--font-ui);
     font-size: 0.78rem;
@@ -935,7 +937,6 @@
         <button class="gate-go" id="gateGoBtn" type="button">Go</button>
       </div>
       <p class="gate-error" id="gateError">Incorrect password. Try again.</p>
-      <p class="gate-note">Prototype — password check not wired up yet.</p>
     </div>
   </div>
   <div id="gateParam" hidden style="width:100%;">
@@ -962,9 +963,17 @@
 </div>
 
 <!-- the real, single LDG mark — fixed in place at the hero's own
-     logo position, scales up as you scroll past the hero -->
+     logo position, scales up as you scroll past the hero.
+     stroke=currentColor (same as fill) is a fix, not decoration: the
+     wing (polygon) and the D (two paths) are separate shapes that
+     share an edge but don't overlap, and during the live scroll-
+     driven scale+rotate a hairline anti-aliasing gap opens up between
+     them at certain in-between scales — invisible at rest or at a
+     single static transform, but reproducible mid-scroll. The stroke
+     just paints over that gap; it's thin enough (scales with the
+     artwork itself, viewBox units) to never read as an outline. -->
 <div class="ldg-logo" id="heroLogo" role="img" aria-label="LDG Logo">
-  <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
+  <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round">
     <polygon points="36 432 221.36 432 36 27.57 36 432"/>
     <path d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
     <path d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21c0,13.96,1.41,27.59,4.11,40.75c1.01,4.94,2.2,9.81,3.56,14.61c1.82,6.4,3.94,12.67,6.36,18.79c8.45,21.43,20.45,41.07,35.28,58.19c2.12,2.45,4.3,4.84,6.53,7.18c2.23,2.34,4.52,4.63,6.86,6.86c2.34,2.23,4.74,4.41,7.18,6.53c4.89,4.24,9.99,8.24,15.27,12c11.89,8.46,24.74,15.66,38.35,21.42c3.02,1.28,6.09,2.49,9.18,3.62c21.68,7.94,45.1,12.27,69.53,12.27c111.68,0,202.21-90.53,202.21-202.21H625.79Z"/>
@@ -1216,53 +1225,93 @@
   }
   document.getElementById('caseDetailBack').addEventListener('click', closeCaseDetail);
 
-  // gate mode: password vs. case-title list, driven by ?p=SHOWME
-  var params = new URLSearchParams(window.location.search);
-  var bypass = params.get('p') === 'SHOWME';
-  if (bypass) {
+  // gate mode: password vs. case-title list — reachable either by
+  // the real password (posts to /api/auth, same endpoint and
+  // contract the previous site used — see api/auth.js, still
+  // deployed) or by the ?p=SHOWME bypass link. Both paths converge
+  // on showCaseList().
+  var caseListBuilt = false;
+  function showCaseList(){
     document.getElementById('gateDefault').hidden = true;
     document.getElementById('gateParam').hidden = false;
     // dense spacing — see #panelGate.case-mode
     document.getElementById('panelGate').classList.add('case-mode');
 
-    // ids match the keys in case-studies-data.js (extracted verbatim
-    // from the real portfolio's own CASES object) — clicking loads
-    // the real case content into #caseDetailView, in place.
-    var CASE_ROWS = [
-      { id: 'vyehealth',           company: 'Vye Health',        color: '#2D7A64', headline: "The provider side was in pilot. The patient experience wasn't close." },
-      { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', headline: 'A design system built to be read by a machine as well as a human.' },
-      { id: 'teamshares-payroll',  company: 'Teamshares',        color: '#DB8319', headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.' },
-      { id: 'teamshares-ats',      company: 'Teamshares — ATS',  color: '#1e3a5f', headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.' },
-      { id: 'marketo-sky',         company: 'Marketo / Adobe',   color: '#4c1d95', headline: 'Sky had been rebuilt for years. Almost nobody had opted in.' },
-      { id: 'marketo-migration',   company: 'Marketo / Adobe',   color: '#7c2d4e', headline: 'I pitched a structural fix before touching a single component.' },
-      { id: 'meroxa',              company: 'Meroxa',            color: '#0E8FA5', headline: 'We built the right product for the wrong person.' }
-    ];
-    var list = document.getElementById('caseList');
-    CASE_ROWS.forEach(function(c){
-      var row = document.createElement('div');
-      row.className = 'case-row';
-      row.setAttribute('role', 'button');
-      row.setAttribute('tabindex', '0');
-      row.setAttribute('aria-label', c.company + ' — ' + c.headline);
-      row.innerHTML =
-        '<div><span class="case-dot" style="background:' + c.color + '"></span>' +
-        '<span class="case-company">' + c.company + '</span></div>' +
-        '<span class="case-headline">' + c.headline + '</span>';
-      function open(){ openCaseDetail(c.id); }
-      row.addEventListener('click', open);
-      row.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    if (!caseListBuilt) {
+      caseListBuilt = true;
+      // ids match the keys in case-studies-data.js (extracted
+      // verbatim from the real portfolio's own CASES object) —
+      // clicking loads the real case content into #caseDetailView,
+      // in place.
+      var CASE_ROWS = [
+        { id: 'vyehealth',           company: 'Vye Health',        color: '#2D7A64', headline: "The provider side was in pilot. The patient experience wasn't close." },
+        { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', headline: 'A design system built to be read by a machine as well as a human.' },
+        { id: 'teamshares-payroll',  company: 'Teamshares',        color: '#DB8319', headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.' },
+        { id: 'teamshares-ats',      company: 'Teamshares — ATS',  color: '#1e3a5f', headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.' },
+        { id: 'marketo-sky',         company: 'Marketo / Adobe',   color: '#4c1d95', headline: 'Sky had been rebuilt for years. Almost nobody had opted in.' },
+        { id: 'marketo-migration',   company: 'Marketo / Adobe',   color: '#7c2d4e', headline: 'I pitched a structural fix before touching a single component.' },
+        { id: 'meroxa',              company: 'Meroxa',            color: '#0E8FA5', headline: 'We built the right product for the wrong person.' }
+      ];
+      var list = document.getElementById('caseList');
+      CASE_ROWS.forEach(function(c){
+        var row = document.createElement('div');
+        row.className = 'case-row';
+        row.setAttribute('role', 'button');
+        row.setAttribute('tabindex', '0');
+        row.setAttribute('aria-label', c.company + ' — ' + c.headline);
+        row.innerHTML =
+          '<div><span class="case-dot" style="background:' + c.color + '"></span>' +
+          '<span class="case-company">' + c.company + '</span></div>' +
+          '<span class="case-headline">' + c.headline + '</span>';
+        function open(){ openCaseDetail(c.id); }
+        row.addEventListener('click', open);
+        row.addEventListener('keydown', function(e){
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+        });
+        list.appendChild(row);
       });
-      list.appendChild(row);
-    });
+    }
     syncBackingWidths();
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var bypass = params.get('p') === 'SHOWME';
+  if (bypass) {
+    showCaseList();
   } else {
-    // demo-only affordance: no real auth wired up
-    document.getElementById('gateGoBtn').addEventListener('click', function(){
-      document.getElementById('gateError').classList.add('show');
-    });
-    document.getElementById('gatePwInput').addEventListener('keydown', function(e){
-      if (e.key === 'Enter') document.getElementById('gateError').classList.add('show');
+    var gateInput = document.getElementById('gatePwInput');
+    var gateBtn   = document.getElementById('gateGoBtn');
+    var gateError = document.getElementById('gateError');
+
+    function tryUnlock(){
+      var val = gateInput.value.trim();
+      if (!val) return;
+      gateBtn.disabled = true;
+      gateError.classList.remove('show');
+      fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: val })
+      })
+        .then(function(res){ return res.json(); })
+        .then(function(data){
+          if (data && data.ok) {
+            showCaseList();
+          } else {
+            gateError.classList.add('show');
+            gateInput.value = '';
+          }
+        })
+        .catch(function(){
+          gateError.classList.add('show');
+        })
+        .finally(function(){
+          gateBtn.disabled = false;
+        });
+    }
+    gateBtn.addEventListener('click', tryUnlock);
+    gateInput.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') tryUnlock();
     });
   }
 })();
