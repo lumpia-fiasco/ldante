@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>L Dante Guarin — Product Designer</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Golos+Text:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/wallabee.css">
+  <style>
+    /* Tokens, Reset, and base: see assets/wallabee.css */
+    /* --ph: panel horizontal padding, shared across all panels + back-btn bleed */
+    :root { --ph: clamp(32px,8vw,120px); }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -9999px;
+      left: 0;
+      z-index: 9999;
+      padding: 10px 20px;
+      background: var(--pink);
+      color: var(--bg-darker);
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0 0 8px 0;
+    }
+    .skip-link:focus { top: 0; }
+    html, body { height: 100%; overflow: hidden; background: var(--bg); }
+
+    /* ── Screen layer system ── */
+    .screen {
+      position: fixed;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none !important;
+    }
+    .screen.exit-up   { transform: translateY(-32px); }
+    .screen.exit-down { transform: translateY(32px); }
+    .screen.enter-up  { transform: translateY(32px); }
+
+    /* ═══════════════════════════════════════════════════
+       GATE SCREEN
+    ═══════════════════════════════════════════════════ */
+    #screenGate {
+      background: var(--bg) url('assets/portrait-bg.png') no-repeat right bottom / auto 92vh;
+      display: flex;
+      align-items: flex-start;
+      padding: clamp(40px,6vw,80px) clamp(32px,8vw,120px);
+      touch-action: none;
+    }
+
+    .gate-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* Logo + bio header */
+    .gate-header { display: flex; flex-direction: column; gap: 0; }
+
+    .ldg-logo {
+      width: 145px;
+      height: auto;
+      color: var(--pink);
+      display: block;
+      margin-bottom: 10px;
+      cursor: default;
+      user-select: none;
+    }
+    .ldg-logo svg { width: 145px; height: auto; display: block; }
+
+    .gate-bio {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 2vw, 1.875rem);
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      white-space: pre-line;
+    }
+    .gate-bio strong { font-weight: 600; }
+
+    /* Hero headline */
+    .gate-hero {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 8.75rem);
+      font-weight: 400; /* Cal Sans only has one weight */
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      user-select: none;
+      text-wrap: balance;
+    }
+
+    /* Gate input pattern: see assets/wallabee.css */
+
+    .gate-error {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--pink);
+      opacity: 0;
+      transition: opacity 0.25s;
+      height: 1.2em;
+    }
+    .gate-error.visible { opacity: 1; }
+
+    /* Exit / session-clear button */
+    #exitBtn {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, background 0.15s, color 0.15s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #exitBtn.visible { opacity: 1; pointer-events: auto; }
+    #exitBtn:hover   { background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.9); transform: scale(1.08); }
+    #exitBtn:active  { transform: scale(0.93); }
+
+    /* Sandbox reset */
+    .reset-btn {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--white);
+      background: rgba(191,48,120,0.9);
+      border: none;
+      border-radius: 18px;
+      padding: 12px 20px;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background 0.15s;
+    }
+    .reset-btn.visible { opacity: 1; pointer-events: auto; }
+    .reset-btn:hover   { background: var(--magenta); transform: translateY(-3px) scale(1.02); }
+    .reset-btn:active  { transform: scale(0.97); }
+
+    /* Shake animation: see assets/wallabee.css */
+
+    /* ═══════════════════════════════════════════════════
+       LANDING SCREEN (role picker)
+    ═══════════════════════════════════════════════════ */
+    #screenLanding {
+      background: var(--bg);
+      display: flex;
+      align-items: flex-start;
+      padding: clamp(40px,6vw,80px) clamp(32px,8vw,120px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .landing-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .landing-header { margin-bottom: 40px; }
+
+    /* Greeting blocks — stagger in */
+    .landing-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .landing-text-block {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .landing-text-block.body-text {
+      font-family: var(--font-body);
+      font-size: clamp(1.2rem, 2.5vw, 2.125rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.5;
+    }
+    .landing-text-block.bridge-text {
+      font-family: var(--font-body);
+      font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+    .landing-text-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Role buttons */
+    .landing-btns {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 16px;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease 0.45s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.45s;
+    }
+    .landing-btns.visible { opacity: 1; transform: translateY(0); }
+
+    /* Role button: see assets/wallabee.css */
+
+    /* ═══════════════════════════════════════════════════
+       PORTFOLIO SCREEN
+    ═══════════════════════════════════════════════════ */
+    #screenPortfolio {
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: relative;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-darker);
+      padding: 0 clamp(20px,3vw,60px);
+      height: 72px;
+      flex-shrink: 0;
+    }
+    .header-left { display: flex; align-items: center; gap: 14px; }
+    .header-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      outline: 1px solid oklch(1 0 0 / 0.1);
+    }
+    .header-identity {
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.85); white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Main split layout ── */
+    .portfolio-main {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      height: calc(100vh - 72px);
+      overflow: hidden;
+    }
+
+    /* ── Right: chat rail ── */
+    .chat-rail {
+      width: 360px;
+      flex-shrink: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-left: 1.5px solid rgba(31,31,31,0.1);
+      background: #f9f9f9;
+      order: 2;
+    }
+
+    .rail-name-prompt {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; padding: 48px 32px; gap: 24px;
+      transition: opacity 0.35s, transform 0.35s;
+    }
+    .rail-name-prompt.exiting { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+
+    .name-question {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+      font-weight: 400; color: #1f1f1f;
+      letter-spacing: -0.03em; line-height: 1.1;
+    }
+    .name-input-wrap { display: flex; align-items: flex-end; gap: 10px; }
+    .name-input {
+      flex: 1; font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem); font-weight: 400;
+      letter-spacing: -0.03em; color: #1f1f1f;
+      background: #f8f8f7; border: 1.5px solid rgba(31,31,31,0.12);
+      border-radius: 8px; outline: none;
+      padding: 10px 14px; transition: border-color 0.2s, background 0.2s;
+    }
+    .name-input:focus { border-color: rgba(31,31,31,0.35); background: #fff; }
+    .name-input::placeholder { color: rgba(31,31,31,0.22); }
+    .name-send-btn {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: #1f1f1f; border: none; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; margin-bottom: 12px; flex-shrink: 0;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background 0.15s;
+    }
+    .name-send-btn:hover { transform: scale(1.1); background: #383838; }
+    .name-hint { font-size: 13px; color: rgba(31,31,31,0.38); }
+
+    .rail-convo {
+      display: none; flex: 1; min-height: 0; overflow-y: auto;
+      touch-action: pan-y; overscroll-behavior: contain;
+      padding: 20px 24px 8px; flex-direction: column;
+    }
+    .rail-convo.active { display: flex; }
+    .convo-inner { display: flex; flex-direction: column; gap: 0; }
+
+    .msg {
+      display: flex; align-items: flex-start; gap: 10px; padding: 12px 0;
+      opacity: 0; transform: translateY(8px); transition: none;
+    }
+    .msg.typing, .msg.visible { opacity: 1; transform: none; transition: opacity 0.3s, transform 0.3s; }
+    .msg.typing .msg-dot-wrap { display: flex; }
+    .msg.typing .msg-text     { display: none; }
+    .msg.visible .msg-dot-wrap { display: none; }
+    .msg.visible .msg-text    { display: block; }
+    .msg-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0; margin-top: 3px; }
+    .msg-dot-wrap { display: none; align-items: center; gap: 4px; padding: 8px 0; }
+    .msg-dot-wrap span {
+      display: block; width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(31,31,31,0.3); animation: dotPulse 1.2s ease-in-out infinite;
+    }
+    .msg-dot-wrap span:nth-child(2) { animation-delay: 0.2s; }
+    .msg-dot-wrap span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotPulse { 0%,80%,100%{transform:scale(1);opacity:.3} 40%{transform:scale(1.4);opacity:1} }
+    .msg-text { font-family: var(--font-body); font-size: 0.88rem; color: #1f1f1f; line-height: 1.5; }
+    .msg--user { justify-content: flex-end; }
+    .msg--user .msg-text {
+      background: rgba(31,31,31,0.1); border-radius: 18px 18px 4px 18px;
+      padding: 7px 13px; display: inline-block; max-width: 85%;
+    }
+
+    .rail-input-wrap {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px 22px; border-top: 1.5px solid rgba(31,31,31,0.08);
+      background: #f9f9f9; flex-shrink: 0;
+      opacity: 0; transform: translateY(6px); pointer-events: none;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .rail-input-wrap.visible { opacity: 1; transform: none; pointer-events: all; }
+    .chat-input {
+      flex: 1; min-width: 0; font-family: var(--font-body); font-size: 1rem;
+      color: #1f1f1f; background: #fff; border: 1.5px solid rgba(31,31,31,0.15);
+      border-radius: 12px; padding: 11px 16px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .chat-input:focus { border-color: rgba(31,31,31,0.4); }
+    .chat-input::placeholder { color: rgba(31,31,31,0.35); }
+    .chat-send-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: #1f1f1f; border: none; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background 0.15s;
+    }
+    .chat-send-btn:hover { transform: scale(1.08) translateY(-2px); background: #383838; }
+
+    /* ── Left: portfolio panel area ── */
+    .portfolio-left {
+      flex: 1; height: 100%; position: relative; overflow: hidden; min-width: 0;
+    }
+
+    /* Shared panel base */
+    .panel {
+      position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden;
+      overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+      will-change: transform, opacity;
+    }
+    .panel img, .panel video, .panel table { max-width: 100%; }
+    .panel::-webkit-scrollbar { width: 5px; }
+    .panel::-webkit-scrollbar-track { background: #f5f5f5; }
+    .panel::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 999px; }
+
+    /* Case list panel */
+    #caseListPanel { padding: clamp(40px,6vw,80px) var(--ph) 80px; }
+    #caseListPanel.hidden {
+      opacity: 0; transform: translateX(-40px);
+      pointer-events: none; transition: opacity 0.3s, transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    #caseListPanel { transition: opacity 0.3s, transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+
+    /* Case detail panel */
+    #caseDetailPanel {
+      padding: 0 var(--ph) 80px; background: #fff;
+      opacity: 0; transform: translateX(60px); pointer-events: none;
+      transition: opacity 0.35s, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    #caseDetailPanel.active { opacity: 1; transform: none; pointer-events: auto; }
+
+
+    /* Fit panel */
+    #fitPanel {
+      padding: 0 var(--ph) 80px; background: #fff;
+      opacity: 0; transform: translateX(60px); pointer-events: none;
+      transition: opacity 0.35s, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    #fitPanel.active { opacity: 1; transform: none; pointer-events: auto; }
+
+    /* Back button */
+    .back-btn {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; gap: 6px;
+      width: calc(100% + 2 * var(--ph)); margin-left: calc(-1 * var(--ph));
+      padding: 20px var(--ph) 12px;
+      background: #fff; border: none; cursor: pointer;
+      font-family: var(--font-ui); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #000;
+      box-shadow: 0 12px 20px 8px #fff; margin-bottom: 28px;
+      transition: color 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .back-btn:hover { transform: translateX(-5px); }
+
+    /* ── View-switch links (top of recruiter / HM panels) ── */
+    .view-switch-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--font-ui); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      background: none; border: none; cursor: pointer; padding: 0;
+      margin-bottom: 36px; transition: opacity 0.18s, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .view-switch-link:hover { opacity: 1 !important; }
+    .view-switch-link--back  { color: var(--pink); opacity: 0.55; }
+    .view-switch-link--back:hover  { opacity: 1; transform: translateX(-4px); }
+    .view-switch-link--fwd   { color: rgba(31,31,31,0.38); }
+    .view-switch-link--fwd:hover   { transform: translateX(4px); }
+
+    /* ── About section ── */
+    .about-section { margin-bottom: 44px; }
+    .about-title {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 2.4vw, 2.6rem);
+      font-weight: 400; color: #1f1f1f; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 18px;
+    }
+    .about-lede {
+      font-family: var(--font-display); font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+      font-weight: 400; line-height: 1.3; letter-spacing: -0.02em; color: #1f1f1f;
+      max-width: 640px; margin-bottom: 14px;
+    }
+    .about-desc {
+      font-family: var(--font-ui); font-size: 0.95rem; line-height: 1.55;
+      color: rgba(31,31,31,0.72); max-width: 640px;
+    }
+
+    /* ── Cases grid (masonry) ── */
+    .cases-heading {
+      font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+      font-weight: 400; letter-spacing: -0.02em; color: #1f1f1f; margin-bottom: 18px;
+      display: flex; align-items: baseline; gap: 14px;
+    }
+    .thoughts-toggle {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: none; border: 1px solid currentColor; border-radius: 4px;
+      padding: 3px 8px; cursor: pointer; color: rgba(31,31,31,0.45);
+      transition: color 0.2s, border-color 0.2s; flex-shrink: 0;
+    }
+    .thoughts-toggle:hover { color: rgba(31,31,31,0.85); }
+    .case-stack { position: relative; padding: 4px 0 40px; }
+
+    /* Case card */
+    .case-item { position: absolute; box-sizing: border-box; aspect-ratio: 2 / 1; }
+    .case-card-v {
+      width: 100%; height: 100%; display: flex; flex-direction: column; border-radius: 18px;
+      overflow: hidden; position: relative; background: var(--bg-darker);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18); cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s;
+    }
+    .case-card-v:hover { transform: rotate(var(--tilt,0deg)) scale(1.04); box-shadow: 0 24px 56px rgba(0,0,0,0.22); }
+    .case-card-logo {
+      position: absolute; top: 20px; left: 20px; z-index: 2;
+      max-width: 90px; max-height: 32px; object-fit: contain;
+      filter: brightness(0) invert(1); opacity: 0.88; transition: opacity 0.3s, filter 0.3s ease;
+    }
+    .case-card-logo.logo-white { filter: none; }
+    .case-card-v:hover .case-card-logo { opacity: 1; filter: brightness(0) saturate(100%) invert(68%) sepia(49%) saturate(454%) hue-rotate(296deg) brightness(106%); }
+    .case-card-v:hover .case-card-logo.logo-white { filter: brightness(0) saturate(100%) invert(68%) sepia(49%) saturate(454%) hue-rotate(296deg) brightness(106%); }
+    .case-card-v:hover .case-company,
+    .case-card-v:hover .case-title-h,
+    .case-card-v:hover .case-desc-h { color: var(--pink); }
+    .case-study-badge {
+      position: absolute; top: 12px; right: 12px; background: #000; color: #fff;
+      font-family: var(--font-ui); font-size: 8px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border-radius: 5px; z-index: 2;
+    }
+    .case-card-content { padding: 62px 20px 22px; flex: 1; display: flex; flex-direction: column; }
+    .case-company {
+      font-family: var(--font-ui); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px;
+      transition: color 0.3s ease;
+    }
+    .case-title-h {
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 400;
+      color: #fff; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+    .case-desc-h { font-family: var(--font-body); font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.5; transition: color 0.3s ease; }
+
+    /* Thought/article tile */
+    .case-item--thought { cursor: pointer; }
+    .thought-tile {
+      position: relative; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07); cursor: pointer; height: 100%;
+    }
+    .thought-tile-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(0.15); transition: filter 0.5s, transform 0.6s; }
+    .thought-tile-badge {
+      display: inline-block; align-self: flex-start; margin-bottom: 20px;
+      background: #000; color: #fff;
+      font-family: var(--font-ui); font-size: 8px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 8px; border-radius: 5px;
+    }
+    .thought-tile-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.68) 50%, rgba(0,0,0,0.35) 100%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+      opacity: 1; transition: opacity 0.35s;
+    }
+    .thought-tile-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 400;
+      color: #fff; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px;
+    }
+    .thought-tile-desc { font-family: var(--font-ui); font-size: 0.78rem; color: rgba(255,255,255,0.85); line-height: 1.5; }
+    @media (hover:hover) {
+      .thought-tile-overlay { opacity: 0; }
+      .thought-tile:hover .thought-tile-overlay { opacity: 1; }
+      .thought-tile:hover .thought-tile-img { filter: grayscale(0); transform: scale(1.04); }
+      /* Title and desc slide up as overlay fades in */
+      .thought-tile:not(.thought-tile--pov) .thought-tile-title,
+      .thought-tile:not(.thought-tile--pov) .thought-tile-desc {
+        transform: translateY(10px);
+        transition: transform 0.38s cubic-bezier(0.22,1,0.36,1);
+      }
+      .thought-tile:not(.thought-tile--pov):hover .thought-tile-title {
+        transform: translateY(0); transition-delay: 0.06s;
+      }
+      .thought-tile:not(.thought-tile--pov):hover .thought-tile-desc {
+        transform: translateY(0); transition-delay: 0.12s;
+      }
+    }
+
+    /* POV / Perspective tiles (text-only, gradient background) */
+    .thought-tile--pov { min-height: 0; transition: transform 0.5s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s ease; }
+    .thought-tile--pov .thought-tile-img { display: none; }
+    .thought-tile-pov-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: var(--pink);
+    }
+    .thought-tile--pov .thought-tile-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      opacity: 1; background: none;
+      display: flex; flex-direction: column; justify-content: flex-start; padding: 94px 20px 22px;
+    }
+    .thought-tile--pov .thought-tile-badge { position: absolute; top: 12px; right: 12px; margin-bottom: 0; z-index: 2; }
+    .thought-tile--pov .case-card-logo    { filter: brightness(0); opacity: 1; }
+    .thought-tile--pov .thought-tile-title { color: #000; }
+    .thought-tile--pov .thought-tile-desc  { color: rgba(0,0,0,0.72); }
+    @media (hover:hover) {
+      .thought-tile--pov .thought-tile-overlay { opacity: 1; }
+      .thought-tile--pov:hover { transform: scale(1.04); box-shadow: 0 24px 56px rgba(0,0,0,0.22); }
+      .thought-tile--pov:hover .thought-tile-pov-bg { filter: brightness(1.08); }
+      .thought-tile--pov:hover .thought-tile-badge { opacity: 0; }
+    }
+    /* Per-experience gradients */
+    .thought-tile-pov-bg--five9        { background: linear-gradient(145deg, #fff0ed 0%, #ffd6cc 50%, #ffb49e 100%); }
+.thought-tile-pov-bg--designsystems{ background: linear-gradient(145deg, #eef2ff 0%, #e0e7ff 55%, #c7d2fe 100%); }
+    .thought-tile-pov-bg--skilllayer   { background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 55%, #fde68a 100%); }
+
+    /* Photo tile */
+    .photo-tile {
+      position: relative; border-radius: 18px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07); height: 100%;
+    }
+    .photo-tile-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1); transition: filter 0.5s, transform 0.5s; }
+    .photo-tile:hover .photo-tile-img { filter: grayscale(0); transform: scale(1.04); }
+    .photo-tile-caption {
+      position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+      display: flex; align-items: flex-end; padding: 16px; opacity: 0; transition: opacity 0.3s;
+    }
+    .photo-tile:hover .photo-tile-caption { opacity: 1; }
+    .photo-tile-caption span { font-family: var(--font-ui); font-size: 12px; font-weight: 500; color: #fff; }
+    a.photo-tile { display: block; text-decoration: none; }
+    .spotify-popover {
+      position: absolute; bottom: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%) translateY(6px); padding: 9px 14px;
+      background: rgba(31,31,31,0.92); backdrop-filter: blur(16px);
+      border-radius: 8px; font-family: var(--font-ui); font-size: 12px;
+      color: #fff; text-align: center; white-space: nowrap; line-height: 1.45;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s cubic-bezier(0.22,1,0.36,1);
+    }
+    .spotify-popover::after {
+      content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-top-color: rgba(31,31,31,0.92);
+    }
+    .photo-tile:hover .spotify-popover { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Content components (cd-*, cs-*, workflow, finding, sprint, alumni): see assets/wallabee.css */
+
+    /* Fit button */
+    .fit-btn-wrap { margin-bottom: 32px; }
+    .fit-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--font-display); font-size: clamp(1.2rem,1.6vw,1.8rem); font-weight: 400;
+      letter-spacing: -0.02em; color: #fff; background: #1f1f1f; border: none;
+      border-radius: 16px; padding: clamp(12px,1.6vh,22px) clamp(28px,3vw,48px);
+      cursor: pointer; transition: background 0.15s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .fit-btn:hover { background: #383838; transform: translateY(-3px) scale(1.02); }
+
+    /* Fit panel */
+    #fitPanel { padding: 0 var(--ph) 80px; }
+    .fit-title { font-family: var(--font-display); font-size: clamp(2rem,3.5vw,3.5rem); color: #1f1f1f; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .fit-desc { font-family: var(--font-body); font-size: clamp(0.95rem,1.1vw,1.05rem); color: rgba(31,31,31,0.55); line-height: 1.5; margin-bottom: 22px; }
+    .fit-input-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .fit-textarea {
+      width: 100%; max-width: 640px; min-height: 140px; resize: vertical;
+      font-family: var(--font-body); font-size: 0.95rem; color: #1f1f1f;
+      background: #f9f9f9; border: 1.5px solid rgba(31,31,31,0.12); border-radius: 12px;
+      padding: 14px 18px; outline: none; transition: border-color 0.2s;
+    }
+    .fit-textarea:focus { border-color: rgba(31,31,31,0.35); background: #fff; }
+    .fit-textarea::placeholder { color: rgba(31,31,31,0.35); }
+    .fit-char-row { display: flex; align-items: center; gap: 12px; font-family: var(--font-ui); font-size: 0.8rem; color: rgba(31,31,31,0.38); }
+    .fit-assess-btn {
+      margin-left: auto; padding: 9px 20px; background: #1f1f1f; border: none;
+      border-radius: 10px; font-family: var(--font-display); font-size: 0.9rem;
+      color: #fff; cursor: pointer; transition: background 0.15s, transform 0.2s;
+    }
+    .fit-assess-btn:hover { background: #383838; transform: translateY(-1px); }
+    .fit-results { margin-top: 24px; font-family: var(--font-body); font-size: 0.95rem; color: rgba(31,31,31,0.75); line-height: 1.65; max-width: 640px; }
+    .fit-results h3 { font-family: var(--font-display); font-size: 1.4rem; color: #1f1f1f; margin-bottom: 12px; }
+    .fit-error { font-family: var(--font-ui); font-size: 0.85rem; color: #b91c1c; margin-top: 8px; }
+
+
+    /* ── Context menu ── */
+    .ctx-toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(24px);
+      background: rgba(31,31,31,0.94); backdrop-filter: blur(16px);
+      color: #fff; font-family: var(--font-ui); font-size: 0.82rem; line-height: 1.45;
+      border-radius: 12px; padding: 12px 16px; z-index: 9000;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .ctx-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .ctx-toast-close { background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 1.1rem; line-height: 1; padding: 0; flex-shrink: 0; margin-top: 1px; }
+    .ctx-menu {
+      position: fixed; z-index: 9100; min-width: 210px;
+      background: rgba(31,31,31,0.96); backdrop-filter: blur(20px);
+      border-radius: 12px; padding: 6px; box-shadow: 0 16px 48px rgba(0,0,0,0.32);
+      opacity: 0; transform: scale(0.94); pointer-events: none;
+      transition: opacity 0.18s, transform 0.18s cubic-bezier(0.22,1,0.36,1);
+      transform-origin: top left;
+    }
+    .ctx-menu.visible { opacity: 1; transform: scale(1); pointer-events: auto; }
+    .ctx-label { font-family: var(--font-ui); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); padding: 8px 12px 6px; }
+    .ctx-item {
+      display: flex; align-items: center; gap: 8px; width: 100%; text-align: left;
+      background: none; border: none; color: rgba(255,255,255,0.85);
+      font-family: var(--font-ui); font-size: 0.85rem; padding: 9px 12px;
+      cursor: pointer; border-radius: 8px; transition: background 0.12s; text-decoration: none;
+    }
+    .ctx-item:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .ctx-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 4px 8px; }
+
+    /* ── Dev ref switcher (admin mode only) ── */
+    .dev-switcher {
+      display: none; /* hidden by default — only shown in admin mode */
+      flex-wrap: wrap; align-items: center; gap: 6px;
+      margin-top: 40px;
+      opacity: 0.25;
+      transition: opacity 0.2s;
+    }
+    .dev-switcher.admin-on { display: flex; }
+    .dev-switcher:hover { opacity: 1; }
+    .dev-switcher-label {
+      font-family: var(--font-ui); font-size: 10px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-right: 2px;
+    }
+    .dev-ref-btn {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 3px 10px; border-radius: 5px; cursor: pointer;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.55);
+      transition: background 0.12s, color 0.12s;
+    }
+    .dev-ref-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .dev-ref-btn.active {
+      background: var(--pink); border-color: var(--pink); color: #fff;
+    }
+
+    /* ── Mobile tabs ── */
+    .mob-tabs {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(31,31,31,0.09); height: 72px;
+      padding: 0 8px env(safe-area-inset-bottom);
+      align-items: center; justify-content: space-around;
+    }
+    .mob-tab {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+      background: none; border: none; padding: 8px; cursor: pointer;
+      color: rgba(31,31,31,0.4); font-family: var(--font-ui); font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+      transition: color 0.15s;
+    }
+    .mob-tab.mob-tab--active, .mob-tab:hover { color: #1f1f1f; }
+    @media (max-width: 768px) {
+      .mob-tabs { display: flex; }
+      .chat-rail { display: none; width: 100%; border-left: none; order: unset; }
+      .chat-rail.mob-active { display: flex; }
+      .portfolio-main { flex-direction: column; }
+      .portfolio-left { height: 100%; }
+      .back-btn { width: 100%; margin-left: 0; padding: 16px 24px 10px; }
+      .cd-screenshots-row, .cd-two-col, .cd-reframe { grid-template-columns: 1fr; }
+
+      /* ── Prevent horizontal overflow ── */
+      /* panels allow overflow-y scroll but that implicitly enables overflow-x too */
+      .panel { overflow-x: hidden; }
+      /* header identity text can exceed mobile width at nowrap */
+      .header-identity { display: none; }
+      /* wide content in case studies should never escape the panel */
+      .panel img, .panel video, .panel table { max-width: 100%; }
+      /* gate/landing screens: constrain any wide inner blocks */
+      #screenGate, #screenLanding { overflow-x: hidden; background-image: none; }
+    }
+
+    /* ── Tablet + mobile: square tiles ── */
+    @media (max-width: 1280px) {
+      .case-item { aspect-ratio: 1 / 1; }
+    }
+
+    /* Fade animations: see assets/wallabee.css */
+
+    /* Lazy load progress */
+    .lazy-host { position: relative; }
+    .lazy-progress { position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 5; pointer-events: none; overflow: hidden; }
+    .lazy-progress-fill { position: absolute; inset: 0; background: var(--magenta); transform: scaleX(0); transform-origin: left center; transition: transform 140ms linear; }
+    .lazy-host.lazy-loaded .lazy-progress-fill { opacity: 0; transition: opacity 500ms ease 200ms; }
+
+    /* Draggable word spans */
+    .drag-word { display: inline-block; white-space: nowrap; }
+
+    /* ═══════════════════════════════════════════════════
+       DARK PORTFOLIO VIEW — full dark treatment
+    ═══════════════════════════════════════════════════ */
+    #screenPortfolio { background: var(--bg); }
+
+    /* Site header */
+    .site-header { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+    /* Case list */
+    #caseListPanel { background: var(--bg) url('assets/portrait-bg.png') no-repeat right bottom / auto 92vh; }
+    @media (max-width: 1024px) { #caseListPanel { background: var(--bg); } }
+    .about-title,
+    .about-lede { color: var(--white); }
+    .about-desc { color: rgba(255,255,255,0.58); }
+    .cases-heading { color: var(--white); }
+
+    /* Back button */
+    .back-btn {
+      background: var(--bg); color: rgba(255,255,255,0.7);
+      box-shadow: 0 12px 20px 8px var(--bg);
+    }
+    .back-btn:hover { color: var(--white); }
+    /* HM panel is dark — .view-switch-link--back already uses white at 0.35 opacity */
+
+    /* Case detail */
+    #caseDetailPanel { background: var(--bg); }
+    /* Component dark styles (cd-*, cs-*, workflow, finding, sprint, alumni): see assets/wallabee.css */
+    .fit-btn { background: var(--pink); color: var(--bg-darker); }
+    .fit-btn:hover { background: rgb(248,124,155); transform: translateY(-3px) scale(1.02); }
+
+    /* Chat rail */
+    .chat-rail { background: var(--bg-darker); border-left-color: rgba(255,255,255,0.06); }
+    .name-question { color: var(--white); }
+    .name-input {
+      background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1);
+      color: var(--white);
+    }
+    .name-input::placeholder { color: rgba(255,255,255,0.22); }
+    .name-input:focus { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.28); }
+    .name-send-btn { background: rgba(255,255,255,0.1); }
+    .name-send-btn:hover { background: rgba(255,255,255,0.18); }
+    .name-hint { color: rgba(255,255,255,0.28); }
+    .msg-text { color: rgba(255,255,255,0.9); }
+    .msg--user .msg-text { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.9); }
+    .msg-dot-wrap span { background: rgba(255,255,255,0.35); }
+    .rail-input-wrap { background: var(--bg-darker); border-top-color: rgba(255,255,255,0.07); }
+    .chat-input {
+      background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1);
+      color: var(--white);
+    }
+    .chat-input::placeholder { color: rgba(255,255,255,0.28); }
+    .chat-input:focus { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); }
+    .chat-send-btn { background: var(--pink); color: var(--bg-darker); }
+    .chat-send-btn:hover { background: rgb(248,124,155); }
+
+
+    /* Fit panel */
+    #fitPanel { background: var(--bg); }
+    .fit-title { color: var(--white); }
+    .fit-desc { color: rgba(255,255,255,0.42); }
+    .fit-textarea {
+      background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.09); color: var(--white);
+    }
+    .fit-textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .fit-textarea:focus { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.22); }
+    .fit-char-row { color: rgba(255,255,255,0.28); }
+    .fit-assess-btn { background: var(--pink); color: var(--bg-darker); }
+    .fit-assess-btn:hover { background: rgb(248,124,155); }
+    .fit-results { color: rgba(255,255,255,0.7); }
+    .fit-results h3 { color: var(--white); }
+    .fit-error { color: var(--pink); }
+
+    /* Mobile tabs */
+    .mob-tabs { background: var(--bg-darker); border-top-color: rgba(255,255,255,0.07); }
+    .mob-tab { color: rgba(255,255,255,0.32); }
+    .mob-tab.mob-tab--active, .mob-tab:hover { color: var(--white); }
+
+    /* DS shell + Wallabee light mode: see assets/wallabee.css */
+
+    /* ── Param countdown ring ── */
+    #paramCountdown {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      margin-top: 8px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    #paramCountdown.fading { opacity: 0; }
+    #paramCountdown svg {
+      width: 64px; height: 64px;
+      transform: rotate(-90deg);
+      display: block;
+    }
+    #paramCountdown .cd-track {
+      fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 2.5;
+    }
+    #paramCountdown .cd-prog {
+      fill: none; stroke: var(--pink); stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 175.93; /* 2π × 28 */
+      stroke-dashoffset: 175.93; /* empty to start */
+      transition: stroke-dashoffset 1s linear;
+    }
+    #paramCountdown .cd-num {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--white);
+      line-height: 1;
+      transition: opacity 0.2s ease;
+    }
+
+    /* ── Param intro overlay — slides in from below over gate ── */
+    #gateParamContent {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: clamp(40px,6vw,80px) clamp(32px,8vw,120px);
+      box-sizing: border-box;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-y;
+      transform: translateY(100vh);
+      z-index: 2;
+    }
+
+    /* Logo fade-out transition */
+    .gate-header .ldg-logo,
+    .landing-header .ldg-logo { transition: opacity 0.22s ease; }
+
+  </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- ═══════════════ SCREEN 1: GATE ═══════════════ -->
+<div class="screen active" id="screenGate" data-entry>
+  <div class="gate-inner">
+
+    <div class="gate-header">
+      <div class="ldg-logo" role="img" aria-label="LDG Logo">
+        <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor">
+          <polygon points="36 432 221.36 432 36 27.57 36 432"/>
+          <path d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
+          <path d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21c0,13.96,1.41,27.59,4.11,40.75c1.01,4.94,2.2,9.81,3.56,14.61c1.82,6.4,3.94,12.67,6.36,18.79c8.45,21.43,20.45,41.07,35.28,58.19c2.12,2.45,4.3,4.84,6.53,7.18c2.23,2.34,4.52,4.63,6.86,6.86c2.34,2.23,4.74,4.41,7.18,6.53c4.89,4.24,9.99,8.24,15.27,12c11.89,8.46,24.74,15.66,38.35,21.42c3.02,1.28,6.09,2.49,9.18,3.62c21.68,7.94,45.1,12.27,69.53,12.27c111.68,0,202.21-90.53,202.21-202.21H625.79Z"/>
+        </svg>
+      </div>
+      <p class="gate-bio">L Dante Guarin
+Product Designer • Greater Los Angeles Area
+Formerly @ Adobe • Marketo • Upwork • T-Mobile • Teamshares</p>
+    </div>
+
+    <h1 class="gate-hero" id="gateHero">I design systems</h1>
+
+    <!-- Param flow: 3-second countdown ring (hidden until ?ref= mode activates) -->
+    <div id="paramCountdown" hidden>
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle class="cd-track" cx="32" cy="32" r="28"/>
+        <circle class="cd-prog"  cx="32" cy="32" r="28" id="cdProgress"/>
+      </svg>
+      <span class="cd-num" id="cdNumber">3</span>
+    </div>
+
+    <div>
+      <div class="gate-input-row" id="gateInputRow">
+        <input
+          class="gate-pw-input"
+          id="gatePwInput"
+          type="password"
+          placeholder="enter password"
+          autocomplete="new-password"
+          spellcheck="false"
+          maxlength="40"
+          aria-label="Password"
+        >
+        <button class="gate-go-btn" id="gateGoBtn" type="button">Go</button>
+      </div>
+      <p class="gate-error" id="gateError">Incorrect password. Try again.</p>
+    </div>
+
+  </div>
+
+  <!-- Param intro overlay — positioned absolute over gate, slides in from below -->
+  <div id="gateParamContent" hidden>
+    <p class="landing-text-block" id="gateParamGreeting"></p>
+    <p class="landing-text-block body-text" id="gateParamBody"></p>
+    <div class="landing-btns" id="gateParamBtns">
+      <button class="role-btn" data-role="hiring-manager">Come on in</button>
+    </div>
+  </div>
+
+  <button class="reset-btn" id="resetBtn" type="button" aria-label="Reset">
+    Reset
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M4.5 10a5.5 5.5 0 1 0 1.8-4.08" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      <path d="M6.5 3.5v3h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
+
+<!-- ═══════════════ SCREEN 2: LANDING ═══════════════ -->
+<div class="screen" id="screenLanding">
+  <div class="landing-inner">
+
+    <div class="landing-header">
+      <div class="ldg-logo" role="img" aria-label="LDG Logo">
+        <svg viewBox="0 0 864 459" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" style="color:var(--pink)">
+          <polygon points="36 432 221.36 432 36 27.57 36 432"/>
+          <path d="M221.36,27.57v404.43c111.68,0,202.21-90.53,202.21-202.21S333.04,27.57,221.36,27.57Z"/>
+          <path d="M625.79,229.79V27.57c-111.68,0-202.21,90.53-202.21,202.21c0,13.96,1.41,27.59,4.11,40.75c1.01,4.94,2.2,9.81,3.56,14.61c1.82,6.4,3.94,12.67,6.36,18.79c8.45,21.43,20.45,41.07,35.28,58.19c2.12,2.45,4.3,4.84,6.53,7.18c2.23,2.34,4.52,4.63,6.86,6.86c2.34,2.23,4.74,4.41,7.18,6.53c4.89,4.24,9.99,8.24,15.27,12c11.89,8.46,24.74,15.66,38.35,21.42c3.02,1.28,6.09,2.49,9.18,3.62c21.68,7.94,45.1,12.27,69.53,12.27c111.68,0,202.21-90.53,202.21-202.21H625.79Z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="landing-body" id="landingBody">
+      <p class="landing-text-block" id="landingGreeting"></p>
+      <p class="landing-text-block body-text" id="landingBodyText"></p>
+
+    </div>
+
+    <div class="landing-btns" id="landingBtns">
+      <button class="role-btn" data-role="hiring-manager">View Case Studies</button>
+    </div>
+
+    <!-- Dev-only ref switcher — hidden from visitors, for testing tailored experiences -->
+    <div class="dev-switcher" id="devSwitcher" aria-hidden="true">
+      <span class="dev-switcher-label">ref:</span>
+      <button class="dev-ref-btn" data-ref="">general</button>
+      <button class="dev-ref-btn" data-ref="five9">five9</button>
+      <button class="dev-ref-btn" data-ref="designsystems">designsystems</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════ SCREEN 3: PORTFOLIO ═══════════════ -->
+<div class="screen enter-up" id="screenPortfolio">
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-left">
+      <img class="header-avatar" src="assets/profile.png" alt="L Dante Guarin" width="44" height="44">
+      <span class="header-identity">L Dante Guarin &nbsp;|&nbsp; Designer &nbsp;|&nbsp; OC, CA</span>
+    </div>
+    <button id="exitBtn" type="button" aria-label="Exit session">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <line x1="1.5" y1="1.5" x2="12.5" y2="12.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        <line x1="12.5" y1="1.5" x2="1.5" y2="12.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <main class="portfolio-main" id="main-content">
+
+    <!-- Left: case panels -->
+    <div class="portfolio-left" id="portfolioLeft">
+
+      <!-- Panel A: case list -->
+      <div class="panel" id="caseListPanel">
+        <div style="max-width:1400px;margin:0 auto">
+
+          <button class="view-switch-link view-switch-link--back" id="hmToSelector" aria-label="Back to intro">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5L7.5 10l5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back to intro
+          </button>
+
+          <section class="about-section" aria-labelledby="aboutTitle">
+            <h2 class="about-title" id="aboutTitle">Brass Tacks</h2>
+            <p class="about-lede">Over 10 years designing where complex systems and real user need overlap on the Venn diagram. Adobe (Marketo), Upwork, Meroxa, Teamshares, T-Mobile.</p>
+            <p class="about-desc">AI products need designers who can hold the product together when the rules don't exist yet. That's been my whole career.</p>
+          </section>
+
+          <p class="cases-heading">Selected work</p>
+          <div class="case-stack" id="caseStack">
+
+            <div class="case-item" data-case="vyehealth" role="button" tabindex="0" aria-label="Vye Health" style="--card-color:#2D7A64">
+              <div class="case-card-v">
+                <span class="case-study-badge">Case Study</span>
+                <img src="data:image/svg+xml,%3Csvg%20width%3D%22892%22%20height%3D%22941%22%20viewBox%3D%2251%20130%20789%20681%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M509.04%20611.52L552.54%20508.22L711.79%20130H624.99L509.27%20404.82L465.78%20508.12L444.93%20557.63L401.44%20660.93L380.59%20710.44L137.72%20130H51L335.71%20810.42H425.3L444.7%20764.33L488.2%20661.03L509.04%20611.52Z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M753.27%20130L573.21%20557.63L466.77%20810.42H553.58L616.48%20661.03L840.07%20130H753.27Z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M380.48%20610.85L423.97%20507.54L380.71%20404.14L266%20130H179.28L337.21%20507.45L380.48%20610.85Z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M444.82%20458.04L488.32%20354.73L445.05%20251.33L394.28%20130H307.56L401.55%20354.64L444.82%20458.04Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E" alt="Stealth" class="case-card-logo">
+                <div class="case-card-content">
+                  <p class="case-company">Vye Health</p>
+                  <h3 class="case-title-h">Building the patient experience, end to end</h3>
+                  <p class="case-desc-h">Turned vibecoded flows into a coherent patient journey — and a process that made each sprint faster than the last.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-item" data-case="vyehealth-ds" role="button" tabindex="0" aria-label="Vye Health — design system" style="--card-color:#3B3D8C">
+              <div class="case-card-v">
+                <span class="case-study-badge">Case Study</span>
+                <img src="data:image/svg+xml,%3Csvg%20width%3D%22892%22%20height%3D%22941%22%20viewBox%3D%2251%20130%20789%20681%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M509.04%20611.52L552.54%20508.22L711.79%20130H624.99L509.27%20404.82L465.78%20508.12L444.93%20557.63L401.44%20660.93L380.59%20710.44L137.72%20130H51L335.71%20810.42H425.3L444.7%20764.33L488.2%20661.03L509.04%20611.52Z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M753.27%20130L573.21%20557.63L466.77%20810.42H553.58L616.48%20661.03L840.07%20130H753.27Z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M380.48%20610.85L423.97%20507.54L380.71%20404.14L266%20130H179.28L337.21%20507.45L380.48%20610.85Z%22%20fill%3D%22white%22%2F%3E%3Cpath%20d%3D%22M444.82%20458.04L488.32%20354.73L445.05%20251.33L394.28%20130H307.56L401.55%20354.64L444.82%20458.04Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E" alt="Stealth" class="case-card-logo">
+                <div class="case-card-content">
+                  <p class="case-company">Vye Health</p>
+                  <h3 class="case-title-h">Teaching a design system to vibecode itself</h3>
+                  <p class="case-desc-h">Built the token architecture and Claude Code skill that let anyone on the team generate 60%-polished prototypes without a designer in the room.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-item" data-case="teamshares-payroll" role="button" tabindex="0" aria-label="Teamshares Payroll" style="--card-color:#DB8319">
+              <div class="case-card-v">
+                <span class="case-study-badge">Case Study</span>
+                <img src="data:image/svg+xml,%3Csvg%20width%3D%22290%22%20height%3D%22290%22%20viewBox%3D%22120%20121%20310%20308%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M415%20413.708L313.427%20414V236.852H135L135.291%20136H415V413.708Z%22%20fill%3D%22%23363962%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E" alt="Teamshares" class="case-card-logo">
+                <div class="case-card-content">
+                  <p class="case-company">Teamshares</p>
+                  <h3 class="case-title-h">Payroll reporting</h3>
+                  <p class="case-desc-h">Saving Teamshares ~$3.1M annually without adding or subtracting headcount.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-item" data-case="teamshares-ats" role="button" tabindex="0" aria-label="Teamshares ATS" style="--card-color:#1e3a5f">
+              <div class="case-card-v">
+                <span class="case-study-badge">Case Study</span>
+                <img src="data:image/svg+xml,%3Csvg%20width%3D%22290%22%20height%3D%22290%22%20viewBox%3D%22120%20121%20310%20308%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M415%20413.708L313.427%20414V236.852H135L135.291%20136H415V413.708Z%22%20fill%3D%22%23363962%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E" alt="Teamshares" class="case-card-logo">
+                <div class="case-card-content">
+                  <p class="case-company">Teamshares</p>
+                  <h3 class="case-title-h">A hiring engine for a company of companies</h3>
+                  <p class="case-desc-h">Reframing a recruiting tool into talent pipeline infrastructure for 90+ acquired businesses.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-item" data-case="marketo-sky" role="button" tabindex="0" aria-label="Marketo Sky" style="--card-color:#4c1d95">
+              <div class="case-card-v">
+                <span class="case-study-badge">Case Study</span>
+                <img src="data:image/svg+xml,%3Csvg%20width%3D%22318%22%20height%3D%22288%22%20viewBox%3D%22116%20131%20318%20288%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cg%20clip-path%3D%22url(%23clip0_1_28)%22%3E%0A%3Cpath%20d%3D%22M427.158%20418.985H362.098C359.281%20419.074%20356.524%20418.306%20354.15%20416.772C351.79%20415.252%20349.947%20413.039%20348.871%20410.442L278.252%20245.548C278.148%20245.149%20277.971%20244.766%20277.721%20244.441C277.47%20244.117%20277.16%20243.836%20276.792%20243.644C276.438%20243.438%20276.025%20243.32%20275.627%20243.275C275.214%20243.231%20274.801%20243.275%20274.418%20243.408C273.901%20243.541%20273.43%20243.807%20273.061%20244.19C272.692%20244.559%20272.412%20245.031%20272.279%20245.548L228.336%20350.298C228.13%20350.741%20228.012%20351.227%20227.997%20351.714C227.982%20352.201%20228.071%20352.703%20228.247%20353.16C228.424%20353.618%20228.705%20354.031%20229.044%20354.385C229.398%20354.739%20229.811%20355.005%20230.268%20355.197H280.183C281.658%20355.197%20283.088%20355.669%20284.312%20356.51C285.536%20357.351%20286.465%20358.517%20287.011%20359.889L308.348%20406.827C309.277%20408.951%20309.336%20411.357%20308.496%20413.511C307.655%20415.665%20305.989%20417.406%20303.88%20418.351C302.745%20418.557%20301.595%20418.557%20300.474%20418.351H124.051C122.99%20418.351%20121.957%20418.144%20120.984%20417.731C120.011%20417.318%20119.126%20416.728%20118.404%20415.96C117.666%20415.208%20117.091%20414.308%20116.708%20413.319C116.324%20412.33%20116.147%20411.283%20116.162%20410.235C115.941%20409.247%20115.941%20408.228%20116.162%20407.255L228.159%20140.591C229.28%20137.729%20231.256%20135.279%20233.807%20133.567C236.358%20131.856%20239.381%20130.956%20242.448%20131H306.446C309.513%20131.015%20312.492%20131.944%20315.043%20133.641C317.579%20135.353%20319.57%20137.773%20320.735%20140.591L433.381%20407.255C434.177%20409.188%20434.206%20411.342%20433.454%20413.29C432.702%20415.237%20431.228%20416.816%20429.326%20417.702C428.264%20417.908%20427.187%20417.908%20426.126%20417.702%22%20fill%3D%22white%22%3E%3C%2Fpath%3E%0A%3C%2Fg%3E%0A%3Cdefs%3E%0A%3CclipPath%20id%3D%22clip0_1_28%22%3E%0A%3Crect%20width%3D%22318%22%20height%3D%22288%22%20fill%3D%22white%22%20transform%3D%22translate(116%20131)%22%3E%3C%2Frect%3E%0A%3C%2FclipPath%3E%0A%3C%2Fdefs%3E%0A%3C%2Fsvg%3E" alt="Adobe" class="case-card-logo logo-white">
+                <div class="case-card-content">
+                  <p class="case-company">Marketo / Adobe</p>
+                  <h3 class="case-title-h">The design system that survived an acquisition</h3>
+                  <p class="case-desc-h">Built Sky's design system from the ground up. Patterns contributed upstream to Adobe Spectrum.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-item" data-case="marketo-migration" role="button" tabindex="0" aria-label="Marketo Migration" style="--card-color:#7c2d4e">
+              <div class="case-card-v">
+                <span class="case-study-badge">Case Study</span>
+                <img src="data:image/svg+xml,%3Csvg%20width%3D%22318%22%20height%3D%22288%22%20viewBox%3D%22116%20131%20318%20288%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cg%20clip-path%3D%22url(%23clip0_1_28)%22%3E%0A%3Cpath%20d%3D%22M427.158%20418.985H362.098C359.281%20419.074%20356.524%20418.306%20354.15%20416.772C351.79%20415.252%20349.947%20413.039%20348.871%20410.442L278.252%20245.548C278.148%20245.149%20277.971%20244.766%20277.721%20244.441C277.47%20244.117%20277.16%20243.836%20276.792%20243.644C276.438%20243.438%20276.025%20243.32%20275.627%20243.275C275.214%20243.231%20274.801%20243.275%20274.418%20243.408C273.901%20243.541%20273.43%20243.807%20273.061%20244.19C272.692%20244.559%20272.412%20245.031%20272.279%20245.548L228.336%20350.298C228.13%20350.741%20228.012%20351.227%20227.997%20351.714C227.982%20352.201%20228.071%20352.703%20228.247%20353.16C228.424%20353.618%20228.705%20354.031%20229.044%20354.385C229.398%20354.739%20229.811%20355.005%20230.268%20355.197H280.183C281.658%20355.197%20283.088%20355.669%20284.312%20356.51C285.536%20357.351%20286.465%20358.517%20287.011%20359.889L308.348%20406.827C309.277%20408.951%20309.336%20411.357%20308.496%20413.511C307.655%20415.665%20305.989%20417.406%20303.88%20418.351C302.745%20418.557%20301.595%20418.557%20300.474%20418.351H124.051C122.99%20418.351%20121.957%20418.144%20120.984%20417.731C120.011%20417.318%20119.126%20416.728%20118.404%20415.96C117.666%20415.208%20117.091%20414.308%20116.708%20413.319C116.324%20412.33%20116.147%20411.283%20116.162%20410.235C115.941%20409.247%20115.941%20408.228%20116.162%20407.255L228.159%20140.591C229.28%20137.729%20231.256%20135.279%20233.807%20133.567C236.358%20131.856%20239.381%20130.956%20242.448%20131H306.446C309.513%20131.015%20312.492%20131.944%20315.043%20133.641C317.579%20135.353%20319.57%20137.773%20320.735%20140.591L433.381%20407.255C434.177%20409.188%20434.206%20411.342%20433.454%20413.29C432.702%20415.237%20431.228%20416.816%20429.326%20417.702C428.264%20417.908%20427.187%20417.908%20426.126%20417.702%22%20fill%3D%22white%22%3E%3C%2Fpath%3E%0A%3C%2Fg%3E%0A%3Cdefs%3E%0A%3CclipPath%20id%3D%22clip0_1_28%22%3E%0A%3Crect%20width%3D%22318%22%20height%3D%22288%22%20fill%3D%22white%22%20transform%3D%22translate(116%20131)%22%3E%3C%2Frect%3E%0A%3C%2FclipPath%3E%0A%3C%2Fdefs%3E%0A%3C%2Fsvg%3E" alt="Adobe" class="case-card-logo logo-white">
+                <div class="case-card-content">
+                  <p class="case-company">Marketo / Adobe</p>
+                  <h3 class="case-title-h">733% adoption increase through trust-first migration</h3>
+                  <p class="case-desc-h">Users were resistant to disruption. That was a design problem.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-item" data-case="meroxa" role="button" tabindex="0" aria-label="Meroxa" style="--card-color:#0E8FA5">
+              <div class="case-card-v">
+                <span class="case-study-badge">Case Study</span>
+                <img src="data:image/svg+xml,%3Csvg%20width%3D%22550%22%20height%3D%22230%22%20viewBox%3D%2216%20156%20512%20224%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M124.656%20171.083C108.46%20172.454%2096.6712%20175.615%2084.012%20181.936C73.9352%20186.971%2065.739%20192.789%2057.5989%20200.705C48.7571%20209.32%2042.5538%20217.711%2037.0803%20228.536C31.2981%20240.032%2027.9017%20251.472%2026.3579%20264.759C25.8807%20268.787%2025.8807%20282.269%2026.3579%20286.297C29.1367%20310.436%2038.9609%20331.358%2055.4656%20348.225C67.4512%20360.504%2081.0647%20369.119%2096.8958%20374.49C108.488%20378.434%20118.341%20380%20131.252%20380C139.673%20379.972%20143.996%20379.58%20151.182%20378.154C160.557%20376.308%20168.163%20373.734%20177.005%20369.371C187.812%20364.084%20195.447%20358.714%20203.896%20350.49C209.06%20345.484%20208.555%20346.099%20237.214%20311.471C253.662%20291.555%20261.072%20282.436%20261.634%20281.262C263.374%20277.709%20263.402%20273.458%20261.69%20269.849C261.072%20268.563%20254.813%20260.759%20237.522%20239.724C224.695%20224.117%20213.832%20211.026%20213.411%20210.634C212.99%20210.243%20211.558%20208.648%20210.211%20207.11C207.011%20203.418%20200.443%20197.068%20196.906%20194.243C181.188%20181.656%20163.083%20174.076%20142.901%20171.587C139.589%20171.195%20127.435%20170.831%20124.656%20171.083ZM140.515%20211.893C153.455%20213.935%20165.413%20219.697%20174.844%20228.452C177.567%20230.997%20209.846%20269.514%20210.772%20271.332C211.446%20272.675%20211.53%20273.178%20211.53%20275.556C211.53%20277.989%20211.446%20278.381%20210.688%20279.835C209.594%20281.905%20175.854%20321.82%20173.44%20323.89C160.641%20334.855%20145.203%20340.337%20128.726%20339.777C118.846%20339.442%20110.65%20337.344%20102.06%20333.008C95.1555%20329.54%2090.0749%20325.792%2084.4892%20320.114C72.1668%20307.499%2065.7109%20290.884%2066.3565%20273.29C66.8898%20259.164%2071.3528%20246.997%2080.2507%20235.529C84.1804%20230.494%2091.0293%20224.396%2096.98%20220.732C104.362%20216.145%20113.821%20212.788%20122.27%20211.781C123.674%20211.613%20125.19%20211.418%20125.639%20211.362C127.519%20211.11%20137.849%20211.474%20140.515%20211.893Z%22%20fill%3D%22%231E1E1E%22%3E%3C%2Fpath%3E%0A%3Cpath%20d%3D%22M268.263%20171.325C264.028%20172.279%20260.571%20174.13%20257.488%20177.102C253.944%20180.552%20252.1%20184.366%20251.438%20189.582C250.746%20195.051%20252.273%20200.295%20256.249%20206.016C257.949%20208.455%20257.776%20208.231%20287.738%20242.669C301.193%20258.149%20311.276%20269.956%20311.737%20270.825C312.976%20273.125%20313.293%20275.368%20312.717%20277.668C312.428%20278.705%20311.91%20280.08%20311.535%20280.697C311.132%20281.342%20299.205%20295.223%20284.973%20311.573C270.769%20327.922%20258.295%20342.365%20257.286%20343.683C254.981%20346.684%20252.792%20350.778%20251.985%20353.667C251.121%20356.667%20251.121%20361.351%20251.985%20364.576C253.915%20371.783%20259.188%20377.055%20266.707%20379.355C268.58%20379.916%20269.444%20380%20273.333%20380C277.107%20380%20278.145%20379.888%20280.046%20379.355C285.866%20377.728%20289.813%20374.784%20295.632%20367.801C297.217%20365.866%20313.638%20346.179%20332.077%20324.052C350.544%20301.926%20366.015%20283.164%20366.418%20282.407C367.772%20279.967%20368.204%20278.032%20368.06%20274.863C367.916%20271.807%20367.311%20269.787%20365.871%20267.74C364.257%20265.413%20293.846%20181.085%20291.628%20178.841C287.998%20175.139%20284.512%20172.98%20280.19%20171.746C277.453%20170.989%20270.913%20170.736%20268.263%20171.325Z%22%20fill%3D%22%2306B6D4%22%3E%3C%2Fpath%3E%0A%3Cpath%20d%3D%22M364.643%20171.371C360.51%20172.324%20357.136%20174.174%20354.127%20177.144C351.681%20179.583%20350.191%20181.993%20349.207%20185.02C346.901%20192.307%20347.97%20198.641%20352.749%20205.731C353.734%20207.217%20366.189%20222.127%20380.416%20238.887C395.459%20256.599%20406.621%20269.968%20407.071%20270.809C408.646%20273.864%20408.646%20277.171%20407.071%20280.226C406.621%20281.067%20396.78%20292.866%20383.65%20308.336C354.296%20342.921%20354.577%20342.557%20352.918%20344.995C349.46%20350.096%20348.11%20354.075%20348.138%20359.036C348.195%20368.817%20353.79%20376.356%20363.125%20379.271C364.952%20379.832%20365.796%20379.916%20369.591%20379.916C373.275%20379.916%20374.287%20379.804%20376.143%20379.271C380.473%20378.038%20383.875%20375.908%20387.446%20372.153C388.683%20370.863%20398.524%20358.952%20409.321%20345.668C429.79%20320.472%20429.818%20320.444%20432.714%20319.491C434.401%20318.93%20437.494%20319.07%20439.321%20319.771C440.165%20320.079%20441.458%20320.892%20442.189%20321.537C442.92%20322.209%20451.749%20332.887%20461.843%20345.303C471.909%20357.719%20480.85%20368.705%20481.693%20369.742C487.738%20377.169%20494.29%20380.336%20502.837%20379.972C508.91%20379.748%20513.184%20377.926%20517.205%20373.89C519.96%20371.172%20521.535%20368.481%20522.575%20364.754C523.419%20361.867%20523.475%20356.486%20522.744%20353.711C522.013%20351.021%20519.735%20346.62%20517.57%20343.762C516.502%20342.36%20504.243%20327.787%20490.269%20311.335C475.114%20293.482%20464.57%20280.814%20464.12%20279.946C463.445%20278.6%20463.361%20278.18%20463.361%20275.517C463.361%20272.967%20463.445%20272.378%20464.064%20271.173C464.486%20270.332%20474.889%20257.861%20490.325%20239.643C504.384%20223.08%20516.699%20208.45%20517.683%20207.133C519.735%20204.358%20522.013%20199.93%20522.744%20197.324C523.419%20194.549%20523.419%20189.168%20522.575%20186.281C520.607%20179.246%20515.49%20174.062%20508.348%20171.819C505.564%20170.951%20500.166%20170.726%20496.933%20171.371C490.831%20172.604%20486.164%20175.771%20480.906%20182.273C459.059%20209.207%20442.442%20229.442%20441.683%20230.002C439.462%20231.712%20436.144%20232.385%20433.417%20231.684C429.902%20230.787%20430.492%20231.432%20409.067%20205.059C398.13%20191.634%20388.289%20179.723%20387.193%20178.602C383.847%20175.155%20380.36%20172.969%20376.283%20171.791C373.612%20171.035%20367.23%20170.782%20364.643%20171.371Z%22%20fill%3D%22%2306B6D4%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E" alt="Meroxa" class="case-card-logo">
+                <div class="case-card-content">
+                  <p class="case-company">Meroxa</p>
+                  <h3 class="case-title-h">Pivoting from a builder to a data observability platform</h3>
+                  <p class="case-desc-h">How a discovery in research forced a pivot that opened doors for Meroxa.</p>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="case-item case-item--thought" data-thought="designing-for-people-who-live-in-the-product" role="button" tabindex="0" aria-label="Read Designing for people who live in the product">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--five9"></div>
+                <img class="case-card-logo" src="assets/logo.svg" alt="LDG">
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Designing for people who live in the product</h3>
+                  <p class="thought-tile-desc">On cognitive load, multi-persona platforms, and what full-day software demands from a design system.</p>
+                </div>
+              </article>
+            </div>
+
+
+
+<div class="case-item case-item--thought" data-thought="design-systems-built-to-travel" role="button" tabindex="0" aria-label="Read Design Systems Built to Travel">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--designsystems"></div>
+                <img class="case-card-logo" src="assets/logo.svg" alt="LDG">
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">Design Systems Built to Travel</h3>
+                  <p class="thought-tile-desc">On building token-first systems that propagate intent from Figma to code — and why the gap between design and implementation is still a design problem.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="the-skill-layer" role="button" tabindex="0" aria-label="Read The Skill Layer">
+              <article class="thought-tile thought-tile--pov">
+                <div class="thought-tile-pov-bg thought-tile-pov-bg--skilllayer"></div>
+                <img class="case-card-logo" src="assets/logo.svg" alt="LDG">
+                <span class="thought-tile-badge">Perspective</span>
+                <div class="thought-tile-overlay">
+                  <h3 class="thought-tile-title">The Skill Layer</h3>
+                  <p class="thought-tile-desc">On writing AI skills that implement design systems — and what a design system has to become before a skill can carry it faithfully.</p>
+                </div>
+              </article>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div><!-- /.case-stack -->
+
+          <div class="case-stack" id="thoughtsStack" style="display:none">
+
+            <div class="case-item case-item--thought" data-thought="charlie-murphys-law" role="button" tabindex="0" aria-label="Read Charlie Murphy's Law">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/charlie.jpeg" alt="Charlie Murphy's Law" class="thought-tile-img" width="1500" height="900">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Charlie Murphy's Law</h3>
+                  <p class="thought-tile-desc">Surprises in product design come in a few flavors. There are the ones you bring on yourself…</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="navigating-ambiguity" role="button" tabindex="0" aria-label="Read Navigating Ambiguity">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/karl.jpeg" alt="Navigating Ambiguity" class="thought-tile-img" width="1366" height="768">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Navigating Ambiguity</h3>
+                  <p class="thought-tile-desc">There are two kinds of fog. Confusing them is how teams end up solving the wrong problem with confidence.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="growing-leaders" role="button" tabindex="0" aria-label="Read Growing leaders">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/growth.jpg" alt="Growing leaders" class="thought-tile-img" width="800" height="534">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Growing leaders</h3>
+                  <p class="thought-tile-desc">On the quiet work of helping people find their direction — and why the real legacy isn't the projects or the pixels.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="case-item case-item--thought" data-thought="spongebob-would" role="button" tabindex="0" aria-label="Read Squidward would never. SpongeBob would.">
+              <article class="thought-tile">
+                <img data-lazy-src="assets/spongebob.jpeg" alt="SpongeBob would" class="thought-tile-img" width="1920" height="1080">
+                
+                <div class="thought-tile-overlay">
+                  <span class="thought-tile-badge">Thoughts</span>
+                  <h3 class="thought-tile-title">Squidward would never. SpongeBob would.</h3>
+                  <p class="thought-tile-desc">Squidward is the designer who's seen it all. Too experienced to be surprised…</p>
+                </div>
+              </article>
+            </div>
+          </div><!-- /.thoughts-stack -->
+        </div>
+
+        <div class="about-blurb">
+          <div class="about-text">
+            <p class="cases-heading">About</p>
+            <p class="cd-body">I'm Dante. Staff Product Designer based in Irvine, CA. I think in systems first, then UI — which means I'm as likely to redesign the brief as the interface.</p>
+            <p class="cd-body">Thirteen-plus years in enterprise SaaS, internal tooling, and healthcare platforms. I started my career writing front-end code and never fully put it down. These days that looks like building machine-readable design systems, designing with Claude Code and Figma MCP, and figuring out what AI-native design actually means when it has to ship.</p>
+            <p class="cd-body">I've also mentored designers across both product and creative work throughout my career — it's one of the most fulfilling parts of what I do. There's something about giving back the same way others poured into me that I keep showing up for.</p>
+          </div>
+        </div><!-- /.about-blurb -->
+
+        <div class="fit-btn-wrap" style="margin-top:56px;margin-bottom:40px;padding:0 20px">
+          <button class="fit-btn">
+            How do we match up?
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div><!-- /#caseListPanel -->
+
+      <!-- Panel B: case detail -->
+      <div class="panel" id="caseDetailPanel">
+        <button class="back-btn" id="caseBackBtn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Cases
+        </button>
+        <div id="caseDetailContent"></div>
+      </div>
+
+
+      <!-- Panel D: fit -->
+      <div class="panel" id="fitPanel">
+        <button class="back-btn" id="fitBackBtn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Cases
+        </button>
+        <h2 class="fit-title">Am I a fit?</h2>
+        <p class="fit-desc">Paste a job description and let's see how we match up.</p>
+        <div class="fit-input-wrap">
+          <textarea class="fit-textarea" id="fitTextarea" maxlength="10000" placeholder="Paste a job description or URL…" aria-label="Job description"></textarea>
+          <div class="fit-char-row">
+            <span id="fitCharCount">0</span> / 5,000
+            <button class="fit-clear-btn" id="fitClearBtn" hidden>Clear</button>
+            <button class="fit-assess-btn" id="fitAssessBtn">Check Fit</button>
+          </div>
+        </div>
+        <div class="fit-error" id="fitError" hidden></div>
+        <div class="fit-results" id="fitResults" hidden></div>
+      </div>
+
+    </div><!-- /#portfolioLeft -->
+
+    <!-- Mobile tab bar -->
+    <nav class="mob-tabs" id="mobTabs">
+      <button class="mob-tab mob-tab--active" data-tab="work">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        <span>Work</span>
+      </button>
+      <button class="mob-tab" data-tab="fit">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>
+        <span>Fit?</span>
+      </button>
+    </nav>
+
+  </main><!-- /.portfolio-main -->
+</div><!-- /#screenPortfolio -->
+
+
+<!-- Context menu -->
+<div class="ctx-toast" id="ctxToast">
+  <span>Psst, here's a cheat code.<br>Right-click or long press for the menu.</span>
+  <button class="ctx-toast-close" id="ctxToastClose">&times;</button>
+</div>
+<div class="ctx-menu" id="ctxMenu">
+  <div class="ctx-label">Case Studies</div>
+  <button class="ctx-item" data-case="vyehealth">Vye Health — Patient Experience</button>
+  <button class="ctx-item" data-case="vyehealth-ds">Vye Health — Design System</button>
+  <button class="ctx-item" data-case="teamshares-payroll">Teamshares — Payroll</button>
+  <button class="ctx-item" data-case="teamshares-ats">Teamshares — ATS</button>
+  <button class="ctx-item" data-case="marketo-sky">Marketo — Sky Design System</button>
+  <button class="ctx-item" data-case="marketo-migration">Marketo — Sky Migration</button>
+  <button class="ctx-item" data-case="meroxa">Meroxa — Data Observability</button>
+  <div class="ctx-divider"></div>
+  <a class="ctx-item" href="https://www.linkedin.com/in/ldanteguarin" target="_blank" rel="noopener">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    LinkedIn
+  </a>
+  <a class="ctx-item" href="https://tidycal.com/ldante/30-minute-intro-call" target="_blank" rel="noopener">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Book an intro
+  </a>
+</div>
+
+<script src="portfolio-app.js"></script>
+</body>
+</html>
