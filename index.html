@@ -1078,10 +1078,17 @@
 
   function handleX(x){
     var r = x / window.innerWidth;
+    // don't auto-close the gate out from under someone actually
+    // using it — typing a password and moving the mouse to click Go
+    // was closing the panel (via mouse position) before the click
+    // could land. While focus is anywhere inside the panel, only an
+    // explicit action (submit, "back to home", or a real dismissal)
+    // closes it — hover position is ignored.
+    var gateFocused = gateEl.contains(document.activeElement) && document.activeElement !== document.body;
     if (!aboutOpen && r > RIGHT_ON) { aboutOpen = true; gateOpen = false; }
     else if (aboutOpen && r < RIGHT_OFF) { aboutOpen = false; }
     if (!gateOpen && !suppressGateOpen && r < LEFT_ON) { gateOpen = true; aboutOpen = false; }
-    else if (gateOpen && r > LEFT_OFF) { gateOpen = false; }
+    else if (gateOpen && r > LEFT_OFF && !gateFocused) { gateOpen = false; }
     if (suppressGateOpen && r > LEFT_OFF) { suppressGateOpen = false; }
     render();
   }
@@ -1450,7 +1457,7 @@
   var dwellPx = 0;
   function sizePhilosophySpacer(){
     fillRangePx = words.length * PX_PER_WORD;
-    dwellPx = Math.round(window.innerHeight * 1.3);
+    dwellPx = Math.round(window.innerHeight * 0.5);
     philSpacer.style.height =
       (window.innerHeight + fillRangePx + dwellPx) + 'px';
   }
