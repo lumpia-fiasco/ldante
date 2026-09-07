@@ -253,18 +253,16 @@
   .maker-link svg { width: 17px; height: 17px; flex-shrink: 0; }
 
   /* ═══════ CONTACT: "Me in other places" — the very last section ═══════
-     Same pinned shape as the sections before it, but on the dark
-     paper texture (same asset the slide-in panels use) instead of
-     white or pink — so the title fill needs its own pink variant of
-     .word/.word.filled (charcoal would be invisible here). */
+     Same pinned shape as the sections before it, on the same charcoal
+     as the hero — the title keeps its own pink .word/.word.filled
+     variant (charcoal would blend into the background here), and the
+     lede/links use light-on-dark colors to match. */
   .contact-spacer { position: relative; }
   .contact-fixed {
     position: fixed;
     inset: 0;
     z-index: 16;
-    background-color: #050505;
-    background-image: url('assets/stardust.png');
-    background-size: 798px 798px;
+    background-color: var(--charcoal);
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -286,7 +284,7 @@
     font-family: var(--font-body);
     font-size: clamp(1.05rem, 1.6vw, 1.3rem);
     line-height: 1.5;
-    color: rgba(255,255,255,0.72);
+    color: rgba(255,255,255,0.85);
     max-width: 46ch;
     margin: 0 0 clamp(28px,4vw,40px);
   }
@@ -452,6 +450,15 @@
      path (same one "back to case studies" etc. use elsewhere) — no
      flip needed; flipping it here was turning it into a right-
      pointing chevron in front of "Case studies", backwards */
+  /* mobile only: the hints double as tap targets (see the isTouch
+     block in the script below) — .nav-hint itself stays
+     pointer-events:none (it's aria-hidden, purely decorative on
+     desktop, where mouse position already drives the panels), so
+     only these two children opt back in, and only on coarse
+     (touch) pointers */
+  @media (pointer: coarse) {
+    .hint-left, .hint-right { pointer-events: auto; cursor: pointer; }
+  }
 
   /* centered between the two hints, jumps to the philosophy block */
   .nav-hint-down {
@@ -1057,19 +1064,19 @@
       <div class="pillars">
         <div class="pillar">
           <h3 class="pillar-label">Intention</h3>
-          <p class="pillar-body">I chase the business problem behind the design ask, not just the ask itself — it shows up in both of the case studies ahead.</p>
+          <p class="pillar-body">I chase the business problem behind the design ask, not just the ask itself. The distinction often leads somewhere more valuable.</p>
         </div>
         <div class="pillar">
           <h3 class="pillar-label">Insight</h3>
-          <p class="pillar-body">Usage and behavior tell me more than what people say they want. I trust what the data shows over what a stakeholder assumes.</p>
+          <p class="pillar-body">Usage and behavior tell me more than what people say they want. I look for the signals that reveal what's really happening — and what might be possible next.</p>
         </div>
         <div class="pillar">
           <h3 class="pillar-label">Scale</h3>
-          <p class="pillar-body">Good design scales. I build with growth in mind. Today's customers are different from yesterday's customers.</p>
+          <p class="pillar-body">Good design scales. I build with growth in mind because today's customers aren't necessarily tomorrow's customers — and what works at one stage may not work at the next.</p>
         </div>
         <div class="pillar">
           <h3 class="pillar-label">Connection</h3>
-          <p class="pillar-body">The systems I build are interconnected, meant to connect people — not just move pixels around. The customer and the business both come out ahead.</p>
+          <p class="pillar-body">I build to connect. People, processes, systems — and ultimately, people to the things they're trying to accomplish.</p>
         </div>
       </div>
     </div>
@@ -1197,6 +1204,20 @@
   if (isTouch) {
     document.getElementById('hintLeftText').textContent  = 'Case studies';
     document.getElementById('hintRightText').textContent = 'About';
+
+    // mobile only: the hints themselves are tappable, opening the
+    // same panel a swipe in that direction would — an explicit
+    // alternative to the swipe gesture below, not a replacement
+    hintL.addEventListener('click', function(){
+      gateOpen = true;
+      aboutOpen = false;
+      render();
+    });
+    hintR.addEventListener('click', function(){
+      aboutOpen = true;
+      gateOpen = false;
+      render();
+    });
 
     var touchStartX = 0, touchStartY = 0;
     var SWIPE_MIN = 40;
@@ -1524,7 +1545,7 @@
     var a = c1[3] + (c2[3] - c1[3]) * t;
     return 'rgba(' + r + ',' + g + ',' + b + ',' + a.toFixed(3) + ')';
   }
-  var NAV_IDLE_LIGHT   = [255,255,255,0.32];
+  var NAV_IDLE_LIGHT   = [249,149,172,0.55]; // pink — idle color on dark backgrounds (hero)
   var NAV_IDLE_DARK    = [28,28,28,0.55];
   var NAV_ACTIVE_LIGHT = [249,149,172,1];  // --pink
   var NAV_ACTIVE_DARK  = [191,48,120,1];   // --magenta
@@ -1706,7 +1727,7 @@
     makersWords.forEach(function(w){ w.classList.add('filled'); });
     contactFixed.classList.add('visible');
     contactWords.forEach(function(w){ w.classList.add('filled'); });
-    updateNavHintColors(0); // contact (dark) is the final state shown in this mode
+    updateNavHintColors(0); // contact (charcoal) is the final state shown in this mode — dark, like the hero
     if (navHintDown) {
       navHintDown.classList.add('at-end');
       navHintDown.setAttribute('aria-label', 'Scroll to top');
@@ -1731,7 +1752,8 @@
     // fades on only in the last 15% of the zoom, once the screen is
     // actually solid pink — held here and combined with the contact
     // section's own reversion factor further down before the actual
-    // color update call
+    // color update call, since contact is charcoal (dark, like the
+    // hero) rather than a light background like philosophy/makers
     var heroPinkness = clamp01((zoomProgress - 0.85) / 0.15);
     var MAX_SCALE = 260;
     // baseScale (from positionHeroLogo) is the permanent shrink from
@@ -1817,11 +1839,11 @@
       contactWords[k].classList.toggle('filled', k < contactFilledCount);
     }
     // nav-hint: pink/white from the hero-zoom fade-in, but reverting
-    // back toward its original light-on-dark colors as CONTACT (dark
-    // again) approaches — taking the min of the two keeps the hero's
-    // own fade-in intact (this reversion factor is 1, i.e. a no-op,
-    // anywhere before contact) while still resolving correctly once
-    // inside it
+    // back toward its dark-background (pink-idle) colors as CONTACT
+    // (charcoal again) approaches — taking the min of the two keeps
+    // the hero's own fade-in intact (this reversion factor is 1, i.e.
+    // a no-op, anywhere before contact) while still resolving
+    // correctly once inside it
     var contactReversion = 1 - clamp01(contactLocalY / (contactTitleFillPx * 0.3));
     updateNavHintColors(Math.min(heroPinkness, contactReversion));
 
