@@ -252,6 +252,58 @@
   .maker-link:hover, .maker-link:focus-visible { text-decoration: underline; }
   .maker-link svg { width: 17px; height: 17px; flex-shrink: 0; }
 
+  /* ═══════ CONTACT: "Me in other places" — the very last section ═══════
+     Same pinned shape as the sections before it, but on the dark
+     paper texture (same asset the slide-in panels use) instead of
+     white or pink — so the title fill needs its own pink variant of
+     .word/.word.filled (charcoal would be invisible here). */
+  .contact-spacer { position: relative; }
+  .contact-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: 16;
+    background-color: #050505;
+    background-image: url('assets/stardust.png');
+    background-size: 798px 798px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .contact-fixed.visible { opacity: 1; pointer-events: auto; }
+  .contact-inner {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: clamp(28px,6vw,90px);
+  }
+  .contact-title { margin-bottom: clamp(24px,3.5vw,36px); }
+  .contact-title .word { -webkit-text-stroke-color: var(--pink); }
+  .contact-title .word.filled { color: var(--pink); }
+  .contact-lede {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.72);
+    max-width: 46ch;
+    margin: 0 0 clamp(28px,4vw,40px);
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    color: var(--pink);
+    text-decoration: none;
+    width: fit-content;
+  }
+  .contact-link:hover, .contact-link:focus-visible { color: #fff; text-decoration: underline; }
+  .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+
   /* only the title fills word by word — starts as a charcoal
      outline (hollow) and switches to solid fill as scroll reaches
      it. The pillar labels/copy are plain solid charcoal throughout. */
@@ -1040,6 +1092,42 @@
   </div>
 </div>
 
+<!-- CONTACT: "Me in other places" — the very last section -->
+<div class="contact-spacer" id="contactSpacer">
+  <div class="contact-fixed" id="contactFixed">
+    <div class="contact-inner">
+      <h2 class="philosophy-title contact-title" id="contactTitle">Me in other places</h2>
+      <p class="contact-lede">I would love to chat and learn more about what you have going on.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="https://www.linkedin.com/in/ldanteguarin" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="15" height="15" rx="2.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="7" cy="7" r="0.9" fill="currentColor" stroke="none"/>
+            <path d="M7 9.5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M10.5 14.5v-3a1.8 1.8 0 013.6 0v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M10.5 9.5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          https://www.linkedin.com/in/ldanteguarin
+        </a>
+        <a class="contact-link" href="https://www.ixxi.la" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7h10l-.8 9a1.5 1.5 0 01-1.5 1.35H7.3A1.5 1.5 0 015.8 16L5 7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M7.5 7V5.5a2.5 2.5 0 015 0V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          https://www.ixxi.la
+        </a>
+        <a class="contact-link" href="mailto:hello@ldante.com">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="2.5" y="4.5" width="15" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3.5 5.5l6.5 5 6.5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          hello@ldante.com
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   var aboutEl = document.getElementById('panelAbout');
@@ -1374,23 +1462,49 @@
   var makersTitle  = document.getElementById('makersTitle');
   var makersTrack  = document.getElementById('makersTrack');
 
+  var contactSpacer = document.getElementById('contactSpacer');
+  var contactFixed  = document.getElementById('contactFixed');
+  var contactTitle  = document.getElementById('contactTitle');
+
+  // a quick, fixed-duration scroll — used only for "back to top" from
+  // the very last section, where the distance (and so native smooth
+  // scroll's duration) can be huge. Everything else keeps the plain
+  // native smooth scroll below.
+  function swiftScrollTo(targetY, duration){
+    var startY = window.scrollY || window.pageYOffset;
+    var startTime = performance.now();
+    duration = duration || 600;
+    function step(now){
+      var t = Math.min(1, (now - startTime) / duration);
+      var eased = 1 - Math.pow(1 - t, 3);
+      window.scrollTo(0, startY + (targetY - startY) * eased);
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   // down chevron: always advances to the next section (hero →
-  // philosophy → makers); once you're actually in the last section
-  // it flips to an up chevron (see onScroll) and wraps back to the
-  // very top instead. offsets are read fresh on each click/scroll
-  // tick rather than cached, so a resize can't stale them out.
+  // philosophy → makers → me-in-other-places); once you're actually
+  // in the last section it flips to an up chevron (see onScroll) and
+  // swiftly scrolls back to the very top instead. Offsets are read
+  // fresh on each click/scroll tick rather than cached, so a resize
+  // can't stale them out.
   var navHintDown = document.getElementById('navHintDown');
   function nextSectionTarget(){
     var scrollY = window.scrollY || window.pageYOffset;
     var philStart = philSpacer.offsetTop;
     var makersStart = makersSpacer.offsetTop;
+    var contactStart = contactSpacer.offsetTop;
     if (scrollY < philStart - 2) return philStart;
     if (scrollY < makersStart - 2) return makersStart;
-    return 0;
+    if (scrollY < contactStart - 2) return contactStart;
+    return -1; // signals "wrap to top" — see click handler
   }
   if (navHintDown) {
     navHintDown.addEventListener('click', function(){
-      window.scrollTo({ top: nextSectionTarget(), behavior: 'smooth' });
+      var target = nextSectionTarget();
+      if (target < 0) swiftScrollTo(0, 600);
+      else window.scrollTo({ top: target, behavior: 'smooth' });
     });
   }
 
@@ -1415,8 +1529,10 @@
   var NAV_ACTIVE_LIGHT = [249,149,172,1];  // --pink
   var NAV_ACTIVE_DARK  = [191,48,120,1];   // --magenta
   var rootStyle = document.documentElement.style;
-  function updateNavHintColors(zoomProgress){
-    var pinkness = clamp01((zoomProgress - 0.85) / 0.15);
+  // takes a plain 0-1 pinkness fraction directly (not a raw scroll
+  // progress) — callers work out what pinkness their own section
+  // implies; see the two call sites below
+  function updateNavHintColors(pinkness){
     rootStyle.setProperty('--nav-idle', mixColor(NAV_IDLE_LIGHT, NAV_IDLE_DARK, pinkness));
     rootStyle.setProperty('--nav-active', mixColor(NAV_ACTIVE_LIGHT, NAV_ACTIVE_DARK, pinkness));
   }
@@ -1563,15 +1679,34 @@
   }
   sizeMakersSpacer();
 
+  // CONTACT ("Me in other places") — the very last section. Title
+  // fills the same way as the others; the links below it are plain
+  // and static from the start, same as the pillar copy / maker card
+  // content. Just a short dwell after the title, enough to read and
+  // click the links, since nothing follows it.
+  wrapWords(contactTitle);
+  var contactWords = Array.prototype.slice.call(contactTitle.querySelectorAll('.word'));
+  var contactTitleFillPx = 0;
+  var contactDwellPx = 0;
+  function sizeContactSpacer(){
+    contactTitleFillPx = contactWords.length * PX_PER_WORD;
+    contactDwellPx = Math.round(window.innerHeight * 0.6);
+    contactSpacer.style.height =
+      (window.innerHeight + contactTitleFillPx + contactDwellPx) + 'px';
+  }
+  sizeContactSpacer();
+
   if (reduceMotion) {
     // skip the scroll-driven zoom/fill/exit entirely — jump straight
-    // to the final state (makers, fully reachable) so the content —
-    // including the project link — is still reachable and legible
-    // without depending on any of the scroll-scrubbed motion above
+    // to the final state (contact, fully reachable) so the content —
+    // including every link — is still reachable and legible without
+    // depending on any of the scroll-scrubbed motion above
     heroLogo.style.opacity = 0;
     makersFixed.classList.add('visible');
     makersWords.forEach(function(w){ w.classList.add('filled'); });
-    updateNavHintColors(1); // background is permanently pink/white in this mode
+    contactFixed.classList.add('visible');
+    contactWords.forEach(function(w){ w.classList.add('filled'); });
+    updateNavHintColors(0); // contact (dark) is the final state shown in this mode
     if (navHintDown) {
       navHintDown.classList.add('at-end');
       navHintDown.setAttribute('aria-label', 'Scroll to top');
@@ -1593,7 +1728,11 @@
     // fixed logo by then, the exact release point doesn't need to
     // line up with anything here.
     var zoomProgress = clamp01((scrollY - heroZoomWrapper.offsetTop) / heroZoomWrapper.offsetHeight);
-    updateNavHintColors(zoomProgress);
+    // fades on only in the last 15% of the zoom, once the screen is
+    // actually solid pink — held here and combined with the contact
+    // section's own reversion factor further down before the actual
+    // color update call
+    var heroPinkness = clamp01((zoomProgress - 0.85) / 0.15);
     var MAX_SCALE = 260;
     // baseScale (from positionHeroLogo) is the permanent shrink from
     // the 1600px source down to the actual resting size — folded in
@@ -1666,11 +1805,31 @@
     var cardProgress = Math.max(0, Math.min(makerCards.length - 1, cardsY / cardTransitionPx));
     makersTrack.style.transform = 'translateX(-' + (cardProgress * 100).toFixed(2) + '%)';
 
+    // CONTACT: the very last section — plain fade-in (nothing sits
+    // underneath it that needs to stay in sync, unlike makers/phil),
+    // title fills the same way as everywhere else
+    var contactStart = contactSpacer.offsetTop;
+    contactFixed.classList.toggle('visible', scrollY >= contactStart);
+    var contactLocalY = scrollY - contactStart;
+    var contactTitleProgress = clamp01(contactLocalY / contactTitleFillPx);
+    var contactFilledCount = Math.round(contactTitleProgress * contactWords.length);
+    for (var k = 0; k < contactWords.length; k++) {
+      contactWords[k].classList.toggle('filled', k < contactFilledCount);
+    }
+    // nav-hint: pink/white from the hero-zoom fade-in, but reverting
+    // back toward its original light-on-dark colors as CONTACT (dark
+    // again) approaches — taking the min of the two keeps the hero's
+    // own fade-in intact (this reversion factor is 1, i.e. a no-op,
+    // anywhere before contact) while still resolving correctly once
+    // inside it
+    var contactReversion = 1 - clamp01(contactLocalY / (contactTitleFillPx * 0.3));
+    updateNavHintColors(Math.min(heroPinkness, contactReversion));
+
     // down chevron flips to an up chevron once you're actually in
-    // the last section — matches the wrap-to-0 branch of
+    // the last section — matches the wrap-to-top branch of
     // nextSectionTarget() above
     if (navHintDown) {
-      var atEnd = scrollY >= makersStart - 2;
+      var atEnd = scrollY >= contactStart - 2;
       navHintDown.classList.toggle('at-end', atEnd);
       navHintDown.setAttribute('aria-label', atEnd ? 'Scroll to top' : 'Scroll to next section');
     }
@@ -1681,6 +1840,7 @@
     sizePhilosophySpacer();
     sizePhilExitSpacer();
     sizeMakersSpacer();
+    sizeContactSpacer();
     onScroll();
   });
   onScroll();
