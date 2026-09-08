@@ -841,6 +841,9 @@
   .case-detail-light .cd-screenshot-wrap { margin: 14px 0 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.06); }
   .case-detail-light .cd-screenshot-wrap img { width: 100%; display: block; height: auto; }
   .case-detail-light .cd-screenshots-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  /* teamshares-ats only — those screenshots are dense enough that
+     half-width read too small; one full-width shot per row instead */
+  .case-detail-light .cd-screenshots-row--full { grid-template-columns: 1fr; }
   .case-detail-light .cd-screenshot-frame { border-radius: 10px; background: rgba(0,0,0,0.03); padding: 8px 8px 0; overflow: hidden; }
   .case-detail-light .cd-screenshot-frame img { width: 100%; height: auto; border-radius: 4px 4px 0 0; display: block; }
   .case-detail-light .cd-screenshot-frame span { font-family: var(--font-ui); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.04em; color: #5e5e5e; padding: 0 12px 10px; display: block; }

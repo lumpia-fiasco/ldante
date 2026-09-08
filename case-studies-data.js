@@ -600,21 +600,25 @@ const CASES = {
             <div class="sprint-body">Email hooks to cut the manual status-update loop. Recruiters were spending significant time on outbound communication that the system could handle. Automating status notifications freed up recruiting capacity for actual relationship work.</div>
           </div>
         </div>
-        <div class="cd-screenshots-row">
+        <div class="cd-screenshots-row cd-screenshots-row--full">
           <div class="cd-screenshot-frame">
             <img src="assets/ats-candidate-detail.png" alt="Candidate detail" />
             <span>Candidate detail</span>
           </div>
+        </div>
+        <div class="cd-screenshots-row cd-screenshots-row--full">
           <div class="cd-screenshot-frame">
             <img src="assets/ats-scoring.png" alt="Scoring rubric" />
             <span>Scoring rubric</span>
           </div>
         </div>
-        <div class="cd-screenshots-row">
+        <div class="cd-screenshots-row cd-screenshots-row--full">
           <div class="cd-screenshot-frame">
             <img src="assets/ats-archiving.png" alt="Archiving" />
             <span>Bench &amp; archiving</span>
           </div>
+        </div>
+        <div class="cd-screenshots-row cd-screenshots-row--full">
           <div class="cd-screenshot-frame">
             <img src="assets/ats-bulk-edits.png" alt="Bulk edits" />
             <span>Bulk actions</span>
