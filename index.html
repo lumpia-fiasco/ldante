@@ -271,7 +271,23 @@
     transition: opacity 0.4s ease;
   }
   .contact-fixed.visible { opacity: 1; pointer-events: auto; }
+  .contact-portrait {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    pointer-events: none;
+  }
+  @media (max-width: 900px) {
+    /* the text/links need the width back once the portrait's natural
+       aspect ratio would otherwise start overlapping them */
+    .contact-portrait { display: none; }
+  }
   .contact-inner {
+    position: relative;
+    z-index: 1; /* above .contact-portrait, which sits behind everything */
     width: 100%;
     max-width: 1160px;
     margin: 0 auto;
@@ -1102,6 +1118,7 @@
 <!-- CONTACT: "Me in other places" — the very last section -->
 <div class="contact-spacer" id="contactSpacer">
   <div class="contact-fixed" id="contactFixed">
+    <img class="contact-portrait" src="assets/portrait-bg.png" alt="" aria-hidden="true">
     <div class="contact-inner">
       <h2 class="philosophy-title contact-title" id="contactTitle">Me in other places</h2>
       <p class="contact-lede">I would love to chat and learn more about what you have going on.</p>
