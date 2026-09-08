@@ -1102,7 +1102,7 @@ const CASES = {
   },
   'marketo-migration': {
     company: 'Marketo / Adobe',
-    headline: 'Sky had been rebuilt for years. Almost nobody had opted in. Nobody had designed the transition.',
+    headline: 'Sky had been rebuilt for months. Almost nobody had opted in. Nobody had designed the transition.',
     intro: 'Sky had been in development for years. The platform was better. The investment was massive. And fewer than 600 users had opted in. The VP of Product and CPO assembled a task force. The product was ready. Nobody had designed the transition.',
     metrics: [
       { value: '733%', label: 'Increase in user adoption' },

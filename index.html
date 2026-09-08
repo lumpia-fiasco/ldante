@@ -205,6 +205,7 @@
   .makers-track {
     display: flex;
     width: 100%;
+    column-gap: clamp(24px,4vw,64px);
     will-change: transform;
   }
   .maker-card {
@@ -1408,8 +1409,8 @@
         { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', headline: 'A design system built to be read by a machine as well as a human.' },
         { id: 'teamshares-payroll',  company: 'Teamshares',        color: '#DB8319', headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.' },
         { id: 'teamshares-ats',      company: 'Teamshares — ATS',  color: '#1e3a5f', headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.' },
-        { id: 'marketo-sky',         company: 'Marketo / Adobe',   color: '#4c1d95', headline: 'Sky had been rebuilt for years. Almost nobody had opted in.' },
-        { id: 'marketo-migration',   company: 'Marketo / Adobe',   color: '#7c2d4e', headline: 'I pitched a structural fix before touching a single component.' },
+        { id: 'marketo-migration',   company: 'Marketo / Adobe',   color: '#4c1d95', headline: 'Sky had been rebuilt for months. Almost nobody had opted in.' },
+        { id: 'marketo-sky',         company: 'Marketo / Adobe',   color: '#7c2d4e', headline: 'I pitched a structural fix before touching a single component.' },
         { id: 'meroxa',              company: 'Meroxa',            color: '#0E8FA5', headline: 'We built the right product for the wrong person.' }
       ];
       var list = document.getElementById('caseList');
@@ -1670,6 +1671,14 @@
       caption: 'Strengthening and growing the 1:1 connection between client and service provider',
       url: 'https://www.crownd.app',
       urlLabel: 'https://www.crownd.app'
+    },
+    {
+      image: 'assets/royalsubject.png',
+      imageAlt: 'Royal Subject and Be Free graphic tees styled with sneakers',
+      subhead: 'Faith-based apparel',
+      caption: 'Faith-based streetwear brand Royal Subject.',
+      url: 'https://www.royalsubject.co',
+      urlLabel: 'https://www.royalsubject.co'
     }
     // add the next project here
   ];
@@ -1707,6 +1716,7 @@
   var makersTitleFillPx = 0;
   var makersDwellPx = 0;
   var cardTransitionPx = 0;
+  var makersCardStepPx = 0; // track width + gap — how far one card-step is, in px
   function sizeMakersSpacer(){
     makersTitleFillPx = makersWords.length * PX_PER_WORD;
     makersDwellPx = Math.round(window.innerHeight * 0.5);
@@ -1714,6 +1724,11 @@
     var cardsPx = Math.max(0, makerCards.length - 1) * cardTransitionPx;
     makersSpacer.style.height =
       (window.innerHeight + makersTitleFillPx + makersDwellPx + cardsPx) + 'px';
+    // column-gap is a fixed px value at any given viewport (clamp()),
+    // but reading it via getComputedStyle keeps this correct without
+    // duplicating the clamp() math here
+    var gapPx = parseFloat(getComputedStyle(makersTrack).columnGap) || 0;
+    makersCardStepPx = makersTrack.offsetWidth + gapPx;
   }
   sizeMakersSpacer();
 
@@ -1842,7 +1857,10 @@
     }
     var cardsY = makersLocalY - makersTitleFillPx - makersDwellPx;
     var cardProgress = Math.max(0, Math.min(makerCards.length - 1, cardsY / cardTransitionPx));
-    makersTrack.style.transform = 'translateX(-' + (cardProgress * 100).toFixed(2) + '%)';
+    // px, not %, so the gap between cards (see .makers-track) is
+    // accounted for — a pure percentage step would only be exactly
+    // right with zero gap between cards
+    makersTrack.style.transform = 'translateX(-' + (cardProgress * makersCardStepPx).toFixed(1) + 'px)';
 
     // CONTACT: the very last section — plain fade-in (nothing sits
     // underneath it that needs to stay in sync, unlike makers/phil),
