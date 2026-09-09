@@ -103,6 +103,15 @@
     z-index: 15;
     display: flex;
     align-items: center;
+    /* the intro copy pushed this taller than one screen on mobile —
+       plain "center" on overflowing flex content clips evenly off
+       BOTH ends, with no way to scroll up to what's clipped above
+       (scrollTop can't go negative). "safe center" falls back to
+       start-alignment only when it would overflow, so scrollTop:0
+       shows the top of the content and scrolling down reaches the
+       rest — unsupported browsers just ignore this line and keep
+       plain center above. */
+    align-items: safe center;
     overflow-y: auto;
     opacity: 0;
     pointer-events: none;
@@ -140,29 +149,31 @@
     margin: 0 0 clamp(28px,4vw,48px);
     max-width: 13ch;
   }
-  .pillars {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(20px,3vw,40px) clamp(28px,5vw,72px);
-  }
-  .pillar-label {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(1.2rem,2vw,1.6rem);
-    color: var(--charcoal);
-    margin: 0 0 6px;
-  }
-  .pillar-body {
+  /* this title is now a full sentence rather than a short 2-4 word
+     phrase — the shared 13ch cap (tuned for "Makers gotta make" /
+     "Me in other places") would wrap it into 5+ cramped lines at
+     this font-size */
+  #philTitle { max-width: 22ch; }
+  .philosophy-subhead {
     font-family: var(--font-body);
-    font-size: clamp(0.9rem,1.2vw,1.05rem);
-    line-height: 1.45;
+    font-size: clamp(1.35rem,2.4vw,1.85rem);
+    line-height: 1.35;
     color: var(--charcoal);
-    margin: 0;
-    max-width: 34ch;
+    max-width: 44ch;
+    margin: 0 0 clamp(28px,4vw,40px);
   }
-  @media (max-width: 720px) {
-    .pillars { grid-template-columns: 1fr; }
+  .philosophy-intro {
+    max-width: 56ch;
+    margin: 0 0 clamp(32px,4vw,48px);
   }
+  .philosophy-intro p {
+    font-family: var(--font-body);
+    font-size: clamp(1rem,1.4vw,1.2rem);
+    line-height: 1.55;
+    color: var(--charcoal);
+    margin: 0 0 14px;
+  }
+  .philosophy-intro p:last-child { margin-bottom: 0; }
 
   /* ═══════ EXIT: pink panel eases up off-screen ═══════
      .philosophy-fixed itself gets scaled/rotated/lifted by JS during
@@ -295,8 +306,8 @@
     padding: clamp(28px,6vw,90px);
   }
   .contact-title { margin-bottom: clamp(24px,3.5vw,36px); }
-  .contact-title .word { -webkit-text-stroke-color: var(--pink); }
-  .contact-title .word.filled { color: var(--pink); }
+  .contact-title .word { -webkit-text-stroke-color: #fff; }
+  .contact-title .word.filled { color: #fff; }
   .contact-lede {
     font-family: var(--font-body);
     font-size: clamp(1.05rem, 1.6vw, 1.3rem);
@@ -412,6 +423,21 @@
     font-size: clamp(1.05rem, 1.6vw, 1.4rem);
     color: rgba(255,255,255,0.72);
     margin: 0 0 10px;
+  }
+  .hero-tagline {
+    font-family: var(--font-ui);
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    letter-spacing: 0.04em;
+    color: var(--pink);
+    margin: 0 0 14px;
+  }
+  .hero-desc {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.55);
+    max-width: 46ch;
+    margin: 0 0 clamp(16px,2.4vw,24px);
   }
 
   /* client/employer logo row — same quiet weight the credential
@@ -959,7 +985,9 @@
          it used to occupy so removing it doesn't shift anything -->
     <div class="ldg-logo-spacer" aria-hidden="true"></div>
     <h1 class="headline">I design systems.</h1>
-    <p class="subline">L Dante Guarin — Product Designer, Los Angeles.</p>
+    <p class="subline">L Dante Guarin, SD/OC/LA</p>
+    <p class="hero-tagline">Product Designer · 0→1 · Systems · Strategy</p>
+    <p class="hero-desc">I turn messy problems into products, processes, and systems people can use and organizations can scale.</p>
     <div class="logo-row">
       <img src="assets/logos/adobe.png" alt="Adobe">
       <img src="assets/logos/marketo.png" alt="Marketo">
@@ -1080,24 +1108,12 @@
 <div class="philosophy-spacer" id="philosophySpacer">
   <div class="philosophy-fixed" id="philosophyFixed">
     <div class="philosophy-inner">
-      <h2 class="philosophy-title" id="philTitle">My design principles</h2>
-      <div class="pillars">
-        <div class="pillar">
-          <h3 class="pillar-label">Intention</h3>
-          <p class="pillar-body">I chase the business problem behind the design ask, not just the ask itself. The distinction often leads somewhere more valuable.</p>
-        </div>
-        <div class="pillar">
-          <h3 class="pillar-label">Insight</h3>
-          <p class="pillar-body">Usage and behavior tell me more than what people say they want. I look for the signals that reveal what's really happening — and what might be possible next.</p>
-        </div>
-        <div class="pillar">
-          <h3 class="pillar-label">Scale</h3>
-          <p class="pillar-body">Good design scales. I build with growth in mind because what works today may not work tomorrow — and today's customers aren't necessarily tomorrow's customers.</p>
-        </div>
-        <div class="pillar">
-          <h3 class="pillar-label">Connection</h3>
-          <p class="pillar-body">I build to connect. People, processes, systems — and ultimately, people to progress, accomplishment, and delight.</p>
-        </div>
+      <h2 class="philosophy-title" id="philTitle">I work where the problem isn't fully defined yet.</h2>
+      <p class="philosophy-subhead">The interesting work rarely starts with a clean, fully fleshed-out PRD.</p>
+      <div class="philosophy-intro">
+        <p>It starts with a business that's changing, a product that isn't working the way it should, a team trying to figure out what comes next, or an idea that hasn't become a product yet.</p>
+        <p>That's where I come in.</p>
+        <p>I bring design, systems thinking, and product strategy together to turn ambiguity into something people can understand, use, and build on.</p>
       </div>
     </div>
   </div>
