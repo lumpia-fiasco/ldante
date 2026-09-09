@@ -212,7 +212,14 @@
     margin: 0 auto;
     padding: clamp(28px,6vw,90px);
   }
-  .makers-title { margin-bottom: clamp(36px,5vw,64px); }
+  .makers-title {
+    /* the shared 13ch cap (tuned for a short 2-4 word phrase) was
+       wrapping this to two lines well before it needed to — dropping
+       it lets natural wrapping only kick in once the viewport itself
+       is actually too narrow, not before */
+    max-width: none;
+    margin-bottom: clamp(36px,5vw,64px);
+  }
   .makers-track {
     display: flex;
     width: 100%;
@@ -289,6 +296,12 @@
     right: 0;
     height: 100%;
     width: auto;
+    /* sized by height alone, this could get as wide as the viewport
+       is tall — on a narrower, tallish window (a resized laptop
+       browser, not just "mobile") that leaves no room for the text
+       and the two visually collide. object-fit:cover lets this cap
+       coexist with height:100% by cropping instead of squishing. */
+    max-width: min(42vw, 460px);
     object-fit: cover;
     pointer-events: none;
   }
@@ -426,7 +439,7 @@
   }
   .hero-tagline {
     font-family: var(--font-ui);
-    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    font-size: clamp(1.05rem, 1.6vw, 1.4rem);
     letter-spacing: 0.04em;
     color: var(--pink);
     margin: 0 0 14px;
@@ -710,7 +723,7 @@
     line-height: 1.5;
     color: rgba(255,255,255,0.78);
     max-width: 46ch;
-    margin: 0 0 16px;
+    margin: 0 0 20px;
   }
 
   .panel-desc {
@@ -720,6 +733,29 @@
     color: rgba(255,255,255,0.5);
     max-width: 46ch;
   }
+  .panel-desc p { margin: 0 0 14px; }
+  .panel-desc p:last-child { margin-bottom: 0; }
+  /* the actual point of the section — pulled out of the paragraph
+     flow with a rule and brighter, larger, display-font type so it
+     reads as a deliberate list instead of four more lines of the
+     same dim body copy */
+  .panel-questions {
+    margin: 8px 0 20px;
+    padding-left: 18px;
+    border-left: 2px solid rgba(255,255,255,0.18);
+  }
+  .panel-questions p {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.3;
+    color: rgba(255,255,255,0.92);
+    margin: 0 0 12px;
+  }
+  .panel-questions p:last-child { margin-bottom: 0; }
+  .panel-questions { margin: 2px 0 16px; }
+  .panel-questions p { margin: 0 0 4px; }
+  .panel-questions p:last-child { margin-bottom: 0; }
 
   /* gate: password form */
   .gate-form { display: flex; flex-direction: column; gap: 12px; max-width: 380px; margin-top: 8px; }
@@ -1037,8 +1073,19 @@
   <img class="panel-avatar" src="assets/profile.png" alt="L Dante Guarin">
   <div class="panel-eyebrow">About</div>
   <h2 class="panel-title">Hey, I'm Dante.</h2>
-  <p class="panel-lede">Over 10 years designing where complex systems and real user need overlap on the Venn diagram. Adobe (Marketo), Upwork, Meroxa, Teamshares, T-Mobile.</p>
-  <p class="panel-desc">I spend a lot less time inside Figma and Illustrator now — and I'm optimistic about that. Faster idea validation means more of my time goes toward strategy: the systems and workflow behind the work, not just the pixels.</p>
+  <p class="panel-lede">I've spent my career designing where complex systems and real user needs overlap.</p>
+  <div class="panel-desc">
+    <p>I spend a lot less time inside Figma and Illustrator now. And I'm optimistic about that.</p>
+    <p>Not because I care less about making things.</p>
+    <p>Because faster idea validation means I can spend more of my time on the things that matter before the pixels:</p>
+    <div class="panel-questions">
+      <p>What are we actually solving?</p>
+      <p>What should exist?</p>
+      <p>How should the pieces connect?</p>
+      <p>And how do we build something that can grow?</p>
+    </div>
+    <p>That's where I do my best work.</p>
+  </div>
 </div>
 
 <!-- cream paper backing, peeking out past the front sheet's tear -->
@@ -1141,7 +1188,7 @@
     <img class="contact-portrait" src="assets/portrait%201.png" alt="" aria-hidden="true">
     <div class="contact-inner">
       <h2 class="philosophy-title contact-title" id="contactTitle">Me in other places</h2>
-      <p class="contact-lede">I would love to chat and learn more about what you have going on.</p>
+      <p class="contact-lede">Have something messy worth figuring out?<br>Let's talk.</p>
       <div class="contact-links">
         <a class="contact-link" href="https://www.linkedin.com/in/ldanteguarin" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
