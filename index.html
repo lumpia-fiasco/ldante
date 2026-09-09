@@ -218,8 +218,11 @@
        it lets natural wrapping only kick in once the viewport itself
        is actually too narrow, not before */
     max-width: none;
-    margin-bottom: clamp(36px,5vw,64px);
+    /* was the title-to-cards gap when there was no subhead between
+       them — now that spacing job belongs to .philosophy-subhead's
+       own margin-bottom instead (see below), same as philosophy */
   }
+  .makers-subhead { margin-bottom: clamp(36px,5vw,64px); }
   .makers-track {
     display: flex;
     width: 100%;
@@ -1178,6 +1181,7 @@
   <div class="makers-fixed" id="makersFixed">
     <div class="makers-inner">
       <h2 class="philosophy-title makers-title" id="makersTitle">Makers gotta make</h2>
+      <p class="philosophy-subhead makers-subhead">Because curiosity doesn't stop when the workday does.</p>
       <div class="makers-track" id="makersTrack"></div>
     </div>
   </div>
@@ -1189,7 +1193,8 @@
     <img class="contact-portrait" src="assets/portrait%201.png" alt="" aria-hidden="true">
     <div class="contact-inner">
       <h2 class="philosophy-title contact-title" id="contactTitle">Me in other places</h2>
-      <p class="contact-lede">Have something messy worth figuring out?<br>Let's talk.</p>
+      <p class="contact-lede">If you're figuring out what to build, how to make it work, or where to go next, I'd love to hear about it.</p>
+      <p class="contact-lede">Let's figure it out.</p>
       <div class="contact-links">
         <a class="contact-link" href="https://www.linkedin.com/in/ldanteguarin" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
