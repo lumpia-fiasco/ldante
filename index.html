@@ -292,17 +292,18 @@
   .contact-fixed.visible { opacity: 1; pointer-events: auto; }
   .contact-portrait {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
     height: 100%;
     width: auto;
     /* sized by height alone, this could get as wide as the viewport
        is tall — on a narrower, tallish window (a resized laptop
        browser, not just "mobile") that leaves no room for the text
-       and the two visually collide. object-fit:cover lets this cap
-       coexist with height:100% by cropping instead of squishing. */
-    max-width: min(42vw, 460px);
-    object-fit: cover;
+       and the two visually collide. */
+    max-width: min(63vw, 690px);
+    /* no cropping — shows the whole image, anchored bottom-right */
+    object-fit: contain;
+    object-position: bottom right;
     pointer-events: none;
   }
   @media (max-width: 900px) {
