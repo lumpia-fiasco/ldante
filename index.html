@@ -1724,16 +1724,17 @@
   // ── MAKER_PROJECTS ──────────────────────────────────────────────
   // The easy way to add a side project: add one object here. A new
   // card appears in the carousel automatically — no HTML/CSS to
-  // touch, no sizing to update. `image` is optional (path under
-  // assets/; omit the key, or leave it '', to skip it for that card).
+  // touch, no sizing to update. `image` and `url`/`urlLabel` are each
+  // optional (path under assets/ for image; omit the key, or leave
+  // it '', to skip that part of the card).
   //
   //   {
   //     image: 'assets/projects/your-file.png',
   //     imageAlt: 'One line describing the image',
   //     subhead: 'Project name or one-line pitch',
   //     caption: 'A sentence or two of context.',
-  //     url: 'https://example.com',
-  //     urlLabel: 'https://example.com' // what the link displays
+  //     url: 'https://example.com',        // omit for no link row
+  //     urlLabel: 'https://example.com'    // what the link displays
   //   },
   var MAKER_PROJECTS = [
     {
@@ -1751,6 +1752,12 @@
       caption: 'Faith-based streetwear brand Royal Subject.',
       url: 'https://www.royalsubject.co',
       urlLabel: 'https://www.royalsubject.co'
+    },
+    {
+      image: 'assets/parsly.png',
+      imageAlt: 'Parsly app screens — task entry, focus timer, check-in, and reward screen',
+      subhead: 'Time-boxed task management',
+      caption: 'Parsly is the ideal time-boxed task management app for people with ADHD.'
     }
     // add the next project here
   ];
@@ -1764,14 +1771,17 @@
     var img = p.image
       ? '<img class="maker-image" src="' + p.image + '" alt="' + (p.imageAlt || '') + '">'
       : '';
+    var link = p.url
+      ? '<a class="maker-link" href="' + p.url + '" target="_blank" rel="noopener noreferrer">' +
+          GLOBE_ICON_SVG + p.urlLabel +
+        '</a>'
+      : '';
     return (
       '<article class="maker-card">' +
         img +
         '<h3 class="maker-subhead">' + p.subhead + '</h3>' +
         '<p class="maker-caption">' + p.caption + '</p>' +
-        '<a class="maker-link" href="' + p.url + '" target="_blank" rel="noopener noreferrer">' +
-          GLOBE_ICON_SVG + p.urlLabel +
-        '</a>' +
+        link +
       '</article>'
     );
   }
