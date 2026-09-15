@@ -2047,10 +2047,13 @@
     // title fills the same way as everywhere else
     var contactStart = contactSpacer.offsetTop;
 
-    // split-chevron nav: active only once Makers gotta make is
-    // actually the current section (contactStart, not some earlier
-    // "underneath the still-open pink panel" threshold)
-    document.body.classList.toggle('makers-nav-active', scrollY >= makersStart && scrollY < contactStart);
+    // split-chevron nav: active as soon as the pink panel has fully
+    // lifted off (exitStart + exitRangePx — see the exit block above)
+    // and makers is what's actually on screen, not makersStart, which
+    // only marks where the TITLE starts filling and sits a further
+    // dwell-viewport-height below that
+    var makersEnterY = exitStart + exitRangePx;
+    document.body.classList.toggle('makers-nav-active', scrollY >= makersEnterY && scrollY < contactStart);
     if (makersPrevBtn) {
       makersPrevBtn.classList.toggle('disabled', Math.round(cardProgress) <= 0);
     }
