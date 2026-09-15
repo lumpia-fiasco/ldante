@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parsly Timebox — time-boxed tasks for ADHD brains</title>
+<meta name="description" content="Parsly Timebox turns a brain dump into a task list, boxes each task into a focus block, then checks in when the timer's done. Everything stays on your device.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parsly Timebox — time-boxed tasks for ADHD brains">
+<meta property="og:description" content="Dump your notes, get a task list. Box each task into a focus block. Check in when the timer's done.">
+<meta property="og:url" content="https://www.ldante.com/parsly">
+<meta property="og:image" content="https://www.ldante.com/assets/parsly.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/assets/parsly-logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF7F0;
+    --page-bg:#F4EEE2;
+    --page-bg-deep:#EFE4D2;
+    --ink:#2A2926;
+    --ink-dim:rgba(42,41,38,.66);
+    --ink-mute:rgba(42,41,38,.46);
+    --sage:#516B5E;
+    --sage-dark:#3F5548;
+    --sage-tint:#E4EAE4;
+    --terracotta:#C17A4E;
+    --terracotta-tint:#F3E1D2;
+    --line:rgba(42,41,38,.10);
+    --line-strong:rgba(42,41,38,.16);
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:12px;
+    --ph:clamp(20px,6vw,96px);
+    color-scheme: light;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--page-bg);
+    color:var(--ink);
+    font-family:'Golos Text', ui-sans-serif, system-ui, sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{
+    font-family:'Inter', 'Golos Text', sans-serif;
+    font-weight:300;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:.72rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--sage-dark);
+  }
+  .wrap{
+    max-width:1160px;
+    margin:0 auto;
+    padding-left:var(--ph);
+    padding-right:var(--ph);
+  }
+
+  /* ── NAV ───────────────────────────────────────────────── */
+  header.nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(250,247,240,.82);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding-top:16px;
+    padding-bottom:16px;
+  }
+  .wordmark{
+    display:flex;
+    align-items:center;
+    gap:.4em;
+    font-family:'Inter', sans-serif;
+    font-weight:300;
+    font-size:1.2rem;
+    letter-spacing:-0.01em;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .wordmark .logo-mark{
+    width:1.5em;
+    height:1.5em;
+    flex:none;
+  }
+  .wordmark .tag{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:.62rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-mute);
+    border:1px solid var(--line-strong);
+    border-radius:999px;
+    padding:3px 8px;
+  }
+  nav.links{
+    display:none;
+    align-items:center;
+    gap:clamp(14px,2.4vw,28px);
+    font-family:'Inter', sans-serif;
+    font-size:.88rem;
+    font-weight:500;
+  }
+  @media (min-width:640px){ nav.links{display:flex;} }
+  nav.links a{
+    text-decoration:none;
+    color:var(--ink-dim);
+    white-space:nowrap;
+  }
+  nav.links a:hover{color:var(--ink);}
+  .pill-status{
+    display:none;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:.72rem;
+    letter-spacing:.04em;
+    color:var(--sage-dark);
+    background:var(--sage-tint);
+    border-radius:999px;
+    padding:6px 12px;
+    white-space:nowrap;
+  }
+  @media (min-width:640px){ .pill-status{display:inline-block;} }
+
+  /* ── HERO ──────────────────────────────────────────────── */
+  .hero{
+    padding-top:clamp(48px,8vw,88px);
+    padding-bottom:clamp(40px,6vw,64px);
+    text-align:center;
+  }
+  .hero .eyebrow-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--cream);
+    border:1px solid var(--line-strong);
+    border-radius:999px;
+    padding:7px 16px 7px 12px;
+    margin-bottom:22px;
+  }
+  .hero .eyebrow-pill .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--terracotta);
+    flex:none;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem,7.5vw,4.6rem);
+    max-width:14ch;
+    margin:0 auto;
+  }
+  .hero p.sub{
+    max-width:46ch;
+    margin:22px auto 0;
+    font-size:clamp(1.05rem,1.6vw,1.25rem);
+    color:var(--ink-dim);
+  }
+  .hero .cta-row{
+    margin-top:32px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+  }
+  .btn{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    border-radius:999px;
+    padding:13px 26px;
+    border:1px solid transparent;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{
+    background:var(--sage);
+    color:#fff;
+  }
+  .btn-primary:hover{background:var(--sage-dark);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border-color:var(--line-strong);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  .hero-shot{
+    margin-top:clamp(40px,7vw,72px);
+    border-radius:var(--radius-lg);
+    background:linear-gradient(180deg,#111 0%,#0b0b0b 100%);
+    padding:clamp(18px,3vw,34px) clamp(8px,3vw,34px) 0;
+    overflow:hidden;
+  }
+  .hero-shot img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:var(--radius-md) var(--radius-md) 0 0;
+  }
+  .hero-caption{
+    font-family:'Inter', sans-serif;
+    font-size:.78rem;
+    color:var(--ink-mute);
+    margin-top:14px;
+  }
+
+  /* ── SECTIONS shared ──────────────────────────────────── */
+  section{
+    padding-top:clamp(56px,8vw,96px);
+    padding-bottom:clamp(56px,8vw,96px);
+  }
+  .section-head{
+    max-width:52ch;
+    margin-bottom:clamp(32px,5vw,52px);
+  }
+  .section-head h2{
+    font-size:clamp(1.9rem,4vw,2.7rem);
+    margin-top:10px;
+  }
+  .section-head p{
+    margin-top:14px;
+    color:var(--ink-dim);
+    font-size:1.05rem;
+  }
+
+  /* ── FEATURES ─────────────────────────────────────────── */
+  #features{border-top:1px solid var(--line);}
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+  }
+  @media (max-width:720px){ .feature-grid{grid-template-columns:1fr;} }
+  .feature-card{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:clamp(24px,3vw,34px);
+    min-width:0;
+  }
+  .feature-icon{
+    width:44px;height:44px;
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.3rem;
+    margin-bottom:18px;
+  }
+  .feature-icon.sage{background:var(--sage-tint);}
+  .feature-icon.terracotta{background:var(--terracotta-tint);}
+  .feature-card h3{
+    font-size:1.25rem;
+    margin-bottom:10px;
+  }
+  .feature-card p{
+    color:var(--ink-dim);
+    font-size:.98rem;
+    margin:0;
+  }
+
+  /* ── PRICING ──────────────────────────────────────────── */
+  #pricing{
+    border-top:1px solid var(--line);
+  }
+  .pricing-row{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:20px;
+  }
+  @media (max-width:760px){ .pricing-row{grid-template-columns:1fr;} }
+  .pricing-copy p{color:var(--ink-dim);}
+  .pricing-copy p + p{margin-top:12px;}
+  .price-card{
+    background:var(--sage);
+    color:#fff;
+    border-radius:var(--radius-md);
+    padding:clamp(24px,3vw,32px);
+  }
+  .price-card .eyebrow{color:rgba(255,255,255,.75);}
+  .price-card .price-line{
+    font-family:'Inter', sans-serif;
+    font-weight:300;
+    font-size:2rem;
+    margin-top:10px;
+  }
+  .price-card .price-alt{
+    font-size:.95rem;
+    color:rgba(255,255,255,.8);
+    margin-top:4px;
+  }
+  .price-card ul{
+    list-style:none;
+    margin:20px 0 0;
+    padding:0;
+    font-size:.92rem;
+    color:rgba(255,255,255,.9);
+  }
+  .price-card li{
+    padding-left:20px;
+    position:relative;
+    margin-top:8px;
+  }
+  .price-card li::before{
+    content:'';
+    position:absolute;
+    left:0;top:.55em;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:rgba(255,255,255,.65);
+  }
+
+  /* ── SUPPORT ──────────────────────────────────────────── */
+  #support{
+    border-top:1px solid var(--line);
+  }
+  form.support-form{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:clamp(24px,4vw,40px);
+    max-width:640px;
+  }
+  .field-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  @media (max-width:520px){ .field-row{grid-template-columns:1fr;} }
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    margin-top:18px;
+  }
+  .field:first-child{margin-top:0;}
+  .field-row .field{margin-top:0;}
+  .field label{
+    font-family:'Inter', sans-serif;
+    font-size:.78rem;
+    font-weight:600;
+    letter-spacing:.03em;
+    color:var(--ink-dim);
+  }
+  .field input,
+  .field select,
+  .field textarea{
+    font-family:'Golos Text', sans-serif;
+    font-size:.98rem;
+    color:var(--ink);
+    background:#fff;
+    border:1px solid var(--line-strong);
+    border-radius:var(--radius-sm);
+    padding:11px 14px;
+    width:100%;
+    outline:none;
+    transition:border-color .15s ease;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus{
+    border-color:var(--sage);
+  }
+  .field textarea{resize:vertical;min-height:110px;}
+  .hp-field{
+    position:absolute;
+    left:-9999px;
+    width:1px;height:1px;
+    overflow:hidden;
+  }
+  .form-foot{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-top:24px;
+    flex-wrap:wrap;
+  }
+  .form-status{
+    font-family:'Inter', sans-serif;
+    font-size:.85rem;
+    color:var(--ink-dim);
+  }
+  .form-status.ok{color:var(--sage-dark);}
+  .form-status.err{color:#B4472C;}
+
+  /* ── PRIVACY ──────────────────────────────────────────── */
+  #privacy{
+    border-top:1px solid var(--line);
+  }
+  .privacy-card{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:clamp(24px,4vw,44px);
+    max-width:760px;
+  }
+  .privacy-card .updated{
+    font-family:'Inter', sans-serif;
+    font-size:.8rem;
+    color:var(--ink-mute);
+    margin-bottom:28px;
+  }
+  .privacy-card h4{
+    font-family:'Inter', sans-serif;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--sage-dark);
+    margin:28px 0 8px;
+  }
+  .privacy-card h4:first-of-type{margin-top:18px;}
+  .privacy-card p{
+    color:var(--ink-dim);
+    font-size:.95rem;
+    margin:0;
+  }
+  .privacy-card a{
+    color:var(--sage-dark);
+    text-decoration:underline;
+    word-break:break-word;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────── */
+  footer{
+    border-top:1px solid var(--line);
+    padding-top:32px;
+    padding-bottom:40px;
+  }
+  .footer-inner{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    font-family:'Inter', sans-serif;
+    font-size:.82rem;
+    color:var(--ink-mute);
+  }
+  .footer-inner a{
+    color:var(--ink-dim);
+    text-decoration:none;
+  }
+  .footer-inner a:hover{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="wordmark" href="#top">
+      <img class="logo-mark" src="/assets/parsly-logo.svg" alt="" width="24" height="24"> Parsly <span class="tag">Timebox</span>
+    </a>
+    <nav class="links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#support">Support</a>
+      <a href="#privacy">Privacy</a>
+    </nav>
+    <span class="pill-status" id="navStatusPill">iOS · Coming soon</span>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <span class="eyebrow-pill">
+      <span class="dot"></span>
+      <span class="eyebrow" id="heroEyebrowText" style="color:var(--ink-dim);">For iOS · Coming soon to the App Store</span>
+    </span>
+    <h1>Time-boxed tasks for brains that need a nudge, not a lecture.</h1>
+    <p class="sub">
+      Dump your notes, get a task list. Box each task into a focus block. Check in when the
+      timer's done. Parsly Timebox is a small, structured loop built for how ADHD brains
+      actually get things done.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#support" data-topic="Notify me at launch" id="heroPrimaryCta">Get notified at launch</a>
+      <a class="btn btn-ghost" href="#features">See how it works</a>
+    </div>
+
+    <div class="hero-shot">
+      <img src="/assets/parsly.png" alt="Four Parsly screens: turning pasted notes into tasks, a focus timer running on 'Take a walk', a check-in asking whether the task got done, and a reward screen after finishing.">
+    </div>
+    <p class="hero-caption">Screens shown are from the app in development — final build may vary.</p>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Four steps, no willpower required</h2>
+      <p>Parsly isn't another to-do list. It's a loop: capture, box, focus, check in.</p>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-icon sage">📝</div>
+        <h3>Turn a brain dump into a task list</h3>
+        <p>
+          Paste your notes or scan handwritten notes and a whiteboard with your camera.
+          On-device text recognition and Apple Intelligence sort the mess into a reviewable
+          list of tasks with suggested durations — nothing you paste or scan ever leaves
+          your device.
+        </p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon terracotta">⏱️</div>
+        <h3>Every task gets a box</h3>
+        <p>
+          Mark a task one-off or routine, set how long it should take, and tap into focus.
+          A simple ring counts down so you always know exactly how much time is left —
+          no open-ended task ever again.
+        </p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon sage">✅</div>
+        <h3>A check-in, not just a timer</h3>
+        <p>
+          When the block ends, Parsly asks if you actually finished — "Did you get it done?"
+          Say yes and you get a small reward screen, a reason to step away before diving
+          into the next thing.
+        </p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon terracotta">🔒</div>
+        <h3>Nothing leaves your phone</h3>
+        <p>
+          Tasks, timers, and notes are stored on-device with Apple's SwiftData framework.
+          There's no account to create, no server, and nothing to sync.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="wrap">
+    <div class="pricing-row">
+      <div class="pricing-copy">
+        <div class="section-head" style="margin-bottom:0;">
+          <span class="eyebrow">Pricing</span>
+          <h2>Free to use. Pay to lose the ads.</h2>
+          <p>
+            Parsly shows the occasional banner ad through Google AdMob to stay free — you'll
+            be asked for tracking permission first, and you can decline. If ads aren't your
+            thing, a subscription removes them completely.
+          </p>
+        </div>
+      </div>
+      <div class="price-card">
+        <span class="eyebrow">Ad-free</span>
+        <div class="price-line">$1.99<span style="font-size:1rem;">/month</span></div>
+        <div class="price-alt">or $15.99/year</div>
+        <ul>
+          <li>Removes all banner ads</li>
+          <li>Billed and managed entirely through the App Store</li>
+          <li>Cancel any time from your Apple ID settings</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT -->
+  <section id="support" class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Support</span>
+      <h2>Questions, bugs, ideas</h2>
+      <p>Send a note and it'll land directly in the inbox — no ticket system, just a reply.</p>
+    </div>
+
+    <form class="support-form" id="supportForm">
+      <div class="field-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="topic">Topic</label>
+        <select id="topic" name="topic">
+          <option value="Notify me at launch">Notify me at launch</option>
+          <option value="General">General question</option>
+          <option value="Bug report">Bug report</option>
+          <option value="Feature request">Feature request</option>
+          <option value="Billing">Billing / subscription</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" placeholder="What's going on?" required></textarea>
+      </div>
+
+      <!-- honeypot — left blank by real visitors -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-foot">
+        <button type="submit" class="btn btn-primary" id="supportSubmit">Send message</button>
+        <span class="form-status" id="supportStatus" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy" class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Privacy</span>
+      <h2>Privacy Policy</h2>
+    </div>
+
+    <div class="privacy-card">
+      <div class="updated">Last updated: 09/15/2026</div>
+
+      <p>
+        Parsly ("the app") is developed by L. Dante Guarin ("we," "us"). This policy explains
+        what data the app handles and how.
+      </p>
+
+      <h4>What stays on your device</h4>
+      <p>
+        All of your tasks, time blocks, focus sessions, and settings are stored locally on
+        your device using Apple's SwiftData framework. We do not operate a server, and none
+        of this information is transmitted to us or to any third party.
+      </p>
+
+      <h4>On-device AI features</h4>
+      <p>
+        Parsly's "Tasks from summary" feature uses Apple's on-device Foundation Models (Apple
+        Intelligence) and on-device Vision text recognition to turn pasted or scanned notes
+        into tasks. This processing happens entirely on your device — the text you paste or
+        the photos you scan are never sent to us, to Apple's servers, or to any other party.
+      </p>
+
+      <h4>Advertising</h4>
+      <p>
+        Parsly shows banner ads served by Google AdMob, a service provided by Google LLC, to
+        support free use of the app. AdMob may collect device identifiers and use them, with
+        your permission, to show more relevant ads. You will be asked for App Tracking
+        Transparency permission before this happens, and you can decline at any time. You can
+        review Google's privacy practices at
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.
+        Purchasing the ad-free subscription removes these ads.
+      </p>
+
+      <h4>In-app purchases</h4>
+      <p>
+        Ad-free subscriptions ($1.99/month or $15.99/year) are processed entirely by Apple
+        through the App Store. We do not receive or store your payment information.
+      </p>
+
+      <h4>Notifications</h4>
+      <p>
+        If you allow it, Parsly sends a local notification when a focus timer completes.
+        These notifications are generated on your device and are not sent through any
+        external service.
+      </p>
+
+      <h4>Data sharing</h4>
+      <p>
+        We do not sell or share your data with third parties, other than the ad and payment
+        processing described above, which is handled directly by Google and Apple
+        respectively under their own privacy policies.
+      </p>
+
+      <h4>Children's privacy</h4>
+      <p>
+        Parsly is not directed at children under 13 and we do not knowingly collect data
+        from them.
+      </p>
+
+      <h4>Changes</h4>
+      <p>We may update this policy from time to time. Changes will be posted at this same URL.</p>
+
+      <h4>Contact</h4>
+      <p>Questions about this policy can be sent to <a href="mailto:hello@ldante.com">hello@ldante.com</a>.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="footer-inner">
+    <span>Parsly Timebox — made by <a href="https://www.ldante.com" target="_blank" rel="noopener noreferrer">L. Dante Guarin</a></span>
+    <a href="mailto:hello@ldante.com">hello@ldante.com</a>
+  </div>
+</footer>
+
+<script>
+  // ── LAUNCH TOGGLE ──────────────────────────────────────────────
+  // Set this to the live App Store URL once Parsly Timebox is approved.
+  // The nav pill, hero eyebrow, and hero CTA all switch over automatically —
+  // nothing else on the page needs to change.
+  var APP_STORE_URL = '';
+
+  (function(){
+    var form = document.getElementById('supportForm');
+    var status = document.getElementById('supportStatus');
+    var submitBtn = document.getElementById('supportSubmit');
+    var heroPrimaryCta = document.getElementById('heroPrimaryCta');
+
+    if (APP_STORE_URL) {
+      document.getElementById('navStatusPill').textContent = 'iOS · Available now';
+      document.getElementById('heroEyebrowText').textContent = 'For iOS · Available on the App Store';
+      heroPrimaryCta.href = APP_STORE_URL;
+      heroPrimaryCta.target = '_blank';
+      heroPrimaryCta.rel = 'noopener noreferrer';
+      heroPrimaryCta.removeAttribute('data-topic');
+      heroPrimaryCta.textContent = 'Download on the App Store';
+    } else {
+      var notifyCta = document.querySelector('[data-topic]');
+      if (notifyCta) {
+        notifyCta.addEventListener('click', function(){
+          form.topic.value = notifyCta.getAttribute('data-topic');
+          if (!form.message.value.trim()) {
+            form.message.value = "Let me know when Parsly launches!";
+          }
+        });
+      }
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      status.textContent = '';
+      status.className = 'form-status';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      var data = {
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        topic: form.topic.value,
+        message: form.message.value.trim(),
+        company: form.company.value
+      };
+
+      fetch('/api/parsly-support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(res){ return res.json().then(function(body){ return { ok: res.ok, body: body }; }); })
+      .then(function(result){
+        if (result.ok) {
+          status.textContent = 'Sent — thanks, you\'ll hear back soon.';
+          status.className = 'form-status ok';
+          form.reset();
+        } else {
+          status.textContent = (result.body && result.body.error) || 'Something went wrong. Try again?';
+          status.className = 'form-status err';
+        }
+      })
+      .catch(function(){
+        status.textContent = 'Something went wrong. Try again?';
+        status.className = 'form-status err';
+      })
+      .finally(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send message';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
