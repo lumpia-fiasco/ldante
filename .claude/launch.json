@@ -1,1 +1,1 @@
-{"version":"0.0.1","configurations":[{"name":"portfolio","runtimeExecutable":"npx","runtimeArgs":["serve","-s"],"autoPort":true}]}
+{"version":"0.0.1","configurations":[{"name":"portfolio","runtimeExecutable":"npx","runtimeArgs":["serve","-s"],"autoPort":true},{"name":"portfolio-dev","runtimeExecutable":"node","runtimeArgs":["dev-server.mjs"],"port":3100}]}

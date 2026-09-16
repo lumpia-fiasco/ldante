@@ -6,6 +6,7 @@ import http from 'node:http';
 import fs   from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildManifest } from './scripts/build-frames-manifest.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -92,8 +93,27 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // ── Frames manifest — always regenerated fresh so dropping a new
+  // photo into frames/ shows up on next load with zero extra steps
+  if (url.pathname === '/frames/manifest.json') {
+    try {
+      const files = buildManifest();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(files));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    }
+    return;
+  }
+
   // ── Static files
   let filePath = path.join(__dirname, url.pathname === '/' ? 'index.html' : url.pathname);
+
+  // Mirror Vercel's cleanUrls: /frames → frames.html
+  if (!path.extname(filePath) && fs.existsSync(`${filePath}.html`)) {
+    filePath = `${filePath}.html`;
+  }
 
   // Prevent directory traversal
   if (!filePath.startsWith(__dirname)) {

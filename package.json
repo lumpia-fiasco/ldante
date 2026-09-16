@@ -2,6 +2,9 @@
   "name": "ldante-portfolio",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "frames:manifest": "node scripts/build-frames-manifest.mjs"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "@upstash/redis": "^1.34.0",

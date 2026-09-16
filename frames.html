@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Frames — L Dante Guarin</title>
+<meta name="description" content="A rotating set of photographs.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-darker: #1f1f1f;
+    --white:     #ffffff;
+    --pink:      #f995ac;
+    --font-ui:   'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-darker);
+    overflow: hidden;
+  }
+  body {
+    font-family: var(--font-ui);
+    cursor: default;
+  }
+
+  #stage {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-darker);
+  }
+
+  #stage img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 900ms ease;
+    will-change: opacity;
+  }
+  #stage img.active { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #stage img { transition: none; }
+  }
+
+  /* click zones — invisible, just cursor affordance */
+  .zone {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 42%;
+    z-index: 5;
+  }
+  .zone-prev { left: 0; cursor: w-resize; }
+  .zone-next { right: 0; cursor: e-resize; }
+
+  /* chrome — fades out when idle */
+  .chrome {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 500ms ease;
+    pointer-events: none;
+  }
+  body.idle .chrome { opacity: 0; }
+
+  .back {
+    position: fixed;
+    top: clamp(20px, 4vw, 32px);
+    left: clamp(20px, 4vw, 32px);
+    z-index: 10;
+    color: var(--white);
+    opacity: 0.35;
+    text-decoration: none;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: opacity 300ms ease;
+    pointer-events: auto;
+  }
+  .back:hover { opacity: 0.85; }
+  body.idle .back { opacity: 0; pointer-events: none; }
+
+  .counter {
+    bottom: clamp(20px, 4vw, 32px);
+    right: clamp(20px, 4vw, 32px);
+    left: auto;
+    position: fixed;
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .track {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+  .track-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--pink);
+    transition: width 60ms linear;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+  }
+</style>
+</head>
+<body class="idle">
+
+  <div id="stage" aria-hidden="true">
+    <img id="imgA" alt="">
+    <img id="imgB" alt="">
+  </div>
+
+  <div class="zone zone-prev" id="zonePrev"></div>
+  <div class="zone zone-next" id="zoneNext"></div>
+
+  <div class="chrome">
+    <a class="back" href="/">← Dante</a>
+    <div class="counter" id="counter"></div>
+    <div class="track"><div class="track-fill" id="trackFill"></div></div>
+  </div>
+
+  <p class="sr-only" id="live" role="status" aria-live="polite"></p>
+
+<script>
+(function () {
+  var SLIDE_MS = 6000;
+  var stage = document.getElementById('stage');
+  var imgs = [document.getElementById('imgA'), document.getElementById('imgB')];
+  var active = 0;
+  var order = [];
+  var pos = 0;
+  var playing = true;
+  var startedAt = 0;
+  var raf = null;
+  var idleTimer = null;
+
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  function srcFor(name) {
+    return 'frames/' + encodeURIComponent(name);
+  }
+
+  function preload(name) {
+    var i = new Image();
+    i.src = srcFor(name);
+  }
+
+  function render(pushHistory) {
+    var name = order[pos];
+    var next = imgs[(active + 1) % 2];
+    var cur = imgs[active];
+    next.onload = function () {
+      next.classList.add('active');
+      cur.classList.remove('active');
+      active = (active + 1) % 2;
+    };
+    next.src = srcFor(name);
+    document.getElementById('counter').textContent =
+      String(pos + 1).padStart(2, '0') + ' / ' + String(order.length).padStart(2, '0');
+    document.getElementById('live').textContent =
+      'Photograph ' + (pos + 1) + ' of ' + order.length;
+    preload(order[(pos + 1) % order.length]);
+  }
+
+  function goTo(newPos) {
+    pos = ((newPos % order.length) + order.length) % order.length;
+    render();
+    restartTimer();
+  }
+
+  function next() { goTo(pos + 1); }
+  function prev() { goTo(pos - 1); }
+
+  function restartTimer() { startedAt = performance.now(); }
+
+  function tick(now) {
+    if (playing && order.length > 1) {
+      var elapsed = now - startedAt;
+      var pct = Math.min(100, (elapsed / SLIDE_MS) * 100);
+      document.getElementById('trackFill').style.width = pct + '%';
+      if (elapsed >= SLIDE_MS) next();
+    }
+    raf = requestAnimationFrame(tick);
+  }
+
+  function setPlaying(p) {
+    playing = p;
+    if (playing) restartTimer();
+  }
+
+  function showChrome() {
+    document.body.classList.remove('idle');
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () {
+      document.body.classList.add('idle');
+    }, 2400);
+  }
+
+  document.getElementById('zonePrev').addEventListener('click', function () { prev(); showChrome(); });
+  document.getElementById('zoneNext').addEventListener('click', function () { next(); showChrome(); });
+
+  window.addEventListener('mousemove', showChrome);
+  window.addEventListener('touchstart', showChrome, { passive: true });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { next(); showChrome(); }
+    else if (e.key === 'ArrowLeft') { prev(); showChrome(); }
+    else if (e.key === ' ') { e.preventDefault(); setPlaying(!playing); showChrome(); }
+  });
+
+  fetch('frames/manifest.json')
+    .then(function (r) { return r.json(); })
+    .then(function (files) {
+      if (!files || !files.length) return;
+      order = shuffle(files.slice());
+      render();
+      restartTimer();
+      raf = requestAnimationFrame(tick);
+      showChrome();
+    })
+    .catch(function () {
+      document.getElementById('counter').textContent = '—';
+    });
+})();
+</script>
+</body>
+</html>
