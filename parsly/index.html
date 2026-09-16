@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Parsly Timebox — time-boxed tasks for ADHD brains</title>
-<meta name="description" content="Parsly Timebox turns a brain dump into a task list, boxes each task into a focus block, then checks in when the timer's done. Everything stays on your device.">
+<title>Parsly Timebox — one thing, for now</title>
+<meta name="description" content="Parsly is a time-management app designed around ADHD. Dump your notes, get time-boxed tasks, and an honest check-in when the timer ends. Everything stays on your device.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Parsly Timebox — time-boxed tasks for ADHD brains">
-<meta property="og:description" content="Dump your notes and Parsly turns them into time-boxed tasks, then checks in when the timer's done.">
+<meta property="og:title" content="Parsly Timebox — one thing, for now">
+<meta property="og:description" content="Dump your notes, get time-boxed tasks, and an honest check-in when the timer ends. On-device AI, private by design.">
 <meta property="og:url" content="https://www.ldante.com/parsly">
 <meta property="og:image" content="https://www.ldante.com/assets/parsly.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -284,6 +284,69 @@
     margin:0;
   }
 
+  .privacy-band{
+    margin-top:20px;
+    display:flex;
+    align-items:center;
+    gap:22px;
+    background:var(--sage-tint);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:clamp(24px,3vw,34px);
+  }
+  .privacy-band-icon{
+    width:52px;height:52px;
+    flex:none;
+    border-radius:14px;
+    background:var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.5rem;
+  }
+  .privacy-band h3{
+    font-size:1.15rem;
+    margin-bottom:6px;
+  }
+  .privacy-band p{
+    color:var(--ink-dim);
+    font-size:.98rem;
+    margin:0;
+  }
+  @media (max-width:600px){
+    .privacy-band{flex-direction:column;align-items:flex-start;text-align:left;}
+  }
+
+  .loop-recap{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:8px 10px;
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    font-family:'Inter', sans-serif;
+  }
+  .loop-step{
+    font-size:.82rem;
+    font-weight:600;
+    letter-spacing:.02em;
+    color:var(--sage-dark);
+    background:var(--sage-tint);
+    border-radius:999px;
+    padding:7px 14px;
+  }
+  .loop-step.loop-step-repeat{
+    color:var(--terracotta);
+    background:var(--terracotta-tint);
+  }
+  .loop-arrow{
+    color:var(--ink-mute);
+    font-size:.85rem;
+  }
+  @media (max-width:480px){
+    .loop-step{font-size:.76rem;padding:6px 11px;}
+  }
+
   /* ── PRICING ──────────────────────────────────────────── */
   #pricing{
     border-top:1px solid var(--line);
@@ -494,11 +557,10 @@
       <span class="dot"></span>
       <span class="eyebrow" id="heroEyebrowText" style="color:var(--ink-dim);">For iOS · Coming soon to the App Store</span>
     </span>
-    <h1>Time-boxed tasks for brains that need a nudge, not a lecture.</h1>
+    <h1>One thing.<br>For now.</h1>
     <p class="sub">
-      Dump your notes and Parsly turns them into a task list, boxes each one into a focus
-      block, and checks in when the timer's done. It's a small, structured loop built for
-      how ADHD brains actually get things done.
+      Parsly is a time-management app designed around ADHD. Dump the mess in your head, box
+      it into something doable, focus on one thing, then check in honestly.
     </p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#support" data-topic="Notify me at launch" id="heroPrimaryCta">Get notified at launch</a>
@@ -516,44 +578,67 @@
     <div class="section-head">
       <span class="eyebrow">How it works</span>
       <h2>Four steps, no willpower required</h2>
-      <p>Parsly runs as a loop: capture, box, focus, check in.</p>
+      <p>Parsly runs as a loop: capture, box, focus, check in honestly.</p>
     </div>
     <div class="feature-grid">
       <article class="feature-card">
         <div class="feature-icon sage">📝</div>
-        <h3>Turn a brain dump into a task list</h3>
+        <h3>Give me the mess in your head</h3>
         <p>
-          Paste your notes or scan handwritten notes and a whiteboard with your camera.
-          On-device text recognition and Apple Intelligence sort the mess into a reviewable
-          list of tasks with suggested durations — nothing you paste or scan ever leaves
-          your device.
+          Paste your notes, or scan a photo of handwritten notes or a whiteboard. On-device
+          text recognition and Apple Intelligence sort it into a reviewable task list in
+          seconds — nothing you type or scan ever leaves your device.
         </p>
       </article>
       <article class="feature-card">
         <div class="feature-icon terracotta">⏱️</div>
-        <h3>Every task gets a box</h3>
+        <h3>Every task gets an expiration date</h3>
         <p>
-          Mark a task one-off or routine, set how long it should take, and tap into focus.
-          A ring counts down the whole time, so no task quietly runs long.
+          Give it 15, 25, or 45 minutes. When the timer ends, you're done — even if it isn't
+          perfect. Timeboxing gives you permission to stop.
         </p>
       </article>
       <article class="feature-card">
-        <div class="feature-icon sage">✅</div>
-        <h3>The timer checks in on you</h3>
+        <div class="feature-icon sage">💬</div>
+        <h3>An honest check-in</h3>
         <p>
-          When the block ends, Parsly asks if you actually finished — "Did you get it done?"
-          Say yes and you get a small reward screen, a reason to step away before diving
-          into the next thing.
+          When the timer runs out, Parsly asks what actually happened — not just yes or no.
+          Done. Still working. Need another block. Not today. Pick whichever one's true.
         </p>
       </article>
       <article class="feature-card">
-        <div class="feature-icon terracotta">🔒</div>
-        <h3>Nothing leaves your phone</h3>
+        <div class="feature-icon terracotta">🌿</div>
+        <h3>A real reward, then what's next</h3>
         <p>
-          Tasks, timers, and notes are stored on-device with Apple's SwiftData framework.
-          There's no account to create, no server, and nothing to sync.
+          Finish something and get a real break doing whatever you picked. When you're back,
+          Parsly quietly offers what's next — so "okay, now what?" never has to start from
+          scratch.
         </p>
       </article>
+    </div>
+
+    <div class="privacy-band">
+      <div class="privacy-band-icon">🔒</div>
+      <div>
+        <h3>Your brain dump stays on your phone</h3>
+        <p>
+          Tasks, timers, notes, and the AI that sorts them all run entirely on-device using
+          Apple Intelligence. There's no account to create, no server, and nothing you write
+          or scan is ever sent to us or to anyone else.
+        </p>
+      </div>
+    </div>
+
+    <div class="loop-recap">
+      <span class="loop-step">Capture</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Box</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Focus</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step">Check in</span>
+      <span class="loop-arrow">→</span>
+      <span class="loop-step loop-step-repeat">Repeat</span>
     </div>
   </section>
 
