@@ -898,43 +898,69 @@
   }
   .gate-error.show { display: block; }
 
-  /* gate: case-title list (param mode) — clickable rows */
-  .case-list { display: flex; flex-direction: column; width: 100%; margin-top: 4px; }
-  .case-row {
+  /* gate: case-title list (param mode) — single-column mini cards */
+  .case-list { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 4px; }
+  .case-card {
     display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding: 6px 8px;
-    margin: 0 -8px;
-    border-bottom: 1px solid var(--charcoal-line);
-    border-radius: 4px;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   }
-  .case-row:first-child { border-top: 1px solid var(--charcoal-line); }
-  .case-row:hover, .case-row:focus-visible {
-    background: rgba(255,255,255,0.05);
+  .case-card:hover, .case-card:focus-visible {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.16);
+    transform: translateY(-1px);
     outline: none;
   }
-  .case-row:focus-visible { box-shadow: inset 0 0 0 1px var(--pink); }
-  .case-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; display: inline-block; margin-right: 8px; }
-  .case-company {
+  .case-card:focus-visible { box-shadow: 0 0 0 1px var(--pink); }
+  .case-card-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .case-card-logo img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    /* forces every source mark (whatever its native fill) to render as
+       a plain white glyph on its own brand-color chip — one consistent
+       treatment regardless of each logo's original color */
+    filter: brightness(0) invert(1);
+  }
+  .case-card-logo .case-card-mono {
+    font-family: var(--font-display);
+    font-size: 17px;
+    color: #fff;
+    line-height: 1;
+  }
+  .case-card-body { flex: 1; min-width: 0; }
+  .case-card-company {
     font-family: var(--font-ui);
     font-size: 0.68rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.45);
+    margin-bottom: 3px;
   }
-  .case-headline {
+  .case-card-headline {
     font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.4;
+    font-size: 0.92rem;
+    line-height: 1.35;
     color: rgba(255,255,255,0.85);
   }
 
   @media (max-width: 640px) {
-    .case-row { flex-wrap: wrap; }
-    .case-company { width: 100%; }
     .gate-row { flex-direction: column; }
     .gate-go { padding: 14px; }
   }
@@ -1646,26 +1672,33 @@
       // verbatim from the real portfolio's own CASES object) —
       // clicking loads the real case content into #caseDetailView,
       // in place.
+      // chronological (most recent first): Vye Health (current) →
+      // Teamshares (2022-24) → Meroxa (2021-22) → Marketo/Adobe (2016-21)
       var CASE_ROWS = [
-        { id: 'vyehealth',           company: 'Vye Health',        color: '#2D7A64', headline: "The provider side was in pilot. The patient experience wasn't close." },
-        { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', headline: 'A design system built to be read by a machine as well as a human.' },
-        { id: 'teamshares-payroll',  company: 'Teamshares',        color: '#DB8319', headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.' },
-        { id: 'teamshares-ats',      company: 'Teamshares — ATS',  color: '#1e3a5f', headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.' },
-        { id: 'marketo-migration',   company: 'Marketo / Adobe',   color: '#4c1d95', headline: 'Sky had been rebuilt for months. Almost nobody had opted in.' },
-        { id: 'marketo-sky',         company: 'Marketo / Adobe',   color: '#7c2d4e', headline: 'I pitched a structural fix before touching a single component.' },
-        { id: 'meroxa',              company: 'Meroxa',            color: '#0E8FA5', headline: 'We built the right product for the wrong person.' }
+        { id: 'vyehealth',           company: 'Vye Health',        color: '#2D7A64', logo: null,                headline: "The provider side was in pilot. The patient experience wasn't close." },
+        { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', logo: null,                headline: 'A design system built to be read by a machine as well as a human.' },
+        { id: 'teamshares-payroll',  company: 'Teamshares',        color: '#DB8319', logo: 'assets/teamshares.svg', headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.' },
+        { id: 'teamshares-ats',      company: 'Teamshares — ATS',  color: '#1e3a5f', logo: 'assets/teamshares.svg', headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.' },
+        { id: 'meroxa',              company: 'Meroxa',            color: '#0E8FA5', logo: 'assets/meroxa.svg',     headline: 'We built the right product for the wrong person.' },
+        { id: 'marketo-migration',   company: 'Marketo / Adobe',   color: '#4c1d95', logo: 'assets/marketo.svg',    headline: 'Sky had been rebuilt for months. Almost nobody had opted in.' },
+        { id: 'marketo-sky',         company: 'Marketo / Adobe',   color: '#7c2d4e', logo: 'assets/marketo.svg',    headline: 'I pitched a structural fix before touching a single component.' }
       ];
       var list = document.getElementById('caseList');
       CASE_ROWS.forEach(function(c){
         var row = document.createElement('div');
-        row.className = 'case-row';
+        row.className = 'case-card';
         row.setAttribute('role', 'button');
         row.setAttribute('tabindex', '0');
         row.setAttribute('aria-label', c.company + ' — ' + c.headline);
+        var logoInner = c.logo
+          ? '<img src="' + c.logo + '" alt="">'
+          : '<span class="case-card-mono">' + c.company.charAt(0) + '</span>';
         row.innerHTML =
-          '<div><span class="case-dot" style="background:' + c.color + '"></span>' +
-          '<span class="case-company">' + c.company + '</span></div>' +
-          '<span class="case-headline">' + c.headline + '</span>';
+          '<div class="case-card-logo" style="background:' + c.color + '">' + logoInner + '</div>' +
+          '<div class="case-card-body">' +
+            '<div class="case-card-company">' + c.company + '</div>' +
+            '<div class="case-card-headline">' + c.headline + '</div>' +
+          '</div>';
         function open(){
           openCaseDetail(c.id);
           // close the slide-in itself — cursor is still in its
