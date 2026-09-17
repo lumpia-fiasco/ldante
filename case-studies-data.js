@@ -14,7 +14,6 @@ const CASES = {
     content: `
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Founding Designer (Contract)</div></div>
-        <div><div class="cs-meta-label">Capacity</div><div class="cs-meta-val">Staff+ &#8212; solo, full-surface ownership</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Product design, information architecture, AI-assisted prototyping, design systems</div></div>
         <div><div class="cs-meta-label">Delivered</div><div class="cs-meta-val">Patient experience (5 areas), provider-side messages, tasks panel &amp; shop surface, design system, Claude Code skill</div></div>
         <div><div class="cs-meta-label">Tools</div><div class="cs-meta-val">Figma (MCP + Code Connect), Claude Code, mobile-native token architecture</div></div>
@@ -224,7 +223,6 @@ const CASES = {
     content: `
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Founding Designer (Contract)</div></div>
-        <div><div class="cs-meta-label">Capacity</div><div class="cs-meta-val">Staff &#8212; systems/infra, org-wide leverage</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Design systems, AI-assisted prototyping, design engineering, mobile</div></div>
         <div><div class="cs-meta-label">Tools</div><div class="cs-meta-val">Figma (MCP + Code Connect), Claude Code, mobile-native token architecture</div></div>
       </div>
@@ -308,7 +306,6 @@ const CASES = {
     content: `
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Solo Design Lead</div></div>
-        <div><div class="cs-meta-label">Capacity</div><div class="cs-meta-val">Senior &#8594; Staff &#8212; solo execution, platform-level reframe</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Discovery, product design, integration architecture</div></div>
         <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">PM, finance leadership, data engineering, 2 engineers</div></div>
         <div><div class="cs-meta-label">Pilot users</div><div class="cs-meta-val">6 industry leads across 90+ network companies</div></div>
@@ -503,7 +500,6 @@ const CASES = {
     content: `
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Solo Design Lead</div></div>
-        <div><div class="cs-meta-label">Capacity</div><div class="cs-meta-val">Staff &#8212; solo system design, org operating model</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Discovery, system design, product design</div></div>
         <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">PM, recruiting team, engineering</div></div>
         <div><div class="cs-meta-label">Constraint</div><div class="cs-meta-val">80+ acquired companies, growing fast</div></div>
@@ -716,7 +712,6 @@ const CASES = {
     content: `
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Design Systems Lead</div></div>
-        <div><div class="cs-meta-label">Capacity</div><div class="cs-meta-val">Staff &#8594; Principal &#8212; governance model, cross-company influence</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Governance, system design, team building</div></div>
         <div><div class="cs-meta-label">Timeline</div><div class="cs-meta-val">2.5 years, pre and post-acquisition</div></div>
         <div><div class="cs-meta-label">Team</div><div class="cs-meta-val">2 junior designers, front-end tech lead, rotating PMs</div></div>
@@ -911,7 +906,6 @@ const CASES = {
     content: `
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Principal Product Designer</div></div>
-        <div><div class="cs-meta-label">Capacity</div><div class="cs-meta-val">Principal &#8212; market strategy, exec-level pivot</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Research, strategy, IA, design system</div></div>
         <div><div class="cs-meta-label">Partners</div><div class="cs-meta-val">VP of Product, Engineering, Exec</div></div>
         <div><div class="cs-meta-label">Duration</div><div class="cs-meta-val">~9 months (pivot + rebuild)</div></div>
@@ -1122,7 +1116,6 @@ const CASES = {
     content: `
       <div class="cs-meta-row">
         <div><div class="cs-meta-label">Role</div><div class="cs-meta-val">Lead Product Designer, Group Lead</div></div>
-        <div><div class="cs-meta-label">Capacity</div><div class="cs-meta-val">Staff &#8212; exec-facing strategy, team leadership</div></div>
         <div><div class="cs-meta-label">Scope</div><div class="cs-meta-val">Research, strategy, migration design, workshop facilitation</div></div>
         <div><div class="cs-meta-label">Team</div><div class="cs-meta-val">2 designers, 2 PMs, 1 researcher</div></div>
         <div><div class="cs-meta-label">Timeline</div><div class="cs-meta-val">3 months</div></div>
