@@ -240,6 +240,15 @@
     else if (e.key === ' ') { e.preventDefault(); setPlaying(!playing); showChrome(); }
   });
 
+  try {
+    fetch('/api/log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event: 'page_view', data: { path: '/frames' } }),
+      keepalive: true
+    }).catch(function () {});
+  } catch (e) {}
+
   fetch('frames/manifest.json')
     .then(function (r) { return r.json(); })
     .then(function (files) {
