@@ -1688,9 +1688,14 @@
       // in place.
       // chronological (most recent first): Vye Health (current) →
       // Teamshares (2022-24) → Meroxa (2021-22) → Marketo/Adobe (2016-21)
+      //
+      // Vye Health rows are hidden for now (not deleted — their
+      // content is still intact in case-studies-data.js, just
+      // commented out of this list so they don't render). Uncomment
+      // both rows below to bring them back.
       var CASE_ROWS = [
-        { id: 'vyehealth',           company: 'Vye Health',        color: '#2D7A64', logo: null,                headline: "The provider side was in pilot. The patient experience wasn't close." },
-        { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', logo: null,                headline: 'A design system built to be read by a machine as well as a human.' },
+        // { id: 'vyehealth',           company: 'Vye Health',        color: '#2D7A64', logo: null,                headline: "The provider side was in pilot. The patient experience wasn't close." },
+        // { id: 'vyehealth-ds',        company: 'Vye Health — DS',   color: '#3B3D8C', logo: null,                headline: 'A design system built to be read by a machine as well as a human.' },
         { id: 'teamshares-payroll',  company: 'Teamshares',        color: '#DB8319', logo: 'assets/teamshares.svg', headline: 'The ask was a data display. The problem was three hours of work nobody should have been doing.' },
         { id: 'teamshares-ats',      company: 'Teamshares — ATS',  color: '#1e3a5f', logo: 'assets/teamshares.svg', headline: 'Twenty-plus companies were hiring off the same broken spreadsheet.' },
         { id: 'meroxa',              company: 'Meroxa',            color: '#0E8FA5', logo: 'assets/meroxa.svg',     headline: 'We built the right product for the wrong person.' },
