@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Noble Base Atlas</title>
+<meta name="description" content="Noble Base embeds with growing teams to improve paid search, paid social, integrated media, measurement, automation, and the path to revenue.">
+<meta property="og:image" content="/noblebase/assets/img/noble-base-growth-systems.png">
+<link rel="icon" href="/noblebase/assets/img/nb_logo_navy.ico">
+<link rel="preload" href="/noblebase/assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/noblebase/assets/fonts/golos-text-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/noblebase/css/site.css?v=3">
+</head>
+<body>
+
+<a class="skip" href="#portal-1">Skip to content</a>
+
+<!-- ============ HUD ============ -->
+<header class="hud-top">
+  <a class="brand" href="#portal" data-go="portal" aria-label="Noble Base, back to The Portal">
+    <img src="/noblebase/assets/img/nb_logo_navy.svg" alt="" width="30" height="30">
+    <span class="brand-text">
+      <span class="brand-name">Noble Base</span>
+      <span class="brand-coords mono" id="coords">48.4°N · 89.2°W</span>
+    </span>
+  </a>
+  <button class="hud-region mono" id="hudRegion" aria-live="polite" title="Step back out (Esc)">
+    <span class="hud-bracket">[ <span id="hudNum">◆</span> ]</span>
+    <span id="hudName">The Atlas</span>
+  </button>
+  <button class="index-btn mono" id="indexBtn" aria-expanded="false" aria-controls="indexMenu">
+    Index <span class="burger" aria-hidden="true"><i></i><i></i></span>
+  </button>
+</header>
+
+<nav class="index-menu" id="indexMenu" aria-label="Index of regions" hidden>
+  <p class="label">The Atlas · Index of regions</p>
+  <ol>
+    <li><button data-go="portal"><span class="num">I</span><span class="nm">The Portal</span><span class="ds">Where the route begins</span></button></li>
+    <li><button data-go="team"><span class="num">II</span><span class="nm">The Expedition Party</span><span class="ds">Who runs your account</span></button></li>
+    <li><button data-go="work"><span class="num">III</span><span class="nm">Territories Surveyed</span><span class="ds">Case studies</span></button></li>
+    <li><button data-go="services"><span class="num">IV</span><span class="nm">The Service Quadrant</span><span class="ds">What we offer, and don't</span></button></li>
+    <li><button data-go="astrolabe"><span class="num">V</span><span class="nm">The Astrolabe</span><span class="ds">Our instrument</span></button></li>
+    <li><button data-go="contact"><span class="num">VI</span><span class="nm">The Cartographers' Post</span><span class="ds">Get in touch</span></button></li>
+  </ol>
+  <button class="overview-link mono" data-go="overview">View the whole atlas <span aria-hidden="true">⤢</span></button>
+  <p class="keys mono"><kbd>←</kbd><kbd>→</kbd> panels · <kbd>↑</kbd><kbd>↓</kbd> read · <kbd>1</kbd>–<kbd>6</kbd> regions · <kbd>Esc</kbd> step back out · pinch or <kbd>ctrl</kbd>+scroll to zoom</p>
+</nav>
+
+<div class="hud-zoom" role="group" aria-label="Zoom">
+  <button id="zoomOut" aria-label="Zoom out">−</button>
+  <button id="zoomPct" class="mono" aria-label="View the whole atlas">100%</button>
+  <button id="zoomIn" aria-label="Zoom in">+</button>
+</div>
+
+<div class="minimap" id="minimap" aria-hidden="true">
+  <svg id="minimapSvg"></svg>
+</div>
+
+<div class="stepper" id="stepper" role="group" aria-label="Panels in this region">
+  <button id="prevPanel" aria-label="Previous panel">←</button>
+  <span class="mono" id="stepCount">1 / 4</span>
+  <button id="nextPanel" aria-label="Next panel">→</button>
+</div>
+
+<div class="hint mono" id="hint" hidden>Drag to wander · pinch or ctrl+scroll to zoom · click any panel to enter</div>
+
+<!-- ============ CANVAS ============ -->
+<main class="viewport" id="viewport">
+  <div class="world" id="world">
+    <svg class="terrain" id="terrain" aria-hidden="true"></svg>
+
+    <!-- ================= PORTAL ================= -->
+    <section class="panel head" id="portal-1" data-region="portal" aria-label="The Portal">
+      <div class="panel-body">
+        <div class="hero" id="hero">
+          <div class="hero-art">
+            <img class="hero-img base" src="/noblebase/assets/img/hero-mountain.webp" alt="">
+            <img class="hero-img reveal" src="/noblebase/assets/img/hero-mountain.webp" alt="">
+          </div>
+          <div class="hero-copy">
+            <p class="label"><span class="gold">[ ◆ ]</span>&ensp;The Portal</p>
+            <h1 id="h-portal" class="display">Advertising<br><span class="gold-ink">&amp; Growth Systems.</span></h1>
+            <p class="lede">We embed with growing teams to improve media, measurement, automation, and the path from attention to revenue.</p>
+            <p class="callout">Forward-deployed AI operators for growth-stage executives. We embed with your team, build the automations, and stay until they run themselves.</p>
+            <div class="cta-row">
+              <button class="btn" data-go="contact">Get a Strategy Call <span aria-hidden="true">→</span></button>
+              <a class="link-italic" href="https://www.astrolabehq.com" target="_blank" rel="noopener">Meet Astrolabe, our audience intelligence product <span class="sr">(opens in a new tab)</span><span aria-hidden="true">↗</span></a>
+            </div>
+            <p class="fine mono">Best for growing businesses ($500k+ revenue) that want senior operators owning their marketing end to end.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="portal-2" data-region="portal" aria-label="Selected results">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ ◆ ]</span>&ensp;Selected results</p>
+          <div class="stats three">
+            <div class="stat"><p class="stat-v">+50–120%</p><p class="stat-k mono">Order lift in test markets</p><p class="stat-n">Matched test/control geo experiment — peak +197%. Controlled, not attributed.</p></div>
+            <div class="stat"><p class="stat-v">9–16×</p><p class="stat-k mono">ROAS on targeted regional search</p><p class="stat-n">Efficiency on lower-funnel spend.</p></div>
+            <div class="stat"><p class="stat-v">+18%</p><p class="stat-k mono">Average order value</p><p class="stat-n">$73 → $86, year over year.</p></div>
+          </div>
+          <p class="aside-italic">And in a different industry: we took over recruitment analytics and CRM for a clinical-trial sponsor mid-study — they renewed us for their next trial.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="portal-3" data-region="portal" aria-label="Principles">
+      <div class="panel-body">
+        <div class="block principles">
+          <article class="principle">
+            <p class="label"><span class="gold">[ 01 ]</span>&ensp;Approach</p>
+            <h2 class="h2">Revenue first</h2>
+            <p>We optimize paid search against qualified leads, customers, and revenue — not the activity that looks good inside an ad platform. When a result cannot be cleanly attributed, we say so and show how we read it.</p>
+          </article>
+          <article class="principle">
+            <p class="label"><span class="gold">[ 02 ]</span>&ensp;Relationship</p>
+            <h2 class="h2">Partners, not vendors</h2>
+            <p>You work directly with the founders who run your account. No account-manager relay, no handoffs, and no distance between the decision and the person doing the work.</p>
+          </article>
+          <article class="principle">
+            <p class="label"><span class="gold">[ 03 ]</span>&ensp;Capability</p>
+            <h2 class="h2">We build the tools</h2>
+            <p>When attribution, automation, or campaign operations need a better system, we build it. Astrolabe is proof of that approach: practical software grounded in real customer data.</p>
+            <a class="link-italic" href="https://www.astrolabehq.com" target="_blank" rel="noopener">See Astrolabe at astrolabehq.com <span class="sr">(opens in a new tab)</span><span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="portal-4" data-region="portal" aria-label="Index of regions">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label">The Atlas · Index</p>
+          <h2 class="h2">Choose a region to explore</h2>
+          <p class="muted">Five regions, each a deep dive. The compass points to where you should probably start.</p>
+          <div class="region-cards">
+            <button class="region-card" data-go="team"><span class="rc-num">II</span><span class="rc-k mono">Region II · South</span><span class="rc-t">The Expedition Party</span><span class="rc-d">Who runs your account, and how we work.</span><span class="rc-go mono">Enter region →</span></button>
+            <button class="region-card suggested" data-go="work"><span class="rc-num">III</span><span class="rc-k mono">Region III · West</span><span class="rc-t">Territories Surveyed</span><span class="rc-d">Case studies from the work we have shipped.</span><span class="rc-go mono">Start here →</span></button>
+            <button class="region-card" data-go="services"><span class="rc-num">IV</span><span class="rc-k mono">Region IV · East</span><span class="rc-t">The Service Quadrant</span><span class="rc-d">What we offer, and what we deliberately do not.</span><span class="rc-go mono">Enter region →</span></button>
+            <button class="region-card" data-go="astrolabe"><span class="rc-num">V</span><span class="rc-k mono">Region V · Southwest</span><span class="rc-t">The Astrolabe</span><span class="rc-d">Our instrument for measuring where a business stands.</span><span class="rc-go mono">Enter region →</span></button>
+            <button class="region-card" data-go="contact"><span class="rc-num">VI</span><span class="rc-k mono">Region VI · Southeast</span><span class="rc-t">The Cartographers' Post</span><span class="rc-d">Get in touch. We answer every message.</span><span class="rc-go mono">Enter region →</span></button>
+          </div>
+        </div>
+
+        <footer class="imprint">
+          <div>
+            <p class="label">The Imprint</p>
+            <p class="imprint-name">Noble Base Agency</p>
+            <p class="muted">A full-service marketing studio for the businesses that built something real.</p>
+          </div>
+          <div>
+            <p class="label">The Cartographers</p>
+            <a class="mail" href="mailto:hello@noblebase.ai">hello@noblebase.ai</a>
+            <p class="muted small">Letters are answered within two working days.</p>
+          </div>
+          <p class="colophon mono">Drawn and maintained · MMXXVI · Noble Base &nbsp;·&nbsp; Here endeth the portal.</p>
+        </footer>
+      
+      </div>
+    </section>
+
+    <!-- ================= TEAM ================= -->
+    <section class="panel head" id="team-1" data-region="team" aria-label="The Expedition Party">
+      <div class="panel-body">
+        <header class="region-head">
+          <p class="label">Region II</p>
+          <h2 id="h-team" class="display-2">The Expedition Party</h2>
+          <p class="sub">For founders who would rather work with the people actually doing the work.</p>
+        </header>
+
+        <div class="block split">
+          <figure class="framed"><img src="/noblebase/assets/img/team-candid-sketch.webp" width="900" height="599" alt="Engraved sketch of Noble Base's two co-founders, Wellington Johnson and Kevin Nguyen."></figure>
+          <div>
+            <p class="label"><span class="gold">[ 01 ]</span>&ensp;Origin</p>
+            <h3 class="h2">Founder-led, built to execute.</h3>
+            <p>Noble Base is founder-led: a technical lead who builds software and integrates AI, and a marketing strategist with sixteen years in advertising. We own every engagement, backed by a team that lets us take on work well beyond our footprint. The pairing is deliberate — marketing without technical depth drifts, and technical work without marketing judgment ships the wrong thing.</p>
+            <p>We started Noble Base because the agencies we'd worked inside were built to sell and then under-deliver. So we kept the core senior and the standard high: execution is where we compete. A principal leads every account, and the work moves fast because the people doing it are the people who scoped it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="team-2" data-region="team" aria-label="Wellington Johnson">
+      <div class="panel-body">
+        <article class="founder">
+            <p class="label"><span class="gold">[ 02 ]</span>&ensp;Co-founder · I</p>
+            <h3 class="h2">Wellington Johnson</h3>
+            <p class="role mono">Technical Lead &amp; AI Specialist</p>
+            <p>Wellington has spent seven years shipping software and integrating AI into customer-facing products. He owns the technical side of every engagement — attribution wiring, automation, the Astrolabe instrument, and any AI-adjacent work that needs to be production-grade rather than a demo.</p>
+            <ol class="numbered">
+              <li>7+ years in software development</li>
+              <li>Expert in AI/ML implementation</li>
+              <li>Full-stack development expertise</li>
+              <li>Product design &amp; development experience</li>
+            </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="team-3" data-region="team" aria-label="Kevin Nguyen">
+      <div class="panel-body">
+        <article class="founder">
+            <p class="label"><span class="gold">[ 03 ]</span>&ensp;Co-founder · II</p>
+            <h3 class="h2">Kevin Nguyen</h3>
+            <p class="role mono">Paid Search Growth &amp; Optimization</p>
+            <p>Kevin runs paid search and builds the growth systems behind it. Sixteen years in advertising — paid media, email, and growth strategy for clients from independent retail to private-equity-backed portfolio companies — paired with attribution, automation, and experimentation built in code. He owns the marketing decisions on every engagement and connects account optimization to qualified demand and revenue.</p>
+            <ol class="numbered">
+              <li>16 years in advertising</li>
+              <li>Paid search growth and optimization</li>
+              <li>Growth engineering — attribution, automation, experimentation</li>
+              <li>Email marketing &amp; automation</li>
+            </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="team-4" data-region="team" aria-label="How we work">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ 04 ]</span>&ensp;How we work</p>
+          <h3 class="h2">The shape of an engagement with us.</h3>
+          <ol class="roman-list">
+            <li><span class="rn">I</span><span>A principal leads every account — no junior account managers, no handoffs.</span></li>
+            <li><span class="rn">II</span><span>Campaigns are built around your attribution data, not platform defaults.</span></li>
+            <li><span class="rn">III</span><span>We pick up the phone.</span></li>
+            <li><span class="rn">IV</span><span>We tell you what we see in the data, including what we got wrong.</span></li>
+          </ol>
+          <p class="closer">Want to talk? <button class="inline-go" data-go="contact">Get in touch.</button></p>
+        </div>
+
+        <nav class="adjacent" aria-label="Adjacent regions">
+          <p class="label">Adjacent regions</p>
+          <button data-go="portal"><span class="dir mono">North</span><span>The Portal</span></button>
+          <button data-go="contact"><span class="dir mono">East</span><span>The Cartographers' Post</span></button>
+          <button data-go="astrolabe"><span class="dir mono">West</span><span>The Astrolabe</span></button>
+        </nav>
+      
+      </div>
+    </section>
+
+    <!-- ================= WORK ================= -->
+    <section class="panel head" id="work-1" data-region="work" aria-label="Territories Surveyed">
+      <div class="panel-body">
+        <header class="region-head">
+          <p class="label">Region III</p>
+          <h2 id="h-work" class="display-2">Territories Surveyed</h2>
+          <p class="sub">For the operators who measure marketing in revenue, not impressions.</p>
+        </header>
+
+        <div class="block split">
+          <p class="dropcap">Every project begins with a question: who is actually buying from you, and where are they making decisions? The cases below show what changes when the strategy starts there.</p>
+          <figure class="bare"><img src="/noblebase/assets/img/services-core.webp" width="600" height="400" alt="Engraved plate of a bow, arrows, quiver and target."></figure>
+        </div>
+
+        <ol class="phase-rail mono" aria-label="Phases">
+          <li>Strategy &amp; Planning <span>6 wks</span></li>
+          <li>Implementation <span>8 wks</span></li>
+          <li>Results &amp; Growth <span>Ongoing</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="panel" id="work-2" data-region="work" aria-label="The question">
+      <div class="panel-body">
+        <article class="case">
+          <p class="label"><span class="gold">[ 01 ]</span>&ensp;The question · Strategy &amp; planning — 6 weeks</p>
+          <h3 class="h2">The question no one asked.</h3>
+          <p>A fashion brand was spending mostly in Google Ads and wondering why sales started to slide. We started with the most obvious question: "Who exactly are your customers?" The relief on their faces when they admitted they were not sure was telling.</p>
+          <dl class="pair">
+            <div><dt class="mono">Reality check</dt><dd>No agency had really pressed who their actual customers are.</dd></div>
+            <div><dt class="mono">The problem</dt><dd>Marketing to specialties of the agency, not where people are.</dd></div>
+          </dl>
+          <ol class="evidence">
+            <li><span class="mono">01</span><strong>What they thought</strong>"More spend in Google would yield more sales."</li>
+            <li><span class="mono">02</span><strong>What analytics showed</strong>Sales were flat or slumping despite higher spend.</li>
+            <li><span class="mono">03</span><strong>Market research revealed</strong>Trouble expanding cohorts beyond direct response.</li>
+          </ol>
+          <blockquote>"We realized we had been focused so far down the funnel, we were losing who our brand could actually fit. That one question changed everything about how we approach marketing." <cite>— President, Sustainable Fashion Brand</cite></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="work-3" data-region="work" aria-label="The rebuild">
+      <div class="panel-body">
+        <article class="case">
+          <p class="label"><span class="gold">[ 02 ]</span>&ensp;The rebuild · Implementation — 8 weeks</p>
+          <h3 class="h2">Building around real humans.</h3>
+          <p>Once we knew who was actually buying, everything changed. We rebuilt their entire approach around data instead of assumptions, targeting the right people with the right message on the platforms where they actually made decisions.</p>
+          <dl class="pair">
+            <div><dt class="mono">The shift</dt><dd>From guessing to targeting with precision.</dd></div>
+            <div><dt class="mono">The method</dt><dd>Audience-first strategy with real attribution.</dd></div>
+          </dl>
+          <ol class="evidence">
+            <li><span class="mono">01</span><strong>Platform pivot</strong>Shifted budget from Google Ads to Social to expand and focus on a younger cohort.</li>
+            <li><span class="mono">02</span><strong>Message reframe</strong>From "product shoots" to "lifestyle shoots."</li>
+            <li><span class="mono">03</span><strong>Attribution setup</strong>Connected all platforms to actual sales data for the first time.</li>
+          </ol>
+          <div class="stats three compact">
+            <div class="stat"><p class="stat-v">−42%</p><p class="stat-k mono">Cost per click</p></div>
+            <div class="stat"><p class="stat-v">+68%</p><p class="stat-k mono">Conversion rate</p></div>
+            <div class="stat"><p class="stat-v">2.3×</p><p class="stat-k mono">ROAS</p></div>
+          </div>
+          <blockquote>"Suddenly we could see an expansion of sales again with focus in other platforms and an increase in a younger demographic." <cite>— President, Sustainable Apparel Brand</cite></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="work-4" data-region="work" aria-label="The outcome">
+      <div class="panel-body">
+        <article class="case">
+          <p class="label"><span class="gold">[ 03 ]</span>&ensp;The outcome · Results &amp; growth — ongoing</p>
+          <h3 class="h2">When you know your customer.</h3>
+          <p>The transformation was not just in their metrics — it was in their confidence. They went from "let us try this and see what happens" to making data-informed decisions about every campaign, every platform, every piece of content.</p>
+          <dl class="pair">
+            <div><dt class="mono">The breakthrough</dt><dd>Marketing became predictable, not random.</dd></div>
+            <div><dt class="mono">The mindset</dt><dd>From hopeful spending to strategic investment.</dd></div>
+          </dl>
+          <div class="bars">
+            <div class="bar"><span>Quality leads vs volume</span><i style="--v:.89"></i><b>+89%</b></div>
+            <div class="bar"><span>Ad spend efficiency</span><i style="--v:1"></i><b>+134%</b></div>
+            <div class="bar"><span>Brand recognition</span><i style="--v:.67"></i><b>+67%</b></div>
+          </div>
+          <div class="stats two compact">
+            <div class="stat"><p class="stat-v">73%</p><p class="stat-k mono">Revenue growth</p></div>
+            <div class="stat"><p class="stat-v">156%</p><p class="stat-k mono">Customer lifetime value</p></div>
+          </div>
+          <blockquote>"For the first time, we actually understand our business. We know who buys from us, why they buy, and how to reach more people like them. It is not luck anymore." <cite>— Business Owner, Sustainable Fashion</cite></blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="work-5" data-region="work" aria-label="What the automation moved">
+      <div class="panel-body">
+        <article class="case ledger">
+          <p class="label">Case study · Q1 2026 — updated August 2026</p>
+          <h3 class="h2">What the automation actually moved.</h3>
+          <p>An employee-owned organic apparel brand ($4–5M DTC) came to us with reporting built by hand and geo targeting built on guesswork. We automated the reporting layer and rebuilt geo targeting around a matched test-and-control design, then measured what changed.</p>
+          <p class="muted">This is the same discipline behind our AI automation work: instrument the funnel, automate the reporting, and act on what the data says.</p>
+          <div class="stats two">
+            <div class="stat"><p class="stat-v">+50–120%</p><p class="stat-k mono">Geo-lift order lift</p><p class="stat-n">Incremental orders in matched test markets versus held-out control markets, Q1 2026.</p></div>
+            <div class="stat"><p class="stat-v">+18%</p><p class="stat-k mono">AOV, $73 → $86</p><p class="stat-n">Blended average order value across all channels, Q1 2026 versus the prior period.</p></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="work-6" data-region="work" aria-label="Why this works">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ 04 ]</span>&ensp;Why this works · The anti-platform approach</p>
+          <h3 class="h2">Why this works every time.</h3>
+          <p>This wasn't a fluke. Start with the customer, ask the questions everyone skips, and measure what actually drives revenue — and marketing becomes predictable.</p>
+          <ol class="numbered inline">
+            <li>No snake-oil pitches.</li>
+            <li>Just data-informed strategy.</li>
+            <li>Real, transparent results.</li>
+          </ol>
+          <p class="closer"><button class="inline-go" data-go="services">See the services behind these results.</button></p>
+        </div>
+
+        <nav class="adjacent" aria-label="Adjacent regions">
+          <p class="label">Adjacent regions</p>
+          <button data-go="portal"><span class="dir mono">East</span><span>The Portal</span></button>
+          <button data-go="astrolabe"><span class="dir mono">South</span><span>The Astrolabe</span></button>
+        </nav>
+      
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section class="panel head" id="services-1" data-region="services" aria-label="The Service Quadrant">
+      <div class="panel-body">
+        <header class="region-head">
+          <p class="label">Region IV</p>
+          <h2 id="h-services" class="display-2">The Service Quadrant</h2>
+          <p class="sub">For the business ready to treat marketing as a growth system, run by one team.</p>
+        </header>
+
+        <div class="block split">
+          <div>
+            <p class="dropcap">Noble Base embeds with growing teams to improve advertising, measurement, automation, and the systems connecting attention to revenue. One senior team can plan the media, run the campaigns, and fix what happens downstream.</p>
+            <p class="muted">When an integrated campaign needs production or media expertise outside our lane, we bring in a trusted partner and remain accountable for the result.</p>
+          </div>
+          <figure class="bare"><img src="/noblebase/assets/img/services-supporting.webp" width="650" height="433" alt="Engraved plate of scaffolding around a building frame."></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="services-2" data-region="services" aria-label="Growth pathways">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ 01 ]</span>&ensp;Growth pathways</p>
+          <h3 class="h2">Start with the part of the growth system that needs ownership.</h3>
+          <div class="pathways">
+            <article class="pathway"><p class="pw-n mono">IV.I</p><h4>Paid Search Growth</h4><p>Manage search using qualified leads, customers, and revenue as the signals that guide investment.</p><ul><li>Account strategy and execution</li><li>Landing-page optimization</li><li>Revenue-aware measurement</li></ul></article>
+            <article class="pathway"><p class="pw-n mono">IV.II</p><h4>Paid Social Media</h4><p>Build demand through audience strategy, creative testing, and social campaigns tied to business outcomes.</p><ul><li>Meta, LinkedIn, TikTok, and Pinterest</li><li>Creative testing systems</li><li>Lead and revenue measurement</li></ul></article>
+            <article class="pathway"><p class="pw-n mono">IV.III</p><h4>Integrated Media</h4><p>Plan digital and offline media as one investment, with a clear role and measurement method for every channel.</p><ul><li>CTV and streaming video</li><li>Podcasts, Spotify, and radio</li><li>Cross-channel planning and measurement</li></ul></article>
+            <article class="pathway"><p class="pw-n mono">IV.IV</p><h4>Growth Systems</h4><p>Build the attribution, automation, and focused software that carries demand beyond the click.</p><ul><li>Revenue attribution</li><li>CRM and reporting automation</li><li>Custom growth tools</li></ul></article>
+            <article class="pathway feature"><p class="pw-n mono">IV.V</p><h4>AI Automation Consulting</h4><p>Forward-deployed AI operators who embed with your team, build the automations, and stay until they run themselves.</p><ul><li>Diagnostic and automation build</li><li>Embedded operation</li><li>Documented handoff</li></ul></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="services-3" data-region="services" aria-label="Ways to work">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ 02 ]</span>&ensp;Ways to work</p>
+          <div class="ways">
+            <div><h4>Ongoing management</h4><p>A senior operator owns execution, measurement, and continuous improvement.</p></div>
+            <div><h4>Diagnostic sprint</h4><p>A focused review identifies what is limiting growth and what to do next.</p></div>
+            <div><h4>Fixed-scope build</h4><p>A defined attribution, automation, or custom software system ships into production.</p></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <p class="label"><span class="gold">[ 03 ]</span>&ensp;Capability index</p>
+          <h3 class="h2">The capabilities behind the engagement.</h3>
+          <div class="cap-index">
+            <div><p class="mono cap-h">Acquisition &amp; media</p><ul><li>Paid search</li><li>Paid social &amp; programmatic buying</li><li>Integrated media planning</li><li>Radio, direct mail &amp; connected TV</li></ul></div>
+            <div><p class="mono cap-h">Search, creative &amp; conversion</p><ul><li>SEO</li><li>Landing pages &amp; CRO</li><li>Brand identity &amp; graphic design</li><li>Web design</li><li>Video with our production partner</li></ul></div>
+            <div><p class="mono cap-h">Systems &amp; operations</p><ul><li>Full-stack development</li><li>Revenue attribution</li><li>Marketing automation</li><li>Reporting systems</li><li>Custom tools &amp; portals</li><li>PR &amp; media outreach with our partner firm</li></ul></div>
+          </div>
+          <div class="beyond">
+            <p class="label"><span class="gold">[ 04 ]</span>&ensp;Beyond our chart</p>
+            <p><strong>A few things we don't do.</strong> We'll point you to people who do these well: motion design · organic social management · influencer programs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="services-4" data-region="services" aria-label="The engagement route">
+      <div class="panel-body">
+        <div class="block route-block">
+          <p class="label"><span class="gold">[ 05 ]</span>&ensp;The route</p>
+          <h3 class="h2">Plate VII — The Engagement Route.</h3>
+          <p class="muted">The full route from first survey to summit, drawn to scale from engagements we've guided. Select a camp.</p>
+          <div class="route">
+            <svg id="routeMap" viewBox="0 0 640 480" role="img" aria-label="Topographic map of the eight-camp engagement route"></svg>
+            <div class="route-key">
+              <p class="mono cap-h">Key to the route</p>
+              <ol id="routeKey"></ol>
+              <div class="route-detail" id="routeDetail" aria-live="polite"></div>
+            </div>
+          </div>
+          <p class="closer"><button class="inline-go" data-go="contact">Tell us what you are trying to grow.</button></p>
+        </div>
+
+        <nav class="adjacent" aria-label="Adjacent regions">
+          <p class="label">Adjacent regions</p>
+          <button data-go="portal"><span class="dir mono">West</span><span>The Portal</span></button>
+          <button data-go="contact"><span class="dir mono">South</span><span>The Cartographers' Post</span></button>
+        </nav>
+      
+      </div>
+    </section>
+
+    <!-- ================= ASTROLABE ================= -->
+    <section class="panel head" id="astrolabe-1" data-region="astrolabe" aria-label="The Astrolabe">
+      <div class="panel-body">
+        <header class="region-head with-instrument">
+          <div>
+            <p class="label">Region V</p>
+            <h2 id="h-astrolabe" class="display-2">The Astrolabe</h2>
+            <p class="sub">An instrument for knowing exactly who your customers are before you spend to reach them.</p>
+            <p class="tagline">See who's buying, not just what's converting.</p>
+          </div>
+          <svg class="instrument" id="instrument" viewBox="-110 -110 220 220" aria-hidden="true"></svg>
+        </header>
+      </div>
+    </section>
+
+    <section class="panel" id="astrolabe-2" data-region="astrolabe" aria-label="The instrument">
+      <div class="panel-body">
+        <div class="block split">
+          <div>
+            <p class="label"><span class="gold">[ 01 ]</span>&ensp;The instrument</p>
+            <p>Astrolabe starts with the people who actually paid you. Upload your customer list and it enriches every record with real, licensed consumer data — the demographic, behavioral, and interest signals your CRM can't see — then reads it back as practical marketing intelligence: who your buyers really are, where to reach them, and what to say. You could ask an AI who your customers are and get a confident guess; Astrolabe doesn't guess. It works from your real list, and uses AI only for the last step — making the findings readable.</p>
+            <p>We built it because every campaign decision is downstream of a customer-understanding question. Astrolabe answers it the same day — grounded in your real customers, not a model's best guess — so we can act on it mid-engagement.</p>
+            <div class="cta-row">
+              <a class="btn" href="https://www.astrolabehq.com" target="_blank" rel="noopener">Visit Astrolabe <span class="sr">(opens in a new tab)</span><span aria-hidden="true">↗</span></a>
+              <button class="link-italic" data-go="services">How it connects to Paid Search Growth →</button>
+            </div>
+          </div>
+          <figure class="bare tall"><img src="/noblebase/assets/img/story-craft.webp" width="450" height="675" alt="Engraved plate of a craftsman at a workbench, bent over an instrument."></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="astrolabe-3" data-region="astrolabe" aria-label="How it works">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ 02 ]</span>&ensp;How it works</p>
+          <h3 class="h2">Three readings, in sequence.</h3>
+          <div class="ways steps">
+            <div><p class="mono pw-n">Step I</p><h4>Enrich.</h4><p>Upload a customer list and Astrolabe matches it against licensed consumer data, appending the demographic, behavioral, and interest signals your CRM cannot see.</p></div>
+            <div><p class="mono pw-n">Step II</p><h4>Understand.</h4><p>See the personas, shared traits, channels, and interests behind your best buyers — weighted toward the customers worth the most, with segments surfacing automatically.</p></div>
+            <div><p class="mono pw-n">Step III</p><h4>Activate.</h4><p>Turn the analysis into campaign angles, lookalike audiences, and platform-ready exports that plug directly into your ad accounts.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="astrolabe-4" data-region="astrolabe" aria-label="Sample reading">
+      <div class="panel-body">
+        <div class="block split">
+          <div>
+            <p class="label"><span class="gold">[ 03 ]</span>&ensp;Sample reading</p>
+            <h3 class="h2">What businesses receive.</h3>
+            <ol class="numbered">
+              <li>Customer personas, grounded in your real data</li>
+              <li>Channel strategy with recommended spend split</li>
+              <li>Creative angles and positioning, from who actually buys</li>
+              <li>Interests mapped to personas, with confidence levels</li>
+              <li>Demographic breakdowns with downloadable CSVs</li>
+              <li>A polished PDF report to hand to stakeholders</li>
+            </ol>
+          </div>
+          <blockquote class="big">A regional retailer ran their last 18 months of customers through Astrolabe and learned their core buyer was eight years older than their ad creative implied. We rebuilt the targeting the next week.</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="astrolabe-5" data-region="astrolabe" aria-label="The ongoing reading">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ 04 ]</span>&ensp;The ongoing reading</p>
+          <h3 class="h2">An instrument you return to.</h3>
+          <p>Your customer base doesn't hold still. Every campaign you run changes who you attract, and churn builds quietly long before revenue feels it. A single reading tells you where you stand today — repeat readings tell you which direction you're moving.</p>
+          <div class="ways four">
+            <div><h4>Churn watch.</h4><p>Upload the same list on a cadence and every customer is classified — new, retained, churned, or reactivated — so you see who's drifting toward the exit while there's still time to win them back.</p></div>
+            <div><h4>Retention playbooks.</h4><p>Each new reading comes with a retention playbook: which segments are at risk, what they have in common, and specific, prioritized actions to keep them.</p></div>
+            <div><h4>Audience drift.</h4><p>Every cohort carries its own demographic profile — see exactly who you're losing and who you're attracting, not just the counts.</p></div>
+            <div><h4>Fresh lookalikes.</h4><p>Generate new prospect audiences matched to your best current buyers, exported for Meta, Google, TikTok, Klaviyo, and more.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="astrolabe-6" data-region="astrolabe" aria-label="How to commission">
+      <div class="panel-body">
+        <div class="block split">
+          <div>
+            <p class="label"><span class="gold">[ 05 ]</span>&ensp;How to commission</p>
+            <h3 class="h2">How to commission a reading.</h3>
+            <ol class="roman-list">
+              <li><span class="rn">I</span><span><strong>Provide.</strong> A customer email list of at least 100 records (CSV or Excel).</span></li>
+              <li><span class="rn">II</span><span><strong>Pay.</strong> $299 per run, paid once before the report is generated.</span></li>
+              <li><span class="rn">III</span><span><strong>Receive.</strong> A full reading the same day, delivered to your inbox.</span></li>
+              <li><span class="rn">IV</span><span><strong>Return.</strong> Re-run as your audience grows — or subscribe for monthly tracking.</span></li>
+            </ol>
+          </div>
+          <dl class="spec">
+            <p class="mono cap-h">Specifications</p>
+            <div><dt class="mono">Model</dt><dd>Pay per run</dd></div>
+            <div><dt class="mono">Cost</dt><dd>$299 per report</dd></div>
+            <div><dt class="mono">Turnaround</dt><dd>Same day</dd></div>
+            <div><dt class="mono">Data required</dt><dd>Customer email list, 100+ records</dd></div>
+            <div><dt class="mono">Cadence</dt><dd>One-off, or monthly</dd></div>
+          </dl>
+        </div>
+        <p class="closer">To run a reading, <button class="inline-go" data-go="contact">get in touch.</button></p>
+
+        <nav class="adjacent" aria-label="Adjacent regions">
+          <p class="label">Adjacent regions</p>
+          <button data-go="work"><span class="dir mono">North</span><span>Territories Surveyed</span></button>
+          <button data-go="team"><span class="dir mono">East</span><span>The Expedition Party</span></button>
+        </nav>
+      
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="panel head" id="contact-1" data-region="contact" aria-label="The Cartographers' Post">
+      <div class="panel-body">
+        <header class="region-head">
+          <p class="label">Region VI</p>
+          <h2 id="h-contact" class="display-2">The Cartographers' Post</h2>
+          <p class="sub">Every engagement starts with a conversation.</p>
+        </header>
+
+        <div class="block split">
+          <div>
+            <p class="dropcap">Tell us what you're working on, what isn't working, and what success looks like. We read every message and reply within two working days.</p>
+            <p class="label"><span class="gold">[ 01 ]</span>&ensp;The invitation</p>
+            <h3 class="h2">We do not take every engagement.</h3>
+            <p>Before we agree to work together, we want to understand your business well enough to know we can help. That starts with a conversation — no deck, no sales process, just a direct exchange about where you are and where you want to go.</p>
+          </div>
+          <figure class="bare"><img src="/noblebase/assets/img/cta-plane.webp" width="700" height="467" alt="Engraved plate of a passenger jet with plan and elevation views."></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="contact-2" data-region="contact" aria-label="How to reach us">
+      <div class="panel-body">
+        <div class="block">
+          <p class="label"><span class="gold">[ 02 ]</span>&ensp;Get in touch</p>
+          <h3 class="h2">How to reach us.</h3>
+          <a class="mail-hero" href="mailto:hello@noblebase.ai">hello@noblebase.ai</a>
+          <p class="muted">Email is the best way to reach us. Include a sentence about your business and what you're trying to solve, and we'll reply with something useful.</p>
+          <div class="ways">
+            <a class="topic" href="mailto:hello@noblebase.ai?subject=Paid%20search%20growth"><p class="mono pw-n">Paid search</p><h4>Discuss paid search growth →</h4><p>Tell us what you are spending, what you are measuring, and where account performance is getting stuck.</p></a>
+            <a class="topic" href="mailto:hello@noblebase.ai?subject=Growth%20system"><p class="mono pw-n">Systems</p><h4>Discuss a growth system →</h4><p>Bring us the workflow, reporting gap, attribution problem, or focused tool your team needs to improve.</p></a>
+            <a class="topic" href="mailto:hello@noblebase.ai?subject=Astrolabe%20reading"><p class="mono pw-n">Astrolabe</p><h4>Commission a reading →</h4><p>Send a customer list of 100+ records and get a full reading back the same day.</p></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="contact-3" data-region="contact" aria-label="What to include">
+      <div class="panel-body">
+        <div class="block split">
+          <div>
+            <p class="label"><span class="gold">[ 03 ]</span>&ensp;What to include</p>
+            <ol class="roman-list">
+              <li><span class="rn">I</span><span>A sentence about your business and what it does.</span></li>
+              <li><span class="rn">II</span><span>What marketing channel or problem is not working.</span></li>
+              <li><span class="rn">III</span><span>What success would look like in twelve months.</span></li>
+              <li><span class="rn">IV</span><span>Your current monthly ad spend, if applicable.</span></li>
+            </ol>
+          </div>
+          <dl class="spec">
+            <p class="mono cap-h"><span class="gold">[ 04 ]</span> What to expect</p>
+            <div><dt class="mono">Response time</dt><dd>Within 2 working days</dd></div>
+            <div><dt class="mono">First call</dt><dd>30 minutes</dd></div>
+            <div><dt class="mono">Decision</dt><dd>Within one week if we're a fit</dd></div>
+            <div><dt class="mono">Contract term</dt><dd>3-month minimum, month-to-month after</dd></div>
+          </dl>
+        </div>
+        <p class="closer">If we're a fit, we'll tell you on the first call. If we're not, we'll point you to someone better suited.</p>
+
+        <nav class="adjacent" aria-label="Adjacent regions">
+          <p class="label">Adjacent regions</p>
+          <button data-go="services"><span class="dir mono">North</span><span>The Service Quadrant</span></button>
+          <button data-go="team"><span class="dir mono">West</span><span>The Expedition Party</span></button>
+        </nav>
+      
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="/noblebase/js/terrain.js?v=3"></script>
+<script src="/noblebase/js/canvas.js?v=3"></script>
+</body>
+</html>
