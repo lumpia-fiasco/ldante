@@ -412,6 +412,9 @@ body[data-level="atlas"] .stepper { opacity: 0; pointer-events: none; transform:
   animation: hintIn .5s var(--ease-out) both;
   white-space: nowrap;
 }
+@media (max-width: 640px) {
+  .hint { white-space: normal; text-align: center; width: calc(100vw - 32px); border-radius: 14px; line-height: 1.6; }
+}
 @keyframes hintIn { from { opacity: 0; transform: translate(-50%, 8px); } }
 
 @media (max-width: 640px) {
