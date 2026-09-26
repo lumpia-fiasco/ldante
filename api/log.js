@@ -18,6 +18,10 @@ export default async function handler(req, res) {
     const { event, data } = req.body;
     if (!event) return res.status(400).json({ error: 'Missing event' });
 
+    // Vercel sets these on production requests only; the city is URL-encoded.
+    let city = req.headers['x-vercel-ip-city'] || '';
+    try { city = decodeURIComponent(city); } catch {}
+
     const entry = {
       event,
       data: data || {},
@@ -25,6 +29,11 @@ export default async function handler(req, res) {
       date: new Date().toISOString(),
       ua: req.headers['user-agent'] || '',
       ip: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '',
+      geo: {
+        city,
+        region: req.headers['x-vercel-ip-country-region'] || '',
+        country: req.headers['x-vercel-ip-country'] || '',
+      },
     };
 
     const dayKey = `events:${new Date().toISOString().slice(0, 10)}`;

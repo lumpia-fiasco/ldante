@@ -72,9 +72,17 @@ function compile(events) {
   const fitSubmissions = [];
   const chatSessions = {};
   let totalVisitors = new Set();
+  const locationVisitors = {};
 
   for (const e of events) {
     if (e.ip) totalVisitors.add(e.ip);
+    const g = e.geo;
+    if (g && (g.city || g.country) && e.ip) {
+      const place = g.country === 'US' || !g.country
+        ? [g.city, g.region].filter(Boolean).join(', ')
+        : [g.city, g.region, g.country].filter(Boolean).join(', ');
+      if (place) (locationVisitors[place] = locationVisitors[place] || new Set()).add(e.ip);
+    }
     switch (e.event) {
       case 'case_view':
         caseViews[e.data?.case || 'unknown'] = (caseViews[e.data?.case || 'unknown'] || 0) + 1;
@@ -98,6 +106,9 @@ function compile(events) {
 
   return {
     uniqueVisitors: totalVisitors.size,
+    locations: Object.entries(locationVisitors)
+      .map(([place, ips]) => [place, ips.size])
+      .sort((a, b) => b[1] - a[1]),
     caseViews,
     fitSubmissions,
     chatSessions: Object.values(chatSessions),
@@ -108,6 +119,10 @@ function buildEmail(dateLabel, stats, totalEvents) {
   const caseRows = Object.entries(stats.caseViews)
     .sort((a, b) => b[1] - a[1])
     .map(([name, count]) => `<tr><td style="padding:6px 12px;border-bottom:1px solid #f0f0f0;">${name}</td><td style="padding:6px 12px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:600;">${count}</td></tr>`)
+    .join('');
+
+  const locationRows = stats.locations
+    .map(([place, count]) => `<tr><td style="padding:6px 12px;border-bottom:1px solid #f0f0f0;">${place}</td><td style="padding:6px 12px;border-bottom:1px solid #f0f0f0;text-align:right;font-weight:600;">${count}</td></tr>`)
     .join('');
 
   const fitRows = stats.fitSubmissions.map(f => `
@@ -146,6 +161,10 @@ function buildEmail(dateLabel, stats, totalEvents) {
           <div style="font-size:12px;color:#888;margin-top:2px;">Chat sessions</div>
         </div>
       </div>
+      ${stats.locations.length > 0 ? `
+        <h2 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Where visitors are from</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;">${locationRows}</table>
+      ` : ''}
       ${Object.keys(stats.caseViews).length > 0 ? `
         <h2 style="font-size:16px;font-weight:600;margin:24px 0 8px;">Case study views</h2>
         <table style="width:100%;border-collapse:collapse;font-size:14px;">${caseRows}</table>
