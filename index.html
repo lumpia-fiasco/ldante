@@ -630,12 +630,28 @@
   body.makers-nav-active .nav-chevron-prev {
     opacity: 1;
     pointer-events: auto;
-    transform: translateX(calc(-50% - 30px));
+    transform: translate(calc(-50% - 30px), var(--nav-split-lift, 0px));
   }
   body.makers-nav-active .nav-chevron-next {
     opacity: 1;
     pointer-events: auto;
-    transform: translateX(calc(-50% + 30px));
+    transform: translate(calc(-50% + 30px), var(--nav-split-lift, 0px));
+  }
+  body.makers-nav-active .nav-chevron-prev:hover,
+  body.makers-nav-active .nav-chevron-prev:focus-visible {
+    transform: translate(calc(-50% - 30px), var(--nav-split-lift, 0px)) scale(1.06);
+  }
+  body.makers-nav-active .nav-chevron-next:hover,
+  body.makers-nav-active .nav-chevron-next:focus-visible {
+    transform: translate(calc(-50% + 30px), var(--nav-split-lift, 0px)) scale(1.06);
+  }
+  /* on a phone the split pair is wider than the gap between the
+     "case studies" and "about" labels — it ran into the left one — so
+     once split, it lifts one badge-height (48px) plus a 12px gap above
+     that row instead of sitting in it. The down chevron is narrower
+     and still fits between the labels, so it stays put. */
+  @media (max-width: 480px) {
+    body.makers-nav-active { --nav-split-lift: -60px; }
   }
   /* first project — nothing to go back to. Dim just the glyph, not
      the badge itself — an opacity fade on the whole black circle
@@ -1981,7 +1997,7 @@
   //   {
   //     image: 'assets/projects/your-file.png',
   //     imageAlt: 'One line describing the image',
-  //     imageWidth: '75%',                 // optional — defaults to full card width
+  //     imageWidth: '75%',                 // optional — defaults to full card width; narrower ones center
   //     subhead: 'Project name or one-line pitch',
   //     caption: 'A sentence or two of context.',
   //     url: 'https://example.com',        // omit for no link row
@@ -2033,7 +2049,7 @@
   function buildMakerCardHTML(p){
     var img = p.image
       ? '<img class="maker-image" src="' + p.image + '" alt="' + (p.imageAlt || '') + '"' +
-          (p.imageWidth ? ' style="width:' + p.imageWidth + '"' : '') + '>'
+          (p.imageWidth ? ' style="width:' + p.imageWidth + ';align-self:center"' : '') + '>'
       : '';
     var link = p.url
       ? '<a class="maker-link" href="' + p.url + '" target="_blank" rel="noopener noreferrer">' +
