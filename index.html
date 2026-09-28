@@ -1981,6 +1981,7 @@
   //   {
   //     image: 'assets/projects/your-file.png',
   //     imageAlt: 'One line describing the image',
+  //     imageWidth: '75%',                 // optional — defaults to full card width
   //     subhead: 'Project name or one-line pitch',
   //     caption: 'A sentence or two of context.',
   //     url: 'https://example.com',        // omit for no link row
@@ -2013,6 +2014,10 @@
     },
     {
       image: 'assets/flossamer.jpg',
+      // narrower than the card so it lands at the same rendered height
+      // as the Parsly image: Parsly is 4298x2182, this is 2000x1359, so
+      // width = 100% x (this aspect) / (Parsly's aspect) ≈ 74.7%
+      imageWidth: 'calc(100% * (2000 / 1359) / (4298 / 2182))',
       imageAlt: 'Flossamer dashboard — “What Flossamer found” summary with emails read, conversations, people, and a suggested next person to reply to',
       subhead: 'The AI-native anti-CRM',
       caption: 'Flossamer is a lightweight, business intelligence tool for independent creative contractors.'
@@ -2027,7 +2032,8 @@
     '</svg>';
   function buildMakerCardHTML(p){
     var img = p.image
-      ? '<img class="maker-image" src="' + p.image + '" alt="' + (p.imageAlt || '') + '">'
+      ? '<img class="maker-image" src="' + p.image + '" alt="' + (p.imageAlt || '') + '"' +
+          (p.imageWidth ? ' style="width:' + p.imageWidth + '"' : '') + '>'
       : '';
     var link = p.url
       ? '<a class="maker-link" href="' + p.url + '" target="_blank" rel="noopener noreferrer">' +
