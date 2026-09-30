@@ -163,13 +163,18 @@ figure.bare img, figure.framed img { width: 100%; mix-blend-mode: multiply; }
 figure.tall { max-width: 380px; justify-self: end; }
 
 .hero { position: relative; min-height: 900px; margin: -72px -88px 0; padding: 120px 88px 40px; overflow: hidden; }
-.hero-art { position: absolute; inset: 0 0 auto 30%; height: 720px; }
-.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; mix-blend-mode: multiply; }
-.hero-img.base { opacity: .35; filter: blur(2px) saturate(.6); }
-.hero-img.reveal {
-  -webkit-mask-image: radial-gradient(circle at var(--mx, 55%) var(--my, 30%), #000 0, #000 180px, transparent 460px);
-          mask-image: radial-gradient(circle at var(--mx, 55%) var(--my, 30%), #000 0, #000 180px, transparent 460px);
+.hero-art {
+  position: absolute; top: 36px; right: 36px; width: 64%; aspect-ratio: 700 / 466;
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+          mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
 }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.hero-img.base { opacity: .5; filter: saturate(.7); }
+.hero-img.reveal {
+  -webkit-mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 180px, transparent 460px);
+          mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 180px, transparent 460px);
+}
+@media (hover: none) { .hero-img.reveal { -webkit-mask-image: none; mask-image: none; } }
 .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, var(--parchment) 0 30%, rgb(226 213 196 / .7) 52%, rgb(226 213 196 / 0) 72%); pointer-events: none; }
 .hero-copy { position: relative; z-index: 1; padding-top: 40px; }
 .hero-copy .lede, .hero-copy .display { text-shadow: 0 1px 12px rgb(226 213 196 / .7); }
@@ -314,7 +319,8 @@ ol.numbered.inline li { font-family: var(--serif); font-size: 22px; grid-templat
   .stats { gap: 28px; }
   .stat-v { font-size: 48px; }
   .hero { min-height: 0; margin: -44px -26px 0; padding: 300px 26px 20px; }
-  .hero-art { inset: 0; height: 380px; }
+  .hero-art { top: 16px; left: 0; right: 0; width: 100%; }
+  .hero-img.reveal { -webkit-mask-image: none; mask-image: none; }
   .phase-rail { gap: 18px; border-top: 0; border-left: 2px solid var(--ink); padding-left: 18px; }
   .phase-rail li::before { top: 22px; left: -26px; }
   .case.ledger { padding: 24px; }
