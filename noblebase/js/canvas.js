@@ -602,8 +602,8 @@
       setTimeout(() => { hint.hidden = true; try { localStorage.setItem('nb-hint', '1'); } catch (_) {} }, 9000);
     }
     if (target === 'overview') return;
-    // First arrival: hold on the whole atlas for a beat, then settle on the summary (or the linked spot).
-    setTimeout(() => go(target || 'summary', { duration: 1500, keepFocus: true }), reduceMotion ? 0 : 700);
+    // First arrival: hold on the whole atlas for a beat, then descend into the Portal (or the linked spot).
+    setTimeout(() => go(target || 'portal-1', { duration: 1700, keepFocus: true }), reduceMotion ? 0 : 900);
   });
 
   window.Atlas = { go, cam, get level() { return level; } };
