@@ -37,7 +37,8 @@
 
   const HUD_H = 64, BOTTOM_UI = 76;
   const cam = { x: 0, y: 0, s: 1 };
-  let pw = 1200, cols = 2, rects = {}, pRects = new Map(), bounds = null;
+  let pw = 1200, cols = 2, rects = {}, pRects = new Map(), bounds = null, mRect = null, onSummary = false;
+  const masthead = document.getElementById('summary');
   let curRegion = null, curPanel = null, level = 'atlas', flight = null, idleTimer = 0;
   const vw = () => Math.max(viewport.clientWidth, 320), vh = () => Math.max(viewport.clientHeight, 400);
   const narrowView = () => vw() < 760;
@@ -104,6 +105,15 @@
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
     Object.values(rects).forEach((r) => { x0 = Math.min(x0, r.x); y0 = Math.min(y0, r.y); x1 = Math.max(x1, r.x + r.w); y1 = Math.max(y1, r.y + r.h); });
     bounds = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+
+    // The summary spans the whole map on a desktop; on a phone it's one screen wide, over the Portal.
+    const mw = narrow ? pw : bounds.w;
+    masthead.style.width = mw + 'px';
+    const mh = masthead.offsetHeight;
+    mRect = { x: narrow ? rects.portal.x : bounds.x, y: bounds.y - (narrow ? 280 : 720) - mh, w: mw, h: mh };
+    mRect.cx = mRect.x + mw / 2;
+    masthead.style.left = mRect.x + 'px'; masthead.style.top = mRect.y + 'px';
+    bounds = { x: bounds.x, y: mRect.y, w: bounds.w, h: bounds.y + bounds.h - mRect.y };
     Terrain.drawWorld(terrain, bounds, rects, LINKS);
     buildMinimap();
   }
@@ -203,6 +213,13 @@
     const s = Math.min(readScale() * 0.5, (vw() - 80) / r.w, (vh() - HUD_H - BOTTOM_UI - 20) / r.h);
     return { s, x: vw() / 2 - r.cx * s, y: HUD_H + (vh() - HUD_H - BOTTOM_UI) / 2 - r.cy * s };
   }
+  function summaryCam() {
+    const avail = vh() - HUD_H - BOTTOM_UI;
+    // desktop: the whole summary on one screen; phone: full width, read it like a page
+    const s = narrowView() ? readScale() : Math.min(readScale(), (vw() - 80) / mRect.w, (avail - 24) / mRect.h);
+    const y = mRect.h * s <= avail ? HUD_H + Math.max(16, (avail - mRect.h * s) * 0.35) : HUD_H + 16;
+    return { s, x: vw() / 2 - mRect.cx * s, y: y - mRect.y * s };
+  }
   function overviewCam() {
     const s = fitAllScale();
     return { s, x: vw() / 2 - (bounds.x + bounds.w / 2) * s, y: HUD_H + (vh() - HUD_H - BOTTOM_UI) / 2 - (bounds.y + bounds.h / 2) * s };
@@ -218,6 +235,7 @@
   function go(target, opts) {
     closeMenu();
     if (target === 'overview') return flyTo(overviewCam(), opts);
+    if (target === 'summary') return flyTo(summaryCam(), opts);
     if (target.startsWith('region:')) return flyTo(regionCam(target.slice(7)), opts);
     if (REGIONS[target]) return goPanel(panelsOf[target][0], opts);
     const p = document.getElementById(target);
@@ -247,12 +265,16 @@
 
   function updateHud() {
     const cx = (vw() / 2 - cam.x) / cam.s, cy = (HUD_H + (vh() - HUD_H) * 0.4 - cam.y) / cam.s;
-    const region = level === 'atlas' ? null : nearest(Object.entries(rects), cx, cy);
-    const panel = level === 'panel' ? nearest(pRects.entries(), cx, cy) : null;
+    // Looking at the summary: the centre of view is on it (or anywhere above the map's regions).
+    onSummary = cy <= mRect.y + mRect.h + 40 && cx >= mRect.x - vw() / cam.s && cx <= mRect.x + mRect.w + vw() / cam.s;
+    document.body.dataset.place = onSummary ? 'summary' : '';
+    const region = level === 'atlas' || onSummary ? null : nearest(Object.entries(rects), cx, cy);
+    const panel = level === 'panel' && !onSummary ? nearest(pRects.entries(), cx, cy) : null;
+    const name = region ? REGIONS[region].name : onSummary ? 'At a glance' : 'The Atlas';
+    if (hudName.textContent !== name) hudName.textContent = name;
     if (region !== curRegion) {
       curRegion = region;
       hudNum.textContent = region ? REGIONS[region].num : '◆';
-      hudName.textContent = region ? REGIONS[region].name : 'The Atlas';
       document.querySelectorAll('.index-menu ol [data-go]').forEach((b) => b.setAttribute('aria-current', String(b.dataset.go === region)));
       Object.entries(labels).forEach(([id, l]) => l.classList.toggle('current', id === region));
       markMinimap();
@@ -268,7 +290,7 @@
       stepCount.textContent = `${panel ? list.indexOf(panel) + 1 : '—'} / ${list.length}`;
     }
     if (!flight) {
-      const h = panel ? '#' + panel.id : region ? '#' + region : '#atlas';
+      const h = panel ? '#' + panel.id : region ? '#' + region : onSummary ? '#summary' : '#atlas';
       if (location.hash !== h) history.replaceState(null, '', h);
     }
     const lat = 48.4 - cy / 60000, lon = 89.2 + cx / 60000;
@@ -293,6 +315,7 @@
       mk('rect', { x: r.x, y: r.y, width: r.w, height: r.h, class: 'mm-region', 'data-id': id, 'stroke-width': k, rx: 3 * k });
       mk('text', { x: r.x + 5 * k, y: r.y + 11 * k, 'font-size': 10 * k, class: 'mm-num' }).textContent = REGIONS[id].num;
     }
+    mk('rect', { x: mRect.x, y: mRect.y, width: mRect.w, height: mRect.h, class: 'mm-summary', 'data-id': 'summary' });
     for (const [p, r] of pRects) mk('rect', { x: r.x, y: r.y, width: r.w, height: r.h, class: 'mm-panel', 'data-id': p.id });
     mmView = mk('rect', { class: 'mm-view', 'stroke-width': 1.5 * k });
     markMinimap();
@@ -544,6 +567,7 @@
   function targetFromHash() {
     const h = decodeURIComponent(location.hash.slice(1));
     if (h === 'atlas') return 'overview';
+    if (h === 'summary') return 'summary';
     if (REGIONS[h]) return 'region:' + h;
     const p = h && document.getElementById(h);
     return p && p.classList.contains('panel') ? h : null;
@@ -554,10 +578,10 @@
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      const keepPanel = level === 'panel' ? curPanel : null, keepRegion = curRegion;
+      const keepPanel = level === 'panel' ? curPanel : null, keepRegion = curRegion, keepSummary = onSummary;
       const off = keepPanel ? Math.max(0, (HUD_H - cam.y) / cam.s - pRects.get(keepPanel).y) : 0;
       layout();
-      Object.assign(cam, keepPanel ? panelCam(keepPanel, off) : keepRegion ? regionCam(keepRegion) : overviewCam());
+      Object.assign(cam, keepSummary ? summaryCam() : keepPanel ? panelCam(keepPanel, off) : keepRegion ? regionCam(keepRegion) : overviewCam());
       apply();
     }, 120);
   });
@@ -578,8 +602,8 @@
       setTimeout(() => { hint.hidden = true; try { localStorage.setItem('nb-hint', '1'); } catch (_) {} }, 9000);
     }
     if (target === 'overview') return;
-    // First arrival: hold on the whole atlas for a beat, then descend.
-    setTimeout(() => go(target || 'portal-1', { duration: 1700, keepFocus: true }), reduceMotion ? 0 : 900);
+    // First arrival: hold on the whole atlas for a beat, then settle on the summary (or the linked spot).
+    setTimeout(() => go(target || 'summary', { duration: 1500, keepFocus: true }), reduceMotion ? 0 : 700);
   });
 
   window.Atlas = { go, cam, get level() { return level; } };

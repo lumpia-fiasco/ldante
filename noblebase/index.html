@@ -10,15 +10,15 @@
 <link rel="icon" href="/noblebase/assets/img/nb_logo_navy.ico">
 <link rel="preload" href="/noblebase/assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/noblebase/assets/fonts/golos-text-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/noblebase/css/site.css?v=4">
+<link rel="stylesheet" href="/noblebase/css/site.css?v=7">
 </head>
 <body>
 
-<a class="skip" href="#portal-1">Skip to content</a>
+<a class="skip" href="#summary">Skip to content</a>
 
 <!-- ============ HUD ============ -->
 <header class="hud-top">
-  <a class="brand" href="#portal" data-go="portal" aria-label="Noble Base, back to The Portal">
+  <a class="brand" href="#summary" data-go="summary" aria-label="Noble Base, back to the summary">
     <img src="/noblebase/assets/img/nb_logo_navy.svg" alt="" width="30" height="30">
     <span class="brand-text">
       <span class="brand-name">Noble Base</span>
@@ -37,6 +37,7 @@
 <nav class="index-menu" id="indexMenu" aria-label="Index of regions" hidden>
   <p class="label">The Atlas · Index of regions</p>
   <ol>
+    <li><button data-go="summary"><span class="num">◆</span><span class="nm">At a glance</span><span class="ds">What Noble Base is, and why it works</span></button></li>
     <li><button data-go="portal"><span class="num">I</span><span class="nm">The Portal</span><span class="ds">Where the route begins</span></button></li>
     <li><button data-go="team"><span class="num">II</span><span class="nm">The Expedition Party</span><span class="ds">Who runs your account</span></button></li>
     <li><button data-go="work"><span class="num">III</span><span class="nm">Territories Surveyed</span><span class="ds">Case studies</span></button></li>
@@ -70,6 +71,38 @@
 <main class="viewport" id="viewport">
   <div class="world" id="world">
     <svg class="terrain" id="terrain" aria-hidden="true"></svg>
+
+    <!-- ================= SUMMARY (sits above the whole map) ================= -->
+    <section class="masthead" id="summary" aria-labelledby="h-summary">
+      <div class="mh-inner">
+        <div class="mh-what">
+          <p class="mh-k">Noble Base · Advertising &amp; Growth Systems</p>
+          <h2 id="h-summary" class="mh-title">A founder-led growth studio for businesses that <em>built something real.</em></h2>
+          <p class="mh-lede">Noble Base puts senior operators inside growing companies ($500k+ revenue). We run your paid search, paid social and integrated media, build the attribution and automation underneath it, and stay until it runs itself.</p>
+          <p class="mh-lede">Two founders own every account: a technical lead who ships software and AI, and a marketing strategist with sixteen years in advertising.</p>
+          <div class="mh-cta">
+            <button class="btn" data-go="contact">Get a strategy call <span aria-hidden="true">→</span></button>
+            <button class="mh-link" data-go="portal">Start the tour at Region I <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        <div class="mh-why">
+          <p class="mh-k">Why Noble Base is good for your business</p>
+          <ol class="mh-points">
+            <li><h3>Measured against revenue, not clicks.</h3><p>Campaigns are optimized for qualified leads, customers and revenue. When a result can't be cleanly attributed, we say so and show how we read it.</p></li>
+            <li><h3>The people who scope it do the work.</h3><p>A principal leads every account. No junior account managers, no handoffs, no relay between the decision and the person doing it.</p></li>
+            <li><h3>We build the systems, not just the ads.</h3><p>Attribution, CRM and reporting automation, and custom tools ship into production. Astrolabe, our customer-intelligence product, came out of that work.</p></li>
+            <li><h3>It starts with who actually buys.</h3><p>Every engagement opens with the question most agencies skip: who is really buying from you, and where do they decide? The plan follows the answer.</p></li>
+          </ol>
+        </div>
+        <dl class="mh-stats">
+          <div><dt>Order lift in controlled geo tests</dt><dd>+50–120%</dd></div>
+          <div><dt>ROAS on targeted regional search</dt><dd>9–16×</dd></div>
+          <div><dt>Average order value, $73 → $86</dt><dd>+18%</dd></div>
+          <div><dt>To hear back · one week to know if we're a fit</dt><dd>2 days</dd></div>
+        </dl>
+        <p class="mh-foot">Below: the atlas, six regions deep. Drag, scroll or pinch to explore, or pick a region from the Index.</p>
+      </div>
+    </section>
 
     <!-- ================= PORTAL ================= -->
     <section class="panel head" id="portal-1" data-region="portal" aria-label="The Portal">
@@ -645,7 +678,7 @@
   </div>
 </main>
 
-<script src="/noblebase/js/terrain.js?v=4"></script>
-<script src="/noblebase/js/canvas.js?v=4"></script>
+<script src="/noblebase/js/terrain.js?v=7"></script>
+<script src="/noblebase/js/canvas.js?v=7"></script>
 </body>
 </html>
