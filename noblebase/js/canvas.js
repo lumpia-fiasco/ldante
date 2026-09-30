@@ -519,6 +519,48 @@
   });
 
   /* ---------------- Buttons ---------------- */
+  /* ---------------- Back: a link jump remembers where you came from ---------------- */
+  const backBtn = document.getElementById('backBtn');
+  const backName = document.getElementById('backName');
+  const backStack = [];
+  function spot() { // where the camera is now, as something we can return to
+    if (onSummary) return { id: 'summary', name: 'At a glance', off: 0 };
+    if (level !== 'panel' || !curPanel) return null;
+    const r = pRects.get(curPanel);
+    return { id: curPanel.id, name: curPanel.getAttribute('aria-label'), off: Math.max(0, (HUD_H - cam.y) / cam.s - r.y) };
+  }
+  function renderBack() {
+    const top = backStack[backStack.length - 1];
+    backBtn.hidden = !top;
+    if (top) { backName.textContent = top.name; backBtn.setAttribute('aria-label', 'Back to ' + top.name); }
+  }
+  function jump(target) {
+    const from = spot();
+    if (from) {
+      backStack.push(from);
+      history.pushState({ back: true }, '', location.hash); // the flight's hash updates land on this new entry
+      renderBack();
+    }
+    go(target);
+  }
+  function goBack() {
+    const b = backStack.pop();
+    renderBack();
+    if (!b) return false;
+    if (b.id === 'summary') go('summary');
+    else {
+      const p = document.getElementById(b.id), r = pRects.get(p);
+      const avail = (vh() - HUD_H - BOTTOM_UI) / readScale();
+      goPanel(p, r.h > avail && b.off > 8 ? { offsetY: Math.min(b.off, r.h - avail + 20) } : {});
+    }
+    return true;
+  }
+  backBtn.addEventListener('click', () => { if (backStack.length) history.back(); });
+  window.addEventListener('popstate', () => {
+    if (goBack()) return;
+    const t = targetFromHash(); if (t) go(t);
+  });
+
   document.addEventListener('click', (e) => {
     const t = e.target.closest('[data-go]');
     if (!t) return;
@@ -527,7 +569,7 @@
     if (t.classList.contains('region-label')) {
       const reg = t.dataset.go;
       if (level === 'region' && curRegion === reg) go(reg); else go('region:' + reg);
-    } else go(t.dataset.go);
+    } else jump(t.dataset.go);
   });
   document.getElementById('hudRegion').addEventListener('click', stepOut);
   document.getElementById('prevPanel').addEventListener('click', () => stepPanel(-1));
@@ -558,7 +600,7 @@
   /* ---------------- Hero: the engraving sharpens under the cursor ---------------- */
   const hero = document.getElementById('hero');
   hero.addEventListener('pointermove', (e) => {
-    const art = hero.querySelector('.hero-art').getBoundingClientRect();
+    const art = hero.getBoundingClientRect();
     hero.style.setProperty('--mx', ((e.clientX - art.left) / art.width * 100).toFixed(1) + '%');
     hero.style.setProperty('--my', ((e.clientY - art.top) / art.height * 100).toFixed(1) + '%');
   });
@@ -572,7 +614,6 @@
     const p = h && document.getElementById(h);
     return p && p.classList.contains('panel') ? h : null;
   }
-  window.addEventListener('hashchange', () => { const t = targetFromHash(); if (t) go(t); });
 
   let resizeTimer = 0;
   window.addEventListener('resize', () => {

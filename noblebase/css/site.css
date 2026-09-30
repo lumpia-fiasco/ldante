@@ -158,26 +158,28 @@ blockquote.big { font-size: 28px; align-self: center; margin: 0; }
 .instrument { width: 100%; color: var(--ink-3); }
 
 figure { margin: 0; }
-figure.framed { border: 1px solid var(--rule-strong); padding: 10px; background: var(--parchment-50); }
-figure.bare img, figure.framed img { width: 100%; mix-blend-mode: multiply; }
-figure.tall { max-width: 380px; justify-self: end; }
 
-.hero { position: relative; min-height: 900px; margin: -72px -88px 0; padding: 120px 88px 40px; overflow: hidden; }
-.hero-art {
-  position: absolute; top: 36px; right: 36px; width: 64%; aspect-ratio: 700 / 466;
-  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
-          mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+/* Illustrations: a full-bleed band across the top of their panel */
+.panel-art {
+  position: relative; margin: -72px -88px 56px; aspect-ratio: 5 / 2; overflow: hidden;
+  background: var(--parchment-50);
+  border-bottom: 1px solid var(--rule-strong);
 }
-.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.panel-art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; mix-blend-mode: multiply; }
+.panel-art img[src*="story-craft"] { object-position: center 30%; }
+.panel-art img[src*="hero-mountain"] { object-position: center 18%; }
+.panel-body > .panel-art:first-child { margin-top: -72px; }
+.panel-art + * { margin-top: 0; }
+.block > div > p:not(.label) { max-width: 46em; } /* single-column prose keeps a readable line length */ /* beat the first-child reset: bands sit flush with the top edge */
+.panel-art img[src*="team-candid"] { object-position: center 40%; }
+/* The Portal's mountain sharpens under the cursor, as on the original site */
+.reveal-art .hero-img { position: absolute; inset: 0; }
 .hero-img.base { opacity: .5; filter: saturate(.7); }
 .hero-img.reveal {
-  -webkit-mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 180px, transparent 460px);
-          mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 180px, transparent 460px);
+  -webkit-mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 220px, transparent 520px);
+          mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 220px, transparent 520px);
 }
 @media (hover: none) { .hero-img.reveal { -webkit-mask-image: none; mask-image: none; } }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, var(--parchment) 0 30%, rgb(226 213 196 / .7) 52%, rgb(226 213 196 / 0) 72%); pointer-events: none; }
-.hero-copy { position: relative; z-index: 1; padding-top: 40px; }
-.hero-copy .lede, .hero-copy .display { text-shadow: 0 1px 12px rgb(226 213 196 / .7); }
 
 .stats { display: grid; gap: 48px; border-top: 1px solid var(--rule); padding-top: 32px; }
 .stats.three { grid-template-columns: repeat(3, 1fr); }
@@ -318,8 +320,7 @@ ol.numbered.inline li { font-family: var(--serif); font-size: 22px; grid-templat
   .stats.three, .stats.two, .region-cards, .pathways, .ways, .ways.four, .cap-index, .evidence, .pair, ol.numbered.inline, .phase-rail { grid-template-columns: 1fr; }
   .stats { gap: 28px; }
   .stat-v { font-size: 48px; }
-  .hero { min-height: 0; margin: -44px -26px 0; padding: 300px 26px 20px; }
-  .hero-art { top: 16px; left: 0; right: 0; width: 100%; }
+  .panel-art, .panel-body > .panel-art:first-child { margin: -44px -26px 32px; aspect-ratio: 3 / 2; }
   .hero-img.reveal { -webkit-mask-image: none; mask-image: none; }
   .phase-rail { gap: 18px; border-top: 0; border-left: 2px solid var(--ink); padding-left: 18px; }
   .phase-rail li::before { top: 22px; left: -26px; }
@@ -331,7 +332,6 @@ ol.numbered.inline li { font-family: var(--serif); font-size: 22px; grid-templat
   .aside-italic, blockquote, blockquote.big { font-size: 19px; }
   .roman-list li { font-size: 17px; grid-template-columns: 44px 1fr; }
   .spec div { grid-template-columns: 1fr; gap: 2px; }
-  figure.tall { justify-self: start; max-width: 260px; }
 }
 
 /* ============ HUD ============ */
@@ -432,6 +432,23 @@ body[data-level="atlas"] .stepper, body[data-place="summary"] .stepper { opacity
   .hud-zoom { left: 14px; bottom: 14px; }
   
 }
+
+/* "Back to …" appears after a link jumps you somewhere else on the map */
+.back-pill {
+  position: fixed; z-index: 21; top: 72px; left: 20px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px 10px 12px; border-radius: 999px;
+  background: var(--ink); color: var(--parchment-50);
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  box-shadow: 0 12px 30px -12px rgb(41 48 64 / .6);
+  animation: backIn .35s var(--ease-out) both;
+}
+.back-pill span[aria-hidden] { color: var(--gold); font-size: 14px; letter-spacing: 0; }
+.back-pill #backName { color: var(--parchment-50); max-width: 46vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.back-pill:hover { background: var(--ink-2); }
+.back-pill[hidden] { display: none; }
+@keyframes backIn { from { opacity: 0; transform: translateY(-6px); } }
+@media (max-width: 640px) { .back-pill { top: 68px; left: 14px; } }
 
 /* While reading, the map furniture steps back */
 .minimap, .hud-zoom { transition: opacity .3s; }

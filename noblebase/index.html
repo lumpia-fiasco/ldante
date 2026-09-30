@@ -10,7 +10,7 @@
 <link rel="icon" href="/noblebase/assets/img/nb_logo_navy.ico">
 <link rel="preload" href="/noblebase/assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/noblebase/assets/fonts/golos-text-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/noblebase/css/site.css?v=11">
+<link rel="stylesheet" href="/noblebase/css/site.css?v=14">
 </head>
 <body>
 
@@ -33,6 +33,8 @@
     Index <span class="burger" aria-hidden="true"><i></i><i></i></span>
   </button>
 </header>
+
+<button class="back-pill mono" id="backBtn" hidden><span aria-hidden="true">←</span> Back to <span id="backName"></span></button>
 
 <nav class="index-menu" id="indexMenu" aria-label="Index of regions" hidden>
   <p class="label">The Atlas · Index of regions</p>
@@ -107,22 +109,20 @@
     <!-- ================= PORTAL ================= -->
     <section class="panel head" id="portal-1" data-region="portal" aria-label="The Portal">
       <div class="panel-body">
-        <div class="hero" id="hero">
-          <div class="hero-art">
-            <img class="hero-img base" src="/noblebase/assets/img/hero-mountain.webp" alt="">
-            <img class="hero-img reveal" src="/noblebase/assets/img/hero-mountain.webp" alt="">
+        <figure class="panel-art reveal-art" id="hero" aria-hidden="true">
+          <img class="hero-img base" src="/noblebase/assets/img/hero-mountain.webp" width="700" height="466" alt="">
+          <img class="hero-img reveal" src="/noblebase/assets/img/hero-mountain.webp" width="700" height="466" alt="">
+        </figure>
+        <div class="hero-copy">
+          <p class="label"><span class="gold">[ ◆ ]</span>&ensp;The Portal</p>
+          <h1 id="h-portal" class="display">Advertising<br><span class="gold-ink">&amp; Growth Systems.</span></h1>
+          <p class="lede">We embed with growing teams to improve media, measurement, automation, and the path from attention to revenue.</p>
+          <p class="callout">Forward-deployed AI operators for growth-stage executives. We embed with your team, build the automations, and stay until they run themselves.</p>
+          <div class="cta-row">
+            <button class="btn" data-go="contact">Get a Strategy Call <span aria-hidden="true">→</span></button>
+            <a class="link-italic" href="https://www.astrolabehq.com" target="_blank" rel="noopener">Meet Astrolabe, our audience intelligence product <span class="sr">(opens in a new tab)</span><span aria-hidden="true">↗</span></a>
           </div>
-          <div class="hero-copy">
-            <p class="label"><span class="gold">[ ◆ ]</span>&ensp;The Portal</p>
-            <h1 id="h-portal" class="display">Advertising<br><span class="gold-ink">&amp; Growth Systems.</span></h1>
-            <p class="lede">We embed with growing teams to improve media, measurement, automation, and the path from attention to revenue.</p>
-            <p class="callout">Forward-deployed AI operators for growth-stage executives. We embed with your team, build the automations, and stay until they run themselves.</p>
-            <div class="cta-row">
-              <button class="btn" data-go="contact">Get a Strategy Call <span aria-hidden="true">→</span></button>
-              <a class="link-italic" href="https://www.astrolabehq.com" target="_blank" rel="noopener">Meet Astrolabe, our audience intelligence product <span class="sr">(opens in a new tab)</span><span aria-hidden="true">↗</span></a>
-            </div>
-            <p class="fine mono">Best for growing businesses ($500k+ revenue) that want senior operators owning their marketing end to end.</p>
-          </div>
+          <p class="fine mono">Best for growing businesses ($500k+ revenue) that want senior operators owning their marketing end to end.</p>
         </div>
       </div>
     </section>
@@ -164,7 +164,7 @@
       </div>
     </section>
 
-    <section class="panel" id="portal-4" data-region="portal" aria-label="Index of regions">
+    <section class="panel" id="portal-4" data-region="portal" aria-label="Choose a region">
       <div class="panel-body">
         <div class="block">
           <p class="label">The Atlas · Index</p>
@@ -199,14 +199,14 @@
     <!-- ================= TEAM ================= -->
     <section class="panel head" id="team-1" data-region="team" aria-label="The Expedition Party">
       <div class="panel-body">
+        <figure class="panel-art"><img src="/noblebase/assets/img/team-candid-sketch.webp" width="900" height="599" alt="Engraved sketch of Noble Base's two co-founders, Wellington Johnson and Kevin Nguyen."></figure>
         <header class="region-head">
           <p class="label">Region II</p>
           <h2 id="h-team" class="display-2">The Expedition Party</h2>
           <p class="sub">For founders who would rather work with the people actually doing the work.</p>
         </header>
 
-        <div class="block split">
-          <figure class="framed"><img src="/noblebase/assets/img/team-candid-sketch.webp" width="900" height="599" alt="Engraved sketch of Noble Base's two co-founders, Wellington Johnson and Kevin Nguyen."></figure>
+        <div class="block">
           <div>
             <p class="label"><span class="gold">[ 01 ]</span>&ensp;Origin</p>
             <h3 class="h2">Founder-led, built to execute.</h3>
@@ -278,15 +278,15 @@
     <!-- ================= WORK ================= -->
     <section class="panel head" id="work-1" data-region="work" aria-label="Territories Surveyed">
       <div class="panel-body">
+        <figure class="panel-art"><img src="/noblebase/assets/img/services-core.webp" width="600" height="400" alt="Engraved plate of a bow, arrows, quiver and target."></figure>
         <header class="region-head">
           <p class="label">Region III</p>
           <h2 id="h-work" class="display-2">Territories Surveyed</h2>
           <p class="sub">For the operators who measure marketing in revenue, not impressions.</p>
         </header>
 
-        <div class="block split">
+        <div class="block">
           <p class="dropcap">Every project begins with a question: who is actually buying from you, and where are they making decisions? The cases below show what changes when the strategy starts there.</p>
-          <figure class="bare"><img src="/noblebase/assets/img/services-core.webp" width="600" height="400" alt="Engraved plate of a bow, arrows, quiver and target."></figure>
         </div>
 
         <ol class="phase-rail mono" aria-label="Phases">
@@ -407,18 +407,18 @@
     <!-- ================= SERVICES ================= -->
     <section class="panel head" id="services-1" data-region="services" aria-label="The Service Quadrant">
       <div class="panel-body">
+        <figure class="panel-art"><img src="/noblebase/assets/img/services-supporting.webp" width="650" height="433" alt="Engraved plate of scaffolding around a building frame."></figure>
         <header class="region-head">
           <p class="label">Region IV</p>
           <h2 id="h-services" class="display-2">The Service Quadrant</h2>
           <p class="sub">For the business ready to treat marketing as a growth system, run by one team.</p>
         </header>
 
-        <div class="block split">
+        <div class="block">
           <div>
             <p class="dropcap">Noble Base embeds with growing teams to improve advertising, measurement, automation, and the systems connecting attention to revenue. One senior team can plan the media, run the campaigns, and fix what happens downstream.</p>
             <p class="muted">When an integrated campaign needs production or media expertise outside our lane, we bring in a trusted partner and remain accountable for the result.</p>
           </div>
-          <figure class="bare"><img src="/noblebase/assets/img/services-supporting.webp" width="650" height="433" alt="Engraved plate of scaffolding around a building frame."></figure>
         </div>
       </div>
     </section>
@@ -509,7 +509,8 @@
 
     <section class="panel" id="astrolabe-2" data-region="astrolabe" aria-label="The instrument">
       <div class="panel-body">
-        <div class="block split">
+        <figure class="panel-art"><img src="/noblebase/assets/img/story-craft.webp" width="450" height="675" alt="Engraved plate of a craftsman at a workbench, bent over an instrument."></figure>
+        <div class="block">
           <div>
             <p class="label"><span class="gold">[ 01 ]</span>&ensp;The instrument</p>
             <p>Astrolabe starts with the people who actually paid you. Upload your customer list and it enriches every record with real, licensed consumer data — the demographic, behavioral, and interest signals your CRM can't see — then reads it back as practical marketing intelligence: who your buyers really are, where to reach them, and what to say. You could ask an AI who your customers are and get a confident guess; Astrolabe doesn't guess. It works from your real list, and uses AI only for the last step — making the findings readable.</p>
@@ -519,7 +520,6 @@
               <button class="link-italic" data-go="services">How it connects to Paid Search Growth →</button>
             </div>
           </div>
-          <figure class="bare tall"><img src="/noblebase/assets/img/story-craft.webp" width="450" height="675" alt="Engraved plate of a craftsman at a workbench, bent over an instrument."></figure>
         </div>
       </div>
     </section>
@@ -610,20 +610,20 @@
     <!-- ================= CONTACT ================= -->
     <section class="panel head" id="contact-1" data-region="contact" aria-label="The Cartographers' Post">
       <div class="panel-body">
+        <figure class="panel-art"><img src="/noblebase/assets/img/cta-plane.webp" width="700" height="467" alt="Engraved plate of a passenger jet with plan and elevation views."></figure>
         <header class="region-head">
           <p class="label">Region VI</p>
           <h2 id="h-contact" class="display-2">The Cartographers' Post</h2>
           <p class="sub">Every engagement starts with a conversation.</p>
         </header>
 
-        <div class="block split">
+        <div class="block">
           <div>
             <p class="dropcap">Tell us what you're working on, what isn't working, and what success looks like. We read every message and reply within two working days.</p>
             <p class="label"><span class="gold">[ 01 ]</span>&ensp;The invitation</p>
             <h3 class="h2">We do not take every engagement.</h3>
             <p>Before we agree to work together, we want to understand your business well enough to know we can help. That starts with a conversation — no deck, no sales process, just a direct exchange about where you are and where you want to go.</p>
           </div>
-          <figure class="bare"><img src="/noblebase/assets/img/cta-plane.webp" width="700" height="467" alt="Engraved plate of a passenger jet with plan and elevation views."></figure>
         </div>
       </div>
     </section>
@@ -678,7 +678,7 @@
   </div>
 </main>
 
-<script src="/noblebase/js/terrain.js?v=11"></script>
-<script src="/noblebase/js/canvas.js?v=11"></script>
+<script src="/noblebase/js/terrain.js?v=14"></script>
+<script src="/noblebase/js/canvas.js?v=14"></script>
 </body>
 </html>
