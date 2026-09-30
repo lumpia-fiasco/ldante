@@ -216,7 +216,8 @@
     });
 
     // Compass rose + cartouche in open ground
-    const cr = el('g', { transform: `translate(${bounds.x - 1300} ${bounds.y + 900}) scale(1.6)` }, svg);
+    const rose = { x: bounds.x - 1300, y: bounds.y + 900 };
+    const cr = el('g', { transform: `translate(${rose.x} ${rose.y}) scale(1.6)` }, svg);
     el('circle', { r: 420, fill: 'none', stroke: 'rgb(41 48 64 / .35)', 'stroke-width': 3 }, cr);
     el('circle', { r: 390, fill: 'none', stroke: 'rgb(41 48 64 / .2)', 'stroke-width': 2 }, cr);
     for (let i = 0; i < 32; i++) {
@@ -233,7 +234,8 @@
     [['N', 0, -450], ['E', 460, 16], ['S', 0, 490], ['W', -460, 16]].forEach(([l, x, y]) =>
       el('text', { x, y, 'text-anchor': 'middle', 'font-size': 80, 'font-family': 'Fraunces, serif', fill: '#293040' }, cr).textContent = l);
 
-    const cart = el('g', { transform: `translate(${bounds.x + bounds.w + 500} ${bounds.y + 300}) scale(1.8)` }, svg);
+    // Title box, centred under the compass rose (1100 wide × 1.8)
+    const cart = el('g', { transform: `translate(${rose.x - 990} ${rose.y + 920}) scale(1.8)` }, svg);
     el('rect', { width: 1100, height: 520, fill: 'rgb(250 246 236 / .6)', stroke: 'rgb(41 48 64 / .45)', 'stroke-width': 3 }, cart);
     el('rect', { x: 18, y: 18, width: 1064, height: 484, fill: 'none', stroke: 'rgb(41 48 64 / .25)', 'stroke-width': 2 }, cart);
     const tl = (t, y, size, fam, fill, extra = {}) => el('text', Object.assign({ x: 550, y, 'text-anchor': 'middle', 'font-size': size, 'font-family': fam, fill }, extra), cart).textContent = t;
