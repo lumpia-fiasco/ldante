@@ -161,25 +161,87 @@ figure { margin: 0; }
 
 /* Illustrations: a full-bleed band across the top of their panel */
 .panel-art {
-  position: relative; margin: -72px -88px 56px; aspect-ratio: 5 / 2; overflow: hidden;
-  background: var(--parchment-50);
-  border-bottom: 1px solid var(--rule-strong);
+  position: relative; margin: -72px -88px 48px; height: 540px; padding: 40px 88px 0;
+  display: flex; justify-content: center; align-items: flex-end;
 }
-.panel-art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; mix-blend-mode: multiply; }
-.panel-art img[src*="story-craft"] { object-position: center 30%; }
-.panel-art img[src*="hero-mountain"] { object-position: center 18%; }
-.panel-body > .panel-art:first-child { margin-top: -72px; }
+/* the drawings carry their own transparent, vignetted edges: show each one whole, never cropped */
+.panel-art img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+.panel-body > .panel-art:first-child { margin-top: -72px; } /* beat the first-child reset: bands sit flush with the top edge */
 .panel-art + * { margin-top: 0; }
-.block > div > p:not(.label) { max-width: 46em; } /* single-column prose keeps a readable line length */ /* beat the first-child reset: bands sit flush with the top edge */
-.panel-art img[src*="team-candid"] { object-position: center 40%; }
-/* The Portal's mountain sharpens under the cursor, as on the original site */
-.reveal-art .hero-img { position: absolute; inset: 0; }
-.hero-img.base { opacity: .5; filter: saturate(.7); }
-.hero-img.reveal {
-  -webkit-mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 220px, transparent 520px);
-          mask-image: radial-gradient(circle at var(--mx, 50%) var(--my, 32%), #000 0, #000 220px, transparent 520px);
+.block > div > p:not(.label) { max-width: 46em; } /* single-column prose keeps a readable line length */
+/* ---------- Region heroes (Portal, Expedition Party): title riding over the top of a full-width drawing ---------- */
+.rhero { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.rhero .label { margin-bottom: 22px; }
+.rhero-title {
+  position: relative; z-index: 2;
+  font-family: var(--serif); font-weight: 400; font-size: min(88px, 8.4cqw); line-height: 1.02; letter-spacing: -.03em;
+  margin: 0; text-shadow: 0 0 24px var(--parchment), 0 0 8px var(--parchment);
 }
-@media (hover: none) { .hero-img.reveal { -webkit-mask-image: none; mask-image: none; } }
+.rhero-title span { display: block; white-space: nowrap; }
+/* The drawing runs the panel's full width (out past the padding) and tucks up under the title.
+   --ov is how much of the drawing's height sits behind the title (the Portal uses 35%, the Expedition Party 25%).
+   Percentage margins resolve against the content width, so that height = --ov × 2/3 aspect × (content + both paddings). */
+.rhero-art { --ov: .35; position: relative; align-self: stretch; aspect-ratio: 3 / 2; margin: calc((100% + 176px) * var(--ov) * -.666) -88px 0; }
+.rhero-art > img:only-child { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; } /* absolute, so a tall drawing can't stretch the 3:2 frame */
+.rhero-art .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.rhero .lede { font-size: 21px; max-width: 34em; margin: 8px auto 18px; }
+.portal-callout { font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.5; color: var(--ink-3); max-width: 36em; margin: 0 auto; }
+.rhero .cta-row { justify-content: center; margin-top: 30px; }
+.rhero .fine { margin: 26px auto 0; }
+
+#portal-1 .block { margin-top: 96px; }
+#portal-1 .stat-v { font-size: 56px; }
+#portal-1 .aside-italic { font-size: 20px; margin-top: 40px; max-width: 40em; }
+#portal-1 .principles { grid-template-columns: repeat(3, 1fr); column-gap: 48px; border-top: 1px solid var(--rule); }
+#portal-1 .principle { display: block; padding: 32px 0 0; border-top: 0; }
+#portal-1 .principle .h2 { font-size: 30px; margin-bottom: 12px; }
+#portal-1 .principle p:not(.label) { font-size: 16px; color: var(--ink-3); }
+
+/* ---------- II · The Expedition Party ---------- */
+.rhero .sub { max-width: 30em; margin: 20px auto 0; text-align: center; }
+/* .soft: the drawing is a framed rectangle, so fade all four edges so it dissolves into the parchment,
+   with a longer fade at the top where it meets the title. The two gradients are intersected. */
+.rhero-art.soft img {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / .5) 12%, #000 30%, #000 72%, transparent 97%),
+                      linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-image: linear-gradient(to bottom, transparent 0, rgb(0 0 0 / .5) 12%, #000 30%, #000 72%, transparent 97%),
+                      linear-gradient(to right, transparent 0, #000 16%, #000 84%, transparent 100%);
+          mask-composite: intersect;
+}
+.rhero .label { position: relative; z-index: 2; }
+#team-1 .team-origin { margin-top: 56px; padding-top: 44px; border-top: 1px solid var(--rule); }
+#team-1 .team-origin p:not(.label) { max-width: 44em; }
+#team-1 .block { margin-top: 72px; }
+#team-1 .founders { gap: 56px; }
+#team-1 .founder .h2 { font-size: 36px; }
+
+/* ---------- One-panel regions (Territories, Service Quadrant, …): tighter rhythm under the hero ---------- */
+.solo .rhero + .block { margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--rule); }
+.solo .rhero + .block .dropcap { max-width: 40em; }
+.solo .phase-rail { margin-top: 48px; }
+.solo .case, .solo .block { margin-top: 72px; }
+.solo .tagline { text-align: center; margin-top: 14px; }
+#services-1 .rhero-art img { opacity: .5; } /* the scaffolding sits back at half strength */
+
+/* Side hero (The Astrolabe): the drawing fills the panel's left half, the title block sits to its right */
+.rhero.side { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 56px; text-align: left; }
+.rhero.side .rhero-art { aspect-ratio: 450 / 675; margin: -72px 0 0 -88px; width: calc(100% + 88px); }
+.rhero.side .side-copy { padding: 40px 0; }
+.rhero.side .label { margin-bottom: 18px; }
+.rhero.side .rhero-title { font-size: min(76px, 6.4cqw); text-align: left; }
+.rhero.side .sub { text-align: left; margin: 22px 0 0; max-width: 20em; }
+.rhero.side .tagline { text-align: left; margin-top: 22px; line-height: 1.3; max-width: 16em; }
+.instrument-block { align-items: center; }
+.instrument-block .instrument { max-width: 360px; justify-self: center; }
+
+/* The Portal's mountain sharpens under the cursor, as on the original site */
+.hero-img.base { opacity: .5; }
+.hero-img.reveal {
+  -webkit-mask-image: radial-gradient(circle at var(--mx, -999px) var(--my, -999px), #000 0, #000 200px, transparent 460px);
+          mask-image: radial-gradient(circle at var(--mx, -999px) var(--my, -999px), #000 0, #000 200px, transparent 460px);
+}
+@media (hover: none) { .hero-img.reveal { display: none; } } /* no cursor to steer the flashlight: stay at the 50% fade */
 
 .stats { display: grid; gap: 48px; border-top: 1px solid var(--rule); padding-top: 32px; }
 .stats.three { grid-template-columns: repeat(3, 1fr); }
@@ -213,11 +275,6 @@ figure { margin: 0; }
 .rc-d { font-size: 15px; color: var(--ink-3); }
 .rc-go { margin-top: auto; padding-top: 14px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-3); }
 
-.imprint { margin-top: 120px; padding-top: 40px; border-top: 1px solid var(--rule-strong); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.imprint-name { font-family: var(--serif); font-size: 30px; margin-bottom: 6px; }
-.mail { font-family: var(--serif); font-size: 30px; color: var(--gold-3); text-decoration: none; }
-.mail:hover { text-decoration: underline; text-underline-offset: 5px; }
-.colophon { grid-column: 1 / -1; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin: 20px 0 0; }
 
 .founders { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
 .founder { border-top: 1px solid var(--rule); padding-top: 32px; }
@@ -300,11 +357,6 @@ ol.numbered.inline li { font-family: var(--serif); font-size: 22px; grid-templat
 .mail-hero { display: inline-block; font-family: var(--serif); font-size: 72px; letter-spacing: -.02em; color: var(--gold-3); text-decoration: none; margin: 12px 0 20px; line-height: 1.1; }
 .mail-hero:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 10px; }
 
-.adjacent { margin-top: 112px; padding-top: 28px; border-top: 2px solid var(--ink); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.adjacent .label { width: 100%; margin-bottom: 8px; }
-.adjacent button { display: inline-flex; align-items: baseline; gap: 14px; padding: 14px 22px; border: 1px solid var(--rule-strong); font-family: var(--serif); font-size: 20px; transition: background .2s, border-color .2s; }
-.adjacent button:hover { background: var(--parchment-50); border-color: var(--gold); }
-.adjacent .dir { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-2); }
 
 /* ============ Narrow panels (phone) ============ */
 @container (max-width: 700px) {
@@ -315,13 +367,27 @@ ol.numbered.inline li { font-family: var(--serif); font-size: 22px; grid-templat
   .sub { font-size: 19px; }
   .lede, .dropcap { font-size: 17px; }
   .block { margin-top: 72px; }
-  .block.split, .split, .founders, .principle, .imprint, .route, .region-head.with-instrument { grid-template-columns: 1fr; gap: 28px; }
+  .block.split, .split, .founders, .principle, .route, .region-head.with-instrument { grid-template-columns: 1fr; gap: 28px; }
   .principle p:not(.label), .principle a, .principle .h2 { grid-column: 1; }
   .stats.three, .stats.two, .region-cards, .pathways, .ways, .ways.four, .cap-index, .evidence, .pair, ol.numbered.inline, .phase-rail { grid-template-columns: 1fr; }
   .stats { gap: 28px; }
   .stat-v { font-size: 48px; }
-  .panel-art, .panel-body > .panel-art:first-child { margin: -44px -26px 32px; aspect-ratio: 3 / 2; }
-  .hero-img.reveal { -webkit-mask-image: none; mask-image: none; }
+  .rhero-title { font-size: 9.6cqw; }
+  .rhero-art { margin: calc((100% + 52px) * var(--ov) * -.666) -26px 0; }
+  .rhero .lede { font-size: 17px; }
+  #team-1 .team-origin { margin-top: 32px; padding-top: 28px; }
+  #team-1 .block { margin-top: 48px; }
+  .solo .rhero + .block { margin-top: 32px; padding-top: 28px; }
+  .rhero.side { grid-template-columns: 1fr; gap: 8px; }
+  .rhero.side .rhero-art { width: auto; margin: -44px -26px 0; aspect-ratio: 3 / 2; }
+  .rhero.side .rhero-title { font-size: 9.6cqw; }
+  .rhero.side .side-copy { padding: 0; }
+  .solo .case, .solo .block { margin-top: 48px; }
+  .portal-callout { font-size: 17px; }
+  #portal-1 .block { margin-top: 64px; }
+  #portal-1 .principles { grid-template-columns: 1fr; }
+  #portal-1 .principle .h2 { font-size: 26px; }
+  .panel-art, .panel-body > .panel-art:first-child { margin: -44px -26px 28px; height: auto; aspect-ratio: 3 / 2; padding: 20px 16px 0; }
   .phase-rail { gap: 18px; border-top: 0; border-left: 2px solid var(--ink); padding-left: 18px; }
   .phase-rail li::before { top: 22px; left: -26px; }
   .case.ledger { padding: 24px; }
@@ -472,51 +538,51 @@ body[data-level="panel"] .minimap:hover { opacity: 1; }
 }
 .masthead::before { content: ""; position: absolute; inset: .45cqw; border: .12cqw double var(--rule-strong); pointer-events: none; }
 .mh-inner {
-  display: grid; grid-template-columns: 1fr 1.3fr; column-gap: 5cqw; row-gap: 2.2cqw;
-  padding: 3.2cqw 4.6cqw 2.4cqw;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 4.4cqw 8cqw 3.2cqw;
 }
-.mh-k { font-family: var(--mono); font-size: .9cqw; letter-spacing: .24em; text-transform: uppercase; color: var(--gold-3); margin: 0 0 1.2cqw; padding-bottom: .8cqw; border-bottom: .06cqw solid var(--rule-strong); }
-.mh-title { font-family: var(--serif); font-size: 3.3cqw; line-height: 1.04; letter-spacing: -.025em; margin: 0 0 1.4cqw; text-wrap: balance; }
-.mh-title em { color: var(--gold-2); }
-.mh-lede { font-size: 1.28cqw; line-height: 1.55; color: var(--ink-2); margin: 0 0 1cqw; max-width: 34em; }
-.mh-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1cqw 2.2cqw; margin-top: 1.6cqw; }
-.mh-cta .btn { font-size: 1.15cqw; padding: .9cqw 1.6cqw; border-radius: .25cqw; gap: .6cqw; }
-.mh-link { font-family: var(--serif); font-style: italic; font-size: 1.3cqw; color: var(--gold-3); text-decoration: underline; text-underline-offset: .35em; text-decoration-thickness: .06cqw; }
-.mh-points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.8cqw 3cqw; counter-reset: why; }
-.mh-points li { counter-increment: why; border-top: .14cqw solid var(--ink); padding-top: 1cqw; }
-.mh-points li::before { content: counter(why, upper-roman); display: block; font-family: var(--serif); font-size: 1.5cqw; color: var(--gold); line-height: 1; margin-bottom: .5cqw; }
-.mh-points h3 { font-family: var(--serif); font-size: 1.7cqw; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 .7cqw; }
-.mh-points p { font-size: 1.1cqw; line-height: 1.5; color: var(--ink-3); margin: 0; }
-.mh-stats { grid-column: 1 / -1; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: .06cqw solid var(--rule-strong); border-bottom: .06cqw solid var(--rule-strong); }
-.mh-stats div { display: flex; flex-direction: column-reverse; gap: .5cqw; padding: 1.1cqw 1.6cqw 1.1cqw 0; }
-.mh-stats div + div { padding-left: 1.6cqw; border-left: .06cqw solid var(--rule); }
-.mh-stats dd { margin: 0; font-family: var(--serif); font-size: 3cqw; line-height: 1; color: var(--gold-2); letter-spacing: -.02em; }
-.mh-stats dt { font-family: var(--mono); font-size: .86cqw; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.5; }
-.mh-foot { grid-column: 1 / -1; margin: 0; font-family: var(--serif); font-style: italic; font-size: 1.2cqw; color: var(--ink-3); text-align: center; }
-.mh-foot::before { content: "↓"; display: block; font-style: normal; color: var(--gold); font-size: 1.6cqw; margin-bottom: .3cqw; }
+.mh-k { font-family: var(--mono); font-size: .9cqw; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-3); margin: 0 0 2cqw; }
+.mh-title { font-family: var(--serif); font-weight: 400; font-size: 4.6cqw; line-height: 1.02; letter-spacing: -.03em; margin: 0 0 1.8cqw; max-width: 15em; text-wrap: balance; }
+.mh-title em { display: block; color: var(--gold-2); }
+.mh-lede { font-family: var(--serif); font-style: italic; font-size: 1.6cqw; line-height: 1.45; color: var(--ink-3); margin: 0 0 3cqw; max-width: 30em; text-wrap: pretty; }
+
+/* the route: where you stand, the dashed way forward, where you're headed */
+.mh-route { display: flex; align-items: center; gap: 1.4cqw; width: min(100%, 62cqw); margin: 0 0 3cqw; }
+.mh-pt { display: flex; flex-direction: column; align-items: center; gap: .7cqw; flex: none;
+  font-family: var(--mono); font-size: .82cqw; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); }
+.mh-mark { display: block; width: 1.5cqw; height: 1.5cqw; }
+.mh-mark.here { border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 .45cqw rgb(187 136 55 / .22); }
+.mh-mark.peak { width: 0; height: 0; border-left: .95cqw solid transparent; border-right: .95cqw solid transparent; border-bottom: 1.6cqw solid var(--ink); }
+.mh-path { position: relative; flex: 1; height: .2cqw; margin-bottom: 2cqw;
+  background: repeating-linear-gradient(90deg, var(--gold-2) 0 .9cqw, transparent .9cqw 1.7cqw); }
+.mh-path i { position: absolute; top: 50%; width: .7cqw; height: .7cqw; margin: -.35cqw 0 0 -.35cqw; border-radius: 50%;
+  background: var(--parchment); border: .14cqw solid var(--ink-3); }
+.mh-path i:nth-child(1) { left: 20%; } .mh-path i:nth-child(2) { left: 40%; } .mh-path i:nth-child(3) { left: 60%; } .mh-path i:nth-child(4) { left: 80%; }
+
+.mh-cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 1cqw 2.4cqw; margin: 0 0 2.6cqw; }
+.mh-cta .btn { font-size: 1.2cqw; padding: 1cqw 1.8cqw; border-radius: .25cqw; gap: .6cqw; }
+.mh-link { font-family: var(--serif); font-style: italic; font-size: 1.35cqw; color: var(--gold-3); text-decoration: underline; text-underline-offset: .35em; text-decoration-thickness: .06cqw; }
+.mh-foot { margin: 0; font-family: var(--mono); font-size: .8cqw; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+.mh-foot::before { content: "↓"; display: block; letter-spacing: 0; color: var(--gold); font-size: 1.6cqw; margin-bottom: .4cqw; }
 
 /* On a phone the masthead is one screen wide and reads like the first page */
 @container (max-width: 700px) {
   .masthead::before { inset: 8px; border-width: 3px; }
-  .mh-inner { grid-template-columns: 1fr; padding: 40px 24px 32px; row-gap: 40px; }
-  .mh-k { font-size: 10px; margin-bottom: 16px; padding-bottom: 10px; border-width: 1px; }
-  .mh-title { font-size: 34px; margin-bottom: 18px; }
-  .mh-lede { font-size: 16px; margin-bottom: 12px; }
-  .mh-cta { gap: 14px 20px; margin-top: 22px; }
+  .mh-inner { padding: 48px 24px 36px; }
+  .mh-k { font-size: 10px; letter-spacing: .22em; margin-bottom: 20px; }
+  .mh-title { font-size: 38px; margin-bottom: 18px; }
+  .mh-lede { font-size: 19px; margin-bottom: 32px; }
+  .mh-route { width: 100%; gap: 10px; margin-bottom: 32px; }
+  .mh-pt { font-size: 9px; letter-spacing: .14em; gap: 8px; max-width: 76px; }
+  .mh-mark { width: 14px; height: 14px; }
+  .mh-mark.here { box-shadow: 0 0 0 4px rgb(187 136 55 / .22); }
+  .mh-mark.peak { border-left-width: 9px; border-right-width: 9px; border-bottom-width: 15px; }
+  .mh-path { height: 2px; margin-bottom: 22px; background: repeating-linear-gradient(90deg, var(--gold-2) 0 7px, transparent 7px 13px); }
+  .mh-path i { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-width: 1.5px; }
+  .mh-cta { flex-direction: column; gap: 16px; margin-bottom: 28px; }
   .mh-cta .btn { font-size: 15px; padding: 13px 20px; border-radius: 3px; }
   .mh-link { font-size: 17px; text-decoration-thickness: 1px; }
-  .mh-points { grid-template-columns: 1fr; gap: 26px; }
-  .mh-points li { border-top-width: 2px; padding-top: 14px; }
-  .mh-points li::before { font-size: 20px; margin-bottom: 8px; }
-  .mh-points h3 { font-size: 22px; margin-bottom: 6px; }
-  .mh-points p { font-size: 15px; }
-  .mh-stats { grid-template-columns: 1fr 1fr; border-width: 1px; }
-  .mh-stats div, .mh-stats div + div { padding: 16px 12px 16px 0; border-left: 0; gap: 6px; }
-  .mh-stats div:nth-child(even) { padding-left: 14px; border-left: 1px solid var(--rule); }
-  .mh-stats div:nth-child(n+3) { border-top: 1px solid var(--rule); }
-  .mh-stats dd { font-size: 32px; }
-  .mh-stats dt { font-size: 9px; }
-  .mh-foot { font-size: 16px; }
-  .mh-foot::before { font-size: 20px; margin-bottom: 4px; }
+  .mh-foot { font-size: 10px; }
+  .mh-foot::before { font-size: 18px; margin-bottom: 4px; }
 }
 .minimap .mm-summary { fill: rgb(187 136 55 / .18); stroke: var(--gold-3); }

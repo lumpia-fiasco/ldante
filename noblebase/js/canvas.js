@@ -61,7 +61,8 @@
     const w = vw();
     const narrow = w < 760;
     pw = narrow ? w : Math.min(1200, w - 80);
-    cols = narrow ? 1 : 2;
+    // regions with several panels lay them out two-up; if every region is a single panel, a region is one panel wide
+    cols = narrow || ORDER.every((id) => panelsOf[id].length === 1) ? 1 : 2;
     document.documentElement.style.setProperty('--pw', pw + 'px');
     const g = narrow ? 36 : 96;            // between panels
     const G = narrow ? 360 : 820;          // between regions
@@ -89,7 +90,7 @@
         let yy = y;
         cl.rows.forEach((rowPanels, ri) => {
           rowPanels.forEach((p, ci) => {
-            const px = x + ci * (pw + g);
+            const px = cl.rows.length === 1 && rowPanels.length === 1 ? x + (clusterW - pw) / 2 : x + ci * (pw + g); // a lone panel sits centred under its lettering
             p.style.left = px + 'px'; p.style.top = yy + 'px'; p.style.height = cl.heights[ri] + 'px';
             pRects.set(p, { x: px, y: yy, w: pw, h: cl.heights[ri], cx: px + pw / 2, cy: yy + cl.heights[ri] / 2 });
           });
@@ -287,7 +288,9 @@
     }
     if (region) {
       const list = panelsOf[region];
-      stepCount.textContent = `${panel ? list.indexOf(panel) + 1 : '—'} / ${list.length}`;
+      stepCount.textContent = list.length === 1
+        ? `${REGIONS[region].num} / VI`                       // one panel per region: count regions instead
+        : `${panel ? list.indexOf(panel) + 1 : '—'} / ${list.length}`;
     }
     if (!flight) {
       const h = panel ? '#' + panel.id : region ? '#' + region : onSummary ? '#summary' : '#atlas';
@@ -599,11 +602,13 @@
 
   /* ---------------- Hero: the engraving sharpens under the cursor ---------------- */
   const hero = document.getElementById('hero');
-  hero.addEventListener('pointermove', (e) => {
-    const art = hero.getBoundingClientRect();
-    hero.style.setProperty('--mx', ((e.clientX - art.left) / art.width * 100).toFixed(1) + '%');
-    hero.style.setProperty('--my', ((e.clientY - art.top) / art.height * 100).toFixed(1) + '%');
+  const heroZone = hero.closest('.rhero'); // the title overlaps the drawing, so track the whole hero
+  heroZone.addEventListener('pointermove', (e) => {
+    const art = hero.getBoundingClientRect(), k = art.width / hero.offsetWidth; // screen px → panel px
+    hero.style.setProperty('--mx', ((e.clientX - art.left) / k).toFixed(0) + 'px');
+    hero.style.setProperty('--my', ((e.clientY - art.top) / k).toFixed(0) + 'px');
   });
+  heroZone.addEventListener('pointerleave', () => { hero.style.removeProperty('--mx'); hero.style.removeProperty('--my'); });
 
   /* ---------------- Boot ---------------- */
   function targetFromHash() {

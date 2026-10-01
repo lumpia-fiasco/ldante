@@ -10,7 +10,7 @@
 <link rel="icon" href="/noblebase/assets/img/nb_logo_navy.ico">
 <link rel="preload" href="/noblebase/assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/noblebase/assets/fonts/golos-text-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/noblebase/css/site.css?v=14">
+<link rel="stylesheet" href="/noblebase/css/site.css?v=35">
 </head>
 <body>
 
@@ -39,7 +39,7 @@
 <nav class="index-menu" id="indexMenu" aria-label="Index of regions" hidden>
   <p class="label">The Atlas · Index of regions</p>
   <ol>
-    <li><button data-go="summary"><span class="num">◆</span><span class="nm">At a glance</span><span class="ds">What Noble Base is, and why it works</span></button></li>
+    <li><button data-go="summary"><span class="num">◆</span><span class="nm">At a glance</span><span class="ds">Growth, navigated</span></button></li>
     <li><button data-go="portal"><span class="num">I</span><span class="nm">The Portal</span><span class="ds">Where the route begins</span></button></li>
     <li><button data-go="team"><span class="num">II</span><span class="nm">The Expedition Party</span><span class="ds">Who runs your account</span></button></li>
     <li><button data-go="work"><span class="num">III</span><span class="nm">Territories Surveyed</span><span class="ds">Case studies</span></button></li>
@@ -61,10 +61,10 @@
   <svg id="minimapSvg"></svg>
 </div>
 
-<div class="stepper" id="stepper" role="group" aria-label="Panels in this region">
-  <button id="prevPanel" aria-label="Previous panel">←</button>
+<div class="stepper" id="stepper" role="group" aria-label="Step between regions">
+  <button id="prevPanel" aria-label="Previous region">←</button>
   <span class="mono" id="stepCount">1 / 4</span>
-  <button id="nextPanel" aria-label="Next panel">→</button>
+  <button id="nextPanel" aria-label="Next region">→</button>
 </div>
 
 <div class="hint mono" id="hint" hidden>Drag to wander · pinch or ctrl+scroll to zoom · click any panel to enter</div>
@@ -77,59 +77,42 @@
     <!-- ================= SUMMARY (sits above the whole map) ================= -->
     <section class="masthead" id="summary" aria-labelledby="h-summary">
       <div class="mh-inner">
-        <div class="mh-what">
-          <p class="mh-k">Noble Base · Advertising &amp; Growth Systems</p>
-          <h2 id="h-summary" class="mh-title">A founder-led growth studio for businesses that <em>built something real.</em></h2>
-          <p class="mh-lede">Noble Base puts senior operators inside growing companies ($500k+ revenue). We run your paid search, paid social and integrated media, build the attribution and automation underneath it, and stay until it runs itself.</p>
-          <p class="mh-lede">Two founders own every account: a technical lead who ships software and AI, and a marketing strategist with sixteen years in advertising.</p>
-          <div class="mh-cta">
-            <button class="btn" data-go="contact">Get a strategy call <span aria-hidden="true">→</span></button>
-            <button class="mh-link" data-go="portal">Start the tour at Region I <span aria-hidden="true">→</span></button>
-          </div>
+        <p class="mh-k">Noble Base · Advertising &amp; Growth Systems</p>
+        <h2 id="h-summary" class="mh-title">Every business is on an expedition. <em>We help you navigate it.</em></h2>
+        <p class="mh-lede">You know where you want to go. We read the terrain, chart the route, and travel it with you until you can find the way on your own.</p>
+        <div class="mh-route" aria-hidden="true">
+          <span class="mh-pt"><i class="mh-mark here"></i>You are here</span>
+          <span class="mh-path"><i></i><i></i><i></i><i></i></span>
+          <span class="mh-pt"><i class="mh-mark peak"></i>Where you're headed</span>
         </div>
-        <div class="mh-why">
-          <p class="mh-k">Why Noble Base is good for your business</p>
-          <ol class="mh-points">
-            <li><h3>Measured against revenue, not clicks.</h3><p>Campaigns are optimized for qualified leads, customers and revenue. When a result can't be cleanly attributed, we say so and show how we read it.</p></li>
-            <li><h3>The people who scope it do the work.</h3><p>A principal leads every account. No junior account managers, no handoffs, no relay between the decision and the person doing it.</p></li>
-            <li><h3>We build the systems, not just the ads.</h3><p>Attribution, CRM and reporting automation, and custom tools ship into production. Astrolabe, our customer-intelligence product, came out of that work.</p></li>
-            <li><h3>It starts with who actually buys.</h3><p>Every engagement opens with the question most agencies skip: who is really buying from you, and where do they decide? The plan follows the answer.</p></li>
-          </ol>
+        <div class="mh-cta">
+          <button class="btn" data-go="portal">Begin at the Portal <span aria-hidden="true">→</span></button>
+          <button class="mh-link" data-go="contact">Plan your route with us <span aria-hidden="true">→</span></button>
         </div>
-        <dl class="mh-stats">
-          <div><dt>Order lift in controlled geo tests</dt><dd>+50–120%</dd></div>
-          <div><dt>ROAS on targeted regional search</dt><dd>9–16×</dd></div>
-          <div><dt>Average order value, $73 → $86</dt><dd>+18%</dd></div>
-          <div><dt>To hear back · one week to know if we're a fit</dt><dd>2 days</dd></div>
-        </dl>
-        <p class="mh-foot">Below: the atlas, six regions deep. Drag, scroll or pinch to explore, or pick a region from the Index.</p>
+        <p class="mh-foot">Six regions below. Drag, scroll or pinch to explore.</p>
       </div>
     </section>
 
     <!-- ================= PORTAL ================= -->
     <section class="panel head" id="portal-1" data-region="portal" aria-label="The Portal">
       <div class="panel-body">
-        <figure class="panel-art reveal-art" id="hero" aria-hidden="true">
-          <img class="hero-img base" src="/noblebase/assets/img/hero-mountain.webp" width="700" height="466" alt="">
-          <img class="hero-img reveal" src="/noblebase/assets/img/hero-mountain.webp" width="700" height="466" alt="">
-        </figure>
-        <div class="hero-copy">
+        <header class="rhero">
           <p class="label"><span class="gold">[ ◆ ]</span>&ensp;The Portal</p>
-          <h1 id="h-portal" class="display">Advertising<br><span class="gold-ink">&amp; Growth Systems.</span></h1>
+          <h1 id="h-portal" class="rhero-title"><span>Advertising</span> <span class="gold-ink">&amp; Growth Systems.</span></h1>
+          <figure class="rhero-art flashlight" id="hero" aria-hidden="true">
+            <img class="hero-img base" src="/noblebase/assets/img/hero-mountain.webp" width="700" height="466" alt="">
+            <img class="hero-img reveal" src="/noblebase/assets/img/hero-mountain.webp" width="700" height="466" alt="">
+          </figure>
           <p class="lede">We embed with growing teams to improve media, measurement, automation, and the path from attention to revenue.</p>
-          <p class="callout">Forward-deployed AI operators for growth-stage executives. We embed with your team, build the automations, and stay until they run themselves.</p>
+          <p class="portal-callout">Forward-deployed AI operators for growth-stage executives. We embed with your team, build the automations, and stay until they run themselves.</p>
           <div class="cta-row">
             <button class="btn" data-go="contact">Get a Strategy Call <span aria-hidden="true">→</span></button>
             <a class="link-italic" href="https://www.astrolabehq.com" target="_blank" rel="noopener">Meet Astrolabe, our audience intelligence product <span class="sr">(opens in a new tab)</span><span aria-hidden="true">↗</span></a>
           </div>
           <p class="fine mono">Best for growing businesses ($500k+ revenue) that want senior operators owning their marketing end to end.</p>
-        </div>
-      </div>
-    </section>
+        </header>
 
-    <section class="panel" id="portal-2" data-region="portal" aria-label="Selected results">
-      <div class="panel-body">
-        <div class="block">
+        <div class="block portal-results">
           <p class="label"><span class="gold">[ ◆ ]</span>&ensp;Selected results</p>
           <div class="stats three">
             <div class="stat"><p class="stat-v">+50–120%</p><p class="stat-k mono">Order lift in test markets</p><p class="stat-n">Matched test/control geo experiment — peak +197%. Controlled, not attributed.</p></div>
@@ -138,11 +121,7 @@
           </div>
           <p class="aside-italic">And in a different industry: we took over recruitment analytics and CRM for a clinical-trial sponsor mid-study — they renewed us for their next trial.</p>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="portal-3" data-region="portal" aria-label="Principles">
-      <div class="panel-body">
         <div class="block principles">
           <article class="principle">
             <p class="label"><span class="gold">[ 01 ]</span>&ensp;Approach</p>
@@ -161,65 +140,30 @@
             <a class="link-italic" href="https://www.astrolabehq.com" target="_blank" rel="noopener">See Astrolabe at astrolabehq.com <span class="sr">(opens in a new tab)</span><span aria-hidden="true">↗</span></a>
           </article>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="portal-4" data-region="portal" aria-label="Choose a region">
-      <div class="panel-body">
-        <div class="block">
-          <p class="label">The Atlas · Index</p>
-          <h2 class="h2">Choose a region to explore</h2>
-          <p class="muted">Five regions, each a deep dive. The compass points to where you should probably start.</p>
-          <div class="region-cards">
-            <button class="region-card" data-go="team"><span class="rc-num">II</span><span class="rc-k mono">Region II · South</span><span class="rc-t">The Expedition Party</span><span class="rc-d">Who runs your account, and how we work.</span><span class="rc-go mono">Enter region →</span></button>
-            <button class="region-card suggested" data-go="work"><span class="rc-num">III</span><span class="rc-k mono">Region III · West</span><span class="rc-t">Territories Surveyed</span><span class="rc-d">Case studies from the work we have shipped.</span><span class="rc-go mono">Start here →</span></button>
-            <button class="region-card" data-go="services"><span class="rc-num">IV</span><span class="rc-k mono">Region IV · East</span><span class="rc-t">The Service Quadrant</span><span class="rc-d">What we offer, and what we deliberately do not.</span><span class="rc-go mono">Enter region →</span></button>
-            <button class="region-card" data-go="astrolabe"><span class="rc-num">V</span><span class="rc-k mono">Region V · Southwest</span><span class="rc-t">The Astrolabe</span><span class="rc-d">Our instrument for measuring where a business stands.</span><span class="rc-go mono">Enter region →</span></button>
-            <button class="region-card" data-go="contact"><span class="rc-num">VI</span><span class="rc-k mono">Region VI · Southeast</span><span class="rc-t">The Cartographers' Post</span><span class="rc-d">Get in touch. We answer every message.</span><span class="rc-go mono">Enter region →</span></button>
-          </div>
-        </div>
-
-        <footer class="imprint">
-          <div>
-            <p class="label">The Imprint</p>
-            <p class="imprint-name">Noble Base Agency</p>
-            <p class="muted">A full-service marketing studio for the businesses that built something real.</p>
-          </div>
-          <div>
-            <p class="label">The Cartographers</p>
-            <a class="mail" href="mailto:hello@noblebase.ai">hello@noblebase.ai</a>
-            <p class="muted small">Letters are answered within two working days.</p>
-          </div>
-          <p class="colophon mono">Drawn and maintained · MMXXVI · Noble Base &nbsp;·&nbsp; Here endeth the portal.</p>
-        </footer>
-      
+        
       </div>
     </section>
 
     <!-- ================= TEAM ================= -->
     <section class="panel head" id="team-1" data-region="team" aria-label="The Expedition Party">
       <div class="panel-body">
-        <figure class="panel-art"><img src="/noblebase/assets/img/team-candid-sketch.webp" width="900" height="599" alt="Engraved sketch of Noble Base's two co-founders, Wellington Johnson and Kevin Nguyen."></figure>
-        <header class="region-head">
+        <header class="rhero">
           <p class="label">Region II</p>
-          <h2 id="h-team" class="display-2">The Expedition Party</h2>
+          <h2 id="h-team" class="rhero-title">The Expedition Party</h2>
+          <figure class="rhero-art soft" style="--ov: .1"><img src="/noblebase/assets/img/team-candid-sketch.webp" width="900" height="599" alt="Engraved sketch of Noble Base's two co-founders, Wellington Johnson and Kevin Nguyen."></figure>
           <p class="sub">For founders who would rather work with the people actually doing the work.</p>
         </header>
 
-        <div class="block">
-          <div>
-            <p class="label"><span class="gold">[ 01 ]</span>&ensp;Origin</p>
-            <h3 class="h2">Founder-led, built to execute.</h3>
-            <p>Noble Base is founder-led: a technical lead who builds software and integrates AI, and a marketing strategist with sixteen years in advertising. We own every engagement, backed by a team that lets us take on work well beyond our footprint. The pairing is deliberate — marketing without technical depth drifts, and technical work without marketing judgment ships the wrong thing.</p>
-            <p>We started Noble Base because the agencies we'd worked inside were built to sell and then under-deliver. So we kept the core senior and the standard high: execution is where we compete. A principal leads every account, and the work moves fast because the people doing it are the people who scoped it.</p>
-          </div>
+        <div class="block team-origin">
+          <p class="label"><span class="gold">[ 01 ]</span>&ensp;Origin</p>
+          <h3 class="h2">Founder-led, built to execute.</h3>
+          <p>Noble Base is founder-led: a technical lead who builds software and integrates AI, and a marketing strategist with sixteen years in advertising. We own every engagement, backed by a team that lets us take on work well beyond our footprint. The pairing is deliberate — marketing without technical depth drifts, and technical work without marketing judgment ships the wrong thing.</p>
+          <p>We started Noble Base because the agencies we'd worked inside were built to sell and then under-deliver. So we kept the core senior and the standard high: execution is where we compete. A principal leads every account, and the work moves fast because the people doing it are the people who scoped it.</p>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="team-2" data-region="team" aria-label="Wellington Johnson">
-      <div class="panel-body">
-        <article class="founder">
+        <div class="block founders">
+          <article class="founder">
             <p class="label"><span class="gold">[ 02 ]</span>&ensp;Co-founder · I</p>
             <h3 class="h2">Wellington Johnson</h3>
             <p class="role mono">Technical Lead &amp; AI Specialist</p>
@@ -231,12 +175,7 @@
               <li>Product design &amp; development experience</li>
             </ol>
         </article>
-      </div>
-    </section>
-
-    <section class="panel" id="team-3" data-region="team" aria-label="Kevin Nguyen">
-      <div class="panel-body">
-        <article class="founder">
+          <article class="founder">
             <p class="label"><span class="gold">[ 03 ]</span>&ensp;Co-founder · II</p>
             <h3 class="h2">Kevin Nguyen</h3>
             <p class="role mono">Paid Search Growth &amp; Optimization</p>
@@ -248,11 +187,8 @@
               <li>Email marketing &amp; automation</li>
             </ol>
         </article>
-      </div>
-    </section>
+        </div>
 
-    <section class="panel" id="team-4" data-region="team" aria-label="How we work">
-      <div class="panel-body">
         <div class="block">
           <p class="label"><span class="gold">[ 04 ]</span>&ensp;How we work</p>
           <h3 class="h2">The shape of an engagement with us.</h3>
@@ -264,24 +200,16 @@
           </ol>
           <p class="closer">Want to talk? <button class="inline-go" data-go="contact">Get in touch.</button></p>
         </div>
-
-        <nav class="adjacent" aria-label="Adjacent regions">
-          <p class="label">Adjacent regions</p>
-          <button data-go="portal"><span class="dir mono">North</span><span>The Portal</span></button>
-          <button data-go="contact"><span class="dir mono">East</span><span>The Cartographers' Post</span></button>
-          <button data-go="astrolabe"><span class="dir mono">West</span><span>The Astrolabe</span></button>
-        </nav>
-      
       </div>
     </section>
 
     <!-- ================= WORK ================= -->
-    <section class="panel head" id="work-1" data-region="work" aria-label="Territories Surveyed">
+    <section class="panel head solo" id="work-1" data-region="work" aria-label="Territories Surveyed">
       <div class="panel-body">
-        <figure class="panel-art"><img src="/noblebase/assets/img/services-core.webp" width="600" height="400" alt="Engraved plate of a bow, arrows, quiver and target."></figure>
-        <header class="region-head">
+        <header class="rhero">
           <p class="label">Region III</p>
-          <h2 id="h-work" class="display-2">Territories Surveyed</h2>
+          <h2 id="h-work" class="rhero-title">Territories Surveyed</h2>
+          <figure class="rhero-art soft" style="--ov: .1"><img src="/noblebase/assets/img/services-core.webp" width="600" height="400" alt="Engraved plate of a bow, arrows, quiver and target."></figure>
           <p class="sub">For the operators who measure marketing in revenue, not impressions.</p>
         </header>
 
@@ -294,11 +222,7 @@
           <li>Implementation <span>8 wks</span></li>
           <li>Results &amp; Growth <span>Ongoing</span></li>
         </ol>
-      </div>
-    </section>
 
-    <section class="panel" id="work-2" data-region="work" aria-label="The question">
-      <div class="panel-body">
         <article class="case">
           <p class="label"><span class="gold">[ 01 ]</span>&ensp;The question · Strategy &amp; planning — 6 weeks</p>
           <h3 class="h2">The question no one asked.</h3>
@@ -314,11 +238,7 @@
           </ol>
           <blockquote>"We realized we had been focused so far down the funnel, we were losing who our brand could actually fit. That one question changed everything about how we approach marketing." <cite>— President, Sustainable Fashion Brand</cite></blockquote>
         </article>
-      </div>
-    </section>
 
-    <section class="panel" id="work-3" data-region="work" aria-label="The rebuild">
-      <div class="panel-body">
         <article class="case">
           <p class="label"><span class="gold">[ 02 ]</span>&ensp;The rebuild · Implementation — 8 weeks</p>
           <h3 class="h2">Building around real humans.</h3>
@@ -339,11 +259,7 @@
           </div>
           <blockquote>"Suddenly we could see an expansion of sales again with focus in other platforms and an increase in a younger demographic." <cite>— President, Sustainable Apparel Brand</cite></blockquote>
         </article>
-      </div>
-    </section>
 
-    <section class="panel" id="work-4" data-region="work" aria-label="The outcome">
-      <div class="panel-body">
         <article class="case">
           <p class="label"><span class="gold">[ 03 ]</span>&ensp;The outcome · Results &amp; growth — ongoing</p>
           <h3 class="h2">When you know your customer.</h3>
@@ -363,11 +279,7 @@
           </div>
           <blockquote>"For the first time, we actually understand our business. We know who buys from us, why they buy, and how to reach more people like them. It is not luck anymore." <cite>— Business Owner, Sustainable Fashion</cite></blockquote>
         </article>
-      </div>
-    </section>
 
-    <section class="panel" id="work-5" data-region="work" aria-label="What the automation moved">
-      <div class="panel-body">
         <article class="case ledger">
           <p class="label">Case study · Q1 2026 — updated August 2026</p>
           <h3 class="h2">What the automation actually moved.</h3>
@@ -378,11 +290,7 @@
             <div class="stat"><p class="stat-v">+18%</p><p class="stat-k mono">AOV, $73 → $86</p><p class="stat-n">Blended average order value across all channels, Q1 2026 versus the prior period.</p></div>
           </div>
         </article>
-      </div>
-    </section>
 
-    <section class="panel" id="work-6" data-region="work" aria-label="Why this works">
-      <div class="panel-body">
         <div class="block">
           <p class="label"><span class="gold">[ 04 ]</span>&ensp;Why this works · The anti-platform approach</p>
           <h3 class="h2">Why this works every time.</h3>
@@ -394,23 +302,16 @@
           </ol>
           <p class="closer"><button class="inline-go" data-go="services">See the services behind these results.</button></p>
         </div>
-
-        <nav class="adjacent" aria-label="Adjacent regions">
-          <p class="label">Adjacent regions</p>
-          <button data-go="portal"><span class="dir mono">East</span><span>The Portal</span></button>
-          <button data-go="astrolabe"><span class="dir mono">South</span><span>The Astrolabe</span></button>
-        </nav>
-      
       </div>
     </section>
 
     <!-- ================= SERVICES ================= -->
-    <section class="panel head" id="services-1" data-region="services" aria-label="The Service Quadrant">
+    <section class="panel head solo" id="services-1" data-region="services" aria-label="The Service Quadrant">
       <div class="panel-body">
-        <figure class="panel-art"><img src="/noblebase/assets/img/services-supporting.webp" width="650" height="433" alt="Engraved plate of scaffolding around a building frame."></figure>
-        <header class="region-head">
+        <header class="rhero">
           <p class="label">Region IV</p>
-          <h2 id="h-services" class="display-2">The Service Quadrant</h2>
+          <h2 id="h-services" class="rhero-title">The Service Quadrant</h2>
+          <figure class="rhero-art soft" style="--ov: .1"><img src="/noblebase/assets/img/services-supporting.webp" width="650" height="433" alt="Engraved plate of scaffolding around a building frame."></figure>
           <p class="sub">For the business ready to treat marketing as a growth system, run by one team.</p>
         </header>
 
@@ -420,11 +321,7 @@
             <p class="muted">When an integrated campaign needs production or media expertise outside our lane, we bring in a trusted partner and remain accountable for the result.</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="services-2" data-region="services" aria-label="Growth pathways">
-      <div class="panel-body">
         <div class="block">
           <p class="label"><span class="gold">[ 01 ]</span>&ensp;Growth pathways</p>
           <h3 class="h2">Start with the part of the growth system that needs ownership.</h3>
@@ -436,11 +333,7 @@
             <article class="pathway feature"><p class="pw-n mono">IV.V</p><h4>AI Automation Consulting</h4><p>Forward-deployed AI operators who embed with your team, build the automations, and stay until they run themselves.</p><ul><li>Diagnostic and automation build</li><li>Embedded operation</li><li>Documented handoff</li></ul></article>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="services-3" data-region="services" aria-label="Ways to work">
-      <div class="panel-body">
         <div class="block">
           <p class="label"><span class="gold">[ 02 ]</span>&ensp;Ways to work</p>
           <div class="ways">
@@ -463,11 +356,7 @@
             <p><strong>A few things we don't do.</strong> We'll point you to people who do these well: motion design · organic social management · influencer programs.</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="services-4" data-region="services" aria-label="The engagement route">
-      <div class="panel-body">
         <div class="block route-block">
           <p class="label"><span class="gold">[ 05 ]</span>&ensp;The route</p>
           <h3 class="h2">Plate VII — The Engagement Route.</h3>
@@ -482,35 +371,25 @@
           </div>
           <p class="closer"><button class="inline-go" data-go="contact">Tell us what you are trying to grow.</button></p>
         </div>
-
-        <nav class="adjacent" aria-label="Adjacent regions">
-          <p class="label">Adjacent regions</p>
-          <button data-go="portal"><span class="dir mono">West</span><span>The Portal</span></button>
-          <button data-go="contact"><span class="dir mono">South</span><span>The Cartographers' Post</span></button>
-        </nav>
-      
       </div>
     </section>
 
     <!-- ================= ASTROLABE ================= -->
-    <section class="panel head" id="astrolabe-1" data-region="astrolabe" aria-label="The Astrolabe">
+    <section class="panel head solo" id="astrolabe-1" data-region="astrolabe" aria-label="The Astrolabe">
       <div class="panel-body">
-        <header class="region-head with-instrument">
-          <div>
+        <header class="rhero side">
+          <figure class="rhero-art soft"><img src="/noblebase/assets/img/story-craft.webp" width="450" height="675" alt="Engraved plate of a craftsman at a workbench, bent over an instrument."></figure>
+          <div class="side-copy">
             <p class="label">Region V</p>
-            <h2 id="h-astrolabe" class="display-2">The Astrolabe</h2>
+            <h2 id="h-astrolabe" class="rhero-title">The Astrolabe</h2>
             <p class="sub">An instrument for knowing exactly who your customers are before you spend to reach them.</p>
             <p class="tagline">See who's buying, not just what's converting.</p>
           </div>
-          <svg class="instrument" id="instrument" viewBox="-110 -110 220 220" aria-hidden="true"></svg>
         </header>
-      </div>
-    </section>
 
-    <section class="panel" id="astrolabe-2" data-region="astrolabe" aria-label="The instrument">
-      <div class="panel-body">
-        <figure class="panel-art"><img src="/noblebase/assets/img/story-craft.webp" width="450" height="675" alt="Engraved plate of a craftsman at a workbench, bent over an instrument."></figure>
-        <div class="block">
+
+
+        <div class="block split instrument-block">
           <div>
             <p class="label"><span class="gold">[ 01 ]</span>&ensp;The instrument</p>
             <p>Astrolabe starts with the people who actually paid you. Upload your customer list and it enriches every record with real, licensed consumer data — the demographic, behavioral, and interest signals your CRM can't see — then reads it back as practical marketing intelligence: who your buyers really are, where to reach them, and what to say. You could ask an AI who your customers are and get a confident guess; Astrolabe doesn't guess. It works from your real list, and uses AI only for the last step — making the findings readable.</p>
@@ -520,12 +399,9 @@
               <button class="link-italic" data-go="services">How it connects to Paid Search Growth →</button>
             </div>
           </div>
+          <svg class="instrument" id="instrument" viewBox="-110 -110 220 220" aria-hidden="true"></svg>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="astrolabe-3" data-region="astrolabe" aria-label="How it works">
-      <div class="panel-body">
         <div class="block">
           <p class="label"><span class="gold">[ 02 ]</span>&ensp;How it works</p>
           <h3 class="h2">Three readings, in sequence.</h3>
@@ -535,11 +411,7 @@
             <div><p class="mono pw-n">Step III</p><h4>Activate.</h4><p>Turn the analysis into campaign angles, lookalike audiences, and platform-ready exports that plug directly into your ad accounts.</p></div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="astrolabe-4" data-region="astrolabe" aria-label="Sample reading">
-      <div class="panel-body">
         <div class="block split">
           <div>
             <p class="label"><span class="gold">[ 03 ]</span>&ensp;Sample reading</p>
@@ -555,11 +427,7 @@
           </div>
           <blockquote class="big">A regional retailer ran their last 18 months of customers through Astrolabe and learned their core buyer was eight years older than their ad creative implied. We rebuilt the targeting the next week.</blockquote>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="astrolabe-5" data-region="astrolabe" aria-label="The ongoing reading">
-      <div class="panel-body">
         <div class="block">
           <p class="label"><span class="gold">[ 04 ]</span>&ensp;The ongoing reading</p>
           <h3 class="h2">An instrument you return to.</h3>
@@ -571,11 +439,7 @@
             <div><h4>Fresh lookalikes.</h4><p>Generate new prospect audiences matched to your best current buyers, exported for Meta, Google, TikTok, Klaviyo, and more.</p></div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="astrolabe-6" data-region="astrolabe" aria-label="How to commission">
-      <div class="panel-body">
         <div class="block split">
           <div>
             <p class="label"><span class="gold">[ 05 ]</span>&ensp;How to commission</p>
@@ -597,23 +461,16 @@
           </dl>
         </div>
         <p class="closer">To run a reading, <button class="inline-go" data-go="contact">get in touch.</button></p>
-
-        <nav class="adjacent" aria-label="Adjacent regions">
-          <p class="label">Adjacent regions</p>
-          <button data-go="work"><span class="dir mono">North</span><span>Territories Surveyed</span></button>
-          <button data-go="team"><span class="dir mono">East</span><span>The Expedition Party</span></button>
-        </nav>
-      
       </div>
     </section>
 
     <!-- ================= CONTACT ================= -->
-    <section class="panel head" id="contact-1" data-region="contact" aria-label="The Cartographers' Post">
+    <section class="panel head solo" id="contact-1" data-region="contact" aria-label="The Cartographers' Post">
       <div class="panel-body">
-        <figure class="panel-art"><img src="/noblebase/assets/img/cta-plane.webp" width="700" height="467" alt="Engraved plate of a passenger jet with plan and elevation views."></figure>
-        <header class="region-head">
+        <header class="rhero">
           <p class="label">Region VI</p>
-          <h2 id="h-contact" class="display-2">The Cartographers' Post</h2>
+          <h2 id="h-contact" class="rhero-title">The Cartographers' Post</h2>
+          <figure class="rhero-art soft" style="--ov: .1"><img src="/noblebase/assets/img/cta-plane.webp" width="700" height="467" alt="Engraved plate of a passenger jet with plan and elevation views."></figure>
           <p class="sub">Every engagement starts with a conversation.</p>
         </header>
 
@@ -625,11 +482,7 @@
             <p>Before we agree to work together, we want to understand your business well enough to know we can help. That starts with a conversation — no deck, no sales process, just a direct exchange about where you are and where you want to go.</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="contact-2" data-region="contact" aria-label="How to reach us">
-      <div class="panel-body">
         <div class="block">
           <p class="label"><span class="gold">[ 02 ]</span>&ensp;Get in touch</p>
           <h3 class="h2">How to reach us.</h3>
@@ -641,11 +494,7 @@
             <a class="topic" href="mailto:hello@noblebase.ai?subject=Astrolabe%20reading"><p class="mono pw-n">Astrolabe</p><h4>Commission a reading →</h4><p>Send a customer list of 100+ records and get a full reading back the same day.</p></a>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="panel" id="contact-3" data-region="contact" aria-label="What to include">
-      <div class="panel-body">
         <div class="block split">
           <div>
             <p class="label"><span class="gold">[ 03 ]</span>&ensp;What to include</p>
@@ -665,20 +514,14 @@
           </dl>
         </div>
         <p class="closer">If we're a fit, we'll tell you on the first call. If we're not, we'll point you to someone better suited.</p>
-
-        <nav class="adjacent" aria-label="Adjacent regions">
-          <p class="label">Adjacent regions</p>
-          <button data-go="services"><span class="dir mono">North</span><span>The Service Quadrant</span></button>
-          <button data-go="team"><span class="dir mono">West</span><span>The Expedition Party</span></button>
-        </nav>
-      
       </div>
     </section>
 
+    <!-- ================= END ================= -->
   </div>
 </main>
 
-<script src="/noblebase/js/terrain.js?v=14"></script>
-<script src="/noblebase/js/canvas.js?v=14"></script>
+<script src="/noblebase/js/terrain.js?v=35"></script>
+<script src="/noblebase/js/canvas.js?v=35"></script>
 </body>
 </html>
