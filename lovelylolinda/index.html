@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>lovelylolinda · Free Beauty Finds</title>
+<meta name="description" content="Creator programs, gifting platforms, new beauty brands, trending products and sale dates for a beauty YouTube channel. Updated regularly.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23C8536B'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='Georgia'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBF6F3; --surface:#FFFFFF; --surface-2:#F6EDE9;
+    --ink:#2B2224; --ink-dim:#6B5A5E; --ink-mute:#9A888C;
+    --line:#EADCD7; --accent:#C8536B; --accent-ink:#FFFFFF; --accent-tint:#F8E3E7;
+    --ok:#3F7A5C; --ok-tint:#E1F0E7; --warn:#A3621B; --warn-tint:#FBEBD8; --mute-tint:#EFE8E6;
+    --radius:14px; --shadow:0 1px 2px rgba(43,34,36,.05), 0 4px 16px rgba(43,34,36,.05);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B1517; --surface:#251D20; --surface-2:#2E2427;
+      --ink:#F5ECEE; --ink-dim:#C4B3B7; --ink-mute:#8E7C80;
+      --line:#3A2E31; --accent:#E87C93; --accent-ink:#1B1517; --accent-tint:#3D2229;
+      --ok:#7CC69E; --ok-tint:#1F3329; --warn:#E9A55C; --warn-tint:#3A2A18; --mute-tint:#2E2427;
+      --shadow:none; color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1517; --surface:#251D20; --surface-2:#2E2427;
+    --ink:#F5ECEE; --ink-dim:#C4B3B7; --ink-mute:#8E7C80;
+    --line:#3A2E31; --accent:#E87C93; --accent-ink:#1B1517; --accent-tint:#3D2229;
+    --ok:#7CC69E; --ok-tint:#1F3329; --warn:#E9A55C; --warn-tint:#3A2A18; --mute-tint:#2E2427;
+    --shadow:none; color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+  header.top{padding:40px 0 20px}
+  .brand{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(40px,8vw,64px);line-height:1;margin:0;letter-spacing:-.01em}
+  .brand em{color:var(--accent)}
+  .lede{color:var(--ink-dim);margin:10px 0 0;max-width:56ch;text-wrap:pretty}
+  .meta{color:var(--ink-mute);font-size:13px;margin-top:8px}
+
+  h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:28px;margin:0 0 12px}
+  .now{margin:20px 0 8px}
+  .now-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .now-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);text-decoration:none;display:block}
+  .now-card .when{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+  .now-card .what{font-weight:600;margin:4px 0 2px}
+  .now-card .why{color:var(--ink-dim);font-size:13.5px}
+  .now-card:hover{border-color:var(--accent)}
+
+  nav.tabs{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-top:28px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  nav.tabs::-webkit-scrollbar{display:none}
+  .tab{appearance:none;border:0;background:none;color:var(--ink-dim);font:inherit;font-weight:500;padding:14px 12px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+  .tab .n{color:var(--ink-mute);font-weight:400;margin-left:4px;font-variant-numeric:tabular-nums}
+
+  .panel{padding:20px 0 64px}
+  .panel[hidden]{display:none}
+  .intro{color:var(--ink-dim);margin:0 0 16px;max-width:70ch}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
+  .tools input[type=search],.tools select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-height:40px}
+  .tools input[type=search]{flex:1 1 220px;min-width:0}
+  .toggle{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-dim);padding:0 6px;min-height:40px;cursor:pointer}
+  .toggle input{accent-color:var(--accent);width:16px;height:16px}
+  .count{color:var(--ink-mute);font-size:13px;margin-left:auto}
+
+  .list{display:grid;gap:10px}
+  .item{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr auto;gap:4px 16px}
+  .item.done{opacity:.55}
+  .item h3{margin:0;font-size:16px;font-weight:600;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+  .item h3 a{text-decoration:none}
+  .item h3 a:hover{text-decoration:underline;text-underline-offset:3px}
+  .item .get{margin:2px 0 0;color:var(--ink)}
+  .item .sub{color:var(--ink-dim);font-size:13.5px;margin:4px 0 0}
+  .item .facts{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--ink-mute);margin-top:6px}
+  .item .facts b{font-weight:500;color:var(--ink-dim)}
+  .side{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .applied{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-dim);cursor:pointer;white-space:nowrap}
+  .applied input{accent-color:var(--accent);width:16px;height:16px}
+
+  .pill{display:inline-block;font-size:11.5px;font-weight:500;line-height:1;padding:5px 8px;border-radius:999px;background:var(--mute-tint);color:var(--ink-dim);white-space:nowrap}
+  .pill.accent{background:var(--accent-tint);color:var(--accent)}
+  .pill.ok{background:var(--ok-tint);color:var(--ok)}
+  .pill.warn{background:var(--warn-tint);color:var(--warn)}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
+  .card .k{font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+  .card h3{margin:0;font-size:17px;font-weight:600}
+  .card .by{color:var(--ink-dim);font-size:13.5px;margin:0}
+  .card p{margin:0}
+  .card .idea{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);font-size:13.5px;color:var(--ink-dim)}
+  .card .idea b{color:var(--accent);font-weight:600}
+
+  .trend-group{margin-bottom:28px}
+  .trend-group h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:22px;margin:0 0 10px}
+
+  .sales .item{grid-template-columns:1fr auto}
+  .empty{color:var(--ink-mute);padding:24px 0}
+  footer{border-top:1px solid var(--line);padding:24px 0 48px;color:var(--ink-mute);font-size:13px}
+  footer p{margin:0 0 6px;max-width:75ch}
+  .theme-btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-dim);font:inherit;font-size:13px;border-radius:999px;padding:6px 12px;cursor:pointer;float:right;margin-top:4px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+  @media (max-width:600px){
+    header.top{padding-top:28px}
+    .item{grid-template-columns:1fr}
+    .side{flex-direction:row;align-items:center;justify-content:space-between}
+    .count{margin-left:0;width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <button class="theme-btn" id="themeBtn" type="button">Theme</button>
+    <h1 class="brand">lovely<em>lolinda</em></h1>
+    <p class="lede">Free product, gifting programs, new brands to pitch, trending products to review, and the best times to buy. Everything here is aimed at a beauty YouTube channel.</p>
+    <p class="meta" id="meta">Loading…</p>
+  </header>
+
+  <section class="now" aria-labelledby="nowH">
+    <h2 id="nowH">Do this now</h2>
+    <div class="now-grid" id="now"></div>
+  </section>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="t-opps" aria-controls="p-opps" data-tab="opps">Opportunities<span class="n" id="n-opps"></span></button>
+    <button class="tab" role="tab" id="t-brands" aria-controls="p-brands" data-tab="brands">New brands<span class="n" id="n-brands"></span></button>
+    <button class="tab" role="tab" id="t-trending" aria-controls="p-trending" data-tab="trending">Trending products<span class="n" id="n-trending"></span></button>
+    <button class="tab" role="tab" id="t-sales" aria-controls="p-sales" data-tab="sales">Sale calendar</button>
+    <button class="tab" role="tab" id="t-trends" aria-controls="p-trends" data-tab="trends">Trends</button>
+  </nav>
+
+  <section class="panel" id="p-opps" role="tabpanel" aria-labelledby="t-opps">
+    <p class="intro">Ways to get product for free or cheap: creator programs, gifting platforms, testing panels, brand ambassador programs, PR contacts, pro discounts and cash back. Tick <b>Applied</b> to keep track. Your ticks are saved in this browser only.</p>
+    <div class="tools">
+      <input type="search" id="q-opps" placeholder="Search programs" aria-label="Search programs">
+      <select id="f-type" aria-label="Filter by type"><option value="">All types</option></select>
+      <select id="f-prio" aria-label="Filter by priority">
+        <option value="">Any priority</option><option value="urgent">Urgent</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="watch">Watch</option>
+      </select>
+      <label class="toggle"><input type="checkbox" id="f-yt"> YouTube counts</label>
+      <label class="toggle"><input type="checkbox" id="f-hide"> Hide applied</label>
+      <span class="count" id="c-opps"></span>
+    </div>
+    <div class="list" id="l-opps"></div>
+  </section>
+
+  <section class="panel" id="p-brands" role="tabpanel" aria-labelledby="t-brands" hidden>
+    <p class="intro">Brands that launched or arrived at a new retailer in 2026. New brands have budgets for free product and fewer creators reviewing them, so they're the easiest to pitch.</p>
+    <div class="tools">
+      <input type="search" id="q-brands" placeholder="Search brands, founders, products" aria-label="Search brands">
+      <select id="f-bcat" aria-label="Filter by category"><option value="">All categories</option></select>
+      <span class="count" id="c-brands"></span>
+    </div>
+    <div class="cards" id="l-brands"></div>
+  </section>
+
+  <section class="panel" id="p-trending" role="tabpanel" aria-labelledby="t-trending" hidden>
+    <p class="intro">Products people are searching for right now, each with a video idea.</p>
+    <div class="tools">
+      <input type="search" id="q-trending" placeholder="Search products" aria-label="Search products">
+      <select id="f-tcat" aria-label="Filter by category"><option value="">All categories</option></select>
+      <span class="count" id="c-trending"></span>
+    </div>
+    <div class="cards" id="l-trending"></div>
+  </section>
+
+  <section class="panel sales" id="p-sales" role="tabpanel" aria-labelledby="t-sales" hidden>
+    <p class="intro">Recurring beauty sales. When you buy, go through Rakuten first, scan the receipt in Fetch, and film it as a haul with affiliate links.</p>
+    <div class="list" id="l-sales"></div>
+  </section>
+
+  <section class="panel" id="p-trends" role="tabpanel" aria-labelledby="t-trends" hidden>
+    <p class="intro">What people are watching for this season. Tie your pitch to one of these. For example: "a PDRN routine under $50, featuring your serum."</p>
+    <div id="l-trends"></div>
+  </section>
+
+  <footer>
+    <p>Disclose every gifted product, out loud and in the description, and turn on YouTube's paid promotion setting. Free product can count as taxable income.</p>
+    <p>Programs change often, so check the brand's own page before you apply.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const safeUrl = u => /^(https?:|mailto:)/i.test(u || '') ? u : '';
+  const store = {
+    get(k, d){ try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+  const DAY = 864e5;
+  const now = new Date();
+  const fmtDate = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: d.getFullYear() !== now.getFullYear() ? 'numeric' : undefined });
+  const midnight = d => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const daysUntil = d => Math.round((midnight(d) - midnight(now)) / DAY);
+  const inDays = n => n <= 0 ? 'today' : n === 1 ? 'tomorrow' : `in ${n} days`;
+
+  // Theme toggle (per-viewer convenience)
+  const themes = ['auto', 'light', 'dark'];
+  let theme = store.get('ll-theme', 'auto');
+  const applyTheme = () => {
+    if (theme === 'auto') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', theme);
+    $('#themeBtn').textContent = `Theme: ${theme}`;
+  };
+  $('#themeBtn').addEventListener('click', () => { theme = themes[(themes.indexOf(theme) + 1) % 3]; store.set('ll-theme', theme); applyTheme(); });
+  applyTheme();
+
+  // Tabs
+  const tabs = [...document.querySelectorAll('.tab')];
+  const showTab = id => {
+    tabs.forEach(t => {
+      const on = t.dataset.tab === id;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      $('#p-' + t.dataset.tab).hidden = !on;
+    });
+    store.set('ll-tab', id);
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => showTab(t.dataset.tab));
+    t.addEventListener('keydown', e => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      const next = tabs[(i + d + tabs.length) % tabs.length];
+      next.focus(); showTab(next.dataset.tab);
+    });
+  });
+  showTab(store.get('ll-tab', 'opps'));
+
+  fetch('/lovelylolinda/data.json', { cache: 'no-cache' })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch(() => { $('#meta').textContent = 'Couldn’t load the data. Refresh to try again.'; });
+
+  function render(data) {
+    const updated = new Date(data.updated);
+    $('#meta').textContent = `Updated ${updated.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+
+    // ---- Opportunities: derive live status from the closes date
+    const opps = data.opportunities.map(o => {
+      const closes = o.closes ? new Date(o.closes) : null;
+      let state = 'open', label = o.status, prio = o.priority;
+      if (closes && closes < now) { state = 'closed'; label = `Closed ${fmtDate(closes)}`; prio = 'watch'; }
+      else if (closes) { const d = daysUntil(closes); label = `Closes ${inDays(d)} (${fmtDate(closes)})`; if (d <= 14) prio = 'urgent'; }
+      else if (/^closed/i.test(o.status)) state = 'closed';
+      else if (/invite/i.test(o.status)) state = 'invite';
+      return { ...o, closesDate: closes, state, label, prio };
+    });
+    const prioRank = { urgent: 0, high: 1, medium: 2, low: 3, watch: 4 };
+    opps.sort((a, b) => (prioRank[a.prio] ?? 5) - (prioRank[b.prio] ?? 5) || a.name.localeCompare(b.name));
+    $('#n-opps').textContent = opps.length;
+
+    [...new Set(opps.map(o => o.type))].sort().forEach(t => $('#f-type').insertAdjacentHTML('beforeend', `<option value="${esc(t)}">${esc(t[0].toUpperCase() + t.slice(1))}</option>`));
+    const applied = new Set(store.get('ll-applied', []));
+    const ytPill = v => /^yes/i.test(v) ? '<span class="pill ok">YouTube counts</span>'
+                      : /^no/i.test(v) ? '<span class="pill warn">No YouTube</span>'
+                      : /^check/i.test(v) ? '<span class="pill">Ask about YouTube</span>' : '';
+    const prioPill = p => p === 'urgent' ? '<span class="pill accent">Urgent</span>' : p === 'high' ? '<span class="pill accent">High</span>' : p === 'watch' ? '<span class="pill">Watch</span>' : '';
+
+    function drawOpps() {
+      const q = $('#q-opps').value.trim().toLowerCase();
+      const type = $('#f-type').value, prio = $('#f-prio').value, yt = $('#f-yt').checked, hide = $('#f-hide').checked;
+      const rows = opps.filter(o =>
+        (!q || [o.name, o.category, o.what_you_get, o.notes, o.type].join(' ').toLowerCase().includes(q)) &&
+        (!type || o.type === type) && (!prio || o.prio === prio) &&
+        (!yt || /^yes/i.test(o.youtube_ok)) && (!hide || !applied.has(o.name)));
+      $('#c-opps').textContent = `${rows.length} of ${opps.length}`;
+      $('#l-opps').innerHTML = rows.length ? rows.map(o => {
+        const url = safeUrl(o.url);
+        const done = applied.has(o.name);
+        return `<article class="item${done ? ' done' : ''}">
+          <div>
+            <h3>${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(o.name)} ↗</a>` : esc(o.name)} ${prioPill(o.prio)} ${ytPill(o.youtube_ok)}</h3>
+            <p class="get">${esc(o.what_you_get)}</p>
+            ${o.notes ? `<p class="sub">${esc(o.notes)}</p>` : ''}
+            <div class="facts"><span><b>Type</b> ${esc(o.type)}</span><span><b>Followers</b> ${esc(o.follower_min)}</span><span><b>Where</b> ${esc(o.region)}</span></div>
+          </div>
+          <div class="side">
+            <span class="pill ${o.state === 'closed' ? '' : o.closesDate ? 'accent' : 'ok'}">${esc(o.label)}</span>
+            <label class="applied"><input type="checkbox" data-name="${esc(o.name)}" ${done ? 'checked' : ''}> Applied</label>
+          </div>
+        </article>`;
+      }).join('') : '<p class="empty">Nothing matches those filters.</p>';
+    }
+    $('#l-opps').addEventListener('change', e => {
+      const n = e.target.dataset.name; if (!n) return;
+      e.target.checked ? applied.add(n) : applied.delete(n);
+      store.set('ll-applied', [...applied]); drawOpps();
+    });
+    ['#q-opps', '#f-type', '#f-prio', '#f-yt', '#f-hide'].forEach(s => $(s).addEventListener('input', drawOpps));
+    drawOpps();
+
+    // ---- New brands
+    const brands = data['new-brands'];
+    $('#n-brands').textContent = brands.length;
+    const bcat = b => b.category.split(' (')[0];
+    [...new Set(brands.map(bcat).filter(c => c && c !== '—'))].sort().forEach(c => $('#f-bcat').insertAdjacentHTML('beforeend', `<option>${esc(c)}</option>`));
+    const dash = v => v && v !== '—' && v !== 'TBD' ? v : '';
+    function drawBrands() {
+      const q = $('#q-brands').value.trim().toLowerCase(), c = $('#f-bcat').value;
+      const rows = brands.filter(b => (!q || Object.values(b).join(' ').toLowerCase().includes(q)) && (!c || bcat(b) === c));
+      $('#c-brands').textContent = `${rows.length} of ${brands.length}`;
+      $('#l-brands').innerHTML = rows.length ? rows.map(b => `<article class="card">
+        <span class="k">${esc(dash(b.category) || 'Beauty')} · ${esc(b.launched)}</span>
+        <h3>${esc(b.brand)}</h3>
+        ${dash(b.founder_or_backer) ? `<p class="by">${esc(b.founder_or_backer)}</p>` : ''}
+        ${dash(b.hero_product) ? `<p>${esc(b.hero_product)}</p>` : ''}
+        ${dash(b.where_sold) ? `<p class="by">Sold at: ${esc(b.where_sold)}</p>` : ''}
+        ${b.why_pitch_now ? `<p class="idea"><b>Why pitch now:</b> ${esc(b.why_pitch_now)}</p>` : ''}
+      </article>`).join('') : '<p class="empty">Nothing matches.</p>';
+    }
+    ['#q-brands', '#f-bcat'].forEach(s => $(s).addEventListener('input', drawBrands));
+    drawBrands();
+
+    // ---- Trending products
+    const trending = data['trending-products'];
+    $('#n-trending').textContent = trending.length;
+    [...new Set(trending.map(t => t.category))].sort().forEach(c => $('#f-tcat').insertAdjacentHTML('beforeend', `<option>${esc(c)}</option>`));
+    function drawTrending() {
+      const q = $('#q-trending').value.trim().toLowerCase(), c = $('#f-tcat').value;
+      const rows = trending.filter(t => (!q || Object.values(t).join(' ').toLowerCase().includes(q)) && (!c || t.category === c));
+      $('#c-trending').textContent = `${rows.length} of ${trending.length}`;
+      $('#l-trending').innerHTML = rows.length ? rows.map(t => `<article class="card">
+        <span class="k">${esc(t.category)} · ${esc(t.source_window)}</span>
+        <h3>${esc(t.product)}</h3>
+        <p class="by">${esc(t.brand)}${dash(t.price) ? ` · ${esc(t.price)}` : ''}</p>
+        <p>${esc(t.why_trending)}</p>
+        <p class="idea"><b>Video idea:</b> ${esc(t.video_idea)}</p>
+      </article>`).join('') : '<p class="empty">Nothing matches.</p>';
+    }
+    ['#q-trending', '#f-tcat'].forEach(s => $(s).addEventListener('input', drawTrending));
+    drawTrending();
+
+    // ---- Sales: live / upcoming / ended from dates
+    const sales = data.sales.map(s => {
+      const start = s.starts ? new Date(s.starts + 'T00:00:00') : null;
+      const end = s.ends ? new Date(s.ends + 'T23:59:59') : null;
+      let state = 'tbd', label = s.typical_window, rank = 2;
+      if (start && start > now) { state = 'upcoming'; label = `Starts ${inDays(daysUntil(start))} (${fmtDate(start)})`; rank = 1; }
+      else if (start && (!end || end >= now) && daysUntil(start) > -45) { state = 'live'; label = end ? `On now until ${fmtDate(end)}` : 'On now'; rank = 0; }
+      else if (end && end < now) { state = 'ended'; label = `Ended ${fmtDate(end)}. Usually ${s.typical_window}`; rank = 3; }
+      const m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].findIndex(x => s.typical_window.includes(x));
+      const ahead = m < 0 ? 12 : (m - now.getMonth() + 12) % 12;
+      return { ...s, start, end, state, label, rank, ahead };
+    }).sort((a, b) => a.rank - b.rank || (a.start || 0) - (b.start || 0) || a.ahead - b.ahead);
+    $('#l-sales').innerHTML = sales.map(s => `<article class="item${s.state === 'ended' ? ' done' : ''}">
+      <div>
+        <h3>${esc(s.event)} <span class="pill">${esc(s.retailer)}</span></h3>
+        <p class="get">${esc(s.discount)}</p>
+        ${s.notes ? `<p class="sub">${esc(s.notes)}</p>` : ''}
+      </div>
+      <div class="side"><span class="pill ${s.state === 'live' ? 'ok' : s.state === 'upcoming' ? 'accent' : ''}">${esc(s.label)}</span></div>
+    </article>`).join('');
+
+    // ---- Trends
+    const areas = {};
+    data.trends.forEach(t => (areas[t.area] ||= []).push(t));
+    $('#l-trends').innerHTML = Object.entries(areas).map(([area, list]) => `<section class="trend-group">
+      <h3>${esc(area)}</h3>
+      <div class="cards">${list.map(t => `<article class="card"><h3>${esc(t.trend)}</h3><p class="by">${esc(t.description)}</p></article>`).join('')}</div>
+    </section>`).join('');
+
+    // ---- Do this now: open deadlines, urgent/high YouTube programs, live or soon sales
+    const cards = [];
+    opps.filter(o => o.closesDate && o.state === 'open').forEach(o => cards.push({ when: `Closes ${inDays(daysUntil(o.closesDate))}`, what: o.name, why: o.notes || o.what_you_get, url: o.url }));
+    sales.filter(s => s.state === 'live' || (s.state === 'upcoming' && daysUntil(s.start) <= 30)).forEach(s => cards.push({ when: s.state === 'live' ? 'Sale on now' : `Sale ${inDays(daysUntil(s.start))}`, what: s.event, why: s.discount }));
+    const launchDate = b => { const m = /^([A-Z][a-z]{2}) (\d{4})$/.exec(b.launched); return m ? new Date(`${m[1]} 1, ${m[2]}`) : null; };
+    const recent = brands.map(b => ({ b, d: launchDate(b) })).filter(x => x.d && (now - x.d) / DAY < 62).sort((x, y) => y.d - x.d).slice(0, 2).map(x => x.b);
+    if (recent.length) cards.push({ when: 'Just launched', what: recent.map(b => b.brand).join(' & '), why: 'New brands want early reviews. Pitch them while they’re building buzz.' });
+    opps.filter(o => o.prio === 'high' && /^yes/i.test(o.youtube_ok) && !applied.has(o.name)).slice(0, 4).forEach(o => cards.push({ when: 'Apply', what: o.name, why: o.what_you_get, url: o.url }));
+    $('#now').innerHTML = cards.slice(0, 8).map(c => {
+      const url = safeUrl(c.url);
+      const inner = `<span class="when">${esc(c.when)}</span><div class="what">${esc(c.what)}${url ? ' ↗' : ''}</div><div class="why">${esc(c.why)}</div>`;
+      return url ? `<a class="now-card" href="${esc(url)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="now-card">${inner}</div>`;
+    }).join('');
+  }
+})();
+</script>
+</body>
+</html>
